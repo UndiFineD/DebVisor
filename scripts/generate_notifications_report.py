@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,11 +89,11 @@ from typing import Dict, List, Optional
 
 OWNER = "UndiFineD"
 REPO = "DebVisor"
-OUTPUT = Path("notifications-report.md")
+OUTPUT=Path("notifications-report.md")
 
 
 def _ensure_gh() -> Optional[str]:
-    gh_path = shutil.which("gh")
+    _gh_path=shutil.which("gh")
     if not gh_path:
         print("Error: 'gh' executable not found in PATH.")
     return gh_path
@@ -67,15 +115,15 @@ def _fetch_notifications() -> List[Dict[str, str]]:
         jq_filter,
     ]
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    _result=subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print("Error fetching notifications:")
         print(result.stderr)
         return []
 
     try:
-        json_str = re.sub(r"\]\s*\[", ",", result.stdout)
-        data = json.loads(json_str)
+        _json_str=re.sub(r"\]\s*\[", ",", result.stdout)
+        _data=json.loads(json_str)
     except json.JSONDecodeError as exc:
         print(f"Failed to decode JSON: {exc}")
         return []
@@ -89,9 +137,9 @@ def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: st
     if subject_type == "CheckSuite" and repository:
     # Extract workflow name from title (e.g., ".github/workflows/test.yml workflow run failed...")
         import re as regex_module
-        match = regex_module.search(r'\.github/workflows/([^/\s]+)', title)
+        _match=regex_module.search(r'\.github/workflows/([^/\s]+)', title)
         if match:
-            workflow_name = match.group(1)
+            _workflow_name=match.group(1)
             return f"https://github.com/{repository}/actions/workflows/{workflow_name}"
         # Fallback to general actions page
         return f"https://github.com/{repository}/actions"
@@ -99,7 +147,7 @@ def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: st
     if not api_url:
         return ""
 
-    html = api_url.replace("api.github.com/repos/", "github.com/")
+    _html=api_url.replace("api.github.com/repos/", "github.com/")
 
     if "pulls/" in html:
         return html.replace("pulls/", "pull/")
@@ -114,7 +162,7 @@ def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: st
 
 def _format_timestamp(ts: str) -> str:
     try:
-        dt = datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(timezone.utc)
+        _dt=datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(timezone.utc)
         return dt.strftime("%Y-%m-%d %H:%M:%S UTC")
     except ValueError:
         return ts
@@ -148,11 +196,11 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
                 n.get("repository", ""),
                 n.get("subject_title", "")
             )
-            title = _escape_md(n.get("subject_title", "")) or "(no title)"
-            reason = n.get("reason", "")
-            updated = _format_timestamp(n.get("updated_at", ""))
-            subject_type = n.get("subject_type", "")
-            link_md = f"[View]({link})" if link else ""
+            _title=_escape_md(n.get("subject_title", "")) or "(no title)"
+            _reason=n.get("reason", "")
+            _updated=_format_timestamp(n.get("updated_at", ""))
+            _subject_type=n.get("subject_type", "")
+            _link_md=f"[View]({link})" if link else ""
             lines.append(
                 f"| {n.get('id','')} | {subject_type} | {reason} | {updated} | {title} | {link_md} |"
             )
@@ -166,7 +214,7 @@ def main() -> None:
         return
 
     print("Fetching unread notifications...")
-    notifications = _fetch_notifications()
+    _notifications=_fetch_notifications()
     print(f"Found {len(notifications)} unread notifications.")
     _write_report(notifications)
 

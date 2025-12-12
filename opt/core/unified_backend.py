@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +149,7 @@ from enum import Enum
 from collections import defaultdict
 from functools import wraps
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -115,11 +163,11 @@ class StructuredLogFormatter(logging.Formatter):
     log aggregators (ELK, Loki, Splunk, etc.)
     """
 
-    def __init__(self, service_name: str = "debvisor", include_extra: bool = True):
+    def __init__(self, service_name: str="debvisor", include_extra: bool=True) -> None:
         super().__init__()
         self.service_name = service_name
         self.include_extra = include_extra
-        self._hostname = os.uname().nodename if hasattr(os, "uname") else "unknown"
+        self._hostname=os.uname().nodename if hasattr(os, "uname") else "unknown"
 
     def format(self, record: logging.LogRecord) -> str:
         """Format log record as JSON."""
@@ -193,13 +241,13 @@ class CorrelationLogAdapter(logging.LoggerAdapter[Any]):
     Log adapter that adds correlation ID to all log messages.
 
     Usage:
-        log = CorrelationLogAdapter(logger, {"correlation_id": "abc-123"})
+        _log=CorrelationLogAdapter(logger, {"correlation_id": "abc-123"})
         log.info("Processing request")    # includes correlation_id
     """
 
-    def process(self, msg, kwargs):
+    def process(self, msg, kwargs) -> None:
         """Add correlation context to log record."""
-        extra = kwargs.get("extra", {})
+        _extra=kwargs.get("extra", {})
         extra.update(self.extra)
         kwargs["extra"] = extra
         return msg, kwargs
@@ -220,7 +268,7 @@ def configure_structured_logging(
         log_file: Optional file path for JSON logs
         json_format: Use JSON format (True) or standard format (False)
     """
-    root_logger = logging.getLogger()
+    _root_logger=logging.getLogger()
     root_logger.setLevel(level)
 
     # Remove existing handlers
@@ -228,20 +276,20 @@ def configure_structured_logging(
         root_logger.removeHandler(handler)
 
     if json_format:
-        formatter = StructuredLogFormatter(service_name=service_name)
+        _formatter=StructuredLogFormatter(service_name=service_name)
     else:
         formatter = logging.Formatter(  # type: ignore[assignment]
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
     # Console handler
-    console_handler = logging.StreamHandler()
+    _console_handler=logging.StreamHandler()
     console_handler.setFormatter(formatter)
     root_logger.addHandler(console_handler)
 
     # File handler (JSON logs)
     if log_file:
-        file_handler = logging.FileHandler(log_file)
+        _file_handler=logging.FileHandler(log_file)
         file_handler.setFormatter(StructuredLogFormatter(service_name=service_name))
         root_logger.addHandler(file_handler)
 
@@ -341,9 +389,9 @@ class Tenant:
     id: str
     name: str
     description: str = ""
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     status: str = "active"
-    quotas: ResourceQuota = field(default_factory=ResourceQuota)
+    quotas: ResourceQuota=field(default_factory=ResourceQuota)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -352,7 +400,7 @@ class TenantManager:
 
     def __init__(self) -> None:
         self._tenants: Dict[str, Tenant] = {}
-        self._lock = threading.RLock()
+        self._lock=threading.RLock()
 
         # Create default tenant
         self.create_tenant(
@@ -371,7 +419,7 @@ class TenantManager:
             if tenant_id in self._tenants:
                 raise ValueError(f"Tenant {tenant_id} already exists")
 
-            tenant = Tenant(id=tenant_id, name=name, quotas=quotas or ResourceQuota())
+            _tenant=Tenant(id=tenant_id, name=name, quotas=quotas or ResourceQuota())
             self._tenants[tenant_id] = tenant
             logger.info(f"Created tenant: {tenant_id}")
             return tenant
@@ -384,7 +432,7 @@ class TenantManager:
     def update_quotas(self, tenant_id: str, quotas: ResourceQuota) -> bool:
         """Update tenant quotas."""
         with self._lock:
-            tenant = self._tenants.get(tenant_id)
+            _tenant=self._tenants.get(tenant_id)
             if not tenant:
                 return False
             tenant.quotas = quotas
@@ -501,16 +549,16 @@ class AuditEntry:
 class RateLimiter:
     """Token bucket rate limiter."""
 
-    def __init__(self, requests_per_minute: int = 60):
+    def __init__(self, requests_per_minute: int=60) -> None:
         self._limit = requests_per_minute
         self._window_seconds = 60
         self._requests: Dict[str, List[float]] = defaultdict(list)
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def check(self, key: str) -> bool:
         """Check if request is allowed."""
         with self._lock:
-            now = time.time()
+            _now=time.time()
             window_start = now - self._window_seconds
 
             # Clean old requests
@@ -531,15 +579,15 @@ class RateLimiter:
 class CacheManager:
     """TTL-based cache with invalidation."""
 
-    def __init__(self, default_ttl: int = 60):
+    def __init__(self, default_ttl: int=60) -> None:
         self._cache: Dict[str, Dict[str, Any]] = {}
         self._default_ttl = default_ttl
-        self._lock = threading.RLock()
+        self._lock=threading.RLock()
 
     def get(self, key: str) -> Optional[Any]:
         """Get cached value if not expired."""
         with self._lock:
-            entry = self._cache.get(key)
+            _entry=self._cache.get(key)
             if not entry:
                 return None
             if time.time() > entry["expires_at"]:
@@ -576,8 +624,8 @@ class CacheManager:
     def stats(self) -> Dict[str, Any]:
         """Get cache statistics."""
         with self._lock:
-            now = time.time()
-            valid = sum(1 for e in self._cache.values() if e["expires_at"] > now)
+            _now=time.time()
+            _valid=sum(1 for e in self._cache.values() if e["expires_at"] > now)
             return {
                 "total_entries": len(self._cache),
                 "valid_entries": valid,
@@ -590,7 +638,7 @@ class EventBus:
 
     def __init__(self) -> None:
         self._subscribers: Dict[str, List[Callable[..., Any]]] = defaultdict(list[Any])
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def subscribe(self, event_type: str, handler: Callable[..., Any]) -> None:
         """Subscribe to event type."""
@@ -606,7 +654,7 @@ class EventBus:
     def publish(self, event_type: str, data: Dict[str, Any]) -> None:
         """Publish event to subscribers."""
         with self._lock:
-            handlers = list(self._subscribers.get(event_type, []))
+            _handlers=list(self._subscribers.get(event_type, []))
             handlers.extend(self._subscribers.get("*", []))    # Wildcard subscribers
 
         for handler in handlers:
@@ -629,10 +677,10 @@ class UnifiedBackend:
         self._max_audit_entries = 10000
 
         # Core components
-        self._cache = CacheManager(default_ttl=60)
-        self._rate_limiter = RateLimiter(requests_per_minute=100)
-        self._event_bus = EventBus()
-        self._tenant_manager = TenantManager()
+        self._cache=CacheManager(default_ttl=60)
+        self._rate_limiter=RateLimiter(requests_per_minute=100)
+        self._event_bus=EventBus()
+        self._tenant_manager=TenantManager()
 
         # Middleware pipeline
         self._middlewares: List[Middleware] = []
@@ -641,11 +689,11 @@ class UnifiedBackend:
         self._running_jobs: Dict[str, ActionResult] = {}
 
         # Thread safety
-        self._lock = threading.RLock()
+        self._lock=threading.RLock()
 
         # Background cleanup task
         self._cleanup_thread: Optional[threading.Thread] = None
-        self._stop_event = threading.Event()
+        self._stop_event=threading.Event()
 
         logger.info("UnifiedBackend initialized")
 
@@ -691,56 +739,56 @@ class UnifiedBackend:
         # Create default context if not provided
         if context is None:
             context = ActionContext(
-                _request_id = str(uuid4()),
+                _request_id=str(uuid4()),
                 _user_id = "system",
                 _user_role = Role.SUPER_ADMIN,
                 _source = "internal",
-                tenant_id="default",
+                _tenant_id="default",
             )
 
         # Validate tenant
         if context.tenant_id:
-            tenant = self._tenant_manager.get_tenant(context.tenant_id)
+            _tenant=self._tenant_manager.get_tenant(context.tenant_id)
             if not tenant:
                 return ActionResult(
-                    id=str(uuid4()),
+                    _id=str(uuid4()),
                     _action = name,
-                    status=ActionStatus.FAILED,
-                    _started_at = datetime.now(timezone.utc),
-                    _completed_at = datetime.now(timezone.utc),
+                    _status=ActionStatus.FAILED,
+                    _started_at=datetime.now(timezone.utc),
+                    _completed_at=datetime.now(timezone.utc),
                     _data = {},
-                    error=f"Invalid tenant: {context.tenant_id}",
+                    _error=f"Invalid tenant: {context.tenant_id}",
                     _error_code = "INVALID_TENANT",
                     _context = context,
                 )
             if tenant.status != "active":
                 return ActionResult(
-                    id=str(uuid4()),
+                    _id=str(uuid4()),
                     _action = name,
                     _status = ActionStatus.FAILED,
-                    started_at=datetime.now(timezone.utc),
-                    _completed_at = datetime.now(timezone.utc),
+                    _started_at=datetime.now(timezone.utc),
+                    _completed_at=datetime.now(timezone.utc),
                     _data = {},
-                    error=f"Tenant is not active: {context.tenant_id}",
+                    _error=f"Tenant is not active: {context.tenant_id}",
                     _error_code = "TENANT_INACTIVE",
-                    context=context,
+                    _context=context,
                 )
 
-        started_at = datetime.now(timezone.utc)
+        _started_at=datetime.now(timezone.utc)
 
         # Check if action exists
-        definition = self._actions.get(name)
+        _definition=self._actions.get(name)
         if not definition:
             return ActionResult(
                 _id = context.request_id,
-                action=name,
+                _action=name,
                 _status = ActionStatus.FAILED,
                 _started_at = started_at,
-                _completed_at = datetime.now(timezone.utc),
+                _completed_at=datetime.now(timezone.utc),
                 _data = {},
-                error=f"Unknown action: {name}",
+                _error=f"Unknown action: {name}",
                 _error_code = "ACTION_NOT_FOUND",
-                context=context,
+                _context=context,
             )
 
         # Permission check
@@ -751,11 +799,11 @@ class UnifiedBackend:
                 _action = name,
                 _status = ActionStatus.FAILED,
                 _started_at = started_at,
-                _completed_at = datetime.now(timezone.utc),
+                _completed_at=datetime.now(timezone.utc),
                 _data = {},
-                error=f"Permission denied: requires {definition.required_permission.value}",
+                _error=f"Permission denied: requires {definition.required_permission.value}",
                 _error_code = "PERMISSION_DENIED",
-                context=context,
+                _context=context,
             )
 
         # Rate limiting
@@ -768,17 +816,17 @@ class UnifiedBackend:
                     _action = name,
                     _status = ActionStatus.FAILED,
                     _started_at = started_at,
-                    _completed_at = datetime.now(timezone.utc),
+                    _completed_at=datetime.now(timezone.utc),
                     _data = {},
-                    error="Rate limit exceeded",
+                    _error="Rate limit exceeded",
                     _error_code = "RATE_LIMIT_EXCEEDED",
                     _context = context,
                 )
 
         # Check cache for cacheable actions
         if definition.cacheable:
-            cache_key = self._cache_key(name, params)
-            cached = self._cache.get(cache_key)
+            _cache_key=self._cache_key(name, params)
+            _cached=self._cache.get(cache_key)
             if cached is not None:
                 logger.debug(f"Cache hit for {name}")
                 return ActionResult(
@@ -786,18 +834,18 @@ class UnifiedBackend:
                     _action = name,
                     _status = ActionStatus.COMPLETED,
                     _started_at = started_at,
-                    _completed_at = datetime.now(timezone.utc),
+                    _completed_at=datetime.now(timezone.utc),
                     _data = cached,
-                    context=context,
+                    _context=context,
                 )
 
         # Execute with middleware pipeline
         try:
-            result = self._execute_with_middleware(name, params, context, definition)
+            _result=self._execute_with_middleware(name, params, context, definition)
 
             # Cache result if cacheable
             if definition.cacheable and result.status == ActionStatus.COMPLETED:
-                cache_key = self._cache_key(name, params)
+                _cache_key=self._cache_key(name, params)
                 self._cache.set(cache_key, result.data, definition.cache_ttl)
 
             # Publish event
@@ -815,14 +863,14 @@ class UnifiedBackend:
 
         except Exception as e:
             logger.exception(f"Action {name} failed with exception")
-            completed_at = datetime.now(timezone.utc)
-            duration_ms = int((completed_at - started_at).total_seconds() * 1000)
+            _completed_at=datetime.now(timezone.utc)
+            _duration_ms=int((completed_at - started_at).total_seconds() * 1000)
 
             self._audit(
                 name,
                 context,
                 False,
-                _error = str(e),
+                _error=str(e),
                 _duration_ms = duration_ms,
                 _params = params,
             )
@@ -834,10 +882,10 @@ class UnifiedBackend:
                 _started_at = started_at,
                 _completed_at = completed_at,
                 _data = {},
-                error=str(e),
+                _error=str(e),
                 _error_code = "INTERNAL_ERROR",
                 _duration_ms = duration_ms,
-                context=context,
+                _context=context,
             )
 
     def _execute_with_middleware(
@@ -848,16 +896,16 @@ class UnifiedBackend:
         definition: ActionDefinition,
     ) -> ActionResult:
         """Execute action through middleware pipeline."""
-        started_at = datetime.now(timezone.utc)
+        _started_at=datetime.now(timezone.utc)
 
         def final_handler(
             n: str, p: Dict[str, Any], ctx: ActionContext
         ) -> ActionResult:
             """Final handler that executes the actual action."""
             try:
-                _data = definition.handler(p, ctx)
-                completed_at = datetime.now(timezone.utc)
-                duration_ms = int((completed_at - started_at).total_seconds() * 1000)
+                _data=definition.handler(p, ctx)
+                _completed_at=datetime.now(timezone.utc)
+                _duration_ms=int((completed_at - started_at).total_seconds() * 1000)
 
                 self._audit(n, ctx, True, duration_ms=duration_ms, params=p)
 
@@ -865,15 +913,15 @@ class UnifiedBackend:
                     _id = ctx.request_id,
                     _action = n,
                     _status = ActionStatus.COMPLETED,
-                    started_at=started_at,
-                    completed_at=completed_at,
-                    _data = data if isinstance(data, dict) else {"result": data},
-                    duration_ms=duration_ms,
+                    _started_at=started_at,
+                    _completed_at=completed_at,
+                    _data=data if isinstance(data, dict) else {"result": data},
+                    _duration_ms=duration_ms,
                     _context = ctx,
                 )
             except Exception as e:
-                completed_at = datetime.now(timezone.utc)
-                duration_ms = int((completed_at - started_at).total_seconds() * 1000)
+                _completed_at=datetime.now(timezone.utc)
+                _duration_ms=int((completed_at - started_at).total_seconds() * 1000)
 
                 self._audit(
                     n, ctx, False, error=str(e), duration_ms=duration_ms, params=p
@@ -886,7 +934,7 @@ class UnifiedBackend:
                     _started_at = started_at,
                     _completed_at = completed_at,
                     _data = {},
-                    error=str(e),
+                    _error=str(e),
                     _error_code = "HANDLER_ERROR",
                     _duration_ms = duration_ms,
                     _context = ctx,
@@ -897,7 +945,7 @@ class UnifiedBackend:
         for middleware in reversed(self._middlewares):
             prev_handler = handler
 
-            def handler(n, p, c, mw=middleware, ph=prev_handler):
+            def handler(n, p, c, mw=middleware, ph=prev_handler) -> None:
                 return mw(n, p, c, ph)
 
         return handler(name, params, context)
@@ -928,7 +976,7 @@ class UnifiedBackend:
             ).hexdigest()[:16]
 
         _entry = AuditEntry(
-            _timestamp = datetime.now(timezone.utc),
+            _timestamp=datetime.now(timezone.utc),
             _action = action,
             _user_id = context.user_id,
             _tenant_id = context.tenant_id,
@@ -955,7 +1003,7 @@ class UnifiedBackend:
     ) -> List[Dict[str, Any]]:
         """Get filtered audit log entries."""
         with self._lock:
-            entries = list(self._audit_log)
+            _entries=list(self._audit_log)
 
         if action:
             entries = [e for e in entries if e.action == action]
@@ -994,8 +1042,8 @@ class UnifiedBackend:
     def get_stats(self) -> Dict[str, Any]:
         """Get backend statistics."""
         with self._lock:
-            total_actions = len(self._audit_log)
-            successful = sum(1 for e in self._audit_log if e.success)
+            _total_actions=len(self._audit_log)
+            _successful=sum(1 for e in self._audit_log if e.success)
             failed = total_actions - successful
 
         return {
@@ -1041,7 +1089,7 @@ def action(
 # Factory for creating pre-configured backends
 def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
     """Create a configured UnifiedBackend instance."""
-    backend = UnifiedBackend()
+    _backend=UnifiedBackend()
 
     # Register common actions
     backend.register_action(
@@ -1050,8 +1098,8 @@ def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
             "status": "healthy",
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
-        permission=Permission.READ,
-        description="Check backend health",
+        _permission=Permission.READ,
+        _description="Check backend health",
         _cacheable = True,
         _cache_ttl = 10,
     )
@@ -1059,8 +1107,8 @@ def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
     backend.register_action(
         "list_actions",
         lambda p, c: {"actions": backend.list_actions()},
-        permission=Permission.READ,
-        description="List all registered actions",
+        _permission=Permission.READ,
+        _description="List all registered actions",
     )
 
     backend.register_action(
@@ -1077,32 +1125,32 @@ def create_backend(config: Optional[Dict[str, Any]] = None) -> UnifiedBackend:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="DebVisor Unified Backend")
+    _parser=argparse.ArgumentParser(description="DebVisor Unified Backend")
     parser.add_argument(
         "action", choices=["demo", "list", "stats"], help="Action to perform"
     )
-    _args = parser.parse_args()
+    _args=parser.parse_args()
 
     logging.basicConfig(
-        level=logging.INFO,
-        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level=logging.INFO,
+        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    backend = create_backend()
+    _backend=create_backend()
 
     # Register demo actions
     backend.register_action(
         "drain_node",
         lambda p, c: {"node": p.get("node"), "status": "drained"},
-        permission=Permission.ADMIN,
-        description="Drain a node for maintenance",
+        _permission=Permission.ADMIN,
+        _description="Drain a node for maintenance",
     )
 
     backend.register_action(
         "list_vms",
         lambda p, c: {"vms": ["vm-001", "vm-002", "vm-003"]},
-        permission=Permission.READ,
-        description="List all VMs",
+        _permission=Permission.READ,
+        _description="List all VMs",
         _cacheable = True,
     )
 
@@ -1119,24 +1167,24 @@ if __name__ == "__main__":
     elif args.action == "demo":
     # Create test context
         ctx = ActionContext(
-            _request_id = str(uuid4()), user_id="admin", user_role=Role.ADMIN, source="cli"
+            _request_id=str(uuid4()), user_id="admin", user_role=Role.ADMIN, source="cli"
         )
 
         # Execute some actions
         print("\nExecuting drain_node...")
-        result = backend.execute("drain_node", {"node": "node-01"}, ctx)
+        _result=backend.execute("drain_node", {"node": "node-01"}, ctx)
         print(f"  Result: {result.status.value} - {result.data}")
 
         print("\nExecuting list_vms (first call - cache miss)...")
-        result = backend.execute("list_vms", {}, ctx)
+        _result=backend.execute("list_vms", {}, ctx)
         print(f"  Result: {result.status.value} - {result.data}")
 
         print("\nExecuting list_vms (second call - cache hit)...")
-        result = backend.execute("list_vms", {}, ctx)
+        _result=backend.execute("list_vms", {}, ctx)
         print(f"  Result: {result.status.value} - {result.data}")
 
         print("\nExecuting health_check...")
-        result = backend.execute("health_check", {}, ctx)
+        _result=backend.execute("health_check", {}, ctx)
         print(f"  Result: {result.status.value} - {result.data}")
 
         print("\nAudit Log:")

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,8 +139,8 @@ class _InMemoryStore:
         self.store: Dict[str, Dict[str, int]] = {}
 
     def incr(self, key: str) -> int:
-        now = int(time.time())
-        bucket = self.store.setdefault(key, {"count": 0, "ts": now})
+        _now=int(time.time())
+        _bucket=self.store.setdefault(key, {"count": 0, "ts": now})
         if bucket["ts"] != now:
             bucket["count"] = 0
             bucket["ts"] = now
@@ -105,7 +153,7 @@ class _InMemoryStore:
 
 def _get_client() -> Any:
     if _HAS_REDIS:
-        url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+        _url=os.getenv("REDIS_URL", "redis://localhost:6379/0")
         try:
             return redis.Redis.from_url(url)
         except Exception:
@@ -122,7 +170,7 @@ def sliding_window_limiter(
     limit: max requests per window
     window_seconds: size of window in seconds
     """
-    _client = _get_client()
+    _client=_get_client()
 
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         from functools import wraps
@@ -131,8 +179,8 @@ def sliding_window_limiter(
         @wraps(f)
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            key = identifier_func()
-            now = int(time.time())
+            _key=identifier_func()
+            _now=int(time.time())
             bucket_key = f"rl:{key}:{now // window_seconds}"
 
             try:

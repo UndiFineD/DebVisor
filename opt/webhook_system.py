@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,7 +153,7 @@ try:
     configure_logging(service_name="webhook-system")
 except ImportError:
     logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class EventType(Enum):
@@ -193,7 +241,7 @@ class Webhook:
     created_at: datetime
     updated_at: datetime
     retry_policy: Dict[str, Any] = field(
-        default_factory=lambda: {
+        _default_factory=lambda: {
             "max_attempts": 3,
             "initial_delay_ms": 1000,
             "max_delay_ms": 60000,
@@ -220,7 +268,7 @@ class WebhookDelivery:
     http_status_code: Optional[int] = None
     response_body: Optional[str] = None
     error_message: Optional[str] = None
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     delivered_at: Optional[datetime] = None
     next_retry_at: Optional[datetime] = None
 
@@ -260,7 +308,7 @@ class WebhookSigner:
         Returns:
             Verification result
         """
-        expected = WebhookSigner.sign(payload, secret)
+        _expected=WebhookSigner.sign(payload, secret)
         return hmac.compare_digest(expected, signature)
 
 
@@ -273,7 +321,7 @@ class WebhookManager:
         self.deliveries: Dict[str, WebhookDelivery] = {}
         self.event_queue: List[tuple[Event, str]] = []    # (event, webhook_id)
         self.retry_queue: List[WebhookDelivery] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def register_webhook(
         self, url: str, events: WebhookFilter, headers: Optional[Dict[str, str]] = None
@@ -289,8 +337,8 @@ class WebhookManager:
         Returns:
             Created webhook
         """
-        webhook_id = str(uuid.uuid4())
-        secret = secrets.token_urlsafe(32)
+        _webhook_id=str(uuid.uuid4())
+        _secret=secrets.token_urlsafe(32)
 
         webhook = Webhook(
             _id = webhook_id,
@@ -298,8 +346,8 @@ class WebhookManager:
             _status = WebhookStatus.ACTIVE,
             _events = events,
             _secret = secret,
-            _created_at = datetime.now(timezone.utc),
-            _updated_at = datetime.now(timezone.utc),
+            _created_at=datetime.now(timezone.utc),
+            _updated_at=datetime.now(timezone.utc),
             _headers = headers or {},
         )
 
@@ -336,7 +384,7 @@ class WebhookManager:
         Returns:
             Updated webhook or None
         """
-        webhook = self.webhooks.get(webhook_id)
+        _webhook=self.webhooks.get(webhook_id)
         if not webhook:
             return None
 
@@ -344,7 +392,7 @@ class WebhookManager:
             if hasattr(webhook, key):
                 setattr(webhook, key, value)
 
-        webhook.updated_at = datetime.now(timezone.utc)
+        webhook.updated_at=datetime.now(timezone.utc)
         logger.info(f"Updated webhook {webhook_id}")
 
         return webhook
@@ -366,7 +414,7 @@ class WebhookManager:
         if not status:
             return list(self.webhooks.values())
 
-        return [w for w in self.webhooks.values() if w.status == status]
+        return [w for w in self.webhooks.values() if w.status== status]
 
     def trigger_event(self, event: Event) -> int:
         """
@@ -395,12 +443,12 @@ class WebhookManager:
     def _queue_delivery(self, event: Event, webhook: Webhook) -> None:
         """Queue webhook delivery."""
         delivery = WebhookDelivery(
-            id=str(uuid.uuid4()),
+            _id=str(uuid.uuid4()),
             _webhook_id = webhook.id,
             _event_id = event.id,
             _status = DeliveryStatus.PENDING,
             _attempt_number = 1,
-            _created_at = datetime.now(timezone.utc),
+            _created_at=datetime.now(timezone.utc),
         )
 
         self.deliveries[delivery.id] = delivery
@@ -425,7 +473,7 @@ class WebhookManager:
         Returns:
             List of deliveries
         """
-        deliveries = list(self.deliveries.values())
+        _deliveries=list(self.deliveries.values())
 
         if webhook_id:
             deliveries = [d for d in deliveries if d.webhook_id == webhook_id]
@@ -457,12 +505,12 @@ class WebhookManager:
 
         if 200 <= http_status < 300:
             delivery.status = DeliveryStatus.SUCCESS
-            delivery.delivered_at = datetime.now(timezone.utc)
+            delivery.delivered_at=datetime.now(timezone.utc)
             logger.info(f"Delivery {delivery.id} succeeded")
 
         else:
             delivery.status = DeliveryStatus.FAILED
-            webhook = self.webhooks.get(delivery.webhook_id)
+            _webhook=self.webhooks.get(delivery.webhook_id)
 
             if (
                 webhook
@@ -486,7 +534,7 @@ class WebhookManager:
             retry_policy["max_delay_ms"],
         )
 
-        delivery.next_retry_at = datetime.now(timezone.utc) + timedelta(
+        delivery.next_retry_at=datetime.now(timezone.utc) + timedelta(
             _milliseconds = delay_ms
         )
         delivery.attempt_number += 1
@@ -499,12 +547,12 @@ class WebhookManager:
 
     def get_pending_retries(self) -> List[tuple[WebhookDelivery, Webhook]]:
         """Get pending retries."""
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         pending = []
 
         for delivery in self.retry_queue[:]:
             if delivery.next_retry_at and delivery.next_retry_at <= now:
-                webhook = self.webhooks.get(delivery.webhook_id)
+                _webhook=self.webhooks.get(delivery.webhook_id)
                 if webhook:
                     pending.append((delivery, webhook))
                 self.retry_queue.remove(delivery)
@@ -536,7 +584,7 @@ class WebhookManager:
 class EventStore:
     """Store and retrieve events."""
 
-    def __init__(self, retention_days: int = 30):
+    def __init__(self, retention_days: int=30) -> None:
         """
         Initialize event store.
 
@@ -545,7 +593,7 @@ class EventStore:
         """
         self.events: Dict[str, Event] = {}
         self.retention_days = retention_days
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def store_event(self, event: Event) -> str:
         """
@@ -585,7 +633,7 @@ class EventStore:
         Returns:
             List of events
         """
-        events = list(self.events.values())
+        _events=list(self.events.values())
 
         if event_type:
             events = [e for e in events if e.type == event_type]
@@ -605,7 +653,7 @@ class EventStore:
         Returns:
             Number of deleted events
         """
-        cutoff = datetime.now(timezone.utc) - timedelta(days=self.retention_days)
+        _cutoff=datetime.now(timezone.utc) - timedelta(days=self.retention_days)
         expired = [
             event_id
             for event_id, event in self.events.items()
@@ -623,8 +671,8 @@ class EventStore:
 # Example usage
 if __name__ == "__main__":
     # Create managers
-    webhook_mgr = WebhookManager()
-    _event_store = EventStore()
+    _webhook_mgr=WebhookManager()
+    _event_store=EventStore()
 
     # Register webhooks
     filter1 = WebhookFilter(
@@ -634,27 +682,27 @@ if __name__ == "__main__":
         "https://example.com/webhook1", filter1, headers={"X-Custom-Header": "value"}
     )
 
-    filter2 = WebhookFilter(resource_types=["cluster", "node"])
-    _webhook2 = webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
+    _filter2=WebhookFilter(resource_types=["cluster", "node"])
+    _webhook2=webhook_mgr.register_webhook("https://example.com/webhook2", filter2)
 
     # Create and trigger events
     event = Event(
-        id=str(uuid.uuid4()),
-        type=EventType.OPERATION_COMPLETED,
-        _timestamp = datetime.now(timezone.utc),
+        _id=str(uuid.uuid4()),
+        _type=EventType.OPERATION_COMPLETED,
+        _timestamp=datetime.now(timezone.utc),
         _resource_type = "deployment",
         _resource_id = "app-1",
         _data = {"operation": "scale", "replicas": 5},
     )
 
     event_store.store_event(event)
-    triggered = webhook_mgr.trigger_event(event)
+    _triggered=webhook_mgr.trigger_event(event)
 
     print(f"Event triggered {triggered} webhooks")
     print(f"\nRegistered webhooks: {len(webhook_mgr.webhooks)}")
     print(f"Pending deliveries: {len(webhook_mgr.deliveries)}")
 
     # List deliveries
-    deliveries = webhook_mgr.list_deliveries()
+    _deliveries=webhook_mgr.list_deliveries()
     for delivery in deliveries:
         print(f"  - Delivery {delivery.id}: {delivery.status.value}")

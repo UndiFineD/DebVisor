@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set, Union
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -152,7 +200,7 @@ class EncryptionKey:
 
     # Key material (should be stored securely in production)
     key_material: bytes = field(
-        _default_factory = lambda: secrets.token_bytes(32), repr=False
+        _default_factory=lambda: secrets.token_bytes(32), repr=False
     )
 
     @property
@@ -195,12 +243,12 @@ class EncryptedField:
     def from_dict(cls, data: Dict[str, Any]) -> "EncryptedField":
         """Create from dictionary."""
         return cls(
-            _ciphertext = base64.b64decode(data["ct"]),
-            _nonce = base64.b64decode(data["nonce"]),
-            _tag = base64.b64decode(data["tag"]),
+            _ciphertext=base64.b64decode(data["ct"]),
+            _nonce=base64.b64decode(data["nonce"]),
+            _tag=base64.b64decode(data["tag"]),
             _key_id = data["kid"],
             _algorithm = data["alg"],
-            _version = data.get("v", 1),
+            _version=data.get("v", 1),
         )
 
 
@@ -283,12 +331,12 @@ class FieldEncryptor:
 
     def _initialize_key(self, key_material: bytes) -> str:
         """Initialize a new encryption key."""
-        key_id = secrets.token_hex(8)
+        _key_id=secrets.token_hex(8)
         key = EncryptionKey(
-            key_id=key_id,
+            _key_id=key_id,
             _algorithm = self.algorithm,
             _status = KeyStatus.ACTIVE,
-            _created_at = datetime.now(timezone.utc),
+            _created_at=datetime.now(timezone.utc),
             _key_material = key_material,
         )
         self._keys[key_id] = key
@@ -306,11 +354,11 @@ class FieldEncryptor:
         if self._active_key_id:
             old_key = self._keys[self._active_key_id]
             old_key.status = KeyStatus.ROTATED
-            old_key.rotated_at = datetime.now(timezone.utc)
+            old_key.rotated_at=datetime.now(timezone.utc)
 
         # Create new key
-        new_key_material = secrets.token_bytes(32)
-        new_key_id = self._initialize_key(new_key_material)
+        _new_key_material=secrets.token_bytes(32)
+        _new_key_id=self._initialize_key(new_key_material)
 
         logger.info(f"Key rotated: {self._active_key_id} -> {new_key_id}")
         return new_key_id
@@ -335,7 +383,7 @@ class FieldEncryptor:
         key = self._keys[key_id]
 
         if isinstance(plaintext, str):
-            plaintext = plaintext.encode("utf-8")
+            _plaintext=plaintext.encode("utf-8")
 
         if self.algorithm == EncryptionAlgorithm.AES_256_GCM:
             return self._encrypt_aes_gcm(plaintext, key)
@@ -352,7 +400,7 @@ class FieldEncryptor:
         Returns:
             Decrypted bytes
         """
-        key = self._keys.get(encrypted.key_id)
+        _key=self._keys.get(encrypted.key_id)
         if not key:
             raise ValueError(f"Key {encrypted.key_id} not found")
 
@@ -370,10 +418,10 @@ class FieldEncryptor:
         """Encrypt using AES-256-GCM."""
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        nonce = secrets.token_bytes(12)    # 96-bit nonce for GCM
-        aesgcm = AESGCM(key.key_material)
+        _nonce=secrets.token_bytes(12)    # 96-bit nonce for GCM
+        _aesgcm=AESGCM(key.key_material)
 
-        ciphertext = aesgcm.encrypt(nonce, plaintext, None)
+        _ciphertext=aesgcm.encrypt(nonce, plaintext, None)
 
         # GCM appends tag to ciphertext
         actual_ciphertext = ciphertext[:-16]
@@ -392,7 +440,7 @@ class FieldEncryptor:
         """Decrypt using AES-256-GCM."""
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-        aesgcm = AESGCM(key.key_material)
+        _aesgcm=AESGCM(key.key_material)
 
         # Reconstruct ciphertext with tag
         ciphertext_with_tag = encrypted.ciphertext + encrypted.tag
@@ -417,14 +465,14 @@ class FieldEncryptor:
 
         if salt is None:
         # Use key material as salt for deterministic hashing
-            key = self._keys.get(self._active_key_id) if self._active_key_id else None
+            _key=self._keys.get(self._active_key_id) if self._active_key_id else None
             salt = key.key_material if key else b""
 
         # Normalize value
-        normalized = value.lower().strip()
+        _normalized=value.lower().strip()
 
         # Create HMAC
-        h = hmac.new(salt, normalized.encode("utf-8"), hashlib.sha256)
+        _h=hmac.new(salt, normalized.encode("utf-8"), hashlib.sha256)
         return base64.b64encode(h.digest()).decode()
 
     def is_sensitive_field(self, field_name: str) -> bool:
@@ -458,7 +506,7 @@ class EncryptedAuditLogger:
             encryptor: Field encryptor instance
             storage_backend: Optional storage backend
         """
-        self.encryptor = encryptor or FieldEncryptor()
+        self.encryptor=encryptor or FieldEncryptor()
         self.storage = storage_backend
         self._log_buffer: List[AuditLogEntry] = []
 
@@ -493,11 +541,11 @@ class EncryptedAuditLogger:
         Returns:
             AuditLogEntry with encrypted fields
         """
-        _entry_id = secrets.token_hex(16)
-        _timestamp = datetime.now(timezone.utc)
+        _entry_id=secrets.token_hex(16)
+        _timestamp=datetime.now(timezone.utc)
 
         # Determine fields to encrypt
-        fields_to_encrypt = set(encrypt_fields or [])
+        _fields_to_encrypt=set(encrypt_fields or [])
 
         # Auto-detect sensitive fields in details
         _encrypted_details = {}
@@ -508,8 +556,8 @@ class EncryptedAuditLogger:
             for key, value in details.items():
                 if self.encryptor.is_sensitive_field(key) or key in fields_to_encrypt:
                     if value is not None:
-                        str_value = str(value) if not isinstance(value, str) else value
-                        encrypted = self.encryptor.encrypt(str_value)
+                        _str_value=str(value) if not isinstance(value, str) else value
+                        _encrypted=self.encryptor.encrypt(str_value)
                         encrypted_details[key] = encrypted.to_dict()
                         encrypted_field_names.add(key)
 
@@ -528,8 +576,8 @@ class EncryptedAuditLogger:
                 SensitivityLevel.RESTRICTED,
                 SensitivityLevel.PII,
             ):
-                encrypted = self.encryptor.encrypt(ip_address)
-                encrypted_ip = json.dumps(encrypted.to_dict())
+                _encrypted=self.encryptor.encrypt(ip_address)
+                _encrypted_ip=json.dumps(encrypted.to_dict())
                 encrypted_field_names.add("ip_address")
                 search_hashes["ip_address"] = self.encryptor.create_search_hash(
                     ip_address
@@ -541,14 +589,14 @@ class EncryptedAuditLogger:
         encrypted_ua = None
         if user_agent:
             if sensitivity in (SensitivityLevel.RESTRICTED, SensitivityLevel.PII):
-                encrypted = self.encryptor.encrypt(user_agent)
-                encrypted_ua = json.dumps(encrypted.to_dict())
+                _encrypted=self.encryptor.encrypt(user_agent)
+                _encrypted_ua=json.dumps(encrypted.to_dict())
                 encrypted_field_names.add("user_agent")
             else:
                 _encrypted_ua = user_agent
 
         entry = AuditLogEntry(
-            id=entry_id,
+            _id=entry_id,
             _timestamp = timestamp,
             _action = action,
             _actor_id = actor_id,
@@ -612,7 +660,7 @@ class EncryptedAuditLogger:
         Returns:
             Matching audit log entries
         """
-        search_hash = self.encryptor.create_search_hash(value)
+        _search_hash=self.encryptor.create_search_hash(value)
 
         results = []
         for entry in self._log_buffer:
@@ -633,7 +681,7 @@ class EncryptedAuditLogger:
         Returns:
             Decrypted entry as dictionary
         """
-        _result = self._entry_to_dict(entry)
+        _result=self._entry_to_dict(entry)
 
         # Decrypt details
         if entry.details:
@@ -644,7 +692,7 @@ class EncryptedAuditLogger:
                     and isinstance(value, dict)
                     and "ct" in value
                 ):
-                    encrypted = EncryptedField.from_dict(value)
+                    _encrypted=EncryptedField.from_dict(value)
                     decrypted_details[key] = self.encryptor.decrypt(encrypted).decode(
                         "utf-8"
                     )
@@ -655,8 +703,8 @@ class EncryptedAuditLogger:
         # Decrypt IP address
         if entry.ip_address and "ip_address" in entry.encrypted_fields:
             try:
-                encrypted_data = json.loads(entry.ip_address)
-                encrypted = EncryptedField.from_dict(encrypted_data)
+                _encrypted_data=json.loads(entry.ip_address)
+                _encrypted=EncryptedField.from_dict(encrypted_data)
                 result["ip_address"] = self.encryptor.decrypt(encrypted).decode("utf-8")
             except (json.JSONDecodeError, KeyError):
                 pass
@@ -664,8 +712,8 @@ class EncryptedAuditLogger:
         # Decrypt user agent
         if entry.user_agent and "user_agent" in entry.encrypted_fields:
             try:
-                encrypted_data = json.loads(entry.user_agent)
-                encrypted = EncryptedField.from_dict(encrypted_data)
+                _encrypted_data=json.loads(entry.user_agent)
+                _encrypted=EncryptedField.from_dict(encrypted_data)
                 result["user_agent"] = self.encryptor.decrypt(encrypted).decode("utf-8")
             except (json.JSONDecodeError, KeyError):
                 pass
@@ -682,7 +730,7 @@ class EncryptedAuditLogger:
         Returns:
             New key ID
         """
-        new_key_id = self.encryptor.rotate_key()
+        _new_key_id=self.encryptor.rotate_key()
         logger.info(f"Audit log encryption keys rotated to: {new_key_id}")
         return new_key_id
 
@@ -758,7 +806,7 @@ def get_audit_logger() -> EncryptedAuditLogger:
     """Get global audit logger instance."""
     global _audit_logger
     if _audit_logger is None:
-        _audit_logger = EncryptedAuditLogger()
+        _audit_logger=EncryptedAuditLogger()
     return _audit_logger
 
 
@@ -777,7 +825,7 @@ def configure_audit_logger(
     """
     global _audit_logger
 
-    encryptor = FieldEncryptor(master_key=master_key)
+    _encryptor=FieldEncryptor(master_key=master_key)
     _audit_logger = EncryptedAuditLogger(
         _encryptor = encryptor, storage_backend=storage_backend
     )
@@ -793,7 +841,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     # Initialize logger
-    audit = configure_audit_logger()
+    _audit=configure_audit_logger()
 
     # Log some test events
     print("Creating audit log entries...")
@@ -829,7 +877,7 @@ if __name__ == "__main__":
 
     # Payment log
     _entry3 = audit.log(
-        action="payment",
+        _action="payment",
         _actor_id = "user-456",
         _resource_type = "transaction",
         _resource_id = "txn-001",
@@ -852,7 +900,7 @@ if __name__ == "__main__":
     print("SEARCH BY ENCRYPTED FIELD:")
     print("=" * 60)
 
-    results = audit.search_by_hash("email", "john.doe@example.com")
+    _results=audit.search_by_hash("email", "john.doe@example.com")
     print(f"Found {len(results)} entries with matching email")
 
     # Test decryption
@@ -860,7 +908,7 @@ if __name__ == "__main__":
     print("DECRYPTED ENTRY:")
     print("=" * 60)
 
-    decrypted = audit.decrypt_entry(entry2)
+    _decrypted=audit.decrypt_entry(entry2)
     print(json.dumps(decrypted, indent=2, default=str))
 
     # Test key rotation
@@ -868,7 +916,7 @@ if __name__ == "__main__":
     print("KEY ROTATION:")
     print("=" * 60)
 
-    new_key = audit.rotate_keys()
+    _new_key=audit.rotate_keys()
     print(f"New key ID: {new_key}")
 
     # Log new entry with rotated key

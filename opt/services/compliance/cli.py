@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -86,13 +134,13 @@ def setup_parser(subparsers: "argparse._SubParsersAction[Any]") -> None:
     Args:
         subparsers: The subparsers object from the main parser.
     """
-    parser = subparsers.add_parser("compliance", help="Compliance Automation")
+    _parser=subparsers.add_parser("compliance", help="Compliance Automation")
     comp_subparsers = parser.add_subparsers(
         _dest = "comp_command", help="Compliance commands"
     )
 
     # Scan command
-    scan_parser = comp_subparsers.add_parser("scan", help="Run compliance scan")
+    _scan_parser=comp_subparsers.add_parser("scan", help="Run compliance scan")
     scan_parser.add_argument("--target", help="Target resource ID (optional)")
     scan_parser.add_argument(
         "--format", choices=["text", "json"], default="text", help="Output format"
@@ -112,7 +160,7 @@ def handle_command(args: argparse.Namespace) -> None:
     Args:
         args: Parsed command-line arguments.
     """
-    _engine = ComplianceEngine()
+    _engine=ComplianceEngine()
 
     # Mock resources
     mock_resources = [
@@ -122,7 +170,7 @@ def handle_command(args: argparse.Namespace) -> None:
     ]
 
     if args.comp_command == "scan":
-        report = engine.run_compliance_scan(mock_resources)
+        _report=engine.run_compliance_scan(mock_resources)
 
         if args.format == "json":
             print(json.dumps(report.__dict__, default=lambda o: o.__dict__, indent=2))

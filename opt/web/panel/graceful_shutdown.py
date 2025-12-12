@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,7 +145,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, Iterator, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -118,7 +166,7 @@ class SignalType(Enum):
 
     SIGTERM = signal.SIGTERM
     SIGINT = signal.SIGINT
-    SIGHUP = getattr(signal, "SIGHUP", None)    # Not available on Windows
+    SIGHUP=getattr(signal, "SIGHUP", None)    # Not available on Windows
 
 
 # =============================================================================
@@ -156,7 +204,7 @@ class RequestContext:
     """Context for tracking in-flight requests."""
 
     request_id: str
-    started_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    started_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     method: str = ""
     path: str = ""
     client_ip: str = ""
@@ -165,7 +213,7 @@ class RequestContext:
 
     def duration_seconds(self) -> float:
         """Get duration of request in seconds."""
-        delta = datetime.now(timezone.utc) - self.started_at
+        _delta=datetime.now(timezone.utc) - self.started_at
         return delta.total_seconds()
 
 
@@ -189,7 +237,7 @@ class ShutdownMetrics:
         """Get total shutdown duration."""
         if not self.shutdown_started_at:
             return 0.0
-        end = self.shutdown_completed_at or datetime.now(timezone.utc)
+        _end=self.shutdown_completed_at or datetime.now(timezone.utc)
         return (end - self.shutdown_started_at).total_seconds()
 
 
@@ -208,34 +256,34 @@ class GracefulShutdownManager:
     - Timeout enforcement
     """
 
-    def __init__(self, config: Optional[ShutdownConfig] = None):
+    def __init__(self, config: Optional[ShutdownConfig] = None) -> None:
         """
         Initialize shutdown manager.
 
         Args:
             config: Shutdown configuration options
         """
-        self.config = config or ShutdownConfig()
+        self.config=config or ShutdownConfig()
         self._phase = ShutdownPhase.RUNNING
-        self._phase_lock = threading.Lock()
+        self._phase_lock=threading.Lock()
 
         # Request tracking
         self._active_requests: Dict[str, RequestContext] = {}
-        self._requests_lock = threading.Lock()
+        self._requests_lock=threading.Lock()
 
         # Cleanup hooks
         self._cleanup_hooks: List[tuple[str, Callable[[], None]]] = []
-        self._hooks_lock = threading.Lock()
+        self._hooks_lock=threading.Lock()
 
         # Health checks
         self._health_checks: Dict[str, Callable[[], bool]] = {}
-        self._health_lock = threading.Lock()
+        self._health_lock=threading.Lock()
 
         # Metrics
-        self.metrics = ShutdownMetrics()
+        self.metrics=ShutdownMetrics()
 
         # Shutdown event
-        self._shutdown_event = threading.Event()
+        self._shutdown_event=threading.Event()
 
         # Original signal handlers
         self._original_handlers: Dict[int, Any] = {}
@@ -361,7 +409,7 @@ class GracefulShutdownManager:
         Yields:
             RequestContext for the request
         """
-        context = RequestContext(request_id=request_id, **kwargs)
+        _context=RequestContext(request_id=request_id, **kwargs)
         self.track_request(context)
         try:
             yield context
@@ -397,7 +445,7 @@ class GracefulShutdownManager:
     def _run_cleanup_hooks(self) -> None:
         """Run all registered cleanup hooks."""
         with self._hooks_lock:
-            hooks = list(self._cleanup_hooks)
+            _hooks=list(self._cleanup_hooks)
 
         for name, hook in hooks:
             try:
@@ -412,7 +460,7 @@ class GracefulShutdownManager:
     # Shutdown Process
     # =========================================================================
 
-    def initiate_shutdown(self, reason: str = "Unknown") -> None:
+    def initiate_shutdown(self, reason: str="Unknown") -> None:
         """
         Initiate graceful shutdown.
 
@@ -425,7 +473,7 @@ class GracefulShutdownManager:
                 return
 
             self._phase = ShutdownPhase.DRAINING
-            self.metrics.shutdown_started_at = datetime.now(timezone.utc)
+            self.metrics.shutdown_started_at=datetime.now(timezone.utc)
 
         logger.info(f"Initiating graceful shutdown. Reason: {reason}")
 
@@ -455,7 +503,7 @@ class GracefulShutdownManager:
 
         except Exception as e:
             logger.error(f"Shutdown sequence error: {e}")
-            self.metrics.shutdown_completed_at = datetime.now(timezone.utc)
+            self.metrics.shutdown_completed_at=datetime.now(timezone.utc)
             sys.exit(self.config.exit_code_error)
 
     def _phase_draining(self) -> None:
@@ -490,12 +538,12 @@ class GracefulShutdownManager:
             self._phase = ShutdownPhase.COMPLETING
 
         _timeout = self.config.request_timeout_seconds
-        start_time = time.time()
+        _start_time=time.time()
         _poll_interval = 0.5
 
         while True:
             active = self.active_request_count
-            elapsed = time.time() - start_time
+            _elapsed=time.time() - start_time
 
             if active == 0:
                 logger.info("All requests completed")
@@ -510,9 +558,9 @@ class GracefulShutdownManager:
                 break
 
             # Log progress periodically
-            if int(elapsed) % 5 == 0 and int(elapsed) > 0:
+            if int(elapsed) % 5== 0 and int(elapsed) > 0:
                 remaining = timeout - elapsed
-                requests = self.get_active_requests()
+                _requests=self.get_active_requests()
                 logger.info(
                     f"Waiting for {active} requests. " f"Timeout in {remaining:.1f}s"
                 )
@@ -551,7 +599,7 @@ class GracefulShutdownManager:
         with self._phase_lock:
             self._phase = ShutdownPhase.TERMINATED
 
-        self.metrics.shutdown_completed_at = datetime.now(timezone.utc)
+        self.metrics.shutdown_completed_at=datetime.now(timezone.utc)
 
         total_time = self.metrics.total_shutdown_seconds
         logger.info(
@@ -604,7 +652,7 @@ class GracefulShutdownManager:
         with self._health_lock:
             for name, check in self._health_checks.items():
                 try:
-                    status = check()
+                    _status=check()
                     dependencies[name] = "healthy" if status else "unhealthy"
                     if not status and self._phase == ShutdownPhase.RUNNING:
                         is_healthy = False
@@ -638,7 +686,7 @@ class FlaskShutdownMiddleware:
     Integrates GracefulShutdownManager with Flask applications.
     """
 
-    def __init__(self, app: Any, shutdown_manager: GracefulShutdownManager):
+    def __init__(self, app: Any, shutdown_manager: GracefulShutdownManager) -> None:
         """
         Initialize middleware.
 
@@ -666,13 +714,13 @@ class FlaskShutdownMiddleware:
             return [b'{"error": "Service is shutting down"}']
 
         # Track request
-        request_id = environ.get("HTTP_X_REQUEST_ID", str(uuid.uuid4()))
+        _request_id=environ.get("HTTP_X_REQUEST_ID", str(uuid.uuid4()))
 
         with self.shutdown_manager.request_scope(
             _request_id = request_id,
-            _method = environ.get("REQUEST_METHOD", "UNKNOWN"),
-            _path = environ.get("PATH_INFO", "/"),
-            _client_ip = environ.get("REMOTE_ADDR", "unknown"),
+            _method=environ.get("REQUEST_METHOD", "UNKNOWN"),
+            _path=environ.get("PATH_INFO", "/"),
+            _client_ip=environ.get("REMOTE_ADDR", "unknown"),
         ):
             return self.app(environ, start_response)
 
@@ -689,7 +737,7 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager) -> Any:
     """
     from flask import Blueprint, jsonify
 
-    bp = Blueprint("shutdown", __name__)
+    _bp=Blueprint("shutdown", __name__)
 
     @bp.route("/health/live")
 
@@ -701,7 +749,7 @@ def create_shutdown_blueprint(shutdown_manager: GracefulShutdownManager) -> Any:
 
     def readiness() -> Any:
         """Readiness probe - returns 503 during shutdown."""
-        status = shutdown_manager.get_health_status()
+        _status=shutdown_manager.get_health_status()
         if status["healthy"]:
             return jsonify(status), 200
         return jsonify(status), 503
@@ -729,7 +777,7 @@ def get_shutdown_manager() -> GracefulShutdownManager:
     """Get or create global shutdown manager."""
     global _shutdown_manager
     if _shutdown_manager is None:
-        _shutdown_manager = GracefulShutdownManager()
+        _shutdown_manager=GracefulShutdownManager()
     return _shutdown_manager
 
 
@@ -748,15 +796,15 @@ def init_graceful_shutdown(
     """
     global _shutdown_manager
 
-    _shutdown_manager = GracefulShutdownManager(config)
+    _shutdown_manager=GracefulShutdownManager(config)
     _shutdown_manager.install_signal_handlers()
 
     if app is not None:
     # Wrap app with middleware
-        app.wsgi_app = FlaskShutdownMiddleware(app.wsgi_app, _shutdown_manager)
+        app.wsgi_app=FlaskShutdownMiddleware(app.wsgi_app, _shutdown_manager)
 
         # Register blueprint
-        bp = create_shutdown_blueprint(_shutdown_manager)
+        _bp=create_shutdown_blueprint(_shutdown_manager)
         app.register_blueprint(bp)
 
     return _shutdown_manager
@@ -813,11 +861,11 @@ if __name__ == "__main__":
     # Demo
 
     logging.basicConfig(
-        level=logging.DEBUG,
-        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level=logging.DEBUG,
+        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    manager = GracefulShutdownManager()
+    _manager=GracefulShutdownManager()
     manager.install_signal_handlers()
 
     # Register some test hooks

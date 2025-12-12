@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,7 +141,7 @@ import os
 import re
 import subprocess
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -133,18 +181,18 @@ class HardeningScanner:
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r") as f:
-                    content = f.read()
-                match = re.search(r"^PermitRootLogin\s+(\w+)", content, re.MULTILINE)
+                    _content=f.read()
+                _match=re.search(r"^PermitRootLogin\s+(\w+)", content, re.MULTILINE)
                 if match:
-                    value = match.group(1).lower()
-                    _passed = value in ("no", "prohibit-password")
+                    _value=match.group(1).lower()
+                    _passed=value in ("no", "prohibit-password")
                     details = f"PermitRootLogin is '{value}'"
                 else:
-                    details = "PermitRootLogin not explicitly set (defaults may vary)"
+                    _details="PermitRootLogin not explicitly set (defaults may vary)"
             except PermissionError:
                 details = "Permission denied reading sshd_config"
         else:
-            details = "sshd_config not found (SSH not installed?)"
+            _details="sshd_config not found (SSH not installed?)"
 
         self.results.append(
             AuditResult(
@@ -166,13 +214,13 @@ class HardeningScanner:
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r") as f:
-                    content = f.read()
+                    _content=f.read()
                 match = re.search(
                     r"^PasswordAuthentication\s+(\w+)", content, re.MULTILINE
                 )
                 if match:
-                    _passed = match.group(1).lower() == "no"
-                    details = f"PasswordAuthentication is '{match.group(1)}'"
+                    _passed=match.group(1).lower() == "no"
+                    _details=f"PasswordAuthentication is '{match.group(1)}'"
                 else:
                     details = "PasswordAuthentication not explicitly set"
             except PermissionError:
@@ -198,7 +246,7 @@ class HardeningScanner:
         if os.path.exists(sysctl_path):
             try:
                 with open(sysctl_path, "r") as f:
-                    value = f.read().strip()
+                    _value=f.read().strip()
                 passed = value == "0"
                 details = f"net.ipv4.ip_forward = {value}"
             except PermissionError:
@@ -226,17 +274,17 @@ class HardeningScanner:
         if os.path.exists(sb_path):
             try:
                 with open(sb_path, "rb") as f:
-                    data = f.read()
+                    _data=f.read()
                 # Last byte indicates state (1 = enabled)
                 if len(data) >= 5:
                     passed = data[4] == 1
-                    details = "Secure Boot is " + ("enabled" if passed else "disabled")
+                    _details="Secure Boot is " + ("enabled" if passed else "disabled")
             except PermissionError:
                 details = "Permission denied reading SecureBoot status"
         elif os.path.exists("/sys/firmware/efi"):
             details = "EFI system but SecureBoot var not found"
         else:
-            details = "Legacy BIOS system (no EFI)"
+            _details="Legacy BIOS system (no EFI)"
 
         self.results.append(
             AuditResult(
@@ -274,7 +322,7 @@ class HardeningScanner:
                     _text = True,
                     _timeout = 5,
                 )    # nosec B603, B607
-                if result.returncode == 0 and result.stdout.strip():
+                if result.returncode== 0 and result.stdout.strip():
                     passed = True
                     details = "nftables rules are configured"
             except (FileNotFoundError, subprocess.TimeoutExpired):
@@ -300,7 +348,7 @@ class HardeningScanner:
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r") as f:
-                    content = f.read()
+                    _content=f.read()
                 if 'Unattended-Upgrade "1"' in content:
                     passed = True
                     details = "Automatic security updates enabled"
@@ -331,9 +379,9 @@ class HardeningScanner:
                 _timeout = 30,
             )    # nosec B603, B607
             if result.stdout.strip():
-                files = result.stdout.strip().split("\n")
+                _files=result.stdout.strip().split("\n")
                 passed = False
-                details = f"Found {len(files)} world-writable files: {files[:3]}"
+                _details=f"Found {len(files)} world-writable files: {files[:3]}"
         except (FileNotFoundError, subprocess.TimeoutExpired):
             details = "Unable to scan"
 
@@ -349,9 +397,9 @@ class HardeningScanner:
         )
 
     def generate_report(self) -> str:
-        passed = sum(1 for r in self.results if r.passed)
-        total = len(self.results)
-        score = int((passed / total) * 100) if total > 0 else 0
+        _passed=sum(1 for r in self.results if r.passed)
+        _total=len(self.results)
+        _score=int((passed / total) * 100) if total > 0 else 0
 
         _lines = [
             "    # Security Hardening Report",
@@ -375,6 +423,6 @@ class HardeningScanner:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    scanner = HardeningScanner()
-    _results = scanner.run_scan()
+    _scanner=HardeningScanner()
+    _results=scanner.run_scan()
     print(scanner.generate_report())

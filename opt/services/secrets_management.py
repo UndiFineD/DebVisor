@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +150,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, cast
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class SecretType(Enum):
@@ -164,17 +212,17 @@ class SecretMetadata:
 
     path: str
     secret_type: SecretType
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     rotated_at: Optional[datetime] = None
     expires_at: Optional[datetime] = None
     owner: str = ""
     description: str = ""
     tags: Dict[str, str] = field(default_factory=dict)
-    rotation_policy: RotationPolicy = field(default_factory=RotationPolicy)
+    rotation_policy: RotationPolicy=field(default_factory=RotationPolicy)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary with ISO format dates."""
-        d = asdict(self)
+        _d=asdict(self)
         if self.created_at:
             d["created_at"] = self.created_at.isoformat()
         if self.rotated_at:
@@ -187,7 +235,7 @@ class SecretMetadata:
 class VaultSecretsManager:
     """Manage secrets using HashiCorp Vault."""
 
-    def __init__(self, config: VaultConfig):
+    def __init__(self, config: VaultConfig) -> None:
         """
         Initialize Vault secrets manager.
 
@@ -198,7 +246,7 @@ class VaultSecretsManager:
             ConnectionError: If cannot connect to Vault
         """
         self.config = config
-        self.client = self._initialize_client()
+        self.client=self._initialize_client()
         self.audit_log: List[Dict[str, Any]] = []
         self.secrets_cache: Dict[str, Tuple[Any, datetime]] = {}
 
@@ -221,18 +269,18 @@ class VaultSecretsManager:
             elif self.config.auth_method == "kubernetes":
             # Kubernetes auth with in-cluster service account
                 with open("/var/run/secrets/kubernetes.io/serviceaccount/token") as f:
-                    jwt = f.read()
+                    _jwt=f.read()
 
                 client.auth.kubernetes.login(
-                    role="debvisor-app",
+                    _role="debvisor-app",
                     _jwt = jwt,
                 )
                 logger.info("Authenticated with Kubernetes auth method")
 
             elif self.config.auth_method == "approle":
             # AppRole authentication for service-to-service
-                role_id = self._read_secret_file("/etc/vault/role-id")
-                secret_id = self._read_secret_file("/etc/vault/secret-id")
+                _role_id=self._read_secret_file("/etc/vault/role-id")
+                _secret_id=self._read_secret_file("/etc/vault/secret-id")
 
                 client.auth.approle.login(
                     _role_id = role_id,
@@ -309,7 +357,7 @@ class VaultSecretsManager:
                 _action = "store_secret",
                 _resource = name,
                 _result = "success",
-                _metadata = metadata.to_dict() if metadata else {},
+                _metadata=metadata.to_dict() if metadata else {},
             )
 
             logger.info(f"Stored secret: {name}")
@@ -320,7 +368,7 @@ class VaultSecretsManager:
                 _action = "store_secret",
                 _resource = name,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to store secret {name}: {str(e)}")
             raise
@@ -355,8 +403,8 @@ class VaultSecretsManager:
 
         try:
         # Retrieve from Vault
-            response = self.client.secrets.kv.v2.read_secret_version(path=path)
-            secret_data = cast(Dict[str, Any], response["data"]["data"])
+            _response=self.client.secrets.kv.v2.read_secret_version(path=path)
+            _secret_data=cast(Dict[str, Any], response["data"]["data"])
 
             # Cache result
             if use_cache:
@@ -374,9 +422,9 @@ class VaultSecretsManager:
 
         except hvac.exceptions.InvalidPath:
             self._log_audit_event(
-                action="retrieve_secret",
-                resource=name,
-                result="not_found",
+                _action="retrieve_secret",
+                _resource=name,
+                _result="not_found",
             )
             logger.error(f"Secret not found: {name}")
             raise
@@ -386,7 +434,7 @@ class VaultSecretsManager:
                 _action = "retrieve_secret",
                 _resource = name,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to retrieve secret {name}: {str(e)}")
             raise
@@ -412,15 +460,15 @@ class VaultSecretsManager:
 
         try:
         # Get current version metadata
-            current = self.client.secrets.kv.v2.read_secret_version(path=path)
-            metadata = current.get("metadata", {})
+            _current=self.client.secrets.kv.v2.read_secret_version(path=path)
+            _metadata=current.get("metadata", {})
 
             # Log rotation
             self._log_audit_event(
                 _action = "rotate_secret",
                 _resource = name,
                 _result = "initiated",
-                metadata={
+                _metadata={
                     "previous_version": metadata.get("version"),
                     "approval_required": require_approval,
                 },
@@ -441,7 +489,7 @@ class VaultSecretsManager:
                 _action = "rotate_secret",
                 _resource = name,
                 _result = "completed",
-                metadata={
+                _metadata={
                     "new_version": metadata.get("version", 0) + 1,
                     "rotated_at": datetime.now(timezone.utc).isoformat(),
                 },
@@ -455,12 +503,12 @@ class VaultSecretsManager:
                 _action = "rotate_secret",
                 _resource = name,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to rotate secret {name}: {str(e)}")
             raise
 
-    def delete_secret(self, name: str, purge: bool = False) -> bool:
+    def delete_secret(self, name: str, purge: bool=False) -> bool:
         """
         Delete secret from Vault.
 
@@ -480,7 +528,7 @@ class VaultSecretsManager:
             if purge:
             # Permanently delete all versions
                 self.client.secrets.kv.v2.destroy_secret_version(
-                    path=path, version=None
+                    _path=path, version=None
                 )
                 logger.info(f"Permanently purged secret: {name}")
             else:
@@ -507,7 +555,7 @@ class VaultSecretsManager:
                 _action = "delete_secret",
                 _resource = name,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to delete secret {name}: {str(e)}")
             raise
@@ -532,7 +580,7 @@ class VaultSecretsManager:
 
         try:
             response = self.client.secrets.database.generate_credentials(
-                name=database_role,
+                _name=database_role,
                 _static = False,
             )
 
@@ -562,7 +610,7 @@ class VaultSecretsManager:
                 _action = "generate_credentials",
                 _resource = database_role,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to generate credentials: {str(e)}")
             raise
@@ -588,9 +636,9 @@ class VaultSecretsManager:
         try:
             alt_names = alt_names or []
             response = self.client.secrets.pki.generate_certificate(
-                name="debvisor-cert",
+                _name="debvisor-cert",
                 _common_name = common_name,
-                _alt_names = ", ".join(alt_names) if alt_names else None,
+                _alt_names=", ".join(alt_names) if alt_names else None,
             )
 
             certificate = {
@@ -621,12 +669,12 @@ class VaultSecretsManager:
                 _action = "issue_certificate",
                 _resource = common_name,
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to issue certificate: {str(e)}")
             raise
 
-    def list_secrets(self, pattern: str = "") -> List[str]:
+    def list_secrets(self, pattern: str="") -> List[str]:
         """
         List secrets matching pattern.
 
@@ -639,8 +687,8 @@ class VaultSecretsManager:
         path = f"secret/metadata/{self.config.namespace}"
 
         try:
-            response = self.client.secrets.kv.v2.list_secrets(path=path)
-            keys = cast(List[str], response["data"]["keys"])
+            _response=self.client.secrets.kv.v2.list_secrets(path=path)
+            _keys=cast(List[str], response["data"]["keys"])
 
             # Filter by pattern if provided
             if pattern:
@@ -650,7 +698,7 @@ class VaultSecretsManager:
                 _action = "list_secrets",
                 _resource = "*",
                 _result = "success",
-                _metadata = {"count": len(keys), "pattern": pattern},
+                _metadata={"count": len(keys), "pattern": pattern},
             )
 
             return keys
@@ -660,12 +708,12 @@ class VaultSecretsManager:
                 _action = "list_secrets",
                 _resource = "*",
                 _result = "failed",
-                error=str(e),
+                _error=str(e),
             )
             logger.error(f"Failed to list secrets: {str(e)}")
             return []
 
-    def setup_audit_logging(self, enable: bool = True) -> bool:
+    def setup_audit_logging(self, enable: bool=True) -> bool:
         """Enable Vault audit logging."""
         try:
             if enable:
@@ -707,7 +755,7 @@ class VaultSecretsManager:
         # Use default=str to handle any remaining non-serializable objects
         logger.debug(f"Audit event: {json.dumps(event, default=str)}")
 
-    def get_audit_log(self, limit: int = 100) -> List[Dict[str, Any]]:
+    def get_audit_log(self, limit: int=100) -> List[Dict[str, Any]]:
         """Get recent audit events."""
         return self.audit_log[-limit:]
 

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,12 +152,12 @@ try:
     from opt.core.logging import configure_logging
 
     configure_logging(service_name="backup-manager")
-    logger = logging.getLogger("backup-manager")
+    _logger=logging.getLogger("backup-manager")
 except ImportError:
     logging.basicConfig(
-        _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
-    logger = logging.getLogger(__name__)
+    _logger=logging.getLogger(__name__)
 
 # Try to import cryptography
 try:
@@ -143,9 +191,9 @@ class BackupEncryption:
 
     CHUNK_SIZE = 64 * 1024 * 1024    # 64MB chunks
 
-    def __init__(self, key_path: str = "/etc/debvisor/backup.key"):
+    def __init__(self, key_path: str="/etc/debvisor/backup.key") -> None:
         self.key_path = key_path
-        self._key = self._load_or_generate_key()
+        self._key=self._load_or_generate_key()
 
     def _load_or_generate_key(self) -> bytes:
         """Load master key or generate if missing."""
@@ -162,7 +210,7 @@ class BackupEncryption:
 
         # Generate new 256-bit key
         logger.info(f"Generating new master key at {self.key_path}")
-        key = AESGCM.generate_key(bit_length=256)
+        _key=AESGCM.generate_key(bit_length=256)
         try:
             os.makedirs(os.path.dirname(self.key_path), exist_ok=True)
             with open(self.key_path, "wb") as f:
@@ -185,12 +233,12 @@ class BackupEncryption:
             raise RuntimeError("Encryption not available")
 
         # Generate Data Encryption Key (DEK)
-        dek = AESGCM.generate_key(bit_length=256)
-        dek_nonce = os.urandom(12)
+        _dek=AESGCM.generate_key(bit_length=256)
+        _dek_nonce=os.urandom(12)
 
         # Encrypt DEK with Master Key
-        master_gcm = AESGCM(self._key)
-        encrypted_dek = master_gcm.encrypt(dek_nonce, dek, None)
+        _master_gcm=AESGCM(self._key)
+        _encrypted_dek=master_gcm.encrypt(dek_nonce, dek, None)
 
         _header = {
             "version": 2,
@@ -200,7 +248,7 @@ class BackupEncryption:
             "encrypted_dek": base64.b64encode(encrypted_dek).decode("utf-8"),
         }
 
-        _file_gcm = AESGCM(dek)
+        _file_gcm=AESGCM(dek)
 
         try:
             with open(input_path, "rb") as fin, open(output_path, "wb") as fout:
@@ -208,17 +256,17 @@ class BackupEncryption:
                 fout.write(json.dumps(header).encode("utf-8") + b"\n")
 
                 while True:
-                    chunk = fin.read(self.CHUNK_SIZE)
+                    _chunk=fin.read(self.CHUNK_SIZE)
                     if not chunk:
                         break
 
                     # Generate unique nonce for each chunk
-                    chunk_nonce = os.urandom(12)
-                    ciphertext = file_gcm.encrypt(chunk_nonce, chunk, None)
+                    _chunk_nonce=os.urandom(12)
+                    _ciphertext=file_gcm.encrypt(chunk_nonce, chunk, None)
 
                     # Write chunk: Length (4 bytes) + Nonce (12 bytes) + Ciphertext
                     # Length includes nonce and ciphertext/tag
-                    chunk_len = len(chunk_nonce) + len(ciphertext)
+                    _chunk_len=len(chunk_nonce) + len(ciphertext)
                     fout.write(chunk_len.to_bytes(4, byteorder="big"))
                     fout.write(chunk_nonce)
                     fout.write(ciphertext)
@@ -237,38 +285,38 @@ class BackupEncryption:
         try:
             with open(input_path, "rb") as fin:
             # Read header
-                header_line = fin.readline()
-                header = json.loads(header_line)
+                _header_line=fin.readline()
+                _header=json.loads(header_line)
 
                 if header.get("algo") != "AES-256-GCM":
                     raise ValueError(f"Unsupported algorithm: {header.get('algo')}")
 
                 # Decrypt DEK
-                dek_nonce = base64.b64decode(header["dek_nonce"])
-                encrypted_dek = base64.b64decode(header["encrypted_dek"])
-                master_gcm = AESGCM(self._key)
-                dek = master_gcm.decrypt(dek_nonce, encrypted_dek, None)
+                _dek_nonce=base64.b64decode(header["dek_nonce"])
+                _encrypted_dek=base64.b64decode(header["encrypted_dek"])
+                _master_gcm=AESGCM(self._key)
+                _dek=master_gcm.decrypt(dek_nonce, encrypted_dek, None)
 
-                _file_gcm = AESGCM(dek)
+                _file_gcm=AESGCM(dek)
 
                 with open(output_path, "wb") as fout:
                     if header.get("chunked"):
                         while True:
-                            len_bytes = fin.read(4)
+                            _len_bytes=fin.read(4)
                             if not len_bytes:
                                 break
-                            chunk_len = int.from_bytes(len_bytes, byteorder="big")
+                            _chunk_len=int.from_bytes(len_bytes, byteorder="big")
 
-                            chunk_nonce = fin.read(12)
-                            ciphertext = fin.read(chunk_len - 12)
+                            _chunk_nonce=fin.read(12)
+                            _ciphertext=fin.read(chunk_len - 12)
 
-                            plaintext = file_gcm.decrypt(chunk_nonce, ciphertext, None)
+                            _plaintext=file_gcm.decrypt(chunk_nonce, ciphertext, None)
                             fout.write(plaintext)
                     else:
                     # Legacy non-chunked format (v1)
-                        file_nonce = base64.b64decode(header["file_nonce"])
-                        ciphertext = fin.read()
-                        plaintext = file_gcm.decrypt(file_nonce, ciphertext, None)
+                        _file_nonce=base64.b64decode(header["file_nonce"])
+                        _ciphertext=fin.read()
+                        _plaintext=file_gcm.decrypt(file_nonce, ciphertext, None)
                         fout.write(plaintext)
 
             logger.info(f"Decrypted {input_path} to {output_path}")
@@ -291,16 +339,16 @@ class ZFSBackend:
         """Helper to run async subprocess commands."""
         process = await asyncio.create_subprocess_exec(
             *args,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+            _stdout=asyncio.subprocess.PIPE,
+            _stderr=asyncio.subprocess.PIPE,
             _stdin = asyncio.subprocess.PIPE if input_data else None,
         )
 
-        stdout, stderr = await process.communicate(input=input_data)
+        stdout, stderr=await process.communicate(input=input_data)
 
         if process.returncode != 0:
-            cmd_str = " ".join(args)
-            err_msg = stderr.decode().strip()
+            _cmd_str=" ".join(args)
+            _err_msg=stderr.decode().strip()
             raise Exception(f"Command failed: {cmd_str}\nError: {err_msg}")
 
         return stdout
@@ -337,7 +385,7 @@ class ZFSBackend:
         send_cmd.append(snap_name)
 
         if is_remote:
-            user_host, dest_pool = target.split(":")
+            user_host, dest_pool=target.split(":")
             recv_cmd = ["ssh", user_host, "zfs", "recv", "-F", dest_pool]
         else:
             recv_cmd = ["zfs", "recv", "-F", target]
@@ -345,14 +393,14 @@ class ZFSBackend:
         # Use a shell pipeline string for the replication specifically,
         # as it's the most robust way to pipe streams without buffering in Python.
 
-        full_cmd = f"{' '.join(send_cmd)} | {' '.join(recv_cmd)}"
+        _full_cmd=f"{' '.join(send_cmd)} | {' '.join(recv_cmd)}"
         logger.info(f"Executing pipeline: {full_cmd}")
 
         pipeline = await asyncio.create_subprocess_shell(
             full_cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
 
-        stdout, stderr = await pipeline.communicate()
+        stdout, stderr=await pipeline.communicate()
 
         if pipeline.returncode != 0:
             raise Exception(f"Replication failed: {stderr.decode()}")
@@ -364,7 +412,7 @@ class ZFSBackend:
             process = await asyncio.create_subprocess_exec(
                 "zfs", "send", snap_name, stdout=f, stderr=asyncio.subprocess.PIPE
             )
-            _, stderr = await process.communicate()
+            _, stderr=await process.communicate()
             if process.returncode != 0:
                 raise Exception(f"Export failed: {stderr.decode()}")
 
@@ -378,7 +426,7 @@ class CephBackend:
         process = await asyncio.create_subprocess_exec(
             *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
-        stdout, stderr = await process.communicate()
+        stdout, stderr=await process.communicate()
         if process.returncode != 0:
             raise Exception(f"Command failed: {stderr.decode()}")
         return stdout
@@ -396,7 +444,7 @@ class CephBackend:
             )
             import json
 
-            snaps = json.loads(out.decode())
+            _snaps=json.loads(out.decode())
             return [f"{dataset}@{s['name']}" for s in snaps]
         except Exception:
             return []
@@ -409,7 +457,7 @@ class CephBackend:
         """Export snapshot to file."""
         logger.info(f"Exporting {snap_name} to {output_path}")
         # rbd export pool/image@snap path
-        dataset, snap = snap_name.split("@")
+        dataset, snap=snap_name.split("@")
         await self._run_command(["rbd", "export", snap_name, output_path])
 
 
@@ -420,16 +468,16 @@ class BackupManager:
 
     def __init__(self) -> None:
         self.policies: List[BackupPolicy] = []
-        self.zfs = ZFSBackend()
-        self.ceph = CephBackend()
-        self.encryption = BackupEncryption()
+        self.zfs=ZFSBackend()
+        self.ceph=CephBackend()
+        self.encryption=BackupEncryption()
 
     def add_policy(self, policy: BackupPolicy) -> None:
         self.policies.append(policy)
 
     async def run_policy(self, policy: BackupPolicy) -> None:
         logger.info(f"Running policy: {policy.name}")
-        timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        _timestamp=datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         tag = f"auto-{timestamp}"
 
         backend: Union[ZFSBackend, CephBackend] = (
@@ -438,13 +486,13 @@ class BackupManager:
 
         try:
         # 1. Create Snapshot
-            _snap_name = await backend.create_snapshot(policy.dataset, tag)
+            _snap_name=await backend.create_snapshot(policy.dataset, tag)
 
             # 2. Replicate (if ZFS and target set)
             if policy.backend == "zfs" and policy.replication_target:
                 assert isinstance(backend, ZFSBackend)
-                snaps = await backend.list_snapshots(policy.dataset)
-                auto_snaps = sorted([s for s in snaps if "auto-" in s])
+                _snaps=await backend.list_snapshots(policy.dataset)
+                _auto_snaps=sorted([s for s in snaps if "auto-" in s])
                 prev_snap = None
                 if len(auto_snaps) > 1:
                     prev_snap = auto_snaps[-2]
@@ -456,9 +504,9 @@ class BackupManager:
                 export_dir = "/var/backups/exports"
                 os.makedirs(export_dir, exist_ok=True)
 
-                safe_name = snap_name.replace("/", "_").replace("@", "_")
-                export_path = os.path.join(export_dir, f"{safe_name}.raw")
-                encrypted_path = os.path.join(export_dir, f"{safe_name}.enc")
+                _safe_name=snap_name.replace("/", "_").replace("@", "_")
+                _export_path=os.path.join(export_dir, f"{safe_name}.raw")
+                _encrypted_path=os.path.join(export_dir, f"{safe_name}.enc")
 
                 try:
                     await backend.export_snapshot(snap_name, export_path)
@@ -477,8 +525,8 @@ class BackupManager:
     async def _prune(
         self, policy: BackupPolicy, backend: Union[ZFSBackend, CephBackend]
     ) -> None:
-        snaps = await backend.list_snapshots(policy.dataset)
-        auto_snaps = sorted([s for s in snaps if "auto-" in s])
+        _snaps=await backend.list_snapshots(policy.dataset)
+        _auto_snaps=sorted([s for s in snaps if "auto-" in s])
 
         total_to_keep = policy.retention_hourly + policy.retention_daily
 
@@ -489,7 +537,7 @@ class BackupManager:
 
 
 async def async_main() -> int:
-    parser = argparse.ArgumentParser(description="DebVisor Backup Manager")
+    _parser=argparse.ArgumentParser(description="DebVisor Backup Manager")
     parser.add_argument(
         "--run-all", action="store_true", help="Run all policies immediately"
     )
@@ -497,9 +545,9 @@ async def async_main() -> int:
         "--daemon", action="store_true", help="Run in daemon mode (scheduler)"
     )
 
-    _args = parser.parse_args()
+    _args=parser.parse_args()
 
-    mgr = BackupManager()
+    _mgr=BackupManager()
 
     # Example Policy
     mgr.add_policy(
@@ -513,7 +561,7 @@ async def async_main() -> int:
     )
 
     if args.run_all:
-        tasks = [mgr.run_policy(p) for p in mgr.policies]
+        _tasks=[mgr.run_policy(p) for p in mgr.policies]
         await asyncio.gather(*tasks)
 
     elif args.daemon:

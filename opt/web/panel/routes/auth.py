@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,14 +153,14 @@ from urllib.parse import urlparse, urljoin
 
 def is_safe_url(target: str) -> bool:
     """Ensure a URL is safe for redirection (prevents open redirects)."""
-    ref_url = urlparse(request.host_url)
-    test_url = urlparse(urljoin(request.host_url, target))
+    _ref_url=urlparse(request.host_url)
+    _test_url=urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc
 
 
 # Create blueprint
-auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
+_auth_bp=Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
@@ -134,9 +182,9 @@ def login() -> Any:
         return redirect(url_for("main.dashboard"))
 
     if request.method == "POST":
-        username = request.form.get("username", "").strip()
-        password = request.form.get("password", "")
-        _remember_me = request.form.get("remember_me") is not None
+        _username=request.form.get("username", "").strip()
+        _password=request.form.get("password", "")
+        _remember_me=request.form.get("remember_me") is not None
 
         # Validate input
         if not username or not password:
@@ -145,7 +193,7 @@ def login() -> Any:
 
         # Find user by username or email
         user = User.query.filter(
-            (User.username == username) | (User.email == username)
+            (User.username== username) | (User.email== username)
         ).first()
 
         # Verify user exists and password is correct
@@ -158,17 +206,17 @@ def login() -> Any:
                 _operation = "read",
                 _resource_type = "user",
                 _action = f"Failed login attempt for {username}",
-                status="failure",
+                _status="failure",
                 _status_code = 401,
                 _ip_address = request.remote_addr,
-                _user_agent = request.headers.get("User-Agent"),
+                _user_agent=request.headers.get("User-Agent"),
             )
             # Exponential backoff: impose a delay based on recent failures for this IP
             # Sliding window approximation via limiter; add small sleep to deter brute force
             try:
-                failure_count = int(session.get("login_failures", 0)) + 1
+                _failure_count=int(session.get("login_failures", 0)) + 1
                 session["login_failures"] = failure_count
-                delay_seconds = min(8, 2 ** min(3, failure_count - 1))
+                _delay_seconds=min(8, 2 ** min(3, failure_count - 1))
                 time.sleep(delay_seconds / 10.0)  # type: ignore[name-defined]
             except Exception as e:
                 current_app.logger.debug(f"Delay calculation error: {e}")
@@ -189,18 +237,18 @@ def login() -> Any:
             _operation = "read",
             _resource_type = "user",
             _action = f"User {user.username} logged in",
-            status="success",
+            _status="success",
             _status_code = 200,
             _ip_address = request.remote_addr,
-            _user_agent = request.headers.get("User-Agent"),
+            _user_agent=request.headers.get("User-Agent"),
         )
 
         flash(f"Welcome back, {user.full_name or user.username}!", "success")
-        next_page = request.args.get("next")
+        _next_page=request.args.get("next")
 
         # Validate next_page to prevent open redirects
         if not next_page or not is_safe_url(next_page):
-            next_page = url_for("main.dashboard")
+            _next_page=url_for("main.dashboard")
 
         return redirect(next_page)
 
@@ -255,11 +303,11 @@ def register() -> Any:
         return redirect(url_for("main.dashboard"))
 
     if request.method == "POST":
-        username = request.form.get("username", "").strip().lower()
-        _email = request.form.get("email", "").strip().lower()
-        password = request.form.get("password", "")
-        _password_confirm = request.form.get("password_confirm", "")
-        _full_name = request.form.get("full_name", "").strip()
+        _username=request.form.get("username", "").strip().lower()
+        _email=request.form.get("email", "").strip().lower()
+        _password=request.form.get("password", "")
+        _password_confirm=request.form.get("password_confirm", "")
+        _full_name=request.form.get("full_name", "").strip()
 
         # Validate input
         errors = []
@@ -289,7 +337,7 @@ def register() -> Any:
             return redirect(url_for("auth.register"))
 
         # Create new user
-        user = User(username=username, email=email, full_name=full_name)
+        _user=User(username=username, email=email, full_name=full_name)
         user.set_password(password)
 
         db.session.add(user)
@@ -325,11 +373,11 @@ def profile() -> Any:
     POST: Update user information
     """
     if request.method == "POST":
-        full_name = request.form.get("full_name", "").strip()
-        email = request.form.get("email", "").strip().lower()
-        _current_password = request.form.get("current_password", "")
-        new_password = request.form.get("new_password", "")
-        _new_password_confirm = request.form.get("new_password_confirm", "")
+        _full_name=request.form.get("full_name", "").strip()
+        _email=request.form.get("email", "").strip().lower()
+        _current_password=request.form.get("current_password", "")
+        _new_password=request.form.get("new_password", "")
+        _new_password_confirm=request.form.get("new_password_confirm", "")
 
         # Update profile fields
         if full_name:
@@ -386,10 +434,10 @@ def list_users() -> Any:
 
     GET: Display paginated user list
     """
-    page = request.args.get("page", 1, type=int)
+    _page=request.args.get("page", 1, type=int)
     per_page = 20
 
-    pagination = User.query.paginate(page=page, per_page=per_page)
+    _pagination=User.query.paginate(page=page, per_page=per_page)
     users = pagination.items
 
     return render_template("auth/users.html", users=users, pagination=pagination)
@@ -413,19 +461,19 @@ def password_reset() -> Any:
     POST: Accept email and enqueue reset instructions (placeholder implementation)
     """
     if request.method == "POST":
-        email = request.form.get("email", "").strip().lower()
+        _email=request.form.get("email", "").strip().lower()
         if not email or "@" not in email:
             flash("Valid email address required", "error")
             return redirect(url_for("auth.password_reset"))
 
-        user = User.query.filter_by(email=email).first()
+        _user=User.query.filter_by(email=email).first()
         if not user:
         # Avoid user enumeration: respond success regardless
             AuditLog.log_operation(
                 _user_id = None,
                 _operation = "read",
                 _resource_type = "user",
-                _action = f"Password reset requested for {email} (no account)",
+                _action=f"Password reset requested for {email} (no account)",
                 _status = "success",
                 _ip_address = request.remote_addr,
             )
@@ -433,8 +481,8 @@ def password_reset() -> Any:
             return redirect(url_for("auth.login"))
 
         # Generate time-limited reset token and enqueue email (placeholder)
-        s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
-        token = s.dumps({"uid": user.id, "email": user.email}, salt="reset")
+        _s=URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+        _token=s.dumps({"uid": user.id, "email": user.email}, salt="reset")
 
         send_password_reset(email=user.email, token=token)
 
@@ -460,7 +508,7 @@ def password_reset() -> Any:
 
 def reset_verify() -> Any:
     """Verify reset token and set new password."""
-    s = URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
+    _s=URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
     token = (
         request.args.get("token")
         if request.method == "GET"
@@ -472,8 +520,8 @@ def reset_verify() -> Any:
         return render_template("auth/reset_verify.html", token=token)
 
     # POST: apply new password
-    new_password = request.form.get("password", "")
-    confirm = request.form.get("password_confirm", "")
+    _new_password=request.form.get("password", "")
+    _confirm=request.form.get("password_confirm", "")
     if not new_password or new_password != confirm or len(new_password) < 8:
         flash("Invalid password or mismatch", "error")
         return redirect(url_for("auth.reset_verify", token=token))
@@ -483,7 +531,7 @@ def reset_verify() -> Any:
         return redirect(url_for("auth.password_reset"))
 
     try:
-        data = s.loads(token, salt="reset", max_age=3600)
+        _data=s.loads(token, salt="reset", max_age=3600)
     except SignatureExpired:
         flash("Reset link expired", "error")
         return redirect(url_for("auth.password_reset"))
@@ -491,7 +539,7 @@ def reset_verify() -> Any:
         flash("Invalid reset link", "error")
         return redirect(url_for("auth.password_reset"))
 
-    user = User.query.get(int(data.get("uid")))
+    _user=User.query.get(int(data.get("uid")))
     if not user or user.email != data.get("email"):
         flash("Invalid reset link", "error")
         return redirect(url_for("auth.password_reset"))
@@ -529,7 +577,7 @@ def disable_user(user_id: int) -> Any:
         flash("Cannot disable your own account", "error")
         return redirect(url_for("auth.list_users"))
 
-    user = User.query.get(user_id)
+    _user=User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
@@ -539,12 +587,12 @@ def disable_user(user_id: int) -> Any:
 
     # Log user disable
     AuditLog.log_operation(
-        user_id=current_user.id,
+        _user_id=current_user.id,
         _operation = "update",
         _resource_type = "user",
         _action = f"Disabled user account: {user.username}",
         _status = "success",
-        _resource_id = str(user_id),
+        _resource_id=str(user_id),
         _ip_address = request.remote_addr,
     )
 
@@ -565,7 +613,7 @@ def enable_user(user_id: int) -> Any:
 
     POST: Set is_active to True
     """
-    user = User.query.get(user_id)
+    _user=User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
@@ -575,12 +623,12 @@ def enable_user(user_id: int) -> Any:
 
     # Log user enable
     AuditLog.log_operation(
-        user_id=current_user.id,
+        _user_id=current_user.id,
         _operation = "update",
         _resource_type = "user",
         _action = f"Enabled user account: {user.username}",
         _status = "success",
-        _resource_id = str(user_id),
+        _resource_id=str(user_id),
         _ip_address = request.remote_addr,
     )
 
@@ -605,7 +653,7 @@ def delete_user(user_id: int) -> Any:
         flash("Cannot delete your own account", "error")
         return redirect(url_for("auth.list_users"))
 
-    user = User.query.get(user_id)
+    _user=User.query.get(user_id)
     if not user:
         flash("User not found", "error")
         return redirect(url_for("auth.list_users"))
@@ -616,12 +664,12 @@ def delete_user(user_id: int) -> Any:
 
     # Log user deletion
     AuditLog.log_operation(
-        user_id=current_user.id,
+        _user_id=current_user.id,
         _operation = "delete",
         _resource_type = "user",
         _action = f"Deleted user account: {username}",
         _status = "success",
-        _resource_id = str(user_id),
+        _resource_id=str(user_id),
         _ip_address = request.remote_addr,
     )
 

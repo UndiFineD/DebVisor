@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +139,7 @@ from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
-storage_bp = Blueprint("storage", __name__, url_prefix="/storage")
+_storage_bp=Blueprint("storage", __name__, url_prefix="/storage")
 
 
 @storage_bp.route("/snapshots", methods=["GET"])
@@ -105,18 +153,18 @@ def list_snapshots() -> Any:
 
     GET: Display paginated snapshot list
     """
-    page = request.args.get("page", 1, type=int)
+    _page=request.args.get("page", 1, type=int)
     _per_page = 20
-    node_id = request.args.get("node_id", None, type=int)
-    status_filter = request.args.get("status", None)
+    _node_id=request.args.get("node_id", None, type=int)
+    _status_filter=request.args.get("status", None)
 
     query = Snapshot.query
     if node_id:
-        query = query.filter_by(node_id=node_id)
+        _query=query.filter_by(node_id=node_id)
     if status_filter:
-        query = query.filter_by(status=status_filter)
+        _query=query.filter_by(status=status_filter)
 
-    pagination = query.order_by(Snapshot.created_at.desc()).paginate(
+    _pagination=query.order_by(Snapshot.created_at.desc()).paginate(
         _page = page, per_page=per_page
     )
     _snapshots = pagination.items
@@ -147,7 +195,7 @@ def view_snapshot(snapshot_id: int) -> Any:
 
     GET: Display snapshot information and status
     """
-    snapshot = Snapshot.query.get(snapshot_id)
+    _snapshot=Snapshot.query.get(snapshot_id)
     if not snapshot:
         flash("Snapshot not found", "error")
         return redirect(url_for("storage.list_snapshots"))
@@ -159,7 +207,7 @@ def view_snapshot(snapshot_id: int) -> Any:
         _resource_type = "snapshot",
         _action = f"Viewed snapshot: {snapshot.name}",
         _status = "success",
-        _resource_id = str(snapshot_id),
+        _resource_id=str(snapshot_id),
         _ip_address = request.remote_addr,
     )
 
@@ -179,14 +227,14 @@ def create_snapshot() -> Any:
     POST: Create snapshot via RPC service
     """
     # Get list of nodes for selection
-    _nodes = Node.get_healthy_nodes()
+    _nodes=Node.get_healthy_nodes()
 
     if request.method == "POST":
-        node_id = request.form.get("node_id", type=int)
-        source_volume = request.form.get("source_volume", "").strip()
-        _name = request.form.get("name", "").strip()
-        _retention_days = request.form.get("retention_days", 30, type=int)
-        _description = request.form.get("description", "").strip()
+        _node_id=request.form.get("node_id", type=int)
+        _source_volume=request.form.get("source_volume", "").strip()
+        _name=request.form.get("name", "").strip()
+        _retention_days=request.form.get("retention_days", 30, type=int)
+        _description=request.form.get("description", "").strip()
 
         # Validate input
         errors = []
@@ -205,31 +253,31 @@ def create_snapshot() -> Any:
             return redirect(url_for("storage.create_snapshot"))
 
         # Verify node exists
-        node = Node.query.get(node_id)
+        _node=Node.query.get(node_id)
         if not node:
             flash("Selected node not found", "error")
             return redirect(url_for("storage.create_snapshot"))
 
         try:
         # Create snapshot via RPC service
-            rpc_client = get_rpc_client()
+            _rpc_client=get_rpc_client()
             _rpc_response = rpc_client.create_snapshot(
                 _node_id = node.node_id,
                 _source_volume = source_volume,
-                name=name,
-                retention_days=retention_days,
+                _name=name,
+                _retention_days=retention_days,
             )
 
             # Save snapshot to database
-            _expires_at = datetime.now(timezone.utc) + timedelta(days=retention_days)
+            _expires_at=datetime.now(timezone.utc) + timedelta(days=retention_days)
             snapshot = Snapshot(
-                _snapshot_id = rpc_response.get("snapshot_id"),
+                _snapshot_id=rpc_response.get("snapshot_id"),
                 _name = name,
                 _node_id = node_id,
                 _source_volume = source_volume,
                 _description = description,
-                _size_gb = rpc_response.get("size_gb", 0),
-                _status = rpc_response.get("status", "pending"),
+                _size_gb=rpc_response.get("size_gb", 0),
+                _status=rpc_response.get("status", "pending"),
                 _retention_days = retention_days,
                 _expires_at = expires_at,
             )
@@ -243,7 +291,7 @@ def create_snapshot() -> Any:
                 _resource_type = "snapshot",
                 _action = f"Created snapshot: {name} on {node.hostname}",
                 _status = "success",
-                _resource_id = str(snapshot.id),
+                _resource_id=str(snapshot.id),
                 _request_data = {"node": node.hostname, "volume": source_volume},
                 _rpc_method = "CreateSnapshot",
                 _ip_address = request.remote_addr,
@@ -260,7 +308,7 @@ def create_snapshot() -> Any:
                 _resource_type = "snapshot",
                 _action = f"Failed to create snapshot: {name}",
                 _status = "failure",
-                _error_message = str(e),
+                _error_message=str(e),
                 _rpc_method = "CreateSnapshot",
                 _ip_address = request.remote_addr,
             )
@@ -279,14 +327,14 @@ def delete_snapshot(snapshot_id: int) -> Any:
 
     POST: Delete snapshot via RPC service
     """
-    snapshot = Snapshot.query.get(snapshot_id)
+    _snapshot=Snapshot.query.get(snapshot_id)
     if not snapshot:
         flash("Snapshot not found", "error")
         return redirect(url_for("storage.list_snapshots"))
 
     try:
     # Delete snapshot via RPC service
-        rpc_client = get_rpc_client()
+        _rpc_client=get_rpc_client()
         rpc_client.delete_snapshot(snapshot.snapshot_id)
 
         # Update status to deleting
@@ -300,7 +348,7 @@ def delete_snapshot(snapshot_id: int) -> Any:
             _resource_type = "snapshot",
             _action = f"Deleted snapshot: {snapshot.name}",
             _status = "success",
-            _resource_id = str(snapshot_id),
+            _resource_id=str(snapshot_id),
             _rpc_method = "DeleteSnapshot",
             _ip_address = request.remote_addr,
         )
@@ -316,7 +364,7 @@ def delete_snapshot(snapshot_id: int) -> Any:
             _resource_type = "snapshot",
             _action = f"Failed to delete snapshot: {snapshot.name}",
             _status = "failure",
-            _error_message = str(e),
+            _error_message=str(e),
             _rpc_method = "DeleteSnapshot",
             _ip_address = request.remote_addr,
         )
@@ -334,13 +382,13 @@ def api_snapshots() -> Any:
 
     GET: Return JSON array of snapshots
     """
-    node_id = request.args.get("node_id", None, type=int)
+    _node_id=request.args.get("node_id", None, type=int)
 
     query = Snapshot.query
     if node_id:
-        query = query.filter_by(node_id=node_id)
+        _query=query.filter_by(node_id=node_id)
 
-    snapshots = query.order_by(Snapshot.created_at.desc()).limit(100).all()
+    _snapshots=query.order_by(Snapshot.created_at.desc()).limit(100).all()
     return jsonify([s.to_dict(include_node=True) for s in snapshots])
 
 
@@ -354,7 +402,7 @@ def api_snapshot_progress(snapshot_id: int) -> Any:
 
     GET: Return snapshot progress and status
     """
-    snapshot = Snapshot.query.get(snapshot_id)
+    _snapshot=Snapshot.query.get(snapshot_id)
     if not snapshot:
         return jsonify({"error": "Snapshot not found"}), 404
 
@@ -378,7 +426,7 @@ def cleanup_expired() -> Any:
 
     POST: Delete all snapshots past retention date
     """
-    expired = Snapshot.get_expired_snapshots()
+    _expired=Snapshot.get_expired_snapshots()
 
     if not expired:
         flash("No expired snapshots to clean up", "info")
@@ -387,7 +435,7 @@ def cleanup_expired() -> Any:
     deleted_count = 0
     for snapshot in expired:
         try:
-            rpc_client = get_rpc_client()
+            _rpc_client=get_rpc_client()
             rpc_client.delete_snapshot(snapshot.snapshot_id)
             snapshot.status = "deleting"
             deleted_count += 1

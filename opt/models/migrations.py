@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from datetime import datetime, timezone
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -123,53 +171,53 @@ class DatabaseMigrations:
     PERFORMANCE_INDEXES = [
     # Node status queries - most frequently accessed
         Index(
-            name="idx_nodes_status_updated",
-            table="nodes",
-            columns=["status", "updated_at"],
-            description="Node listing and status filtering (10-100ms target)",
+            _name="idx_nodes_status_updated",
+            _table="nodes",
+            _columns=["status", "updated_at"],
+            _description="Node listing and status filtering (10-100ms target)",
         ),
         # Job history queries
         Index(
-            name="idx_jobs_user_created",
-            table="jobs",
-            columns=["user_id", "created_at"],
-            description="User job history queries (50-150ms target)",
+            _name="idx_jobs_user_created",
+            _table="jobs",
+            _columns=["user_id", "created_at"],
+            _description="User job history queries (50-150ms target)",
         ),
         # Cluster metrics queries
         Index(
-            name="idx_metrics_timestamp",
-            table="metrics",
-            columns=["metric_type", "timestamp"],
-            description="Time-series metrics queries (20-50ms target)",
+            _name="idx_metrics_timestamp",
+            _table="metrics",
+            _columns=["metric_type", "timestamp"],
+            _description="Time-series metrics queries (20-50ms target)",
         ),
         # User permission lookups
         Index(
-            name="idx_user_permissions",
-            table="user_permissions",
-            columns=["user_id", "resource_type", "action"],
-            description="RBAC permission lookups (5-20ms target)",
+            _name="idx_user_permissions",
+            _table="user_permissions",
+            _columns=["user_id", "resource_type", "action"],
+            _description="RBAC permission lookups (5-20ms target)",
         ),
         # Alert queries
         Index(
-            name="idx_alerts_severity_time",
-            table="alerts",
-            columns=["severity", "created_at"],
-            description="Alert filtering and sorting",
+            _name="idx_alerts_severity_time",
+            _table="alerts",
+            _columns=["severity", "created_at"],
+            _description="Alert filtering and sorting",
         ),
         # Node pool queries
         Index(
-            name="idx_node_pools_cluster_status",
-            table="node_pools",
-            columns=["cluster_id", "status"],
-            description="Pool status queries by cluster",
+            _name="idx_node_pools_cluster_status",
+            _table="node_pools",
+            _columns=["cluster_id", "status"],
+            _description="Pool status queries by cluster",
         ),
         # Configuration query optimization
         Index(
-            name="idx_config_key_version",
-            table="configuration",
-            columns=["config_key", "version"],
+            _name="idx_config_key_version",
+            _table="configuration",
+            _columns=["config_key", "version"],
             _partial_condition = "is_active = 1",
-            description="Active configuration lookups",
+            _description="Active configuration lookups",
         ),
         # Audit log queries
         Index(
@@ -183,16 +231,16 @@ class DatabaseMigrations:
     # Composite indexes for complex queries
     COMPOSITE_INDEXES = [
         Index(
-            name="idx_node_pool_health",
-            table="nodes",
-            columns=["pool_id", "status", "health_score"],
-            description="Health-based node filtering within pools",
+            _name="idx_node_pool_health",
+            _table="nodes",
+            _columns=["pool_id", "status", "health_score"],
+            _description="Health-based node filtering within pools",
         ),
         Index(
-            name="idx_job_progress_tracking",
-            table="jobs",
-            columns=["cluster_id", "status", "progress"],
-            description="Job progress tracking per cluster",
+            _name="idx_job_progress_tracking",
+            _table="jobs",
+            _columns=["cluster_id", "status", "progress"],
+            _description="Job progress tracking per cluster",
         ),
         Index(
             _name = "idx_metrics_aggregation",
@@ -205,17 +253,17 @@ class DatabaseMigrations:
     # Unique indexes for data integrity
     UNIQUE_INDEXES = [
         Index(
-            name="idx_user_email_unique",
-            table="users",
-            columns=["email"],
-            unique=True,
-            description="Email uniqueness constraint",
+            _name="idx_user_email_unique",
+            _table="users",
+            _columns=["email"],
+            _unique=True,
+            _description="Email uniqueness constraint",
         ),
         Index(
-            name="idx_node_hostname_unique",
+            _name="idx_node_hostname_unique",
             _table = "nodes",
             _columns = ["hostname"],
-            unique=True,
+            _unique=True,
             _description = "Hostname uniqueness within cluster",
         ),
     ]
@@ -228,7 +276,7 @@ class DatabaseMigrations:
 
     @classmethod
 
-    def create_indexes_sql(cls, database_type: str = "postgresql") -> List[str]:
+    def create_indexes_sql(cls, database_type: str="postgresql") -> List[str]:
         """
         Generate SQL for creating all indexes.
 
@@ -242,11 +290,11 @@ class DatabaseMigrations:
 
         for index in cls.get_all_indexes():
             if database_type == "postgresql":
-                stmt = cls._create_postgresql_index(index)
+                _stmt=cls._create_postgresql_index(index)
             elif database_type == "mysql":
-                stmt = cls._create_mysql_index(index)
+                _stmt=cls._create_mysql_index(index)
             elif database_type == "sqlite":
-                stmt = cls._create_sqlite_index(index)
+                _stmt=cls._create_sqlite_index(index)
             else:
                 raise ValueError(f"Unsupported database type: {database_type}")
 
@@ -259,9 +307,9 @@ class DatabaseMigrations:
     def _create_postgresql_index(cls, index: Index) -> str:
         """Generate PostgreSQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
-        columns_str = ", ".join(index.columns)
+        _columns_str=", ".join(index.columns)
 
-        stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
+        _stmt=f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
 
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
@@ -274,10 +322,10 @@ class DatabaseMigrations:
     def _create_mysql_index(cls, index: Index) -> str:
         """Generate MySQL CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
-        columns_str = ", ".join(index.columns)
+        _columns_str=", ".join(index.columns)
 
         # MySQL doesn't support WHERE clause like PostgreSQL
-        stmt = f"CREATE {unique_clause} INDEX {index.name} ON {index.table} ({columns_str});"
+        _stmt=f"CREATE {unique_clause} INDEX {index.name} ON {index.table} ({columns_str});"
 
         return stmt
 
@@ -286,9 +334,9 @@ class DatabaseMigrations:
     def _create_sqlite_index(cls, index: Index) -> str:
         """Generate SQLite CREATE INDEX statement."""
         unique_clause = "UNIQUE" if index.unique else ""
-        columns_str = ", ".join(index.columns)
+        _columns_str=", ".join(index.columns)
 
-        stmt = f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
+        _stmt=f"CREATE {unique_clause} INDEX IF NOT EXISTS {index.name} ON {index.table} ({columns_str})"
 
         if index.partial_condition:
             stmt += f" WHERE {index.partial_condition}"
@@ -363,7 +411,7 @@ class DatabaseMigrations:
         }
 
 
-def migrate_database(database_type: str = "postgresql") -> None:
+def migrate_database(database_type: str="postgresql") -> None:
     """
     Execute database migrations (create indexes).
 
@@ -372,7 +420,7 @@ def migrate_database(database_type: str = "postgresql") -> None:
     """
     logger.info("Starting database migrations...")
 
-    statements = DatabaseMigrations.create_indexes_sql(database_type)
+    _statements=DatabaseMigrations.create_indexes_sql(database_type)
 
     logger.info(f"Generated {len(statements)} index creation statements")
     for i, stmt in enumerate(statements, 1):
@@ -389,7 +437,7 @@ def migrate_database(database_type: str = "postgresql") -> None:
 
 if __name__ == "__main__":
     # Test migration generation
-    migrations = DatabaseMigrations()
+    _migrations=DatabaseMigrations()
 
     print("=" * 80)
     print("DATABASE MIGRATION REPORT")
@@ -397,7 +445,7 @@ if __name__ == "__main__":
     print()
 
     # Show indexes
-    all_indexes = migrations.get_all_indexes()
+    _all_indexes=migrations.get_all_indexes()
     print(f"Total Indexes: {len(all_indexes)}")
     print()
 
@@ -416,7 +464,7 @@ if __name__ == "__main__":
     print("=" * 80)
     print("SLOW QUERY ANALYSIS")
     print("=" * 80)
-    analysis = migrations.analyze_slow_queries()
+    _analysis=migrations.analyze_slow_queries()
     for key, value in analysis.items():
         if key != "indexes":
             print(f"{key}: {value}")
@@ -426,7 +474,7 @@ if __name__ == "__main__":
     print("=" * 80)
     print("MIGRATION STATUS")
     print("=" * 80)
-    status = migrations.get_migration_status()
+    _status=migrations.get_migration_status()
     for key, value in status.items():
         print(f"{key}: {value}")
     print()
@@ -435,6 +483,6 @@ if __name__ == "__main__":
     print("=" * 80)
     print("GENERATED SQL (PostgreSQL)")
     print("=" * 80)
-    statements = migrations.create_indexes_sql("postgresql")
+    _statements=migrations.create_indexes_sql("postgresql")
     for stmt in statements:
         print(stmt)

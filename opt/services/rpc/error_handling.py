@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,9 +138,9 @@ from typing import Callable, Type, TypeVar, Optional, List, Dict, Any, Tuple
 from functools import wraps
 from enum import Enum
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
-T = TypeVar("T")
+T=TypeVar("T")
 
 
 class ErrorSeverity(Enum):
@@ -139,7 +187,7 @@ class DebVisorRPCError(Exception):
 class AuthenticationError(DebVisorRPCError):
     """Authentication failure."""
 
-    def __init__(self, message: str, reason: str = "invalid_credentials", **kwargs: Any) -> None:
+    def __init__(self, message: str, reason: str="invalid_credentials", **kwargs: Any) -> None:
         super().__init__(
             message,
             _error_code = "AUTH_ERROR",
@@ -178,7 +226,7 @@ class AuthorizationError(DebVisorRPCError):
 class ValidationError(DebVisorRPCError):
     """Input validation failure."""
 
-    def __init__(self, field: str, reason: str, value: str = "", **kwargs: Any) -> None:
+    def __init__(self, field: str, reason: str, value: str="", **kwargs: Any) -> None:
         message = f"Validation failed for field '{field}': {reason}"
         super().__init__(
             message,
@@ -222,7 +270,7 @@ class RateLimitError(DebVisorRPCError):
 class ServiceUnavailableError(DebVisorRPCError):
     """Service temporarily unavailable."""
 
-    def __init__(self, service: str, reason: str = "unknown", **kwargs: Any) -> None:
+    def __init__(self, service: str, reason: str="unknown", **kwargs: Any) -> None:
         message = f"Service '{service}' is temporarily unavailable"
         super().__init__(
             message,
@@ -243,7 +291,7 @@ class ServiceUnavailableError(DebVisorRPCError):
 class ConnectionError(DebVisorRPCError):
     """Connection failure (network, timeout, etc)."""
 
-    def __init__(self, target: str, reason: str, timeout_seconds: int = 0, **kwargs: Any) -> None:
+    def __init__(self, target: str, reason: str, timeout_seconds: int=0, **kwargs: Any) -> None:
         message = f"Connection failed to {target}: {reason}"
         super().__init__(
             message,
@@ -289,7 +337,7 @@ class CertificateError(DebVisorRPCError):
 class DatabaseError(DebVisorRPCError):
     """Database operation failure."""
 
-    def __init__(self, operation: str, reason: str, recoverable: bool = True, **kwargs: Any) -> None:
+    def __init__(self, operation: str, reason: str, recoverable: bool=True, **kwargs: Any) -> None:
         message = f"Database operation failed: {operation}"
         super().__init__(
             message,
@@ -353,7 +401,7 @@ def retry_with_backoff(
                         if jitter:
                             import random
 
-                            delay = delay * (0.5 + random.random())    # nosec B311
+                            _delay=delay * (0.5 + random.random())    # nosec B311
 
                         logger.warning(
                             f"Attempt {attempt + 1}/{max_retries + 1} failed for {func.__name__}. "
@@ -389,7 +437,7 @@ def log_error_with_context(
         error: The error to log
         request_info: Additional request context to include in log
     """
-    error_dict = error.to_dict()
+    _error_dict=error.to_dict()
     if request_info:
         error_dict["request_context"] = request_info
 

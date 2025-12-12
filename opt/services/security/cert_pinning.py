@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from datetime import datetime, timedelta, timezone
 from cryptography import x509
 import hashlib as crypto_hashlib
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class PinType(Enum):
@@ -125,7 +173,7 @@ class CertificatePin:
     pin_type: PinType
     algorithm: PinAlgorithm
     hash_value: str    # Base64-encoded hash
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: Optional[datetime] = None
     description: str = ""
     is_backup: bool = False
@@ -165,7 +213,7 @@ class PinningPolicy:
     backup_pins: List[CertificatePin] = field(default_factory=list)
     max_age_seconds: int = 86400 * 365    # 1 year
     allow_backup_only: bool = False    # Allow connection with only backup pins
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
 
@@ -232,16 +280,16 @@ class CertificateHasher:
             Base64-encoded hash
         """
         try:
-            cert = x509.load_der_x509_certificate(cert_data)
-            public_key_der = cert.public_key().public_bytes(
+            _cert=x509.load_der_x509_certificate(cert_data)
+            _public_key_der=cert.public_key().public_bytes(
                 _encoding = serialization.Encoding.DER,
                 _format = serialization.PublicFormat.SubjectPublicKeyInfo,
             )
 
             if algorithm == PinAlgorithm.SHA256:
-                hash_obj = crypto_hashlib.sha256(public_key_der)
+                _hash_obj=crypto_hashlib.sha256(public_key_der)
             else:
-                hash_obj = crypto_hashlib.sha512(public_key_der)
+                _hash_obj=crypto_hashlib.sha512(public_key_der)
 
             return base64.b64encode(hash_obj.digest()).decode()
 
@@ -265,9 +313,9 @@ class CertificateHasher:
             Base64-encoded hash
         """
         if algorithm == PinAlgorithm.SHA256:
-            hash_obj = crypto_hashlib.sha256(cert_data)
+            _hash_obj=crypto_hashlib.sha256(cert_data)
         else:
-            hash_obj = crypto_hashlib.sha512(cert_data)
+            _hash_obj=crypto_hashlib.sha512(cert_data)
 
         return base64.b64encode(hash_obj.digest()).decode()
 
@@ -287,15 +335,15 @@ class CertificateHasher:
             Base64-encoded hash
         """
         try:
-            cert = x509.load_der_x509_certificate(cert_data)
+            _cert=x509.load_der_x509_certificate(cert_data)
             # For simplicity, return the issuer's name hash
             # In production, you'd extract the issuer certificate
-            issuer_der = cert.issuer.public_bytes()
+            _issuer_der=cert.issuer.public_bytes()
 
             if algorithm == PinAlgorithm.SHA256:
-                hash_obj = crypto_hashlib.sha256(issuer_der)
+                _hash_obj=crypto_hashlib.sha256(issuer_der)
             else:
-                hash_obj = crypto_hashlib.sha512(issuer_der)
+                _hash_obj=crypto_hashlib.sha512(issuer_der)
 
             return base64.b64encode(hash_obj.digest()).decode()
 
@@ -342,7 +390,7 @@ class CertificatePinValidator:
         Returns:
             Tuple of (is_valid, message)
         """
-        policy = self.get_policy(host)
+        _policy=self.get_policy(host)
         if not policy:
             logger.warning(f"No pinning policy for host: {host}")
             return True, "No pinning policy configured"
@@ -350,16 +398,16 @@ class CertificatePinValidator:
         try:
         # Generate hash based on pin type
             if pin_type == PinType.PUBLIC_KEY:
-                cert_hash = CertificateHasher.get_public_key_hash(cert_data)
+                _cert_hash=CertificateHasher.get_public_key_hash(cert_data)
             elif pin_type == PinType.CERTIFICATE:
-                cert_hash = CertificateHasher.get_certificate_hash(cert_data)
+                _cert_hash=CertificateHasher.get_certificate_hash(cert_data)
             else:    # CA_PUBLIC_KEY
-                cert_hash = CertificateHasher.get_ca_public_key_hash(cert_data)
+                _cert_hash=CertificateHasher.get_ca_public_key_hash(cert_data)
 
             # Check against primary pins
             for pin in policy.primary_valid_pins:
                 if pin.hash_value == cert_hash:
-                    pin.last_verified = datetime.now(timezone.utc)
+                    pin.last_verified=datetime.now(timezone.utc)
                     logger.info(f"Certificate pin validated for {host}")
                     return True, "Certificate pin validated successfully"
 
@@ -367,7 +415,7 @@ class CertificatePinValidator:
             if policy.allow_backup_only or not policy.has_valid_primary_pins():
                 for pin in policy.backup_valid_pins:
                     if pin.hash_value == cert_hash:
-                        pin.last_verified = datetime.now(timezone.utc)
+                        pin.last_verified=datetime.now(timezone.utc)
                         logger.warning(
                             f"Certificate validated against BACKUP pin for {host}"
                         )
@@ -385,10 +433,10 @@ class CertificatePinValidator:
             logger.error(message)
             return False, message
 
-    def get_expiring_pins(self, days: int = 30) -> List[Tuple[str, CertificatePin]]:
+    def get_expiring_pins(self, days: int=30) -> List[Tuple[str, CertificatePin]]:
         """Get pins expiring within specified days"""
         expiring = []
-        threshold = datetime.now(timezone.utc) + timedelta(days=days)
+        _threshold=datetime.now(timezone.utc) + timedelta(days=days)
 
         for host, policy in self.policies.items():
             for pin in policy.all_pins:
@@ -422,7 +470,7 @@ class CertificatePinValidator:
         Returns:
             True if successful
         """
-        policy = self.get_policy(host)
+        _policy=self.get_policy(host)
         if not policy:
             logger.error(f"No policy found for {host}")
             return False
@@ -476,8 +524,8 @@ class CertificatePinValidator:
 
     def get_status(self) -> Dict[str, Any]:
         """Get pinning validator status"""
-        expiring_soon = self.get_expiring_pins(days=30)
-        expired = self.get_expired_pins()
+        _expiring_soon=self.get_expiring_pins(days=30)
+        _expired=self.get_expired_pins()
 
         return {
             "total_policies": len(self.policies),
@@ -499,7 +547,7 @@ async def get_pin_validator() -> CertificatePinValidator:
     """Get or create global certificate pin validator"""
     global _pin_validator
     if _pin_validator is None:
-        _pin_validator = CertificatePinValidator()
+        _pin_validator=CertificatePinValidator()
     return _pin_validator
 
 

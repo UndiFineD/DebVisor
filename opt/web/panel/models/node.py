@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,31 +138,31 @@ class Node(db.Model):
     __tablename__ = "node"
 
     # Primary key
-    id = db.Column(db.Integer, primary_key=True)
+    _id=db.Column(db.Integer, primary_key=True)
 
     # Node identification
     _node_id = db.Column(
         db.String(36), unique=True, nullable=False, index=True
     )    # UUID from RPC
-    _hostname = db.Column(db.String(253), nullable=False, index=True)    # FQDN
-    _ip_address = db.Column(db.String(45), nullable=False, index=True)    # IPv4 or IPv6
-    _mac_address = db.Column(db.String(17), nullable=True, index=True)
+    _hostname=db.Column(db.String(253), nullable=False, index=True)    # FQDN
+    _ip_address=db.Column(db.String(45), nullable=False, index=True)    # IPv4 or IPv6
+    _mac_address=db.Column(db.String(17), nullable=True, index=True)
 
     # Node capabilities
-    _cpu_cores = db.Column(db.Integer)
-    _memory_gb = db.Column(db.Integer)
-    _storage_gb = db.Column(db.Integer)
+    _cpu_cores=db.Column(db.Integer)
+    _memory_gb=db.Column(db.Integer)
+    _storage_gb=db.Column(db.Integer)
 
     # Status tracking
     _status = db.Column(
         db.String(20), default="unknown", index=True
     )    # online, offline, error
-    _last_heartbeat = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    _last_heartbeat=db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Metadata
-    _region = db.Column(db.String(100), nullable=True, index=True)
-    _rack = db.Column(db.String(100), nullable=True)
-    _labels = db.Column(db.Text, nullable=True)    # JSON-encoded labels
+    _region=db.Column(db.String(100), nullable=True, index=True)
+    _rack=db.Column(db.String(100), nullable=True)
+    _labels=db.Column(db.Text, nullable=True)    # JSON-encoded labels
 
     # Tracking
     _created_at = db.Column(
@@ -122,8 +170,8 @@ class Node(db.Model):
     )
     _updated_at = db.Column(
         db.DateTime,
-        _default = lambda: datetime.now(timezone.utc),
-        _onupdate = lambda: datetime.now(timezone.utc),
+        _default=lambda: datetime.now(timezone.utc),
+        _onupdate=lambda: datetime.now(timezone.utc),
     )
 
     # Relationships
@@ -143,16 +191,16 @@ class Node(db.Model):
         """
         if not self.last_heartbeat:
             return False
-        elapsed = datetime.now(timezone.utc) - self.last_heartbeat
+        _elapsed=datetime.now(timezone.utc) - self.last_heartbeat
         return bool(elapsed.total_seconds() < 300)    # 5 minutes
 
     def update_heartbeat(self) -> None:
         """Update last heartbeat timestamp to current time."""
-        self.last_heartbeat = datetime.now(timezone.utc)
+        self.last_heartbeat=datetime.now(timezone.utc)
         self.status = "online"
         db.session.commit()
 
-    def to_dict(self, include_snapshots: bool = False) -> Dict[str, Any]:
+    def to_dict(self, include_snapshots: bool=False) -> Dict[str, Any]:
         """Convert node to dictionary for JSON responses.
 
         Args:
@@ -217,7 +265,7 @@ class Node(db.Model):
         Returns:
             List of healthy Node instances
         """
-        nodes = Node.query.filter_by(status="online").all()
+        _nodes=Node.query.filter_by(status="online").all()
         return [n for n in nodes if n.is_healthy()]
 
     @staticmethod

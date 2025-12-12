@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,7 +152,7 @@ from enum import Enum
 from contextlib import asynccontextmanager
 import asyncpg
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class IndexType(Enum):
@@ -135,14 +183,14 @@ class IndexDefinition:
         if self.name:
             return self.name
 
-        cols = "_".join(self.columns)
+        _cols="_".join(self.columns)
         return f"idx_{self.table}_{cols}"
 
     def to_sql(self) -> str:
         """Generate CREATE INDEX SQL statement."""
-        index_name = self.get_name()
+        _index_name=self.get_name()
         unique = "UNIQUE " if self.unique else ""
-        columns = ", ".join(self.columns)
+        _columns=", ".join(self.columns)
         using = f"USING {self.index_type.value}"
         where = f" WHERE {self.where_clause}" if self.where_clause else ""
 
@@ -163,7 +211,7 @@ class QueryMetrics:
     execution_time_ms: float
     rows_returned: int
     cache_hit: bool
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     plan: Optional[Dict[str, Any]] = None
 
 
@@ -189,7 +237,7 @@ class QueryCache:
     Implements PERF-002: Query result caching.
     """
 
-    def __init__(self, config: CacheConfig):
+    def __init__(self, config: CacheConfig) -> None:
         self.config = config
         self.redis: Optional[aioredis.Redis] = None
         self.cache_hits = 0
@@ -239,12 +287,12 @@ class QueryCache:
             return None
 
         try:
-            cache_key = self._generate_cache_key(query, params)
-            cached = await self.redis.get(cache_key)
+            _cache_key=self._generate_cache_key(query, params)
+            _cached=await self.redis.get(cache_key)
 
             if cached:
                 self.cache_hits += 1
-                result = json.loads(cached)
+                _result=json.loads(cached)
                 logger.debug(f"Cache hit: {cache_key[:16]}...")
                 return result
 
@@ -263,11 +311,11 @@ class QueryCache:
             return
 
         try:
-            _cache_key = self._generate_cache_key(query, params)
+            _cache_key=self._generate_cache_key(query, params)
             _ttl = ttl or self.config.default_ttl
 
             # Serialize result
-            cached_data = json.dumps(result)
+            _cached_data=json.dumps(result)
 
             # Check size
             if len(cached_data) > self.config.max_key_size * 1024:
@@ -305,7 +353,7 @@ class QueryCache:
     def get_stats(self) -> Dict[str, Any]:
         """Get cache statistics."""
         total_requests = self.cache_hits + self.cache_misses
-        hit_rate = (self.cache_hits / total_requests * 100) if total_requests > 0 else 0
+        _hit_rate=(self.cache_hits / total_requests * 100) if total_requests > 0 else 0
 
         return {
             "enabled": self.config.enabled,
@@ -336,7 +384,7 @@ class AsyncDatabasePool:
         self.pool: Optional[asyncpg.Pool] = None
 
         # Query cache
-        self.cache = QueryCache(cache_config or CacheConfig())
+        self.cache=QueryCache(cache_config or CacheConfig())
 
         # Query metrics
         self.query_metrics: List[QueryMetrics] = []
@@ -382,15 +430,15 @@ class AsyncDatabasePool:
         async with self.pool.acquire() as conn:
             yield conn
 
-    async def execute(self, query: str, *params, timeout: float = 30) -> str:
+    async def execute(self, query: str, *params, timeout: float=30) -> str:
         """Execute query without returning results."""
-        start_time = time.time()
+        _start_time=time.time()
 
         try:
             async with self.acquire() as conn:
-                result = await conn.execute(query, *params, timeout=timeout)
+                _result=await conn.execute(query, *params, timeout=timeout)
 
-            execution_time = (time.time() - start_time) * 1000
+            _execution_time=(time.time() - start_time) * 1000
 
             # Log execution
             logger.debug(f"Executed query in {execution_time:.2f}ms: {query[:100]}...")
@@ -414,22 +462,22 @@ class AsyncDatabasePool:
 
         Implements PERF-002: Query execution time logging and caching.
         """
-        _query_hash = hashlib.sha256(f"{query}{params}".encode()).hexdigest()
-        start_time = time.time()
+        _query_hash=hashlib.sha256(f"{query}{params}".encode()).hexdigest()
+        _start_time=time.time()
 
         # Try cache first
         _cache_hit = False
         if use_cache:
-            cached_result = await self.cache.get(query, params)
+            _cached_result=await self.cache.get(query, params)
             if cached_result is not None:
-                execution_time = (time.time() - start_time) * 1000
+                _execution_time=(time.time() - start_time) * 1000
 
                 self._record_metrics(
                     QueryMetrics(
                         _query_hash = query_hash,
                         _query = query,
                         _execution_time_ms = execution_time,
-                        _rows_returned = len(cached_result),
+                        _rows_returned=len(cached_result),
                         _cache_hit = True,
                     )
                 )
@@ -441,16 +489,16 @@ class AsyncDatabasePool:
             async with self.acquire() as conn:
             # Get query plan for slow query analysis
                 if logger.isEnabledFor(logging.DEBUG):
-                    plan = await self._explain_query(conn, query, params)
+                    _plan=await self._explain_query(conn, query, params)
                 else:
                     _plan = None
 
-                rows = await conn.fetch(query, *params, timeout=timeout)
+                _rows=await conn.fetch(query, *params, timeout=timeout)
 
-            _execution_time = (time.time() - start_time) * 1000
+            _execution_time=(time.time() - start_time) * 1000
 
             # Convert to list of dicts
-            result = [dict(row) for row in rows]
+            _result=[dict(row) for row in rows]
 
             # Cache result
             if use_cache and result:
@@ -459,9 +507,9 @@ class AsyncDatabasePool:
             # Record metrics
             metrics = QueryMetrics(
                 _query_hash = query_hash,
-                query=query,
+                _query=query,
                 _execution_time_ms = execution_time,
-                _rows_returned = len(result),
+                _rows_returned=len(result),
                 _cache_hit = cache_hit,
                 _plan = plan,
             )
@@ -496,7 +544,7 @@ class AsyncDatabasePool:
         use_cache: bool = True,
     ) -> Optional[Dict[str, Any]]:
         """Fetch single row."""
-        results = await self.fetch(query, *params, timeout=timeout, use_cache=use_cache)
+        _results=await self.fetch(query, *params, timeout=timeout, use_cache=use_cache)
         return results[0] if results else None
 
     async def fetchval(
@@ -507,7 +555,7 @@ class AsyncDatabasePool:
         use_cache: bool = True,
     ) -> Any:
         """Fetch single value."""
-        row = await self.fetchrow(query, *params, timeout=timeout, use_cache=use_cache)
+        _row=await self.fetchrow(query, *params, timeout=timeout, use_cache=use_cache)
         return list(row.values())[0] if row else None
 
     async def _explain_query(
@@ -515,8 +563,8 @@ class AsyncDatabasePool:
     ) -> Dict[str, Any]:
         """Get query execution plan."""
         try:
-            explain_query = f"EXPLAIN (FORMAT JSON, ANALYZE) {query}"
-            rows = await conn.fetch(explain_query, *params)
+            _explain_query=f"EXPLAIN (FORMAT JSON, ANALYZE) {query}"
+            _rows=await conn.fetch(explain_query, *params)
 
             if rows:
                 plan = rows[0][0][0]    # Extract JSON plan
@@ -539,12 +587,12 @@ class AsyncDatabasePool:
 
     def _check_plan_node(self, query: str, node: Dict[str, Any]) -> None:
         """Recursively check plan nodes for optimization opportunities."""
-        node_type = node.get("Node Type", "")
+        _node_type=node.get("Node Type", "")
 
         # Sequential scan without index
         if node_type == "Seq Scan":
-            table = node.get("Relation Name")
-            filter_cond = node.get("Filter")
+            _table=node.get("Relation Name")
+            _filter_cond=node.get("Filter")
 
             if filter_cond and table:
             # Recommend index on filtered columns
@@ -590,8 +638,8 @@ class AsyncDatabasePool:
                 "cache_hit_rate": 0,
             }
 
-        times = sorted([m.execution_time_ms for m in self.query_metrics])
-        cache_hits = sum(1 for m in self.query_metrics if m.cache_hit)
+        _times=sorted([m.execution_time_ms for m in self.query_metrics])
+        _cache_hits=sum(1 for m in self.query_metrics if m.cache_hit)
 
         return {
             "total_queries": len(self.query_metrics),
@@ -607,7 +655,7 @@ class AsyncDatabasePool:
         """Create database indexes."""
         for index in indexes:
             try:
-                sql = index.to_sql()
+                _sql=index.to_sql()
                 await self.execute(sql)
                 logger.info(f"Created index: {index.get_name()}")
 
@@ -634,7 +682,7 @@ async def main() -> None:
         _enabled = True,
     )
 
-    pool = AsyncDatabasePool(dsn, cache_config=cache_config)
+    _pool=AsyncDatabasePool(dsn, cache_config=cache_config)
     await pool.connect()
 
     try:
@@ -666,14 +714,14 @@ async def main() -> None:
         print(f"VMs: {result}")
 
         # Get statistics
-        stats = pool.get_query_stats()
+        _stats=pool.get_query_stats()
         print(f"Query stats: {stats}")
 
-        cache_stats = pool.cache.get_stats()
+        _cache_stats=pool.cache.get_stats()
         print(f"Cache stats: {cache_stats}")
 
         # Get index recommendations
-        recommendations = pool.get_index_recommendations()
+        _recommendations=pool.get_index_recommendations()
         if recommendations:
             print(f"Recommended indexes: {[idx.get_name() for idx in recommendations]}")
 

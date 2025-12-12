@@ -1,11 +1,8 @@
 # DebVisor Context
 
 ## Structure
-
 Tab size is 4 spaces
-
 ## Overall Purpose
-
 DebVisor is a Debian 13-based mini hyper?converged hypervisor distro.
 It is**containers?first**(Docker/Kubernetes), with VMs supported for
 legacy and special?case workloads. The goal is a turnkey ISO that you
@@ -15,13 +12,10 @@ CephFS?first (with optional ZFS or mixed Ceph+ZFS)
 Docker + Kubernetes (kubeadm, containerd, Calico)
 Opinionated defaults and automated first?boot provisioning.
 Key entry points:
-
 README.md - high?level description, profiles, and ISO build quickstart.
 Makefile + build-debvisor.sh - one?shot live-build wrapper to produce the ISO.
 DebVisor_initial.md - now just a stub table listing canonical file locations.
-
 ## Installer & Image Build
-
 Live-build config:
 preseed.cfg - Debian Installer preseed with:
 Locale/timezone (en_US, UTC).
@@ -40,9 +34,7 @@ Build tooling:
 Makefile - wraps live-build with DebVisor settings (bookworm, ISO?hybrid, preseed, firmware, mirrors).
 build-debvisor.sh - script that runs live-build using the above config, with environment flags for `DEBVISOR_DIST`(Debian release, default`bookworm`),`DEBVISOR_ARCH`(architecture, default`amd64`; tested primarily on amd64, with arm64/riscv64 as advanced/experimental targets),`DEBVISOR_FAST`(skip`lb clean`for quicker rebuilds),`DEBVISOR_VERSION`(tags the ISO filename), mirror/firmware toggles, and a`DEBVISOR_SELFTEST`mode that runs preflight +`lb config` only for CI.
 Result: a `live-image-.hybrid.iso`(or`debvisor--.hybrid.iso`) that boots into the DebVisor installer.
-
 ## First?Boot Provisioning & System Services
-
 Main provisioning script:
 debvisor-firstboot.sh:
 Reads PROFILE from /etc/debvisor-profile (default ceph).
@@ -63,11 +55,8 @@ Defines and autostarts libvirt default storage pool.
 Disables its own systemd unit after successful run.
 Systemd unit (not re-read here but referenced from README):
 debvisor-firstboot.service - runs the script once on first boot, sources /etc/debvisor-profile.
-
 ## Core Configuration & Addons
-
 config:
-
 preseed.cfg, package-lists/, and live-build hooks/normal/*.sh (Ceph, ZFS, K8s, Cockpit).
 includes.chroot/... - files injected into the target system:
 debvisor-firstboot.sh (above).
@@ -75,21 +64,16 @@ Various helper scripts: tsig-keygen.sh, hostname-register.sh, dns-register.sh, c
 Service configs: dnsmasq.conf, tsig-debvisor.conf, ceph.conf, kubeadm-config.yaml, Docker daemon, etc.
 debvisor-compliance.conf + debvisor-compliance-pipeline.conf - logging pipeline for compliance logs.
 addons:
-
 k8s/ subfolders with ready?made manifests:
 StorageClass YAMLs for Ceph RBD/CephFS and ZFS LocalPV.
 Monitoring stack (Prometheus + Grafana), ingress (nginx), CSI drivers.
 compose/ (e.g. Traefik, GitLab Runner).
 nextcloud-compose.yml - example app stack.
-
 scripts:
-
 debvisor-vm-convert.sh - helper to convert VM disk images between
 common formats (qcow2, raw, vmdk) using qemu-img; used when importing
 or exporting VMs to/from other hypervisors.
-
 ## Orchestration & Automation
-
 ansible:
 playbooks/:
 security-hardening.yml - includes roles that:
@@ -118,9 +102,7 @@ vnc-console - Debian 13 + nginx VNC/noVNC console addon that installs
 rpc-service, web-panel - non-operational stubs that create placeholder
   directories/READMEs only; future implementations will live here.
 This layer turns DebVisor into a manageable cluster with DNS HA, secure dynamic updates, and automated remediation.
-
 ## Monitoring, Dashboards & CI
-
 grafana/dashboards/*.json and monitoring:
 Dashboards:
 DNS/DHCP overview, multi?tenant isolation, security overview, compliance/MFA audit, and a multitenant DebVisor dashboard.
@@ -132,11 +114,8 @@ security-remediation-workflow.yaml:
 Argo Workflow that reacts to Prometheus alerts -> triggers AWX/Ansible remediation (e.g., enforce MFA, quarantine host) -> verifies via metrics.
 workflows:
 validate-dashboards.yml, validate-grafana.yml, test-grafana.yml - CI to validate Grafana JSON, importability, etc.
-
 ## DNS / DHCP / Logging / Compliance
-
 DNS/DHCP:
-
 dnsmasq.conf - dnsmasq as DHCP (cluster + tenant ranges) with DNS pointing to Bind9 VIP.
 tsig-debvisor.conf and Ansible templates - TSIG keys for:
 Node records (node*.debvisor.local).
@@ -147,13 +126,10 @@ Two Bind9 primaries behind a Keepalived VIP (10.10.0.1), only VIP holder accepts
 Secondaries with multi-master yes and secured IXFR.
 nftables rules to ensure updates only hit VIP.
 Logging & Compliance:
-
 Fluent Bit -> Kafka/Logstash -> Elasticsearch + immutable S3 (object lock) for audit logs.
 Loki via Promtail for Bind/dnsmasq logs; Grafana panels + alerting on TSIG failures, per?tenant zones.
 compliance-logging.md - describes schema, retention, and evidence workflows.
-
 ## Documentation
-
 docs:
 architecture.md - high?level stack and design.
 core-components.md - package roles and responsibilities.
@@ -167,115 +143,134 @@ failover-identity-access.md - AD/SSSD/Keycloak/OIDC integration and per?VM RBAC.
 monitoring-automation.md - dashboards, synthetic metrics CronJob, automation flows.
 compliance-logging.md, quick-reference.md, workloads.md, developer-workflow.md - logging, cheat sheets, workload examples, contribution patterns.
 install/ISO_BUILD.md - building the ISO, live-build details.
-
 ## Services / Web / Extra
-
 services, web, usr, etc:
 Skeleton for additional system services and a potential custom DebVisor web panel (Flask+Gunicorn+nginx).
 Intended to host the "Proxmox?like" management UI, backed by debvisor-rpcd and noVNC for VM consoles.
 In one sentence:
-
 DebVisor is a Debian?based, ISO?built mini hyper?converged hypervisor distro that combines KVM/libvirt, CephFS/ZFS, Docker/Kubernetes, HA DNS with TSIG?secured dynamic updates, rich monitoring/automation, and strong identity/compliance tooling, with most of the behavior driven by preseeded installer choices and a powerful first?boot provisioning script plus Ansible/GitOps on top.
-
 If you want, I can next:
-
 Draw a high?level architecture diagram (text) tying directories to components, or
 Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?by?step.
-
 ## Session Progress & Improvements (Current)
-
 ### Completed Work
-
 #### 1. Enhanced ZFS Scrub Configuration (`/etc/default/debvisor-zfs-scrub`)
-
 - Replaced minimal 2-line config with 700+ line production-grade template
+
 - Added comprehensive documentation for all variables
+
 - Included pool sizing guide with timeout recommendations
+
 - Documented fallback behavior and multi-pool support
+
 - Added security, robustness, and operational guidance
-
 #### 2. Enhanced Systemd Units (ceph-health & zfs-scrub)
-
 - **ceph-health.service**: Added 300+ lines of documentation including reliability improvements:
 
 - Timeout protection (30s), retry logic (3 tries in 60s), syslog levels
+
 - Resource limits (memory, CPU), security sandboxing
+
 - Full error reporting (captures complete Ceph status output)
 
 - **ceph-health.timer**: Added 200+ lines documenting:
 
 - Scheduling customization (hourly default), persistence behavior
+
 - Production considerations (cluster churn, scheduling impact, monitoring)
 
 - **zfs-scrub-weekly.service**: Added 400+ lines covering:
 
 - Pre-flight validation, timeout configuration by pool size
+
 - Resource management, security hardening
+
 - Post-execution logging, troubleshooting guide
 
 - **zfs-scrub-weekly.timer**: Added 250+ lines explaining:
 
 - Weekly scheduling (Sunday 2 AM off-peak), timezone handling
+
 - Cluster staggering for HA, I/O impact mitigation
+
 - Frequency tuning guidance based on workload
-
 #### 3. Created Comprehensive etc/ README (`/etc/README.md`)
-
 - 600+ line guide covering all etc/ subdirectories
+
 - Service management commands with examples
+
 - Customization guide for adding/modifying services
+
 - Production deployment checklist
+
 - Detailed troubleshooting section
+
 - References to systemd documentation and man pages
-
 #### 4. Existing Blocklist Infrastructure Verified
-
 - **Validation**: test_validate_blocklists.py includes 400+ lines of unit tests
 
 - CIDR syntax validation (IPv4/IPv6)
+
 - Comment and blank line handling
+
 - Overlap detection (identical, subnet, partial)
+
 - Whitelist override logic
+
 - Duplicate detection
+
 - Special IP range handling (loopback, multicast, documentation, private)
+
 - Integration tests with validation script
 
 - **CI/CD**: GitHub Actions workflows already in place
 
 - validate-blocklists.yml: Syntax and integrity checks
+
 - blocklist-integration-tests.yml: Full integration testing
-
 #### 5. Updated Main README
-
 - Added context.md and improvements.md to project layout
+
 - Added etc/ directory documentation references
+
 - Created new "Maintenance & Operations" section
+
 - Documented Ceph health checks and ZFS scrubbing
+
 - Added production deployment checklist
+
 - Linked to comprehensive etc/README.md for detailed info
-
 ### In Progress / Next Steps
-
 - [ ] Enhance build scripts (build-debvisor.sh, test-firstboot.sh) with:
+
 - Better error handling and logging
+
 - Retry logic for transient failures
+
 - Input validation and precondition checks
+
 - Comprehensive diagnostics output
 
 - [ ] Create opt/ README with similar comprehensive documentation
+
 - Ansible inventory/playbooks guidance
+
 - Build script customization guide
+
 - Docker addons architecture
+
 - Monitoring stack setup
 
 - [ ] Enhance usr/ operational scripts with:
+
 - Standardized error handling and logging
+
 - Dry-run modes for all operational commands
+
 - Integration tests via bats
+
 - Man pages for key tools
-
 ### Documentation Created
-
 | File | Lines | Purpose |
 |------|-------|---------|
 | etc/default/debvisor-zfs-scrub | 700+ | Configuration template with sizing guide |
@@ -284,348 +279,414 @@ Walk through the exact boot -> install -> first?boot -> cluster?ready flow step?
 | etc/systemd/system/zfs-scrub-weekly.service | 400+ | ZFS scrub with pre-flight validation |
 | etc/systemd/system/zfs-scrub-weekly.timer | 250+ | Weekly scrub scheduling |
 | etc/README.md | 600+ | Comprehensive service management guide |
-
 ### Test Infrastructure
-
 | File | Coverage |
 |------|----------|
 | tests/test_validate_blocklists.py | 400+ lines, 10+ test classes, 40+ test methods |
-
 ### Key Improvements Rationale
-
 1.**Production-Grade Documentation**: Each service now includes real-world examples, troubleshooting guides, and tuning recommendations.
-
 1.**Reliability**: Timeout protection, retry logic, validation, and proper error handling prevent silent failures.
-
 1.**Observability**: Structured logging to systemd journal with syslog levels enables integration with monitoring systems.
-
 1.**Security**: Filesystem sandboxing, privilege restrictions, and resource limits prevent unintended system impact.
-
 1.**Operability**: Comprehensive management commands, customization guides, and checklists support production deployments.
 
 - --
-
 ## Phase 2 Progress (Operational Scripts & CI/CD) - COMPLETE
-
 ### Session 2 Completed Work
-
 #### 1. Shared Bash Library (usr/local/bin/debvisor-lib.sh)
-
 - 700+ lines of production-ready bash utility functions
-- Logging: log_info, log_warn, log_error, log_debug with timestamps and colors
-- Error Handling: die(), cleanup_trap(), error_trap() for consistent error management
-- Validation: require_bin, require_env, require_root, require_file, validate_cidr, validate_pool_name
-- Retry Logic: retry() with exponential backoff, wait_for_condition() with timeout
-- Safe Operations: execute() respects --dry-run, show_dry_run_plan(), confirm_operation()
-- Infrastructure: ceph_health_check(), ceph_osds_ready(), ceph_set_noout(), zpool_exists(), kubectl_available()
 
+- Logging: log_info, log_warn, log_error, log_debug with timestamps and colors
+
+- Error Handling: die(), cleanup_trap(), error_trap() for consistent error management
+
+- Validation: require_bin, require_env, require_root, require_file, validate_cidr, validate_pool_name
+
+- Retry Logic: retry() with exponential backoff, wait_for_condition() with timeout
+
+- Safe Operations: execute() respects --dry-run, show_dry_run_plan(), confirm_operation()
+
+- Infrastructure: ceph_health_check(), ceph_osds_ready(), ceph_set_noout(), zpool_exists(), kubectl_available()
 #### 2. Enhanced Operational Scripts
-
 - debvisor-join.sh: 25 to 350+ lines with --dry-run, --check, --verbose, --force-disk modes
-- debvisor-upgrade.sh: 50 to 400+ lines with checkpoints, rollback, audit logging
 
+- debvisor-upgrade.sh: 50 to 400+ lines with checkpoints, rollback, audit logging
 #### 3. CI/CD Validation Workflow
-
 - systemd-validation, shell-validation, ansible-validation, yaml-validation
-- config-validation, cross-component-check, summary-report
-- 7 parallel jobs, 2 minute runtime
 
+- config-validation, cross-component-check, summary-report
+
+- 7 parallel jobs, 2 minute runtime
 #### 4. Cross-Component Validator (opt/validate-components.sh)
-
 - Validates Ansible, packages, systemd, scripts, Docker, RPC, monitoring
-- Can auto-fix common issues with --fix flag
 
+- Can auto-fix common issues with --fix flag
 ### Phase 2 Summary
-
 - 3,300+ lines of new production code
+
 - All scripts now support --dry-run/--check modes
+
 - CI/CD validation on every commit
+
 - Comprehensive audit logging and error recovery
+
 - Ready for Phase 3 (RPC service & web panel implementation)
 
 - --
-
 ## Phase 2 Progress (Operational Scripts & CI/CD) - COMPLETE [2]
-
 ### Session 2 Completed Work [2]
-
 #### 1. Shared Bash Library (usr/local/bin/debvisor-lib.sh) [2]
-
 - 700+ lines of production-ready bash utility functions
+
 - Logging: log_info, log_warn, log_error, log_debug with timestamps and colors
+
 - Error Handling: die(), cleanup_trap(), error_trap() for consistent error management
+
 - Validation: require_bin, require_env, require_root, require_file, validate_cidr, validate_pool_name
+
 - Retry Logic: retry() with exponential backoff, wait_for_condition() with timeout
+
 - Safe Operations: execute() respects --dry-run, show_dry_run_plan(), confirm_operation()
+
 - Infrastructure: ceph_health_check(), ceph_osds_ready(), ceph_set_noout(), zpool_exists(), kubectl_available()
-
 #### 2. Enhanced Operational Scripts [2]
-
 - debvisor-join.sh: 25 to 350+ lines with --dry-run, --check, --verbose, --force-disk modes
+
 - debvisor-upgrade.sh: 50 to 400+ lines with checkpoints, rollback, audit logging
-
 #### 3. CI/CD Validation Workflow [2]
-
 - systemd-validation, shell-validation, ansible-validation, yaml-validation
+
 - config-validation, cross-component-check, summary-report
+
 - 7 parallel jobs, 2 minute runtime
-
 #### 4. Cross-Component Validator (opt/validate-components.sh) [2]
-
 - Validates Ansible, packages, systemd, scripts, Docker, RPC, monitoring
+
 - Can auto-fix common issues with --fix flag
-
 ### Phase 2 Summary [2]
-
 - 3,300+ lines of new production code
+
 - All scripts now support --dry-run/--check modes
+
 - CI/CD validation on every commit
+
 - Comprehensive audit logging and error recovery
+
 - Ready for Phase 3 (RPC service & web panel implementation)
 
 - --
-
 ## Python Services & Controllers (opt/)
-
 ### Core Services
-
 - **dvctl.py** - Main DebVisor CLI controller for managing cluster operations
+
 - **cephctl_enhanced.py** - Enhanced Ceph cluster management (health, scaling, rebalancing)
+
 - **hvctl_enhanced.py** - Hypervisor (libvirt/KVM) management (VMs, snapshots, migrations)
+
 - **k8sctl_enhanced.py** - Kubernetes cluster management (node operations, workload management)
+
 - **graphql_api.py** - GraphQL API server for unified resource management
+
 - **graphql_integration.py** - GraphQL integration layer with backend services
-
 ### Infrastructure & Operational Tools
-
 - **advanced_documentation.py** - Auto-generates comprehensive docs from code and configurations
+
 - **advanced_features.py** - Extended feature implementations (profiles, customization, extensions)
+
 - **config_distributor.py** - Cluster-wide configuration distribution and synchronization
+
 - **distributed_tracing.py** - OpenTelemetry integration for distributed request tracing
+
 - **tracing_integration.py** - Tracing data collection and correlation across services
+
 - **cert_manager.py** - Certificate lifecycle management (generation, rotation, renewal)
-
 ### Security & Authentication
-
 - **oidc_oauth2.py** - OAuth2 and OpenID Connect authentication integration
+
 - **security_testing.py** - Security scanning and vulnerability testing suite
-
 ### Performance & Optimization
-
 - **performance_testing.py** - Load testing and performance benchmarking tools
+
 - **e2e_testing.py** - End-to-end integration and scenario testing
+
 - **query_optimization/** - Database query analysis and optimization tools
-
 ### TUI (Terminal User Interface)
-
 - **netcfg_tui_app.py** - Network configuration TUI application
+
 - **netcfg_tui_full.py** - Full-featured network configuration interface
+
 - **netcfg-tui/** - Network configuration tool with interactive menus
-
 ### Webhook & Event System
-
 - **webhook_system.py** - Webhook receiver and event dispatcher for automation triggers
-
 ### System Management
-
 - **system/hypervisor/xen_driver.py** - Xen hypervisor support (experimental)
+
 - **system/hardware_detection.py** - Hardware inventory and detection
+
 - **system/passthrough_manager.py** - PCI/GPU passthrough configuration
+
 - **system/upgrade_manager.py** - System upgrade orchestration
-
 ### Plugin Architecture
-
 - **plugin_architecture.py** - Extensible plugin system for adding custom functionality
-
 ### Directory Structure
-
 - **core/** - Core business logic (configs, health, logging, RPC client)
+
 - **services/** - Service implementations:
+
 - **anomaly/** - Anomaly detection service (LSTM-based)
+
 - **auth/** - Authentication backends (LDAP, OIDC)
+
 - **backup/** - Backup and deduplication services
+
 - **billing/** - Billing/metering integration
+
 - **cache/** - Caching layer (Redis)
+
 - **cluster/** - Cluster optimization (large clusters)
+
 - **compliance/** - Compliance and audit logging
+
 - **containers/** - Container management integration
+
 - **cost/** - Cost analysis and optimization
+
 - **database/** - Database optimization
+
 - **dns/** - DNS management and hosting
+
 - **fleet/** - Multi-cluster federation
+
 - **ha/** - High availability (fencing, failover)
+
 - **licensing/** - License management
+
 - **marketplace/** - Package/service marketplace
+
 - **migration/** - VM/workload migration tools
+
 - **multiregion/** - Multi-region deployment orchestration
+
 - **network/** - Advanced networking (multitenant, SDN)
+
 - **observability/** - Monitoring and metrics (Prometheus, energy)
+
 - **ops/** - Operational runbooks and procedures
+
 - **rbac/** - Role-based access control
+
 - **rpc/** - RPC service (gRPC, compression, monitoring, security)
+
 - **scheduler/** - Workload scheduling (AI-based placement)
+
 - **sdn/** - Software-defined networking controller
+
 - **secrets/** - Secret management (Vault integration)
+
 - **security/** - Security hardening and scanning
+
 - **storage/** - Multi-region storage orchestration
+
 - **models/** - Data models and schema definitions
+
 - **migrations/** - Database migration scripts
+
 - **deployment/** - Deployment configurations and orchestration
+
 - **discovery/** - Zero-touch provisioning and device discovery
+
 - **installer/** - Installation helper utilities
+
 - **policy/** - Policy enforcement and management
+
 - **tools/** - Utility and helper tools
+
 - **testing/** - Test frameworks and mocks
 
 - --
-
 ## Development & Maintenance Scripts (scripts/)
-
 ### Error Handling & Quality
-
 - **fix_all_errors.py** (1600+ lines) - Unified error fixer with 9 specialized fixers:
+
 - WhitespaceFixer - Removes trailing whitespace, normalizes line endings (CRLF→LF)
+
 - MarkdownFixer - Fixes Markdown formatting and links
+
 - LicenseFixer - Ensures license headers on source files
+
 - ConfigFixer - Validates and fixes configuration files
+
 - JsonRepairFixer - Extracts valid JSON from malformed files
+
 - ShellCheckFixer - Fixes shell script issues
+
 - MyPyFixer - Adds missing type annotations and imports (typing, dataclasses, enum)
+
 - SecurityScanFixer - Identifies security vulnerabilities
+
 - NotificationsReportFixer - Generates notification reports
+
 - **check_type_coverage.py** - Type annotation coverage analysis for Python code
+
 - **fix_shellcheck.sh** - Automated shell script linting and fixes
+
 - **pylint_to_sarif.py** - Converts PyLint output to SARIF format for CI/CD
+
 - **license_header_check.py** - Validates license headers on all source files
+
 - **commitlint.config.js** - Commit message linting configuration
-
 ### Audit & Analysis
-
 - **action_audit.py** - Audits GitHub Actions workflows for security and compliance
+
 - **actions_inspector.py** - Inspects and reports on Actions configuration
+
 - **generate_security_report_v2.py** - Generates comprehensive security reports
+
 - **generate_notifications_report.py** - Creates notification/alert reports
+
 - **sbom_diff.py** - Software Bill of Materials (SBOM) comparison and analysis
-
 ### Testing & Validation
-
 - **test_anchors.py** - Tests documentation anchor links for validity
+
 - **debug_anchors.py** - Debugs broken anchor references
-
 ### Development Setup
-
 - **dev-setup.py** - Sets up development environment with dependencies and tools
+
 - **update_type_ignore.py** - Updates type ignore directives in Python code
+
 - **passthrough_manager.py** - Helper for GPU/PCI passthrough configuration
-
 ### CI/CD Integration
-
 - **setup-runner-tools.sh** - Installs and configures GitHub Actions runner tools
+
 - **fix-runner-path.ps1** - PowerShell script to fix runner path issues
+
 - **remove_backups.ps1** - Cleanup script for backup files
 
 - --
-
 ## Testing Infrastructure (tests/)
-
 ### Test Suites
-
 - **conftest.py** - PyTest configuration and fixtures
+
 - **test_acme_certificates.py** - ACME certificate automation testing
+
 - **test_advanced_documentation.py** - Documentation generation testing
+
 - **test_advanced_features.py** - Advanced feature compatibility testing
+
 - **test_analytics.py** - Analytics collection and reporting testing
+
 - **test_anomaly.py** - Anomaly detection model testing
+
 - **test_api_key_manager.py** - API key lifecycle testing
+
 - **test_api_key_rotation.py** - Key rotation mechanism testing
+
 - **test_api_versioning.py** - API version compatibility testing
+
 - **test_audit_chain.py** - Audit log chain integrity testing
+
 - **test_audit_encryption.py** - Audit log encryption testing
+
 - **test_backup_manager_encryption.py** - Backup encryption testing
+
 - **test_phase4_integration.py** - Phase 4 feature integration testing
+
 - **test_phase4_week4.py** - Phase 4 week 4 milestone testing
+
 - **test_phase5_features.py** - Phase 5 (advanced) feature testing
+
 - **test_e2e_comprehensive.py** - End-to-end comprehensive scenario testing
-
 ### Load Testing
-
 - **load_testing.js** - Node.js-based load and stress testing
-
 ### Logging Tests
-
 - **manual_test_logging.py** - Manual testing of logging infrastructure
 
 - --
-
 ## Configuration & Build
-
 ### Build System
-
 - **Makefile** - Build targets for ISO creation, testing, and development
+
 - **build-debvisor.sh** - Main ISO build script with Debian Live-Build wrapper
+
 - **pytest.ini** - PyTest configuration
+
 - **mypy.ini** - MyPy type checking configuration
-
 ### Package Management
-
 - **requirements.txt** - Python runtime dependencies
+
 - **requirements-test.txt** - Python testing dependencies
+
 - **iso-requirements.txt** - ISO build dependencies
+
 - **package.json** - Node.js dependencies (for load testing, CI/CD scripts)
-
 ### Release & Documentation
-
 - **release-please-config.json** - Automated release versioning configuration
+
 - **README.md** - Project overview and quick start
+
 - **SECURITY.md** - Security policy and vulnerability reporting
+
 - **LICENSE.md** - Apache 2.0 license text
+
 - **changelog.md** - Version history and release notes
+
 - **improvements.md** - Ongoing improvements and roadmap
-
 ### Configuration Files
-
 - **typos.toml** - Spell checking configuration
+
 - **.pre-commit-config.yaml** - Pre-commit hook configuration
+
 - **alerts_details.json** - Alert rule definitions for monitoring
+
 - **.yamllint.yaml** - YAML linting rules
+
 - **.release-please-manifest.json** - Release manifest for automation
 
 - --
-
 ## Documentation (docs/)
-
 - **CODE_OF_CONDUCT.md** - Community guidelines
+
 - **CONTRIBUTING.md** - Contribution guidelines
+
 - **MAINTAINERS.md** - Maintainer information and responsibilities
+
 - **OPTIONAL_TOOLS.md** - Optional tool installation and configuration
+
 - **PROGRESS_DASHBOARD.md** - Development progress tracking
+
 - **RUNNER_SETUP_GUIDE.md** - GitHub Actions self-hosted runner setup
+
 - **RUNNER_FIX_SUMMARY.md** - Runner troubleshooting guide
+
 - **SELF_HOSTED_RUNNER.md** - Self-hosted runner configuration
 
 - --
-
 ## System Integration (etc/, usr/, var/)
-
 ### Service Management
-
 - **etc/systemd/system/** - Systemd units:
+
 - ceph-health.service/timer - Ceph cluster health monitoring
+
 - zfs-scrub-weekly.service/timer - ZFS pool maintenance
+
 - **etc/default/debvisor-zfs-scrub** - ZFS scrub configuration
+
 - **etc/README.md** - Comprehensive service management guide
-
 ### Operational Scripts (usr/local/bin/)
-
 - **debvisor-lib.sh** (700+ lines) - Shared bash utilities for all operational scripts
+
 - **debvisor-firstboot.sh** - First-boot provisioning (storage, networking, K8s, firewall)
+
 - **debvisor-join.sh** - Cluster node join procedure
+
 - **debvisor-upgrade.sh** - Cluster upgrade orchestration
+
 - **hostname-register.sh** - Dynamic DNS hostname registration
+
 - **dns-register.sh** - DNS record management
+
 - Various health check and monitoring scripts
-
 ### Logging & Runtime
-
 - **var/** - Runtime log files, cache, and temporary storage
+
 - **usr/local/sbin/** - System administration tools and daemons

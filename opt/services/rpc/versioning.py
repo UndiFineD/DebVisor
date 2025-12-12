@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,7 +141,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Any
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class APIVersion(Enum):
@@ -156,7 +204,7 @@ class VersionNegotiator:
         self.versions: Dict[APIVersion, VersionInfo] = {
             APIVersion.V1_0: VersionInfo(
                 _version = APIVersion.V1_0,
-                _released = datetime(2024, 1, 1),
+                _released=datetime(2024, 1, 1),
                 _description = "Initial API with basic cluster operations",
                 _new_features = [
                     "Basic node management",
@@ -166,8 +214,8 @@ class VersionNegotiator:
             ),
             APIVersion.V2_0: VersionInfo(
                 _version = APIVersion.V2_0,
-                _released = datetime(2024, 6, 1),
-                _deprecated = datetime(2026, 1, 1),
+                _released=datetime(2024, 6, 1),
+                _deprecated=datetime(2026, 1, 1),
                 _description = "Enhanced API with advanced operations",
                 _breaking_changes = [
                     "health_check endpoint returns structured data",
@@ -183,7 +231,7 @@ class VersionNegotiator:
             ),
             APIVersion.V3_0: VersionInfo(
                 _version = APIVersion.V3_0,
-                _released = datetime(2025, 11, 27),
+                _released=datetime(2025, 11, 27),
                 _description = "Next-gen API with streaming and advanced features",
                 _breaking_changes = [
                     "All request/response messages are protobuf3",
@@ -234,7 +282,7 @@ class VersionNegotiator:
         Raises:
             ValueError: If no compatible version found
         """
-        supported = self.get_supported_versions()
+        _supported=self.get_supported_versions()
 
         # Try to find highest client version that server supports
         for client_v in client_versions:
@@ -265,8 +313,8 @@ class VersionNegotiator:
     def validate_version(self, version_str: str) -> bool:
         """Validate that version string is supported."""
         try:
-            version = APIVersion(version_str)
-            version_info = self.versions.get(version)
+            _version=APIVersion(version_str)
+            _version_info=self.versions.get(version)
             return version_info is not None and not version_info.is_removed()
         except ValueError:
             return False
@@ -282,8 +330,8 @@ class VersionNegotiator:
         warnings = []
 
         try:
-            version = APIVersion(version_str)
-            version_info = self.versions.get(version)
+            _version=APIVersion(version_str)
+            _version_info=self.versions.get(version)
 
             if version_info is None:
                 warnings.append(f"Version {version_str} not found")
@@ -294,7 +342,7 @@ class VersionNegotiator:
                     f"Version {version_str} has been removed. Please upgrade."
                 )
             elif version_info.is_deprecated():
-                next_version = self._get_next_version(version)
+                _next_version=self._get_next_version(version)
                 warnings.append(
                     f"Version {version_str} is deprecated. Please upgrade to {next_version.value}"
                 )
@@ -308,7 +356,7 @@ class VersionNegotiator:
     def _get_next_version(self, version: APIVersion) -> APIVersion:
         """Get next version after specified version."""
         version_order = [APIVersion.V1_0, APIVersion.V2_0, APIVersion.V3_0]
-        idx = version_order.index(version)
+        _idx=version_order.index(version)
         if idx < len(version_order) - 1:
             return version_order[idx + 1]
         return version
@@ -317,7 +365,7 @@ class VersionNegotiator:
 class VersionedRequestRouter:
     """Routes requests to appropriate version-specific handlers."""
 
-    def __init__(self, negotiator: VersionNegotiator):
+    def __init__(self, negotiator: VersionNegotiator) -> None:
         """
         Initialize request router.
 
@@ -364,7 +412,7 @@ class VersionedRequestRouter:
             KeyError: If operation not found for version
         """
         try:
-            version = APIVersion(version_str)
+            _version=APIVersion(version_str)
         except ValueError:
             raise ValueError(f"Unknown API version: {version_str}")
 

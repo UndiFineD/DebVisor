@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,7 +156,7 @@ class PackageValidator:
 
     SUPPORTED_ARCHS = {"amd64", "arm64", "i386", "armh", "ppc64el", "s390x"}
 
-    def __init__(self, dist: str, arch: str, verbose: bool = False):
+    def __init__(self, dist: str, arch: str, verbose: bool=False) -> None:
         """Initialize validator.
 
         Args:
@@ -131,8 +179,8 @@ class PackageValidator:
         Returns:
             List of Path objects for .list.chroot files
         """
-        config_dir = Path(".")
-        list_files = list(config_dir.glob("*.list.chroot"))
+        _config_dir=Path(".")
+        _list_files=list(config_dir.glob("*.list.chroot"))
 
         if not list_files:
             self.errors.append("No .list.chroot files found in current directory")
@@ -154,18 +202,18 @@ class PackageValidator:
         Returns:
             Set of unique package names
         """
-        _packages = set()
+        _packages=set()
 
         for list_file in list_files:
             try:
                 with open(list_file, "r") as f:
                     for line in f:
-                        line = line.strip()
+                        _line=line.strip()
                         # Skip comments and empty lines
                         if not line or line.startswith("    #"):
                             continue
                         # Extract package name (may have conditions like 'package !i386')
-                        pkg_name = re.split(r"\s+", line)[0]
+                        _pkg_name=re.split(r"\s+", line)[0]
                         if pkg_name:
                             packages.add(pkg_name)
                             if self.verbose:
@@ -261,11 +309,11 @@ class PackageValidator:
             "unknown": [],
         }
 
-        total = len(packages)
+        _total=len(packages)
         print(f"\nValidating {total} packages for {self.dist}/{self.arch}...")
 
         for i, pkg in enumerate(sorted(packages), 1):
-            status = f"({i}/{total})"
+            _status=f"({i}/{total})"
 
             # Check for conditional packages (e.g., architecture-specific)
             if re.search(r"[!]", pkg) or re.search(r"[amd64|arm64|i386]", pkg):
@@ -281,7 +329,7 @@ class PackageValidator:
                 continue
 
             # Check availability
-            exists, msg = self.check_package_in_apt(pkg)
+            exists, msg=self.check_package_in_apt(pkg)
 
             if exists:
                 results["available"].append(pkg)
@@ -404,20 +452,20 @@ class PackageValidator:
             return 1
 
         # Parse package lists
-        list_files = self.parse_package_lists()
+        _list_files=self.parse_package_lists()
         if not list_files:
             print("\n".join(self.errors))
             return 1
 
         # Load packages
-        packages = self.load_packages(list_files)
+        _packages=self.load_packages(list_files)
         print(f"Loaded {len(packages)} unique packages")
 
         # Validate each package
-        results = self.validate_packages(packages)
+        _results=self.validate_packages(packages)
 
         # Generate report
-        report = self.generate_report(results)
+        _report=self.generate_report(results)
         print(report)
 
         # Return exit code based on errors
@@ -435,18 +483,18 @@ def main() -> None:
     parser.add_argument(
         "--arch",
         _default = "amd64",
-        help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
+        _help="Architecture (amd64, arm64, i386, armhf, ppc64el, s390x)",
     )
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Enable verbose output"
     )
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     # Run validator
-    validator = PackageValidator(args.dist, args.arch, args.verbose)
-    exit_code = validator.run()
+    _validator=PackageValidator(args.dist, args.arch, args.verbose)
+    _exit_code=validator.run()
 
     # Output JSON if requested
     if args.json:

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,9 +99,9 @@ try:
     configure_logging(service_name="config-distributor")
 except ImportError:
     logging.basicConfig(
-        _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+        _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -70,13 +118,13 @@ class ConfigVersion:
 
     @classmethod
 
-    def create(cls, content: Dict[str, Any], description: str = "") -> "ConfigVersion":
-        content_str = json.dumps(content, sort_keys=True)
-        checksum = hashlib.sha256(content_str.encode()).hexdigest()
-        version_id = f"v{int(time.time())}_{checksum[:8]}"
+    def create(cls, content: Dict[str, Any], description: str="") -> "ConfigVersion":
+        _content_str=json.dumps(content, sort_keys=True)
+        _checksum=hashlib.sha256(content_str.encode()).hexdigest()
+        _version_id=f"v{int(time.time())}_{checksum[:8]}"
         return cls(
             _version_id = version_id,
-            _timestamp = time.time(),
+            _timestamp=time.time(),
             _content = content,
             _checksum = checksum,
             _description = description,
@@ -86,8 +134,8 @@ class ConfigVersion:
 class ConfigStore:
     """Local storage for configuration versions."""
 
-    def __init__(self, storage_dir: str):
-        self.storage_dir = Path(storage_dir)
+    def __init__(self, storage_dir: str) -> None:
+        self.storage_dir=Path(storage_dir)
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.current_version_file = self.storage_dir / "current_version"
 
@@ -113,7 +161,7 @@ class ConfigStore:
             return None
 
         with open(version_path, "r") as f:
-            data = json.load(f)
+            _data=json.load(f)
             return ConfigVersion(**data)
 
     def set_current(self, version_id: str) -> None:
@@ -124,14 +172,14 @@ class ConfigStore:
         if not self.current_version_file.exists():
             return None
         with open(self.current_version_file, "r") as f:
-            version_id = f.read().strip()
+            _version_id=f.read().strip()
         return self.load_version(version_id)
 
 
 class ConfigDistributor:
     """Distributes configuration to nodes."""
 
-    def __init__(self, store: ConfigStore):
+    def __init__(self, store: ConfigStore) -> None:
         self.store = store
 
     async def distribute(
@@ -149,8 +197,8 @@ class ConfigDistributor:
         # In a real implementation, this would use RPC calls.
         # Here we simulate the distribution.
 
-        tasks = [self._push_to_node(node, version) for node in nodes]
-        node_results = await asyncio.gather(*tasks, return_exceptions=True)
+        _tasks=[self._push_to_node(node, version) for node in nodes]
+        _node_results=await asyncio.gather(*tasks, return_exceptions=True)
 
         for node, result in zip(nodes, node_results):
             if isinstance(result, Exception):
@@ -159,7 +207,7 @@ class ConfigDistributor:
             else:
                 results[node] = result  # type: ignore[assignment]
 
-        success_count = sum(1 for r in results.values() if r)
+        _success_count=sum(1 for r in results.values() if r)
         logger.info(f"Distribution complete. Success: {success_count}/{len(nodes)}")
         return results
 
@@ -179,7 +227,7 @@ class ConfigDistributor:
         self, nodes: List[str], target_version_id: str
     ) -> Dict[str, bool]:
         """Rollback nodes to a specific version."""
-        version = self.store.load_version(target_version_id)
+        _version=self.store.load_version(target_version_id)
         if not version:
             raise ValueError(f"Version {target_version_id} not found")
 
@@ -188,22 +236,22 @@ class ConfigDistributor:
 
 
 async def main_async() -> None:
-    parser = argparse.ArgumentParser(description="DebVisor Config Distributor")
+    _parser=argparse.ArgumentParser(description="DebVisor Config Distributor")
     parser.add_argument(
         "--store-dir",
-        default="/var/lib/debvisor/config_store",
-        help="Storage directory",
+        _default="/var/lib/debvisor/config_store",
+        _help="Storage directory",
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
     # Create Version
-    create_parser = subparsers.add_parser("create", help="Create new config version")
+    _create_parser=subparsers.add_parser("create", help="Create new config version")
     create_parser.add_argument("file", help="JSON config file")
     create_parser.add_argument("--desc", default="", help="Description")
 
     # Distribute
-    dist_parser = subparsers.add_parser("distribute", help="Distribute config")
+    _dist_parser=subparsers.add_parser("distribute", help="Distribute config")
     dist_parser.add_argument("version_id", help="Version ID to distribute")
     dist_parser.add_argument(
         "--nodes", required=True, help="Comma-separated list of nodes"
@@ -212,32 +260,32 @@ async def main_async() -> None:
     # List Versions
     subparsers.add_parser("list", help="List versions")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if not args.command:
         parser.print_help()
         return 1  # type: ignore[return-value]
 
-    store = ConfigStore(args.store_dir)
-    _distributor = ConfigDistributor(store)
+    _store=ConfigStore(args.store_dir)
+    _distributor=ConfigDistributor(store)
 
     if args.command == "create":
         with open(args.file, "r") as f:
-            content = json.load(f)
+            _content=json.load(f)
 
-        version = ConfigVersion.create(content, args.desc)
+        _version=ConfigVersion.create(content, args.desc)
         store.save_version(version)
         store.set_current(version.version_id)
         print(f"Created version: {version.version_id}")
 
     elif args.command == "distribute":
-        version = store.load_version(args.version_id)  # type: ignore[assignment]
+        _version=store.load_version(args.version_id)  # type: ignore[assignment]
         if not version:
             print(f"Error: Version {args.version_id} not found")
             return 1  # type: ignore[return-value]
 
-        nodes = args.nodes.split(", ")
-        results = await distributor.distribute(version, nodes)
+        _nodes=args.nodes.split(", ")
+        _results=await distributor.distribute(version, nodes)
 
         print("\nResults:")
         for node, success in results.items():

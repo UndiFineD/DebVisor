@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ try:
 except ImportError:
     HAS_K8S = False
 
-_logger = logging.getLogger("DebVisor.MultiRegion.K8s")
+_logger=logging.getLogger("DebVisor.MultiRegion.K8s")
 
 
 @dataclass
@@ -156,7 +204,7 @@ class K8sClusterManager:
         Returns:
             K8sClusterStatus
         """
-        _start_time = datetime.now(timezone.utc)
+        _start_time=datetime.now(timezone.utc)
 
         if not HAS_K8S:
         # Mock response
@@ -168,20 +216,20 @@ class K8sClusterManager:
                 _ready_nodes = 5,
                 _unhealthy_deployments = 0,
                 _latency_ms = 15.0,
-                _last_check = datetime.now(timezone.utc),
+                _last_check=datetime.now(timezone.utc),
             )
 
         try:
         # Create client for specific context
             # Note: This is simplified. Real implementation needs context switching logic.
-            api_client = config.new_client_from_config(context=context_name)
-            v1 = client.CoreV1Api(api_client)
-            apps_v1 = client.AppsV1Api(api_client)
+            _api_client=config.new_client_from_config(context=context_name)
+            _v1=client.CoreV1Api(api_client)
+            _apps_v1=client.AppsV1Api(api_client)
 
             # Check nodes
-            nodes = await asyncio.to_thread(v1.list_node)
-            _node_count = len(nodes.items)
-            _ready_nodes = sum(1 for n in nodes.items if self._is_node_ready(n))
+            _nodes=await asyncio.to_thread(v1.list_node)
+            _node_count=len(nodes.items)
+            _ready_nodes=sum(1 for n in nodes.items if self._is_node_ready(n))
 
             # Check deployments
             deployments = await asyncio.to_thread(
@@ -193,7 +241,7 @@ class K8sClusterManager:
                 if d.status.unavailable_replicas and d.status.unavailable_replicas > 0
             )
 
-            latency = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+            _latency=(datetime.now(timezone.utc) - start_time).total_seconds() * 1000
 
             return K8sClusterStatus(
                 _cluster_name = context_name,
@@ -202,7 +250,7 @@ class K8sClusterManager:
                 _ready_nodes = ready_nodes,
                 _unhealthy_deployments = unhealthy,
                 _latency_ms = latency,
-                _last_check = datetime.now(timezone.utc),
+                _last_check=datetime.now(timezone.utc),
             )
 
         except Exception as e:
@@ -214,7 +262,7 @@ class K8sClusterManager:
                 _ready_nodes = 0,
                 _unhealthy_deployments = 0,
                 _latency_ms = 0.0,
-                _last_check = datetime.now(timezone.utc),
+                _last_check=datetime.now(timezone.utc),
             )
 
     def _is_node_ready(self, node: Any) -> bool:
@@ -247,13 +295,13 @@ class K8sClusterManager:
         try:
         # 1. Scale down in source (if reachable)
             try:
-                source_client = config.new_client_from_config(context=source_context)
-                source_apps = client.AppsV1Api(source_client)
+                _source_client=config.new_client_from_config(context=source_context)
+                _source_apps=client.AppsV1Api(source_client)
                 for workload in workloads:
                 # Simplified: assuming default namespace
                     await asyncio.to_thread(
                         source_apps.patch_namespaced_deployment_scale,
-                        name=workload,
+                        _name=workload,
                         _namespace = "default",
                         _body = {"spec": {"replicas": 0}},
                     )
@@ -261,15 +309,15 @@ class K8sClusterManager:
                 logger.warning(f"Could not scale down source {source_context}: {e}")
 
             # 2. Scale up in target
-            target_client = config.new_client_from_config(context=target_context)
-            target_apps = client.AppsV1Api(target_client)
+            _target_client=config.new_client_from_config(context=target_context)
+            _target_apps=client.AppsV1Api(target_client)
 
             for workload in workloads:
             # In real world, we'd need to ensure deployment exists in target first (CI/CD or GitOps)
                 # Here we assume it exists but is scaled to 0
                 await asyncio.to_thread(
                     target_apps.patch_namespaced_deployment_scale,
-                    name=workload,
+                    _name=workload,
                     _namespace = "default",
                     _body = {"spec": {"replicas": 3}},    # Default replica count
                 )

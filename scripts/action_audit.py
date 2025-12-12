@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,14 +82,14 @@ from typing import Dict, List, Tuple
 class ActionAuditor:
     """Audit GitHub Actions for version pinning and security best practices."""
 
-    def __init__(self, workflows_dir: Path):
+    def __init__(self, workflows_dir: Path) -> None:
         self.workflows_dir = workflows_dir
         self.issues: List[Dict[str, str]] = []
         self.stats = {"total_actions": 0, "pinned": 0, "unpinned": 0, "deprecated": 0}
 
     def audit_all_workflows(self) -> Tuple[List[Dict[str, str]], Dict[str, int]]:
         """Audit all workflow files in the directory."""
-        workflow_files = list(self.workflows_dir.glob("*.yml")) + list(
+        _workflow_files=list(self.workflows_dir.glob("*.yml")) + list(
             self.workflows_dir.glob("*.yaml")
         )
 
@@ -54,14 +102,14 @@ class ActionAuditor:
         """Audit a single workflow file."""
         try:
             with open(workflow_file, "r", encoding="utf-8") as f:
-                content = f.read()
+                _content=f.read()
 
             # Find all 'uses:' statements
-            uses_pattern = r"uses:\s+([^\s@]+)(?:@([^\s]+))?"
+            _uses_pattern=r"uses:\s+([^\s@]+)(?:@([^\s]+))?"
 
             for match in re.finditer(uses_pattern, content, re.MULTILINE):
-                action_name = match.group(1)
-                version = match.group(2)
+                _action_name=match.group(1)
+                _version=match.group(2)
 
                 self.stats["total_actions"] += 1
 
@@ -180,18 +228,18 @@ class ActionAuditor:
 
 def main() -> None:
     """Main entry point."""
-    workflows_dir = Path(__file__).parent.parent / ".github" / "workflows"
+    _workflows_dir=Path(__file__).parent.parent / ".github" / "workflows"
 
     if not workflows_dir.exists():
         print(f"? Workflows directory not found: {workflows_dir}", file=sys.stderr)
         sys.exit(1)
 
-    auditor = ActionAuditor(workflows_dir)
-    issues, stats = auditor.audit_all_workflows()
+    _auditor=ActionAuditor(workflows_dir)
+    issues, stats=auditor.audit_all_workflows()
     auditor.print_report()
 
     # Exit with error code if high-severity issues found
-    high_severity_count = sum(1 for i in issues if i["severity"] == "HIGH")
+    _high_severity_count=sum(1 for i in issues if i["severity"] == "HIGH")
     if high_severity_count > 0:
         sys.exit(1)
 

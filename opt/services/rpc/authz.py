@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from typing import Optional, List, Dict, Any, Callable
 
 from opt.services.rpc.auth import Identity
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class PermissionMatcher:
@@ -151,8 +199,8 @@ class PermissionMatcher:
         if pattern == "*":
             return True
 
-        required_parts = required.split(":")
-        pattern_parts = pattern.split(":")
+        _required_parts=required.split(":")
+        _pattern_parts=pattern.split(":")
 
         # Pattern can't have more parts than required
         if len(pattern_parts) > len(required_parts):
@@ -230,7 +278,7 @@ class AuthorizationInterceptor(grpc.ServerInterceptor):
     additional logging and policy enforcement points.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """
         Initialize authorization interceptor.
 
@@ -338,7 +386,7 @@ if __name__ == "__main__":
 
     print("Testing permission matching:")
     for required, permissions, expected in test_cases:
-        result = PermissionMatcher.matches(required, permissions)
+        _result=PermissionMatcher.matches(required, permissions)
         status = "?" if result == expected else "?"
         print(
             f"{status} matches({required}, {permissions}) = {result} (expected {expected})"

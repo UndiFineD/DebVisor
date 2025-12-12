@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -163,7 +211,7 @@ class Region:
     status: RegionStatus = RegionStatus.UNKNOWN
     capacity_vms: int = 1000
     current_vms: int = 0
-    last_heartbeat: datetime = field(default_factory=lambda: datetime.now(timezone.utc))  # type: ignore[name-defined]
+    last_heartbeat: datetime=field(default_factory=lambda: datetime.now(timezone.utc))  # type: ignore[name-defined]
     latency_ms: float = 0.0
     bandwidth_mbps: float = 0.0
     replication_lag_seconds: float = 0.0
@@ -196,10 +244,10 @@ class ReplicatedResource:
     resource_type: ResourceType
     primary_region_id: str
     replica_regions: Dict[str, str] = field(
-        default_factory=dict
+        _default_factory=dict
     )    # region_id -> replica_id
     data_hash: str = ""
-    last_sync_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))  # type: ignore[name-defined]
+    last_sync_time: datetime=field(default_factory=lambda: datetime.now(timezone.utc))  # type: ignore[name-defined]
     replication_status: Dict[str, ReplicationStatus] = field(default_factory=dict)
     version: int = 1
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -291,7 +339,7 @@ class ReplicationConfig:
 class MultiRegionManager:
     """Manages multi-region operations, replication, and failover."""
 
-    def __init__(self, config_dir: Optional[str] = None):
+    def __init__(self, config_dir: Optional[str] = None) -> None:
         """Initialize the multi-region manager.
 
         Args:
@@ -312,16 +360,16 @@ class MultiRegionManager:
         self.failover_events: List[FailoverEvent] = []
         self.health_checks: Dict[str, asyncio.Task] = {}
         self.replication_tasks: Dict[str, asyncio.Task] = {}
-        self.k8s_manager = K8sClusterManager()
-        self.logger = self._setup_logging()
+        self.k8s_manager=K8sClusterManager()
+        self.logger=self._setup_logging()
         self._ensure_config_dir()
         self._init_db()
         self._load_state()
 
     def _setup_logging(self) -> logging.Logger:
         """Setup logging for multi-region manager."""
-        logger = logging.getLogger("DebVisor.MultiRegion")
-        handler = logging.FileHandler(f"{self.config_dir}/multiregion.log")
+        _logger=logging.getLogger("DebVisor.MultiRegion")
+        _handler=logging.FileHandler(f"{self.config_dir}/multiregion.log")
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
@@ -336,8 +384,8 @@ class MultiRegionManager:
 
     def _init_db(self) -> None:
         """Initialize SQLite database for persistence."""
-        db_path = os.path.join(self.config_dir, "multiregion.db")
-        self.conn = sqlite3.connect(db_path, check_same_thread=False)
+        _db_path=os.path.join(self.config_dir, "multiregion.db")
+        self.conn=sqlite3.connect(db_path, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
 
         with self.conn:
@@ -402,22 +450,22 @@ class MultiRegionManager:
         """Load state from database."""
         try:
         # Load Regions
-            cursor = self.conn.execute("SELECT * FROM regions")
+            _cursor=self.conn.execute("SELECT * FROM regions")
             for row in cursor:
                 region = Region(
                     _region_id = row["region_id"],
                     _name = row["name"],
                     _location = row["location"],
                     _api_endpoint = row["api_endpoint"],
-                    _is_primary = bool(row["is_primary"]),
-                    status=(
+                    _is_primary=bool(row["is_primary"]),
+                    _status=(
                         RegionStatus(row["status"])
                         if row["status"]
                         else RegionStatus.UNKNOWN
                     ),
                     _capacity_vms = row["capacity_vms"],
                     _current_vms = row["current_vms"],
-                    last_heartbeat=(
+                    _last_heartbeat=(
                         datetime.fromisoformat(row["last_heartbeat"])  # type: ignore[name-defined]
                         if row["last_heartbeat"]
                         else datetime.now(timezone.utc)  # type: ignore[name-defined]
@@ -429,24 +477,24 @@ class MultiRegionManager:
                 self.regions[region.region_id] = region
 
             # Load Resources
-            cursor = self.conn.execute("SELECT * FROM resources")
+            _cursor=self.conn.execute("SELECT * FROM resources")
             for row in cursor:
                 resource = ReplicatedResource(
                     _resource_id = row["resource_id"],
-                    _resource_type = ResourceType(row["resource_type"]),
+                    _resource_type=ResourceType(row["resource_type"]),
                     _primary_region_id = row["primary_region_id"],
-                    replica_regions=(
+                    _replica_regions=(
                         json.loads(row["replica_regions"])
                         if row["replica_regions"]
                         else {}
                     ),
                     _data_hash = row["data_hash"],
-                    last_sync_time=(
+                    _last_sync_time=(
                         datetime.fromisoformat(row["last_sync_time"])  # type: ignore[name-defined]
                         if row["last_sync_time"]
                         else datetime.now(timezone.utc)  # type: ignore[name-defined]
                     ),
-                    replication_status={
+                    _replication_status={
                         k: ReplicationStatus(v)
                         for k, v in (
                             json.loads(row["replication_status"])
@@ -455,34 +503,34 @@ class MultiRegionManager:
                         ).items()
                     },
                     _version = row["version"],
-                    _metadata = json.loads(row["metadata"]) if row["metadata"] else {},
+                    _metadata=json.loads(row["metadata"]) if row["metadata"] else {},
                 )
                 self.resources[resource.resource_id] = resource
 
             # Load Failover Events
-            cursor = self.conn.execute("SELECT * FROM failover_events")
+            _cursor=self.conn.execute("SELECT * FROM failover_events")
             for row in cursor:
                 event = FailoverEvent(
                     _event_id = row["event_id"],
-                    _timestamp = datetime.fromisoformat(row["timestamp"]),  # type: ignore[name-defined]
+                    _timestamp=datetime.fromisoformat(row["timestamp"]),  # type: ignore[name-defined]
                     _from_region_id = row["from_region_id"],
                     _to_region_id = row["to_region_id"],
                     _reason = row["reason"],
                     _affected_resources = row["affected_resources"],
-                    _success = bool(row["success"]),
+                    _success=bool(row["success"]),
                     _duration_seconds = row["duration_seconds"],
-                    _rollback_required = bool(row["rollback_required"]),
+                    _rollback_required=bool(row["rollback_required"]),
                     _notes = row["notes"],
                 )
                 self.failover_events.append(event)
 
             # Load Replication Configs
-            cursor = self.conn.execute("SELECT * FROM replication_configs")
+            _cursor=self.conn.execute("SELECT * FROM replication_configs")
             for row in cursor:
                 _config = ReplicationConfig(
                     _source_region_id = row["source_region_id"],
                     _target_region_id = row["target_region_id"],
-                    resource_types=(
+                    _resource_types=(
                         [ResourceType(rt) for rt in json.loads(row["resource_types"])]
                         if row["resource_types"]
                         else []
@@ -490,9 +538,9 @@ class MultiRegionManager:
                     _sync_interval_seconds = row["sync_interval_seconds"],
                     _batch_size = row["batch_size"],
                     _priority = row["priority"],
-                    _enabled = bool(row["enabled"]),
-                    _bidirectional = bool(row["bidirectional"]),
-                    _compression = bool(row["compression"]),
+                    _enabled=bool(row["enabled"]),
+                    _bidirectional=bool(row["bidirectional"]),
+                    _compression=bool(row["compression"]),
                 )
                 self.replication_configs[row["config_id"]] = config
 
@@ -656,7 +704,7 @@ class MultiRegionManager:
         Returns:
             Registered Region
         """
-        region_id = location.lower().replace(" ", "-")
+        _region_id=location.lower().replace(" ", "-")
 
         # If this is primary, demote other primaries
         if is_primary:
@@ -664,9 +712,9 @@ class MultiRegionManager:
                 region.is_primary = False
 
         region = Region(
-            region_id=region_id,
-            name=name,
-            location=location,
+            _region_id=region_id,
+            _name=name,
+            _location=location,
             _api_endpoint = api_endpoint,
             _is_primary = is_primary,
             _capacity_vms = capacity_vms,
@@ -709,7 +757,7 @@ class MultiRegionManager:
         Returns:
             List of regions
         """
-        regions = list(self.regions.values())
+        _regions=list(self.regions.values())
         if status:
             regions = [r for r in regions if r.status == status]
         return regions
@@ -723,23 +771,23 @@ class MultiRegionManager:
         Returns:
             RegionStatus
         """
-        region = self.get_region(region_id)
+        _region=self.get_region(region_id)
         if not region:
             return RegionStatus.UNKNOWN
 
         try:
         # Simulate health check with latency measurement
-            start_time = time.time()
+            _start_time=time.time()
 
             # Check K8s cluster health if applicable
-            _k8s_status = await self.k8s_manager.check_cluster_health(region_id)
+            _k8s_status=await self.k8s_manager.check_cluster_health(region_id)
 
             # In real implementation, make actual HTTP request
             await asyncio.sleep(0.1)    # Simulated latency
 
-            latency = (time.time() - start_time) * 1000
+            _latency=(time.time() - start_time) * 1000
             region.latency_ms = latency
-            region.last_heartbeat = datetime.now(timezone.utc)  # type: ignore[name-defined]
+            region.last_heartbeat=datetime.now(timezone.utc)  # type: ignore[name-defined]
 
             # Determine status based on latency and K8s status
             if latency < 100 and k8s_status.is_reachable:
@@ -784,8 +832,8 @@ class MultiRegionManager:
         config = ReplicationConfig(
             _source_region_id = source_region_id,
             _target_region_id = target_region_id,
-            resource_types=resource_types,
-            sync_interval_seconds=sync_interval_seconds,
+            _resource_types=resource_types,
+            _sync_interval_seconds=sync_interval_seconds,
             _bidirectional = bidirectional,
         )
 
@@ -812,7 +860,7 @@ class MultiRegionManager:
         Returns:
             True if successful
         """
-        resource = self.resources.get(resource_id)
+        _resource=self.resources.get(resource_id)
         if not resource:
             self.logger.warning(f"Resource {resource_id} not found for sync")
             return False
@@ -826,7 +874,7 @@ class MultiRegionManager:
 
             # Update replication status
             resource.replication_status[target_region_id] = ReplicationStatus.IN_SYNC
-            resource.last_sync_time = datetime.now(timezone.utc)  # type: ignore[name-defined]
+            resource.last_sync_time=datetime.now(timezone.utc)  # type: ignore[name-defined]
             resource.replica_regions[target_region_id] = f"{resource_id}-replica"
 
             self._save_resource(resource)
@@ -859,8 +907,8 @@ class MultiRegionManager:
         Returns:
             (success, FailoverEvent)
         """
-        event_id = str(uuid4())[:8]
-        _start_time = time.time()
+        _event_id=str(uuid4())[:8]
+        _start_time=time.time()
 
         try:
             self.logger.info(
@@ -869,7 +917,7 @@ class MultiRegionManager:
             )
 
             # Check target region is healthy
-            target_status = await self.check_region_health(to_region_id)
+            _target_status=await self.check_region_health(to_region_id)
             if target_status == RegionStatus.UNREACHABLE:
                 raise ValueError(f"Target region {to_region_id} is unreachable")
 
@@ -898,19 +946,19 @@ class MultiRegionManager:
                     raise RuntimeError("K8s failover failed")
 
             # Update primary region
-            old_primary = self.get_primary_region()
+            _old_primary=self.get_primary_region()
             if old_primary:
                 old_primary.is_primary = False
 
-            new_primary = self.get_region(to_region_id)
+            _new_primary=self.get_region(to_region_id)
             if new_primary:
                 new_primary.is_primary = True
 
-            _duration = time.time() - start_time
+            _duration=time.time() - start_time
 
             event = FailoverEvent(
                 _event_id = event_id,
-                _timestamp = datetime.now(timezone.utc),  # type: ignore[name-defined]
+                _timestamp=datetime.now(timezone.utc),  # type: ignore[name-defined]
                 _from_region_id = from_region_id,
                 _to_region_id = to_region_id,
                 _reason = reason,
@@ -929,18 +977,18 @@ class MultiRegionManager:
             return True, event
 
         except Exception as e:
-            _duration = time.time() - start_time
+            _duration=time.time() - start_time
 
             event = FailoverEvent(
                 _event_id = event_id,
-                _timestamp = datetime.now(timezone.utc),  # type: ignore[name-defined]
+                _timestamp=datetime.now(timezone.utc),  # type: ignore[name-defined]
                 _from_region_id = from_region_id,
                 _to_region_id = to_region_id,
                 _reason = reason,
                 _affected_resources = 0,
                 _success = False,
                 _duration_seconds = duration,
-                _notes = str(e),
+                _notes=str(e),
             )
 
             self.failover_events.append(event)
@@ -992,7 +1040,7 @@ class MultiRegionManager:
         Returns:
             Status dictionary
         """
-        resource = self.resources.get(resource_id)
+        _resource=self.resources.get(resource_id)
         if not resource:
             return {}
 
@@ -1035,7 +1083,7 @@ class MultiRegionManager:
             ]
 
         # Sort by timestamp, newest first
-        events = sorted(events, key=lambda e: e.timestamp, reverse=True)
+        _events=sorted(events, key=lambda e: e.timestamp, reverse=True)
         return events[:limit]
 
     def get_region_statistics(self, region_id: str) -> Dict[str, Any]:
@@ -1047,7 +1095,7 @@ class MultiRegionManager:
         Returns:
             Statistics dictionary
         """
-        region = self.get_region(region_id)
+        _region=self.get_region(region_id)
         if not region:
             return {}
 
@@ -1092,12 +1140,12 @@ class MultiRegionManager:
         Returns:
             Global statistics dictionary
         """
-        _total_resources = len(self.resources)
+        _total_resources=len(self.resources)
         _healthy_regions = len(
-            [r for r in self.regions.values() if r.status == RegionStatus.HEALTHY]
+            [r for r in self.regions.values() if r.status== RegionStatus.HEALTHY]
         )
-        _total_capacity = sum(r.capacity_vms for r in self.regions.values())
-        _total_current = sum(r.current_vms for r in self.regions.values())
+        _total_capacity=sum(r.capacity_vms for r in self.regions.values())
+        _total_current=sum(r.current_vms for r in self.regions.values())
 
         _sync_stats = {}
         for resource in self.resources.values():
@@ -1106,8 +1154,8 @@ class MultiRegionManager:
                 for status in resource.replication_status.values()
                 if status == ReplicationStatus.IN_SYNC
             )
-            total = len(resource.replication_status)
-            sync_percent = (synced / total * 100) if total > 0 else 100
+            _total=len(resource.replication_status)
+            _sync_percent=(synced / total * 100) if total > 0 else 100
 
             if sync_percent not in sync_stats:
                 sync_stats[sync_percent] = 0
@@ -1157,5 +1205,5 @@ def get_multi_region_manager(config_dir: Optional[str] = None) -> MultiRegionMan
         except ImportError:
             final_config_dir = config_dir or "/etc/debvisor/regions"
 
-        _manager = MultiRegionManager(final_config_dir)
+        _manager=MultiRegionManager(final_config_dir)
     return _manager

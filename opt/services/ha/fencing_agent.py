@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,7 +155,7 @@ try:
 except ImportError:
     HAS_REQUESTS = False
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class FenceMethod(Enum):
@@ -193,15 +241,15 @@ class FenceDriver(ABC):
 class IPMIFenceDriver(FenceDriver):
     """IPMI/BMC fencing driver using ipmitool."""
 
-    def __init__(self, timeout: int = 30):
+    def __init__(self, timeout: int=30) -> None:
         self.timeout = timeout
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Execute IPMI power command."""
-        params = target.params.get("ipmi", {})
-        host = params.get("host")
-        _user = params.get("user", "admin")
-        _password = params.get("password", "")
+        _params=target.params.get("ipmi", {})
+        _host=params.get("host")
+        _user=params.get("user", "admin")
+        _password=params.get("password", "")
 
         if not host:
             logger.error(f"IPMI: No BMC host for {target.node_id}")
@@ -252,7 +300,7 @@ class IPMIFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify node power state is off."""
-        result = self.execute(target, FenceAction.STATUS)
+        _result=self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
         # Check stdout from last command for "of" state
             return True    # Would need to capture and parse output
@@ -262,7 +310,7 @@ class IPMIFenceDriver(FenceDriver):
 class RedfishFenceDriver(FenceDriver):
     """Redfish API fencing driver (DMTF standard)."""
 
-    def __init__(self, timeout: int = 30, verify_ssl: bool = True):
+    def __init__(self, timeout: int=30, verify_ssl: bool=True) -> None:
         self.timeout = timeout
         self.verify_ssl = verify_ssl
         if not HAS_REQUESTS:
@@ -273,10 +321,10 @@ class RedfishFenceDriver(FenceDriver):
         if not HAS_REQUESTS:
             return FenceResult.FAILED
 
-        params = target.params.get("redfish", {})
-        host = params.get("host")
-        _user = params.get("user", "admin")
-        _password = params.get("password", "")
+        _params=target.params.get("redfish", {})
+        _host=params.get("host")
+        _user=params.get("user", "admin")
+        _password=params.get("password", "")
 
         if not host:
             logger.error(f"Redfish: No BMC host for {target.node_id}")
@@ -292,7 +340,7 @@ class RedfishFenceDriver(FenceDriver):
         if action == FenceAction.STATUS:
             return self._get_power_state(host, user, password, target)
 
-        reset_type = reset_type_map.get(action)
+        _reset_type=reset_type_map.get(action)
         if not reset_type:
             return FenceResult.FAILED
 
@@ -305,7 +353,7 @@ class RedfishFenceDriver(FenceDriver):
             response = requests.post(
                 url,
                 _json = {"ResetType": reset_type},
-                _auth = (user, password),
+                _auth=(user, password),
                 _verify = self.verify_ssl,
                 _timeout = self.timeout,
             )
@@ -334,8 +382,8 @@ class RedfishFenceDriver(FenceDriver):
                 url, auth=(user, password), verify=self.verify_ssl, timeout=self.timeout
             )
             if response.status_code == 200:
-                data = response.json()
-                state = data.get("PowerState", "Unknown")
+                _data=response.json()
+                _state=data.get("PowerState", "Unknown")
                 logger.info(f"Redfish: {target.node_id} power state: {state}")
                 return FenceResult.SUCCESS
         except Exception as e:
@@ -344,8 +392,8 @@ class RedfishFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify power is off via Redfish."""
-        params = target.params.get("redfish", {})
-        host = params.get("host")
+        _params=target.params.get("redfish", {})
+        _host=params.get("host")
         if not host:
             return False
 
@@ -353,7 +401,7 @@ class RedfishFenceDriver(FenceDriver):
             url = f"https://{host}/redfish/v1/Systems/1"
             response = requests.get(
                 url,
-                _auth = (params.get("user", "admin"), params.get("password", "")),
+                _auth=(params.get("user", "admin"), params.get("password", "")),
                 _verify = self.verify_ssl,
                 _timeout = self.timeout,
             )
@@ -367,7 +415,7 @@ class RedfishFenceDriver(FenceDriver):
 class WatchdogFenceDriver(FenceDriver):
     """Hardware/software watchdog fencing."""
 
-    def __init__(self, device: str = "/dev/watchdog"):
+    def __init__(self, device: str="/dev/watchdog") -> None:
         self.device = device
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
@@ -380,7 +428,7 @@ class WatchdogFenceDriver(FenceDriver):
 
         try:
         # Write 'V' to cleanly close, or just close to trigger reboot
-            watchdog_path = Path(self.device)
+            _watchdog_path=Path(self.device)
             if watchdog_path.exists():
             # Opening and closing without magic close triggers reboot
                 with open(self.device, "w"):
@@ -389,7 +437,7 @@ class WatchdogFenceDriver(FenceDriver):
                 return FenceResult.SUCCESS
             else:
             # Try software watchdog via sysrq
-                sysrq = Path("/proc/sysrq-trigger")
+                _sysrq=Path("/proc/sysrq-trigger")
                 if sysrq.exists():
                     with open(sysrq, "w") as f:
                         f.write("b")    # Immediate reboot
@@ -410,13 +458,13 @@ class WatchdogFenceDriver(FenceDriver):
 class CephStorageFenceDriver(FenceDriver):
     """Ceph blocklist-based fencing for storage isolation."""
 
-    def __init__(self, ceph_conf: str = "/etc/ceph/ceph.con"):
+    def __init__(self, ceph_conf: str="/etc/ceph/ceph.con") -> None:
         self.ceph_conf = ceph_conf
 
     def execute(self, target: FenceTarget, action: FenceAction) -> FenceResult:
         """Add/remove node from Ceph blocklist."""
-        params = target.params.get("ceph", {})
-        client_addr = params.get("client_addr")
+        _params=target.params.get("ceph", {})
+        _client_addr=params.get("client_addr")
 
         if not client_addr:
         # Try to resolve from hostname
@@ -453,8 +501,8 @@ class CephStorageFenceDriver(FenceDriver):
 
     def verify(self, target: FenceTarget) -> bool:
         """Verify node is in Ceph blocklist."""
-        params = target.params.get("ceph", {})
-        client_addr = params.get("client_addr", target.hostname)
+        _params=target.params.get("ceph", {})
+        _client_addr=params.get("client_addr", target.hostname)
 
         try:
             result = subprocess.run(
@@ -474,7 +522,7 @@ class FencingAgent:
     def __init__(self) -> None:
         self._targets: Dict[str, FenceTarget] = {}
         self._events: List[FenceEvent] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._drivers: Dict[FenceMethod, FenceDriver] = {
             FenceMethod.IPMI: IPMIFenceDriver(),
             FenceMethod.REDFISH: RedfishFenceDriver(verify_ssl=False),
@@ -530,7 +578,7 @@ class FencingAgent:
         Returns:
             FenceResult indicating success/failure
         """
-        target = self._targets.get(node_id)
+        _target=self._targets.get(node_id)
         if not target:
             logger.error(f"No fence target registered for {node_id}")
             return FenceResult.FAILED
@@ -546,25 +594,25 @@ class FencingAgent:
 
         # Try each configured method in order
         for method in target.methods:
-            driver = self._drivers.get(method)
+            _driver=self._drivers.get(method)
             if not driver:
                 logger.warning(f"No driver for method {method.value}, skipping")
                 continue
 
-            start_time = time.time()
-            _result = driver.execute(target, action)
-            _duration_ms = int((time.time() - start_time) * 1000)
+            _start_time=time.time()
+            _result=driver.execute(target, action)
+            _duration_ms=int((time.time() - start_time) * 1000)
 
             # Record event
             event = FenceEvent(
-                _event_id = hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
+                _event_id=hashlib.sha256(f"{node_id}{time.time()}".encode()).hexdigest()[
                     :12
                 ],
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _target_node = node_id,
                 _method = method,
-                action=action,
-                result=result,
+                _action=action,
+                _result=result,
                 _duration_ms = duration_ms,
                 _initiator = initiator,
             )
@@ -580,7 +628,7 @@ class FencingAgent:
 
                 # Update target stats
                 with self._lock:
-                    target.last_fenced = datetime.now(timezone.utc)
+                    target.last_fenced=datetime.now(timezone.utc)
                     target.fence_count += 1
 
                 logger.warning(f"FENCE SUCCESS: {node_id} via {method.value}")
@@ -614,7 +662,7 @@ class FencingAgent:
     ) -> List[FenceEvent]:
         """Get fence event history."""
         with self._lock:
-            events = self._events.copy()
+            _events=self._events.copy()
 
         if node_id:
             events = [e for e in events if e.target_node == node_id]
@@ -626,8 +674,8 @@ class FencingAgent:
     def get_status(self) -> Dict[str, Any]:
         """Get fencing agent status."""
         with self._lock:
-            targets = list(self._targets.values())
-            events = self._events.copy()
+            _targets=list(self._targets.values())
+            _events=self._events.copy()
 
         return {
             "registered_targets": len(targets),
@@ -684,10 +732,10 @@ class FencingAgent:
 class STONITHCoordinator:
     """Coordinates STONITH (Shoot The Other Node In The Head) decisions."""
 
-    def __init__(self, agent: FencingAgent, quorum_nodes: List[str]):
+    def __init__(self, agent: FencingAgent, quorum_nodes: List[str]) -> None:
         self.agent = agent
         self.quorum_nodes = quorum_nodes
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
     def request_fence(
         self, target_node: str, requesting_node: str, reason: str
@@ -718,7 +766,7 @@ class STONITHCoordinator:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="DebVisor Fencing Agent")
+    _parser=argparse.ArgumentParser(description="DebVisor Fencing Agent")
     parser.add_argument(
         "action", choices=["status", "fence", "test"], help="Action to perform"
     )
@@ -729,17 +777,17 @@ if __name__ == "__main__":
     parser.add_argument("--host", help="BMC/IPMI host address")
     parser.add_argument("--user", default="admin", help="BMC username")
     parser.add_argument("--password", default="", help="BMC password")
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     logging.basicConfig(
-        level=logging.INFO,
-        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level=logging.INFO,
+        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    agent = FencingAgent()
+    _agent=FencingAgent()
 
     if args.action == "status":
-        status = agent.get_status()
+        _status=agent.get_status()
         print(json.dumps(status, indent=2))
 
     elif args.action == "test":
@@ -784,5 +832,5 @@ if __name__ == "__main__":
         )
         agent.register_target(target)
 
-        result = agent.fence_node(args.node, initiator="cli")
+        _result=agent.fence_node(args.node, initiator="cli")
         print(f"Fence result: {result.value}")

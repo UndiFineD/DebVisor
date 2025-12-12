@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,8 +146,8 @@ class NetCfgApp:
 
     def __init__(self) -> None:
     # Initialize backend
-        self.backend = Iproute2Backend()
-        self.manager = NetworkConfigurationManager(backend=self.backend)
+        self.backend=Iproute2Backend()
+        self.manager=NetworkConfigurationManager(backend=self.backend)
 
         self.palette = [
             ("body", "black", "light gray"),
@@ -113,12 +161,12 @@ class NetCfgApp:
         ]
 
         self.main_loop: Optional[urwid.MainLoop] = None
-        self.status_bar = urwid.Text("Ready - Press 'q' to quit")
+        self.status_bar=urwid.Text("Ready - Press 'q' to quit")
 
     def create_interface_list(self) -> urwid.ListBox:
         """Create the list of interfaces."""
         try:
-            interfaces = self.manager.get_all_interfaces_status()
+            _interfaces=self.manager.get_all_interfaces_status()
         except Exception as e:
             logging.error(f"Error getting interfaces: {e}")
             interfaces = []
@@ -132,7 +180,7 @@ class NetCfgApp:
             state_symbol = "●" if iface.state.value == "up" else "○"
 
             label = f"{state_symbol} {iface.name:<10} | {iface.interface_type.value:<10} | {iface.state.value}"
-            button = urwid.Button(label)
+            _button=urwid.Button(label)
             urwid.connect_signal(button, "click", self.on_interface_click, iface.name)
             body.append(urwid.AttrMap(button, "button", "button_focus"))
 
@@ -147,7 +195,7 @@ class NetCfgApp:
         """Show dialog to edit interface settings."""
         # Fetch current config
         try:
-            iface = self.manager.get_interface_config(interface_name)
+            _iface=self.manager.get_interface_config(interface_name)
             current_ip = ""
             current_mask = "24"
             current_gw = ""
@@ -159,11 +207,11 @@ class NetCfgApp:
                 for addr in iface.addresses:
                     if addr.family.value == "ipv4":
                         current_ip = addr.address
-                        current_mask = str(addr.netmask)
+                        _current_mask=str(addr.netmask)
                         current_gw = addr.gateway or ""
                     elif addr.family.value == "ipv6":
                         current_ip6 = addr.address
-                        current_mask6 = str(addr.netmask)
+                        _current_mask6=str(addr.netmask)
                         current_gw6 = addr.gateway or ""
 
         except Exception as e:
@@ -176,21 +224,21 @@ class NetCfgApp:
             current_gw6 = ""
 
         # Create edit widgets
-        self.edit_ip = urwid.Edit("IPv4 Address: ", current_ip)
-        self.edit_mask = urwid.Edit("IPv4 Netmask (CIDR): ", current_mask)
-        self.edit_gw = urwid.Edit("IPv4 Gateway: ", current_gw)
+        self.edit_ip=urwid.Edit("IPv4 Address: ", current_ip)
+        self.edit_mask=urwid.Edit("IPv4 Netmask (CIDR): ", current_mask)
+        self.edit_gw=urwid.Edit("IPv4 Gateway: ", current_gw)
 
-        self.edit_ip6 = urwid.Edit("IPv6 Address: ", current_ip6)
-        self.edit_mask6 = urwid.Edit("IPv6 Prefix (CIDR): ", current_mask6)
-        self.edit_gw6 = urwid.Edit("IPv6 Gateway: ", current_gw6)
+        self.edit_ip6=urwid.Edit("IPv6 Address: ", current_ip6)
+        self.edit_mask6=urwid.Edit("IPv6 Prefix (CIDR): ", current_mask6)
+        self.edit_gw6=urwid.Edit("IPv6 Gateway: ", current_gw6)
 
         # Buttons
-        btn_save = urwid.Button("Save")
+        _btn_save=urwid.Button("Save")
         urwid.connect_signal(
             btn_save, "click", self.save_interface_config, interface_name
         )
 
-        btn_cancel = urwid.Button("Cancel")
+        _btn_cancel=urwid.Button("Cancel")
         urwid.connect_signal(btn_cancel, "click", self.close_dialog)
 
         # Layout
@@ -223,10 +271,10 @@ class NetCfgApp:
         self.overlay = urwid.Overlay(
             urwid.LineBox(pile),
             self.main_loop.widget,
-            align="center",
-            _width = ("relative", 50),
+            _align="center",
+            _width=("relative", 50),
             _valign = "middle",
-            _height = ("relative", 50),
+            _height=("relative", 50),
         )
         self.main_loop.widget = self.overlay
 
@@ -258,12 +306,12 @@ class NetCfgApp:
             # IPv4
             if ip:
                 try:
-                    netmask = int(mask)
+                    _netmask=int(mask)
                 except ValueError:
                     raise ValueError("IPv4 Netmask must be an integer (CIDR)")
 
                 ipv4_addr = IPAddress(
-                    address=ip,
+                    _address=ip,
                     _netmask = netmask,
                     _family = AddressFamily.IPV4,
                     _gateway = gw if gw else None,
@@ -276,12 +324,12 @@ class NetCfgApp:
             # IPv6
             if ip6:
                 try:
-                    netmask6 = int(mask6)
+                    _netmask6=int(mask6)
                 except ValueError:
                     raise ValueError("IPv6 Prefix must be an integer (CIDR)")
 
                 ipv6_addr = IPAddress(
-                    address=ip6,
+                    _address=ip6,
                     _netmask = netmask6,
                     _family = AddressFamily.IPV6,
                     _gateway = gw6 if gw6 else None,
@@ -295,7 +343,7 @@ class NetCfgApp:
                 raise ValueError("At least one IP address (IPv4 or IPv6) is required")
 
             # Apply via backend
-            iface_config = self.manager.backend.get_interface_config(interface_name)
+            _iface_config=self.manager.backend.get_interface_config(interface_name)
             if not iface_config:
                 raise ValueError(f"Interface {interface_name} not found")
 
@@ -318,10 +366,10 @@ class NetCfgApp:
 
     def run(self) -> None:
         """Run the application."""
-        header = urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), "header")
-        footer = urwid.AttrMap(self.status_bar, "status")
+        _header=urwid.AttrMap(urwid.Text("DebVisor Network Configuration"), "header")
+        _footer=urwid.AttrMap(self.status_bar, "status")
 
-        list_box = self.create_interface_list()
+        _list_box=self.create_interface_list()
         view = urwid.Frame(
             urwid.AttrMap(list_box, "body"), header=header, footer=footer
         )

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,7 +148,7 @@ from enum import Enum
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class AttackType(Enum):
@@ -125,7 +173,7 @@ class SecurityEvent:
     """Security event for audit logging"""
 
     event_type: AttackType
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     user_id: Optional[str] = None
     ip_address: str = ""
     description: str = ""
@@ -156,7 +204,7 @@ class CSRFToken:
     """CSRF protection token"""
 
     token: str
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     used: bool = False
     used_at: Optional[datetime] = None
 
@@ -167,7 +215,7 @@ class CSRFToken:
         if self.used:
             return False
         # Tokens valid for 1 hour
-        age = (datetime.now(timezone.utc) - self.created_at).total_seconds()
+        _age=(datetime.now(timezone.utc) - self.created_at).total_seconds()
         return age < 3600
 
     def verify(self, other_token: str) -> bool:
@@ -185,7 +233,7 @@ class CSRFToken:
 
         if result == 0:
             self.used = True
-            self.used_at = datetime.now(timezone.utc)
+            self.used_at=datetime.now(timezone.utc)
             return True
 
         return False
@@ -200,13 +248,13 @@ class CSRFProtection:
 
     def generate_token(self, session_id: str) -> str:
         """Generate CSRF token"""
-        token_data = secrets.token_bytes(32)
-        token_str = hashlib.sha256(token_data).hexdigest()
+        _token_data=secrets.token_bytes(32)
+        _token_str=hashlib.sha256(token_data).hexdigest()
 
         if session_id not in self.tokens:
             self.tokens[session_id] = []
 
-        csrf_token = CSRFToken(token=token_str)
+        _csrf_token=CSRFToken(token=token_str)
         self.tokens[session_id].append(csrf_token)
 
         # Keep only last 10 tokens
@@ -244,11 +292,11 @@ class InputValidator:
         re.IGNORECASE,
     )
 
-    COMMAND_INJECTION = re.compile(r"[;&|`$(){}[\]<>]")
+    COMMAND_INJECTION=re.compile(r"[;&|`$(){}[\]<>]")
 
     @staticmethod
 
-    def sanitize_string(value: Any, max_length: int = 1000) -> str:
+    def sanitize_string(value: Any, max_length: int=1000) -> str:
         """Sanitize string input"""
         if not isinstance(value, str):
             return ""
@@ -257,7 +305,7 @@ class InputValidator:
         value = value[:max_length]
 
         # Remove null bytes
-        value = value.replace("\0", "")
+        _value=value.replace("\0", "")
 
         # Encode non-printable characters
         value = "".join(
@@ -304,14 +352,14 @@ class InputValidator:
 class RateLimiter:
     """Rate limiting protection"""
 
-    def __init__(self, requests_per_minute: int = 60):
+    def __init__(self, requests_per_minute: int=60) -> None:
         self.requests_per_minute = requests_per_minute
         self.request_history: Dict[str, List[datetime]] = {}
 
     def is_rate_limited(self, identifier: str) -> bool:
         """Check if identifier is rate limited"""
-        now = datetime.now(timezone.utc)
-        one_minute_ago = now - timedelta(minutes=1)
+        _now=datetime.now(timezone.utc)
+        _one_minute_ago=now - timedelta(minutes=1)
 
         if identifier not in self.request_history:
             self.request_history[identifier] = []
@@ -431,7 +479,7 @@ class SecurityHeaderManager:
 class SecurityAuditLog:
     """Security event audit logging"""
 
-    def __init__(self, max_events: int = 10000):
+    def __init__(self, max_events: int=10000) -> None:
         self.events: List[SecurityEvent] = []
         self.max_events = max_events
 
@@ -477,10 +525,10 @@ class SecurityAuditLog:
 
         for event in self.events:
             type_key = event.event_type.value
-            by_type = cast(Dict[str, int], summary["by_type"])
+            _by_type=cast(Dict[str, int], summary["by_type"])
             by_type[type_key] = by_type.get(type_key, 0) + 1
 
-            by_severity = cast(Dict[str, int], summary["by_severity"])
+            _by_severity=cast(Dict[str, int], summary["by_severity"])
             by_severity[event.severity] = (
                 by_severity.get(event.severity, 0) + 1
             )
@@ -496,11 +544,11 @@ class SecurityManager:
     """Central security management for DebVisor"""
 
     def __init__(self) -> None:
-        self.csrf = CSRFProtection()
-        self.input_validator = InputValidator()
-        self.rate_limiter = RateLimiter(requests_per_minute=100)
-        self.cors = CORSPolicy()
-        self.audit_log = SecurityAuditLog()
+        self.csrf=CSRFProtection()
+        self.input_validator=InputValidator()
+        self.rate_limiter=RateLimiter(requests_per_minute=100)
+        self.cors=CORSPolicy()
+        self.audit_log=SecurityAuditLog()
 
     def validate_request(
         self,
@@ -578,7 +626,7 @@ def get_security_manager() -> SecurityManager:
     """Get or create global security manager"""
     global _security_manager
     if _security_manager is None:
-        _security_manager = SecurityManager()
+        _security_manager=SecurityManager()
     return _security_manager
 
 
@@ -587,17 +635,17 @@ def require_csrf_protection(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
     async def wrapper(request: Any, *args: Any, **kwargs: Any) -> Any:
-        _manager = get_security_manager()
+        _manager=get_security_manager()
 
         # Get session and token
-        session_id = request.cookies.get("session_id", "")
-        token = request.form.get("csrf_token") or request.headers.get("X-CSRF-Token")
+        _session_id=request.cookies.get("session_id", "")
+        _token=request.form.get("csrf_token") or request.headers.get("X-CSRF-Token")
 
         if not token:
             raise ValueError("CSRF token required")
 
         # Verify token
-        valid, message = manager.csrf.verify_token(session_id, token)
+        valid, message=manager.csrf.verify_token(session_id, token)
         if not valid:
             raise ValueError(f"CSRF validation failed: {message}")
 

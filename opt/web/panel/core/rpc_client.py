@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,7 +141,7 @@ import os
 
 # Import generated protobuf modules (will be created during build)
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class RPCClientError(Exception):
@@ -118,7 +166,7 @@ class ChannelPoolConfig:
 class PooledChannel:
     """Wrapper for a pooled gRPC channel with health tracking."""
 
-    def __init__(self, channel: grpc.Channel, created_at: float):
+    def __init__(self, channel: grpc.Channel, created_at: float) -> None:
         self.channel = channel
         self.created_at = created_at
         self.last_used = created_at
@@ -127,7 +175,7 @@ class PooledChannel:
 
     def mark_used(self) -> None:
         """Mark channel as recently used."""
-        self.last_used = time.time()
+        self.last_used=time.time()
         self.use_count += 1
 
     def idle_time(self) -> float:
@@ -165,16 +213,16 @@ class ChannelPool:
         # Pool state
         self.available: deque[PooledChannel] = deque()
         self.in_use: set[PooledChannel] = set()
-        self.lock = threading.Lock()
+        self.lock=threading.Lock()
 
         # Initialize minimum number of connections
         for _ in range(config.min_size):
-            channel = self._create_channel()
+            _channel=self._create_channel()
             self.available.append(channel)
 
         # Start background health checker
         self.health_check_thread = threading.Thread(
-            target=self._health_check_loop, daemon=True
+            _target=self._health_check_loop, daemon=True
         )
         self.health_check_thread.start()
 
@@ -197,7 +245,7 @@ class ChannelPool:
             ],
         )
 
-        pooled = PooledChannel(channel, time.time())
+        _pooled=PooledChannel(channel, time.time())
         logger.debug(
             f"Created new channel: total_channels={self._total_channels() + 1}"
         )
@@ -207,7 +255,7 @@ class ChannelPool:
         """Get total number of channels in pool."""
         return len(self.available) + len(self.in_use)
 
-    def acquire(self, timeout: float = 10.0) -> grpc.Channel:
+    def acquire(self, timeout: float=10.0) -> grpc.Channel:
         """
         Acquire a channel from the pool.
 
@@ -217,13 +265,13 @@ class ChannelPool:
         Raises:
             RPCClientError: If no channel available within timeout
         """
-        start_time = time.time()
+        _start_time=time.time()
 
         while time.time() - start_time < timeout:
             with self.lock:
             # Try to get an available channel
                 if self.available:
-                    pooled = self.available.popleft()
+                    _pooled=self.available.popleft()
 
                     # Check if channel is healthy
                     if (
@@ -232,7 +280,7 @@ class ChannelPool:
                     ):
                     # Close unhealthy/stale channel and create new one
                         pooled.channel.close()
-                        pooled = self._create_channel()
+                        _pooled=self._create_channel()
 
                     pooled.mark_used()
                     self.in_use.add(pooled)
@@ -245,7 +293,7 @@ class ChannelPool:
 
                 # No available channels, create new one if under max
                 if self._total_channels() < self.config.max_size:
-                    pooled = self._create_channel()
+                    _pooled=self._create_channel()
                     pooled.mark_used()
                     self.in_use.add(pooled)
                     return pooled.channel
@@ -309,7 +357,7 @@ class ChannelPool:
                         len(self.available) < self.config.min_size
                         and self._total_channels() < self.config.max_size
                     ):
-                        pooled = self._create_channel()
+                        _pooled=self._create_channel()
                         self.available.append(pooled)
 
                     if channels_to_remove:
@@ -387,7 +435,7 @@ class RPCClient:
         )
 
         # Initialize connection pool
-        self.pool_config = pool_config or ChannelPoolConfig()
+        self.pool_config=pool_config or ChannelPoolConfig()
         self._init_pool()
 
     def _init_pool(self) -> None:
@@ -398,11 +446,11 @@ class RPCClient:
                 raise RPCClientError("Missing certificate configuration")
 
             with open(self.cert_file, "rb") as f:
-                _client_cert = f.read()
+                _client_cert=f.read()
             with open(self.key_file, "rb") as f:
-                client_key = f.read()
+                _client_key=f.read()
             with open(self.ca_cert_file, "rb") as f:
-                ca_cert = f.read()
+                _ca_cert=f.read()
 
             # Create credentials
             credentials = grpc.ssl_channel_credentials(
@@ -413,7 +461,7 @@ class RPCClient:
 
             # Create channel pool
             target = f"{self.host}:{self.port}"
-            self.channel_pool = ChannelPool(target, credentials, self.pool_config)
+            self.channel_pool=ChannelPool(target, credentials, self.pool_config)
 
             logger.info(f"Initialized RPC client with channel pool for {target}")
 
@@ -445,30 +493,30 @@ class RPCClient:
         channel = None
         try:
         # Acquire channel from pool
-            channel = self.channel_pool.acquire(timeout=self.timeout)
+            _channel=self.channel_pool.acquire(timeout=self.timeout)
 
             # Get stub for service
-            stub = self._get_stub(service_name, channel)
+            _stub=self._get_stub(service_name, channel)
 
             if not stub:
             # Placeholder behavior
                 return None
 
             # Get method from stub
-            method = getattr(stub, method_name)
+            _method=getattr(stub, method_name)
 
             # Call method with timeout
-            response = method(request, timeout=self.timeout)
+            _response=method(request, timeout=self.timeout)
 
             logger.debug(f"RPC call {service_name}.{method_name} succeeded")
             return response
 
         except grpc.RpcError as e:
-            error_msg = f"RPC call failed: {service_name}.{method_name} - {e.details()}"
+            _error_msg=f"RPC call failed: {service_name}.{method_name} - {e.details()}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         except Exception as e:
-            error_msg = f"Unexpected error in RPC call: {str(e)}"
+            _error_msg=f"Unexpected error in RPC call: {str(e)}"
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         finally:
@@ -716,7 +764,7 @@ def get_rpc_client() -> RPCClient:
     """Get or create global RPC client instance."""
     global _client
     if _client is None:
-        _client = RPCClient()
+        _client=RPCClient()
     return _client
 
 

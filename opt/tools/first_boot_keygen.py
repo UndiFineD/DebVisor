@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,9 +111,9 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 def generate_ssh_keys() -> None:
@@ -73,7 +121,7 @@ def generate_ssh_keys() -> None:
     logger.info("Checking SSH host keys...")
     key_types = ["rsa", "ecdsa", "ed25519"]
     for ktype in key_types:
-        key_path = Path(f"/etc/ssh/ssh_host_{ktype}_key")
+        _key_path=Path(f"/etc/ssh/ssh_host_{ktype}_key")
         if not key_path.exists():
             logger.info(f"Generating SSH {ktype} host key...")
             try:
@@ -94,8 +142,8 @@ def generate_pki() -> None:
     ca_dir = "/etc/debvisor/pki/ca"
     cert_dir = "/etc/debvisor/pki/certs"
 
-    ca = CertificateAuthority(ca_dir)
-    _mgr = CertificateManager(ca, cert_dir)
+    _ca=CertificateAuthority(ca_dir)
+    _mgr=CertificateManager(ca, cert_dir)
 
     # 1. Init CA
     if not ca.exists():
@@ -105,7 +153,7 @@ def generate_pki() -> None:
         )    # nosec B603 - Hostname command is trusted
         ca.create(
             CertConfig(
-                _common_name = f"DebVisor Internal CA ({hostname})",
+                _common_name=f"DebVisor Internal CA ({hostname})",
                 _organization = "DebVisor Cluster",
             )
         )
@@ -136,14 +184,14 @@ def generate_pki() -> None:
 def generate_secrets() -> None:
     """Generate shared secrets (JWT, etc)."""
     logger.info("Generating service secrets...")
-    secrets_dir = Path("/etc/debvisor/secrets")
+    _secrets_dir=Path("/etc/debvisor/secrets")
     secrets_dir.mkdir(parents=True, exist_ok=True)
 
     # JWT Secret
     jwt_path = secrets_dir / "jwt_secret"
     if not jwt_path.exists():
         logger.info("Generating JWT secret...")
-        secret = secrets.token_urlsafe(64)
+        _secret=secrets.token_urlsafe(64)
         with open(jwt_path, "w") as f:
             f.write(secret)
         os.chmod(jwt_path, 0o600)
@@ -152,14 +200,14 @@ def generate_secrets() -> None:
     rpc_token_path = secrets_dir / "rpc_token"
     if not rpc_token_path.exists():
         logger.info("Generating RPC internal token...")
-        token = secrets.token_hex(32)
+        _token=secrets.token_hex(32)
         with open(rpc_token_path, "w") as f:
             f.write(token)
         os.chmod(rpc_token_path, 0o600)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
+    _parser=argparse.ArgumentParser(description="DebVisor First-Boot Key Gen")
     parser.add_argument("--force", action="store_true", help="Force regeneration")
     parser.parse_args()
 

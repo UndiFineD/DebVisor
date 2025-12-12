@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +149,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -129,7 +177,7 @@ class AggregationStrategy(Enum):
 
     DROP = "drop"    # Remove the label entirely
     HASH_BUCKET = "hash_bucket"    # Hash into N buckets
-    REGEX_EXTRACT = "regex_extract"    # Extract pattern (e.g., first segment)
+    REGEX_EXTRACT="regex_extract"    # Extract pattern (e.g., first segment)
     TOP_K = "top_k"    # Keep top K values, bucket rest
 
 
@@ -145,7 +193,7 @@ class LabelPolicy:
     hash_buckets: int = 10
     regex_pattern: Optional[str] = None
     top_k: int = 50
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -158,7 +206,7 @@ class MetricDescriptor:
     label_names: Set[str]
     series_count: int = 0
     estimated_cardinality: int = 0
-    last_seen: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    last_seen: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     bytes_per_day: int = 0
     is_high_cardinality: bool = False
     applied_policies: List[str] = field(default_factory=list)
@@ -219,10 +267,10 @@ class RetentionPolicy:
 
     name: str
     metric_pattern: str    # Regex pattern for metric names
-    hot_duration: timedelta = timedelta(hours=24)
-    warm_duration: timedelta = timedelta(days=7)
-    cold_duration: timedelta = timedelta(days=30)
-    archive_duration: timedelta = timedelta(days=365)
+    hot_duration: timedelta=timedelta(hours=24)
+    warm_duration: timedelta=timedelta(days=7)
+    cold_duration: timedelta=timedelta(days=30)
+    archive_duration: timedelta=timedelta(days=365)
     downsample_resolution: Dict[RetentionTier, int] = field(default_factory=dict)
 
 
@@ -250,16 +298,16 @@ class HyperLogLog:
     Uses minimal memory to estimate unique values with ~2% error rate.
     """
 
-    def __init__(self, precision: int = 14):
+    def __init__(self, precision: int=14) -> None:
         """Initialize HLL with given precision (4-18).
 
         Higher precision = more accuracy but more memory.
         14 bits = 16KB memory, ~0.8% error rate.
         """
-        self.precision = min(max(precision, 4), 18)
+        self.precision=min(max(precision, 4), 18)
         self.num_buckets = 1 << self.precision
-        self.buckets = bytearray(self.num_buckets)
-        self._alpha = self._get_alpha()
+        self.buckets=bytearray(self.num_buckets)
+        self._alpha=self._get_alpha()
 
     def _get_alpha(self) -> float:
         """Get bias correction constant."""
@@ -273,10 +321,10 @@ class HyperLogLog:
 
     def _hash(self, value: str) -> int:
         """Hash value to 64-bit integer."""
-        h = hashlib.sha256(value.encode()).digest()
+        _h=hashlib.sha256(value.encode()).digest()
         return struct.unpack("<Q", h[:8])[0]
 
-    def _leading_zeros(self, value: int, max_bits: int = 64) -> int:
+    def _leading_zeros(self, value: int, max_bits: int=64) -> int:
         """Count leading zeros in binary representation."""
         if value == 0:
             return max_bits
@@ -284,23 +332,23 @@ class HyperLogLog:
 
     def add(self, value: str) -> None:
         """Add value to the estimator."""
-        h = self._hash(value)
+        _h=self._hash(value)
         # First 'precision' bits determine bucket
-        bucket_idx = h >> (64 - self.precision)
+        _bucket_idx=h >> (64 - self.precision)
         # Remaining bits used for counting leading zeros
-        remaining = h & ((1 << (64 - self.precision)) - 1)
-        leading = self._leading_zeros(remaining, 64 - self.precision) + 1
+        _remaining=h & ((1 << (64 - self.precision)) - 1)
+        _leading=self._leading_zeros(remaining, 64 - self.precision) + 1
         self.buckets[bucket_idx] = max(self.buckets[bucket_idx], leading)
 
     def estimate(self) -> int:
         """Estimate cardinality."""
         # Harmonic mean of 2^bucket values
-        indicator = sum(2.0**-b for b in self.buckets)
-        raw_estimate = self._alpha * (self.num_buckets**2) / indicator
+        _indicator=sum(2.0**-b for b in self.buckets)
+        _raw_estimate=self._alpha * (self.num_buckets**2) / indicator
 
         # Small range correction
         if raw_estimate <= 2.5 * self.num_buckets:
-            zeros = self.buckets.count(0)
+            _zeros=self.buckets.count(0)
             if zeros > 0:
                 return int(self.num_buckets * math.log(self.num_buckets / zeros))
 
@@ -321,10 +369,10 @@ class HyperLogLog:
 class LabelValueTracker:
     """Tracks label values and their frequencies efficiently."""
 
-    def __init__(self, max_tracked: int = 1000):
+    def __init__(self, max_tracked: int=1000) -> None:
         self.max_tracked = max_tracked
         self.value_counts: Dict[str, int] = {}
-        self.hll = HyperLogLog(precision=12)
+        self.hll=HyperLogLog(precision=12)
         self.total_samples = 0
         self.overflow_count = 0
 
@@ -344,14 +392,14 @@ class LabelValueTracker:
         """Get estimated cardinality."""
         return self.hll.estimate()
 
-    def get_top_values(self, k: int = 10) -> List[Tuple[str, int]]:
+    def get_top_values(self, k: int=10) -> List[Tuple[str, int]]:
         """Get top K values by frequency."""
         sorted_values = sorted(
             self.value_counts.items(), key=lambda x: x[1], reverse=True
         )
         return sorted_values[:k]
 
-    def is_high_cardinality(self, threshold: int = 100) -> bool:
+    def is_high_cardinality(self, threshold: int=100) -> bool:
         """Check if label has high cardinality."""
         return self.get_cardinality() > threshold
 
@@ -394,7 +442,7 @@ class CardinalityController:
         self.max_series_per_metric = max_series_per_metric
         self.max_total_series = max_total_series
         self.auto_detect_threshold = auto_detect_threshold
-        self.storage_path = storage_path or Path("/var/lib/debvisor/cardinality")
+        self.storage_path=storage_path or Path("/var/lib/debvisor/cardinality")
 
         # Metric tracking
         self.metrics: Dict[str, MetricDescriptor] = {}
@@ -425,26 +473,26 @@ class CardinalityController:
         """Set up default policies for known high-cardinality labels."""
         # Drop transaction IDs - they're unique per request
         self.global_label_policies["transaction_id"] = LabelPolicy(
-            name="transaction_id", strategy=AggregationStrategy.DROP
+            _name="transaction_id", strategy=AggregationStrategy.DROP
         )
 
         # Hash bucket client IPs into groups
         self.global_label_policies["client_ip"] = LabelPolicy(
-            name="client_ip",
-            strategy=AggregationStrategy.HASH_BUCKET,
+            _name="client_ip",
+            _strategy=AggregationStrategy.HASH_BUCKET,
             _hash_buckets = 256,    # 256 buckets for IPs
         )
 
         # Keep top K pod IDs, bucket the rest
         self.global_label_policies["pod_id"] = LabelPolicy(
-            name="pod_id", strategy=AggregationStrategy.TOP_K, top_k=100
+            _name="pod_id", strategy=AggregationStrategy.TOP_K, top_k=100
         )
 
         # Extract service name from long instance IDs
         self.global_label_policies["instance_id"] = LabelPolicy(
-            name="instance_id",
+            _name="instance_id",
             _strategy = AggregationStrategy.REGEX_EXTRACT,
-            _regex_pattern = r"^([a-z]+-[a-z]+)-",    # Extract service prefix
+            _regex_pattern=r"^([a-z]+-[a-z]+)-",    # Extract service prefix
         )
 
     def register_metric(self, name: str, label_names: Set[str]) -> MetricDescriptor:
@@ -470,7 +518,7 @@ class CardinalityController:
         the sample should be accepted or dropped.
         """
         self.total_samples_processed += 1
-        _timestamp = timestamp or time.time()
+        _timestamp=timestamp or time.time()
 
         # Auto-register if not known
         if metric_name not in self.metrics:
@@ -484,10 +532,10 @@ class CardinalityController:
                 self.label_trackers[metric_name][label_name].add(label_value)
 
         # Apply label transformations
-        transformed = self._transform_labels(metric_name, labels)
+        _transformed=self._transform_labels(metric_name, labels)
 
         # Check series limit
-        series_hash = self._hash_labels(transformed)
+        _series_hash=self._hash_labels(transformed)
 
         if series_hash in self.series_by_metric[metric_name]:
         # Existing series - update stats
@@ -505,20 +553,20 @@ class CardinalityController:
             )
             return transformed, False
 
-        total_series = sum(len(s) for s in self.series_by_metric.values())
+        _total_series=sum(len(s) for s in self.series_by_metric.values())
         if total_series >= self.max_total_series:
             self.samples_pruned += 1
             return transformed, False
 
         # Accept new series
         self.series_by_metric[metric_name][series_hash] = SeriesStats(
-            metric_name=metric_name,
+            _metric_name=metric_name,
             _label_hash = series_hash,
-            labels=transformed,
+            _labels=transformed,
             _sample_count = 1,
             _last_sample_time = timestamp,
         )
-        metric.series_count = len(self.series_by_metric[metric_name])
+        metric.series_count=len(self.series_by_metric[metric_name])
 
         return transformed, True
 
@@ -530,22 +578,22 @@ class CardinalityController:
 
         for label_name, label_value in labels.items():
         # Check metric-specific policy first
-            policy = self.metric_label_policies.get(metric_name, {}).get(label_name)
+            _policy=self.metric_label_policies.get(metric_name, {}).get(label_name)
 
             # Fall back to global policy
             if not policy:
-                policy = self.global_label_policies.get(label_name)
+                _policy=self.global_label_policies.get(label_name)
 
             # Check if auto-detected as high cardinality
             if not policy and label_name in self.detected_high_cardinality:
                 policy = LabelPolicy(
-                    name=label_name,
+                    _name=label_name,
                     _strategy = AggregationStrategy.HASH_BUCKET,
                     _hash_buckets = 100,
                 )
 
             if policy:
-                transformed = self._apply_policy(policy, label_value)
+                _transformed=self._apply_policy(policy, label_value)
                 if transformed is not None:
                     result[label_name] = transformed
                 else:
@@ -568,7 +616,7 @@ class CardinalityController:
 
         elif policy.strategy == AggregationStrategy.REGEX_EXTRACT:
             if policy.regex_pattern:
-                match = re.search(policy.regex_pattern, value)
+                _match=re.search(policy.regex_pattern, value)
                 if match:
                     return match.group(1) if match.groups() else match.group(0)
             return value
@@ -582,8 +630,8 @@ class CardinalityController:
 
     def _hash_labels(self, labels: Dict[str, str]) -> str:
         """Create a hash of label key-value pairs."""
-        sorted_items = sorted(labels.items())
-        label_str = "&".join(f"{k}={v}" for k, v in sorted_items)
+        _sorted_items=sorted(labels.items())
+        _label_str="&".join(f"{k}={v}" for k, v in sorted_items)
         return hashlib.sha256(label_str.encode()).hexdigest()[:16]
 
     def detect_high_cardinality(self) -> List[Tuple[str, str, int]]:
@@ -595,7 +643,7 @@ class CardinalityController:
 
         for metric_name, trackers in self.label_trackers.items():
             for label_name, tracker in trackers.items():
-                cardinality = tracker.get_cardinality()
+                _cardinality=tracker.get_cardinality()
                 if cardinality > self.auto_detect_threshold:
                     high_card.append((metric_name, label_name, cardinality))
                     self.detected_high_cardinality.add(label_name)
@@ -621,7 +669,7 @@ class CardinalityController:
         **kwargs,
     ) -> LabelPolicy:
         """Set a policy for a label, either globally or for a specific metric."""
-        policy = LabelPolicy(name=label_name, strategy=strategy, **kwargs)
+        _policy=LabelPolicy(name=label_name, strategy=strategy, **kwargs)
 
         if metric_name:
             self.metric_label_policies[metric_name][label_name] = policy
@@ -636,14 +684,14 @@ class CardinalityController:
 
     def get_cardinality_report(self) -> CardinalityReport:
         """Generate a comprehensive cardinality report."""
-        _total_series = sum(len(s) for s in self.series_by_metric.values())
+        _total_series=sum(len(s) for s in self.series_by_metric.values())
 
         # Find high cardinality metrics
         high_card_metrics = []
         top_offenders = []
 
         for metric_name, metric in self.metrics.items():
-            series_count = len(self.series_by_metric.get(metric_name, {}))
+            _series_count=len(self.series_by_metric.get(metric_name, {}))
             if series_count > self.max_series_per_metric * 0.5:    # >50% of limit
                 high_card_metrics.append(metric_name)
             top_offenders.append((metric_name, series_count))
@@ -653,7 +701,7 @@ class CardinalityController:
         # Generate recommendations
         recommendations = []
 
-        high_card_labels = self.detect_high_cardinality()
+        _high_card_labels=self.detect_high_cardinality()
         for metric, label, card in high_card_labels[:5]:  # type: ignore[assignment]
             recommendations.append(
                 f"Consider adding policy for '{label}' on '{metric}' "
@@ -667,12 +715,12 @@ class CardinalityController:
             )
 
         # Estimate storage (assuming 2 bytes per sample, 1 sample/15s, 24h)
-        samples_per_day = total_series * (86400 / 15)
-        storage_gb = (samples_per_day * 2) / (1024**3)
+        _samples_per_day=total_series * (86400 / 15)
+        _storage_gb=(samples_per_day * 2) / (1024**3)
 
         return CardinalityReport(
-            _timestamp = datetime.now(timezone.utc),
-            _total_metrics = len(self.metrics),
+            _timestamp=datetime.now(timezone.utc),
+            _total_metrics=len(self.metrics),
             _total_series = total_series,
             _high_cardinality_metrics = high_card_metrics,
             _estimated_storage_gb = storage_gb,
@@ -680,9 +728,9 @@ class CardinalityController:
             _top_offenders = top_offenders[:10],
         )
 
-    def prune_stale_series(self, max_age_seconds: float = 3600) -> int:
+    def prune_stale_series(self, max_age_seconds: float=3600) -> int:
         """Remove series that haven't received samples recently."""
-        now = time.time()
+        _now=time.time()
         _pruned = 0
 
         for metric_name in list(self.series_by_metric.keys()):
@@ -697,7 +745,7 @@ class CardinalityController:
                 pruned += 1
 
             if metric_name in self.metrics:
-                self.metrics[metric_name].series_count = len(series)
+                self.metrics[metric_name].series_count=len(series)
 
         logger.info(f"Pruned {pruned} stale series")
         return pruned
@@ -778,7 +826,7 @@ class AdaptiveSampler:
         # Sample payment service at higher rate
         self.rules.append(
             SamplingRule(
-                name="payment_service",
+                _name="payment_service",
                 _priority = 3,
                 _condition = "service_name == 'payment'",
                 _sample_rate = 0.1,
@@ -788,10 +836,10 @@ class AdaptiveSampler:
         # Default rule
         self.rules.append(
             SamplingRule(
-                name="default",
-                priority=100,
-                condition="True",
-                sample_rate=self.base_sample_rate,
+                _name="default",
+                _priority=100,
+                _condition="True",
+                _sample_rate=self.base_sample_rate,
             )
         )
 
@@ -800,7 +848,7 @@ class AdaptiveSampler:
     ) -> SamplingRule:
         """Add a sampling rule."""
         rule = SamplingRule(
-            name=name, priority=priority, condition=condition, sample_rate=sample_rate
+            _name=name, priority=priority, condition=condition, sample_rate=sample_rate
         )
         self.rules.append(rule)
         self.rules.sort(key=lambda r: r.priority)
@@ -812,7 +860,7 @@ class AdaptiveSampler:
             self._cleanup_old_traces()
 
         self.pending_traces[trace_id] = TraceContext(
-            trace_id=trace_id, service_name=service_name, operation_name=operation
+            _trace_id=trace_id, service_name=service_name, operation_name=operation
         )
 
     def add_span(
@@ -836,7 +884,7 @@ class AdaptiveSampler:
             ctx.has_error = True
 
         # Check if slow based on service threshold
-        threshold = self.latency_thresholds.get(ctx.service_name, 1000)
+        _threshold=self.latency_thresholds.get(ctx.service_name, 1000)
         if duration_ms > threshold:
             ctx.has_slow_span = True
 
@@ -848,16 +896,16 @@ class AdaptiveSampler:
         if trace_id not in self.pending_traces:
             return SamplingDecision.DROPPED
 
-        ctx = self.pending_traces.pop(trace_id)
+        _ctx=self.pending_traces.pop(trace_id)
         self.total_traces += 1
 
         # Update latency reservoir for adaptive thresholds
         if ctx.span_latencies:
-            max_latency = max(ctx.span_latencies)
+            _max_latency=max(ctx.span_latencies)
             self._update_latency_reservoir(ctx.service_name, max_latency)
 
         # Evaluate rules
-        decision = self._evaluate_rules(ctx)
+        _decision=self._evaluate_rules(ctx)
 
         if decision == SamplingDecision.SAMPLED:
         # Check rate limit
@@ -878,9 +926,9 @@ class AdaptiveSampler:
             return True
 
         # Sample slow requests
-        latency = trace_context.get("latency_ms", 0)
-        service = trace_context.get("service", "default")
-        threshold = self.latency_thresholds.get(service, 1000)
+        _latency=trace_context.get("latency_ms", 0)
+        _service=trace_context.get("service", "default")
+        _threshold=self.latency_thresholds.get(service, 1000)
 
         if latency > threshold:
             return True
@@ -938,13 +986,13 @@ class AdaptiveSampler:
         # Handle simple comparisons
         for op in ["==", "!=", ">=", "<=", ">", "<"]:
             if op in condition:
-                parts = condition.split(op, 1)
+                _parts=condition.split(op, 1)
                 if len(parts) == 2:
-                    left = parts[0].strip()
-                    right = parts[1].strip()
+                    _left=parts[0].strip()
+                    _right=parts[1].strip()
 
                     # Get left value
-                    _left_val = context.get(left, left)
+                    _left_val=context.get(left, left)
 
                     # Parse right value
                     if right.startswith("'") and right.endswith("'"):
@@ -954,9 +1002,9 @@ class AdaptiveSampler:
                     elif right == "False":
                         right_val = False  # type: ignore[assignment]
                     elif right.replace(".", "").isdigit():
-                        right_val = float(right)  # type: ignore[assignment]
+                        _right_val=float(right)  # type: ignore[assignment]
                     else:
-                        right_val = context.get(right, right)
+                        _right_val=context.get(right, right)
 
                     if op == "==":
                         return left_val == right_val
@@ -988,15 +1036,15 @@ class AdaptiveSampler:
 
         # Update threshold (p99)
         if len(reservoir) >= 100:
-            sorted_latencies = sorted(reservoir)
-            idx = int(len(sorted_latencies) * self.latency_percentile_target / 100)
+            _sorted_latencies=sorted(reservoir)
+            _idx=int(len(sorted_latencies) * self.latency_percentile_target / 100)
             self.latency_thresholds[service] = sorted_latencies[
                 min(idx, len(sorted_latencies) - 1)
             ]
 
     def _check_rate_limit(self, service: str) -> bool:
         """Check if rate limit allows sampling."""
-        current = int(time.time())
+        _current=int(time.time())
 
         if current != self.current_second:
             self.traces_this_second.clear()
@@ -1010,7 +1058,7 @@ class AdaptiveSampler:
 
     def _cleanup_old_traces(self) -> None:
         """Clean up traces that have timed out."""
-        now = time.time()
+        _now=time.time()
         old_traces = [
             tid
             for tid, ctx in self.pending_traces.items()
@@ -1051,16 +1099,16 @@ class RetentionManager:
     - Cost-aware tier transitions
     """
 
-    def __init__(self, storage_backend: Optional[Any] = None):
+    def __init__(self, storage_backend: Optional[Any] = None) -> None:
         self.storage_backend = storage_backend
         self.policies: Dict[str, RetentionPolicy] = {}
         self.default_policy = RetentionPolicy(
             _name = "default",
             _metric_pattern = ".*",
-            _hot_duration = timedelta(hours=24),
-            _warm_duration = timedelta(days=7),
-            _cold_duration = timedelta(days=30),
-            _archive_duration = timedelta(days=365),
+            _hot_duration=timedelta(hours=24),
+            _warm_duration=timedelta(days=7),
+            _cold_duration=timedelta(days=30),
+            _archive_duration=timedelta(days=365),
             _downsample_resolution = {
                 RetentionTier.HOT: 15,    # 15s resolution
                 RetentionTier.WARM: 60,    # 1m resolution
@@ -1082,10 +1130,10 @@ class RetentionManager:
         _policy = RetentionPolicy(
             _name = name,
             _metric_pattern = metric_pattern,
-            _hot_duration = timedelta(hours=hot_hours),
-            _warm_duration = timedelta(days=warm_days),
-            _cold_duration = timedelta(days=cold_days),
-            _archive_duration = timedelta(days=archive_days),
+            _hot_duration=timedelta(hours=hot_hours),
+            _warm_duration=timedelta(days=warm_days),
+            _cold_duration=timedelta(days=cold_days),
+            _archive_duration=timedelta(days=archive_days),
             _downsample_resolution = {
                 RetentionTier.HOT: 15,
                 RetentionTier.WARM: 60,
@@ -1105,7 +1153,7 @@ class RetentionManager:
 
     def get_tier_for_age(self, metric_name: str, data_age: timedelta) -> RetentionTier:
         """Determine storage tier based on data age."""
-        policy = self.get_policy_for_metric(metric_name)
+        _policy=self.get_policy_for_metric(metric_name)
 
         if data_age <= policy.hot_duration:
             return RetentionTier.HOT
@@ -1130,9 +1178,9 @@ class RetentionManager:
         self, metric_name: str, current_resolution: int, data_age: timedelta
     ) -> Optional[int]:
         """Check if data should be downsampled, return target resolution."""
-        policy = self.get_policy_for_metric(metric_name)
-        tier = self.get_tier_for_age(metric_name, data_age)
-        target_resolution = policy.downsample_resolution.get(tier, current_resolution)
+        _policy=self.get_policy_for_metric(metric_name)
+        _tier=self.get_tier_for_age(metric_name, data_age)
+        _target_resolution=policy.downsample_resolution.get(tier, current_resolution)
 
         if target_resolution > current_resolution:
             return target_resolution
@@ -1142,17 +1190,17 @@ class RetentionManager:
         self, series_count: int, sample_rate_seconds: int = 15, duration_days: int = 30
     ) -> Dict[str, float]:
         """Estimate storage cost for given parameters."""
-        samples_per_day = series_count * (86400 / sample_rate_seconds)
+        _samples_per_day=series_count * (86400 / sample_rate_seconds)
         bytes_per_sample = 16    # Approximate: 8 bytes value + 8 bytes timestamp
 
         # Calculate storage per tier (simplified)
         hot_samples = samples_per_day    # 1 day at full res
-        warm_samples = samples_per_day * 6 / 4    # 6 days at 1/4 res (1m vs 15s)
+        _warm_samples=samples_per_day * 6 / 4    # 6 days at 1/4 res (1m vs 15s)
         cold_samples = samples_per_day * 23 / 20    # 23 days at 1/20 res
 
-        hot_gb = (hot_samples * bytes_per_sample) / (1024**3)
-        warm_gb = (warm_samples * bytes_per_sample) / (1024**3)
-        cold_gb = (cold_samples * bytes_per_sample) / (1024**3)
+        _hot_gb=(hot_samples * bytes_per_sample) / (1024**3)
+        _warm_gb=(warm_samples * bytes_per_sample) / (1024**3)
+        _cold_gb=(cold_samples * bytes_per_sample) / (1024**3)
 
         # Cost estimates (example rates)
         return {
@@ -1189,11 +1237,11 @@ class ObservabilityController:
         self.cardinality = CardinalityController(
             _max_total_series = max_series, storage_path=storage_path
         )
-        self.sampler = AdaptiveSampler(base_sample_rate=base_sample_rate)
-        self.retention = RetentionManager()
+        self.sampler=AdaptiveSampler(base_sample_rate=base_sample_rate)
+        self.retention=RetentionManager()
 
         # Unified stats
-        self.start_time = datetime.now(timezone.utc)
+        self.start_time=datetime.now(timezone.utc)
 
     def process_metric(
         self,
@@ -1211,8 +1259,8 @@ class ObservabilityController:
 
     def get_unified_report(self) -> Dict[str, Any]:
         """Get unified observability report."""
-        card_report = self.cardinality.get_cardinality_report()
-        _sampler_stats = self.sampler.get_stats()
+        _card_report=self.cardinality.get_cardinality_report()
+        _sampler_stats=self.sampler.get_stats()
 
         return {
             "uptime_hours": (
@@ -1238,7 +1286,7 @@ class ObservabilityController:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        _level = logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1246,7 +1294,7 @@ if __name__ == "__main__":
     print("=" * 60)
 
     # Initialize controller
-    _controller = ObservabilityController(max_series=100000, base_sample_rate=0.01)
+    _controller=ObservabilityController(max_series=100000, base_sample_rate=0.01)
 
     # Simulate metric ingestion
     print("\n[Metric Cardinality Control]")
@@ -1263,7 +1311,7 @@ if __name__ == "__main__":
                 "method": rnd.choice(["GET", "POST", "PUT"]),    # nosec B311
                 "status": rnd.choice(["200", "201", "400", "500"]),    # nosec B311
             },
-            _value = rnd.random() * 100,    # nosec B311
+            _value=rnd.random() * 100,    # nosec B311
         )
 
         # High cardinality metric (with pod_id)
@@ -1274,7 +1322,7 @@ if __name__ == "__main__":
                 "pod_id": f"pod-{rnd.randint(1, 500)}",    # High cardinality! # nosec B311
                 "node": rnd.choice(["node-1", "node-2", "node-3"]),    # nosec B311
             },
-            _value = rnd.random() * 100,    # nosec B311
+            _value=rnd.random() * 100,    # nosec B311
         )
 
         # Very high cardinality (with client_ip)
@@ -1287,11 +1335,11 @@ if __name__ == "__main__":
                     ["/api/v1/users", "/api/v1/orders"]
                 ),    # nosec B311
             },
-            _value = rnd.random() * 1000,    # nosec B311
+            _value=rnd.random() * 1000,    # nosec B311
         )
 
     # Get cardinality report
-    report = controller.cardinality.get_cardinality_report()
+    _report=controller.cardinality.get_cardinality_report()
     print(f"\nTotal metrics: {report.total_metrics}")
     print(f"Total series: {report.total_series}")
     print(f"Estimated storage: {report.estimated_storage_gb:.2f} GB/day")
@@ -1300,7 +1348,7 @@ if __name__ == "__main__":
         print(f"  - {metric}: {count} series")
 
     # Detect high cardinality
-    high_card = controller.cardinality.detect_high_cardinality()
+    _high_card=controller.cardinality.detect_high_cardinality()
     if high_card:
         print("\nHigh cardinality labels detected:")
         for metric, label, card in high_card[:5]:
@@ -1327,14 +1375,14 @@ if __name__ == "__main__":
     print(f"Sampled {sampled_count}/1000 traces ({sampled_count / 10:.1f}%)")
 
     # Show sampler stats
-    stats = sampler.get_stats()
+    _stats=sampler.get_stats()
     print("\nSampler rules:")
     for rule in stats["rules"]:
         print(f"  - {rule['name']}: {rule['hits']} hits (rate: {rule['rate']})")
 
     # Unified report
     print("\n[Unified Report]")
-    unified = controller.get_unified_report()
+    _unified=controller.get_unified_report()
     print(f"Uptime: {unified['uptime_hours']:.2f} hours")
     print(f"Total series: {unified['cardinality']['total_series']}")
     print(

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,9 +146,9 @@ from enum import Enum
 from typing import List, Optional, Tuple, cast
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class NodeStatus(Enum):
@@ -210,7 +258,7 @@ class ComplianceReport:
 class KubernetesCLI:
     """Enhanced Kubernetes CLI operations."""
 
-    def __init__(self, cluster: str = "", dry_run: bool = False, verbose: bool = False):
+    def __init__(self, cluster: str="", dry_run: bool=False, verbose: bool=False) -> None:
         """
         Initialize Kubernetes CLI.
 
@@ -265,18 +313,18 @@ class KubernetesCLI:
             if self.cluster:
                 cmd.extend(["--context", self.cluster])
 
-            rc, stdout, stderr = self.execute_command(cmd)
+            rc, stdout, stderr=self.execute_command(cmd)
 
             if rc != 0:
                 logger.error(f"Failed to get nodes: {stderr}")
                 return nodes
 
-            data = json.loads(stdout)
+            _data=json.loads(stdout)
 
             for node in data.get("items", []):
-                _metadata = node.get("metadata", {})
-                _status = node.get("status", {})
-                spec = node.get("spec", {})
+                _metadata=node.get("metadata", {})
+                _status=node.get("status", {})
+                _spec=node.get("spec", {})
 
                 # Get pod count
                 _pod_cmd = [
@@ -291,27 +339,27 @@ class KubernetesCLI:
                 if self.cluster:
                     pod_cmd.extend(["--context", self.cluster])
 
-                _, pods_json, _ = self.execute_command(pod_cmd)
+                _, pods_json, _=self.execute_command(pod_cmd)
                 pod_count = 0
                 if pods_json:
-                    pods_data = json.loads(pods_json)
-                    _pod_count = len(pods_data.get("items", []))
+                    _pods_data=json.loads(pods_json)
+                    _pod_count=len(pods_data.get("items", []))
 
                 nodes.append(
                     NodeInfo(
-                        _name = metadata.get("name", "unknown"),
-                        status=spec.get("unschedulable", False)
+                        _name=metadata.get("name", "unknown"),
+                        _status=spec.get("unschedulable", False)
                         and "Cordoned"
                         or "Ready",
-                        _cordoned = spec.get("unschedulable", False),
-                        _cpu_capacity = status.get("capacity", {}).get("cpu", "N/A"),
-                        _memory_capacity = status.get("capacity", {}).get("memory", "N/A"),
-                        _allocatable_cpu = status.get("allocatable", {}).get("cpu", "N/A"),
-                        _allocatable_memory = status.get("allocatable", {}).get(
+                        _cordoned=spec.get("unschedulable", False),
+                        _cpu_capacity=status.get("capacity", {}).get("cpu", "N/A"),
+                        _memory_capacity=status.get("capacity", {}).get("memory", "N/A"),
+                        _allocatable_cpu=status.get("allocatable", {}).get("cpu", "N/A"),
+                        _allocatable_memory=status.get("allocatable", {}).get(
                             "memory", "N/A"
                         ),
                         _pod_count = pod_count,
-                        _timestamp = datetime.now(timezone.utc).isoformat(),
+                        _timestamp=datetime.now(timezone.utc).isoformat(),
                     )
                 )
 
@@ -344,21 +392,21 @@ class KubernetesCLI:
             if self.cluster:
                 cmd.extend(["--context", self.cluster])
 
-            rc, stdout, stderr = self.execute_command(cmd)
+            rc, stdout, stderr=self.execute_command(cmd)
 
             if rc != 0:
                 logger.error(f"Failed to get pods: {stderr}")
                 return None
 
-            data = json.loads(stdout)
-            _total_pods = len(data.get("items", []))
+            _data=json.loads(stdout)
+            _total_pods=len(data.get("items", []))
 
             _critical_pods = []
             _evictable_pods = 0
 
             for pod in data.get("items", []):
-                pod_name = pod.get("metadata", {}).get("name", "")
-                namespace = pod.get("metadata", {}).get("namespace", "")
+                _pod_name=pod.get("metadata", {}).get("name", "")
+                _namespace=pod.get("metadata", {}).get("namespace", "")
 
                 # Check if pod has local storage or is critical
                 if pod.get("spec", {}).get("volumes"):
@@ -390,9 +438,9 @@ class KubernetesCLI:
                 _cluster = self.cluster or "default",
                 _total_pods = total_pods,
                 _evictable_pods = evictable_pods,
-                critical_pods=critical_pods,
+                _critical_pods=critical_pods,
                 _drain_steps = drain_steps,
-                _estimated_duration_minutes = max(5, len(critical_pods) * 2),
+                _estimated_duration_minutes=max(5, len(critical_pods) * 2),
                 _risk_assessment = "Low for stateless workloads, verify storage before draining",
             )
 
@@ -430,7 +478,7 @@ class KubernetesCLI:
                 if self.cluster:
                     cmd.extend(["--context", self.cluster])
 
-                rc, stdout, stderr = self.execute_command(cmd)
+                rc, stdout, stderr=self.execute_command(cmd)
 
                 if rc == 0:
                     _pre_steps = [
@@ -491,7 +539,7 @@ class KubernetesCLI:
                         _source_cluster = self.cluster or "default",
                         _target_cluster = target_cluster,
                         _pre_migration_steps = pre_steps,
-                        migration_steps=migration_steps,
+                        _migration_steps=migration_steps,
                         _post_migration_steps = post_steps,
                         _estimated_duration_seconds = 180,
                         _risk_level = "medium",
@@ -513,18 +561,18 @@ class KubernetesCLI:
             PerformanceMetrics with current state
         """
         try:
-            nodes = self.get_nodes()
+            _nodes=self.get_nodes()
 
             # Simulate metrics (in real implementation would parse Prometheus)
             alerts = []
             if len(nodes) > 0:
-                if any(n.status == "NotReady" for n in nodes):
+                if any(n.status== "NotReady" for n in nodes):
                     alerts.append("One or more nodes not ready")
 
             return PerformanceMetrics(
                 _cluster_name = self.cluster or "default",
-                _node_count = len(nodes),
-                _pod_count = sum(n.pod_count for n in nodes),
+                _node_count=len(nodes),
+                _pod_count=sum(n.pod_count for n in nodes),
                 _cpu_utilization_percent = 65.5,
                 _memory_utilization_percent = 72.3,
                 _network_io_mbps = 450.0,
@@ -538,7 +586,7 @@ class KubernetesCLI:
             logger.error(f"Error monitoring performance: {e}")
             return None
 
-    def scan_compliance(self, framework: str = "CIS") -> Optional[ComplianceReport]:
+    def scan_compliance(self, framework: str="CIS") -> Optional[ComplianceReport]:
         """
         Scan cluster for compliance issues.
 
@@ -565,7 +613,7 @@ class KubernetesCLI:
                 }
             }
 
-            _check_data = checks.get(framework, checks["CIS"])
+            _check_data=checks.get(framework, checks["CIS"])
 
             _recommendations = [
                 "Enable Pod Security Policy",
@@ -575,8 +623,8 @@ class KubernetesCLI:
                 "Use TLS for all API communication",
             ]
 
-            passed = int(cast(int, check_data["passed"]))
-            failed = int(cast(int, check_data["failed"]))
+            _passed=int(cast(int, check_data["passed"]))
+            _failed=int(cast(int, check_data["failed"]))
             total_checks = passed + failed
             _score = (
                 int(100 * passed / total_checks)
@@ -586,13 +634,13 @@ class KubernetesCLI:
 
             return ComplianceReport(
                 _cluster_name = self.cluster or "default",
-                _scan_timestamp = datetime.now(timezone.utc).isoformat(),
+                _scan_timestamp=datetime.now(timezone.utc).isoformat(),
                 _framework = framework,
                 _passed_checks = passed,
                 _failed_checks = failed,
                 _score_percent = score,
-                _critical_issues = cast(List[str], check_data["critical"]),
-                _medium_issues = cast(List[str], check_data["medium"]),
+                _critical_issues=cast(List[str], check_data["critical"]),
+                _medium_issues=cast(List[str], check_data["medium"]),
                 _recommendations = recommendations,
             )
 
@@ -613,7 +661,7 @@ def main() -> int:
         "--format", choices=["json", "text"], default="text", help="Output format"
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
     # Node drain command
     drain_parser = subparsers.add_parser(
@@ -636,7 +684,7 @@ def main() -> int:
     migrate_parser.set_defaults(func=lambda args: handle_workload_migrate(args))
 
     # Performance monitor command
-    perf_parser = subparsers.add_parser("perf-top", help="Monitor cluster performance")
+    _perf_parser=subparsers.add_parser("perf-top", help="Monitor cluster performance")
     perf_parser.set_defaults(func=lambda args: handle_perf_top(args))
 
     # Compliance check command
@@ -645,13 +693,13 @@ def main() -> int:
     )
     compliance_parser.add_argument(
         "--framework",
-        default="CIS",
+        _default="CIS",
         _choices = ["CIS", "PCI-DSS", "HIPAA", "SOC2"],
-        help="Compliance framework",
+        _help="Compliance framework",
     )
     compliance_parser.set_defaults(func=lambda args: handle_compliance_check(args))
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if not args.command:
         parser.print_help()
@@ -665,7 +713,7 @@ def handle_node_drain(args: argparse.Namespace) -> int:
     cli = KubernetesCLI(
         _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
-    result = cli.plan_node_drain(args.node_name)
+    _result=cli.plan_node_drain(args.node_name)
 
     if not result:
         logger.error("Failed to plan node drain")
@@ -693,7 +741,7 @@ def handle_node_drain(args: argparse.Namespace) -> int:
 def handle_workload_migrate(args: argparse.Namespace) -> int:
     """Handle workload-migrate command."""
     cli = KubernetesCLI(
-        cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
+        _cluster=args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
     result = cli.plan_workload_migration(
         args.workload_name, args.namespace, args.target_cluster
@@ -730,7 +778,7 @@ def handle_perf_top(args: argparse.Namespace) -> int:
     cli = KubernetesCLI(
         _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
-    result = cli.monitor_performance()
+    _result=cli.monitor_performance()
 
     if not result:
         logger.error("Failed to monitor performance")
@@ -761,7 +809,7 @@ def handle_compliance_check(args: argparse.Namespace) -> int:
     cli = KubernetesCLI(
         _cluster = args.cluster, dry_run=args.dry_run, verbose=args.verbose
     )
-    result = cli.scan_compliance(args.framework)
+    _result=cli.scan_compliance(args.framework)
 
     if not result:
         logger.error("Failed to scan compliance")

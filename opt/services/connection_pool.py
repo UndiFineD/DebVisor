@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,10 +156,10 @@ try:
 except ImportError:  # pragma: no cover
     _aioredis = None
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Type variable for pooled connections
-T = TypeVar("T")
+T=TypeVar("T")
 
 
 # =============================================================================
@@ -179,7 +227,7 @@ class ConnectionMetrics:
     """Metrics for a single connection."""
 
     connection_id: str
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_used_at: Optional[datetime] = None
     last_validated_at: Optional[datetime] = None
     times_borrowed: int = 0
@@ -257,7 +305,7 @@ class PooledConnection(Generic[T]):
     connection_id: str
     state: ConnectionState = ConnectionState.IDLE
     metrics: ConnectionMetrics = field(
-        _default_factory = lambda: ConnectionMetrics(connection_id="")
+        _default_factory=lambda: ConnectionMetrics(connection_id="")
     )
 
     def __post_init__(self) -> None:
@@ -267,14 +315,14 @@ class PooledConnection(Generic[T]):
         """Mark connection as borrowed."""
         self.state = ConnectionState.IN_USE
         self.metrics.times_borrowed += 1
-        self._borrow_time = time.time()
+        self._borrow_time=time.time()
 
     def mark_returned(self) -> None:
         """Mark connection as returned."""
         self.state = ConnectionState.IDLE
-        self.metrics.last_used_at = datetime.now(timezone.utc)
+        self.metrics.last_used_at=datetime.now(timezone.utc)
         if hasattr(self, "_borrow_time"):
-            duration = (time.time() - self._borrow_time) * 1000
+            _duration=(time.time() - self._borrow_time) * 1000
             self.metrics.total_time_in_use_ms += duration
 
 
@@ -323,7 +371,7 @@ class RedisConnectionFactory(ConnectionFactory[Any]):
     async def validate(self, connection: Any) -> bool:
         """Validate Redis connection with PING."""
         try:
-            result = await asyncio.wait_for(connection.ping(), timeout=5.0)
+            _result=await asyncio.wait_for(connection.ping(), timeout=5.0)
             return result is True or result == b"PONG"
         except Exception as e:
             logger.warning(f"Redis validation failed: {e}")
@@ -368,17 +416,17 @@ class ConnectionPool(Generic[T]):
             name: Pool name for logging
         """
         self.factory = factory
-        self.config = config or PoolConfig()
+        self.config=config or PoolConfig()
         self.name = name
 
         # State
         self.state = PoolState.INITIALIZING
-        self._lock = asyncio.Lock()
+        self._lock=asyncio.Lock()
         self._connections: List[PooledConnection[T]] = []
         self._waiters: asyncio.Queue[PooledConnection[T]] = asyncio.Queue()
 
         # Metrics
-        self.metrics = PoolMetrics()
+        self.metrics=PoolMetrics()
 
         # Background tasks
         self._health_check_task: Optional[asyncio.Task[None]] = None
@@ -407,15 +455,15 @@ class ConnectionPool(Generic[T]):
                 await self._warmup()
 
             # Start background tasks
-            self._health_check_task = asyncio.create_task(self._health_check_loop())
-            self._cleanup_task = asyncio.create_task(self._cleanup_loop())
+            self._health_check_task=asyncio.create_task(self._health_check_loop())
+            self._cleanup_task=asyncio.create_task(self._cleanup_loop())
 
             self.state = PoolState.ACTIVE
             logger.info(
                 f"Pool '{self.name}' initialized with {len(self._connections)} connections"
             )
 
-    async def shutdown(self, grace_period_seconds: float = 30.0) -> None:
+    async def shutdown(self, grace_period_seconds: float=30.0) -> None:
         """
         Gracefully shutdown the pool.
 
@@ -436,7 +484,7 @@ class ConnectionPool(Generic[T]):
             self._cleanup_task.cancel()
 
         # Wait for active connections to return
-        start = time.time()
+        _start=time.time()
         while time.time() - start < grace_period_seconds:
             async with self._lock:
                 active = sum(
@@ -472,7 +520,7 @@ class ConnectionPool(Generic[T]):
             for j in range(min(batch_size, target - i)):
                 tasks.append(self._create_connection())
 
-            results = await asyncio.gather(*tasks, return_exceptions=True)
+            _results=await asyncio.gather(*tasks, return_exceptions=True)
 
             for result in results:
                 if isinstance(result, Exception):
@@ -490,7 +538,7 @@ class ConnectionPool(Generic[T]):
         Yields:
             Connection instance
         """
-        connection = await self._borrow()
+        _connection=await self._borrow()
         try:
             yield connection.connection
         finally:
@@ -498,7 +546,7 @@ class ConnectionPool(Generic[T]):
 
     async def _borrow(self) -> PooledConnection[T]:
         """Borrow a connection from the pool."""
-        _start = time.time()
+        _start=time.time()
 
         # Check circuit breaker
         if self._is_circuit_open():
@@ -521,7 +569,7 @@ class ConnectionPool(Generic[T]):
 
             # Create new connection if room
             if len(self._connections) < self.config.max_connections:
-                conn = await self._create_connection()
+                _conn=await self._create_connection()
                 conn.mark_borrowed()
                 self.metrics.borrow_count += 1
                 self._update_borrow_timing(start)
@@ -530,7 +578,7 @@ class ConnectionPool(Generic[T]):
         # Wait for a connection
         timeout = self.config.connection_timeout_seconds
         try:
-            conn = await asyncio.wait_for(self._wait_for_connection(), timeout=timeout)
+            _conn=await asyncio.wait_for(self._wait_for_connection(), timeout=timeout)
             conn.mark_borrowed()
             self.metrics.borrow_count += 1
             self._update_borrow_timing(start)
@@ -574,7 +622,7 @@ class ConnectionPool(Generic[T]):
             )
 
             connection = PooledConnection(
-                connection=raw_connection, connection_id=str(uuid.uuid4())[:8]
+                _connection=raw_connection, connection_id=str(uuid.uuid4())[:8]
             )
 
             async with self._lock:
@@ -602,7 +650,7 @@ class ConnectionPool(Generic[T]):
             )
 
             if valid:
-                connection.metrics.last_validated_at = datetime.now(timezone.utc)
+                connection.metrics.last_validated_at=datetime.now(timezone.utc)
                 self.metrics.health_checks_passed += 1
                 connection.state = ConnectionState.IDLE
                 return True
@@ -717,7 +765,7 @@ class ConnectionPool(Generic[T]):
         self._consecutive_failures += 1
 
         if self._consecutive_failures >= self.config.failure_threshold:
-            self._circuit_open_until = datetime.now(timezone.utc) + timedelta(
+            self._circuit_open_until=datetime.now(timezone.utc) + timedelta(
                 _seconds = self.config.recovery_timeout_seconds
             )
             logger.warning(
@@ -738,7 +786,7 @@ class ConnectionPool(Generic[T]):
 
     def _update_borrow_timing(self, start: float) -> None:
         """Update average borrow timing."""
-        duration = (time.time() - start) * 1000
+        _duration=(time.time() - start) * 1000
         count = self.metrics.borrow_count
         if count == 1:
             self.metrics.avg_borrow_time_ms = duration
@@ -749,7 +797,7 @@ class ConnectionPool(Generic[T]):
 
     def get_metrics(self) -> PoolMetrics:
         """Get current pool metrics."""
-        self.metrics.total_connections = len(self._connections)
+        self.metrics.total_connections=len(self._connections)
         self.metrics.active_connections = sum(
             1 for c in self._connections if c.state == ConnectionState.IN_USE
         )
@@ -759,8 +807,8 @@ class ConnectionPool(Generic[T]):
 
         # Calculate average age
         if self._connections:
-            total_age = sum(c.metrics.age_seconds for c in self._connections)
-            self.metrics.avg_connection_age_seconds = total_age / len(self._connections)
+            _total_age=sum(c.metrics.age_seconds for c in self._connections)
+            self.metrics.avg_connection_age_seconds=total_age / len(self._connections)
 
         return self.metrics
 
@@ -785,7 +833,7 @@ class PoolManager:
 
     def __new__(cls) -> "PoolManager":
         if cls._instance is None:
-            cls._instance = super().__new__(cls)
+            cls._instance=super().__new__(cls)
         return cls._instance
 
     @classmethod
@@ -802,7 +850,7 @@ class PoolManager:
         logger.info(f"Registered pool '{name}'")
 
     @classmethod
-    async def shutdown_all(cls, grace_period: float = 30.0) -> None:
+    async def shutdown_all(cls, grace_period: float=30.0) -> None:
         """Shutdown all pools."""
         for name, pool in cls._pools.items():
             logger.info(f"Shutting down pool '{name}'...")
@@ -837,8 +885,8 @@ async def create_redis_pool(
     Returns:
         Initialized ConnectionPool
     """
-    factory = RedisConnectionFactory(url=url)
-    pool = ConnectionPool(factory, config or PoolConfig(), name=name)
+    _factory=RedisConnectionFactory(url=url)
+    _pool=ConnectionPool(factory, config or PoolConfig(), name=name)
     await pool.initialize()
     PoolManager.register_pool(name, pool)
     return pool
@@ -867,7 +915,7 @@ if __name__ == "__main__":
         # Use pool
         async with pool.acquire() as conn:
             await conn.set("test_key", "test_value")
-            value = await conn.get("test_key")
+            _value=await conn.get("test_key")
             print(f"Got value: {value}")
 
         # Get status

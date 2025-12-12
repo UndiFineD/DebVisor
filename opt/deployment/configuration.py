@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -184,22 +232,22 @@ class DeploymentConfig:
 
     def __post_init__(self) -> None:
         if self.health_check is None:
-            self.health_check = HealthCheck()
+            self.health_check=HealthCheck()
 
     def get_resources(self) -> tuple[Any, ...]:
         """Get resource requests and limits based on level"""
         if self.resource_level == ResourceLevel.MINIMAL:
-            requests = ResourceRequests(cpu_cores="50m", memory_mb="64Mi")
-            limits = ResourceLimits(cpu_cores="200m", memory_mb="256Mi")
+            _requests=ResourceRequests(cpu_cores="50m", memory_mb="64Mi")
+            _limits=ResourceLimits(cpu_cores="200m", memory_mb="256Mi")
         elif self.resource_level == ResourceLevel.SMALL:
-            requests = ResourceRequests(cpu_cores="100m", memory_mb="128Mi")
-            limits = ResourceLimits(cpu_cores="500m", memory_mb="512Mi")
+            _requests=ResourceRequests(cpu_cores="100m", memory_mb="128Mi")
+            _limits=ResourceLimits(cpu_cores="500m", memory_mb="512Mi")
         elif self.resource_level == ResourceLevel.MEDIUM:
-            requests = ResourceRequests(cpu_cores="250m", memory_mb="256Mi")
-            limits = ResourceLimits(cpu_cores="1000m", memory_mb="1Gi")
+            _requests=ResourceRequests(cpu_cores="250m", memory_mb="256Mi")
+            _limits=ResourceLimits(cpu_cores="1000m", memory_mb="1Gi")
         else:    # LARGE
-            requests = ResourceRequests(cpu_cores="500m", memory_mb="512Mi")
-            limits = ResourceLimits(cpu_cores="2000m", memory_mb="2Gi")
+            _requests=ResourceRequests(cpu_cores="500m", memory_mb="512Mi")
+            _limits=ResourceLimits(cpu_cores="2000m", memory_mb="2Gi")
 
         return requests, limits
 
@@ -252,7 +300,7 @@ class KubernetesManifestGenerator:
 
     def generate_deployment(config: DeploymentConfig) -> str:
         """Generate Kubernetes Deployment manifest"""
-        requests, limits = config.get_resources()
+        requests, limits=config.get_resources()
 
         _deployment = {
             "apiVersion": "apps/v1",
@@ -485,7 +533,7 @@ class DeploymentValidator:
             )
 
         # Check resource limits
-        requests, limits = config.get_resources()
+        requests, limits=config.get_resources()
         if requests.cpu_cores > limits.cpu_cores:
             errors.append("CPU requests cannot exceed limits")
 
@@ -499,14 +547,14 @@ class DeploymentValidator:
 class DeploymentPlan:
     """Complete deployment plan"""
 
-    def __init__(self, environment: Environment):
+    def __init__(self, environment: Environment) -> None:
         self.environment = environment
         self.components = {}  # type: ignore[var-annotated]
 
     def add_deployment(self, config: DeploymentConfig) -> None:
         """Add deployment to plan"""
         # Validate
-        valid, errors, warnings = DeploymentValidator.validate_deployment(config)
+        valid, errors, warnings=DeploymentValidator.validate_deployment(config)
         if not valid:
             raise ValueError(f"Invalid deployment config: {errors}")
 
@@ -559,19 +607,19 @@ class DeploymentPlan:
 # Pre-configured deployment plans
 def create_development_plan() -> DeploymentPlan:
     """Create development deployment plan"""
-    plan = DeploymentPlan(Environment.DEV)
+    _plan=DeploymentPlan(Environment.DEV)
 
     # RPC Service
     plan.add_deployment(
         DeploymentConfig(
-            name="debvisor-rpc",
+            _name="debvisor-rpc",
             _image = "debvisor/rpc:latest",
             _replicas = 1,
-            port=50051,
+            _port=50051,
             _environment = Environment.DEV,
             _resource_level = ResourceLevel.MINIMAL,
             _service = ServiceConfig(
-                name="debvisor-rpc", port=50051, target_port=50051, protocol="TCP"
+                _name="debvisor-rpc", port=50051, target_port=50051, protocol="TCP"
             ),
             _env_vars = {"LOG_LEVEL": "DEBUG", "REDIS_URL": "redis://redis:6379"},
         )
@@ -580,13 +628,13 @@ def create_development_plan() -> DeploymentPlan:
     # Web Panel
     plan.add_deployment(
         DeploymentConfig(
-            name="debvisor-panel",
+            _name="debvisor-panel",
             _image = "debvisor/panel:latest",
             _replicas = 1,
-            port=8080,
+            _port=8080,
             _environment = Environment.DEV,
             _resource_level = ResourceLevel.MINIMAL,
-            _service = ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            _service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
             _env_vars = {
                 "LOG_LEVEL": "DEBUG",
                 "FLASK_ENV": "development",
@@ -600,21 +648,21 @@ def create_development_plan() -> DeploymentPlan:
 
 def create_production_plan() -> DeploymentPlan:
     """Create production deployment plan"""
-    plan = DeploymentPlan(Environment.PRODUCTION)
+    _plan=DeploymentPlan(Environment.PRODUCTION)
 
     # RPC Service (HA)
     plan.add_deployment(
         DeploymentConfig(
-            name="debvisor-rpc",
+            _name="debvisor-rpc",
             _image = "debvisor/rpc:v1.0",
             _replicas = 3,
-            port=50051,
+            _port=50051,
             _environment = Environment.PRODUCTION,
             _resource_level = ResourceLevel.LARGE,
             _health_check = HealthCheck(
                 _enabled = True, path="/healthz", port=50051, failure_threshold=2
             ),
-            _service = ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
+            _service=ServiceConfig(name="debvisor-rpc", port=50051, target_port=50051),
             _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "REDIS_URL": "redis-cluster:6379",
@@ -626,16 +674,16 @@ def create_production_plan() -> DeploymentPlan:
     # Web Panel (HA)
     plan.add_deployment(
         DeploymentConfig(
-            name="debvisor-panel",
+            _name="debvisor-panel",
             _image = "debvisor/panel:v1.0",
             _replicas = 3,
-            port=8080,
+            _port=8080,
             _environment = Environment.PRODUCTION,
             _resource_level = ResourceLevel.LARGE,
             _health_check = HealthCheck(
                 _enabled = True, path="/health", port=8080, failure_threshold=2
             ),
-            _service = ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
+            _service=ServiceConfig(name="debvisor-panel", port=8080, target_port=8080),
             _env_vars = {
                 "LOG_LEVEL": "WARNING",
                 "FLASK_ENV": "production",

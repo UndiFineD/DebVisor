@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +139,7 @@ import logging
 import os
 import glob
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -159,7 +207,7 @@ class PassthroughManager:
 
         for dev_path in glob.glob(f"{pci_base}/*"):
             try:
-                device = self._parse_pci_device(dev_path)
+                _device=self._parse_pci_device(dev_path)
                 if device:
                     devices.append(device)
             except Exception as e:
@@ -171,44 +219,44 @@ class PassthroughManager:
 
     def _parse_pci_device(self, dev_path: str) -> Optional[PCIDevice]:
         """Parse PCI device information from sysfs."""
-        _address = os.path.basename(dev_path)
+        _address=os.path.basename(dev_path)
 
         # Read vendor/device IDs
-        vendor_path = os.path.join(dev_path, "vendor")
-        _device_path = os.path.join(dev_path, "device")
-        _class_path = os.path.join(dev_path, "class")
-        _iommu_path = os.path.join(dev_path, "iommu_group")
-        _driver_path = os.path.join(dev_path, "driver")
+        _vendor_path=os.path.join(dev_path, "vendor")
+        _device_path=os.path.join(dev_path, "device")
+        _class_path=os.path.join(dev_path, "class")
+        _iommu_path=os.path.join(dev_path, "iommu_group")
+        _driver_path=os.path.join(dev_path, "driver")
 
         if not os.path.exists(vendor_path):
             return None
 
         with open(vendor_path, "r") as f:
-            _vendor_id = f.read().strip().replace("0x", "")
+            _vendor_id=f.read().strip().replace("0x", "")
         with open(device_path, "r") as f:
-            _product_id = f.read().strip().replace("0x", "")
+            _product_id=f.read().strip().replace("0x", "")
         with open(class_path, "r") as f:
-            _device_class = f.read().strip().replace("0x", "")[:4]
+            _device_class=f.read().strip().replace("0x", "")[:4]
 
         # IOMMU group
         iommu_group = -1
         if os.path.exists(iommu_path):
-            iommu_link = os.readlink(iommu_path)
-            _iommu_group = int(os.path.basename(iommu_link))
+            _iommu_link=os.readlink(iommu_path)
+            _iommu_group=int(os.path.basename(iommu_link))
 
         # Current driver
         driver = None
         if os.path.exists(driver_path):
-            driver = os.path.basename(os.readlink(driver_path))
+            _driver=os.path.basename(os.readlink(driver_path))
 
         return PCIDevice(
             _address = address,
-            vendor_id=vendor_id,
-            product_id=product_id,
+            _vendor_id=vendor_id,
+            _product_id=product_id,
             _iommu_group = iommu_group,
             _driver_in_use = driver,
             _device_class = device_class,
-            device_name=self._get_device_name(vendor_id, product_id),
+            _device_name=self._get_device_name(vendor_id, product_id),
         )
 
     def _get_device_name(self, vendor_id: str, product_id: str) -> str:
@@ -222,7 +270,7 @@ class PassthroughManager:
             "10ec": "Realtek",
             "14e4": "Broadcom",
         }
-        vendor_name = vendors.get(vendor_id, vendor_id)
+        _vendor_name=vendors.get(vendor_id, vendor_id)
         return f"{vendor_name} [{vendor_id}:{product_id}]"
 
     def _build_iommu_groups(self) -> None:
@@ -269,7 +317,7 @@ class PassthroughManager:
 
     def bind_to_vfio(self, pci_address: str) -> bool:
         """Bind device to vfio-pci driver for passthrough."""
-        device = next((d for d in self._device_cache if d.address == pci_address), None)
+        _device=next((d for d in self._device_cache if d.address== pci_address), None)
         if not device:
             logger.error(f"Device {pci_address} not found")
             return False
@@ -277,7 +325,7 @@ class PassthroughManager:
         logger.info(f"Binding {pci_address} ({device.device_name}) to vfio-pci")
 
         # Check IOMMU group isolation
-        group = self._iommu_groups.get(device.iommu_group)
+        _group=self._iommu_groups.get(device.iommu_group)
         if group and not group.is_isolated:
             logger.warning(
                 f"IOMMU group {device.iommu_group} contains multiple devices - "
@@ -344,10 +392,10 @@ class PassthroughManager:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    mgr = PassthroughManager()
-    devices = mgr.scan_devices()
+    _mgr=PassthroughManager()
+    _devices=mgr.scan_devices()
 
-    print("=== Passthrough Manager ===")
+    print("=== Passthrough Manager===")
     print(f"IOMMU Enabled: {mgr.check_iommu_enabled()}")
     print(f"\nFound {len(devices)} PCI devices:")
 

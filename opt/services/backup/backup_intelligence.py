@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +149,7 @@ from pathlib import Path
 from typing import Any, Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -159,12 +207,12 @@ class BackupSLA:
     rpo_minutes: int    # Recovery Point Objective
     rto_minutes: int    # Recovery Time Objective
     retention_days: int
-    min_copies: int = 2    # Minimum backup copies (3-2-1 rule)
+    min_copies: int=2    # Minimum backup copies (3-2-1 rule)
     offsite_required: bool = True
     encryption_required: bool = True
     restore_test_interval_days: int = 30
     priority: BackupPriority = BackupPriority.MEDIUM
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -178,11 +226,11 @@ class ChangeRateMetrics:
     sample_times: List[datetime] = field(default_factory=list)
     daily_pattern: Dict[int, float] = field(default_factory=dict)    # hour -> avg rate
     weekly_pattern: Dict[int, float] = field(
-        default_factory=dict
+        _default_factory=dict
     )    # weekday -> avg rate
     predicted_rate: float = 0.0
     confidence: float = 0.0
-    last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    last_updated: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -234,7 +282,7 @@ class RestoreTest:
     boot_time_seconds: Optional[float] = None
     data_integrity_percent: Optional[float] = None
     error_message: Optional[str] = None
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -306,7 +354,7 @@ class ChangeRateEstimator:
     - Resource requirements for backup operations
     """
 
-    def __init__(self, max_samples: int = 1000, prediction_horizon_hours: int = 24):
+    def __init__(self, max_samples: int=1000, prediction_horizon_hours: int=24) -> None:
         self.max_samples = max_samples
         self.prediction_horizon_hours = prediction_horizon_hours
         self.metrics: Dict[str, ChangeRateMetrics] = {}
@@ -319,7 +367,7 @@ class ChangeRateEstimator:
         timestamp: Optional[datetime] = None,
     ) -> None:
         """Record observed change rate for a VM."""
-        _timestamp = timestamp or datetime.now(timezone.utc)
+        _timestamp=timestamp or datetime.now(timezone.utc)
 
         if vm_id not in self.metrics:
             self.metrics[vm_id] = ChangeRateMetrics(vm_id=vm_id)
@@ -327,7 +375,7 @@ class ChangeRateEstimator:
         m = self.metrics[vm_id]
 
         # Normalize to MB/hour
-        rate_per_hour = (changed_mb / interval_minutes) * 60
+        _rate_per_hour=(changed_mb / interval_minutes) * 60
 
         m.samples.append(rate_per_hour)
         m.sample_times.append(timestamp)
@@ -339,7 +387,7 @@ class ChangeRateEstimator:
 
         # Update patterns
         hour = timestamp.hour
-        _weekday = timestamp.weekday()
+        _weekday=timestamp.weekday()
 
         if hour not in m.daily_pattern:
             m.daily_pattern[hour] = rate_per_hour
@@ -374,7 +422,7 @@ class ChangeRateEstimator:
 
         # Simple prediction: weighted combination of recent average and patterns
         recent_samples = m.samples[-10:]
-        recent_avg = statistics.mean(recent_samples)
+        _recent_avg=statistics.mean(recent_samples)
         _recent_std = (
             statistics.stdev(recent_samples)
             if len(recent_samples) > 1
@@ -382,9 +430,9 @@ class ChangeRateEstimator:
         )
 
         # Get current pattern contribution
-        now = datetime.now(timezone.utc)
-        _hour_factor = m.daily_pattern.get(now.hour, recent_avg) / max(recent_avg, 0.01)
-        _day_factor = m.weekly_pattern.get(now.weekday(), recent_avg) / max(
+        _now=datetime.now(timezone.utc)
+        _hour_factor=m.daily_pattern.get(now.hour, recent_avg) / max(recent_avg, 0.01)
+        _day_factor=m.weekly_pattern.get(now.weekday(), recent_avg) / max(
             recent_avg, 0.01
         )
 
@@ -397,12 +445,12 @@ class ChangeRateEstimator:
             + pattern_weight * (hour_factor * 0.6 + day_factor * 0.4)
         )
 
-        m.predicted_rate = max(predicted, 0.0)
+        m.predicted_rate=max(predicted, 0.0)
 
         # Confidence based on variance and sample count
-        cv = recent_std / max(recent_avg, 0.01)    # Coefficient of variation
-        sample_confidence = min(len(m.samples) / 50, 1.0)
-        variance_confidence = max(1 - cv, 0.1)
+        _cv=recent_std / max(recent_avg, 0.01)    # Coefficient of variation
+        _sample_confidence=min(len(m.samples) / 50, 1.0)
+        _variance_confidence=max(1 - cv, 0.1)
         m.confidence = sample_confidence * variance_confidence
 
     def estimate_change_rate(self, vm_id: str) -> float:
@@ -424,14 +472,14 @@ class ChangeRateEstimator:
         # Simple: rate * hours
         # Advanced: consider time-of-day patterns
         _total_mb = 0.0
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
 
         for h in range(hours_ahead):
-            future_hour = (now.hour + h) % 24
-            future_day = (now.weekday() + (now.hour + h) // 24) % 7
+            _future_hour=(now.hour + h) % 24
+            _future_day=(now.weekday() + (now.hour + h) // 24) % 7
 
-            hour_rate = m.daily_pattern.get(future_hour, m.predicted_rate)
-            day_factor = m.weekly_pattern.get(future_day, m.predicted_rate) / max(
+            _hour_rate=m.daily_pattern.get(future_hour, m.predicted_rate)
+            _day_factor=m.weekly_pattern.get(future_day, m.predicted_rate) / max(
                 m.predicted_rate, 0.01
             )
 
@@ -454,14 +502,14 @@ class ChangeRateEstimator:
             return self._next_window_start(windows)
 
         m = self.metrics[vm_id]
-        now = datetime.now(timezone.utc)
-        _rpo_deadline = now + timedelta(minutes=rpo_minutes)
+        _now=datetime.now(timezone.utc)
+        _rpo_deadline=now + timedelta(minutes=rpo_minutes)
 
         candidates: List[Tuple[datetime, float]] = []    # (time, score)
 
         # Check each hour in the next 24 hours
         for h in range(min(24, rpo_minutes // 60 + 1)):
-            check_time = now + timedelta(hours=h)
+            _check_time=now + timedelta(hours=h)
 
             # Must be within a window
             if not self._in_window(check_time, windows):
@@ -472,15 +520,15 @@ class ChangeRateEstimator:
                 continue
 
             # Score based on predicted change rate (lower is better)
-            hour_rate = m.daily_pattern.get(check_time.hour, m.predicted_rate)
-            day_rate = m.weekly_pattern.get(check_time.weekday(), m.predicted_rate)
+            _hour_rate=m.daily_pattern.get(check_time.hour, m.predicted_rate)
+            _day_rate=m.weekly_pattern.get(check_time.weekday(), m.predicted_rate)
 
             # Combine with window priority
-            window = self._get_window(check_time, windows)
+            _window=self._get_window(check_time, windows)
             window_score = window.priority if window else 0
 
             # Lower rate = better, higher priority = better
-            score = (1 / max(hour_rate + day_rate, 0.01)) + window_score * 0.1
+            _score=(1 / max(hour_rate + day_rate, 0.01)) + window_score * 0.1
 
             candidates.append((check_time, score))
 
@@ -515,11 +563,11 @@ class ChangeRateEstimator:
 
     def _next_window_start(self, windows: List[BackupWindow]) -> datetime:
         """Get the start of the next available backup window."""
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
 
         # Check next 7 days
         for days in range(8):
-            check_date = now + timedelta(days=days)
+            _check_date=now + timedelta(days=days)
             for window in sorted(windows, key=lambda w: -w.priority):
                 if check_date.weekday() in window.days_of_week:
                     start = check_date.replace(
@@ -591,11 +639,11 @@ class RestoreTestManager:
         priority: int = 0,
     ) -> RestoreTest:
         """Schedule a restore test."""
-        test_id = f"rt-{uuid4().hex[:12]}"
+        _test_id=f"rt-{uuid4().hex[:12]}"
 
         test = RestoreTest(
-            id=test_id,
-            backup_id=backup_id,
+            _id=test_id,
+            _backup_id=backup_id,
             _vm_id = vm_id,
             _policy_id = policy_id,
             _status = RestoreTestStatus.PENDING,
@@ -607,7 +655,7 @@ class RestoreTestManager:
         logger.info(f"Scheduled restore test {test_id} for backup {backup_id}")
         return test
 
-    async def run_test(self, test_id: str, profile: str = "default") -> RestoreTest:
+    async def run_test(self, test_id: str, profile: str="default") -> RestoreTest:
         """Execute a restore test."""
         if test_id not in self.tests:
             raise ValueError(f"Unknown test: {test_id}")
@@ -619,12 +667,12 @@ class RestoreTestManager:
             return test
 
         self.running_tests.add(test_id)
-        test.started_at = datetime.now(timezone.utc)
+        test.started_at=datetime.now(timezone.utc)
 
         try:
         # Phase 1: Provision sandbox
             test.status = RestoreTestStatus.PROVISIONING
-            sandbox_id = await self._provision_sandbox(test)
+            _sandbox_id=await self._provision_sandbox(test)
             test.sandbox_vm_id = sandbox_id
 
             # Phase 2: Restore backup
@@ -638,7 +686,7 @@ class RestoreTestManager:
             )
 
             for check in checks:
-                result = await self._run_validation(test, check)
+                _result=await self._run_validation(test, check)
                 test.validation_results[check] = result
                 if not result:
                     test.status = RestoreTestStatus.FAILED
@@ -650,11 +698,11 @@ class RestoreTestManager:
 
         except Exception as e:
             test.status = RestoreTestStatus.FAILED
-            test.error_message = str(e)
+            test.error_message=str(e)
             logger.error(f"Restore test {test_id} failed: {e}")
 
         finally:
-            test.completed_at = datetime.now(timezone.utc)
+            test.completed_at=datetime.now(timezone.utc)
             self.running_tests.discard(test_id)
 
             # Cleanup sandbox
@@ -682,12 +730,12 @@ class RestoreTestManager:
         )
 
         # In production: call backup service to restore
-        start_time = time.time()
+        _start_time=time.time()
 
         # Simulate restore time
         await asyncio.sleep(0.2)
 
-        test.boot_time_seconds = time.time() - start_time
+        test.boot_time_seconds=time.time() - start_time
 
     async def _run_validation(self, test: RestoreTest, check: ValidationCheck) -> bool:
         """Run a specific validation check."""
@@ -745,7 +793,7 @@ class RestoreTestManager:
         await asyncio.sleep(0.1)
 
         # Set integrity percentage
-        test.data_integrity_percent = random.uniform(95, 100)    # nosec B311
+        test.data_integrity_percent=random.uniform(95, 100)    # nosec B311
 
         return test.data_integrity_percent > 98
 
@@ -753,7 +801,7 @@ class RestoreTestManager:
         """Run application-specific validation."""
         # In production: run custom validation scripts
 
-        validator = self.custom_validators.get(test.vm_id)
+        _validator=self.custom_validators.get(test.vm_id)
         if validator:
             return await validator(test)
 
@@ -777,7 +825,7 @@ class RestoreTestManager:
         self, vm_id: Optional[str] = None, limit: int = 100
     ) -> List[RestoreTest]:
         """Get restore test history."""
-        tests = list(self.tests.values())
+        _tests=list(self.tests.values())
 
         if vm_id:
             tests = [t for t in tests if t.vm_id == vm_id]
@@ -829,7 +877,7 @@ class SLAComplianceTracker:
         self, vm_id: str, timestamp: Optional[datetime] = None, success: bool = True
     ) -> None:
         """Record a backup completion."""
-        timestamp = timestamp or datetime.now(timezone.utc)
+        _timestamp=timestamp or datetime.now(timezone.utc)
 
         if success:
             self.backup_history[vm_id].append(timestamp)
@@ -842,32 +890,32 @@ class SLAComplianceTracker:
         self, vm_id: str, success: bool, timestamp: Optional[datetime] = None
     ) -> None:
         """Record a restore attempt."""
-        timestamp = timestamp or datetime.now(timezone.utc)
+        _timestamp=timestamp or datetime.now(timezone.utc)
         self.restore_history[vm_id].append((timestamp, success))
 
     def check_compliance(self, vm_id: str) -> SLAComplianceReport:
         """Check SLA compliance for a VM."""
-        policy_id = self.vm_policies.get(vm_id)
+        _policy_id=self.vm_policies.get(vm_id)
 
         if not policy_id:
             return SLAComplianceReport(
-                vm_id=vm_id,
-                policy_id="",
-                status=SLAStatus.UNKNOWN,
-                issues=["No policy assigned"],
+                _vm_id=vm_id,
+                _policy_id="",
+                _status=SLAStatus.UNKNOWN,
+                _issues=["No policy assigned"],
             )
 
-        sla = self.slas.get(policy_id)
+        _sla=self.slas.get(policy_id)
         if not sla:
             return SLAComplianceReport(
-                vm_id=vm_id,
+                _vm_id=vm_id,
                 _policy_id = policy_id,
                 _status = SLAStatus.UNKNOWN,
                 _issues = ["Policy not found"],
             )
 
-        _now = datetime.now(timezone.utc)
-        backups = self.backup_history.get(vm_id, [])
+        _now=datetime.now(timezone.utc)
+        _backups=self.backup_history.get(vm_id, [])
 
         # Get last backup
         last_backup = backups[-1] if backups else None
@@ -881,8 +929,8 @@ class SLAComplianceTracker:
             status = SLAStatus.BREACHED
             issues.append("No backups found")
         else:
-            minutes_since_backup = (now - last_backup).total_seconds() / 60
-            minutes_until_breach = int(sla.rpo_minutes - minutes_since_backup)
+            _minutes_since_backup=(now - last_backup).total_seconds() / 60
+            _minutes_until_breach=int(sla.rpo_minutes - minutes_since_backup)
 
             if minutes_since_backup > sla.rpo_minutes:
                 status = SLAStatus.BREACHED
@@ -894,26 +942,26 @@ class SLAComplianceTracker:
                 issues.append(f"RPO at risk: {int(minutes_until_breach)}m until breach")
 
         # Count violations in last 30 days
-        thirty_days_ago = now - timedelta(days=30)
+        _thirty_days_ago=now - timedelta(days=30)
         rpo_violations = 0
 
         if len(backups) >= 2:
-            sorted_backups = sorted(backups)
+            _sorted_backups=sorted(backups)
             for i in range(1, len(sorted_backups)):
                 if sorted_backups[i] < thirty_days_ago:
                     continue
-                gap = (sorted_backups[i] - sorted_backups[i - 1]).total_seconds() / 60
+                _gap=(sorted_backups[i] - sorted_backups[i - 1]).total_seconds() / 60
                 if gap > sla.rpo_minutes:
                     rpo_violations += 1
 
         # Count backups in last 30 days
-        _backup_count = sum(1 for b in backups if b > thirty_days_ago)
+        _backup_count=sum(1 for b in backups if b > thirty_days_ago)
 
         # Restore success rate
-        restores = self.restore_history.get(vm_id, [])
-        recent_restores = [(t, s) for t, s in restores if t > thirty_days_ago]
-        successful = sum(1 for _, s in recent_restores if s)
-        _failed = len(recent_restores) - successful
+        _restores=self.restore_history.get(vm_id, [])
+        _recent_restores=[(t, s) for t, s in restores if t > thirty_days_ago]
+        _successful=sum(1 for _, s in recent_restores if s)
+        _failed=len(recent_restores) - successful
 
         # Calculate average backup duration (placeholder)
         _avg_duration = 0.0
@@ -921,7 +969,7 @@ class SLAComplianceTracker:
         # Next backup due
         next_due = None
         if last_backup:
-            next_due = last_backup + timedelta(minutes=sla.rpo_minutes)
+            _next_due=last_backup + timedelta(minutes=sla.rpo_minutes)
 
         return SLAComplianceReport(
             _vm_id = vm_id,
@@ -986,7 +1034,7 @@ class DedupAnalyzer:
         shared_chunks: int,
     ) -> DedupAnalytics:
         """Record deduplication statistics for a backup."""
-        dedup_ratio = logical_bytes / max(physical_bytes, 1)
+        _dedup_ratio=logical_bytes / max(physical_bytes, 1)
 
         _analytics = DedupAnalytics(
             _vm_id = vm_id,
@@ -1012,8 +1060,8 @@ class DedupAnalyzer:
         if not self.vm_analytics:
             return {}
 
-        total_logical = sum(a.total_logical_bytes for a in self.vm_analytics.values())
-        total_physical = sum(a.total_physical_bytes for a in self.vm_analytics.values())
+        _total_logical=sum(a.total_logical_bytes for a in self.vm_analytics.values())
+        _total_physical=sum(a.total_physical_bytes for a in self.vm_analytics.values())
         total_savings = sum(
             a.estimated_monthly_savings_gb for a in self.vm_analytics.values()
         )
@@ -1056,10 +1104,10 @@ class BackupIntelligence:
         )
 
         # Sub-components
-        self.change_estimator = ChangeRateEstimator()
-        self.restore_tester = RestoreTestManager()
-        self.sla_tracker = SLAComplianceTracker()
-        self.dedup_analyzer = DedupAnalyzer()
+        self.change_estimator=ChangeRateEstimator()
+        self.restore_tester=RestoreTestManager()
+        self.sla_tracker=SLAComplianceTracker()
+        self.dedup_analyzer=DedupAnalyzer()
 
         # Default backup windows
         self.backup_windows = default_windows or [
@@ -1094,7 +1142,7 @@ class BackupIntelligence:
         """Record backup completion for intelligence updates."""
         # Update change rate
         self.change_estimator.record_change(
-            vm_id=vm_id, changed_mb=changed_mb, interval_minutes=duration_minutes
+            _vm_id=vm_id, changed_mb=changed_mb, interval_minutes=duration_minutes
         )
 
         # Update SLA tracking
@@ -1102,7 +1150,7 @@ class BackupIntelligence:
 
         # Update dedup analytics
         self.dedup_analyzer.record_backup_stats(
-            vm_id=vm_id,
+            _vm_id=vm_id,
             _logical_bytes = logical_bytes,
             _physical_bytes = physical_bytes,
             _unique_chunks = unique_chunks,
@@ -1115,25 +1163,25 @@ class BackupIntelligence:
         """Create an optimized backup schedule for a VM."""
         windows = windows or self.backup_windows
 
-        sla = self.sla_tracker.slas.get(policy_id)
+        _sla=self.sla_tracker.slas.get(policy_id)
         rpo_minutes = sla.rpo_minutes if sla else 1440    # Default 24h
         _priority = sla.priority if sla else BackupPriority.MEDIUM
 
         # Get optimal time
         optimal_time = self.change_estimator.get_optimal_backup_time(
-            vm_id=vm_id, windows=windows, rpo_minutes=rpo_minutes
+            _vm_id=vm_id, windows=windows, rpo_minutes=rpo_minutes
         )
 
         if not optimal_time:
         # Fallback to next window start if no optimal time found
-            optimal_time = self.change_estimator._next_window_start(windows)
+            _optimal_time=self.change_estimator._next_window_start(windows)
 
         # Estimate duration and size
-        _rate = self.change_estimator.estimate_change_rate(vm_id)
-        hours_ahead = (optimal_time - datetime.now(timezone.utc)).total_seconds() / 3600
-        predicted_mb, _ = self.change_estimator.predict_changes(vm_id, int(hours_ahead))
+        _rate=self.change_estimator.estimate_change_rate(vm_id)
+        _hours_ahead=(optimal_time - datetime.now(timezone.utc)).total_seconds() / 3600
+        predicted_mb, _=self.change_estimator.predict_changes(vm_id, int(hours_ahead))
 
-        _estimated_duration = max(int(predicted_mb / 100), 5)    # Assume 100MB/min
+        _estimated_duration=max(int(predicted_mb / 100), 5)    # Assume 100MB/min
 
         # Find which window
         window = None
@@ -1148,7 +1196,7 @@ class BackupIntelligence:
             _policy_id = policy_id,
             _next_backup = optimal_time,
             _estimated_duration_minutes = estimated_duration,
-            _estimated_size_mb = int(predicted_mb),
+            _estimated_size_mb=int(predicted_mb),
             _window = window or self.backup_windows[0],
             _priority = priority,
             _reason = f"Optimal time based on {rate:.1f} MB/h change rate",
@@ -1170,32 +1218,32 @@ class BackupIntelligence:
         self, vm_id: str, last_backup: Optional[datetime] = None
     ) -> bool:
         """Check if VM is SLA compliant."""
-        report = self.sla_tracker.check_compliance(vm_id)
+        _report=self.sla_tracker.check_compliance(vm_id)
         return report.status == SLAStatus.COMPLIANT
 
     def get_health_report(self) -> BackupHealthReport:
         """Generate comprehensive backup health report."""
-        _now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
 
-        _all_vms = set(self.sla_tracker.vm_policies.keys())
-        compliance_reports = self.sla_tracker.check_all_compliance()
+        _all_vms=set(self.sla_tracker.vm_policies.keys())
+        _compliance_reports=self.sla_tracker.check_all_compliance()
 
         _compliant = sum(
             1 for r in compliance_reports if r.status == SLAStatus.COMPLIANT
         )
-        _at_risk = sum(1 for r in compliance_reports if r.status == SLAStatus.AT_RISK)
-        _breached = sum(1 for r in compliance_reports if r.status == SLAStatus.BREACHED)
+        _at_risk=sum(1 for r in compliance_reports if r.status== SLAStatus.AT_RISK)
+        _breached=sum(1 for r in compliance_reports if r.status== SLAStatus.BREACHED)
 
         # Dedup stats
-        _dedup_stats = self.dedup_analyzer.get_global_stats()
+        _dedup_stats=self.dedup_analyzer.get_global_stats()
 
         # Restore success rate
-        all_tests = self.restore_tester.get_test_history()
+        _all_tests=self.restore_tester.get_test_history()
         recent_tests = [t for t in all_tests if t.status != RestoreTestStatus.PENDING]
         successful_tests = sum(
             1 for t in recent_tests if t.status == RestoreTestStatus.SUCCESS
         )
-        _restore_rate = successful_tests / max(len(recent_tests), 1)
+        _restore_rate=successful_tests / max(len(recent_tests), 1)
 
         # Generate recommendations
         recommendations = []
@@ -1223,16 +1271,16 @@ class BackupIntelligence:
 
         return BackupHealthReport(
             _timestamp = now,
-            _total_vms = len(all_vms),
-            protected_vms=len(compliance_reports),
-            _unprotected_vms = len(all_vms) - len(compliance_reports),
+            _total_vms=len(all_vms),
+            _protected_vms=len(compliance_reports),
+            _unprotected_vms=len(all_vms) - len(compliance_reports),
             _compliant_count = compliant,
             _at_risk_count = at_risk,
             _breached_count = breached,
-            _total_backup_size_tb = dedup_stats.get("total_logical_tb", 0),
-            _dedup_savings_tb = dedup_stats.get("total_logical_tb", 0)
+            _total_backup_size_tb=dedup_stats.get("total_logical_tb", 0),
+            _dedup_savings_tb=dedup_stats.get("total_logical_tb", 0)
             - dedup_stats.get("total_physical_tb", 0),
-            _avg_dedup_ratio = dedup_stats.get("global_dedup_ratio", 1.0),
+            _avg_dedup_ratio=dedup_stats.get("global_dedup_ratio", 1.0),
             _restore_success_rate = restore_rate,
             _recommendations = recommendations,
         )
@@ -1244,7 +1292,7 @@ class BackupIntelligence:
 
 if __name__ == "__main__":
     logging.basicConfig(
-        _level = logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        _level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1252,7 +1300,7 @@ if __name__ == "__main__":
     print("=" * 60)
 
     # Initialize
-    bi = BackupIntelligence()
+    _bi=BackupIntelligence()
 
     # Register SLAs
     bi.sla_tracker.register_sla(
@@ -1303,30 +1351,30 @@ if __name__ == "__main__":
         bi.sla_tracker.assign_policy(vm_id, policy)
 
         # Simulate backup history
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         for days_ago in range(7):
             backup_time = now - timedelta(
-                _days = days_ago, hours=random.randint(0, 6)
+                _days=days_ago, hours=random.randint(0, 6)
             )    # nosec B311
             bi.sla_tracker.record_backup(vm_id, backup_time)
 
             # Record change rate
             bi.change_estimator.record_change(
                 _vm_id = vm_id,
-                _changed_mb = random.uniform(100, 5000),    # nosec B311
-                _interval_minutes = random.randint(60, 480),    # nosec B311
+                _changed_mb=random.uniform(100, 5000),    # nosec B311
+                _interval_minutes=random.randint(60, 480),    # nosec B311
                 _timestamp = backup_time,
             )
 
             # Record dedup stats
-            logical = random.randint(10_000_000_000, 100_000_000_000)    # nosec B311
-            physical = int(logical / random.uniform(1.5, 4.0))    # nosec B311
+            _logical=random.randint(10_000_000_000, 100_000_000_000)    # nosec B311
+            _physical=int(logical / random.uniform(1.5, 4.0))    # nosec B311
             bi.dedup_analyzer.record_backup_stats(
                 _vm_id = vm_id,
                 _logical_bytes = logical,
                 _physical_bytes = physical,
-                _unique_chunks = random.randint(1000, 5000),    # nosec B311
-                _shared_chunks = random.randint(5000, 20000),    # nosec B311
+                _unique_chunks=random.randint(1000, 5000),    # nosec B311
+                _shared_chunks=random.randint(5000, 20000),    # nosec B311
             )
 
     # Check compliance
@@ -1351,7 +1399,7 @@ if __name__ == "__main__":
     print("\n[Optimized Backup Schedules]")
 
     for vm_id, policy in vms[:3]:
-        schedule = bi.schedule_backup(vm_id, policy)
+        _schedule=bi.schedule_backup(vm_id, policy)
         print(f"  {vm_id}: {schedule.next_backup.strftime('%Y-%m-%d %H:%M')} UTC")
         print(f"    Window: {schedule.window.name}")
         print(
@@ -1364,19 +1412,19 @@ if __name__ == "__main__":
     print("\n[Change Rate Estimates]")
 
     for vm_id, _ in vms[:3]:
-        rate = bi.estimate_change_rate(vm_id)
-        predicted, confidence = bi.change_estimator.predict_changes(vm_id, 24)
+        _rate=bi.estimate_change_rate(vm_id)
+        predicted, confidence=bi.change_estimator.predict_changes(vm_id, 24)
         print(f"  {vm_id}: {rate:.1f} MB/hour")
         print(f"    24h prediction: {predicted:.0f} MB (confidence: {confidence:.1%})")
 
     # Schedule restore test
     print("\n[Restore Testing]")
-    test_id = bi.schedule_restore_test("bkp-123", "vm-db-prod", "gold", "database")
+    _test_id=bi.schedule_restore_test("bkp-123", "vm-db-prod", "gold", "database")
     print(f"  Scheduled restore test: {test_id}")
 
     # Health report
     print("\n[Backup Health Report]")
-    health_report: BackupHealthReport = bi.get_health_report()
+    health_report: BackupHealthReport=bi.get_health_report()
 
     print(f"  Total VMs: {health_report.total_vms}")
     print(f"  Protected: {health_report.protected_vms}")

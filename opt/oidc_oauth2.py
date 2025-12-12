@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from urllib.parse import urlencode
 import jwt
 
 logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class AuthorizationFlow(Enum):
@@ -232,7 +280,7 @@ class Session:
 class JWTManager:
     """JWT token generation and validation."""
 
-    def __init__(self, secret_key: str):
+    def __init__(self, secret_key: str) -> None:
         """
         Initialize JWT manager.
 
@@ -258,9 +306,9 @@ class JWTManager:
         Returns:
             JWT token string
         """
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         # Respect type in payload if already set, otherwise use token_type parameter
-        final_type = payload.get("type", token_type.value)
+        _final_type=payload.get("type", token_type.value)
         claims = {
             **payload,
             "iat": now,
@@ -268,7 +316,7 @@ class JWTManager:
             "type": final_type,
         }
 
-        token = jwt.encode(claims, self.secret_key, algorithm="HS256")
+        _token=jwt.encode(claims, self.secret_key, algorithm="HS256")
         return token
 
     def verify_token(self, token: str) -> Optional[Dict[str, Any]]:
@@ -282,7 +330,7 @@ class JWTManager:
             Token payload or None if invalid
         """
         try:
-            payload = jwt.decode(token, self.secret_key, algorithms=["HS256"])
+            _payload=jwt.decode(token, self.secret_key, algorithms=["HS256"])
             return payload
         except jwt.ExpiredSignatureError:
             logger.warning("Token expired")
@@ -304,7 +352,7 @@ class JWTManager:
         Returns:
             New token or None
         """
-        payload = self.verify_token(token)
+        _payload=self.verify_token(token)
         if not payload or payload.get("type") != TokenType.REFRESH.value:
             return None
 
@@ -321,7 +369,7 @@ class JWTManager:
 class OIDCProvider:
     """OIDC provider client."""
 
-    def __init__(self, config: OIDCConfig):
+    def __init__(self, config: OIDCConfig) -> None:
         """
         Initialize OIDC provider.
 
@@ -329,7 +377,7 @@ class OIDCProvider:
             config: OIDC configuration
         """
         self.config = config
-        self.jwt_manager = JWTManager(config.client_secret)
+        self.jwt_manager=JWTManager(config.client_secret)
 
     def get_authorization_url(self, state: str, nonce: Optional[str] = None) -> str:
         """
@@ -382,10 +430,10 @@ class OIDCProvider:
         )
 
         return TokenResponse(
-            access_token=access_token,
+            _access_token=access_token,
             _refresh_token = refresh_token,
             _expires_in = 3600,
-            _scope = " ".join(self.config.scopes),
+            _scope=" ".join(self.config.scopes),
         )
 
     def get_user_info(self, access_token: str) -> Optional[UserInfo]:
@@ -399,18 +447,18 @@ class OIDCProvider:
             User information or None
         """
         # In production, would make HTTP request to userinfo_endpoint
-        payload = self.jwt_manager.verify_token(access_token)
+        _payload=self.jwt_manager.verify_token(access_token)
 
         if not payload:
             return None
 
         return UserInfo(
-            _sub = payload.get("sub", ""),
-            email=payload.get("email", ""),
-            _email_verified = payload.get("email_verified", False),
-            _name = payload.get("name", ""),
-            _roles = payload.get("roles", []),
-            _clusters = payload.get("clusters", []),
+            _sub=payload.get("sub", ""),
+            _email=payload.get("email", ""),
+            _email_verified=payload.get("email_verified", False),
+            _name=payload.get("name", ""),
+            _roles=payload.get("roles", []),
+            _clusters=payload.get("clusters", []),
         )
 
 
@@ -427,19 +475,19 @@ class RBACManager:
         """Set up default roles."""
         self.create_role(
             Role(
-                name="admin",
-                description="Administrator with full access",
-                permissions=["*"],
-                resources=["*"],
+                _name="admin",
+                _description="Administrator with full access",
+                _permissions=["*"],
+                _resources=["*"],
             )
         )
 
         self.create_role(
             Role(
-                name="operator",
-                description="Operator with read/write access",
-                permissions=["read", "write", "execute"],
-                resources=["clusters", "nodes", "pods", "volumes"],
+                _name="operator",
+                _description="Operator with read/write access",
+                _permissions=["read", "write", "execute"],
+                _resources=["clusters", "nodes", "pods", "volumes"],
             )
         )
 
@@ -496,10 +544,10 @@ class RBACManager:
         Returns:
             Permission granted status
         """
-        roles = self.user_roles.get(user_id, [])
+        _roles=self.user_roles.get(user_id, [])
 
         for role_name in roles:
-            role = self.roles.get(role_name)
+            _role=self.roles.get(role_name)
             if not role:
                 continue
 
@@ -521,10 +569,10 @@ class RBACManager:
             Dictionary of permissions by resource
         """
         permissions: Any = {}
-        roles = self.user_roles.get(user_id, [])
+        _roles=self.user_roles.get(user_id, [])
 
         for role_name in roles:
-            role = self.roles.get(role_name)
+            _role=self.roles.get(role_name)
             if not role:
                 continue
 
@@ -543,7 +591,7 @@ class RBACManager:
 class SessionManager:
     """Manage user sessions."""
 
-    def __init__(self, session_timeout_seconds: int = 86400):
+    def __init__(self, session_timeout_seconds: int=86400) -> None:
         """
         Initialize session manager.
 
@@ -572,14 +620,14 @@ class SessionManager:
         Returns:
             Created session
         """
-        session_id = secrets.token_urlsafe(32)
-        now = datetime.now(timezone.utc)
+        _session_id=secrets.token_urlsafe(32)
+        _now=datetime.now(timezone.utc)
 
         session = Session(
-            session_id=session_id,
-            user_id=user_id,
+            _session_id=session_id,
+            _user_id=user_id,
             _created_at = now,
-            _expires_at = now + timedelta(seconds=self.session_timeout_seconds),
+            _expires_at=now + timedelta(seconds=self.session_timeout_seconds),
             _access_token = access_token,
             _refresh_token = refresh_token,
             _user_info = user_info,
@@ -600,7 +648,7 @@ class SessionManager:
         Returns:
             Session or None if not found or expired
         """
-        session = self.sessions.get(session_id)
+        _session=self.sessions.get(session_id)
 
         if not session:
             return None
@@ -621,12 +669,12 @@ class SessionManager:
         Returns:
             Success status
         """
-        session = self.sessions.get(session_id)
+        _session=self.sessions.get(session_id)
 
         if not session:
             return False
 
-        session.expires_at = datetime.now(timezone.utc) + timedelta(
+        session.expires_at=datetime.now(timezone.utc) + timedelta(
             _seconds = self.session_timeout_seconds
         )
         return True
@@ -653,7 +701,7 @@ class SessionManager:
             List of active sessions
         """
         active = []
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
 
         for session in self.sessions.values():
             if session.user_id == user_id and session.expires_at > now:
@@ -665,7 +713,7 @@ class SessionManager:
 class AuthenticationManager:
     """Central authentication manager."""
 
-    def __init__(self, oidc_config: OIDCConfig, jwt_secret: str):
+    def __init__(self, oidc_config: OIDCConfig, jwt_secret: str) -> None:
         """
         Initialize authentication manager.
 
@@ -673,10 +721,10 @@ class AuthenticationManager:
             oidc_config: OIDC configuration
             jwt_secret: JWT secret key
         """
-        self.oidc_provider = OIDCProvider(oidc_config)
-        self.jwt_manager = JWTManager(jwt_secret)
-        self.rbac = RBACManager()
-        self.sessions = SessionManager()
+        self.oidc_provider=OIDCProvider(oidc_config)
+        self.jwt_manager=JWTManager(jwt_secret)
+        self.rbac=RBACManager()
+        self.sessions=SessionManager()
 
     def generate_authorization_request(self) -> tuple[str, str]:
         """
@@ -685,9 +733,9 @@ class AuthenticationManager:
         Returns:
             Tuple of (auth_url, state)
         """
-        state = secrets.token_urlsafe(32)
-        nonce = secrets.token_urlsafe(32)
-        auth_url = self.oidc_provider.get_authorization_url(state, nonce)
+        _state=secrets.token_urlsafe(32)
+        _nonce=secrets.token_urlsafe(32)
+        _auth_url=self.oidc_provider.get_authorization_url(state, nonce)
         return auth_url, state
 
     def handle_callback(self, code: str, state: str) -> Optional[Session]:
@@ -709,7 +757,7 @@ class AuthenticationManager:
             logger.error("Failed to exchange code for token")
             return None
 
-        user_info = self.oidc_provider.get_user_info(token_response.access_token)
+        _user_info=self.oidc_provider.get_user_info(token_response.access_token)
 
         if not user_info:
             logger.error("Failed to get user info")
@@ -739,10 +787,10 @@ class AuthenticationManager:
         logger.info(f"Authenticating user: {username}")
 
         user_info = UserInfo(
-            sub=username,
-            email=f"{username}@example.com",
+            _sub=username,
+            _email=f"{username}@example.com",
             _email_verified = True,
-            name=username,
+            _name=username,
             _roles = ["viewer"],
         )
 
@@ -766,7 +814,7 @@ class AuthenticationManager:
         Returns:
             User info or None if session invalid
         """
-        session = self.sessions.get_session(session_id)
+        _session=self.sessions.get_session(session_id)
 
         if not session:
             return None

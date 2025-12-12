@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +87,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class TestStatus(Enum):
@@ -135,7 +183,7 @@ class E2ETestCase:
     failure_injections: List[FailureInjection] = field(default_factory=list)
     prerequisites: List[str] = field(default_factory=list)
     tags: List[str] = field(default_factory=list)
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_run: Optional[datetime] = None
     status: TestStatus = TestStatus.PENDING
     pass_count: int = 0
@@ -187,28 +235,28 @@ class DeploymentE2ETests:
     def create_basic_deployment_test() -> E2ETestCase:
         """Create basic deployment test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Basic Deployment",
-            description="Test basic application deployment workflow",
+            _test_id=str(uuid.uuid4()),
+            _name="Basic Deployment",
+            _description="Test basic application deployment workflow",
             _scenario = TestScenario.DEPLOYMENT,
             _steps = [
                 TestStep(
-                    name="Create Deployment",
-                    description="Create new deployment resource",
-                    action=lambda: {"status": "created"},
-                    expected_result="Deployment resource created successfully",
+                    _name="Create Deployment",
+                    _description="Create new deployment resource",
+                    _action=lambda: {"status": "created"},
+                    _expected_result="Deployment resource created successfully",
                 ),
                 TestStep(
-                    name="Verify Replicas",
-                    description="Verify all replicas are running",
-                    action=lambda: {"replicas": 3, "ready": 3},
-                    expected_result="All 3 replicas running",
+                    _name="Verify Replicas",
+                    _description="Verify all replicas are running",
+                    _action=lambda: {"replicas": 3, "ready": 3},
+                    _expected_result="All 3 replicas running",
                 ),
                 TestStep(
-                    name="Test Service Access",
-                    description="Verify service endpoint is accessible",
-                    action=lambda: {"status": "accessible"},
-                    expected_result="Service endpoint responding",
+                    _name="Test Service Access",
+                    _description="Verify service endpoint is accessible",
+                    _action=lambda: {"status": "accessible"},
+                    _expected_result="Service endpoint responding",
                 ),
                 TestStep(
                     _name = "Verify Health Checks",
@@ -226,34 +274,34 @@ class DeploymentE2ETests:
     def create_rolling_update_test() -> E2ETestCase:
         """Create rolling update test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Rolling Update",
-            description="Test rolling deployment update with zero downtime",
+            _test_id=str(uuid.uuid4()),
+            _name="Rolling Update",
+            _description="Test rolling deployment update with zero downtime",
             _scenario = TestScenario.DEPLOYMENT,
             _steps = [
                 TestStep(
-                    name="Verify Current Deployment",
-                    description="Get current deployment state",
-                    action=lambda: {"version": "1.0", "ready": 3},
-                    expected_result="3 pods running version 1.0",
+                    _name="Verify Current Deployment",
+                    _description="Get current deployment state",
+                    _action=lambda: {"version": "1.0", "ready": 3},
+                    _expected_result="3 pods running version 1.0",
                 ),
                 TestStep(
-                    name="Trigger Update",
-                    description="Trigger rolling update to new version",
-                    action=lambda: {"update": "triggered"},
-                    expected_result="Rolling update started",
+                    _name="Trigger Update",
+                    _description="Trigger rolling update to new version",
+                    _action=lambda: {"update": "triggered"},
+                    _expected_result="Rolling update started",
                 ),
                 TestStep(
-                    name="Monitor Update Progress",
-                    description="Monitor update progress pod by pod",
-                    action=lambda: {"progress": "50%"},
-                    expected_result="Update progressing smoothly",
+                    _name="Monitor Update Progress",
+                    _description="Monitor update progress pod by pod",
+                    _action=lambda: {"progress": "50%"},
+                    _expected_result="Update progressing smoothly",
                 ),
                 TestStep(
-                    name="Verify Service Continuity",
-                    description="Verify service remains available during update",
-                    action=lambda: {"available": True},
-                    expected_result="Service remained available",
+                    _name="Verify Service Continuity",
+                    _description="Verify service remains available during update",
+                    _action=lambda: {"available": True},
+                    _expected_result="Service remained available",
                 ),
                 TestStep(
                     _name = "Verify New Version",
@@ -275,34 +323,34 @@ class ClusterOperationsE2ETests:
     def create_node_drain_test() -> E2ETestCase:
         """Create node drain test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Node Drain Operation",
-            description="Test graceful node drain and workload rescheduling",
+            _test_id=str(uuid.uuid4()),
+            _name="Node Drain Operation",
+            _description="Test graceful node drain and workload rescheduling",
             _scenario = TestScenario.CLUSTER_OPS,
             _steps = [
                 TestStep(
-                    name="List Node Workloads",
-                    description="Identify workloads running on target node",
-                    action=lambda: {"workloads": 5},
-                    expected_result="5 workloads identified on node",
+                    _name="List Node Workloads",
+                    _description="Identify workloads running on target node",
+                    _action=lambda: {"workloads": 5},
+                    _expected_result="5 workloads identified on node",
                 ),
                 TestStep(
-                    name="Cordon Node",
-                    description="Mark node as unschedulable",
-                    action=lambda: {"cordoned": True},
-                    expected_result="Node cordoned successfully",
+                    _name="Cordon Node",
+                    _description="Mark node as unschedulable",
+                    _action=lambda: {"cordoned": True},
+                    _expected_result="Node cordoned successfully",
                 ),
                 TestStep(
-                    name="Drain Workloads",
-                    description="Gracefully evict workloads from node",
-                    action=lambda: {"evicted": 5},
-                    expected_result="All 5 workloads evicted",
+                    _name="Drain Workloads",
+                    _description="Gracefully evict workloads from node",
+                    _action=lambda: {"evicted": 5},
+                    _expected_result="All 5 workloads evicted",
                 ),
                 TestStep(
-                    name="Verify Rescheduling",
-                    description="Verify workloads rescheduled on other nodes",
-                    action=lambda: {"rescheduled": 5},
-                    expected_result="All workloads running on other nodes",
+                    _name="Verify Rescheduling",
+                    _description="Verify workloads rescheduled on other nodes",
+                    _action=lambda: {"rescheduled": 5},
+                    _expected_result="All workloads running on other nodes",
                 ),
                 TestStep(
                     _name = "Verify Service Continuity",
@@ -320,28 +368,28 @@ class ClusterOperationsE2ETests:
     def create_cluster_scaling_test() -> E2ETestCase:
         """Create cluster scaling test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Cluster Scaling",
-            description="Test cluster horizontal scaling operations",
+            _test_id=str(uuid.uuid4()),
+            _name="Cluster Scaling",
+            _description="Test cluster horizontal scaling operations",
             _scenario = TestScenario.CLUSTER_OPS,
             _steps = [
                 TestStep(
-                    name="Get Current Capacity",
-                    description="Get current cluster capacity metrics",
-                    action=lambda: {"nodes": 3, "capacity": "90%"},
-                    expected_result="Current capacity retrieved",
+                    _name="Get Current Capacity",
+                    _description="Get current cluster capacity metrics",
+                    _action=lambda: {"nodes": 3, "capacity": "90%"},
+                    _expected_result="Current capacity retrieved",
                 ),
                 TestStep(
-                    name="Trigger Scale Up",
-                    description="Add new nodes to cluster",
-                    action=lambda: {"nodes_added": 2},
-                    expected_result="2 new nodes added",
+                    _name="Trigger Scale Up",
+                    _description="Add new nodes to cluster",
+                    _action=lambda: {"nodes_added": 2},
+                    _expected_result="2 new nodes added",
                 ),
                 TestStep(
-                    name="Wait for Node Readiness",
-                    description="Wait for new nodes to be ready",
-                    action=lambda: {"ready": 2},
-                    expected_result="Both new nodes ready",
+                    _name="Wait for Node Readiness",
+                    _description="Wait for new nodes to be ready",
+                    _action=lambda: {"ready": 2},
+                    _expected_result="Both new nodes ready",
                 ),
                 TestStep(
                     _name = "Verify Capacity",
@@ -363,28 +411,28 @@ class WorkloadE2ETests:
     def create_workload_placement_test() -> E2ETestCase:
         """Create workload placement test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Workload Placement",
-            description="Test workload placement with constraints and affinity",
+            _test_id=str(uuid.uuid4()),
+            _name="Workload Placement",
+            _description="Test workload placement with constraints and affinity",
             _scenario = TestScenario.WORKLOAD_PLACEMENT,
             _steps = [
                 TestStep(
-                    name="Define Placement Rules",
-                    description="Define affinity and resource constraints",
-                    action=lambda: {"rules": "defined"},
-                    expected_result="Placement rules configured",
+                    _name="Define Placement Rules",
+                    _description="Define affinity and resource constraints",
+                    _action=lambda: {"rules": "defined"},
+                    _expected_result="Placement rules configured",
                 ),
                 TestStep(
-                    name="Deploy Workload",
-                    description="Deploy workload with placement constraints",
-                    action=lambda: {"deployed": True},
-                    expected_result="Workload deployed",
+                    _name="Deploy Workload",
+                    _description="Deploy workload with placement constraints",
+                    _action=lambda: {"deployed": True},
+                    _expected_result="Workload deployed",
                 ),
                 TestStep(
-                    name="Verify Placement",
-                    description="Verify workload placed on correct nodes",
-                    action=lambda: {"correct_node": True},
-                    expected_result="Workload on correct node",
+                    _name="Verify Placement",
+                    _description="Verify workload placed on correct nodes",
+                    _action=lambda: {"correct_node": True},
+                    _expected_result="Workload on correct node",
                 ),
                 TestStep(
                     _name = "Verify Resource Allocation",
@@ -402,34 +450,34 @@ class WorkloadE2ETests:
     def create_workload_migration_test() -> E2ETestCase:
         """Create workload migration test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Workload Migration",
-            description="Test live workload migration between clusters",
+            _test_id=str(uuid.uuid4()),
+            _name="Workload Migration",
+            _description="Test live workload migration between clusters",
             _scenario = TestScenario.WORKLOAD_MIGRATION,
             _steps = [
                 TestStep(
-                    name="Verify Source Cluster",
-                    description="Verify workload on source cluster",
-                    action=lambda: {"status": "running"},
-                    expected_result="Workload running on source",
+                    _name="Verify Source Cluster",
+                    _description="Verify workload on source cluster",
+                    _action=lambda: {"status": "running"},
+                    _expected_result="Workload running on source",
                 ),
                 TestStep(
-                    name="Prepare Migration",
-                    description="Prepare workload for migration",
-                    action=lambda: {"prepared": True},
-                    expected_result="Migration preparation complete",
+                    _name="Prepare Migration",
+                    _description="Prepare workload for migration",
+                    _action=lambda: {"prepared": True},
+                    _expected_result="Migration preparation complete",
                 ),
                 TestStep(
-                    name="Migrate Workload",
-                    description="Execute workload migration",
-                    action=lambda: {"migrated": True},
-                    expected_result="Workload migrated",
+                    _name="Migrate Workload",
+                    _description="Execute workload migration",
+                    _action=lambda: {"migrated": True},
+                    _expected_result="Workload migrated",
                 ),
                 TestStep(
-                    name="Verify Target Cluster",
-                    description="Verify workload on target cluster",
-                    action=lambda: {"status": "running"},
-                    expected_result="Workload running on target",
+                    _name="Verify Target Cluster",
+                    _description="Verify workload on target cluster",
+                    _action=lambda: {"status": "running"},
+                    _expected_result="Workload running on target",
                 ),
                 TestStep(
                     _name = "Verify Data Consistency",
@@ -451,28 +499,28 @@ class FailureRecoveryE2ETests:
     def create_node_failure_recovery_test() -> E2ETestCase:
         """Create node failure recovery test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Node Failure Recovery",
-            description="Test system recovery from node failure",
+            _test_id=str(uuid.uuid4()),
+            _name="Node Failure Recovery",
+            _description="Test system recovery from node failure",
             _scenario = TestScenario.FAILURE_RECOVERY,
             _steps = [
                 TestStep(
-                    name="Simulate Node Failure",
-                    description="Simulate failure of cluster node",
-                    action=lambda: {"failed": True},
-                    expected_result="Node marked as failed",
+                    _name="Simulate Node Failure",
+                    _description="Simulate failure of cluster node",
+                    _action=lambda: {"failed": True},
+                    _expected_result="Node marked as failed",
                 ),
                 TestStep(
-                    name="Detect Failure",
-                    description="System detects node failure",
-                    action=lambda: {"detected": True},
-                    expected_result="Failure detected within 1 minute",
+                    _name="Detect Failure",
+                    _description="System detects node failure",
+                    _action=lambda: {"detected": True},
+                    _expected_result="Failure detected within 1 minute",
                 ),
                 TestStep(
-                    name="Trigger Rescheduling",
-                    description="System reschedules workloads",
-                    action=lambda: {"rescheduled": True},
-                    expected_result="Workloads automatically rescheduled",
+                    _name="Trigger Rescheduling",
+                    _description="System reschedules workloads",
+                    _action=lambda: {"rescheduled": True},
+                    _expected_result="Workloads automatically rescheduled",
                 ),
                 TestStep(
                     _name = "Verify Service Recovery",
@@ -497,28 +545,28 @@ class FailureRecoveryE2ETests:
     def create_network_partition_test() -> E2ETestCase:
         """Create network partition recovery test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Network Partition Recovery",
-            description="Test system recovery from network partition",
+            _test_id=str(uuid.uuid4()),
+            _name="Network Partition Recovery",
+            _description="Test system recovery from network partition",
             _scenario = TestScenario.FAILURE_RECOVERY,
             _steps = [
                 TestStep(
-                    name="Simulate Partition",
-                    description="Simulate network partition",
-                    action=lambda: {"partitioned": True},
-                    expected_result="Network partition simulated",
+                    _name="Simulate Partition",
+                    _description="Simulate network partition",
+                    _action=lambda: {"partitioned": True},
+                    _expected_result="Network partition simulated",
                 ),
                 TestStep(
-                    name="Monitor Service Behavior",
-                    description="Monitor system during partition",
-                    action=lambda: {"behavior": "graceful"},
-                    expected_result="System remains responsive",
+                    _name="Monitor Service Behavior",
+                    _description="Monitor system during partition",
+                    _action=lambda: {"behavior": "graceful"},
+                    _expected_result="System remains responsive",
                 ),
                 TestStep(
-                    name="Heal Partition",
-                    description="Heal network partition",
-                    action=lambda: {"healed": True},
-                    expected_result="Network partition resolved",
+                    _name="Heal Partition",
+                    _description="Heal network partition",
+                    _action=lambda: {"healed": True},
+                    _expected_result="Network partition resolved",
                 ),
                 TestStep(
                     _name = "Verify Consistency",
@@ -547,34 +595,34 @@ class MultiClusterE2ETests:
     def create_multi_cluster_failover_test() -> E2ETestCase:
         """Create multi-cluster failover test."""
         return E2ETestCase(
-            _test_id = str(uuid.uuid4()),
-            name="Multi-Cluster Failover",
-            description="Test automatic failover between clusters",
+            _test_id=str(uuid.uuid4()),
+            _name="Multi-Cluster Failover",
+            _description="Test automatic failover between clusters",
             _scenario = TestScenario.MULTI_CLUSTER,
             _steps = [
                 TestStep(
-                    name="Verify Primary Cluster",
-                    description="Verify primary cluster healthy",
-                    action=lambda: {"status": "healthy"},
-                    expected_result="Primary cluster operational",
+                    _name="Verify Primary Cluster",
+                    _description="Verify primary cluster healthy",
+                    _action=lambda: {"status": "healthy"},
+                    _expected_result="Primary cluster operational",
                 ),
                 TestStep(
-                    name="Simulate Primary Failure",
-                    description="Simulate primary cluster failure",
-                    action=lambda: {"failed": True},
-                    expected_result="Primary cluster marked failed",
+                    _name="Simulate Primary Failure",
+                    _description="Simulate primary cluster failure",
+                    _action=lambda: {"failed": True},
+                    _expected_result="Primary cluster marked failed",
                 ),
                 TestStep(
-                    name="Trigger Failover",
-                    description="Automatic failover to secondary",
-                    action=lambda: {"failover": "triggered"},
-                    expected_result="Failover initiated",
+                    _name="Trigger Failover",
+                    _description="Automatic failover to secondary",
+                    _action=lambda: {"failover": "triggered"},
+                    _expected_result="Failover initiated",
                 ),
                 TestStep(
-                    name="Verify Secondary Cluster",
-                    description="Verify workloads on secondary cluster",
-                    action=lambda: {"status": "running"},
-                    expected_result="Workloads running on secondary",
+                    _name="Verify Secondary Cluster",
+                    _description="Verify workloads on secondary cluster",
+                    _action=lambda: {"status": "running"},
+                    _expected_result="Workloads running on secondary",
                 ),
                 TestStep(
                     _name = "Verify No Data Loss",
@@ -607,8 +655,8 @@ class E2ETestingFramework:
             raise ValueError(f"Test case not found: {test_id}")
 
         test_case = self.test_cases[test_id]
-        test_case.last_run = datetime.now(timezone.utc)
-        _start_time = datetime.now(timezone.utc)
+        test_case.last_run=datetime.now(timezone.utc)
+        _start_time=datetime.now(timezone.utc)
 
         _steps_passed = 0
         _steps_failed = 0
@@ -620,22 +668,22 @@ class E2ETestingFramework:
         try:
         # Run setup steps
             for step in test_case.setup_steps:
-                step.start_time = datetime.now(timezone.utc)
+                step.start_time=datetime.now(timezone.utc)
                 try:
                     step.action()
                     step.status = TestStatus.PASSED
                     steps_passed += 1
                 except Exception as e:
                     step.status = TestStatus.FAILED
-                    step.error_message = str(e)
+                    step.error_message=str(e)
                     steps_failed += 1
                     failures.append(f"Setup failed: {step.name}")
                     logs.append(f"ERROR in {step.name}: {e}")
-                step.end_time = datetime.now(timezone.utc)
+                step.end_time=datetime.now(timezone.utc)
 
             # Run main test steps
             for step in test_case.steps:
-                step.start_time = datetime.now(timezone.utc)
+                step.start_time=datetime.now(timezone.utc)
                 try:
                     step.action()
                     step.status = TestStatus.PASSED
@@ -643,29 +691,29 @@ class E2ETestingFramework:
                     logs.append(f"? {step.name}")
                 except Exception as e:
                     step.status = TestStatus.FAILED
-                    step.error_message = str(e)
+                    step.error_message=str(e)
                     steps_failed += 1
                     failures.append(f"{step.name}: {str(e)}")
                     logs.append(f"? {step.name}: {e}")
-                step.end_time = datetime.now(timezone.utc)
+                step.end_time=datetime.now(timezone.utc)
 
             # Run teardown steps
             for step in test_case.teardown_steps:
-                step.start_time = datetime.now(timezone.utc)
+                step.start_time=datetime.now(timezone.utc)
                 try:
                     step.action()
                     step.status = TestStatus.PASSED
                 except Exception as e:
                     step.status = TestStatus.FAILED
-                    step.error_message = str(e)
+                    step.error_message=str(e)
                     logs.append(f"WARNING in teardown {step.name}: {e}")
-                step.end_time = datetime.now(timezone.utc)
+                step.end_time=datetime.now(timezone.utc)
 
         except Exception as e:
             logger.error(f"Test execution error: {e}")
             failures.append(str(e))
 
-        _end_time = datetime.now(timezone.utc)
+        _end_time=datetime.now(timezone.utc)
 
         # Update test case stats
         if steps_failed == 0:
@@ -695,19 +743,19 @@ class E2ETestingFramework:
         """Run all registered test cases."""
         results = []
         for test_id in self.test_cases:
-            result = self.run_test_case(test_id)
+            _result=self.run_test_case(test_id)
             results.append(result)
         return results
 
     def get_test_report(self) -> Dict[str, Any]:
         """Generate test report."""
-        total_tests = len(self.test_cases)
-        passed_tests = sum(1 for r in self.results if r.status == TestStatus.PASSED)
-        failed_tests = sum(1 for r in self.results if r.status == TestStatus.FAILED)
+        _total_tests=len(self.test_cases)
+        _passed_tests=sum(1 for r in self.results if r.status== TestStatus.PASSED)
+        _failed_tests=sum(1 for r in self.results if r.status== TestStatus.FAILED)
 
-        _total_steps = sum(r.total_steps for r in self.results)
-        _passed_steps = sum(r.steps_passed for r in self.results)
-        _failed_steps = sum(r.steps_failed for r in self.results)
+        _total_steps=sum(r.total_steps for r in self.results)
+        _passed_steps=sum(r.steps_passed for r in self.results)
+        _failed_steps=sum(r.steps_failed for r in self.results)
 
         return {
             "total_tests": total_tests,

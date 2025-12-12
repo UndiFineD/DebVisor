@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,16 +143,16 @@ from .core import JobScheduler, JobPriority, CronExpression, get_scheduler
 class SchedulerAPI:
     """REST API for job scheduler."""
 
-    def __init__(self, scheduler: Optional[JobScheduler] = None, debug: bool = False):
+    def __init__(self, scheduler: Optional[JobScheduler] = None, debug: bool=False) -> None:
         """Initialize the API.
 
         Args:
             scheduler: JobScheduler instance (uses global if None)
             debug: Enable debug mode
         """
-        self.scheduler = scheduler or get_scheduler()
+        self.scheduler=scheduler or get_scheduler()
         self.debug = debug
-        self.logger = logging.getLogger("DebVisor.SchedulerAPI")
+        self.logger=logging.getLogger("DebVisor.SchedulerAPI")
 
     def _json_response(
         self, data: Any, status: int = 200, headers: Optional[Dict[str, str]] = None
@@ -193,7 +241,7 @@ class SchedulerAPI:
         Returns:
             Response tuple
         """
-        data = self._validate_json(body)
+        _data=self._validate_json(body)
         if data is None:
             return self._error_response("Invalid JSON", 400)
 
@@ -212,14 +260,14 @@ class SchedulerAPI:
 
             # Parse task config
             if isinstance(data["task_config"], str):
-                task_config = json.loads(data["task_config"])
+                _task_config=json.loads(data["task_config"])
             else:
                 _task_config = data["task_config"]
 
             # Get optional fields
-            priority_str = data.get("priority", "normal")
+            _priority_str=data.get("priority", "normal")
             try:
-                priority = JobPriority[priority_str.upper()]
+                _priority=JobPriority[priority_str.upper()]
             except KeyError:
                 return self._error_response(f"Invalid priority: {priority_str}", 400)
 
@@ -230,11 +278,11 @@ class SchedulerAPI:
                 _task_type = data["task_type"],
                 _task_config = task_config,
                 _priority = priority,
-                _owner = data.get("owner", "system"),
-                _description = data.get("description", ""),
-                _timezone = data.get("timezone", "UTC"),
-                _max_retries = data.get("max_retries", 3),
-                _timeout_seconds = data.get("timeout_seconds", 3600),
+                _owner=data.get("owner", "system"),
+                _description=data.get("description", ""),
+                _timezone=data.get("timezone", "UTC"),
+                _max_retries=data.get("max_retries", 3),
+                _timeout_seconds=data.get("timeout_seconds", 3600),
             )
 
             self.logger.info(f"Created job {job.job_id}")
@@ -259,8 +307,8 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            jobs = self.scheduler.list_jobs(owner=owner)
-            jobs_data = [j.to_dict() for j in jobs]
+            _jobs=self.scheduler.list_jobs(owner=owner)
+            _jobs_data=[j.to_dict() for j in jobs]
             return self._json_response({"jobs": jobs_data, "count": len(jobs_data)})
         except Exception as e:
             self.logger.error(f"Error listing jobs: {e}")
@@ -278,7 +326,7 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
@@ -306,12 +354,12 @@ class SchedulerAPI:
         Returns:
             Response tuple
         """
-        data = self._validate_json(body)
+        _data=self._validate_json(body)
         if data is None:
             return self._error_response("Invalid JSON", 400)
 
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
@@ -336,7 +384,7 @@ class SchedulerAPI:
                 except ValueError as e:
                     return self._error_response(f"Invalid cron expression: {e}", 400)
 
-            updated = self.scheduler.update_job(job_id, **updates)
+            _updated=self.scheduler.update_job(job_id, **updates)
             if not updated:
                 return self._error_response(f"Job {job_id} not found", 404)
             self.logger.info(f"Updated job {job_id}")
@@ -358,7 +406,7 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
@@ -386,11 +434,11 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
-            result = await_sync(self.scheduler.execute_job(job_id, manual=True))
+            _result=await_sync(self.scheduler.execute_job(job_id, manual=True))
             self.logger.info(f"Executed job {job_id}")
             return self._json_response(result.to_dict())
 
@@ -414,11 +462,11 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
-            history = self.scheduler.get_execution_history(job_id, limit, offset)
+            _history=self.scheduler.get_execution_history(job_id, limit, offset)
             return self._json_response(
                 {
                     "job_id": job_id,
@@ -443,11 +491,11 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            job = self.scheduler.get_job(job_id)
+            _job=self.scheduler.get_job(job_id)
             if not job:
                 return self._error_response(f"Job {job_id} not found", 404)
 
-            stats = self.scheduler.get_job_statistics(job_id)
+            _stats=self.scheduler.get_job_statistics(job_id)
             return self._json_response(stats)
 
         except Exception as e:
@@ -469,7 +517,7 @@ class SchedulerAPI:
             Response tuple
         """
         try:
-            result = self.scheduler.retry_job(job_id, execution_id)
+            _result=self.scheduler.retry_job(job_id, execution_id)
             self.logger.info(f"Retried job {job_id} execution {execution_id}")
             return self._json_response(result.to_dict())
 
@@ -543,9 +591,9 @@ def await_sync(coro: Any) -> Any:
     import asyncio
 
     try:
-        loop = asyncio.get_event_loop()
+        _loop=asyncio.get_event_loop()
     except RuntimeError:
-        loop = asyncio.new_event_loop()
+        _loop=asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
 
     return loop.run_until_complete(coro)
@@ -569,15 +617,15 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
             "Flask is required for REST API. Install with: pip install flask"
         )
 
-    app = Flask(__name__)
+    _app=Flask(__name__)
 
     # Load and validate configuration (INFRA-003)
     from opt.core.config import Settings
-    settings = Settings.load_validated_config()
+    _settings=Settings.load_validated_config()
     app.config["SETTINGS"] = settings
 
     # Initialize graceful shutdown
-    shutdown_manager = init_graceful_shutdown(app)
+    _shutdown_manager=init_graceful_shutdown(app)
 
     # Register standard health checks
 
@@ -586,70 +634,70 @@ def create_flask_app(scheduler: Optional[JobScheduler] = None) -> Any:
 
     shutdown_manager.register_health_check("scheduler", check_scheduler)
 
-    api = SchedulerAPI(scheduler)
+    _api=SchedulerAPI(scheduler)
 
     @app.route("/api/v1/jobs", methods=["POST"])
 
     def create_job_route() -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.create_job(request.get_data(as_text=True))
+        body, status, headers=api.create_job(request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs", methods=["GET"])
 
     def list_jobs_route() -> Tuple[str, int, Dict[str, str]]:
-        owner = request.args.get("owner")
-        status = request.args.get("status")
-        body, status_code, headers = api.list_jobs(owner=owner, status=status)
+        _owner=request.args.get("owner")
+        _status=request.args.get("status")
+        body, status_code, headers=api.list_jobs(owner=owner, status=status)
         return body, status_code, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["GET"])
 
     def get_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.get_job(job_id)
+        body, status, headers=api.get_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["PUT"])
 
     def update_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.update_job(job_id, request.get_data(as_text=True))
+        body, status, headers=api.update_job(job_id, request.get_data(as_text=True))
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>", methods=["DELETE"])
 
     def delete_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.delete_job(job_id)
+        body, status, headers=api.delete_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/run", methods=["POST"])
 
     def execute_job_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.execute_job(job_id)
+        body, status, headers=api.execute_job(job_id)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/history", methods=["GET"])
 
     def job_history_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        limit = request.args.get("limit", 20, type=int)
-        offset = request.args.get("offset", 0, type=int)
-        body, status, headers = api.get_execution_history(job_id, limit, offset)
+        _limit=request.args.get("limit", 20, type=int)
+        _offset=request.args.get("offset", 0, type=int)
+        body, status, headers=api.get_execution_history(job_id, limit, offset)
         return body, status, headers
 
     @app.route("/api/v1/jobs/<job_id>/stats", methods=["GET"])
 
     def job_stats_route(job_id: str) -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.get_job_stats(job_id)
+        body, status, headers=api.get_job_stats(job_id)
         return body, status, headers
 
     @app.route("/api/v1/config", methods=["GET"])
 
     def config_route() -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.get_config()
+        body, status, headers=api.get_config()
         return body, status, headers
 
     @app.route("/api/v1/health", methods=["GET"])
 
     def health_route() -> Tuple[str, int, Dict[str, str]]:
-        body, status, headers = api.get_health()
+        body, status, headers=api.get_health()
         return body, status, headers
 
     return app

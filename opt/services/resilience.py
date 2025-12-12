@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,10 +153,10 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Awaitable, Callable, Dict, Set, cast
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
-T = TypeVar("T")
-F = TypeVar("F", bound=Callable[..., Any])
+T=TypeVar("T")
+F=TypeVar("F", bound=Callable[..., Any])
 
 
 # =============================================================================
@@ -189,14 +237,14 @@ class CircuitBreaker:
     - HALF_OPEN: Testing recovery, allow limited requests
 
     Example:
-        breaker = CircuitBreaker("vault-service")
+        _breaker=CircuitBreaker("vault-service")
 
         @breaker
         async def call_vault():
             return await vault_client.get_secret("key")
     """
 
-    def __init__(self, name: str, config: Optional[CircuitBreakerConfig] = None):
+    def __init__(self, name: str, config: Optional[CircuitBreakerConfig] = None) -> None:
         """
         Initialize circuit breaker.
 
@@ -205,14 +253,14 @@ class CircuitBreaker:
             config: Configuration options
         """
         self.name = name
-        self.config = config or CircuitBreakerConfig()
+        self.config=config or CircuitBreakerConfig()
         self._state = CircuitState.CLOSED
         self._failure_count = 0
         self._success_count = 0
         self._half_open_calls = 0
         self._last_failure_time: Optional[datetime] = None
-        self._lock = asyncio.Lock()
-        self.metrics = CircuitBreakerMetrics()
+        self._lock=asyncio.Lock()
+        self.metrics=CircuitBreakerMetrics()
 
         logger.info(f"Circuit breaker '{name}' initialized with config: {self.config}")
 
@@ -244,7 +292,7 @@ class CircuitBreaker:
             self._failure_count = 0
             self._success_count = 0
         elif new_state == CircuitState.OPEN:
-            self._last_failure_time = datetime.now(timezone.utc)
+            self._last_failure_time=datetime.now(timezone.utc)
         elif new_state == CircuitState.HALF_OPEN:
             self._half_open_calls = 0
             self._success_count = 0
@@ -278,7 +326,7 @@ class CircuitBreaker:
         """Record a successful call."""
         async with self._lock:
             self.metrics.successful_calls += 1
-            self.metrics.last_success_time = datetime.now(timezone.utc)
+            self.metrics.last_success_time=datetime.now(timezone.utc)
 
             if self._state == CircuitState.HALF_OPEN:
                 self._success_count += 1
@@ -293,7 +341,7 @@ class CircuitBreaker:
                 return
 
             self.metrics.failed_calls += 1
-            self.metrics.last_failure_time = datetime.now(timezone.utc)
+            self.metrics.last_failure_time=datetime.now(timezone.utc)
             self._failure_count += 1
 
             if self._state == CircuitState.CLOSED:
@@ -317,7 +365,7 @@ class CircuitBreaker:
                 )
 
             try:
-                result = await func(*args, **kwargs)
+                _result=await func(*args, **kwargs)
                 await self._record_success()
                 return result
             except Exception as e:
@@ -384,7 +432,7 @@ def retry_with_backoff(
         async def fetch_data():
             return await external_api.get_data()
     """
-    config = config or RetryConfig()
+    _config=config or RetryConfig()
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
@@ -429,7 +477,7 @@ def retry_with_backoff(
                         delay += random.uniform(
                             -jitter_range, jitter_range
                         )    # nosec B311
-                        delay = max(0.1, delay)    # Ensure positive delay
+                        _delay=max(0.1, delay)    # Ensure positive delay
 
                     logger.warning(
                         f"Retry {attempt}/{config.max_attempts} for {func.__name__} "
@@ -501,7 +549,7 @@ class Bulkhead:
     from consuming all resources.
 
     Example:
-        bulkhead = Bulkhead("database-pool", max_concurrent=10)
+        _bulkhead=Bulkhead("database-pool", max_concurrent=10)
 
         @bulkhead
         async def query_database():
@@ -522,10 +570,10 @@ class Bulkhead:
         self.name = name
         self.max_concurrent = max_concurrent
         self.max_wait_seconds = max_wait_seconds
-        self._semaphore = asyncio.Semaphore(max_concurrent)
+        self._semaphore=asyncio.Semaphore(max_concurrent)
         self._current_count = 0
         self._rejected_count = 0
-        self._lock = asyncio.Lock()
+        self._lock=asyncio.Lock()
 
     @property
 
@@ -592,7 +640,7 @@ class RateLimiter:
     Limits request rate to prevent overwhelming services.
 
     Example:
-        limiter = RateLimiter("api-calls", rate=100, per_seconds=60)
+        _limiter=RateLimiter("api-calls", rate=100, per_seconds=60)
 
         @limiter
         async def call_api():
@@ -620,20 +668,20 @@ class RateLimiter:
         self.per_seconds = per_seconds
         self.burst = burst or rate
 
-        self._tokens = float(self.burst)
-        self._last_refill = time.monotonic()
-        self._lock = asyncio.Lock()
+        self._tokens=float(self.burst)
+        self._last_refill=time.monotonic()
+        self._lock=asyncio.Lock()
         self._rejected_count = 0
 
     async def _refill(self) -> None:
         """Refill tokens based on elapsed time."""
-        now = time.monotonic()
+        _now=time.monotonic()
         elapsed = now - self._last_refill
-        tokens_to_add = (elapsed / self.per_seconds) * self.rate
-        self._tokens = min(self.burst, self._tokens + tokens_to_add)
+        _tokens_to_add=(elapsed / self.per_seconds) * self.rate
+        self._tokens=min(self.burst, self._tokens + tokens_to_add)
         self._last_refill = now
 
-    async def acquire(self, tokens: int = 1) -> bool:
+    async def acquire(self, tokens: int=1) -> bool:
         """
         Try to acquire tokens.
 
@@ -700,7 +748,7 @@ def with_fallback(
 
     Example:
 
-        def get_cached_value():
+        def get_cached_value() -> None:
             return cache.get("key")
 
         @with_fallback(get_cached_value)
@@ -713,14 +761,14 @@ def with_fallback(
         @functools.wraps(func)
         async def async_wrapper(*args: Any, **kwargs: Any) -> T:
             try:
-                result = func(*args, **kwargs)
+                _result=func(*args, **kwargs)
                 if asyncio.iscoroutine(result):
                     return await result    # type: ignore
                 return result
             except Exception as e:
                 if any(isinstance(e, exc_type) for exc_type in exceptions):
                     logger.warning(f"Falling back for {func.__name__} due to: {e}")
-                    fallback_result = fallback_func(*args, **kwargs)
+                    _fallback_result=fallback_func(*args, **kwargs)
                     if asyncio.iscoroutine(fallback_result):
                         return await fallback_result    # type: ignore
                     return fallback_result
@@ -765,13 +813,13 @@ class HealthAwareRegistry:
         self.failure_threshold = failure_threshold
         self.recovery_threshold = recovery_threshold
         self._endpoints: Dict[str, ServiceEndpoint] = {}
-        self._lock = asyncio.Lock()
+        self._lock=asyncio.Lock()
 
-    async def register(self, endpoint_id: str, url: str, weight: int = 100) -> None:
+    async def register(self, endpoint_id: str, url: str, weight: int=100) -> None:
         """Register a service endpoint."""
         async with self._lock:
             self._endpoints[endpoint_id] = ServiceEndpoint(
-                url=url, weight=weight, healthy=True
+                _url=url, weight=weight, healthy=True
             )
             logger.info(f"Registered endpoint '{endpoint_id}' at {url}")
 
@@ -785,16 +833,16 @@ class HealthAwareRegistry:
     async def get_healthy_endpoint(self) -> Optional[ServiceEndpoint]:
         """Get a healthy endpoint using weighted random selection."""
         async with self._lock:
-            healthy = [e for e in self._endpoints.values() if e.healthy]
+            _healthy=[e for e in self._endpoints.values() if e.healthy]
             if not healthy:
                 return None
 
             # Weighted random selection
-            total_weight = sum(e.weight for e in healthy)
+            _total_weight=sum(e.weight for e in healthy)
             if total_weight == 0:
                 return random.choice(healthy)    # nosec B311
 
-            r = random.uniform(0, total_weight)    # nosec B311
+            _r=random.uniform(0, total_weight)    # nosec B311
             cumulative = 0
             for endpoint in healthy:
                 cumulative += endpoint.weight
@@ -809,7 +857,7 @@ class HealthAwareRegistry:
             if endpoint_id in self._endpoints:
                 ep = self._endpoints[endpoint_id]
                 ep.consecutive_failures = 0
-                ep.last_check = datetime.now(timezone.utc)
+                ep.last_check=datetime.now(timezone.utc)
                 ep.latency_ms = latency_ms
 
                 if not ep.healthy:
@@ -822,7 +870,7 @@ class HealthAwareRegistry:
             if endpoint_id in self._endpoints:
                 ep = self._endpoints[endpoint_id]
                 ep.consecutive_failures += 1
-                ep.last_check = datetime.now(timezone.utc)
+                ep.last_check=datetime.now(timezone.utc)
 
                 if ep.consecutive_failures >= self.failure_threshold:
                     ep.healthy = False
@@ -873,7 +921,7 @@ def resilient(
     Example:
         @resilient(
             _circuit_breaker = breaker,
-            _retry_config = RetryConfig(max_attempts=3),
+            _retry_config=RetryConfig(max_attempts=3),
             _timeout_seconds = 10.0
         )
         async def call_external_service():
@@ -885,19 +933,19 @@ def resilient(
 
         # Apply in reverse order (innermost first)
         if retry_config:
-            wrapped = retry_with_backoff(retry_config)(wrapped)
+            _wrapped=retry_with_backoff(retry_config)(wrapped)
 
         if timeout_seconds:
-            wrapped = with_timeout(timeout_seconds)(wrapped)    # type: ignore
+            _wrapped=with_timeout(timeout_seconds)(wrapped)    # type: ignore
 
         if circuit_breaker:
-            wrapped = circuit_breaker(wrapped)
+            _wrapped=circuit_breaker(wrapped)
 
         if bulkhead:
-            wrapped = bulkhead(wrapped)
+            _wrapped=bulkhead(wrapped)
 
         if rate_limiter:
-            wrapped = rate_limiter(wrapped)
+            _wrapped=rate_limiter(wrapped)
 
         return wrapped
 

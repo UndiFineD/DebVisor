@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +149,7 @@ from enum import Enum
 from collections import defaultdict
 import statistics
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class TimeGranularity(Enum):
@@ -173,7 +221,7 @@ class AnalyticsEngine:
     - Performance forecasting
     """
 
-    def __init__(self, retention_days: int = 90):
+    def __init__(self, retention_days: int=90) -> None:
         """
         Initialize analytics engine.
 
@@ -206,9 +254,9 @@ class AnalyticsEngine:
             timestamp: Data point timestamp (defaults to now)
         """
         if timestamp is None:
-            timestamp = datetime.now(timezone.utc)
+            _timestamp=datetime.now(timezone.utc)
 
-        key = (metric_type, (resource_id or "global"))
+        _key=(metric_type, (resource_id or "global"))
         data_point = DataPoint(
             _timestamp = timestamp,
             _value = value,
@@ -244,7 +292,7 @@ class AnalyticsEngine:
         Returns:
             AggregatedMetrics object
         """
-        key = (metric_type, (resource_id or "global"))
+        _key=(metric_type, (resource_id or "global"))
 
         # Get relevant data points
         points = [
@@ -255,7 +303,7 @@ class AnalyticsEngine:
             return []
 
         # Bucket data by granularity
-        buckets = self._bucket_by_granularity(points, granularity, start_time)
+        _buckets=self._bucket_by_granularity(points, granularity, start_time)
 
         # Compute stats per bucket
         results: List[AggregatedMetrics] = []
@@ -265,10 +313,10 @@ class AnalyticsEngine:
                 AggregatedMetrics(
                     _metric_type = metric_type,
                     _timestamp = timestamp,
-                    _count = len(values),
-                    _min_value = min(values) if values else 0.0,
-                    _max_value = max(values) if values else 0.0,
-                    _sum_value = sum(values) if values else 0.0,
+                    _count=len(values),
+                    _min_value=min(values) if values else 0.0,
+                    _max_value=max(values) if values else 0.0,
+                    _sum_value=sum(values) if values else 0.0,
                 )
             )
         return results
@@ -292,19 +340,19 @@ class AnalyticsEngine:
         Returns:
             List of detected anomalies
         """
-        key = (metric_type, (resource_id or "global"))
+        _key=(metric_type, (resource_id or "global"))
         points = self.data_points[key]
 
         if len(points) < 3:
             return []
 
         values = [p.value for p in points]
-        mean = statistics.mean(values)
-        stddev = statistics.stdev(values)
+        _mean=statistics.mean(values)
+        _stddev=statistics.stdev(values)
 
         anomalies = []
         for point in points:
-            z_score = abs((point.value - mean) / stddev) if stddev > 0 else 0
+            _z_score=abs((point.value - mean) / stddev) if stddev > 0 else 0
 
             if z_score > threshold_stddevs:
                 anomalies.append(
@@ -323,7 +371,7 @@ class AnalyticsEngine:
     def calculate_trend(
         self,
         metric_type: MetricType,
-        time_window: timedelta = timedelta(days=7),
+        time_window: timedelta=timedelta(days=7),
         resource_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
@@ -337,7 +385,7 @@ class AnalyticsEngine:
         Returns:
             Trend analysis results
         """
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         start_time = now - time_window
 
         metrics = self.aggregate_metrics(
@@ -346,21 +394,21 @@ class AnalyticsEngine:
 
         # If insufficient aggregated buckets, fallback to raw sequence
         if len(metrics) < 2:
-            key = (metric_type, (resource_id or "global"))
-            raw_values = [p.value for p in self.data_points.get(key, [])]
+            _key=(metric_type, (resource_id or "global"))
+            _raw_values=[p.value for p in self.data_points.get(key, [])]
             if len(raw_values) < 2:
                 return {
                     "trend": "insufficient_data",
                     "direction": None,
                     "slope": 0.0,
                 }
-            x = list(range(len(raw_values)))
+            _x=list(range(len(raw_values)))
             y = raw_values
         else:
-            x = list(range(len(metrics)))
+            _x=list(range(len(metrics)))
             y = [m.average for m in metrics]
 
-        slope = self._calculate_slope(x, y)
+        _slope=self._calculate_slope(x, y)
 
         return {
             "trend": "up" if slope > 0 else "down" if slope < 0 else "stable",
@@ -388,8 +436,8 @@ class AnalyticsEngine:
         Returns:
             List of (timestamp, predicted_value) tuples
         """
-        key = (metric_type, (resource_id or "global"))
-        points = sorted(self.data_points[key], key=lambda p: p.timestamp)
+        _key=(metric_type, (resource_id or "global"))
+        _points=sorted(self.data_points[key], key=lambda p: p.timestamp)
 
         if len(points) < 2:
             return []
@@ -403,7 +451,7 @@ class AnalyticsEngine:
         smoothed_values = [smoothed]
 
         for value in values[1:]:
-            smoothed = alpha * value + (1 - alpha) * smoothed
+            _smoothed=alpha * value + (1 - alpha) * smoothed
             smoothed_values.append(smoothed)
 
         # Forecast
@@ -416,7 +464,7 @@ class AnalyticsEngine:
         return forecast_values
 
     def get_dashboard_summary(
-        self, time_window: Any = timedelta(hours=24)
+        self, time_window: Any=timedelta(hours=24)
     ) -> Dict[str, Any]:
         """
         Get comprehensive dashboard summary.
@@ -427,7 +475,7 @@ class AnalyticsEngine:
         Returns:
             Dashboard summary with all key metrics
         """
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         # Support both timedelta and seconds (int)
         window = (
             time_window
@@ -448,7 +496,7 @@ class AnalyticsEngine:
         # Analyze each metric type
         for metric_type in list(MetricType):
         # Get aggregated metrics
-            metrics = self.aggregate_metrics(metric_type, start_time, now)
+            _metrics=self.aggregate_metrics(metric_type, start_time, now)
 
             # Consolidated stats across buckets
             if metrics:
@@ -458,11 +506,11 @@ class AnalyticsEngine:
                     if m.count > 0:
                         all_values.append(m.sum_value / m.count)
                 current = all_values[-1] if all_values else 0
-                min_v = min((m.min_value for m in metrics), default=0.0)
-                max_v = max((m.max_value for m in metrics), default=0.0)
-                avg_v = statistics.mean(all_values) if all_values else 0.0
+                _min_v=min((m.min_value for m in metrics), default=0.0)
+                _max_v=max((m.max_value for m in metrics), default=0.0)
+                _avg_v=statistics.mean(all_values) if all_values else 0.0
                 # Approximate stddev across bucket averages
-                std_v = statistics.pstdev(all_values) if len(all_values) > 1 else 0.0
+                _std_v=statistics.pstdev(all_values) if len(all_values) > 1 else 0.0
             else:
                 current = min_v = max_v = avg_v = std_v = 0.0
 
@@ -475,7 +523,7 @@ class AnalyticsEngine:
             }
 
             # Detect anomalies
-            anomalies = self.detect_anomalies(metric_type)
+            _anomalies=self.detect_anomalies(metric_type)
             if anomalies:
                 summary["anomalies"].extend(anomalies)
 
@@ -501,17 +549,17 @@ class AnalyticsEngine:
         buckets: Dict[datetime, List[DataPoint]] = defaultdict(list)
 
         if granularity == TimeGranularity.MINUTE:
-            window = timedelta(minutes=1)
+            _window=timedelta(minutes=1)
         elif granularity == TimeGranularity.HOUR:
-            window = timedelta(hours=1)
+            _window=timedelta(hours=1)
         elif granularity == TimeGranularity.DAY:
-            window = timedelta(days=1)
+            _window=timedelta(days=1)
         else:
-            window = timedelta(hours=1)
+            _window=timedelta(hours=1)
 
         for point in points:
             delta = point.timestamp - start_time
-            index = int(delta.total_seconds() // window.total_seconds())
+            _index=int(delta.total_seconds() // window.total_seconds())
             bucket_time = start_time + index * window
             buckets[bucket_time].append(point)
 
@@ -522,17 +570,17 @@ class AnalyticsEngine:
         if len(x) < 2:
             return 0.0
 
-        n = len(x)
-        sum_x = sum(x)
-        sum_y = sum(y)
-        sum_xy = sum(xi * yi for xi, yi in zip(x, y))
-        sum_x2 = sum(xi**2 for xi in x)
+        _n=len(x)
+        _sum_x=sum(x)
+        _sum_y=sum(y)
+        _sum_xy=sum(xi * yi for xi, yi in zip(x, y))
+        _sum_x2=sum(xi**2 for xi in x)
 
         denominator = n * sum_x2 - sum_x**2
         if denominator == 0:
             return 0.0
 
-        slope = (n * sum_xy - sum_x * sum_y) / denominator
+        _slope=(n * sum_xy - sum_x * sum_y) / denominator
         return slope
 
     def _cleanup_old_data(self) -> None:
@@ -541,7 +589,7 @@ class AnalyticsEngine:
         Tests expect removal of data older than 35 days.
         """
         cutoff_days = 35
-        cutoff_time = datetime.now(timezone.utc) - timedelta(days=cutoff_days)
+        _cutoff_time=datetime.now(timezone.utc) - timedelta(days=cutoff_days)
         for key in list(self.data_points.keys()):
             self.data_points[key] = [
                 p for p in self.data_points[key] if p.timestamp > cutoff_time
@@ -549,11 +597,11 @@ class AnalyticsEngine:
 
     def get_statistics(self) -> Dict[str, Any]:
         """Get engine statistics."""
-        total_points = sum(len(points) for points in self.data_points.values())
+        _total_points=sum(len(points) for points in self.data_points.values())
         metric_types = len(
             set(p.metric_type for points in self.data_points.values() for p in points)
         )
-        datasets_tracked = len(self.data_points)
+        _datasets_tracked=len(self.data_points)
 
         return {
             "total_data_points": total_points,

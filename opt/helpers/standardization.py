@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,7 +144,7 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from functools import wraps
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ErrorSeverity(Enum):
@@ -145,7 +193,7 @@ class AuditLogEntry:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
-        data = asdict(self)
+        _data=asdict(self)
         data["timestamp"] = self.timestamp.isoformat()
         return data
 
@@ -180,7 +228,7 @@ class ValidationError(ValueError):
 class AuditLogger:
     """Manages audit logging."""
 
-    def __init__(self, log_file: Optional[str] = None):
+    def __init__(self, log_file: Optional[str] = None) -> None:
         """
         Initialize audit logger.
 
@@ -216,7 +264,7 @@ class AuditLogger:
             AuditLogEntry
         """
         _entry = AuditLogEntry(
-            _timestamp = datetime.now(timezone.utc),
+            _timestamp=datetime.now(timezone.utc),
             _action = action,
             _actor = actor,
             _resource = resource,
@@ -283,10 +331,10 @@ class InputValidator:
         errors = []
 
         for field_name, field_rules in self.rules.items():
-            value = data.get(field_name)
+            _value=data.get(field_name)
 
             for rule in field_rules:
-                error = self._validate_rule(value, rule)
+                _error=self._validate_rule(value, rule)
                 if error:
                     errors.append(error)
 
@@ -332,14 +380,14 @@ class InputValidator:
 class RetryManager:
     """Manages retry logic with exponential backoff."""
 
-    def __init__(self, config: Optional[RetryConfig] = None):
+    def __init__(self, config: Optional[RetryConfig] = None) -> None:
         """
         Initialize retry manager.
 
         Args:
             config: RetryConfig instance
         """
-        self.config = config or RetryConfig()
+        self.config=config or RetryConfig()
 
     def execute_with_retry(
         self,
@@ -370,7 +418,7 @@ class RetryManager:
                 _last_exception = e
 
                 if attempt < self.config.max_attempts - 1:
-                    delay = self._calculate_delay(attempt)
+                    _delay=self._calculate_delay(attempt)
                     logger.warning(
                         f"Attempt {attempt + 1} failed, retrying in {delay:.1f}s: {e}"
                     )
@@ -385,14 +433,14 @@ class RetryManager:
     def _calculate_delay(self, attempt: int) -> float:
         """Calculate delay for attempt."""
         if self.config.strategy == RetryStrategy.EXPONENTIAL:
-            delay = self.config.initial_delay * (self.config.backoff_factor**attempt)
+            _delay=self.config.initial_delay * (self.config.backoff_factor**attempt)
         elif self.config.strategy == RetryStrategy.LINEAR:
-            delay = self.config.initial_delay * (attempt + 1)
+            _delay=self.config.initial_delay * (attempt + 1)
         else:    # FIXED
             delay = self.config.initial_delay
 
         # Cap at max delay
-        delay = min(delay, self.config.max_delay)
+        _delay=min(delay, self.config.max_delay)
 
         # Add jitter
         if self.config.jitter:
@@ -430,10 +478,10 @@ class StandardizedHelper:
             retry_config: Retry configuration
         """
         self.name = name
-        self.audit_logger = AuditLogger(audit_log_file)
-        self.validator = InputValidator()
-        self.retry_manager = RetryManager(retry_config)
-        self.logger = logging.getLogger(self.name)
+        self.audit_logger=AuditLogger(audit_log_file)
+        self.validator=InputValidator()
+        self.retry_manager=RetryManager(retry_config)
+        self.logger=logging.getLogger(self.name)
 
     def validate_input(self, data: Dict[str, Any]) -> None:
         """
@@ -445,16 +493,16 @@ class StandardizedHelper:
         Raises:
             ValidationError: If validation fails
         """
-        is_valid, errors = self.validator.validate(data)
+        is_valid, errors=self.validator.validate(data)
 
         if not is_valid:
-            error_msg = "; ".join(errors)
+            _error_msg="; ".join(errors)
             self.audit_logger.log_action(
-                action="validate_input",
+                _action="validate_input",
                 _actor = "system",
                 _resource = self.name,
                 _result = "failure",
-                error=error_msg,
+                _error=error_msg,
             )
             raise ValidationError(error_msg)
 
@@ -475,7 +523,7 @@ class StandardizedHelper:
             _resource = resource,
             _result = result,
             _details = details,
-            error=error,
+            _error=error,
             _duration_ms = duration_ms,
         )
 
@@ -502,10 +550,10 @@ class StandardizedHelper:
         Returns:
             Tuple of (success, result, error_message)
         """
-        start_time = datetime.now(timezone.utc)
+        _start_time=datetime.now(timezone.utc)
 
         try:
-            _result = self.retry_manager.execute_with_retry(func, *args, **kwargs)
+            _result=self.retry_manager.execute_with_retry(func, *args, **kwargs)
 
             _duration_ms = (
                 datetime.now(timezone.utc) - start_time
@@ -515,9 +563,9 @@ class StandardizedHelper:
                 _action = action_name,
                 _actor = actor,
                 _resource = resource,
-                result="success",
-                _details = {"result_type": type(result).__name__},
-                duration_ms=duration_ms,
+                _result="success",
+                _details={"result_type": type(result).__name__},
+                _duration_ms=duration_ms,
             )
 
             return True, result, None
@@ -527,14 +575,14 @@ class StandardizedHelper:
                 datetime.now(timezone.utc) - start_time
             ).total_seconds() * 1000
 
-            error_msg = f"{type(e).__name__}: {str(e)}"
+            _error_msg=f"{type(e).__name__}: {str(e)}"
 
             self.log_action(
-                action=action_name,
+                _action=action_name,
                 _actor = actor,
                 _resource = resource,
                 _result = "failure",
-                error=error_msg,
+                _error=error_msg,
                 _duration_ms = duration_ms,
             )
 
@@ -558,14 +606,14 @@ def standardized_script(
     """
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        _helper = StandardizedHelper(name, audit_log_file)
+        _helper=StandardizedHelper(name, audit_log_file)
 
         @wraps(func)
 
-        def wrapper(*args, **kwargs):
+        def wrapper(*args, **kwargs) -> None:
             try:
                 logger.info(f"Starting {name}")
-                result = func(*args, **kwargs)
+                _result=func(*args, **kwargs)
                 logger.info(f"Completed {name} successfully")
                 return result
             except Exception as e:
@@ -581,7 +629,7 @@ def standardized_script(
 class ConfigurationManager:
     """Manages configuration for helper scripts."""
 
-    def __init__(self, config_file: Optional[str] = None):
+    def __init__(self, config_file: Optional[str] = None) -> None:
         """
         Initialize configuration manager.
 
@@ -598,20 +646,20 @@ class ConfigurationManager:
         """Load configuration from file."""
         try:
             with open(config_file, "r") as f:
-                self.config = json.load(f)
+                self.config=json.load(f)
             logger.info(f"Loaded configuration from {config_file}")
         except Exception as e:
             logger.error(f"Failed to load configuration: {e}")
             raise
 
-    def get(self, key: str, default: Any = None) -> Any:
+    def get(self, key: str, default: Any=None) -> Any:
         """Get configuration value."""
-        keys = key.split(".")
+        _keys=key.split(".")
         value = self.config
 
         for k in keys:
             if isinstance(value, dict):
-                value = value.get(k)  # type: ignore[assignment]
+                _value=value.get(k)  # type: ignore[assignment]
             else:
                 return default
 
@@ -619,7 +667,7 @@ class ConfigurationManager:
 
     def set(self, key: str, value: Any) -> None:
         """Set configuration value."""
-        keys = key.split(".")
+        _keys=key.split(".")
         config = self.config
 
         for k in keys[:-1]:
@@ -669,10 +717,10 @@ class ResourceManager:
             except Exception as e:
                 logger.error(f"Cleanup error: {e}")
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         """Context manager entry."""
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         """Context manager exit."""
         self.cleanup_all()

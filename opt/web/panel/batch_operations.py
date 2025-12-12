@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,7 +148,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class OperationStatus(Enum):
@@ -173,7 +221,7 @@ class BatchOperation:
     resources: List[str]    # Resource IDs to operate on
     parameters: Dict[str, Any] = field(default_factory=dict)
     status: OperationStatus = OperationStatus.PENDING
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
     progress: int = 0    # 0-100
@@ -201,7 +249,7 @@ class BatchOperation:
 
     def failure_count(self) -> int:
         """Get number of failed operations."""
-        return sum(1 for r in self.results if r.status == OperationStatus.FAILED)
+        return sum(1 for r in self.results if r.status== OperationStatus.FAILED)
 
     def get_summary(self) -> Dict[str, Any]:
         """Get operation summary."""
@@ -267,11 +315,11 @@ class OperationExecutor:
             _operation_id = operation.id,
             _resource_id = resource_id,
             _status = OperationStatus.RUNNING,
-            _start_time = datetime.now(timezone.utc),
+            _start_time=datetime.now(timezone.utc),
         )
 
         try:
-            handler = self.handlers.get(operation.type)
+            _handler=self.handlers.get(operation.type)
             if handler is None:
                 raise ValueError(
                     f"No handler for operation type {operation.type.value}"
@@ -279,9 +327,9 @@ class OperationExecutor:
 
             # Call handler
             if asyncio.iscoroutinefunction(handler):
-                result_data = await handler(resource_id, parameters)
+                _result_data=await handler(resource_id, parameters)
             else:
-                result_data = handler(resource_id, parameters)
+                _result_data=handler(resource_id, parameters)
 
             result.status = OperationStatus.COMPLETED
             result.result_data = result_data or {}
@@ -289,10 +337,10 @@ class OperationExecutor:
         except Exception as e:
             logger.error(f"Operation failed: {e}")
             result.status = OperationStatus.FAILED
-            result.error = str(e)
+            result.error=str(e)
 
         finally:
-            result.end_time = datetime.now(timezone.utc)
+            result.end_time=datetime.now(timezone.utc)
 
         return result
 
@@ -313,7 +361,7 @@ class OperationExecutor:
         Returns:
             Rollback result dictionary
         """
-        handler = self.rollback_handlers.get(operation.type)
+        _handler=self.rollback_handlers.get(operation.type)
         if not handler:
             return {"status": "skipped", "reason": "no_rollback_handler"}
 
@@ -338,7 +386,7 @@ class BatchOperationManager:
         Args:
             executor: OperationExecutor instance
         """
-        self.executor = executor or OperationExecutor()
+        self.executor=executor or OperationExecutor()
         self.operations: Dict[str, BatchOperation] = {}
         self.queue: asyncio.Queue[BatchOperation] = asyncio.Queue()
         self.history: List[BatchOperation] = []
@@ -367,9 +415,9 @@ class BatchOperationManager:
             BatchOperation instance
         """
         operation = BatchOperation(
-            id=str(uuid.uuid4()),
+            _id=str(uuid.uuid4()),
             _type = op_type,
-            name=name,
+            _name=name,
             _description = description,
             _resources = resources,
             _parameters = parameters or {},
@@ -423,7 +471,7 @@ class BatchOperationManager:
         while True:
             try:
             # Get next operation from queue
-                operation = await asyncio.wait_for(self.queue.get(), timeout=10.0)
+                _operation=await asyncio.wait_for(self.queue.get(), timeout=10.0)
 
                 await self._process_operation(operation)
 
@@ -441,7 +489,7 @@ class BatchOperationManager:
             operation: BatchOperation to process
         """
         operation.status = OperationStatus.RUNNING
-        operation.started_at = datetime.now(timezone.utc)
+        operation.started_at=datetime.now(timezone.utc)
 
         logger.info(f"Processing operation {operation.id}")
 
@@ -455,7 +503,7 @@ class BatchOperationManager:
                 operation.results.append(result)
 
                 # Update progress
-                operation.progress = int((idx + 1) / len(operation.resources) * 100)
+                operation.progress=int((idx + 1) / len(operation.resources) * 100)
 
                 logger.debug(
                     f"Processed {idx + 1}/{len(operation.resources)} "
@@ -464,8 +512,8 @@ class BatchOperationManager:
 
             # Mark as complete
             operation.status = OperationStatus.COMPLETED
-            operation.completed_at = datetime.now(timezone.utc)
-            operation.rollback_available = self._supports_rollback(operation.type)
+            operation.completed_at=datetime.now(timezone.utc)
+            operation.rollback_available=self._supports_rollback(operation.type)
 
             logger.info(
                 f"Operation {operation.id} completed: "
@@ -476,8 +524,8 @@ class BatchOperationManager:
         except Exception as e:
             logger.error(f"Operation {operation.id} failed: {e}")
             operation.status = OperationStatus.FAILED
-            operation.error = str(e)
-            operation.completed_at = datetime.now(timezone.utc)
+            operation.error=str(e)
+            operation.completed_at=datetime.now(timezone.utc)
 
         finally:
         # Add to history
@@ -500,7 +548,7 @@ class BatchOperationManager:
         Returns:
             Status dictionary or None if not found
         """
-        operation = self.operations.get(operation_id)
+        _operation=self.operations.get(operation_id)
         if operation is None:
             return None
 
@@ -516,7 +564,7 @@ class BatchOperationManager:
         Returns:
             True if cancelled, False if not found or already running
         """
-        operation = self.operations.get(operation_id)
+        _operation=self.operations.get(operation_id)
         if operation is None:
             return False
 
@@ -540,7 +588,7 @@ class BatchOperationManager:
         Returns:
             True if rolled back successfully, False if not available or failed
         """
-        operation = self.operations.get(operation_id)
+        _operation=self.operations.get(operation_id)
         if operation is None:
             logger.error(f"Operation {operation_id} not found for rollback")
             return False
@@ -623,7 +671,7 @@ class BatchOperationManager:
                     logger.error(f"Rollback failed for {result.resource_id}: {str(e)}")
 
             # Determine final status
-            _rollback_completed_at = datetime.now(timezone.utc)
+            _rollback_completed_at=datetime.now(timezone.utc)
             # rollback_duration = (rollback_completed_at - rollback_started_at).total_seconds()
 
             if failed_count == 0:
@@ -651,7 +699,7 @@ class BatchOperationManager:
         except Exception as e:
             logger.error(f"Error rolling back {operation_id}: {str(e)}")
             operation.status = OperationStatus.ROLLBACK_FAILED
-            operation.completed_at = datetime.now(timezone.utc)
+            operation.completed_at=datetime.now(timezone.utc)
             return False
 
     def get_history(

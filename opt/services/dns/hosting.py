@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -92,7 +140,7 @@ import logging
 
 import uuid
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class DNSRecordType(Enum):
@@ -119,7 +167,7 @@ class DNSRecord:
     port: Optional[int] = None      # For SRV
     flags: Optional[int] = None     # For CAA
     tag: Optional[str] = None       # For CAA
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: str=field(default_factory=lambda: str(uuid.uuid4()))
 
     def to_bind_line(self, zone_origin: str) -> str:
         """Convert record to BIND zone file format line."""
@@ -127,7 +175,7 @@ class DNSRecord:
         if name == "@":
             name = zone_origin
         elif not name.endswith("."):
-            name = f"{name}.{zone_origin}" if zone_origin and not zone_origin.endswith(".") else f"{name}.{zone_origin}"
+            _name=f"{name}.{zone_origin}" if zone_origin and not zone_origin.endswith(".") else f"{name}.{zone_origin}"
 
         # Ensure trailing dot for origin if not present in output logic,
         # but standard BIND usually handles relative names.
@@ -155,25 +203,25 @@ class DNSZone:
     domain: str
     customer_id: str
     records: List[DNSRecord] = field(default_factory=list)
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     soa_email: str = "hostmaster.debvisor.com"
     soa_refresh: int = 14400
     soa_retry: int = 3600
     soa_expire: int = 1209600
     soa_minimum: int = 3600
-    serial: int = field(default_factory=lambda: int(datetime.now().strftime("%Y%m%d01")))
+    serial: int=field(default_factory=lambda: int(datetime.now().strftime("%Y%m%d01")))
 
     def increment_serial(self) -> None:
         """Increment SOA serial number."""
-        today_prefix = int(datetime.now().strftime("%Y%m%d"))
-        current_prefix = int(str(self.serial)[:8])
+        _today_prefix=int(datetime.now().strftime("%Y%m%d"))
+        _current_prefix=int(str(self.serial)[:8])
 
         if today_prefix > current_prefix:
-            self.serial = int(f"{today_prefix}01")
+            self.serial=int(f"{today_prefix}01")
         else:
             self.serial += 1
-        self.updated_at = datetime.now(timezone.utc)
+        self.updated_at=datetime.now(timezone.utc)
 
 
 class DNSHostingService:
@@ -181,7 +229,7 @@ class DNSHostingService:
 
     def __init__(self) -> None:
         self._zones: Dict[str, DNSZone] = {}
-        self._lock = logging.getLogger("DNSLock")    # Placeholder for actual locking if needed
+        self._lock=logging.getLogger("DNSLock")    # Placeholder for actual locking if needed
 
     def create_zone(self, domain: str, customer_id: str, soa_email: Optional[str] = None) -> DNSZone:
         """Create a new DNS zone."""
@@ -192,7 +240,7 @@ class DNSHostingService:
         if not self._is_valid_domain(domain):
             raise ValueError(f"Invalid domain name: {domain}")
 
-        zone = DNSZone(domain=domain, customer_id=customer_id)
+        _zone=DNSZone(domain=domain, customer_id=customer_id)
         if soa_email:
             zone.soa_email = soa_email
 
@@ -215,7 +263,7 @@ class DNSHostingService:
             raise ValueError(f"Zone {domain} not found.")
 
     def add_record(self, domain: str, record: DNSRecord) -> DNSRecord:
-        zone = self.get_zone(domain)
+        _zone=self.get_zone(domain)
         if not zone:
             raise ValueError(f"Zone {domain} not found.")
 
@@ -227,11 +275,11 @@ class DNSHostingService:
         return record
 
     def remove_record(self, domain: str, record_id: str) -> None:
-        zone = self.get_zone(domain)
+        _zone=self.get_zone(domain)
         if not zone:
             raise ValueError(f"Zone {domain} not found.")
 
-        original_count = len(zone.records)
+        _original_count=len(zone.records)
         zone.records = [r for r in zone.records if r.id != record_id]
 
         if len(zone.records) < original_count:
@@ -242,7 +290,7 @@ class DNSHostingService:
 
     def generate_bind_config(self, domain: str) -> str:
         """Generate BIND zone file content."""
-        zone = self.get_zone(domain)
+        _zone=self.get_zone(domain)
         if not zone:
             raise ValueError(f"Zone {domain} not found.")
 
@@ -258,7 +306,7 @@ class DNSHostingService:
             ")\n\n"
         )
 
-        records_str = "\n".join([r.to_bind_line(domain) for r in zone.records])
+        _records_str="\n".join([r.to_bind_line(domain) for r in zone.records])
         return soa_record + records_str + "\n"
 
     def _is_valid_domain(self, domain: str) -> bool:
@@ -266,7 +314,7 @@ class DNSHostingService:
             return False
         if domain[-1] == ".":
             domain = domain[:-1]
-        allowed = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+        _allowed=re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
         return all(allowed.match(x) for x in domain.split("."))
 
     def _validate_record(self, record: DNSRecord) -> None:

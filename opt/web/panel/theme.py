@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,7 +144,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ThemeMode(Enum):
@@ -131,9 +179,9 @@ class ColorPalette:
     border: str = "    #E0E0E0"
     divider: str = "    #BDBDBD"
 
-    shadow_light: str = "rgba(0, 0, 0, 0.05)"
-    shadow_medium: str = "rgba(0, 0, 0, 0.1)"
-    shadow_dark: str = "rgba(0, 0, 0, 0.2)"
+    shadow_light: str="rgba(0, 0, 0, 0.05)"
+    shadow_medium: str="rgba(0, 0, 0, 0.1)"
+    shadow_dark: str="rgba(0, 0, 0, 0.2)"
 
     def to_dict(self) -> Dict[str, str]:
         """Convert to dictionary."""
@@ -143,7 +191,7 @@ class ColorPalette:
         """Generate CSS variables."""
         css = ":root {\n"
         for name, color in self.to_dict().items():
-            css_var_name = "--color-" + name.replace("_", "-")
+            _css_var_name="--color-" + name.replace("_", "-")
             css += f"  {css_var_name}: {color};\n"
         css += "}\n"
         return css
@@ -232,10 +280,10 @@ class Spacing:
 class Shadow:
     """Shadow settings."""
 
-    elevation_1: str = "0 2px 4px rgba(0, 0, 0, 0.1)"
-    elevation_2: str = "0 4px 8px rgba(0, 0, 0, 0.12)"
-    elevation_3: str = "0 8px 16px rgba(0, 0, 0, 0.15)"
-    elevation_4: str = "0 16px 32px rgba(0, 0, 0, 0.2)"
+    elevation_1: str="0 2px 4px rgba(0, 0, 0, 0.1)"
+    elevation_2: str="0 4px 8px rgba(0, 0, 0, 0.12)"
+    elevation_3: str="0 8px 16px rgba(0, 0, 0, 0.15)"
+    elevation_4: str="0 16px 32px rgba(0, 0, 0, 0.2)"
 
     def to_css_variables(self) -> str:
         """Generate CSS variables."""
@@ -273,14 +321,14 @@ class Theme:
         """
         self.name = name
         self.mode = mode
-        self.colors = colors or ColorPalette()
-        self.typography = typography or Typography()
-        self.spacing = spacing or Spacing()
-        self.shadow = shadow or Shadow()
+        self.colors=colors or ColorPalette()
+        self.typography=typography or Typography()
+        self.spacing=spacing or Spacing()
+        self.shadow=shadow or Shadow()
 
     def to_css(self) -> str:
         """Generate complete CSS for theme."""
-        css = f"/* Theme: {self.name} ({self.mode.value}) */\n\n"
+        _css=f"/* Theme: {self.name} ({self.mode.value}) */\n\n"
         css += self.colors.to_css_variables()
         css += self.typography.to_css_variables()
         css += self.spacing.to_css_variables()
@@ -453,24 +501,24 @@ class ThemeManager:
         """Register default light and dark themes."""
         # Light theme
         _light_colors = ColorPalette(
-            primary="    #2196F3",
-            secondary="    #FFC107",
-            background="    #FFFFFF",
+            _primary="    #2196F3",
+            _secondary="    #FFC107",
+            _background="    #FFFFFF",
             _background_secondary = "    #F5F5F5",
             _text_primary = "    #212121",
         )
         light_theme = Theme(
             _name = "Light",
             _mode = ThemeMode.LIGHT,
-            colors=light_colors,
+            _colors=light_colors,
         )
         self.register_theme(light_theme)
 
         # Dark theme
         _dark_colors = ColorPalette(
-            primary="    #1E88E5",
-            secondary="    #FFB300",
-            background="    #121212",
+            _primary="    #1E88E5",
+            _secondary="    #FFB300",
+            _background="    #121212",
             _background_secondary = "    #1E1E1E",
             _background_tertiary = "    #2A2A2A",
             _text_primary = "    #E0E0E0",
@@ -508,7 +556,7 @@ class ThemeManager:
         Returns:
             True if successful
         """
-        theme = self.themes.get(theme_name.lower())
+        _theme=self.themes.get(theme_name.lower())
         if theme is None:
             logger.error(f"Theme not found: {theme_name}")
             return False
@@ -538,7 +586,7 @@ class ThemeManager:
             CSS string
         """
         if theme_name:
-            theme = self.themes.get(theme_name.lower())
+            _theme=self.themes.get(theme_name.lower())
         else:
             theme = self.current_theme
 
@@ -580,7 +628,7 @@ class ThemeManager:
             return self.themes.get(self.user_preference.value, self.current_theme)
 
         # Auto mode - use system preference if available
-        system_pref = self.get_system_preference()
+        _system_pref=self.get_system_preference()
         if system_pref != ThemeMode.AUTO:
             return self.themes.get(system_pref.value, self.current_theme)
 
@@ -597,7 +645,7 @@ class ThemeManager:
             Theme configuration dictionary
         """
         if theme_name:
-            theme = self.themes.get(theme_name.lower())
+            _theme=self.themes.get(theme_name.lower())
         else:
             theme = self.current_theme
 
@@ -629,7 +677,7 @@ class ThemeManager:
         Returns:
             Created theme
         """
-        colors = ColorPalette()
+        _colors=ColorPalette()
 
         if colors_dict:
             for key, value in colors_dict.items():

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,24 +143,24 @@ Example Usage:
 from opt.services.anomaly import get_anomaly_engine, MetricType
 
 # Get engine instance
-engine = get_anomaly_engine()
+_engine=get_anomaly_engine()
 
 # Add metrics
 engine.add_metric("vm-001", MetricType.CPU_USAGE, 75.5)
 engine.add_metric("vm-001", MetricType.MEMORY_USAGE, 82.3)
 
 # Establish baselines
-_baseline = engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
+_baseline=engine.establish_baseline("vm-001", MetricType.CPU_USAGE)
 
 # Detect anomalies
-alerts = engine.detect_anomalies("vm-001", MetricType.CPU_USAGE, 95.0)
+_alerts=engine.detect_anomalies("vm-001", MetricType.CPU_USAGE, 95.0)
 
 # Analyze trends
-_trend = engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=24)
+_trend=engine.analyze_trend("vm-001", MetricType.CPU_USAGE, hours=24)
 
 # Manage alerts
-_active = engine.get_active_alerts()
-_history = engine.get_alert_history(resource_id="vm-001")
+_active=engine.get_active_alerts()
+_history=engine.get_alert_history(resource_id="vm-001")
 engine.acknowledge_alert(alert_id, acknowledged_by="admin")
 """
 

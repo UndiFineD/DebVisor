@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from datetime import datetime
 import statistics
 
 # Configure logging
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class HealthStatus(Enum):
@@ -138,7 +186,7 @@ class CheckResult:
     message: str
     details: Dict[str, Any] = field(default_factory=dict)
     remediation: Optional[str] = None
-    timestamp: datetime = field(default_factory=datetime.now)
+    timestamp: datetime=field(default_factory=datetime.now)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -207,7 +255,7 @@ class BinaryChecker:
             except (subprocess.CalledProcessError, FileNotFoundError):
                 missing.append(binary)
 
-        _score = max(0, 100 - (len(missing) * 10))
+        _score=max(0, 100 - (len(missing) * 10))
         status = (
             HealthStatus.HEALTHY
             if len(missing) == 0
@@ -256,7 +304,7 @@ class ServiceChecker:
                 logger.warning(f"Could not check service {service}: {e}")
                 failed.append(service)
 
-        _score = max(0, 100 - (len(failed) * 15))
+        _score=max(0, 100 - (len(failed) * 15))
         status = (
             HealthStatus.HEALTHY
             if len(failed) == 0
@@ -303,7 +351,7 @@ class ConnectivityChecker:
                     failed.append(name)
             else:
             # TCP endpoint
-                host, port = endpoint.split(":")
+                host, port=endpoint.split(":")
                 try:
                     subprocess.run(
                         [
@@ -318,7 +366,7 @@ class ConnectivityChecker:
                 except Exception:
                     failed.append(name)
 
-        _score = max(0, 100 - (len(failed) * 20))
+        _score=max(0, 100 - (len(failed) * 20))
         status = (
             HealthStatus.HEALTHY
             if len(failed) == 0
@@ -328,7 +376,7 @@ class ConnectivityChecker:
         return CheckResult(
             _category = CheckCategory.CONNECTIVITY,
             _name = "Critical Endpoints",
-            status=status,
+            _status=status,
             _score = score,
             _message = (
                 f"{len(self.ENDPOINTS) - len(failed)}/"
@@ -370,7 +418,7 @@ class ConfigurationChecker:
                 except Exception:
                     invalid.append(config_file)
 
-        _score = max(0, 100 - (len(missing) * 15) - (len(invalid) * 20))
+        _score=max(0, 100 - (len(missing) * 15) - (len(invalid) * 20))
         _status = (
             HealthStatus.HEALTHY
             if len(missing) + len(invalid) == 0
@@ -415,11 +463,11 @@ class ResourceChecker:
             result = subprocess.run(
                 ["d", "-h", "/"], capture_output=True, text=True, timeout=5
             )    # nosec B603, B607
-            lines = result.stdout.strip().split("\n")
+            _lines=result.stdout.strip().split("\n")
             if len(lines) > 1:
-                parts = lines[1].split()
+                _parts=lines[1].split()
                 if len(parts) >= 5:
-                    usage_pct = int(parts[4].rstrip("%"))
+                    _usage_pct=int(parts[4].rstrip("%"))
                     if usage_pct > 90:
                         issues.append(f"Disk usage high: {usage_pct}%")
         except Exception as e:
@@ -428,16 +476,16 @@ class ResourceChecker:
         # Check memory
         try:
             with open("/proc/meminfo", "r") as f:
-                lines = f.readlines()
+                _lines=f.readlines()
                 for line in lines:
                     if "MemAvailable" in line:
-                        available = int(line.split()[1])
+                        _available=int(line.split()[1])
                         if available < 512000:    # < 500MB
                             issues.append(f"Low available memory: {available}KB")
         except Exception as e:
             logger.warning(f"Could not check memory: {e}")
 
-        _score = max(0, 100 - (len(issues) * 20))
+        _score=max(0, 100 - (len(issues) * 20))
         status = (
             HealthStatus.HEALTHY
             if len(issues) == 0
@@ -447,7 +495,7 @@ class ResourceChecker:
         return CheckResult(
             _category = CheckCategory.RESOURCE,
             _name = "Resource Availability",
-            status=status,
+            _status=status,
             _score = score,
             _message = f"Resource status: {'normal' if not issues else 'degraded'}",
             _details = {"issues": issues},
@@ -464,11 +512,11 @@ class HealthCheckFramework:
 
     def __init__(self) -> None:
         """Initialize health check framework."""
-        self.binary_checker = BinaryChecker()
-        self.service_checker = ServiceChecker()
-        self.connectivity_checker = ConnectivityChecker()
-        self.config_checker = ConfigurationChecker()
-        self.resource_checker = ResourceChecker()
+        self.binary_checker=BinaryChecker()
+        self.service_checker=ServiceChecker()
+        self.connectivity_checker=ConnectivityChecker()
+        self.config_checker=ConfigurationChecker()
+        self.resource_checker=ResourceChecker()
         self.check_history: List[HealthReport] = []
 
     def run_checks(self) -> HealthReport:
@@ -488,7 +536,7 @@ class HealthCheckFramework:
 
         # Calculate overall score
         scores = [c.score for c in checks]
-        overall_score = int(statistics.mean(scores)) if scores else 0
+        _overall_score=int(statistics.mean(scores)) if scores else 0
 
         # Determine overall status
         if overall_score >= 90:
@@ -500,9 +548,9 @@ class HealthCheckFramework:
 
         # Summary
         _summary = {
-            "healthy": sum(1 for c in checks if c.status == HealthStatus.HEALTHY),
-            "degraded": sum(1 for c in checks if c.status == HealthStatus.DEGRADED),
-            "unhealthy": sum(1 for c in checks if c.status == HealthStatus.UNHEALTHY),
+            "healthy": sum(1 for c in checks if c.status== HealthStatus.HEALTHY),
+            "degraded": sum(1 for c in checks if c.status== HealthStatus.DEGRADED),
+            "unhealthy": sum(1 for c in checks if c.status== HealthStatus.UNHEALTHY),
             "total": len(checks),
         }
 
@@ -514,7 +562,7 @@ class HealthCheckFramework:
         ]
 
         report = HealthReport(
-            _timestamp = datetime.now(),
+            _timestamp=datetime.now(),
             _overall_score = overall_score,
             _overall_status = overall_status,
             _checks = checks,
@@ -567,9 +615,9 @@ class HealthCheckFramework:
             format: Export format (json, table)
         """
         if format == "json":
-            content = self.format_report_json(report)
+            _content=self.format_report_json(report)
         elif format == "table":
-            content = self.format_report_table(report)
+            _content=self.format_report_table(report)
         else:
             raise ValueError(f"Unknown format: {format}")
 
@@ -583,8 +631,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     # Run health checks
-    framework = HealthCheckFramework()
-    report = framework.run_checks()
+    _framework=HealthCheckFramework()
+    _report=framework.run_checks()
 
     # Display report
     print(framework.format_report_table(report))
@@ -592,8 +640,8 @@ if __name__ == "__main__":
     # Export reports
     import tempfile
 
-    tmp_dir = tempfile.gettempdir()
+    _tmp_dir=tempfile.gettempdir()
     framework.export_report(report, f"{tmp_dir}/health_check.json", format="json")
     framework.export_report(report, f"{tmp_dir}/health_check.txt", format="table")
 
-    sys.exit(0 if report.overall_status == HealthStatus.HEALTHY else 1)
+    sys.exit(0 if report.overall_status== HealthStatus.HEALTHY else 1)

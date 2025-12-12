@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -113,7 +161,7 @@ class AnomalyCLI:
             engine: AnomalyDetectionEngine instance
         """
         self.engine = engine
-        self.parser = self._build_parser()
+        self.parser=self._build_parser()
 
     def _build_parser(self) -> argparse.ArgumentParser:
         """Build argument parser."""
@@ -123,7 +171,7 @@ class AnomalyCLI:
 
         setup_common_args(parser)
 
-        subparsers = parser.add_subparsers(dest="command", help="Commands")
+        _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
         # Metric commands
         self._add_metric_commands(subparsers)
@@ -147,11 +195,11 @@ class AnomalyCLI:
 
     def _add_metric_commands(self, subparsers: Any) -> None:
         """Add metric management commands."""
-        metric = subparsers.add_parser("metric", help="Metric management")
-        metric_sub = metric.add_subparsers(dest="metric_cmd", help="Metric commands")
+        _metric=subparsers.add_parser("metric", help="Metric management")
+        _metric_sub=metric.add_subparsers(dest="metric_cmd", help="Metric commands")
 
         # metric add
-        add = metric_sub.add_parser("add", help="Add metric data point")
+        _add=metric_sub.add_parser("add", help="Add metric data point")
         add.add_argument("resource_id", help="Resource identifier")
         add.add_argument(
             "metric_type", help="Metric type (cpu_usage, memory_usage, disk_io, etc.)"
@@ -159,12 +207,12 @@ class AnomalyCLI:
         add.add_argument("value", type=float, help="Metric value")
 
         # metric list
-        list_cmd = metric_sub.add_parser("list", help="List monitored metrics")
+        _list_cmd=metric_sub.add_parser("list", help="List monitored metrics")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
         list_cmd.add_argument("--metric", help="Filter by metric type")
 
         # metric history
-        hist = metric_sub.add_parser("history", help="View metric history")
+        _hist=metric_sub.add_parser("history", help="View metric history")
         hist.add_argument("resource_id", help="Resource identifier")
         hist.add_argument("metric_type", help="Metric type")
         hist.add_argument(
@@ -173,7 +221,7 @@ class AnomalyCLI:
 
     def _add_baseline_commands(self, subparsers: Any) -> None:
         """Add baseline management commands."""
-        baseline = subparsers.add_parser("baseline", help="Baseline management")
+        _baseline=subparsers.add_parser("baseline", help="Baseline management")
         baseline_sub = baseline.add_subparsers(
             _dest = "baseline_cmd", help="Baseline commands"
         )
@@ -189,21 +237,21 @@ class AnomalyCLI:
         )
 
         # baseline list
-        list_cmd = baseline_sub.add_parser("list", help="List baselines")
+        _list_cmd=baseline_sub.add_parser("list", help="List baselines")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
 
         # baseline show
-        show = baseline_sub.add_parser("show", help="Show baseline details")
+        _show=baseline_sub.add_parser("show", help="Show baseline details")
         show.add_argument("resource_id", help="Resource identifier")
         show.add_argument("metric_type", help="Metric type")
 
     def _add_detection_commands(self, subparsers: Any) -> None:
         """Add anomaly detection commands."""
-        detect = subparsers.add_parser("detect", help="Anomaly detection")
-        detect_sub = detect.add_subparsers(dest="detect_cmd", help="Detection commands")
+        _detect=subparsers.add_parser("detect", help="Anomaly detection")
+        _detect_sub=detect.add_subparsers(dest="detect_cmd", help="Detection commands")
 
         # detect check
-        check = detect_sub.add_parser("check", help="Check for anomalies")
+        _check=detect_sub.add_parser("check", help="Check for anomalies")
         check.add_argument("resource_id", help="Resource identifier")
         check.add_argument("metric_type", help="Metric type")
         check.add_argument("value", type=float, help="Current metric value")
@@ -212,7 +260,7 @@ class AnomalyCLI:
         )
 
         # detect recent
-        recent = detect_sub.add_parser("recent", help="Get recent detections")
+        _recent=detect_sub.add_parser("recent", help="Get recent detections")
         recent.add_argument("--resource", help="Filter by resource ID")
         recent.add_argument(
             "--hours", type=int, default=24, help="Look back hours (default: 24)"
@@ -223,18 +271,18 @@ class AnomalyCLI:
 
     def _add_alert_commands(self, subparsers: Any) -> None:
         """Add alert management commands."""
-        alert = subparsers.add_parser("alert", help="Alert management")
-        alert_sub = alert.add_subparsers(dest="alert_cmd", help="Alert commands")
+        _alert=subparsers.add_parser("alert", help="Alert management")
+        _alert_sub=alert.add_subparsers(dest="alert_cmd", help="Alert commands")
 
         # alert list
-        list_cmd = alert_sub.add_parser("list", help="List active alerts")
+        _list_cmd=alert_sub.add_parser("list", help="List active alerts")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
         list_cmd.add_argument(
             "--severity", help="Filter by severity (info, warning, critical)"
         )
 
         # alert history
-        hist = alert_sub.add_parser("history", help="Alert history")
+        _hist=alert_sub.add_parser("history", help="Alert history")
         hist.add_argument("--resource", help="Filter by resource ID")
         hist.add_argument(
             "--hours", type=int, default=24, help="Look back hours (default: 24)"
@@ -244,22 +292,22 @@ class AnomalyCLI:
         )
 
         # alert acknowledge
-        ack = alert_sub.add_parser("acknowledge", help="Acknowledge alert")
+        _ack=alert_sub.add_parser("acknowledge", help="Acknowledge alert")
         ack.add_argument("alert_id", help="Alert ID")
         ack.add_argument("--by", required=True, help="User acknowledging")
         ack.add_argument("--notes", default="", help="Acknowledgment notes")
 
         # alert show
-        show = alert_sub.add_parser("show", help="Show alert details")
+        _show=alert_sub.add_parser("show", help="Show alert details")
         show.add_argument("alert_id", help="Alert ID")
 
     def _add_trend_commands(self, subparsers: Any) -> None:
         """Add trend analysis commands."""
-        trend = subparsers.add_parser("trend", help="Trend analysis")
-        trend_sub = trend.add_subparsers(dest="trend_cmd", help="Trend commands")
+        _trend=subparsers.add_parser("trend", help="Trend analysis")
+        _trend_sub=trend.add_subparsers(dest="trend_cmd", help="Trend commands")
 
         # trend analyze
-        analyze = trend_sub.add_parser("analyze", help="Analyze metric trend")
+        _analyze=trend_sub.add_parser("analyze", help="Analyze metric trend")
         analyze.add_argument("resource_id", help="Resource identifier")
         analyze.add_argument("metric_type", help="Metric type")
         analyze.add_argument(
@@ -267,23 +315,23 @@ class AnomalyCLI:
         )
 
         # trend list
-        list_cmd = trend_sub.add_parser("list", help="List trend analyses")
+        _list_cmd=trend_sub.add_parser("list", help="List trend analyses")
         list_cmd.add_argument("--resource", help="Filter by resource ID")
 
     def _add_system_commands(self, subparsers: Any) -> None:
         """Add system commands."""
-        system = subparsers.add_parser("system", help="System commands")
-        system_sub = system.add_subparsers(dest="system_cmd", help="System commands")
+        _system=subparsers.add_parser("system", help="System commands")
+        _system_sub=system.add_subparsers(dest="system_cmd", help="System commands")
 
         # system stats
         system_sub.add_parser("stats", help="System statistics")
 
         # system config
-        config = system_sub.add_parser("config", help="Show configuration")
+        _config=system_sub.add_parser("config", help="Show configuration")
         config.add_argument("--param", help="Show specific parameter")
 
         # system export
-        export = system_sub.add_parser("export", help="Export data")
+        _export=system_sub.add_parser("export", help="Export data")
         export.add_argument(
             "--type", choices=["alerts", "baselines", "metrics"], required=True
         )
@@ -301,7 +349,7 @@ class AnomalyCLI:
         Returns:
             Exit code
         """
-        parsed = self.parser.parse_args(args)
+        _parsed=self.parser.parse_args(args)
 
         if not parsed.command:
             self.parser.print_help()
@@ -333,7 +381,7 @@ class AnomalyCLI:
         """Handle metric commands."""
         if args.metric_cmd == "add":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
                 self.engine.add_metric(args.resource_id, metric_type, args.value)
                 print(
                     f"? Metric added: {args.resource_id}/{args.metric_type} = {args.value}"
@@ -381,8 +429,8 @@ class AnomalyCLI:
 
         elif args.metric_cmd == "history":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
-                key = (args.resource_id, metric_type)
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
+                _key=(args.resource_id, metric_type)
 
                 if key not in self.engine.metrics:
                     print(f"No data for {key}")
@@ -409,7 +457,7 @@ class AnomalyCLI:
         """Handle baseline commands."""
         if args.baseline_cmd == "establish":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
                 baseline = self.engine.establish_baseline(
                     args.resource_id, metric_type, percentile_based=args.percentile
                 )
@@ -470,8 +518,8 @@ class AnomalyCLI:
 
         elif args.baseline_cmd == "show":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
-                key = (args.resource_id, metric_type)
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
+                _key=(args.resource_id, metric_type)
 
                 if key not in self.engine.baselines:
                     print(f"Baseline not found: {key}")
@@ -500,7 +548,7 @@ class AnomalyCLI:
         """Handle detection commands."""
         if args.detect_cmd == "check":
             try:
-                _metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
 
                 # Parse methods
                 methods = []
@@ -543,7 +591,7 @@ class AnomalyCLI:
 
         elif args.detect_cmd == "recent":
             alerts = self.engine.get_alert_history(
-                resource_id=args.resource, hours=args.hours, limit=args.limit
+                _resource_id=args.resource, hours=args.hours, limit=args.limit
             )
 
             if alerts:
@@ -582,12 +630,12 @@ class AnomalyCLI:
     def _handle_alert(self, args: argparse.Namespace) -> int:
         """Handle alert commands."""
         if args.alert_cmd == "list":
-            alerts = self.engine.get_active_alerts(resource_id=args.resource)
+            _alerts=self.engine.get_active_alerts(resource_id=args.resource)
 
             # Filter by severity if requested
             if args.severity:
                 try:
-                    severity = SeverityLevel[args.severity.upper()]
+                    _severity=SeverityLevel[args.severity.upper()]
                     alerts = [a for a in alerts if a.severity == severity]
                 except KeyError:
                     print(f"Unknown severity: {args.severity}", file=sys.stderr)
@@ -628,7 +676,7 @@ class AnomalyCLI:
 
         elif args.alert_cmd == "history":
             alerts = self.engine.get_alert_history(
-                resource_id=args.resource, hours=args.hours, limit=args.limit
+                _resource_id=args.resource, hours=args.hours, limit=args.limit
             )
 
             if alerts:
@@ -687,7 +735,7 @@ class AnomalyCLI:
                     print(f"  Acknowledged: {'Yes' if alert.acknowledged else 'No'}")
                     if alert.acknowledged:
                         print(f"  Acknowledged by: {alert.acknowledged_by}")
-                        ack_at = alert.acknowledged_at.isoformat() if alert.acknowledged_at else "N/A"
+                        _ack_at=alert.acknowledged_at.isoformat() if alert.acknowledged_at else "N/A"
                         print(f"  Acknowledged at: {ack_at}")
                     return 0
 
@@ -700,7 +748,7 @@ class AnomalyCLI:
         """Handle trend commands."""
         if args.trend_cmd == "analyze":
             try:
-                metric_type = MetricType[args.metric_type.upper().replace("-", "_")]
+                _metric_type=MetricType[args.metric_type.upper().replace("-", "_")]
                 trend = self.engine.analyze_trend(
                     args.resource_id, metric_type, hours=args.hours
                 )
@@ -762,7 +810,7 @@ class AnomalyCLI:
     def _handle_system(self, args: argparse.Namespace) -> int:
         """Handle system commands."""
         if args.system_cmd == "stats":
-            stats = self.engine.get_statistics()
+            _stats=self.engine.get_statistics()
             print("\nAnomaly Detection System Statistics")
             print(f"  Total Metrics: {stats['total_metrics']}")
             print(f"  Total Baselines: {stats['total_baselines']}")
@@ -789,7 +837,7 @@ class AnomalyCLI:
                 if args.resource:
                     alerts = [a for a in alerts if a.resource_id == args.resource]
 
-                data = [a.to_dict() for a in alerts]
+                _data=[a.to_dict() for a in alerts]
             elif args.type == "baselines":
                 baselines = self.engine.baselines
                 if args.resource:
@@ -797,7 +845,7 @@ class AnomalyCLI:
                         k: v for k, v in baselines.items() if k[0] == args.resource
                     }
 
-                data = [b.to_dict() for b in baselines.values()]
+                _data=[b.to_dict() for b in baselines.values()]
             else:
                 print(f"Unknown export type: {args.type}", file=sys.stderr)
                 return 1
@@ -816,8 +864,8 @@ class AnomalyCLI:
 
 def main() -> int:
     """Main entry point."""
-    engine = get_anomaly_engine()
-    cli = AnomalyCLI(engine)
+    _engine=get_anomaly_engine()
+    _cli=AnomalyCLI(engine)
     return cli.run()
 
 

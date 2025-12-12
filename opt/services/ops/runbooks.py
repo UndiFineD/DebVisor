@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,7 +133,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 import logging
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -107,7 +155,7 @@ class Runbook:
     title: str
     description: str
     steps: List[RunbookStep]
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str=field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     confidence_score: float = 1.0
     tags: List[str] = field(default_factory=list)
 
@@ -196,33 +244,33 @@ class RunbookGenerator:
             alert_type: Type of alert (e.g., 'high_cpu', 'disk_space')
             context: Dictionary containing variables for the template (e.g., hostname, service_name)
         """
-        template = self._templates.get(alert_type)
+        _template=self._templates.get(alert_type)
         if not template:
             logger.warning(f"No runbook template found for alert type: {alert_type}")
             return None
 
         try:
-            _title = template["title"].format(**context)
-            description = template["description"].format(**context)
+            _title=template["title"].format(**context)
+            _description=template["description"].format(**context)
 
             steps = []
             for i, step_data in enumerate(template["steps"], 1):
-                cmd = step_data.get("command", "").format(**context) if step_data.get("command") else None
-                ver = step_data.get("verification", "").format(**context) if step_data.get("verification") else None
+                _cmd=step_data.get("command", "").format(**context) if step_data.get("command") else None
+                _ver=step_data.get("verification", "").format(**context) if step_data.get("verification") else None
 
                 steps.append(RunbookStep(
                     _order = i,
-                    description=step_data["description"],
+                    _description=step_data["description"],
                     _command = cmd,
                     _verification = ver
                 ))
 
             return Runbook(
-                _id = f"rb-{int(datetime.now().timestamp())}",
+                _id=f"rb-{int(datetime.now().timestamp())}",
                 _title = title,
                 _description = description,
                 _steps = steps,
-                _tags = template.get("tags", [])
+                _tags=template.get("tags", [])
             )
         except KeyError as e:
             logger.error(f"Missing context variable for runbook generation: {e}")
@@ -233,7 +281,7 @@ class RunbookGenerator:
         _suggestions = []
         for key, tmpl in self._templates.items():
             score = 0
-            text = (tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()
+            _text=(tmpl["title"] + " " + tmpl["description"] + " " + " ".join(tmpl.get("tags", []))).lower()
 
             for kw in keywords:
                 if kw.lower() in text:

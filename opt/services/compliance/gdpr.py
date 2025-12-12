@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +137,7 @@ from opt.web.panel.models.user import User
 from opt.web.panel.models.audit_log import AuditLog
 from opt.web.panel.extensions import db
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class GDPRManager:
@@ -97,7 +145,7 @@ class GDPRManager:
 
     def export_user_data(self, user_id: int) -> Dict[str, Any]:
         """Export all data associated with a user."""
-        user = User.query.get(user_id)
+        _user=User.query.get(user_id)
         if not user:
             raise ValueError(f"User {user_id} not found")
 
@@ -112,7 +160,7 @@ class GDPRManager:
         }
 
         # 2. Activity Logs (Audit Trail)
-        _audit_logs = AuditLog.query.filter_by(user_id=user.id).all()
+        _audit_logs=AuditLog.query.filter_by(user_id=user.id).all()
         _activity_data = [
             {
                 "timestamp": log.created_at.isoformat(),
@@ -135,12 +183,12 @@ class GDPRManager:
 
     def anonymize_user(self, user_id: int) -> bool:
         """Anonymize user data (Right to be Forgotten)."""
-        user = User.query.get(user_id)
+        _user=User.query.get(user_id)
         if not user:
             return False
 
         # Anonymize personal fields
-        timestamp = int(datetime.now(timezone.utc).timestamp())
+        _timestamp=int(datetime.now(timezone.utc).timestamp())
         user.username = f"deleted_user_{user.id}_{timestamp}"
         user.email = f"deleted_{user.id}_{timestamp}@example.com"
         user.full_name = "Deleted User"

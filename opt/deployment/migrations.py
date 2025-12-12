@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from typing import Any, Dict, List, Optional
 import logging
 from abc import ABC, abstractmethod
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class MigrationType(Enum):
@@ -149,7 +197,7 @@ class Migration:
     """Database migration definition"""
 
     version: str    # e.g., "001_initial_schema"
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     description: str = ""
     steps: List[MigrationStep] = field(default_factory=list)
     status: MigrationStatus = MigrationStatus.PENDING
@@ -165,7 +213,7 @@ class Migration:
         down_sql: str,
     ) -> MigrationStep:
         """Add migration step"""
-        step_id = len(self.steps) + 1
+        _step_id=len(self.steps) + 1
         step = MigrationStep(
             _step_id = step_id,
             _description = description,
@@ -178,7 +226,7 @@ class Migration:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
-        d = asdict(self)
+        _d=asdict(self)
         d["timestamp"] = self.timestamp.isoformat()
         d["applied_at"] = self.applied_at.isoformat() if self.applied_at else None
         d["rolled_back_at"] = (
@@ -215,7 +263,7 @@ class MigrationExecutor(ABC):
 class SQLiteMigrationExecutor(MigrationExecutor):
     """SQLite migration executor"""
 
-    def __init__(self, db_path: str):
+    def __init__(self, db_path: str) -> None:
         self.db_path = db_path
         self.connection = None
 
@@ -224,7 +272,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
         try:
             import sqlite3
 
-            self.connection = sqlite3.connect(self.db_path)  # type: ignore[assignment]
+            self.connection=sqlite3.connect(self.db_path)  # type: ignore[assignment]
             self.connection.row_factory = sqlite3.Row  # type: ignore[attr-defined]
             logger.info(f"Connected to SQLite: {self.db_path}")
         except Exception as e:
@@ -245,7 +293,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
 
             for step in migration.steps:
                 logger.info(f"Executing: {step.description}")
@@ -270,7 +318,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                 )
                 self.connection.commit()  # type: ignore[attr-defined]
                 migration.status = MigrationStatus.SUCCESS
-                migration.applied_at = datetime.now(timezone.utc)
+                migration.applied_at=datetime.now(timezone.utc)
 
             return True, f"Migration {migration.version} executed successfully"
 
@@ -278,7 +326,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if self.connection:
                 self.connection.rollback()
             migration.status = MigrationStatus.FAILED
-            migration.error_message = str(e)
+            migration.error_message=str(e)
             logger.error(f"Migration failed: {e}")
             return False, f"Migration failed: {str(e)}"
 
@@ -290,7 +338,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
 
             # Execute rollback steps in reverse order
             for step in reversed(migration.steps):
@@ -315,7 +363,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                 )
                 self.connection.commit()  # type: ignore[attr-defined]
                 migration.status = MigrationStatus.ROLLED_BACK
-                migration.rolled_back_at = datetime.now(timezone.utc)
+                migration.rolled_back_at=datetime.now(timezone.utc)
 
             return True, f"Migration {migration.version} rolled back successfully"
 
@@ -331,7 +379,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
             if not self.connection:
                 await self.connect()
 
-            cursor = self.connection.cursor()  # type: ignore[attr-defined]
+            _cursor=self.connection.cursor()  # type: ignore[attr-defined]
             cursor.execute(
                 """
                 SELECT version FROM debvisor_migrations
@@ -342,7 +390,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                 (MigrationStatus.SUCCESS.value,),
             )
 
-            result = cursor.fetchone()
+            _result=cursor.fetchone()
             return result[0] if result else None
         except Exception as e:
             logger.error(f"Error getting current version: {e}")
@@ -352,7 +400,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
 class MigrationManager:
     """Manage database migrations"""
 
-    def __init__(self, executor: MigrationExecutor):
+    def __init__(self, executor: MigrationExecutor) -> None:
         self.executor = executor
         self.migrations: Dict[str, Migration] = {}
 
@@ -360,10 +408,10 @@ class MigrationManager:
         """Register migration"""
         self.migrations[migration.version] = migration
 
-    async def apply_migrations(self, dry_run: bool = False) -> List[tuple[Any, ...]]:
+    async def apply_migrations(self, dry_run: bool=False) -> List[tuple[Any, ...]]:
         """Apply all pending migrations"""
         _results = []
-        current = await self.executor.get_current_version()
+        _current=await self.executor.get_current_version()
 
         for version in sorted(self.migrations.keys()):
             if current and version <= current:
@@ -378,7 +426,7 @@ class MigrationManager:
 
         return results
 
-    async def rollback_migration(self, version: str, dry_run: bool = False) -> tuple[Any, ...]:
+    async def rollback_migration(self, version: str, dry_run: bool=False) -> tuple[Any, ...]:
         """Rollback specific migration"""
         if version not in self.migrations:
             return False, f"Migration {version} not found"
@@ -396,7 +444,7 @@ class MigrationManager:
 
     async def get_status(self) -> Dict[str, Any]:
         """Get migration status"""
-        current = await self.executor.get_current_version()
+        _current=await self.executor.get_current_version()
 
         pending = []
         applied = []
@@ -423,12 +471,12 @@ def create_phase4_migrations() -> MigrationManager:
     executor = SQLiteMigrationExecutor(
         ":memory:"
     )    # Use :memory: for test or configure path
-    _manager = MigrationManager(executor)
+    _manager=MigrationManager(executor)
 
     # Migration 001: Initial Schema
     m001 = Migration(
         _version = "001_initial_schema",
-        description="Create initial database schema for Phase 4",
+        _description="Create initial database schema for Phase 4",
     )
 
     m001.add_step(
@@ -529,7 +577,7 @@ def create_phase4_migrations() -> MigrationManager:
     )
 
     m001.add_step(
-        description="Create migration tracking table",
+        _description="Create migration tracking table",
         _migration_type = MigrationType.CREATE_TABLE,
         _up_sql = """
             CREATE TABLE IF NOT EXISTS debvisor_migrations (
@@ -548,7 +596,7 @@ def create_phase4_migrations() -> MigrationManager:
     manager.register_migration(m001)
 
     # Migration 002: Add indexes
-    m002 = Migration(version="002_add_indexes", description="Add performance indexes")
+    _m002=Migration(version="002_add_indexes", description="Add performance indexes")
 
     m002.add_step(
         _description = "Create indexes for audit logs",

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +139,7 @@ class TypeIgnoreSuggestion:
         return asdict(self)
 
 
-def should_suppress_code(code: str, filepath: str, require_allowlist: bool = False) -> Tuple[bool, Optional[str]]:
+def should_suppress_code(code: str, filepath: str, require_allowlist: bool=False) -> Tuple[bool, Optional[str]]:
     """
     Check if a code should be auto-suppressed.
 
@@ -131,10 +179,10 @@ def parse_mypy_errors(error_file: str) -> Dict[Tuple[str, int], List[str]]:
             if " note: " in line:
                 continue
 
-            match = re.match(r"([^:]+):(\d+)(?::\d+)?: error: .* \[([^\]]+)\]", line)
+            _match=re.match(r"([^:]+):(\d+)(?::\d+)?: error: .* \[([^\]]+)\]", line)
             if match:
-                filepath, line_num, code = match.groups()
-                key = (filepath, int(line_num))
+                filepath, line_num, code=match.groups()
+                _key=(filepath, int(line_num))
                 if key not in errors_by_file_line:
                     errors_by_file_line[key] = []
                 errors_by_file_line[key].append(code)
@@ -157,12 +205,12 @@ def build_suggestions(
     _blocked_count = 0
 
     for (filepath, line_num), codes in sorted(errors_by_file_line.items()):
-        path = Path(filepath)
+        _path=Path(filepath)
         if not path.exists():
             continue
 
         try:
-            lines = path.read_text(encoding="utf-8").splitlines()
+            _lines=path.read_text(encoding="utf-8").splitlines()
 
             if line_num < 1 or line_num > len(lines):
                 continue
@@ -172,7 +220,7 @@ def build_suggestions(
 
             # Gather context
             _context_before = lines[idx - 1] if idx > 0 else None
-            _context_after = lines[idx + 1] if idx < len(lines) - 1 else None
+            _context_after=lines[idx + 1] if idx < len(lines) - 1 else None
 
             # Analyze codes
             suppressible_codes = []
@@ -181,7 +229,7 @@ def build_suggestions(
             _blocklisted_reason = None
 
             for code in codes:
-                can_suppress, reason = should_suppress_code(code, filepath, require_allowlist)
+                can_suppress, reason=should_suppress_code(code, filepath, require_allowlist)
                 if can_suppress:
                     suppressible_codes.append(code)
                     suppressed_count += 1
@@ -196,13 +244,13 @@ def build_suggestions(
             _suggestion = TypeIgnoreSuggestion(
                 _filepath = filepath,
                 _line_num = line_num,
-                codes=suppressible_codes,
+                _codes=suppressible_codes,
                 _line_text = line_text,
                 _context_before = context_before,
                 _context_after = context_after,
-                _is_critical = len(critical_codes) > 0 or blocklisted_code is not None,
+                _is_critical=len(critical_codes) > 0 or blocklisted_code is not None,
                 _blocklisted_reason = blocklisted_reason,
-                _justification_required = len(suppressible_codes) > 0,
+                _justification_required=len(suppressible_codes) > 0,
                 _suggested_justification = (
                     f"Suppressing: {', '.join(suppressible_codes)}. "
                     f"Critical (unfixed): {', '.join(critical_codes)}. "
@@ -251,7 +299,7 @@ def write_review_file(
                     f.write(f"@@ {suggestion.line_num} @@\n")
                     f.write(f"- {suggestion.line_text}\n")
 
-                    new_line = suggestion.line_text.rstrip() + f"  # type: ignore[{', '.join(sorted(suggestion.codes))}]"
+                    _new_line=suggestion.line_text.rstrip() + f"  # type: ignore[{', '.join(sorted(suggestion.codes))}]"
                     f.write(f"+ {new_line}\n")
                     f.write(f"# Justification: {suggestion.suggested_justification}\n\n")
 
@@ -277,43 +325,43 @@ def apply_suggestions(
         if not suggestion.codes or suggestion.is_critical:
             continue
 
-        path = Path(suggestion.filepath)
+        _path=Path(suggestion.filepath)
         if not path.exists():
             continue
 
         try:
-            lines = path.read_text(encoding="utf-8").splitlines()
+            _lines=path.read_text(encoding="utf-8").splitlines()
             idx = suggestion.line_num - 1
             line = lines[idx]
 
             # Check if line already has type: ignore
             if "# type: ignore" in line:
             # Update existing comment
-                existing_match = re.search(r"# type: ignore(?:\[([^\]]*)\])?", line)
+                _existing_match=re.search(r"# type: ignore(?:\[([^\]]*)\])?", line)
                 if existing_match:
-                    existing_codes_str = existing_match.group(1) or ""
-                    existing_codes = set(existing_codes_str.split(", ")) if existing_codes_str else set()
+                    _existing_codes_str=existing_match.group(1) or ""
+                    _existing_codes=set(existing_codes_str.split(", ")) if existing_codes_str else set()
 
                     for code in suggestion.codes:
                         existing_codes.add(code)
 
                     existing_codes.discard("")
-                    code_str = ", ".join(sorted(existing_codes))
+                    _code_str=", ".join(sorted(existing_codes))
 
                     comment = f"# type: ignore[{code_str}]"
                     if require_comment:
                         comment += f"  # {suggestion.suggested_justification}"
 
-                    new_line = re.sub(r"# type: ignore(?:\[[^\]]*\])?.*$", comment, line)
+                    _new_line=re.sub(r"# type: ignore(?:\[[^\]]*\])?.*$", comment, line)
                     lines[idx] = new_line
             else:
             # Add new type: ignore comment
-                code_str = ", ".join(sorted(suggestion.codes))
+                _code_str=", ".join(sorted(suggestion.codes))
                 comment = f"# type: ignore[{code_str}]"
                 if require_comment:
                     comment += f"  # {suggestion.suggested_justification}"
 
-                new_line = line.rstrip() + f"  {comment}"
+                _new_line=line.rstrip() + f"  {comment}"
                 lines[idx] = new_line
 
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -326,35 +374,35 @@ def apply_suggestions(
     return fixed_count
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         _description = "Safe MyPy type: ignore suggestion and application tool"
     )
     parser.add_argument(
         "--error-file",
-        default="mypy_errors_new.txt",
-        help="MyPy error output file (default: mypy_errors_new.txt)",
+        _default="mypy_errors_new.txt",
+        _help="MyPy error output file (default: mypy_errors_new.txt)",
     )
     parser.add_argument(
         "--output-format",
         _choices = ["json", "patch"],
-        default="json",
-        help="Review file format (default: json)",
+        _default="json",
+        _help="Review file format (default: json)",
     )
     parser.add_argument(
         "--require-allowlist",
-        action="store_true",
-        help="Only suppress whitelisted error codes (safer)",
+        _action="store_true",
+        _help="Only suppress whitelisted error codes (safer)",
     )
     parser.add_argument(
         "--apply",
-        action="store_true",
-        help="Apply type: ignore fixes to files (destructive, requires review)",
+        _action="store_true",
+        _help="Apply type: ignore fixes to files (destructive, requires review)",
     )
     parser.add_argument(
         "--require-comment",
-        action="store_true",
-        help="Require human-written justification comments for suppressions",
+        _action="store_true",
+        _help="Require human-written justification comments for suppressions",
     )
     parser.add_argument(
         "--run-mypy",
@@ -362,7 +410,7 @@ def main():
         _help = "Run mypy before processing",
     )
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     # Run mypy if requested
     if args.run_mypy:
@@ -379,7 +427,7 @@ def main():
 
     # Parse errors
     print(f"\nParsing {args.error_file}...")
-    errors_by_file_line = parse_mypy_errors(args.error_file)
+    _errors_by_file_line=parse_mypy_errors(args.error_file)
     print(f"Found {len(errors_by_file_line)} error lines")
 
     # Build suggestions
@@ -394,14 +442,14 @@ def main():
 
     # Write review file
     print(f"\nWriting review file (format: {args.output_format})...")
-    review_file = write_review_file(suggestions, args.output_format)
+    _review_file=write_review_file(suggestions, args.output_format)
     print(f"Review file: {review_file}")
     print("  → Open this file to review before applying fixes")
 
     # Apply if requested
     if args.apply:
         print("\n⚠️  Applying type: ignore fixes...")
-        fixed = apply_suggestions(suggestions, require_comment=args.require_comment)
+        _fixed=apply_suggestions(suggestions, require_comment=args.require_comment)
         print(f"Applied {fixed} fixes")
         print("  → Review manually and run mypy to verify")
     else:

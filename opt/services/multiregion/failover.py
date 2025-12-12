@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -92,9 +140,9 @@ from dataclasses import dataclass
 from typing import Dict, List, Callable
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -128,7 +176,7 @@ class FailoverManager:
         self.region_states[region_id] = RegionStatus(
             _region_id = region_id,
             _is_healthy = is_healthy,
-            _last_seen = time.time(),
+            _last_seen=time.time(),
             _load = load,
             _active_connections = 0,
         )
@@ -143,7 +191,7 @@ class FailoverManager:
         # Simple logic: if a peer is down and we are healthy, take over.
         # In real Active-Active, we might just update DNS weights.
 
-        healthy_count = sum(1 for r in self.region_states.values() if r.is_healthy)
+        _healthy_count=sum(1 for r in self.region_states.values() if r.is_healthy)
         if self.is_active:
             healthy_count += 1    # Count self
 
@@ -180,9 +228,9 @@ class FailoverManager:
 
 # Example usage / CLI
 if __name__ == "__main__":
-    mgr = FailoverManager("us-east", ["us-west", "eu-central"])
+    _mgr=FailoverManager("us-east", ["us-west", "eu-central"])
 
-    def dns_update_hook(failed, target):
+    def dns_update_hook(failed, target) -> None:
         print(f"HOOK: Updating DNS to point {failed} -> {target}")
 
     mgr.register_hook(dns_update_hook)

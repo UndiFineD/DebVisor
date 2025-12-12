@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,7 +138,7 @@ from typing import Optional, Dict, Any
 from pathlib import Path
 import subprocess
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class CertificateInfo:
@@ -120,7 +168,7 @@ class CertificateInfo:
         """Days until certificate expires."""
         if not self.valid_until:
             return -1
-        delta = self.valid_until - datetime.now(timezone.utc)
+        _delta=self.valid_until - datetime.now(timezone.utc)
         return delta.days
 
     @property
@@ -231,16 +279,16 @@ class CertificateManager:
             output = result.stdout
 
             # Parse dates
-            _valid_from = self._parse_date_from_output(output, "notBefore=")
-            _valid_until = self._parse_date_from_output(output, "notAfter=")
+            _valid_from=self._parse_date_from_output(output, "notBefore=")
+            _valid_until=self._parse_date_from_output(output, "notAfter=")
 
             # Get subject
-            subject = self._extract_field(output, "Subject:")
-            issuer = self._extract_field(output, "Issuer:")
-            serial = self._extract_field(output, "Serial Number:")
+            _subject=self._extract_field(output, "Subject:")
+            _issuer=self._extract_field(output, "Issuer:")
+            _serial=self._extract_field(output, "Serial Number:")
 
             _info = CertificateInfo(
-                path=cert_path,
+                _path=cert_path,
                 _cert_type = cert_type,
                 _subject = subject,
                 _issuer = issuer,
@@ -274,7 +322,7 @@ class CertificateManager:
         """Parse date from openssl output."""
         for line in output.split("\n"):
             if prefix in line:
-                date_str = line.split(prefix)[1].strip()
+                _date_str=line.split(prefix)[1].strip()
                 try:
                     return datetime.strptime(date_str, "%b %d %H:%M:%S %Y %Z")
                 except BaseException:
@@ -303,7 +351,7 @@ class CertificateManager:
 
         for name, (path, cert_type) in cert_paths.items():
             if path:
-                info = self.load_certificate_info(path, cert_type)
+                _info=self.load_certificate_info(path, cert_type)
                 if info:
                     results[name] = info
 
@@ -317,7 +365,7 @@ class CertificateManager:
     ) -> Optional[ssl.SSLContext]:
         """Create SSL context for the service."""
         try:
-            context = ssl.SSLContext(protocol)
+            _context=ssl.SSLContext(protocol)
 
             # Load server certificate and key
             context.load_cert_chain(
@@ -375,7 +423,7 @@ class CertificateManager:
 
     def get_certificate_renewal_reminder(self) -> Optional[str]:
         """Get certificate renewal reminder if needed."""
-        certs = self.check_all_certificates()
+        _certs=self.check_all_certificates()
 
         for name, info in certs.items():
             if info.expiry_warning_level == "critical":

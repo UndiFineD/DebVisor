@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -106,9 +154,9 @@ from enum import Enum
 from typing import Any, Callable, Dict, Optional
 from functools import wraps
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
-F = TypeVar("F", bound=Callable[..., Any])
+F=TypeVar("F", bound=Callable[..., Any])
 
 
 class SigningAlgorithm(Enum):
@@ -153,14 +201,14 @@ class RequestSigner:
     Signs and verifies requests for inter-service communication.
 
     Example:
-        signer = RequestSigner(SigningConfig(secret_key="my-secret"))
+        _signer=RequestSigner(SigningConfig(secret_key="my-secret"))
 
         # Sign a request
         _signature = signer.sign_request(
-            method="POST",
-            path="/api/v1/nodes",
-            body=json.dumps({"name": "node-1"}).encode(),
-            headers={"content-type": "application/json"}
+            _method="POST",
+            _path="/api/v1/nodes",
+            _body=json.dumps({"name": "node-1"}).encode(),
+            _headers={"content-type": "application/json"}
         )
 
         # Verify a request
@@ -174,7 +222,7 @@ class RequestSigner:
         )
     """
 
-    def __init__(self, config: SigningConfig):
+    def __init__(self, config: SigningConfig) -> None:
         """
         Initialize request signer.
 
@@ -182,7 +230,7 @@ class RequestSigner:
             config: Signing configuration
         """
         self.config = config
-        self._hash_func = self._get_hash_func(config.algorithm)
+        self._hash_func=self._get_hash_func(config.algorithm)
 
     def _get_hash_func(self, algorithm: SigningAlgorithm) -> Callable[..., Any]:
         """Get hash function for algorithm."""
@@ -221,25 +269,25 @@ class RequestSigner:
         BODY_HASH
         """
         # Normalize method
-        _method = method.upper()
+        _method=method.upper()
 
         # Normalize path
-        _path = path.split("?")[0]    # Remove query string for signing
+        _path=path.split("?")[0]    # Remove query string for signing
 
         # Filter and sort headers
         signed_headers = {}
         for header_name in sorted(self.config.include_headers):
-            header_key = header_name.lower()
+            _header_key=header_name.lower()
             for key, value in headers.items():
                 if key.lower() == header_key:
                     signed_headers[header_key] = value.strip()
                     break
 
         # Build header string
-        header_string = "\n".join(f"{k}:{v}" for k, v in sorted(signed_headers.items()))
+        _header_string="\n".join(f"{k}:{v}" for k, v in sorted(signed_headers.items()))
 
         # Compute body hash
-        body_hash = self._compute_body_hash(body)
+        _body_hash=self._compute_body_hash(body)
 
         # Build canonical request
         canonical = f"{method}\n{path}\n{timestamp}\n{header_string}\n{body_hash}"
@@ -268,7 +316,7 @@ class RequestSigner:
             Dictionary with signature headers to add to request
         """
         headers = headers or {}
-        timestamp = timestamp or datetime.now(timezone.utc).strftime(
+        _timestamp=timestamp or datetime.now(timezone.utc).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
         )
 
@@ -285,7 +333,7 @@ class RequestSigner:
         ).hexdigest()
 
         # Build signed headers list
-        signed_headers = ", ".join(sorted(self.config.include_headers))
+        _signed_headers=", ".join(sorted(self.config.include_headers))
 
         return {
             "X-DebVisor-Signature": signature,
@@ -329,7 +377,7 @@ class RequestSigner:
         # Verify algorithm matches
         if algorithm:
             try:
-                algo = SigningAlgorithm(algorithm)
+                _algo=SigningAlgorithm(algorithm)
                 if algo != self.config.algorithm:
                     return False, (
                         "Algorithm mismatch: expected "
@@ -340,10 +388,10 @@ class RequestSigner:
 
         # Verify timestamp is recent
         try:
-            request_time = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ").replace(
+            _request_time=datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ").replace(
                 _tzinfo = timezone.utc
             )
-            now = datetime.now(timezone.utc)
+            _now=datetime.now(timezone.utc)
 
             if (
                 abs((now - request_time).total_seconds())
@@ -383,7 +431,7 @@ class RequestSigner:
             Dictionary with signature headers or None if not present
         """
         # Normalize header keys
-        normalized = {k.lower(): v for k, v in headers.items()}
+        _normalized={k.lower(): v for k, v in headers.items()}
 
         required = [
             "x-debvisor-signature",
@@ -410,12 +458,12 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
     Flask decorator to require signed requests.
 
     Example:
-        signer = RequestSigner(SigningConfig(secret_key=os.getenv("SIGNING_KEY")))
+        _signer=RequestSigner(SigningConfig(secret_key=os.getenv("SIGNING_KEY")))
 
         @app.route("/api/internal/nodes", methods=["POST"])
         @require_signed_request(signer)
 
-        def create_node():
+        def create_node() -> None:
             return jsonify({"status": "ok"})
     """
 
@@ -427,7 +475,7 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
             from flask import request, jsonify
 
             # Extract signature headers
-            sig_headers = signer.extract_signature_headers(dict(request.headers))
+            _sig_headers=signer.extract_signature_headers(dict(request.headers))
 
             if not sig_headers:
                 logger.warning(f"Missing signature headers for {request.path}")
@@ -445,12 +493,12 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
             is_valid, error = signer.verify_request(
                 _method = request.method,
                 _path = request.path,
-                _body = request.get_data(),
-                headers=dict(request.headers),
-                signature=sig_headers["signature"],
+                _body=request.get_data(),
+                _headers=dict(request.headers),
+                _signature=sig_headers["signature"],
                 _timestamp = sig_headers["timestamp"],
-                _algorithm = sig_headers.get("algorithm"),
-                _key_id = sig_headers.get("key_id"),
+                _algorithm=sig_headers.get("algorithm"),
+                _key_id=sig_headers.get("key_id"),
             )
 
             if not is_valid:
@@ -482,11 +530,11 @@ class SignedHTTPClient:
 
     Example:
         client = SignedHTTPClient(
-            base_url="http://node-service:8080",
-            signer=RequestSigner(SigningConfig(secret_key="secret"))
+            _base_url="http://node-service:8080",
+            _signer=RequestSigner(SigningConfig(secret_key="secret"))
         )
 
-        _response = await client.post("/api/nodes", json={"name": "node-1"})
+        _response=await client.post("/api/nodes", json={"name": "node-1"})
     """
 
     def __init__(
@@ -500,7 +548,7 @@ class SignedHTTPClient:
             signer: Request signer instance
             timeout_seconds: Request timeout
         """
-        self.base_url = base_url.rstrip("/")
+        self.base_url=base_url.rstrip("/")
         self.signer = signer
         self.timeout_seconds = timeout_seconds
 
@@ -531,12 +579,12 @@ class SignedHTTPClient:
 
         # Handle JSON body
         if json_data is not None:
-            body = json.dumps(json_data).encode("utf-8")
+            _body=json.dumps(json_data).encode("utf-8")
             headers["Content-Type"] = "application/json"
 
         # Sign the request
         sig_headers = self.signer.sign_request(
-            method=method, path=path, body=body, headers=headers
+            _method=method, path=path, body=body, headers=headers
         )
         headers.update(sig_headers)
 
@@ -547,11 +595,11 @@ class SignedHTTPClient:
             async with session.request(
                 _method = method,
                 _url = url,
-                data=body,
-                headers=headers,
-                _timeout = aiohttp.ClientTimeout(total=self.timeout_seconds),
+                _data=body,
+                _headers=headers,
+                _timeout=aiohttp.ClientTimeout(total=self.timeout_seconds),
             ) as response:
-                response_body = await response.text()
+                _response_body=await response.text()
 
                 if response.content_type == "application/json":
                     return {
@@ -591,24 +639,24 @@ class MultiKeyRequestSigner:
     Request signer with multiple key support for rotation.
 
     Example:
-        signer = MultiKeyRequestSigner()
+        _signer=MultiKeyRequestSigner()
         signer.add_key("key-2025-11", "secret-1", is_primary=True)
         signer.add_key("key-2025-10", "secret-0")    # Old key for verification
 
         # Signs with primary key
-        sig = signer.sign_request(...)
+        _sig=signer.sign_request(...)
 
         # Verifies with any registered key
-        valid, error = signer.verify_request(...)
+        valid, error=signer.verify_request(...)
     """
 
-    def __init__(self, algorithm: SigningAlgorithm = SigningAlgorithm.HMAC_SHA256):
+    def __init__(self, algorithm: SigningAlgorithm=SigningAlgorithm.HMAC_SHA256) -> None:
         """Initialize multi-key signer."""
         self.algorithm = algorithm
         self._keys: Dict[str, RequestSigner] = {}
         self._primary_key_id: Optional[str] = None
 
-    def add_key(self, key_id: str, secret_key: str, is_primary: bool = False) -> None:
+    def add_key(self, key_id: str, secret_key: str, is_primary: bool=False) -> None:
         """
         Add a signing key.
 
@@ -662,7 +710,7 @@ class MultiKeyRequestSigner:
 
         # Try all keys
         for kid, signer in self._keys.items():
-            is_valid, error = signer.verify_request(key_id=kid, **kwargs)
+            is_valid, error=signer.verify_request(key_id=kid, **kwargs)
             if is_valid:
                 return True, ""
 
@@ -678,10 +726,10 @@ def get_default_signer() -> RequestSigner:
 
     Uses DEBVISOR_SIGNING_KEY environment variable.
     """
-    secret_key = os.getenv("DEBVISOR_SIGNING_KEY")
+    _secret_key=os.getenv("DEBVISOR_SIGNING_KEY")
     if not secret_key:
     # Generate a random key for development
-        secret_key = base64.b64encode(os.urandom(32)).decode("utf-8")
+        _secret_key=base64.b64encode(os.urandom(32)).decode("utf-8")
         logger.warning(
             "DEBVISOR_SIGNING_KEY not set, using random key. " "Set this in production!"
         )

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,13 +166,13 @@ try:
     import structlog
 
     configure_logging(service_name="rpc-server")
-    logger = structlog.get_logger(__name__)
+    _logger=structlog.get_logger(__name__)
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO,
-        _format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        _level=logging.INFO,
+        _format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     )
-    _logger = logging.getLogger(__name__)
+    _logger=logging.getLogger(__name__)
 
 
 class StatusCode(Enum):
@@ -139,13 +187,13 @@ class StatusCode(Enum):
 class RateLimitingInterceptor(grpc.ServerInterceptor):
     """Simple per-principal sliding window rate limiter."""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._calls: Dict[str, List[float]] = {}
-        rl_cfg = config.get("rate_limit", {})
-        self.window_seconds = float(rl_cfg.get("window_seconds", 60))
-        self.max_calls = int(rl_cfg.get("max_calls", 120))
+        _rl_cfg=config.get("rate_limit", {})
+        self.window_seconds=float(rl_cfg.get("window_seconds", 60))
+        self.max_calls=int(rl_cfg.get("max_calls", 120))
         # Optional per-method overrides: {"/debvisor.NodeService/RegisterNode":
             # {"window_seconds":30, "max_calls": 30}}
         self.method_limits: Dict[str, Dict[str, float]] = rl_cfg.get(
@@ -170,9 +218,9 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
     ) -> Any:
 
         def _wrapped_behavior(request: Any, context: grpc.ServicerContext) -> Any:
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             _key = f"{principal.principal_id if principal else 'anonymous'}:{handler_call_details.method}"
-            _now = time.time()
+            _now=time.time()
             # Resolve method-specific limits if any
             method_cfg: Dict[str, float] = self.method_limits.get(
                 handler_call_details.method, {}
@@ -187,14 +235,14 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
                 import re
 
                 for entry in self.method_limits_patterns:
-                    pat = entry.get("pattern")
+                    _pat=entry.get("pattern")
                     if pat and re.search(pat, handler_call_details.method):
                         method_cfg = entry
                         break
-            window = float(method_cfg.get("window_seconds", self.window_seconds))
-            max_calls = int(method_cfg.get("max_calls", self.max_calls))
+            _window=float(method_cfg.get("window_seconds", self.window_seconds))
+            _max_calls=int(method_cfg.get("max_calls", self.max_calls))
             with self._lock:
-                history = self._calls.setdefault(key, [])
+                _history=self._calls.setdefault(key, [])
                 # Evict old entries outside window
                 cutoff = now - window
                 history[:] = [t for t in history if t >= cutoff]
@@ -205,7 +253,7 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
                 history.append(now)
             return continuation(handler_call_details).unary_unary(request, context)
 
-        handler = continuation(handler_call_details)
+        _handler=continuation(handler_call_details)
         if handler.unary_unary:
             return grpc.unary_unary_rpc_method_handler(
                 _wrapped_behavior,
@@ -218,7 +266,7 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
 class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     """Implementation of NodeService RPC calls"""
 
-    def __init__(self, backend: Any = None) -> None:
+    def __init__(self, backend: Any=None) -> None:
         self.backend = backend
         self.nodes: Dict[str, Dict[str, Any]] = (
             {}
@@ -231,15 +279,15 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         """Register a new node or update existing node"""
         try:
         # Validate inputs
-            _hostname = RequestValidator.validate_hostname(request.hostname)
-            ip = RequestValidator.validate_ipv4(request.ip)
+            _hostname=RequestValidator.validate_hostname(request.hostname)
+            _ip=RequestValidator.validate_ipv4(request.ip)
 
             # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "node:register", context)
 
             # Store node (in production, write to persistent storage)
-            node_id = f"node-{len(self.nodes) + 1:03d}"
+            _node_id=f"node-{len(self.nodes) + 1:03d}"
             self.nodes[node_id] = {
                 "id": node_id,
                 "hostname": hostname,
@@ -279,10 +327,10 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         """Send heartbeat from node"""
         try:
         # Validate inputs
-            node_id = RequestValidator.validate_uuid(request.node_id)
+            _node_id=RequestValidator.validate_uuid(request.node_id)
 
             # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "node:heartbeat", context)
 
             # Check node exists
@@ -299,8 +347,8 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
 
             return debvisor_pb2.HealthAck(
                 _status = StatusCode.OK.value,
-                timestamp=debvisor_pb2.Timestamp(
-                    _seconds = int(datetime.now(timezone.utc).timestamp()),
+                _timestamp=debvisor_pb2.Timestamp(
+                    _seconds=int(datetime.now(timezone.utc).timestamp()),
                     _nanos = 0,
                 ),
             )
@@ -319,10 +367,10 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
         """List all registered nodes"""
         try:
         # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "node:list", context)
 
-            _nodes = list(self.nodes.values())
+            _nodes=list(self.nodes.values())
 
             _node_summaries = [
                 debvisor_pb2.NodeSummary(
@@ -330,7 +378,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
                     _hostname = n["hostname"],
                     _ip = n["ip"],
                     _status = n["status"],
-                    registered_at=debvisor_pb2.Timestamp(
+                    _registered_at=debvisor_pb2.Timestamp(
                         _seconds = int(
                             datetime.fromisoformat(n["registered_at"]).timestamp()
                         ),
@@ -356,7 +404,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
 class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
     """Implementation of StorageService RPC calls"""
 
-    def __init__(self, backend: Any = None) -> None:
+    def __init__(self, backend: Any=None) -> None:
         self.backend = backend
         self.snapshots: Dict[str, Dict[str, Any]] = {}    # In-memory store for demo
         logger.info("StorageServiceImpl initialized")
@@ -369,15 +417,15 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
         """Create a ZFS or Ceph RBD snapshot"""
         try:
         # Validate inputs
-            _pool = RequestValidator.validate_label(request.pool, max_length=256)
-            snapshot = RequestValidator.validate_label(request.snapshot, max_length=256)
+            _pool=RequestValidator.validate_label(request.pool, max_length=256)
+            _snapshot=RequestValidator.validate_label(request.snapshot, max_length=256)
 
             # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "storage:snapshot:create", context)
 
             # Create snapshot (in production, interact with ZFS/Ceph)
-            snapshot_id = f"snap-{len(self.snapshots) + 1:06d}"
+            _snapshot_id=f"snap-{len(self.snapshots) + 1:06d}"
             self.snapshots[snapshot_id] = {
                 "id": snapshot_id,
                 "pool": pool,
@@ -399,7 +447,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 _status = StatusCode.OK.value,
                 _message = "Snapshot created successfully",
                 _created_at = debvisor_pb2.Timestamp(
-                    _seconds = int(datetime.now(timezone.utc).timestamp()),
+                    _seconds=int(datetime.now(timezone.utc).timestamp()),
                 ),
             )
 
@@ -421,11 +469,11 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
         """List storage snapshots"""
         try:
         # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "storage:snapshot:list", context)
 
             # Filter snapshots by pool if specified
-            snapshots = list(self.snapshots.values())
+            _snapshots=list(self.snapshots.values())
             if request.pool:
                 _snapshots = [s for s in snapshots if s["pool"] == request.pool]
 
@@ -433,10 +481,10 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 debvisor_pb2.SnapshotSummary(
                     _snapshot_id = s["id"],
                     _pool = s["pool"],
-                    snapshot=s["snapshot"],
+                    _snapshot=s["snapshot"],
                     _backend = s["backend"],
                     _size_bytes = s["size_bytes"],
-                    created_at=debvisor_pb2.Timestamp(
+                    _created_at=debvisor_pb2.Timestamp(
                         _seconds = int(
                             datetime.fromisoformat(s["created_at"]).timestamp()
                         ),
@@ -465,10 +513,10 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
     ) -> debvisor_pb2.SnapshotStatus:
         """Delete a snapshot"""
         try:
-            snapshot_id = RequestValidator.validate_uuid(request.snapshot_id)
+            _snapshot_id=RequestValidator.validate_uuid(request.snapshot_id)
 
             # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "storage:snapshot:delete", context)
 
             # Check snapshot exists
@@ -478,7 +526,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
                 )
 
             # Delete snapshot
-            snapshot = self.snapshots.pop(snapshot_id)
+            _snapshot=self.snapshots.pop(snapshot_id)
             logger.info(
                 f'Snapshot deleted: {snapshot["pool"]}@{snapshot["snapshot"]}, '
                 f'principal={principal.principal_id if principal else "unknown"}'
@@ -502,7 +550,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
 class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
     """Implementation of MigrationService RPC calls"""
 
-    def __init__(self, backend: Any = None) -> None:
+    def __init__(self, backend: Any=None) -> None:
         self.backend = backend
         self.migrations: Dict[str, Any] = {}    # Track in-flight migrations
         logger.info("MigrationServiceImpl initialized")
@@ -512,11 +560,11 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
     ) -> debvisor_pb2.MigrationPlan:
         """Plan a VM migration"""
         try:
-            vm_id = RequestValidator.validate_uuid(request.vm_id)
-            _target_node = RequestValidator.validate_hostname(request.target_node)
+            _vm_id=RequestValidator.validate_uuid(request.vm_id)
+            _target_node=RequestValidator.validate_hostname(request.target_node)
 
             # Check authorization
-            principal = extract_identity(context)
+            _principal=extract_identity(context)
             check_permission(principal, "migration:plan", context)
 
             # Plan migration (validate prerequisites)
@@ -534,7 +582,7 @@ class MigrationServiceImpl(debvisor_pb2_grpc.MigrationServiceServicer):
             )
 
             return debvisor_pb2.MigrationPlan(
-                _plan_id = f"plan-{datetime.now(timezone.utc).timestamp()}",
+                _plan_id=f"plan-{datetime.now(timezone.utc).timestamp()}",
                 _status = StatusCode.OK.value,
                 _estimated_duration_seconds = plan["estimated_duration_seconds"],
                 _message = "Migration plan created",
@@ -554,7 +602,7 @@ class RPCServer:
 
     def __init__(self, config_file: Optional[str] = None) -> None:
         """Initialize RPC server with configuration"""
-        self.config = self._load_config(config_file)
+        self.config=self._load_config(config_file)
         self.server: Optional[grpc.Server] = None
         self.cert_monitor: Any = None
         logger.info(f"RPCServer initialized from config: {config_file}")
@@ -565,7 +613,7 @@ class RPCServer:
         if config_file:
             try:
                 with open(config_file, "r") as f:
-                    config = json.load(f)
+                    _config=json.load(f)
                 logger.info(f"Configuration loaded from {config_file}")
             except FileNotFoundError:
                 logger.warning(
@@ -604,21 +652,21 @@ class RPCServer:
 
     def _load_tls_credentials(self) -> grpc.ServerCredentials:
         """Load TLS certificates for server"""
-        cert_file = str(self.config.get("tls_cert_file", "/etc/debvisor/certs/server.crt"))
-        key_file = str(self.config.get("tls_key_file", "/etc/debvisor/certs/server.key"))
-        _ca_file = self.config.get("tls_ca_file")
+        _cert_file=str(self.config.get("tls_cert_file", "/etc/debvisor/certs/server.crt"))
+        _key_file=str(self.config.get("tls_key_file", "/etc/debvisor/certs/server.key"))
+        _ca_file=self.config.get("tls_ca_file")
 
         try:
             with open(key_file, "rb") as f:
-                _private_key = f.read()
+                _private_key=f.read()
 
             with open(cert_file, "rb") as f:
-                _certificate_chain = f.read()
+                _certificate_chain=f.read()
 
             ca_cert = None
             if ca_file:
                 with open(str(ca_file), "rb") as f:
-                    _ca_cert = f.read()
+                    _ca_cert=f.read()
 
             logger.info("TLS credentials loaded successfully")
 
@@ -630,7 +678,7 @@ class RPCServer:
             return grpc.ssl_server_credentials(
                 [(private_key, certificate_chain)],
                 _root_certificates = ca_cert,
-                _require_client_auth = bool(self.config.get("require_client_auth", True)),
+                _require_client_auth=bool(self.config.get("require_client_auth", True)),
             )
 
         except FileNotFoundError as e:
@@ -653,8 +701,8 @@ class RPCServer:
         ]
 
         # Configure Connection Pooling & Performance Options
-        pool_config = self.config.get("connection_pool", {})
-        _max_workers = pool_config.get("max_connections", 50)
+        _pool_config=self.config.get("connection_pool", {})
+        _max_workers=pool_config.get("max_connections", 50)
 
         # gRPC Channel Options for Performance & Keepalive
         _options = [
@@ -675,10 +723,10 @@ class RPCServer:
         ]
 
         # Configure Compression
-        compression_config = self.config.get("compression", {})
+        _compression_config=self.config.get("compression", {})
         compression_algorithm = grpc.Compression.NoCompression
         if compression_config.get("enabled", False):
-            algo = compression_config.get("algorithm", "gzip").lower()
+            _algo=compression_config.get("algorithm", "gzip").lower()
             if algo == "gzip":
                 compression_algorithm = grpc.Compression.Gzip
             elif algo == "deflate":
@@ -707,11 +755,11 @@ class RPCServer:
         )
 
         # Load TLS credentials
-        tls_creds = self._load_tls_credentials()
+        _tls_creds=self._load_tls_credentials()
 
         # Bind to port
-        host = self.config.get("host", "127.0.0.1")
-        port = self.config.get("port", 7443)
+        _host=self.config.get("host", "127.0.0.1")
+        _port=self.config.get("port", 7443)
         self.server.add_secure_port(f"{host}:{port}", tls_creds)
 
         logger.info(f"RPC server listening on {host}:{port}")
@@ -727,7 +775,7 @@ class RPCServer:
             logger.info("Shutting down RPC server")
             self.stop()
 
-    def stop(self, grace_timeout: int = 5) -> None:
+    def stop(self, grace_timeout: int=5) -> None:
         """Gracefully shutdown RPC server"""
         if self.server:
             logger.info(f"Shutting down server (grace timeout: {grace_timeout}s)")
@@ -739,7 +787,7 @@ def main() -> None:
     # Use centralized configuration if available
     try:
         from opt.core.config import Settings
-        settings = Settings()
+        _settings=Settings()
 
         # Map Settings to legacy config dict structure for backward compatibility
         _config = {
@@ -759,21 +807,21 @@ def main() -> None:
         }
 
         # Override with file config if present (legacy support)
-        config_file = os.environ.get("RPC_CONFIG_FILE")
+        _config_file=os.environ.get("RPC_CONFIG_FILE")
         if config_file and os.path.exists(config_file):
             with open(config_file, "r") as f:
-                file_config = json.load(f)
+                _file_config=json.load(f)
                 config.update(file_config)
 
-        server = RPCServer(config_file=None)    # Pass None to skip internal file loading
+        _server=RPCServer(config_file=None)    # Pass None to skip internal file loading
         server.config = config    # Inject config directly
         server.start()
 
     except ImportError:
     # Fallback to legacy behavior
-        config_file = os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")
+        _config_file=os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")
         try:
-            server = RPCServer(config_file)
+            _server=RPCServer(config_file)
             server.start()
         except Exception as e:
             logger.error(f"Failed to start RPC server: {e}")

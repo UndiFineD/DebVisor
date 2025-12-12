@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,7 +143,7 @@ from typing import List, Optional, Dict, Any, Set
 from enum import Enum
 from ipaddress import ip_address, ip_network
 
-_logger = logging.getLogger(__name__)  # type: ignore[name-defined]
+_logger=logging.getLogger(__name__)  # type: ignore[name-defined]
 
 
 class Action(Enum):
@@ -168,25 +216,25 @@ class Condition:
         result = False
 
         if self.type == ConditionType.TIME_RANGE:
-            result = self._evaluate_time_range(context)
+            _result=self._evaluate_time_range(context)
         elif self.type == ConditionType.IP_ADDRESS:
-            result = self._evaluate_ip_address(context)
+            _result=self._evaluate_ip_address(context)
         elif self.type == ConditionType.IP_NETWORK:
-            result = self._evaluate_ip_network(context)
+            _result=self._evaluate_ip_network(context)
         elif self.type == ConditionType.ATTRIBUTE:
-            result = self._evaluate_attribute(context)
+            _result=self._evaluate_attribute(context)
         elif self.type == ConditionType.TAG:
-            result = self._evaluate_tag(context)
+            _result=self._evaluate_tag(context)
         elif self.type == ConditionType.CUSTOM:
-            result = self._evaluate_custom(context)
+            _result=self._evaluate_custom(context)
 
         return not result if self.negate else result
 
     def _evaluate_time_range(self, context: "AuthorizationContext") -> bool:
         """Check if current time is within allowed range."""
-        start_time = dt_time.fromisoformat(self.parameters["start_time"])
-        end_time = dt_time.fromisoformat(self.parameters["end_time"])
-        current_time = datetime.now(timezone.utc).time()
+        _start_time=dt_time.fromisoformat(self.parameters["start_time"])
+        _end_time=dt_time.fromisoformat(self.parameters["end_time"])
+        _current_time=datetime.now(timezone.utc).time()
 
         if start_time <= end_time:
             return start_time <= current_time <= end_time
@@ -203,8 +251,8 @@ class Condition:
             return False
 
         try:
-            client = ip_address(client_ip)
-            return any(client == ip_address(allowed_ip) for allowed_ip in allowed_ips)
+            _client=ip_address(client_ip)
+            return any(client== ip_address(allowed_ip) for allowed_ip in allowed_ips)
         except ValueError:
             return False
 
@@ -217,7 +265,7 @@ class Condition:
             return False
 
         try:
-            client = ip_address(client_ip)
+            _client=ip_address(client_ip)
             return any(client in ip_network(network) for network in allowed_networks)
         except ValueError:
             return False
@@ -240,7 +288,7 @@ class Condition:
     def _evaluate_tag(self, context: "AuthorizationContext") -> bool:
         """Check if resource has required tags."""
         required_tags = self.parameters["tags"]
-        resource_tags = context.resource_attributes.get("tags", {})
+        _resource_tags=context.resource_attributes.get("tags", {})
 
         for key, value in required_tags.items():
             if resource_tags.get(key) != value:
@@ -250,7 +298,7 @@ class Condition:
 
     def _evaluate_custom(self, context: "AuthorizationContext") -> bool:
         """Evaluate custom condition using callable."""
-        evaluator = self.parameters.get("evaluator")
+        _evaluator=self.parameters.get("evaluator")
         if callable(evaluator):
             return evaluator(context)
         return False
@@ -282,7 +330,7 @@ class Permission:
             return True
 
         # Pattern matching for resource IDs (supports wildcards)
-        pattern = self.resource_id.replace("*", ".*")
+        _pattern=self.resource_id.replace("*", ".*")
         return bool(re.match(f"^{pattern}$", resource_id))
 
     def allows_action(self, action: Action) -> bool:
@@ -327,11 +375,11 @@ class Role:
         Returns:
             List of all permissions (own + inherited)
         """
-        all_permissions = list(self.permissions)
+        _all_permissions=list(self.permissions)
 
         # Recursively gather permissions from parent roles
         for parent_name in self.parent_roles:
-            parent = role_manager.get_role(parent_name)
+            _parent=role_manager.get_role(parent_name)
             if parent:
                 all_permissions.extend(parent.get_all_permissions(role_manager))
 
@@ -351,7 +399,7 @@ class AuthorizationContext:
     resource_attributes: Dict[str, Any]
     action: Action
     client_ip: Optional[str] = None
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     additional_context: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -369,7 +417,7 @@ class AuthorizationDecision:
     matched_permissions: List[Permission]
     failed_conditions: List[Condition]
     reason: str
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class RoleManager:
@@ -394,12 +442,12 @@ class RoleManager:
         self.create_role(
             Role(
                 _name = "superadmin",
-                description="Full system access",
+                _description="Full system access",
                 _permissions = [
                     Permission(
                         _resource_type = rt,
                         _resource_id = None,
-                        _actions = list(Action),
+                        _actions=list(Action),
                         _description = f"Full access to all {rt.value} resources",
                     )
                     for rt in ResourceType
@@ -427,9 +475,9 @@ class RoleManager:
 
         self.create_role(
             Role(
-                name="admin",
-                description="Administrative access",
-                permissions=admin_permissions,
+                _name="admin",
+                _description="Administrative access",
+                _permissions=admin_permissions,
             )
         )
 
@@ -526,12 +574,12 @@ class RoleManager:
 
     def get_principal_roles(self, principal_id: str) -> List[Role]:
         """Get all roles assigned to principal."""
-        role_names = self.principal_roles.get(principal_id, set())
+        _role_names=self.principal_roles.get(principal_id, set())
         return [self.roles[name] for name in role_names if name in self.roles]
 
     def get_principal_permissions(self, principal_id: str) -> List[Permission]:
         """Get all permissions for principal (including inherited)."""
-        roles = self.get_principal_roles(principal_id)
+        _roles=self.get_principal_roles(principal_id)
 
         all_permissions = []
         for role in roles:
@@ -551,7 +599,7 @@ class RoleManager:
         Returns:
             AuthorizationDecision with allow/deny and reasoning
         """
-        permissions = self.get_principal_permissions(context.principal_id)
+        _permissions=self.get_principal_permissions(context.principal_id)
 
         _matched_permissions = []
         _failed_conditions = []
@@ -577,12 +625,12 @@ class RoleManager:
             matched_permissions.append(permission)
 
         # Authorization decision
-        allowed = len(matched_permissions) > 0
+        _allowed=len(matched_permissions) > 0
 
         if allowed:
-            reason = f"Allowed by {len(matched_permissions)} permission(s)"
+            _reason=f"Allowed by {len(matched_permissions)} permission(s)"
         elif failed_conditions:
-            reason = f"Denied: {len(failed_conditions)} condition(s) not satisfied"
+            _reason=f"Denied: {len(failed_conditions)} condition(s) not satisfied"
         else:
             _reason = "Denied: No matching permissions"
 
@@ -594,7 +642,7 @@ class RoleManager:
             _action = context.action,
             _matched_permissions = matched_permissions,
             _failed_conditions = failed_conditions,
-            reason=reason,
+            _reason=reason,
         )
 
         # Audit log
@@ -611,12 +659,12 @@ class RoleManager:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)  # type: ignore[name-defined]
 
-    _rm = RoleManager()
+    _rm=RoleManager()
 
     # Create custom role with conditional permissions
     _business_hours_condition = Condition(
-        type=ConditionType.TIME_RANGE,
-        parameters={
+        _type=ConditionType.TIME_RANGE,
+        _parameters={
             "start_time": "09:00:00",
             "end_time": "17:00:00",
         },
@@ -631,7 +679,7 @@ if __name__ == "__main__":
 
     _business_role = Role(
         _name = "business_user",
-        description="Business hours access from office network",
+        _description="Business hours access from office network",
         _permissions = [
             Permission(
                 _resource_type = ResourceType.VM,
@@ -657,5 +705,5 @@ if __name__ == "__main__":
         _client_ip = "192.168.1.100",
     )
 
-    decision = rm.authorize(context)
+    _decision=rm.authorize(context)
     print(f"Decision: {decision.allowed}, Reason: {decision.reason}")

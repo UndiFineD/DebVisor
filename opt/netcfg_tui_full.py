@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,7 +143,7 @@ from abc import ABC, abstractmethod
 import logging
 
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class InterfaceType(Enum):
@@ -334,7 +382,7 @@ class InterfaceStatus:
     tx_errors: int = 0
     rx_dropped: int = 0
     tx_dropped: int = 0
-    updated_at: datetime = field(default_factory=datetime.now)
+    updated_at: datetime=field(default_factory=datetime.now)
 
     def is_up(self) -> bool:
         """Check if interface is up."""
@@ -432,13 +480,13 @@ class Iproute2Backend(NetworkBackend):
 
     def get_interface_status(self, interface_name: str) -> Optional[InterfaceStatus]:
         """Get interface status."""
-        config = self.interfaces.get(interface_name)
+        _config=self.interfaces.get(interface_name)
         if not config:
             return None
 
         # Placeholder: would parse ip command output
         return InterfaceStatus(
-            name=interface_name,
+            _name=interface_name,
             _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,
             _addresses = config.addresses,
             _mtu = config.mtu,
@@ -495,12 +543,12 @@ class NmcliBackend(NetworkBackend):
 
     def get_interface_status(self, interface_name: str) -> Optional[InterfaceStatus]:
         """Get interface status."""
-        config = self.connections.get(interface_name)
+        _config=self.connections.get(interface_name)
         if not config:
             return None
 
         return InterfaceStatus(
-            name=interface_name,
+            _name=interface_name,
             _state = ConnectionState.UP if config.enabled else ConnectionState.DOWN,
             _addresses = config.addresses,
             _mtu = config.mtu,
@@ -566,7 +614,7 @@ class ConfigurationBackup:
 class NetworkConfigurationManager:
     """Central network configuration manager."""
 
-    def __init__(self, backend: NetworkBackend):
+    def __init__(self, backend: NetworkBackend) -> None:
         """
         Initialize manager.
 
@@ -600,19 +648,19 @@ class NetworkConfigurationManager:
 
         return len(errors) == 0, errors
 
-    def create_backup(self, description: str = "") -> ConfigurationBackup:
+    def create_backup(self, description: str="") -> ConfigurationBackup:
         """Create configuration backup."""
-        backup_id = f"backup_{datetime.now().timestamp()}"
+        _backup_id=f"backup_{datetime.now().timestamp()}"
 
         configs = {}
         for interface_name in self.backend.get_interfaces():
-            config = self.backend.get_interface_config(interface_name)
+            _config=self.backend.get_interface_config(interface_name)
             if config:
                 configs[interface_name] = config
 
         backup = ConfigurationBackup(
             _backup_id = backup_id,
-            timestamp=datetime.now(),
+            _timestamp=datetime.now(),
             _interface_configs = configs,
             _description = description,
         )
@@ -632,7 +680,7 @@ class NetworkConfigurationManager:
 
     def restore_backup(self, backup_id: str) -> bool:
         """Restore from backup."""
-        backup = next((b for b in self.backups if b.backup_id == backup_id), None)
+        _backup=next((b for b in self.backups if b.backup_id== backup_id), None)
         if not backup:
             return False
 
@@ -664,10 +712,10 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             _name = bond_config.name,
             _interface_type = InterfaceType.BOND,
-            bond_config=bond_config.to_dict(),
+            _bond_config=bond_config.to_dict(),
         )
 
-        valid, errors = self.validate_configuration(interface_config)
+        valid, errors=self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"Bond validation failed: {errors}")
             return False
@@ -694,10 +742,10 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             _name = vlan_config.name,
             _interface_type = InterfaceType.VLAN,
-            vlan_config=vlan_config.to_dict(),
+            _vlan_config=vlan_config.to_dict(),
         )
 
-        valid, errors = self.validate_configuration(interface_config)
+        valid, errors=self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"VLAN validation failed: {errors}")
             return False
@@ -724,10 +772,10 @@ class NetworkConfigurationManager:
         interface_config = InterfaceConfig(
             _name = bridge_config.name,
             _interface_type = InterfaceType.BRIDGE,
-            bridge_config=bridge_config.to_dict(),
+            _bridge_config=bridge_config.to_dict(),
         )
 
-        valid, errors = self.validate_configuration(interface_config)
+        valid, errors=self.validate_configuration(interface_config)
         if not valid:
             logger.error(f"Bridge validation failed: {errors}")
             return False
@@ -748,7 +796,7 @@ class NetworkConfigurationManager:
 
     def configure_interface(self, config: InterfaceConfig) -> bool:
         """Configure interface."""
-        valid, errors = self.validate_configuration(config)
+        valid, errors=self.validate_configuration(config)
         if not valid:
             logger.error(f"Configuration validation failed: {errors}")
             return False
@@ -775,14 +823,14 @@ class NetworkConfigurationManager:
         """Get status of all interfaces."""
         statuses = []
         for interface_name in self.backend.get_interfaces():
-            status = self.backend.get_interface_status(interface_name)
+            _status=self.backend.get_interface_status(interface_name)
             if status:
                 statuses.append(status)
         return statuses
 
-    def get_change_log(self, hours: int = 24) -> List[Dict[str, Any]]:
+    def get_change_log(self, hours: int=24) -> List[Dict[str, Any]]:
         """Get change log."""
-        cutoff = datetime.now() - timedelta(hours=hours)
+        _cutoff=datetime.now() - timedelta(hours=hours)
         return [
             entry
             for entry in self.change_log
@@ -793,7 +841,7 @@ class NetworkConfigurationManager:
         """Export all configurations."""
         configs = {}
         for interface_name in self.backend.get_interfaces():
-            config = self.backend.get_interface_config(interface_name)
+            _config=self.backend.get_interface_config(interface_name)
             if config:
                 configs[interface_name] = config.to_dict()
 

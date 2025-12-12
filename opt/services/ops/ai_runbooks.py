@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,7 +153,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -193,7 +241,7 @@ class RunbookRecommendation:
     estimated_time: str = "5-10 minutes"
     risk_assessment: str = "Low"
     success_rate: Optional[float] = None  # Historical success rate
-    generated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    generated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -225,7 +273,7 @@ class RunbookKnowledgeBase:
     - Team expertise and tribal knowledge
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.patterns: Dict[str, Dict[str, Any]] = {}
         self._initialize_patterns()
 
@@ -338,7 +386,7 @@ class RunbookKnowledgeBase:
 
     def match_pattern(self, alert: SystemAlert) -> Optional[Dict[str, Any]]:
         """Match an alert to a known pattern."""
-        alert_text = f"{alert.title} {alert.description}".lower()
+        _alert_text=f"{alert.title} {alert.description}".lower()
 
         _best_match = None
         best_score = 0
@@ -351,7 +399,7 @@ class RunbookKnowledgeBase:
 
             if score > best_score:
                 best_score = score
-                best_match = (pattern_name, pattern_data)
+                _best_match=(pattern_name, pattern_data)
 
         if best_match and best_score > 0:
             return best_match[1]
@@ -374,7 +422,7 @@ class AIRunbookGenerator:
     For now, uses pattern matching + templates.
     """
 
-    def __init__(self, knowledge_base: RunbookKnowledgeBase):
+    def __init__(self, knowledge_base: RunbookKnowledgeBase) -> None:
         self.kb = knowledge_base
         self.historical_success: Dict[str, float] = {}
 
@@ -387,7 +435,7 @@ class AIRunbookGenerator:
         logger.info(f"Generating runbook for alert: {alert.alert_id}")
 
         # Match alert to known patterns
-        pattern = self.kb.match_pattern(alert)
+        _pattern=self.kb.match_pattern(alert)
 
         if not pattern:
             logger.warning(f"No pattern match for alert {alert.alert_id}")
@@ -396,22 +444,22 @@ class AIRunbookGenerator:
         # Generate runbook from pattern
         runbook_id = f"rb-{alert.alert_id}"
 
-        _steps = self._create_remediation_steps(pattern, alert, context)
+        _steps=self._create_remediation_steps(pattern, alert, context)
 
         _recommendation = RunbookRecommendation(
             _runbook_id = runbook_id,
             _title = f"Remediation for {alert.title}",
             _category = pattern["category"],
-            _confidence_score = self._calculate_confidence(pattern, alert),
+            _confidence_score=self._calculate_confidence(pattern, alert),
             _root_cause_analysis = self._generate_root_cause_analysis(
                 pattern, alert, context
             ),
             _remediation_steps = steps,
-            _prerequisites = self._identify_prerequisites(pattern, alert),
-            _documentation_links = self._get_documentation_links(pattern),
-            _estimated_time = self._estimate_time(steps),
-            _risk_assessment = self._assess_risk(steps),
-            _success_rate = self.historical_success.get(runbook_id),
+            _prerequisites=self._identify_prerequisites(pattern, alert),
+            _documentation_links=self._get_documentation_links(pattern),
+            _estimated_time=self._estimate_time(steps),
+            _risk_assessment=self._assess_risk(steps),
+            _success_rate=self.historical_success.get(runbook_id),
         )
 
         logger.info(
@@ -428,19 +476,19 @@ class AIRunbookGenerator:
     ) -> float:
         """Calculate confidence score for the recommendation."""
         # Simple scoring based on pattern match strength
-        alert_text = f"{alert.title} {alert.description}".lower()
+        _alert_text=f"{alert.title} {alert.description}".lower()
 
         matches = sum(
             1 for indicator in pattern["indicators"]
             if indicator in alert_text
         )
 
-        confidence = min(0.5 + (matches * 0.1), 0.95)
+        _confidence=min(0.5 + (matches * 0.1), 0.95)
 
         # Boost confidence if we have historical success
         runbook_id = f"rb-{alert.alert_id}"
         if runbook_id in self.historical_success:
-            confidence = (confidence + self.historical_success[runbook_id]) / 2
+            _confidence=(confidence + self.historical_success[runbook_id]) / 2
 
         return confidence
 
@@ -478,11 +526,11 @@ class AIRunbookGenerator:
             step = RemediationStep(
                 _step_number = i,
                 _description = step_desc,
-                _command = self._generate_command(step_desc, alert, context),
-                _expected_output = self._describe_expected_output(step_desc),
-                _verification = self._create_verification_check(step_desc),
-                _safety_level = self._assess_step_safety(step_desc),
-                _estimated_duration = self._estimate_step_duration(step_desc),
+                _command=self._generate_command(step_desc, alert, context),
+                _expected_output=self._describe_expected_output(step_desc),
+                _verification=self._create_verification_check(step_desc),
+                _safety_level=self._assess_step_safety(step_desc),
+                _estimated_duration=self._estimate_step_duration(step_desc),
             )
             steps.append(step)
 
@@ -495,7 +543,7 @@ class AIRunbookGenerator:
         context: Optional[Dict[str, Any]]
     ) -> Optional[str]:
         """Generate specific command for a remediation step."""
-        step_lower = step_desc.lower()
+        _step_lower=step_desc.lower()
 
         # Pattern-based command generation
         if "top cpu" in step_lower or "identify" in step_lower:
@@ -542,7 +590,7 @@ class AIRunbookGenerator:
         dangerous_keywords = ["delete", "remove", "kill", "force"]
         caution_keywords = ["restart", "stop", "modify", "change"]
 
-        step_lower = step_desc.lower()
+        _step_lower=step_desc.lower()
 
         if any(kw in step_lower for kw in dangerous_keywords):
             return "dangerous"
@@ -600,8 +648,8 @@ class AIRunbookGenerator:
 
     def _assess_risk(self, steps: List[RemediationStep]) -> str:
         """Assess overall risk of remediation."""
-        dangerous_count = sum(1 for s in steps if s.safety_level == "dangerous")
-        caution_count = sum(1 for s in steps if s.safety_level == "caution")
+        _dangerous_count=sum(1 for s in steps if s.safety_level== "dangerous")
+        _caution_count=sum(1 for s in steps if s.safety_level== "caution")
 
         if dangerous_count > 0:
             return "High"
@@ -618,21 +666,21 @@ class AIRunbookGenerator:
         """Generate a generic runbook when no pattern matches."""
         _steps = [
             RemediationStep(
-                step_number=1,
-                description="Review alert details and error messages",
-                safety_level="safe",
+                _step_number=1,
+                _description="Review alert details and error messages",
+                _safety_level="safe",
             ),
             RemediationStep(
-                step_number=2,
-                description="Check system logs for related errors",
-                command="journalctl -xe | tail -100",
-                safety_level="safe",
+                _step_number=2,
+                _description="Check system logs for related errors",
+                _command="journalctl -xe | tail -100",
+                _safety_level="safe",
             ),
             RemediationStep(
-                step_number=3,
-                description="Verify system resource availability",
+                _step_number=3,
+                _description="Verify system resource availability",
                 _command = "free -h && df -h && uptime",
-                safety_level="safe",
+                _safety_level="safe",
             ),
             RemediationStep(
                 _step_number = 4,
@@ -643,7 +691,7 @@ class AIRunbookGenerator:
 
         return RunbookRecommendation(
             _runbook_id = f"rb-generic-{alert.alert_id}",
-            title=f"Investigation Steps for {alert.title}",
+            _title=f"Investigation Steps for {alert.title}",
             _category = RunbookCategory.APPLICATION,
             _confidence_score = 0.3,
             _root_cause_analysis = (
@@ -666,9 +714,9 @@ class OperationalRunbookManager:
     Main manager for AI-assisted operational runbooks.
     """
 
-    def __init__(self):
-        self.kb = RunbookKnowledgeBase()
-        self.generator = AIRunbookGenerator(self.kb)
+    def __init__(self) -> None:
+        self.kb=RunbookKnowledgeBase()
+        self.generator=AIRunbookGenerator(self.kb)
         self.active_executions: Dict[str, RemediationExecution] = {}
 
     async def handle_alert(
@@ -688,7 +736,7 @@ class OperationalRunbookManager:
         Returns:
             Generated runbook recommendation
         """
-        runbook = await self.generator.generate_runbook(alert, context)
+        _runbook=await self.generator.generate_runbook(alert, context)
 
         if not runbook:
             logger.error(f"Failed to generate runbook for alert {alert.alert_id}")
@@ -711,14 +759,14 @@ class OperationalRunbookManager:
         auto_execute_safe: bool = False
     ) -> RemediationExecution:
         """Execute a runbook's remediation steps."""
-        execution_id = f"exec-{alert.alert_id}-{datetime.now().timestamp()}"
+        _execution_id=f"exec-{alert.alert_id}-{datetime.now().timestamp()}"
 
         execution = RemediationExecution(
-            execution_id=execution_id,
+            _execution_id=execution_id,
             _runbook_id = runbook.runbook_id,
             _alert_id = alert.alert_id,
             _status = RemediationStatus.PENDING,
-            _started_at = datetime.now(timezone.utc),
+            _started_at=datetime.now(timezone.utc),
             _user_approved = not auto_execute_safe,
         )
 
@@ -750,7 +798,7 @@ class OperationalRunbookManager:
             }
 
         execution.status = RemediationStatus.COMPLETED
-        execution.completed_at = datetime.now(timezone.utc)
+        execution.completed_at=datetime.now(timezone.utc)
 
         logger.info(f"Completed execution {execution_id}")
 
@@ -768,7 +816,7 @@ class OperationalRunbookManager:
 
 async def main():
     """Example usage of AI-assisted operational runbooks."""
-    _manager = OperationalRunbookManager()
+    _manager=OperationalRunbookManager()
 
     # Simulate a high CPU alert
     alert = SystemAlert(
@@ -777,7 +825,7 @@ async def main():
         _description = "CPU usage has exceeded 90% for the past 5 minutes",
         _severity = AlertSeverity.HIGH,
         _source = "prometheus",
-        _timestamp = datetime.now(timezone.utc),
+        _timestamp=datetime.now(timezone.utc),
         _metadata = {"cpu_percent": 92.5, "host": "web-server-01"},
         _labels = {"service": "web", "environment": "production"},
     )

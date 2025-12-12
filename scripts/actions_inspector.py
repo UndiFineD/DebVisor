@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,7 +109,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
 
     class _Resp:
 
-        def __init__(self, code: int, raw: bytes):
+        def __init__(self, code: int, raw: bytes) -> None:
             self.status_code = code
             self._raw = raw
 
@@ -87,13 +135,13 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
     class _RequestsShim:
         @staticmethod
 
-        def get(url, headers=None, params=None, timeout=30):
+        def get(url, headers=None, params=None, timeout=30) -> None:
             if params:
                 from urllib.parse import urlencode
 
                 sep = "&" if "?" in url else "?"
-                url = f"{url}{sep}{urlencode(params)}"
-            req = urllib.request.Request(url, headers=headers or {})
+                _url=f"{url}{sep}{urlencode(params)}"
+            _req=urllib.request.Request(url, headers=headers or {})
             try:
                 with urllib.request.urlopen(req, timeout=timeout) as r:    # nosec B310
                     return _Resp(r.getcode(), r.read())
@@ -102,7 +150,7 @@ except ImportError:    # Fallback minimal HTTP client if requests not installed
             except urllib.error.URLError as e:
                 return _Resp(599, str(e).encode())
 
-    _requests = _RequestsShim()  # type: ignore[assignment]
+    _requests=_RequestsShim()  # type: ignore[assignment]
 
 OWNER = "UndiFineD"
 REPO = "DebVisor"
@@ -114,34 +162,34 @@ DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"    # nosec B105 - P
 
 
 def _token() -> str:
-    token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
+    _token=os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
     # Attempt to load from file if env vars missing
-        token_file = os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
+        _token_file=os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
         if os.path.isfile(token_file):
             try:
                 with open(token_file, "r", encoding="utf-8") as f:
-                    raw = f.read().strip()
+                    _raw=f.read().strip()
                 # Support either raw token or KEY=VALUE style
                 if "=" in raw and "\n" not in raw:
                 # Single line KEY=VALUE
-                    k, v = raw.split("=", 1)
+                    k, v=raw.split("=", 1)
                     if k.strip().upper() in {"GH_TOKEN", "GITHUB_TOKEN"}:
-                        token = v.strip()
+                        _token=v.strip()
                 elif "\n" in raw:
                 # Multi-line: search for GH_TOKEN= or GITHUB_TOKEN=
                     for line in raw.splitlines():
                         if line.strip().startswith("GH_TOKEN="):
-                            token = line.split("=", 1)[1].strip()
+                            _token=line.split("=", 1)[1].strip()
                             break
                         if line.strip().startswith("GITHUB_TOKEN="):
-                            token = line.split("=", 1)[1].strip()
+                            _token=line.split("=", 1)[1].strip()
                             break
                     if not token:
                     # Fallback: first non-empty line assumed token
                         for line in raw.splitlines():
                             if line.strip():
-                                token = line.strip()
+                                _token=line.strip()
                                 break
                 else:
                     token = raw
@@ -158,14 +206,14 @@ def _token() -> str:
         if not token:
             print(
                 "ERROR: GH_TOKEN/GITHUB_TOKEN not set and no valid token in file",
-                file=sys.stderr,
+                _file=sys.stderr,
             )
             print(
                 f"Hint: put your token (only) in {DEFAULT_TOKEN_FILE} or export GH_TOKEN",
-                file=sys.stderr,
+                _file=sys.stderr,
             )
             sys.exit(2)
-    token = token.strip()
+    _token=token.strip()
     if not token:
         print(
             "ERROR: GH_TOKEN/GITHUB_TOKEN is empty after trimming whitespace",
@@ -186,11 +234,11 @@ def _request(
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "debvisor-actions-inspector",
     }
-    r = requests.get(url, headers=headers, params=params, timeout=60)
+    _r=requests.get(url, headers=headers, params=params, timeout=60)
     if r.status_code == 401:
         print(
             "ERROR: 401 Unauthorized. Check token scopes (repo, workflow) or expiration.",
-            file=sys.stderr,
+            _file=sys.stderr,
         )
         sys.exit(3)
     if r.status_code == 403:
@@ -214,8 +262,8 @@ def _download_job_logs(job_id: int) -> bytes:
     # Use raw URL (per docs) without API version header path differences.
     # Endpoint: GET /repos/{owner}/{repo}/actions/jobs/{job_id}/logs
     url = f"https://api.github.com/repos/{OWNER}/{REPO}/actions/jobs/{job_id}/logs"
-    r = _request(url, accept="application/vnd.github+json")
-    c = getattr(r, "content", b"")
+    _r=_request(url, accept="application/vnd.github+json")
+    _c=getattr(r, "content", b"")
     if not c or len(c) < 128:    # unlikely small zip; treat as failure
         print(f"[warn] Empty or too small log archive for job {job_id}")
     return c
@@ -228,18 +276,18 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
     GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts -> list artifacts
     GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip -> zip archive
     """
-    artifacts = _get(f"{API_ROOT}/runs/{run_id}/artifacts").get("artifacts", [])
+    _artifacts=_get(f"{API_ROOT}/runs/{run_id}/artifacts").get("artifacts", [])
     if not artifacts:
         print(f"No artifacts for run {run_id}")
         return
     os.makedirs(out_dir, exist_ok=True)
     print(f"Downloading {len(artifacts)} artifacts for run {run_id} into {out_dir}")
     for a in artifacts:
-        aid = a.get("id")
-        name = a.get("name") or f"artifact-{aid}"
+        _aid=a.get("id")
+        _name=a.get("name") or f"artifact-{aid}"
         url = f"https://api.github.com/repos/{OWNER}/{REPO}/actions/artifacts/{aid}/zip"
         try:
-            data = _request(url, accept="application/vnd.github+json").content
+            _data=_request(url, accept="application/vnd.github+json").content
         except SystemExit:
             print(f"  ! Failed to download artifact {aid} ({name})")
             continue
@@ -247,13 +295,13 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
             print(f"  ! Empty artifact {aid} ({name})")
             continue
         try:
-            zf = zipfile.ZipFile(io.BytesIO(data))
-            art_dir = os.path.join(out_dir, name)
+            _zf=zipfile.ZipFile(io.BytesIO(data))
+            _art_dir=os.path.join(out_dir, name)
             os.makedirs(art_dir, exist_ok=True)
             zf.extractall(art_dir)
             print(f"  - Extracted {name} ({len(zf.namelist())} entries)")
         except zipfile.BadZipFile:
-            raw_path = os.path.join(out_dir, f"{name}.zip")
+            _raw_path=os.path.join(out_dir, f"{name}.zip")
             with open(raw_path, "wb") as f:
                 f.write(data)
             print(f"  - Stored raw zip for {name} at {raw_path} (unparseable)")
@@ -263,30 +311,30 @@ def _download_artifacts(run_id: int, out_dir: str) -> None:
 
 
 def fetch_logs(run_id: int, out_dir: str) -> None:
-    jobs_data = _get(f"{API_ROOT}/runs/{run_id}/jobs")
-    jobs = jobs_data.get("jobs", [])
+    _jobs_data=_get(f"{API_ROOT}/runs/{run_id}/jobs")
+    _jobs=jobs_data.get("jobs", [])
     if not jobs:
         print(f"No jobs found for run {run_id}")
         return
     os.makedirs(out_dir, exist_ok=True)
     print(f"Fetching logs for run {run_id} into {out_dir} (jobs={len(jobs)})")
     for j in jobs:
-        jid = j.get("id")
-        name = j.get("name") or f"job-{jid}"
+        _jid=j.get("id")
+        _name=j.get("name") or f"job-{jid}"
         print(f"  - {name} (id={jid})")
         try:
-            data = _download_job_logs(jid)
+            _data=_download_job_logs(jid)
             if not data:
                 continue
-            zf = zipfile.ZipFile(io.BytesIO(data))
-            job_dir = os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}")
+            _zf=zipfile.ZipFile(io.BytesIO(data))
+            _job_dir=os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}")
             os.makedirs(job_dir, exist_ok=True)
             zf.extractall(job_dir)
-            extracted = len(zf.namelist())
+            _extracted=len(zf.namelist())
             print(f"    Extracted {extracted} entries -> {job_dir}")
         except zipfile.BadZipFile:
         # Some endpoints may redirect; handle plain text fallback
-            log_path = os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}.log")
+            _log_path=os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}.log")
             with open(log_path, "wb") as f:
                 f.write(data)
             print(f"    Stored raw log (non-zip) at {log_path}")
@@ -301,19 +349,19 @@ def fetch_logs(run_id: int, out_dir: str) -> None:
 
 
 def list_runs(limit: int, only: List[str]) -> None:
-    per_page = min(limit, 100)
+    _per_page=min(limit, 100)
     runs: List[Dict[str, Any]] = []
     page = 1
     while len(runs) < limit:
-        data = _get(f"{API_ROOT}/runs", params={"per_page": per_page, "page": page})
-        batch = data.get("workflow_runs", [])
+        _data=_get(f"{API_ROOT}/runs", params={"per_page": per_page, "page": page})
+        _batch=data.get("workflow_runs", [])
         if not batch:
             break
         runs.extend(batch)
         page += 1
     runs = runs[:limit]
     if only:
-        only_set = {o.strip().lower() for o in only}
+        _only_set={o.strip().lower() for o in only}
         runs = [
             r
             for r in runs
@@ -321,14 +369,14 @@ def list_runs(limit: int, only: List[str]) -> None:
         ]
     print(f"Showing {len(runs)} runs (requested {limit})")
     for r in runs:
-        rid = r.get("id")
-        num = r.get("run_number")
-        name = r.get("name")
-        status = r.get("status")
-        conclusion = r.get("conclusion") or "-"
-        event = r.get("event")
-        created = r.get("created_at")
-        url = r.get("html_url")
+        _rid=r.get("id")
+        _num=r.get("run_number")
+        _name=r.get("name")
+        _status=r.get("status")
+        _conclusion=r.get("conclusion") or "-"
+        _event=r.get("event")
+        _created=r.get("created_at")
+        _url=r.get("html_url")
         print(
             f"    #{num} id={rid} {name} event={event} status={status} "
             f"conclusion={conclusion} created={created}"
@@ -337,20 +385,20 @@ def list_runs(limit: int, only: List[str]) -> None:
 
 
 def show_run(run_id: int) -> None:
-    jobs_data = _get(f"{API_ROOT}/runs/{run_id}/jobs")
-    jobs = jobs_data.get("jobs", [])
+    _jobs_data=_get(f"{API_ROOT}/runs/{run_id}/jobs")
+    _jobs=jobs_data.get("jobs", [])
     if not jobs:
         print(f"No jobs for run {run_id}")
         return
     print(f"Run {run_id} jobs ({len(jobs)}):")
     for j in jobs:
-        jid = j.get("id")
-        name = j.get("name")
-        status = j.get("status")
-        conclusion = j.get("conclusion")
-        started = j.get("started_at")
-        completed = j.get("completed_at")
-        html_url = j.get("html_url")
+        _jid=j.get("id")
+        _name=j.get("name")
+        _status=j.get("status")
+        _conclusion=j.get("conclusion")
+        _started=j.get("started_at")
+        _completed=j.get("completed_at")
+        _html_url=j.get("html_url")
         print(
             f"- {name} id={jid} status={status} conclusion={conclusion} "
             f"started={started} completed={completed}"
@@ -358,15 +406,15 @@ def show_run(run_id: int) -> None:
         print(f"  {html_url}")
         # Steps summary (only failed or timed out ones for brevity)
         for s in j.get("steps", []):
-            sc = s.get("conclusion")
+            _sc=s.get("conclusion")
             if sc and sc not in ("success", "skipped"):
                 print(f"    * Step '{s.get('name')}' conclusion={sc}")
 
 
 def summarize_failures(limit: int) -> None:
-    per_page = min(limit, 100)
-    data = _get(f"{API_ROOT}/runs", params={"per_page": per_page})
-    runs = data.get("workflow_runs", [])[:limit]
+    _per_page=min(limit, 100)
+    _data=_get(f"{API_ROOT}/runs", params={"per_page": per_page})
+    _runs=data.get("workflow_runs", [])[:limit]
     failed: List[Dict[str, Any]] = [
         r
         for r in runs
@@ -384,7 +432,7 @@ def summarize_failures(limit: int) -> None:
     # Optional deeper look at first failure
     first = failed[0]
     print("\nDetail of first failed run steps:")
-    jobs_data = _get(f"{API_ROOT}/runs/{first['id']}/jobs")
+    _jobs_data=_get(f"{API_ROOT}/runs/{first['id']}/jobs")
     for j in jobs_data.get("jobs", []):
         if j.get("conclusion") != "success":
             print(
@@ -392,7 +440,7 @@ def summarize_failures(limit: int) -> None:
                 f"url={j.get('html_url')}"
             )
             for s in j.get("steps", []):
-                sc = s.get("conclusion")
+                _sc=s.get("conclusion")
                 if sc and sc != "success":
                     print(
                         f"    - Step: {s.get('name')} status={s.get('status')} "
@@ -420,35 +468,35 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     p.add_argument(
         "--debug",
         _action = "store_true",
-        help="Enable verbose debug and token verification checks",
+        _help="Enable verbose debug and token verification checks",
     )
-    sub = p.add_subparsers(dest="command", required=True)
+    _sub=p.add_subparsers(dest="command", required=True)
 
-    pr = sub.add_parser("list-runs")
+    _pr=sub.add_parser("list-runs")
     pr.add_argument("--limit", type=int, default=30, help="Max runs to list (<=300)")
     pr.add_argument(
         "--only",
-        type=str,
-        default="",
-        help="Comma list of conclusions to include (e.g. failed, cancelled)",
+        _type=str,
+        _default="",
+        _help="Comma list of conclusions to include (e.g. failed, cancelled)",
     )
 
-    sr = sub.add_parser("show-run")
+    _sr=sub.add_parser("show-run")
     sr.add_argument("run_id", type=int, help="Run ID to inspect")
 
-    sf = sub.add_parser("summarize-failures")
+    _sf=sub.add_parser("summarize-failures")
     sf.add_argument("--limit", type=int, default=50, help="Max runs to scan")
 
-    fl = sub.add_parser("fetch-logs")
+    _fl=sub.add_parser("fetch-logs")
     fl.add_argument("run_id", type=int, help="Run ID to download logs for")
     fl.add_argument(
         "--out-dir",
-        type=str,
-        default="logs/actions",
-        help="Directory to store extracted logs",
+        _type=str,
+        _default="logs/actions",
+        _help="Directory to store extracted logs",
     )
 
-    da = sub.add_parser("download-artifacts")
+    _da=sub.add_parser("download-artifacts")
     da.add_argument("run_id", type=int, help="Run ID to download artifacts for")
     da.add_argument(
         "--out-dir",
@@ -461,17 +509,17 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 
 
 def main(argv: List[str]) -> None:
-    args = parse_args(argv)
+    _args=parse_args(argv)
     if args.debug:
     # Basic token diagnostics before executing command
-        tok = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or ""
+        _tok=os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or ""
         print(
             f"[debug] token length={len(tok)} startswith={tok[:4]!r} endswith={tok[-4:]!r} "
             f"spaces?={tok != tok.strip()}"
         )
         # Try user endpoint to confirm scopes
         try:
-            udata = _get("https://api.github.com/user")
+            _udata=_get("https://api.github.com/user")
             print(
                 f"[debug] authenticated as: {udata.get('login')} (id={udata.get('id')})"
             )
@@ -480,7 +528,7 @@ def main(argv: List[str]) -> None:
             raise
         # Try minimal runs endpoint
         try:
-            test_runs = _get(f"{API_ROOT}/runs", params={"per_page": 1})
+            _test_runs=_get(f"{API_ROOT}/runs", params={"per_page": 1})
             print(f"[debug] can access actions runs: keys={list(test_runs.keys())[:5]}")
         except SystemExit:
             print("[debug] token failed actions runs endpoint check")

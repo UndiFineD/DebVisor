@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,11 +133,11 @@ def setup_parser(subparsers: argparse._SubParsersAction) -> None:
     Args:
         subparsers: The subparsers object from the main parser.
     """
-    parser = subparsers.add_parser("cost", help="Cost Optimization and Reporting")
-    cost_subparsers = parser.add_subparsers(dest="cost_command", help="Cost commands")
+    _parser=subparsers.add_parser("cost", help="Cost Optimization and Reporting")
+    _cost_subparsers=parser.add_subparsers(dest="cost_command", help="Cost commands")
 
     # Report command
-    report_parser = cost_subparsers.add_parser("report", help="Generate cost report")
+    _report_parser=cost_subparsers.add_parser("report", help="Generate cost report")
     report_parser.add_argument(
         "--days", type=int, default=30, help="Number of days for report"
     )
@@ -103,14 +151,14 @@ def setup_parser(subparsers: argparse._SubParsersAction) -> None:
     )
     analyze_parser.add_argument(
         "--input",
-        help="Input JSON file with resource data (optional, defaults to mock)",
+        _help="Input JSON file with resource data (optional, defaults to mock)",
     )
     analyze_parser.add_argument(
         "--apply", action="store_true", help="Apply recommendations (dry-run)"
     )
 
     # Pricing command
-    pricing_parser = cost_subparsers.add_parser("pricing", help="Manage pricing model")
+    _pricing_parser=cost_subparsers.add_parser("pricing", help="Manage pricing model")
     pricing_parser.add_argument("--set-cpu", type=float, help="Set CPU hourly rate")
     pricing_parser.add_argument("--set-mem", type=float, help="Set Memory hourly rate")
 
@@ -122,7 +170,7 @@ def handle_command(args: argparse.Namespace) -> None:
     Args:
         args: Parsed command-line arguments.
     """
-    _optimizer = CostOptimizer()
+    _optimizer=CostOptimizer()
 
     # Mock data for demonstration if no input provided
     _mock_resources = [
@@ -150,7 +198,7 @@ def handle_command(args: argparse.Namespace) -> None:
     ]
 
     if args.cost_command == "report":
-        report = optimizer.generate_cost_report(mock_resources, days=args.days)
+        _report=optimizer.generate_cost_report(mock_resources, days=args.days)
         if args.format == "json":
             print(json.dumps(report.__dict__, indent=2))
         else:
@@ -166,7 +214,7 @@ def handle_command(args: argparse.Namespace) -> None:
                 print(f"  {rtype}: ${cost}")
 
     elif args.cost_command == "analyze":
-        recommendations = optimizer.analyze_resource_usage(mock_resources)
+        _recommendations=optimizer.analyze_resource_usage(mock_resources)
         print(f"\nFound {len(recommendations)} optimization opportunities:")
         print("-" * 60)
         total_savings = 0.0

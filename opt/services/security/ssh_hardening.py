@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -131,7 +179,7 @@ class SSHKeyType(Enum):
 class MFAProvider(Enum):
     """MFA provider types."""
 
-    TOTP = "totp"    # Time-based OTP (Google Authenticator)
+    TOTP="totp"    # Time-based OTP (Google Authenticator)
     FIDO2 = "fido2"    # Hardware security keys
     DUO = "duo"    # Duo Security
     YUBIKEY = "yubikey"    # YubiKey OTP
@@ -258,7 +306,7 @@ class SSHDConfig:
         ]
     )
     macs: List[str] = field(
-        default_factory=lambda: [
+        _default_factory=lambda: [
             "hmac-sha2-512-etm@openssh.com",
             "hmac-sha2-256-etm@openssh.com",
             "umac-128-etm@openssh.com",
@@ -343,15 +391,15 @@ class SSHHardeningManager:
     - Fail2ban integration
     """
 
-    def __init__(self, config_path: str = "/etc/ssh"):
-        self.config_path = Path(config_path)
+    def __init__(self, config_path: str="/etc/ssh") -> None:
+        self.config_path=Path(config_path)
         self.sshd_config_path = self.config_path / "sshd_config"
         self.backup_path = self.config_path / "backups"
         self._security_level = SSHSecurityLevel.STANDARD
 
         # Default configuration
-        self._config = SSHDConfig()
-        self._mfa_config = MFAConfig()
+        self._config=SSHDConfig()
+        self._mfa_config=MFAConfig()
 
     # -------------------------------------------------------------------------
     # Configuration Management
@@ -370,7 +418,7 @@ class SSHHardeningManager:
 
         logger.info(f"Applied SSH security level: {level.value}")
 
-    def enable_mfa(self, enabled: bool = True) -> None:
+    def enable_mfa(self, enabled: bool=True) -> None:
         """Enable or disable MFA."""
         self._mfa_config.enabled = enabled
         if enabled:
@@ -512,7 +560,7 @@ class SSHHardeningManager:
 
         # Access control
         if self._config.allow_users:
-            lines.append("\n    # === Access Control ===")
+            lines.append("\n    # === Access Control===")
             lines.append(f"AllowUsers {' '.join(self._config.allow_users)}")
 
         if self._config.allow_groups:
@@ -539,16 +587,16 @@ class SSHHardeningManager:
             return None
 
         self.backup_path.mkdir(parents=True, exist_ok=True)
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         backup_file = self.backup_path / f"sshd_config.{timestamp}.bak"
 
         shutil.copy2(self.sshd_config_path, backup_file)
         logger.info(f"Backed up SSH config to {backup_file}")
         return backup_file
 
-    def apply_config(self, dry_run: bool = False) -> Tuple[bool, str]:
+    def apply_config(self, dry_run: bool=False) -> Tuple[bool, str]:
         """Apply SSH configuration."""
-        config_content = self.generate_sshd_config()
+        _config_content=self.generate_sshd_config()
 
         if dry_run:
             return True, config_content
@@ -589,8 +637,8 @@ class SSHHardeningManager:
         try:
             result = subprocess.run(
                 ["/usr/bin/systemctl", "reload", "sshd"],    # nosec B603
-                capture_output=True,
-                text=True,
+                _capture_output=True,
+                _text=True,
             )
 
             if result.returncode != 0:
@@ -667,7 +715,7 @@ class SSHHardeningManager:
 
         for key_type in weak_types:
             key_file = self.config_path / f"ssh_host_{key_type}_key"
-            pub_file = key_file.with_suffix(".pub")
+            _pub_file=key_file.with_suffix(".pub")
 
             for f in [key_file, pub_file]:
                 if f.exists():
@@ -711,8 +759,8 @@ class SSHHardeningManager:
         # Get user home directory
             import pwd
 
-            user_info = pwd.getpwnam(username)    # type: ignore
-            home_dir = Path(user_info.pw_dir)
+            _user_info=pwd.getpwnam(username)    # type: ignore
+            _home_dir=Path(user_info.pw_dir)
             ssh_dir = home_dir / ".ssh"
             _auth_keys = ssh_dir / "authorized_keys"
 
@@ -721,16 +769,16 @@ class SSHHardeningManager:
             os.chown(ssh_dir, user_info.pw_uid, user_info.pw_gid)    # type: ignore
 
             # Build key line
-            key_line = public_key.strip()
+            _key_line=public_key.strip()
             if options:
-                key_line = f"{', '.join(options)} {key_line}"
+                _key_line=f"{', '.join(options)} {key_line}"
             if comment:
                 key_line = f"{key_line} {comment}"
             key_line += "\n"
 
             # Check for duplicate
             if auth_keys.exists():
-                existing = auth_keys.read_text()
+                _existing=auth_keys.read_text()
                 if public_key.strip() in existing:
                     return False, "Key already exists"
 
@@ -756,13 +804,13 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)    # type: ignore
-            auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
+            _user_info=pwd.getpwnam(username)    # type: ignore
+            _auth_keys=Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
                 return False, "No authorized_keys file"
 
-            lines = auth_keys.read_text().splitlines()
+            _lines=auth_keys.read_text().splitlines()
             new_lines = []
             _removed = False
 
@@ -796,8 +844,8 @@ class SSHHardeningManager:
         try:
             import pwd
 
-            user_info = pwd.getpwnam(username)    # type: ignore
-            auth_keys = Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
+            _user_info=pwd.getpwnam(username)    # type: ignore
+            _auth_keys=Path(user_info.pw_dir) / ".ssh" / "authorized_keys"
 
             if not auth_keys.exists():
                 return keys
@@ -806,10 +854,10 @@ class SSHHardeningManager:
                 if not line.strip() or line.strip().startswith("    #"):
                     continue
 
-                parts = line.split()
+                _parts=line.split()
                 if len(parts) >= 2:
-                    key_type = parts[0] if parts[0].startswith("ssh-") else "unknown"
-                    comment = parts[-1] if len(parts) > 2 else ""
+                    _key_type=parts[0] if parts[0].startswith("ssh-") else "unknown"
+                    _comment=parts[-1] if len(parts) > 2 else ""
 
                     keys.append(
                         {
@@ -837,8 +885,8 @@ class SSHHardeningManager:
         # This would typically integrate with google-authenticator-libpam
             # For now, we'll generate the configuration
 
-            secret = secrets.token_hex(20)
-            _recovery_codes = [secrets.token_hex(4) for _ in range(10)]
+            _secret=secrets.token_hex(20)
+            _recovery_codes=[secrets.token_hex(4) for _ in range(10)]
 
             # Generate provisioning URI
             issuer = "DebVisor"
@@ -872,16 +920,12 @@ class SSHHardeningManager:
 
 # Standard authentication
 @include common-auth
-
 # Account management
 @include common-account
-
 # Session management
 @include common-session
-
 # Password management
 @include common-password
-
 # MFA Configuration (Google Authenticator)
 # Uncomment the following line to enable TOTP MFA
 # auth required pam_google_authenticator.so nullok
@@ -923,7 +967,7 @@ bantime.rndtime = 30m
 _ignoreip = 127.0.0.1/8 ::1
 
 # Actions
-_action = %(action_mwl)s
+_action=%(action_mwl)s
 
 [sshd-ddos]
 _enabled = true
@@ -1044,7 +1088,7 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
         from flask import Blueprint, jsonify, Response
         from opt.web.panel.rbac import require_permission, Resource, Action
 
-        bp = Blueprint("ssh", __name__, url_prefix="/api/ssh")
+        _bp=Blueprint("ssh", __name__, url_prefix="/api/ssh")
 
         @bp.route("/config", methods=["GET"])
         @require_permission(Resource.SYSTEM, Action.READ)
@@ -1067,7 +1111,7 @@ def create_ssh_blueprint(manager: SSHHardeningManager) -> Any:
 
         def preview_config() -> Response:
             """Preview generated SSH configuration."""
-            config = manager.generate_sshd_config()
+            _config=manager.generate_sshd_config()
             return jsonify({"config": config})
 
         @bp.route("/audit", methods=["GET"])

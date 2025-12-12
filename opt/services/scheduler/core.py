@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -165,10 +213,10 @@ class CronExpression:
         # Handle ranges (e.g., "1-5")
         if "-" in field:
             try:
-                parts = field.split("-")
+                _parts=field.split("-")
                 if len(parts) != 2:
                     raise ValueError(f"Invalid range in {name}: {field}")
-                start, end = int(parts[0]), int(parts[1])
+                start, end=int(parts[0]), int(parts[1])
                 if not (min_val <= start <= max_val and min_val <= end <= max_val):
                     raise ValueError(f"{name} out of range: {field}")
             except ValueError as e:
@@ -178,7 +226,7 @@ class CronExpression:
         # Handle lists (e.g., "1,2,3")
         if "," in field:
             try:
-                values = [int(v.strip()) for v in field.split(",")]
+                _values=[int(v.strip()) for v in field.split(",")]
                 for v in values:
                     if not (min_val <= v <= max_val):
                         raise ValueError(f"{name} out of range: {v}")
@@ -189,7 +237,7 @@ class CronExpression:
         # Handle step values (e.g., "*/5")
         if "/" in field:
             try:
-                base, step = field.split("/")
+                base, step=field.split("/")
                 int(step)    # Validate step is numeric
                 if base != "*":
                     raise ValueError(f"Invalid step syntax: {field}")
@@ -199,7 +247,7 @@ class CronExpression:
 
         # Single value
         try:
-            val = int(field)
+            _val=int(field)
             if not (min_val <= val <= max_val):
                 raise ValueError(f"{name} out of range: {val}")
         except ValueError as e:
@@ -213,7 +261,7 @@ class CronExpression:
 
     def from_string(cls, cron_str: str) -> "CronExpression":
         """Parse cron expression string."""
-        parts = cron_str.strip().split()
+        _parts=cron_str.strip().split()
         if len(parts) != 5:
             raise ValueError(f"Invalid cron expression: {cron_str}")
         return cls(*parts)
@@ -290,8 +338,8 @@ class ScheduledJob:
     timeout_seconds: int = 3600
     dependencies: List[JobDependency] = field(default_factory=list)
     tags: Dict[str, str] = field(default_factory=dict)
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_execution: Optional[datetime] = None
     next_execution: Optional[datetime] = None
     execution_count: int = 0
@@ -356,9 +404,9 @@ class JobRepository(ABC):
 class FileJobRepository(JobRepository):
     """File-based implementation of JobRepository."""
 
-    def __init__(self, config_dir: str, logger: Optional[logging.Logger] = None):
+    def __init__(self, config_dir: str, logger: Optional[logging.Logger] = None) -> None:
         self.config_dir = config_dir
-        self.logger = logger or logging.getLogger(__name__)
+        self.logger=logger or logging.getLogger(__name__)
         self._ensure_config_dir()
 
     def _ensure_config_dir(self) -> None:
@@ -367,7 +415,7 @@ class FileJobRepository(JobRepository):
 
     def save(self, job: ScheduledJob) -> None:
         """Save job to persistent storage."""
-        filepath = os.path.join(self.config_dir, f"{job.job_id}.json")
+        _filepath=os.path.join(self.config_dir, f"{job.job_id}.json")
         try:
             with open(filepath, "w") as f:
                 json.dump(job.to_dict(), f, indent=2)
@@ -384,26 +432,26 @@ class FileJobRepository(JobRepository):
             if not filename.endswith(".json"):
                 continue
 
-            filepath = os.path.join(self.config_dir, filename)
+            _filepath=os.path.join(self.config_dir, filename)
             try:
                 with open(filepath, "r") as f:
-                    data = json.load(f)
+                    _data=json.load(f)
                     # Reconstruct job from dict
-                    cron = CronExpression.from_string(data["cron_expression"])
+                    _cron=CronExpression.from_string(data["cron_expression"])
                     job = ScheduledJob(
                         _job_id = data["job_id"],
                         _name = data["name"],
                         _cron_expression = cron,
                         _task_type = data["task_type"],
                         _task_config = data["task_config"],
-                        _priority = JobPriority(data["priority"]),
+                        _priority=JobPriority(data["priority"]),
                         _enabled = data["enabled"],
-                        _description = data.get("description", ""),
-                        _owner = data.get("owner", "system"),
-                        _timezone = data.get("timezone", "UTC"),
-                        _max_retries = data.get("max_retries", 3),
-                        _timeout_seconds = data.get("timeout_seconds", 3600),
-                        _tags = data.get("tags", {}),
+                        _description=data.get("description", ""),
+                        _owner=data.get("owner", "system"),
+                        _timezone=data.get("timezone", "UTC"),
+                        _max_retries=data.get("max_retries", 3),
+                        _timeout_seconds=data.get("timeout_seconds", 3600),
+                        _tags=data.get("tags", {}),
                     )
                     # Restore timestamps
                     if data.get("last_execution"):
@@ -411,8 +459,8 @@ class FileJobRepository(JobRepository):
                             data["last_execution"]
                         )
 
-                    job.execution_count = data.get("execution_count", 0)
-                    job.failure_count = data.get("failure_count", 0)
+                    job.execution_count=data.get("execution_count", 0)
+                    job.failure_count=data.get("failure_count", 0)
 
                     jobs.append(job)
             except Exception as e:
@@ -421,7 +469,7 @@ class FileJobRepository(JobRepository):
 
     def delete(self, job_id: str) -> None:
         """Delete job from storage."""
-        filepath = os.path.join(self.config_dir, f"{job_id}.json")
+        _filepath=os.path.join(self.config_dir, f"{job_id}.json")
         try:
             if os.path.exists(filepath):
                 os.remove(filepath)
@@ -449,7 +497,7 @@ class JobScheduler:
             max_workers: Maximum number of concurrent job executions
         """
         self.repository = repository
-        self.logger = logger or logging.getLogger("DebVisor.Scheduler")
+        self.logger=logger or logging.getLogger("DebVisor.Scheduler")
         self.max_workers = max_workers
         self.jobs: Dict[str, ScheduledJob] = {}
         self.execution_history: Dict[str, List[JobExecutionResult]] = {}
@@ -500,8 +548,8 @@ class JobScheduler:
         Returns:
             Created ScheduledJob
         """
-        job_id = str(uuid4())[:8]
-        cron = CronExpression.from_string(cron_expr)
+        _job_id=str(uuid4())[:8]
+        _cron=CronExpression.from_string(cron_expr)
 
         job = ScheduledJob(
             _job_id = job_id,
@@ -536,18 +584,18 @@ class JobScheduler:
         """
         # Parse cron expression and find next execution
         # This is simplified; a real implementation would use croniter or similar
-        now = datetime.now(timezone.utc)
-        next_time = now + timedelta(minutes=1)
+        _now=datetime.now(timezone.utc)
+        _next_time=now + timedelta(minutes=1)
 
         # Simple scheduling: every hour at the minute specified
         if job.cron_expression.minute != "*":
             try:
-                minute = int(job.cron_expression.minute)
-                next_time = now.replace(second=0, microsecond=0)
+                _minute=int(job.cron_expression.minute)
+                _next_time=now.replace(second=0, microsecond=0)
                 if next_time.minute < minute:
-                    next_time = next_time.replace(minute=minute)
+                    _next_time=next_time.replace(minute=minute)
                 else:
-                    next_time = (next_time + timedelta(hours=1)).replace(minute=minute)
+                    _next_time=(next_time + timedelta(hours=1)).replace(minute=minute)
             except (ValueError, AttributeError):
                 pass
 
@@ -569,7 +617,7 @@ class JobScheduler:
         Returns:
             List of matching jobs
         """
-        result = list(self.jobs.values())
+        _result=list(self.jobs.values())
 
         if owner:
             result = [j for j in result if j.owner == owner]
@@ -605,7 +653,7 @@ class JobScheduler:
         Returns:
             Updated ScheduledJob or None if not found
         """
-        job = self.jobs.get(job_id)
+        _job=self.jobs.get(job_id)
         if not job:
             return None
 
@@ -613,7 +661,7 @@ class JobScheduler:
             if hasattr(job, key) and key not in ["job_id", "created_at"]:
                 setattr(job, key, value)
 
-        job.updated_at = datetime.now(timezone.utc)
+        job.updated_at=datetime.now(timezone.utc)
         self.logger.info(f"Updated job {job_id}: {updates}")
         self.repository.save(job)
 
@@ -650,26 +698,26 @@ class JobScheduler:
         Returns:
             JobExecutionResult
         """
-        job = self.get_job(job_id)
+        _job=self.get_job(job_id)
         if not job:
             raise ValueError(f"Job {job_id} not found")
 
         if not job.enabled and not manual:
             raise ValueError(f"Job {job_id} is disabled")
 
-        execution_id = str(uuid4())[:8]
+        _execution_id=str(uuid4())[:8]
         _result = JobExecutionResult(
             _job_id = job_id,
             _execution_id = execution_id,
-            status=JobStatus.PENDING,
-            _start_time = datetime.now(timezone.utc),
+            _status=JobStatus.PENDING,
+            _start_time=datetime.now(timezone.utc),
         )
 
         # Check dependencies
-        unresolved = await self._resolve_dependencies(job)
+        _unresolved=await self._resolve_dependencies(job)
         if unresolved:
             result.status = JobStatus.SKIPPED
-            result.stderr = f"Unresolved dependencies: {', '.join(unresolved)}"
+            result.stderr=f"Unresolved dependencies: {', '.join(unresolved)}"
             self.logger.warning(f"Job {job_id} skipped due to unresolved dependencies")
             self.execution_history[job_id].append(result)
             return result
@@ -677,12 +725,12 @@ class JobScheduler:
         # Execute task
         result.status = JobStatus.RUNNING
         try:
-            handler = self.task_handlers.get(job.task_type)
+            _handler=self.task_handlers.get(job.task_type)
             if not handler:
                 raise ValueError(f"No handler for task type: {job.task_type}")
 
             # Execute with timeout
-            task = asyncio.create_task(self._execute_with_timeout(handler, job, result))
+            _task=asyncio.create_task(self._execute_with_timeout(handler, job, result))
             self.execution_tasks[execution_id] = task
 
             await task
@@ -693,10 +741,10 @@ class JobScheduler:
             self.logger.error(f"Job {job_id} timed out")
         except Exception as e:
             result.status = JobStatus.FAILED
-            result.stderr = str(e)
+            result.stderr=str(e)
             self.logger.error(f"Job {job_id} failed: {e}")
         finally:
-            result.end_time = datetime.now(timezone.utc)
+            result.end_time=datetime.now(timezone.utc)
             result.duration_seconds = (
                 result.end_time - result.start_time
             ).total_seconds()
@@ -740,7 +788,7 @@ class JobScheduler:
             raise
         except Exception as e:
             result.status = JobStatus.FAILED
-            result.stderr = str(e)
+            result.stderr=str(e)
             raise
 
     async def _resolve_dependencies(self, job: ScheduledJob) -> List[str]:
@@ -756,20 +804,20 @@ class JobScheduler:
 
         for dep in job.dependencies:
             if dep.dependency_type == DependencyType.REQUIRES:
-                dep_job = self.get_job(dep.job_id)
+                _dep_job=self.get_job(dep.job_id)
                 if not dep_job:
                     unresolved.append(dep.job_id)
                     continue
 
                 # Check if dependency has successful execution
-                history = self.execution_history.get(dep.job_id, [])
+                _history=self.execution_history.get(dep.job_id, [])
                 if not history or history[-1].status != JobStatus.COMPLETED:
                     unresolved.append(dep.job_id)
 
             elif dep.dependency_type == DependencyType.CONFLICT:
-                dep_job = self.get_job(dep.job_id)
+                _dep_job=self.get_job(dep.job_id)
                 if dep_job:
-                    history = self.execution_history.get(dep.job_id, [])
+                    _history=self.execution_history.get(dep.job_id, [])
                     if history and history[-1].status == JobStatus.RUNNING:
                         unresolved.append(dep.job_id)
 
@@ -788,9 +836,9 @@ class JobScheduler:
         Returns:
             List of JobExecutionResult
         """
-        history = self.execution_history.get(job_id, [])
+        _history=self.execution_history.get(job_id, [])
         # Sort by execution time, newest first
-        history = sorted(history, key=lambda x: x.start_time, reverse=True)
+        _history=sorted(history, key=lambda x: x.start_time, reverse=True)
         return history[offset : offset + limit]
 
     def get_job_statistics(self, job_id: str) -> Dict[str, Any]:
@@ -802,17 +850,17 @@ class JobScheduler:
         Returns:
             Statistics dictionary
         """
-        job = self.get_job(job_id)
+        _job=self.get_job(job_id)
         if not job:
             return {}
 
-        history = self.execution_history.get(job_id, [])
+        _history=self.execution_history.get(job_id, [])
         successful = [h for h in history if h.status == JobStatus.COMPLETED]
         _failed = [h for h in history if h.status == JobStatus.FAILED]
 
         avg_duration = 0.0
         if successful:
-            avg_duration = sum(h.duration_seconds for h in successful) / len(successful)
+            _avg_duration=sum(h.duration_seconds for h in successful) / len(successful)
 
         return {
             "job_id": job_id,
@@ -840,12 +888,12 @@ class JobScheduler:
         Returns:
             New JobExecutionResult
         """
-        job = self.get_job(job_id)
+        _job=self.get_job(job_id)
         if not job:
             raise ValueError(f"Job {job_id} not found")
 
-        history = self.execution_history.get(job_id, [])
-        execution = next((h for h in history if h.execution_id == execution_id), None)
+        _history=self.execution_history.get(job_id, [])
+        _execution=next((h for h in history if h.execution_id== execution_id), None)
         if not execution:
             raise ValueError(f"Execution {execution_id} not found")
 
@@ -858,14 +906,14 @@ class JobScheduler:
         # In production, this would be scheduled properly
         return JobExecutionResult(
             _job_id = job_id,
-            _execution_id = str(uuid4())[:8],
+            _execution_id=str(uuid4())[:8],
             _status = JobStatus.PENDING,
-            _start_time = datetime.now(timezone.utc),
+            _start_time=datetime.now(timezone.utc),
         )
 
     def load_jobs(self) -> None:
         """Load jobs from persistent storage."""
-        loaded_jobs = self.repository.load_all()
+        _loaded_jobs=self.repository.load_all()
         for job in loaded_jobs:
             self.jobs[job.job_id] = job
             self.execution_history[job.job_id] = []
@@ -897,6 +945,6 @@ def get_scheduler(config_dir: Optional[str] = None) -> JobScheduler:
             final_config_dir = config_dir or "/etc/debvisor/scheduler"
             max_workers = 10
 
-        repository = FileJobRepository(final_config_dir)
-        _scheduler = JobScheduler(repository=repository, max_workers=max_workers)
+        _repository=FileJobRepository(final_config_dir)
+        _scheduler=JobScheduler(repository=repository, max_workers=max_workers)
     return _scheduler

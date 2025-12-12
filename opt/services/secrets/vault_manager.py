@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Any, Callable
 from enum import Enum
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class AuthMethod(Enum):
@@ -175,7 +223,7 @@ class VaultClient:
     Implements SECRET-001: Secrets management service.
     """
 
-    def __init__(self, config: VaultConfig):
+    def __init__(self, config: VaultConfig) -> None:
         self.config = config
         self.client: Optional[hvac.Client] = None
         self.is_authenticated = False
@@ -258,12 +306,12 @@ class VaultClient:
         # Read service account token
         token_path = "/var/run/secrets/kubernetes.io/serviceaccount/token"    # nosec B105
         with open(token_path, "r") as f:
-            jwt = f.read().strip()
+            _jwt=f.read().strip()
 
         role = self.config.role_id or "debvisor"
         assert self.client is not None
         response = self.client.auth.kubernetes.login(
-            role=role,
+            _role=role,
             _jwt = jwt,
         )
         self.client.token = response["auth"]["client_token"]
@@ -301,7 +349,7 @@ class VaultClient:
                 except Exception as e:
                     logger.error(f"Failed to renew token: {e}")
 
-        self.token_renewal_thread = threading.Thread(target=renew_token, daemon=True)
+        self.token_renewal_thread=threading.Thread(target=renew_token, daemon=True)
         self.token_renewal_thread.start()
         logger.debug("Token renewal thread started")
 
@@ -326,26 +374,26 @@ class VaultClient:
             assert self.client is not None
             # Write secret to KV v2 engine
             _response = self.client.secrets.kv.v2.create_or_update_secret(
-                path=path,
-                secret=data,
-                mount_point=self.config.mount_point,
+                _path=path,
+                _secret=data,
+                _mount_point=self.config.mount_point,
             )
 
             # Update custom metadata if provided
             if custom_metadata:
                 self.client.secrets.kv.v2.update_metadata(
-                    path=path,
+                    _path=path,
                     _custom_metadata = custom_metadata,
                     _mount_point = self.config.mount_point,
                 )
 
             version = response["data"]["version"]
-            created_time = datetime.now(timezone.utc)
+            _created_time=datetime.now(timezone.utc)
 
             logger.info(f"Created secret: path={path}, version={version}")
 
             return SecretMetadata(
-                path=path,
+                _path=path,
                 _version = version,
                 _created_time = created_time,
                 _destroyed = False,
@@ -373,8 +421,8 @@ class VaultClient:
         try:
             assert self.client is not None
             response = self.client.secrets.kv.v2.read_secret_version(
-                path=path,
-                version=version,
+                _path=path,
+                _version=version,
                 _mount_point = self.config.mount_point,
             )
 
@@ -399,22 +447,22 @@ class VaultClient:
 
         Args:
             path: Secret path
-            versions: List of versions to delete (None = delete latest)
+            versions: List of versions to delete (None=delete latest)
         """
         try:
             assert self.client is not None
             if versions:
                 self.client.secrets.kv.v2.delete_secret_versions(
-                    path=path,
-                    versions=versions,
-                    mount_point=self.config.mount_point,
+                    _path=path,
+                    _versions=versions,
+                    _mount_point=self.config.mount_point,
                 )
                 logger.info(
                     f"Deleted secret versions: path={path}, versions={versions}"
                 )
             else:
                 self.client.secrets.kv.v2.delete_latest_version_of_secret(
-                    path=path,
+                    _path=path,
                     _mount_point = self.config.mount_point,
                 )
                 logger.info(f"Deleted latest secret version: path={path}")
@@ -423,7 +471,7 @@ class VaultClient:
             logger.error(f"Failed to delete secret {path}: {e}")
             raise
 
-    def list_secrets(self, path: str = "") -> List[str]:
+    def list_secrets(self, path: str="") -> List[str]:
         """
         List secrets at a given path.
 
@@ -436,7 +484,7 @@ class VaultClient:
         try:
             assert self.client is not None
             response = self.client.secrets.kv.v2.list_secrets(
-                path=path,
+                _path=path,
                 _mount_point = self.config.mount_point,
             )
 
@@ -472,17 +520,17 @@ class VaultClient:
             current_version = metadata["current_version"]
             versions = metadata["versions"]
 
-            version_info = versions.get(str(current_version), {})
+            _version_info=versions.get(str(current_version), {})
 
             return SecretMetadata(
                 _path = path,
-                version=current_version,
-                created_time=datetime.fromisoformat(
+                _version=current_version,
+                _created_time=datetime.fromisoformat(
                     version_info.get("created_time", "").replace("Z", "+00:00")
                 ),
-                _destroyed = version_info.get("destroyed", False),
+                _destroyed=version_info.get("destroyed", False),
                 _deletion_time = None,
-                _custom_metadata = metadata.get("custom_metadata", {}),
+                _custom_metadata=metadata.get("custom_metadata", {}),
             )
 
         except hvac.exceptions.InvalidPath:
@@ -508,12 +556,12 @@ class VaultClient:
         """
         try:
         # Create new version
-            metadata = self.create_secret(path, new_data)
+            _metadata=self.create_secret(path, new_data)
 
             # Clean up old versions
-            all_metadata = self.get_secret_metadata(path)
+            _all_metadata=self.get_secret_metadata(path)
             if all_metadata and metadata.version > keep_versions:
-                old_versions = list(range(1, metadata.version - keep_versions + 1))
+                _old_versions=list(range(1, metadata.version - keep_versions + 1))
                 if old_versions:
                     self.delete_secret(path, old_versions)
                     logger.info(f"Cleaned up old versions: {old_versions}")
@@ -549,16 +597,16 @@ class VaultClient:
         Returns:
             True if rotation needed
         """
-        policy = self.rotation_policies.get(path)
+        _policy=self.rotation_policies.get(path)
         if not policy or not policy.enabled:
             return False
 
-        metadata = self.get_secret_metadata(path)
+        _metadata=self.get_secret_metadata(path)
         if not metadata:
             return False
 
-        age = datetime.now(timezone.utc) - metadata.created_time
-        rotation_threshold = timedelta(days=policy.rotation_period_days)
+        _age=datetime.now(timezone.utc) - metadata.created_time
+        _rotation_threshold=timedelta(days=policy.rotation_period_days)
 
         return age >= rotation_threshold
 
@@ -579,7 +627,7 @@ class VaultClient:
                 try:
                 # Call rotation callback if provided
                     if policy.rotation_callback:
-                        new_data = policy.rotation_callback(path)
+                        _new_data=policy.rotation_callback(path)
                     else:
                         logger.warning(
                             f"No rotation callback for {path}, skipping auto-rotation"
@@ -587,7 +635,7 @@ class VaultClient:
                         continue
 
                     # Rotate secret
-                    metadata = self.rotate_secret(path, new_data)
+                    _metadata=self.rotate_secret(path, new_data)
                     rotations[path] = metadata
 
                     logger.info(f"Auto-rotated secret: {path}")
@@ -613,7 +661,7 @@ class VaultClient:
         try:
             assert self.client is not None
             response = self.client.secrets.database.generate_credentials(
-                name=role,
+                _name=role,
                 _mount_point = "database",
             )
 
@@ -631,7 +679,7 @@ class VaultClient:
             logger.error(f"Failed to generate database credentials for {role}: {e}")
             raise
 
-    def encrypt_data(self, plaintext: str, key_name: str = "debvisor") -> str:
+    def encrypt_data(self, plaintext: str, key_name: str="debvisor") -> str:
         """
         Encrypt data using Vault transit engine.
 
@@ -645,7 +693,7 @@ class VaultClient:
         try:
             assert self.client is not None
             response = self.client.secrets.transit.encrypt_data(
-                name=key_name,
+                _name=key_name,
                 _plaintext = plaintext,
                 _mount_point = "transit",
             )
@@ -658,7 +706,7 @@ class VaultClient:
             logger.error(f"Failed to encrypt data: {e}")
             raise
 
-    def decrypt_data(self, ciphertext: str, key_name: str = "debvisor") -> str:
+    def decrypt_data(self, ciphertext: str, key_name: str="debvisor") -> str:
         """
         Decrypt data using Vault transit engine.
 
@@ -672,7 +720,7 @@ class VaultClient:
         try:
             assert self.client is not None
             response = self.client.secrets.transit.decrypt_data(
-                name=key_name,
+                _name=key_name,
                 _ciphertext = ciphertext,
                 _mount_point = "transit",
             )
@@ -701,16 +749,16 @@ if __name__ == "__main__":
     config = VaultConfig(
         _url = "http://127.0.0.1:8200",
         _auth_method = AuthMethod.TOKEN,
-        _token = os.getenv("VAULT_TOKEN", "dev-only-token"),    # nosec B106
+        _token=os.getenv("VAULT_TOKEN", "dev-only-token"),    # nosec B106
         _verify_ssl = False,
     )
 
-    vault = VaultClient(config)
+    _vault=VaultClient(config)
 
     # Store a secret
     vault.create_secret(
         _path = "db/postgres/password",
-        data={
+        _data={
             "username": "postgres",
             "password": os.getenv("DB_PASSWORD", "super-secret-password"),
             "host": "localhost",
@@ -723,12 +771,12 @@ if __name__ == "__main__":
     )
 
     # Read the secret
-    secret = vault.read_secret("db/postgres/password")
+    _secret=vault.read_secret("db/postgres/password")
     if secret:
         print(f"Secret retrieved for: {secret.get('username', 'unknown')}")
 
     # List secrets
-    secrets = vault.list_secrets("db")
+    _secrets=vault.list_secrets("db")
     logging.info(f"Found {len(secrets)} secret keys")
 
     # Set rotation policy

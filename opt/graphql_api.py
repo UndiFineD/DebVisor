@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +90,7 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
 logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ResourceType(Enum):
@@ -122,7 +170,7 @@ class DataLoader:
     Reduces N+1 query problems by batching multiple requests.
     """
 
-    def __init__(self, batch_load_fn: Callable[..., Any], batch_size: int = 100):
+    def __init__(self, batch_load_fn: Callable[..., Any], batch_size: int=100) -> None:
         """
         Initialize DataLoader.
 
@@ -174,7 +222,7 @@ class DataLoader:
         """
         results = []
         for key in keys:
-            result = await self.load(key)
+            _result=await self.load(key)
             results.append(result)
 
         await self._flush()
@@ -189,7 +237,7 @@ class DataLoader:
         self.queue = self.queue[self.batch_size :]
 
         try:
-            results = await self.batch_load_fn(keys)
+            _results=await self.batch_load_fn(keys)
             # Handle both dict and list results
             if isinstance(results, dict):
                 for key in keys:
@@ -520,7 +568,7 @@ class GraphQLResolver:
     Coordinates with data loaders and external services.
     """
 
-    def __init__(self, schema: GraphQLSchema):
+    def __init__(self, schema: GraphQLSchema) -> None:
         """
         Initialize resolver.
 
@@ -560,10 +608,10 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                _context = QueryContext(user_id="anonymous", cluster="default")
+                _context=QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate query
-            query_obj = self._parse_query(query)
+            _query_obj=self._parse_query(query)
             if not query_obj:
                 return GraphQLResponse(
                     _errors = [
@@ -572,14 +620,14 @@ class GraphQLResolver:
                 )
 
             # Execute query
-            data = await self._execute_query(query_obj, variables, context)
+            _data=await self._execute_query(query_obj, variables, context)
 
             return GraphQLResponse(data=data)
 
         except Exception as e:
             logger.error(f"Query resolution error: {e}")
             return GraphQLResponse(
-                _errors = [GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -646,10 +694,10 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                _context = QueryContext(user_id="anonymous", cluster="default")
+                _context=QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate mutation
-            mutation_obj = self._parse_query(mutation)
+            _mutation_obj=self._parse_query(mutation)
             if not mutation_obj:
                 return GraphQLResponse(
                     _errors = [
@@ -660,14 +708,14 @@ class GraphQLResolver:
                 )
 
             # Execute mutation
-            data = await self._execute_mutation(mutation_obj, variables, context)
+            _data=await self._execute_mutation(mutation_obj, variables, context)
 
             return GraphQLResponse(data=data)
 
         except Exception as e:
             logger.error(f"Mutation resolution error: {e}")
             return GraphQLResponse(
-                _errors = [GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
             )
 
     async def _execute_mutation(
@@ -709,9 +757,9 @@ class GraphQLServer:
 
     def __init__(self) -> None:
         """Initialize GraphQL server."""
-        self.schema = GraphQLSchema()
-        self.resolver = GraphQLResolver(self.schema)
-        self.subscriptions = SubscriptionManager()
+        self.schema=GraphQLSchema()
+        self.resolver=GraphQLResolver(self.schema)
+        self.subscriptions=SubscriptionManager()
 
     async def handle_request(self, body: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -723,21 +771,21 @@ class GraphQLServer:
         Returns:
             Response data
         """
-        _query = body.get("query")
-        _mutation = body.get("mutation")
-        _variables = body.get("variables")
-        context_data = body.get("context", {})
+        _query=body.get("query")
+        _mutation=body.get("mutation")
+        _variables=body.get("variables")
+        _context_data=body.get("context", {})
 
         context = QueryContext(
-            _user_id = context_data.get("user_id", "anonymous"),
-            _cluster = context_data.get("cluster", "default"),
-            _namespace = context_data.get("namespace"),
-            _timeout_seconds = context_data.get("timeout_seconds", 30),
-            _enable_cache = context_data.get("enable_cache", True),
+            _user_id=context_data.get("user_id", "anonymous"),
+            _cluster=context_data.get("cluster", "default"),
+            _namespace=context_data.get("namespace"),
+            _timeout_seconds=context_data.get("timeout_seconds", 30),
+            _enable_cache=context_data.get("enable_cache", True),
         )
 
         if query:
-            response = await self.resolver.resolve_query(query, variables, context)
+            _response=await self.resolver.resolve_query(query, variables, context)
         elif mutation:
             response = await self.resolver.resolve_mutation(
                 mutation, variables, context
@@ -789,7 +837,7 @@ class GraphQLServer:
             Subscription ID
         """
         if not context:
-            context = QueryContext(user_id="anonymous", cluster="default")
+            _context=QueryContext(user_id="anonymous", cluster="default")
 
         return await self.subscriptions.subscribe(
             subscription_name, variables or {}, context
@@ -851,7 +899,7 @@ class SubscriptionManager:
         """Initialize subscription manager."""
         self._subscriptions: Dict[str, Subscription] = {}
         self._topic_subscribers: Dict[str, Set[str]] = {}
-        self._lock = asyncio.Lock()
+        self._lock=asyncio.Lock()
         self._event_queues: Dict[str, asyncio.Queue[Any]] = {}
 
     async def subscribe(
@@ -870,15 +918,15 @@ class SubscriptionManager:
         """
         import uuid
 
-        subscription_id = str(uuid.uuid4())
+        _subscription_id=str(uuid.uuid4())
 
         async with self._lock:
             subscription = Subscription(
-                id=subscription_id,
-                name=subscription_name,
+                _id=subscription_id,
+                _name=subscription_name,
                 _variables = variables,
                 _context = context,
-                _created_at = datetime.now(timezone.utc),
+                _created_at=datetime.now(timezone.utc),
             )
 
             self._subscriptions[subscription_id] = subscription
@@ -938,7 +986,7 @@ class SubscriptionManager:
         Returns:
             Number of subscribers notified
         """
-        subscriber_ids = self._topic_subscribers.get(subscription_name, set())
+        _subscriber_ids=self._topic_subscribers.get(subscription_name, set())
         _count = 0
 
         event = {
@@ -948,7 +996,7 @@ class SubscriptionManager:
         }
 
         for sub_id in subscriber_ids:
-            queue = self._event_queues.get(sub_id)
+            _queue=self._event_queues.get(sub_id)
             if queue:
                 try:
                     queue.put_nowait(event)
@@ -971,7 +1019,7 @@ class SubscriptionManager:
         Returns:
             Event data or None if timeout
         """
-        queue = self._event_queues.get(subscription_id)
+        _queue=self._event_queues.get(subscription_id)
         if not queue:
             return None
 
@@ -990,13 +1038,13 @@ class SubscriptionManager:
         Yields:
             Event data
         """
-        queue = self._event_queues.get(subscription_id)
+        _queue=self._event_queues.get(subscription_id)
         if not queue:
             return
 
         while subscription_id in self._subscriptions:
             try:
-                event = await asyncio.wait_for(queue.get(), timeout=60.0)
+                _event=await asyncio.wait_for(queue.get(), timeout=60.0)
                 yield event
             except asyncio.TimeoutError:
             # Send keepalive
@@ -1036,7 +1084,7 @@ if __name__ == "__main__":
 
     async def example() -> None:
         """Example usage."""
-        server = GraphQLServer()
+        _server=GraphQLServer()
 
         # Example query
         query_request = {
@@ -1044,7 +1092,7 @@ if __name__ == "__main__":
             "context": {"cluster": "default"},
         }
 
-        response = await server.handle_request(query_request)
+        _response=await server.handle_request(query_request)
         print("Query Response:")
         print(json.dumps(response, indent=2))
 
@@ -1058,12 +1106,12 @@ if __name__ == "__main__":
             "context": {"cluster": "default"},
         }
 
-        response = await server.handle_request(mutation_request)
+        _response=await server.handle_request(mutation_request)
         print("\nMutation Response:")
         print(json.dumps(response, indent=2))
 
         # Schema introspection
-        introspection = server.get_schema_introspection()
+        _introspection=server.get_schema_introspection()
         print("\nSchema Types:")
         print(f"Total types: {len(introspection['types'])}")
 

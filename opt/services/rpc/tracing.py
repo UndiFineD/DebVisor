@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +137,7 @@ from contextlib import contextmanager
 import time
 import uuid
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class TraceContext:
@@ -98,7 +146,7 @@ class TraceContext:
     def __init__(
         self, trace_id: Optional[str] = None, parent_span_id: Optional[str] = None
     ):
-        self.trace_id = trace_id or str(uuid.uuid4())
+        self.trace_id=trace_id or str(uuid.uuid4())
         self.parent_span_id = parent_span_id
         self.spans: List["Span"] = []
 
@@ -127,7 +175,7 @@ class Span:
         self.parent_span_id = parent_span_id
         self.operation_name = operation_name
         self.service = service
-        self.start_time: float = time.time()
+        self.start_time: float=time.time()
         self.end_time: Optional[float] = None
         self.duration: Optional[float] = None
         self.status = "pending"
@@ -139,7 +187,7 @@ class Span:
         """Add a tag to the span."""
         self.tags[key] = value
 
-    def add_log(self, message: str, level: str = "info", **fields: Any) -> None:
+    def add_log(self, message: str, level: str="info", **fields: Any) -> None:
         """Add a log event to the span."""
         self.logs.append(
             {
@@ -150,13 +198,13 @@ class Span:
             }
         )
 
-    def finish(self, status: str = "success", error: Optional[Exception] = None) -> None:
+    def finish(self, status: str="success", error: Optional[Exception] = None) -> None:
         """Mark span as finished."""
-        self.end_time = time.time()
+        self.end_time=time.time()
         self.duration = self.end_time - self.start_time
         self.status = status
         if error:
-            self.error = {"type": type(error).__name__, "message": str(error)}
+            self.error={"type": type(error).__name__, "message": str(error)}
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for export."""
@@ -198,12 +246,12 @@ class SimpleTracer:
     ) -> Span:
         """Start a new span within a trace."""
         parent_span_id = trace_context.parent_span_id
-        span_id = str(uuid.uuid4())
+        _span_id=str(uuid.uuid4())
 
         span = Span(
             _trace_id = trace_context.trace_id,
-            span_id=span_id,
-            parent_span_id=parent_span_id,
+            _span_id=span_id,
+            _parent_span_id=parent_span_id,
             _operation_name = operation_name,
             _service = service,
         )
@@ -240,7 +288,7 @@ class SimpleTracer:
 
 
 # Global tracer instance
-_tracer = SimpleTracer()
+_tracer=SimpleTracer()
 
 
 def get_tracer() -> SimpleTracer:
@@ -266,8 +314,8 @@ def trace_span(
         # do work
             span.add_tag('result', 'success')
     """
-    tracer = get_tracer()
-    span = tracer.start_span(operation_name, trace_context, service, tags)
+    _tracer=get_tracer()
+    _span=tracer.start_span(operation_name, trace_context, service, tags)
 
     try:
         yield span
@@ -293,7 +341,7 @@ def export_trace_json(trace_context: TraceContext) -> Dict[str, Any]:
 
 def extract_trace_context_from_headers(headers: Dict[str, str]) -> TraceContext:
     """Extract trace context from request headers."""
-    trace_id = headers.get("X-Trace-ID")
-    parent_span_id = headers.get("X-Trace-Span-ID")
+    _trace_id=headers.get("X-Trace-ID")
+    _parent_span_id=headers.get("X-Trace-Span-ID")
 
     return TraceContext(trace_id, parent_span_id)

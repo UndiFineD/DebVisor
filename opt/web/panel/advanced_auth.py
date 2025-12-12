@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +150,7 @@ from enum import Enum
 from datetime import datetime, timedelta, timezone
 from abc import ABC, abstractmethod
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class DeliveryMethod(Enum):
@@ -156,8 +204,8 @@ class LocationData:
         )
         dlon = lon2 - lon1
         dlat = lat2 - lat1
-        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
-        c = 2 * asin(sqrt(a))
+        _a=sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+        _c=2 * asin(sqrt(a))
         km = 6371 * c
         return km
 
@@ -171,7 +219,7 @@ class AuthenticationContext:
     user_id: str
     ip_address: str
     user_agent: str
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     location: Optional[LocationData] = None
     device_fingerprint: Optional[str] = None
 
@@ -202,9 +250,9 @@ class OTPCode:
 
     code: str
     method: DeliveryMethod
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: datetime = field(
-        _default_factory = lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
+        _default_factory=lambda: datetime.now(timezone.utc) + timedelta(minutes=15)
     )
     used_at: Optional[datetime] = None
     attempts: int = 0
@@ -238,7 +286,7 @@ class OTPCode:
             result |= ord(a) ^ ord(b)
 
         if result == 0:
-            self.used_at = datetime.now(timezone.utc)
+            self.used_at=datetime.now(timezone.utc)
             return True
 
         return False
@@ -258,7 +306,7 @@ class DeliveryProvider(ABC):
 class EmailDeliveryProvider(DeliveryProvider):
     """Email-based OTP delivery"""
 
-    def __init__(self, smtp_config: Optional[Dict[str, Any]] = None):
+    def __init__(self, smtp_config: Optional[Dict[str, Any]] = None) -> None:
         self.smtp_config = smtp_config or {}
 
     async def send_code(
@@ -291,7 +339,7 @@ class EmailDeliveryProvider(DeliveryProvider):
 class SMSDeliveryProvider(DeliveryProvider):
     """SMS-based OTP delivery"""
 
-    def __init__(self, sms_config: Optional[Dict[str, Any]] = None):
+    def __init__(self, sms_config: Optional[Dict[str, Any]] = None) -> None:
         self.sms_config = sms_config or {}
 
     async def send_code(
@@ -318,7 +366,7 @@ class SMSDeliveryProvider(DeliveryProvider):
     def _validate_phone(phone: str) -> bool:
         """Validate phone number"""
         # Simple validation - strip non-digits and check length
-        digits = "".join(filter(str.isdigit, phone))
+        _digits="".join(filter(str.isdigit, phone))
         return 10 <= len(digits) <= 15
 
 
@@ -368,7 +416,7 @@ class RiskAssessmentEngine:
             risk_level = RiskLevel.LOW
 
         # Recommend methods based on risk
-        _methods = self._recommend_methods(risk_level)
+        _methods=self._recommend_methods(risk_level)
 
         # Record context for future checks
         self.login_history.append(context)
@@ -377,11 +425,11 @@ class RiskAssessmentEngine:
             self.login_history.pop(0)
 
         return RiskAssessment(
-            risk_level=risk_level,
+            _risk_level=risk_level,
             _score = score,
             _factors = factors,
             _recommended_methods = methods,
-            _require_step_up = (risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
+            _require_step_up=(risk_level in [RiskLevel.HIGH, RiskLevel.CRITICAL]),
         )
 
     async def _check_impossible_travel(
@@ -400,8 +448,8 @@ class RiskAssessmentEngine:
             return False
 
         # Calculate distance and time
-        distance = context.location.distance_to(last_context.location)
-        time_diff = (context.timestamp - last_context.timestamp).total_seconds() / 3600
+        _distance=context.location.distance_to(last_context.location)
+        _time_diff=(context.timestamp - last_context.timestamp).total_seconds() / 3600
 
         if time_diff == 0:
             time_diff = 0.001    # Avoid division by zero
@@ -412,8 +460,8 @@ class RiskAssessmentEngine:
 
     async def _check_velocity(self, user_id: str) -> bool:
         """Check login velocity"""
-        now = datetime.now(timezone.utc)
-        five_min_ago = now - timedelta(minutes=5)
+        _now=datetime.now(timezone.utc)
+        _five_min_ago=now - timedelta(minutes=5)
 
         recent_logins = [c for c in self.login_history if c.timestamp > five_min_ago]
 
@@ -423,9 +471,9 @@ class RiskAssessmentEngine:
         self, user_id: str, context: AuthenticationContext
     ) -> bool:
         """Check if device is new"""
-        fingerprint = context.fingerprint()
+        _fingerprint=context.fingerprint()
 
-        known_fingerprints = {c.fingerprint() for c in self.login_history}
+        _known_fingerprints={c.fingerprint() for c in self.login_history}
 
         return fingerprint not in known_fingerprints
 
@@ -438,7 +486,7 @@ class RiskAssessmentEngine:
 
         for prev_context in self.login_history:
             if prev_context.location:
-                distance = context.location.distance_to(prev_context.location)
+                _distance=context.location.distance_to(prev_context.location)
                 if distance < 100:    # Within 100 km
                     return False
 
@@ -462,9 +510,9 @@ class AdvancedAuthenticationManager:
     """Manage advanced 2FA with multiple methods"""
 
     def __init__(self) -> None:
-        self.email_provider = EmailDeliveryProvider()
-        self.sms_provider = SMSDeliveryProvider()
-        self.risk_engine = RiskAssessmentEngine()
+        self.email_provider=EmailDeliveryProvider()
+        self.sms_provider=SMSDeliveryProvider()
+        self.risk_engine=RiskAssessmentEngine()
         self.otp_codes: Dict[str, List[OTPCode]] = {}
         self.device_trust: Dict[str, Set[str]] = {}
 
@@ -473,7 +521,7 @@ class AdvancedAuthenticationManager:
     ) -> Tuple[RiskAssessment, List[DeliveryMethod]]:
         """Initiate login flow"""
         # Assess risk
-        risk_assessment = await self.risk_engine.assess_risk(user_id, context)
+        _risk_assessment=await self.risk_engine.assess_risk(user_id, context)
 
         # Return recommended methods
         available_methods: List[DeliveryMethod] = [
@@ -496,25 +544,25 @@ class AdvancedAuthenticationManager:
         # Generate code
         provider: DeliveryProvider
         if method == DeliveryMethod.EMAIL:
-            code = self._generate_numeric_code(6)
+            _code=self._generate_numeric_code(6)
             recipient = email
             provider = self.email_provider
         elif method == DeliveryMethod.SMS:
-            code = self._generate_numeric_code(6)
+            _code=self._generate_numeric_code(6)
             recipient = phone
             provider = self.sms_provider
         else:
             return False, "Unsupported delivery method", None
 
         # Send
-        success, message = await provider.send_code(recipient, code, context)
+        success, message=await provider.send_code(recipient, code, context)
 
         if success:
         # Store OTP
             otp = OTPCode(
-                code=code,
+                _code=code,
                 _method = method,
-                _expires_at = datetime.now(timezone.utc) + timedelta(minutes=15),
+                _expires_at=datetime.now(timezone.utc) + timedelta(minutes=15),
             )
 
             if user_id not in self.otp_codes:
@@ -567,7 +615,7 @@ class AdvancedAuthenticationManager:
 
     @staticmethod
 
-    def _generate_numeric_code(length: int = 6) -> str:
+    def _generate_numeric_code(length: int=6) -> str:
         """Generate numeric OTP code"""
         return "".join(str(secrets.randbelow(10)) for _ in range(length))
 
@@ -594,5 +642,5 @@ async def get_authentication_manager() -> AdvancedAuthenticationManager:
     """Get or create global authentication manager"""
     global _auth_manager
     if _auth_manager is None:
-        _auth_manager = AdvancedAuthenticationManager()
+        _auth_manager=AdvancedAuthenticationManager()
     return _auth_manager

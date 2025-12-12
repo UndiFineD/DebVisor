@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from opt.web.panel.models.audit_log import AuditLog
 import sys
 from pathlib import Path
 
-_system_path = str(Path(__file__).parent.parent.parent.parent / "system")
+_system_path=str(Path(__file__).parent.parent.parent.parent / "system")
 if _system_path not in sys.path:
     sys.path.insert(0, _system_path)
 
@@ -121,7 +169,7 @@ except ImportError:
     IOMMUGroup = None  # type: ignore[assignment, misc]
     _HAS_PASSTHROUGH = False
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # =============================================================================
 # Input Validation
@@ -136,7 +184,7 @@ PCI_ADDRESS_PATTERN = re.compile(
 class ValidationError(Exception):
     """Input validation error."""
 
-    def __init__(self, message: str, field: Optional[str] = None, code: str = "VALIDATION_ERROR"):
+    def __init__(self, message: str, field: Optional[str] = None, code: str="VALIDATION_ERROR") -> None:
         self.message = message
         self.field = field
         self.code = code
@@ -165,7 +213,7 @@ def validate_request_json(
         @wraps(f)
 
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            data = request.get_json(silent=True)
+            _data=request.get_json(silent=True)
 
             if data is None:
                 return (
@@ -251,15 +299,15 @@ class SimpleRateLimiter:
         try:
             import threading
 
-            self._lock = threading.Lock()
+            self._lock=threading.Lock()
         except ImportError:
             pass
 
-    def is_allowed(self, key: str, limit: int, window_seconds: int = 60) -> bool:
+    def is_allowed(self, key: str, limit: int, window_seconds: int=60) -> bool:
         """Check if request is allowed under rate limit."""
         import time
 
-        now = time.time()
+        _now=time.time()
         window_start = now - window_seconds
 
         if self._lock:
@@ -283,10 +331,10 @@ class SimpleRateLimiter:
         return True
 
 
-_rate_limiter = SimpleRateLimiter()
+_rate_limiter=SimpleRateLimiter()
 
 
-def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable[..., Any]] = None) -> Callable[..., Any]:
+def rate_limit(limit: int=60, window: int=60, key_func: Optional[Callable[..., Any]] = None) -> Callable[..., Any]:
     """
     Rate limiting decorator.
 
@@ -302,7 +350,7 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable[..
         def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Generate key
             if key_func:
-                key = key_func()
+                _key=key_func()
             else:
                 key = request.remote_addr or "unknown"
 
@@ -332,7 +380,7 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable[..
 # Blueprint and Routes
 # =============================================================================
 
-_passthrough_bp = Blueprint("passthrough", __name__, url_prefix="/passthrough")
+_passthrough_bp=Blueprint("passthrough", __name__, url_prefix="/passthrough")
 
 # Global manager instance
 _manager: Optional[Any] = None
@@ -345,7 +393,7 @@ def get_manager() -> Optional[Any]:
         if not _HAS_PASSTHROUGH or PassthroughManager is None:
             logger.error("PassthroughManager not available")
             return None
-        _manager = PassthroughManager()
+        _manager=PassthroughManager()
         _manager.scan_devices()
     return _manager
 
@@ -368,7 +416,7 @@ def index() -> Any:
 
 def api_list_devices() -> Any:
     """API: List all PCI devices with passthrough info."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return (
             jsonify(
@@ -382,11 +430,11 @@ def api_list_devices() -> Any:
         )
 
     # Refresh device list
-    devices = manager.scan_devices()
+    _devices=manager.scan_devices()
 
     device_list = []
     for dev in devices:
-        group = manager.get_iommu_group(dev.iommu_group)
+        _group=manager.get_iommu_group(dev.iommu_group)
         device_list.append(
             {
                 "address": dev.address,
@@ -418,7 +466,7 @@ def api_list_devices() -> Any:
 
 def api_list_gpus() -> Any:
     """API: List GPU devices suitable for passthrough."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return (
             jsonify(
@@ -431,10 +479,10 @@ def api_list_gpus() -> Any:
             500,
         )
 
-    gpus = manager.get_gpus()
+    _gpus=manager.get_gpus()
     gpu_list = []
     for gpu in gpus:
-        group = manager.get_iommu_group(gpu.iommu_group)
+        _group=manager.get_iommu_group(gpu.iommu_group)
         gpu_list.append(
             {
                 "address": gpu.address,
@@ -462,7 +510,7 @@ def api_list_gpus() -> Any:
 
 def api_list_iommu_groups() -> Any:
     """API: List all IOMMU groups with their devices."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
 
@@ -498,7 +546,7 @@ def api_list_iommu_groups() -> Any:
 
 def api_list_profiles() -> Any:
     """API: List available passthrough profiles."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
 
@@ -541,7 +589,7 @@ def api_list_profiles() -> Any:
 
 def api_bind_device() -> Any:
     """API: Bind device to VFIO-PCI for passthrough."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return (
             jsonify(
@@ -570,15 +618,15 @@ def api_bind_device() -> Any:
         _ip_address = request.remote_addr,
     )
 
-    success = manager.bind_to_vfio(address)
+    _success=manager.bind_to_vfio(address)
 
     if success:
         AuditLog.log_operation(
             _user_id = current_user.id,
-            operation="update",
+            _operation="update",
             _resource_type = "system",
             _action = "bind_device",
-            status="success",
+            _status="success",
             _request_data = {"address": address},
             _ip_address = request.remote_addr,
         )
@@ -607,7 +655,7 @@ def api_bind_device() -> Any:
 
 def api_release_device() -> Any:
     """API: Release device from VFIO-PCI back to host driver."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return (
             jsonify(
@@ -638,7 +686,7 @@ def api_release_device() -> Any:
         _ip_address = request.remote_addr,
     )
 
-    success = manager.release_device(address)
+    _success=manager.release_device(address)
 
     if success:
         AuditLog.log_operation(
@@ -646,7 +694,7 @@ def api_release_device() -> Any:
             _operation = "update",
             _resource_type = "system",
             _action = "release_device",
-            status="success",
+            _status="success",
             _request_data = {"address": address},
             _ip_address = request.remote_addr,
         )
@@ -659,7 +707,7 @@ def api_release_device() -> Any:
             _operation = "update",
             _resource_type = "system",
             _action = "release_device",
-            status="failure",
+            _status="failure",
             _request_data = {"address": address},
             _ip_address = request.remote_addr,
         )
@@ -673,11 +721,11 @@ def api_release_device() -> Any:
 
 def api_status() -> Any:
     """API: Get overall passthrough system status."""
-    manager = get_manager()
+    _manager=get_manager()
     if manager is None:
         return jsonify({"error": "Passthrough manager not available"}), 500
 
-    summary = manager.get_passthrough_summary()
+    _summary=manager.get_passthrough_summary()
 
     # Add recommendations
     recommendations = []

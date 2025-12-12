@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,7 +148,7 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -168,7 +216,7 @@ class APIKey:
 
     # Status and lifecycle
     status: KeyStatus = KeyStatus.ACTIVE
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     expires_at: Optional[datetime] = None
     last_used_at: Optional[datetime] = None
     last_rotated_at: Optional[datetime] = None
@@ -206,7 +254,7 @@ class APIKey:
         """Get days until expiry."""
         if self.expires_at is None:
             return None
-        delta = self.expires_at - datetime.now(timezone.utc)
+        _delta=self.expires_at - datetime.now(timezone.utc)
         return max(0, delta.days)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -241,7 +289,7 @@ class RotationEvent:
     key_id: str
     service_name: str
     trigger: RotationTrigger
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     old_key_hash: Optional[str] = None
     new_key_hash: Optional[str] = None
     success: bool = True
@@ -292,13 +340,13 @@ class APIKeyGenerator:
         """
         # Use cryptographically secure random
         alphabet = string.ascii_letters + string.digits
-        key_body = "".join(secrets.choice(alphabet) for _ in range(length))
+        _key_body="".join(secrets.choice(alphabet) for _ in range(length))
 
         key = f"{prefix}{key_body}"
 
         if include_checksum:
         # Add 4-character checksum
-            checksum = cls._calculate_checksum(key)[:4]
+            _checksum=cls._calculate_checksum(key)[:4]
             key = f"{key}_{checksum}"
 
         return key
@@ -319,7 +367,7 @@ class APIKeyGenerator:
         """
         # Use a static salt for deterministic hashing (required for O(1) lookup)
         # In production, this salt should be loaded from a secure environment variable
-        salt = os.getenv("API_KEY_SALT", "debvisor_static_salt_v1").encode()
+        _salt=os.getenv("API_KEY_SALT", "debvisor_static_salt_v1").encode()
         # 600,000 iterations recommended by OWASP for PBKDF2-HMAC-SHA256
         return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
 
@@ -330,7 +378,7 @@ class APIKeyGenerator:
         # Use HMAC-SHA256 for checksum calculation
         # This avoids "weak cryptographic hash" warnings while providing integrity
         # Note: This is an integrity check, not a password hash.
-        checksum_key = os.getenv("API_KEY_CHECKSUM_KEY", "debvisor_checksum_key").encode()
+        _checksum_key=os.getenv("API_KEY_CHECKSUM_KEY", "debvisor_checksum_key").encode()
         return hmac.new(
             checksum_key, data.encode(), hashlib.sha256
         ).hexdigest()
@@ -350,20 +398,20 @@ class APIKeyGenerator:
         if not key.startswith(cls.KEY_PREFIX):
             return False
 
-        parts = key.split("_")
+        _parts=key.split("_")
         if len(parts) < 2:
             return False
 
         # Check minimum length
-        body = parts[1] if len(parts) == 2 else "_".join(parts[1:-1])
+        _body=parts[1] if len(parts) == 2 else "_".join(parts[1:-1])
         if len(body) < 16:
             return False
 
         # Validate checksum if present
         if len(parts) >= 3:
             checksum = parts[-1]
-            key_without_checksum = "_".join(parts[:-1])
-            expected = cls._calculate_checksum(key_without_checksum)[:4]
+            _key_without_checksum="_".join(parts[:-1])
+            _expected=cls._calculate_checksum(key_without_checksum)[:4]
             return checksum == expected
 
         return True
@@ -396,7 +444,7 @@ class APIKeyRotationManager:
             default_policy: Default rotation policy
             vault_manager: Optional Vault integration
         """
-        self.default_policy = default_policy or RotationPolicy()
+        self.default_policy=default_policy or RotationPolicy()
         self.vault_manager = vault_manager
 
         # Storage (in production, use database/Vault)
@@ -440,24 +488,24 @@ class APIKeyRotationManager:
         import uuid
 
         # Generate key
-        plaintext_key = APIKeyGenerator.generate()
-        _key_hash = APIKeyGenerator.hash_key(plaintext_key)
-        _key_id = str(uuid.uuid4())[:8]
+        _plaintext_key=APIKeyGenerator.generate()
+        _key_hash=APIKeyGenerator.hash_key(plaintext_key)
+        _key_id=str(uuid.uuid4())[:8]
 
         # Calculate expiry
         policy = policy or self.default_policy
         if expires_in_days is None:
             expires_in_days = policy.rotation_interval_days
 
-        expires_at = datetime.now(timezone.utc) + timedelta(days=expires_in_days)
+        _expires_at=datetime.now(timezone.utc) + timedelta(days=expires_in_days)
 
         # Create key object
         _api_key = APIKey(
-            key_id=key_id,
+            _key_id=key_id,
             _key_hash = key_hash,
             _service_name = service_name,
             _description = description,
-            _scopes = scopes or set(),
+            _scopes=scopes or set(),
             _expires_at = expires_at,
         )
 
@@ -495,39 +543,39 @@ class APIKeyRotationManager:
         """
         import uuid
 
-        api_key = self._keys.get(key_id)
+        _api_key=self._keys.get(key_id)
         if not api_key:
             raise KeyError(f"API key {key_id} not found")
 
-        _policy = self._policies.get(key_id, self.default_policy)
+        _policy=self._policies.get(key_id, self.default_policy)
 
         # Store old key for grace period
         old_key_hash = api_key.key_hash
 
         # Generate new key
-        new_plaintext_key = APIKeyGenerator.generate()
-        new_key_hash = APIKeyGenerator.hash_key(new_plaintext_key)
+        _new_plaintext_key=APIKeyGenerator.generate()
+        _new_key_hash=APIKeyGenerator.hash_key(new_plaintext_key)
 
         # Update key object
         api_key.previous_key_hash = old_key_hash
         api_key.key_hash = new_key_hash
         api_key.status = KeyStatus.ROTATING
-        api_key.last_rotated_at = datetime.now(timezone.utc)
+        api_key.last_rotated_at=datetime.now(timezone.utc)
         api_key.rotation_count += 1
 
         # Set grace period
-        api_key.grace_period_ends_at = datetime.now(timezone.utc) + timedelta(
+        api_key.grace_period_ends_at=datetime.now(timezone.utc) + timedelta(
             _hours = policy.grace_period_hours
         )
 
         # Update expiry
-        api_key.expires_at = datetime.now(timezone.utc) + timedelta(
+        api_key.expires_at=datetime.now(timezone.utc) + timedelta(
             _days = policy.rotation_interval_days
         )
 
         # Record event
         event = RotationEvent(
-            _event_id = str(uuid.uuid4())[:8],
+            _event_id=str(uuid.uuid4())[:8],
             _key_id = key_id,
             _service_name = api_key.service_name,
             _trigger = trigger,
@@ -576,7 +624,7 @@ class APIKeyRotationManager:
         Returns:
             True if revoked
         """
-        api_key = self._keys.get(key_id)
+        _api_key=self._keys.get(key_id)
         if not api_key:
             return False
 
@@ -588,9 +636,9 @@ class APIKeyRotationManager:
         import uuid
 
         event = RotationEvent(
-            _event_id = str(uuid.uuid4())[:8],
-            key_id=key_id,
-            service_name=api_key.service_name,
+            _event_id=str(uuid.uuid4())[:8],
+            _key_id=key_id,
+            _service_name=api_key.service_name,
             _trigger = RotationTrigger.MANUAL,
             _initiated_by = initiated_by,
         )
@@ -622,7 +670,7 @@ class APIKeyRotationManager:
         if not APIKeyGenerator.validate_format(plaintext_key):
             return None
 
-        _key_hash = APIKeyGenerator.hash_key(plaintext_key)
+        _key_hash=APIKeyGenerator.hash_key(plaintext_key)
 
         for api_key in self._keys.values():
         # Skip revoked/expired keys
@@ -634,13 +682,13 @@ class APIKeyRotationManager:
 
             # Check current key
             if api_key.key_hash == key_hash:
-                api_key.last_used_at = datetime.now(timezone.utc)
+                api_key.last_used_at=datetime.now(timezone.utc)
                 return api_key
 
             # Check grace period key
             if api_key.previous_key_hash == key_hash:
                 if api_key.is_in_grace_period:
-                    api_key.last_used_at = datetime.now(timezone.utc)
+                    api_key.last_used_at=datetime.now(timezone.utc)
                     return api_key
 
         return None
@@ -654,7 +702,7 @@ class APIKeyRotationManager:
         if self._rotation_task:
             return
 
-        self._rotation_task = asyncio.create_task(self._rotation_loop())
+        self._rotation_task=asyncio.create_task(self._rotation_loop())
         logger.info("API key rotation scheduler started")
 
     async def stop_rotation_scheduler(self) -> None:
@@ -687,7 +735,7 @@ class APIKeyRotationManager:
             if api_key.status not in (KeyStatus.ACTIVE, KeyStatus.GRACE_PERIOD):
                 continue
 
-            _policy = self._policies.get(key_id, self.default_policy)
+            _policy=self._policies.get(key_id, self.default_policy)
 
             # Check if rotation is due
             if api_key.last_rotated_at:
@@ -721,7 +769,7 @@ class APIKeyRotationManager:
             if api_key.status != KeyStatus.ACTIVE:
                 continue
 
-            policy = self._policies.get(key_id, self.default_policy)
+            _policy=self._policies.get(key_id, self.default_policy)
 
             if api_key.days_until_expiry is not None:
                 if api_key.days_until_expiry <= policy.warning_days_before:
@@ -787,7 +835,7 @@ class APIKeyRotationManager:
 
     def get_key(self, key_id: str) -> Optional[Dict[str, Any]]:
         """Get a specific key."""
-        api_key = self._keys.get(key_id)
+        _api_key=self._keys.get(key_id)
         return api_key.to_dict() if api_key else None
 
     def get_rotation_history(
@@ -801,7 +849,7 @@ class APIKeyRotationManager:
 
         return [e.to_dict() for e in events[-limit:]]
 
-    def get_expiring_keys(self, days: int = 7) -> List[Dict[str, Any]]:
+    def get_expiring_keys(self, days: int=7) -> List[Dict[str, Any]]:
         """Get keys expiring within specified days."""
         expiring = []
 
@@ -824,7 +872,7 @@ def get_rotation_manager() -> APIKeyRotationManager:
     """Get global rotation manager instance."""
     global _rotation_manager
     if _rotation_manager is None:
-        _rotation_manager = APIKeyRotationManager()
+        _rotation_manager=APIKeyRotationManager()
     return _rotation_manager
 
 
@@ -837,7 +885,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     async def main() -> None:
-        manager = get_rotation_manager()
+        _manager=get_rotation_manager()
 
         # Create a key
         key, api_key = await manager.create_key(
@@ -850,7 +898,7 @@ if __name__ == "__main__":
         print(f"Key details: {api_key.to_dict()}")
 
         # Validate key
-        validated = manager.validate_key(key)
+        _validated=manager.validate_key(key)
         print(f"Validated: {validated is not None}")
 
         # Rotate key
@@ -865,7 +913,7 @@ if __name__ == "__main__":
         print(f"New key valid: {manager.validate_key(new_key) is not None}")
 
         # Get history
-        history = manager.get_rotation_history()
+        _history=manager.get_rotation_history()
         print(f"Rotation history: {history}")
 
     asyncio.run(main())

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,16 +157,16 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
         if not HAS_VAULT:
             return {}
 
-        vault_addr = os.getenv("VAULT_ADDR")
-        vault_token = os.getenv("VAULT_TOKEN")
-        _vault_path = os.getenv("VAULT_PATH", "debvisor/config")
-        _vault_mount = os.getenv("VAULT_MOUNT", "secret")
+        _vault_addr=os.getenv("VAULT_ADDR")
+        _vault_token=os.getenv("VAULT_TOKEN")
+        _vault_path=os.getenv("VAULT_PATH", "debvisor/config")
+        _vault_mount=os.getenv("VAULT_MOUNT", "secret")
 
         if not vault_addr or not vault_token:
             return {}
 
         try:
-            client = hvac.Client(url=vault_addr, token=vault_token)
+            _client=hvac.Client(url=vault_addr, token=vault_token)
             if not client.is_authenticated():
                 return {}
 
@@ -141,28 +189,28 @@ class Settings(BaseSettings):
     """Global application settings."""
 
     # General
-    ENVIRONMENT: str = Field("production", validation_alias="FLASK_ENV")
-    DEBUG: bool = Field(False, validation_alias="FLASK_DEBUG")
+    ENVIRONMENT: str=Field("production", validation_alias="FLASK_ENV")
+    DEBUG: bool=Field(False, validation_alias="FLASK_DEBUG")
     SECRET_KEY: Optional[str] = Field(None, validation_alias="SECRET_KEY")
-    SERVICE_NAME: str = Field("debvisor", validation_alias="DEBVISOR_SERVICE_NAME")
+    SERVICE_NAME: str=Field("debvisor", validation_alias="DEBVISOR_SERVICE_NAME")
 
     # Database
-    DATABASE_URL: str = Field("sqlite:///debvisor.db", validation_alias="DATABASE_URL")
-    DB_POOL_SIZE: int = Field(20, validation_alias="DB_POOL_SIZE")
-    DB_MAX_OVERFLOW: int = Field(10, validation_alias="DB_MAX_OVERFLOW")
-    DB_POOL_TIMEOUT: int = Field(30, validation_alias="DB_POOL_TIMEOUT")
-    DB_POOL_RECYCLE: int = Field(3600, validation_alias="DB_POOL_RECYCLE")
+    DATABASE_URL: str=Field("sqlite:///debvisor.db", validation_alias="DATABASE_URL")
+    DB_POOL_SIZE: int=Field(20, validation_alias="DB_POOL_SIZE")
+    DB_MAX_OVERFLOW: int=Field(10, validation_alias="DB_MAX_OVERFLOW")
+    DB_POOL_TIMEOUT: int=Field(30, validation_alias="DB_POOL_TIMEOUT")
+    DB_POOL_RECYCLE: int=Field(3600, validation_alias="DB_POOL_RECYCLE")
 
     # Logging
-    LOG_LEVEL: str = Field("INFO", validation_alias="LOG_LEVEL")
-    LOG_FORMAT: str = Field("json", validation_alias="LOG_FORMAT")
+    LOG_LEVEL: str=Field("INFO", validation_alias="LOG_LEVEL")
+    LOG_FORMAT: str=Field("json", validation_alias="LOG_FORMAT")
 
     # Security
     CORS_ORIGINS: List[str] = Field(["*"], validation_alias="CORS_ORIGINS")
     JWT_SECRET_KEY: Optional[str] = Field(None, validation_alias="JWT_SECRET_KEY")
 
     # Services
-    REDIS_URL: str = Field("redis://localhost:6379/0", validation_alias="REDIS_URL")
+    REDIS_URL: str=Field("redis://localhost:6379/0", validation_alias="REDIS_URL")
     KAFKA_BOOTSTRAP_SERVERS: Optional[str] = Field(None, validation_alias="KAFKA_BOOTSTRAP_SERVERS")
 
     # OpenTelemetry
@@ -171,26 +219,26 @@ class Settings(BaseSettings):
     )
 
     # RPC Service
-    RPC_HOST: str = Field("127.0.0.1", validation_alias="RPC_HOST")
-    RPC_PORT: int = Field(7443, validation_alias="RPC_PORT")
-    RPC_CERT_FILE: str = Field("/etc/debvisor/certs/rpc.crt", validation_alias="RPC_CERT_FILE")
-    RPC_KEY_FILE: str = Field("/etc/debvisor/certs/rpc.key", validation_alias="RPC_KEY_FILE")
-    RPC_CA_FILE: str = Field("/etc/debvisor/certs/ca.crt", validation_alias="RPC_CA_FILE")
+    RPC_HOST: str=Field("127.0.0.1", validation_alias="RPC_HOST")
+    RPC_PORT: int=Field(7443, validation_alias="RPC_PORT")
+    RPC_CERT_FILE: str=Field("/etc/debvisor/certs/rpc.crt", validation_alias="RPC_CERT_FILE")
+    RPC_KEY_FILE: str=Field("/etc/debvisor/certs/rpc.key", validation_alias="RPC_KEY_FILE")
+    RPC_CA_FILE: str=Field("/etc/debvisor/certs/ca.crt", validation_alias="RPC_CA_FILE")
 
     # Scheduler
     SCHEDULER_CONFIG_DIR: str = Field(
         "/etc/debvisor/scheduler", validation_alias="SCHEDULER_CONFIG_DIR"
     )
-    SCHEDULER_MAX_WORKERS: int = Field(10, validation_alias="SCHEDULER_MAX_WORKERS")
+    SCHEDULER_MAX_WORKERS: int=Field(10, validation_alias="SCHEDULER_MAX_WORKERS")
 
     # Anomaly Detection
-    ANOMALY_CONFIG_DIR: str = Field("/etc/debvisor/anomaly", validation_alias="ANOMALY_CONFIG_DIR")
-    ANOMALY_BASELINE_WINDOW: int = Field(604800, validation_alias="ANOMALY_BASELINE_WINDOW")
-    ANOMALY_Z_SCORE_THRESHOLD: float = Field(3.0, validation_alias="ANOMALY_Z_SCORE_THRESHOLD")
+    ANOMALY_CONFIG_DIR: str=Field("/etc/debvisor/anomaly", validation_alias="ANOMALY_CONFIG_DIR")
+    ANOMALY_BASELINE_WINDOW: int=Field(604800, validation_alias="ANOMALY_BASELINE_WINDOW")
+    ANOMALY_Z_SCORE_THRESHOLD: float=Field(3.0, validation_alias="ANOMALY_Z_SCORE_THRESHOLD")
     ANOMALY_CONFIDENCE_THRESHOLD: float = Field(
         0.65, validation_alias="ANOMALY_CONFIDENCE_THRESHOLD"
     )
-    ANOMALY_MAX_HISTORY: int = Field(10000, validation_alias="ANOMALY_MAX_HISTORY")
+    ANOMALY_MAX_HISTORY: int=Field(10000, validation_alias="ANOMALY_MAX_HISTORY")
 
     # Multi-Region
     MULTIREGION_CONFIG_DIR: str = Field(
@@ -205,10 +253,10 @@ class Settings(BaseSettings):
         "https://licensing.debvisor.io/api/v1", validation_alias="LICENSE_PORTAL_URL"
     )
     LICENSE_API_KEY: Optional[str] = Field(None, validation_alias="LICENSE_API_KEY")
-    LICENSE_HEARTBEAT_INTERVAL: int = Field(300, validation_alias="LICENSE_HEARTBEAT_INTERVAL")
+    LICENSE_HEARTBEAT_INTERVAL: int=Field(300, validation_alias="LICENSE_HEARTBEAT_INTERVAL")
 
     # Rate Limiting
-    RATELIMIT_STORAGE_URI: str = Field("memory://", validation_alias="RATELIMIT_STORAGE_URI")
+    RATELIMIT_STORAGE_URI: str=Field("memory://", validation_alias="RATELIMIT_STORAGE_URI")
 
     _model_config = SettingsConfigDict(
         _env_file = ".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore"
@@ -260,7 +308,7 @@ class Settings(BaseSettings):
 
 # Global settings instance
 try:
-    settings = Settings()
+    _settings=Settings()
 except Exception as e:
     # In case of validation error (e.g. missing SECRET_KEY in prod), print and re-raise
     print(f"Configuration Error: {e}")
@@ -273,6 +321,6 @@ except Exception as e:
         class DevSettings(Settings):
             SECRET_KEY: str = "dev-secret-key"
 
-        _settings = DevSettings()
+        _settings=DevSettings()
     else:
         raise

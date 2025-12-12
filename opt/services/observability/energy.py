@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,7 +132,7 @@ import os
 import glob
 from dataclasses import dataclass
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -108,18 +156,18 @@ class EnergyMonitor:
 
     def get_metrics(self) -> EnergyMetrics:
         """Retrieve current energy and thermal metrics."""
-        power = self._read_power_usage()
-        temp = self._read_temperature()
+        _power=self._read_power_usage()
+        _temp=self._read_temperature()
 
         # Simple carbon calculation: Power (kW) * Intensity (g/kWh)
         # This is instantaneous emission rate (g/h)
-        emission_rate = (power / 1000.0) * 475.0
+        _emission_rate=(power / 1000.0) * 475.0
 
         return EnergyMetrics(
-            _power_watts = round(power, 2),
+            _power_watts=round(power, 2),
             _energy_joules = 0.0,    # TODO: Implement cumulative tracking
-            _temperature_celsius = round(temp, 1),
-            _estimated_carbon_emission_g = round(emission_rate, 2)
+            _temperature_celsius=round(temp, 1),
+            _estimated_carbon_emission_g=round(emission_rate, 2)
         )
 
     def _read_power_usage(self) -> float:
@@ -161,13 +209,13 @@ class EnergyMonitor:
                 for zone in glob.glob(f"{self.thermal_path}/thermal_zone*"):
                     try:
                         with open(f"{zone}/type", "r") as f:
-                            type_ = f.read().strip()
+                            _type_=f.read().strip()
 
                         # Filter for relevant zones (x86_pkg_temp, acpitz, etc)
                         if "pkg" in type_ or "x86" in type_ or "acpi" in type_:
                             with open(f"{zone}/temp", "r") as f:
                             # Temp is usually in millidegrees Celsius
-                                temp_milli = int(f.read().strip())
+                                _temp_milli=int(f.read().strip())
                                 temps.append(temp_milli / 1000.0)
                     except (IOError, ValueError):
                         continue

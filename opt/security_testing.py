@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,7 +142,7 @@ import json
 import logging
 
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class VulnerabilitySeverity(Enum):
@@ -147,7 +195,7 @@ class Vulnerability:
     remediation: str
     cve: Optional[str] = None
     cwe: Optional[str] = None
-    discovered_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    discovered_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -160,7 +208,7 @@ class SecurityCheckResult:
     passed: bool
     vulnerabilities: List[Vulnerability] = field(default_factory=list)
     details: Dict[str, Any] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -180,7 +228,7 @@ class SecurityReport:
     medium_count: int
     low_count: int
     compliance_score: float
-    generated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    generated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -228,7 +276,7 @@ class OWASPTop10Checker:
             _passed = False
             vulnerabilities.append(
                 Vulnerability(
-                    id="INP-001",
+                    _id="INP-001",
                     _severity = VulnerabilitySeverity.MEDIUM,
                     _type = SecurityCheckType.INPUT_VALIDATION,
                     _title = "Missing Input Validation",
@@ -241,8 +289,8 @@ class OWASPTop10Checker:
 
         return SecurityCheckResult(
             _check_type = SecurityCheckType.INPUT_VALIDATION,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
+            _passed=passed,
+            _vulnerabilities=vulnerabilities,
             _details = {"validation_patterns": "strip, validate"},
         )
 
@@ -271,8 +319,8 @@ class OWASPTop10Checker:
 
         return SecurityCheckResult(
             _check_type = SecurityCheckType.SQL_INJECTION,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
+            _passed=passed,
+            _vulnerabilities=vulnerabilities,
             _details = {"parameterized": "query_params" in code},
         )
 
@@ -305,8 +353,8 @@ class OWASPTop10Checker:
 
         return SecurityCheckResult(
             _check_type = SecurityCheckType.XSS,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
+            _passed=passed,
+            _vulnerabilities=vulnerabilities,
             _details = {"escaping": "html_escape" in code},
         )
 
@@ -321,7 +369,7 @@ class OWASPTop10Checker:
         # Pattern: password = "..." or PASSWORD = "..." or api_key = "..." etc.
         import re
 
-        hardcoded_pattern = r'(password|api_key|secret|token)\s*=\s*["\']'
+        _hardcoded_pattern=r'(password|api_key|secret|token)\s*=\s*["\']'
         if re.search(hardcoded_pattern, code, re.IGNORECASE):
             _passed = False
             vulnerabilities.append(
@@ -339,7 +387,7 @@ class OWASPTop10Checker:
 
         # Check for password hashing
         weak_hashes = ["md5", "sha1", "sha256"]    # These are too fast for passwords
-        has_weak_hash = any(weak in code.lower() for weak in weak_hashes)
+        _has_weak_hash=any(weak in code.lower() for weak in weak_hashes)
         has_strong_hash = (
             "bcrypt" in code or "argon2" in code or "pbkdf2" in code.lower()
         )
@@ -352,7 +400,7 @@ class OWASPTop10Checker:
                     _severity = VulnerabilitySeverity.HIGH,
                     _type = SecurityCheckType.AUTHENTICATION,
                     _title = "Weak Password Hashing",
-                    _description = "Password hashing using weak algorithms (MD5/SHA)",
+                    _description="Password hashing using weak algorithms (MD5/SHA)",
                     _affected_component = "authentication",
                     _remediation = "Use bcrypt, argon2, or PBKDF2",
                     _cwe = "CWE-916",
@@ -379,8 +427,8 @@ class OWASPTop10Checker:
 
         return SecurityCheckResult(
             _check_type = SecurityCheckType.AUTHENTICATION,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
+            _passed=passed,
+            _vulnerabilities=vulnerabilities,
             _details = {"hashing": "bcrypt" in code or "argon2" in code},
         )
 
@@ -402,16 +450,16 @@ class OWASPTop10Checker:
                     _title = "Missing Authorization Checks",
                     _description = "No authorization checks found",
                     _affected_component = "authorization_layer",
-                    _remediation = "Implement role-based access control (RBAC)",
+                    _remediation="Implement role-based access control (RBAC)",
                     _cwe = "CWE-862",
                 )
             )
 
         return SecurityCheckResult(
             _check_type = SecurityCheckType.AUTHORIZATION,
-            passed=passed,
-            vulnerabilities=vulnerabilities,
-            _details = {"rbac": "role" in code.lower()},
+            _passed=passed,
+            _vulnerabilities=vulnerabilities,
+            _details={"rbac": "role" in code.lower()},
         )
 
     @staticmethod
@@ -489,7 +537,7 @@ class DependencyVulnerabilityChecker:
                     _passed = False
                     vulnerabilities.append(
                         Vulnerability(
-                            _id = f"DEP-{package.upper()}",
+                            _id=f"DEP-{package.upper()}",
                             _severity = VulnerabilitySeverity.HIGH,
                             _type = SecurityCheckType.DEPENDENCY,
                             _title = f"Vulnerable {package}",
@@ -504,7 +552,7 @@ class DependencyVulnerabilityChecker:
             _check_type = SecurityCheckType.DEPENDENCY,
             _passed = passed,
             _vulnerabilities = vulnerabilities,
-            _details = {"scanned_packages": len(requirements)},
+            _details={"scanned_packages": len(requirements)},
         )
 
 
@@ -610,7 +658,7 @@ class SecurityTestingFramework:
         """Scan dependencies."""
         logger.info("Scanning dependencies...")
 
-        check = DependencyVulnerabilityChecker.scan_requirements(requirements)
+        _check=DependencyVulnerabilityChecker.scan_requirements(requirements)
         self.results.append(check)
         self.vulnerabilities.extend(check.vulnerabilities)
 
@@ -618,14 +666,14 @@ class SecurityTestingFramework:
         """Scan container configuration."""
         logger.info("Scanning container configuration...")
 
-        check = ContainerSecurityChecker.scan_dockerfile(dockerfile_content)
+        _check=ContainerSecurityChecker.scan_dockerfile(dockerfile_content)
         self.results.append(check)
         self.vulnerabilities.extend(check.vulnerabilities)
 
     def generate_report(self, framework: ComplianceFramework) -> SecurityReport:
         """Generate security report."""
-        total = len(self.results)
-        passed = sum(1 for r in self.results if r.passed)
+        _total=len(self.results)
+        _passed=sum(1 for r in self.results if r.passed)
         _failed = total - passed
 
         _critical = sum(
@@ -652,9 +700,9 @@ class SecurityTestingFramework:
         score -= high * 15
         score -= medium * 5
         score -= low * 1
-        _score = max(0, min(100, score))
+        _score=max(0, min(100, score))
 
-        report_id = f"sec-{datetime.now(timezone.utc).timestamp()}"
+        _report_id=f"sec-{datetime.now(timezone.utc).timestamp()}"
 
         return SecurityReport(
             _report_id = report_id,
@@ -672,7 +720,7 @@ class SecurityTestingFramework:
 
     def to_json(self, report: SecurityReport) -> str:
         """Convert report to JSON."""
-        data = report.to_dict()
+        _data=report.to_dict()
         data["vulnerabilities"] = [
             {
                 "id": v.id,

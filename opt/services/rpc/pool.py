@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from types import TracebackType
 
 import grpc
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -119,29 +167,29 @@ class PoolConfig:
 class PooledConnection:
     """Wrapper for a single pooled gRPC connection."""
 
-    def __init__(self, channel: grpc.aio.Channel, pool: "ConnectionPool"):
+    def __init__(self, channel: grpc.aio.Channel, pool: "ConnectionPool") -> None:
         self.channel = channel
         self.pool = pool
-        self.created_at = time.time()
-        self.last_used_at = time.time()
+        self.created_at=time.time()
+        self.last_used_at=time.time()
         self.healthy = True
         self.in_use = False
 
     def is_stale(self) -> bool:
         """Check if connection has exceeded TTL."""
-        age = time.time() - self.created_at
+        _age=time.time() - self.created_at
         return age > self.pool.config.connection_ttl_seconds
 
     def mark_used(self) -> None:
         """Update last used timestamp."""
-        self.last_used_at = time.time()
+        self.last_used_at=time.time()
 
     async def health_check(self) -> bool:
         """Verify connection is still healthy."""
         try:
         # Create a simple health check call
             # This assumes the service implements the Health Check API (gRPC standard)
-            health_stub = grpc.health.v1.health_pb2_grpc.HealthStub(self.channel)
+            _health_stub=grpc.health.v1.health_pb2_grpc.HealthStub(self.channel)
             response = await health_stub.Check(
                 grpc.health.v1.health_pb2.HealthCheckRequest(),
                 _timeout = 5,
@@ -166,7 +214,7 @@ class PooledConnection:
 class ConnectionPool:
     """Thread-safe connection pool for gRPC services."""
 
-    def __init__(self, target: str, config: Optional[PoolConfig] = None):
+    def __init__(self, target: str, config: Optional[PoolConfig] = None) -> None:
         """
         Initialize connection pool.
 
@@ -175,13 +223,13 @@ class ConnectionPool:
             config: PoolConfig instance (uses defaults if None)
         """
         self.target = target
-        self.config = config or PoolConfig()
+        self.config=config or PoolConfig()
         self.available_connections: List[PooledConnection] = []
         self.in_use_connections: List[PooledConnection] = []
         self.waiting_tasks: asyncio.Queue[PooledConnection] = asyncio.Queue(
             _maxsize = self.config.max_wait_queue_size
         )
-        self.lock = asyncio.Lock()
+        self.lock=asyncio.Lock()
         self.metrics = {
             "created": 0,
             "destroyed": 0,
@@ -206,7 +254,7 @@ class ConnectionPool:
                     await self._create_connection()
 
                 # Start health check background task
-                self.health_check_task = asyncio.create_task(self._health_check_loop())
+                self.health_check_task=asyncio.create_task(self._health_check_loop())
                 self._initialized = True
                 logger.info(
                     f"Connection pool initialized for {self.target} "
@@ -246,7 +294,7 @@ class ConnectionPool:
                 await channel.close()
                 raise
 
-            pooled_conn = PooledConnection(channel, self)
+            _pooled_conn=PooledConnection(channel, self)
             self.available_connections.append(pooled_conn)
             self.metrics["created"] += 1
 
@@ -285,7 +333,7 @@ class ConnectionPool:
         # Try to acquire existing connection
             async with self.lock:
                 if self.available_connections:
-                    connection = self.available_connections.pop(0)
+                    _connection=self.available_connections.pop(0)
                     connection.in_use = True
                     connection.mark_used()
                     self.in_use_connections.append(connection)
@@ -298,7 +346,7 @@ class ConnectionPool:
                         len(self.in_use_connections) + len(self.available_connections)
                         < self.config.max_connections
                     ):
-                        connection = await self._create_connection()
+                        _connection=await self._create_connection()
                         connection.in_use = True
                         connection.mark_used()
                         self.in_use_connections.append(connection)
@@ -361,7 +409,7 @@ class ConnectionPool:
                 # Perform health checks
                 for conn in connections_to_check:
                     self.metrics["health_checks"] += 1
-                    healthy = await conn.health_check()
+                    _healthy=await conn.health_check()
                     if not healthy:
                         self.metrics["health_check_failures"] += 1
                         async with self.lock:

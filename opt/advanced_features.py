@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +88,7 @@ import json
 import logging
 
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ComplianceFramework(Enum):
@@ -85,7 +133,7 @@ class MetricPrediction:
     predicted_value: float
     confidence: float    # 0.0-1.0
     trend: str    # "up", "down", "stable"
-    predicted_at: datetime = field(default_factory=datetime.now)
+    predicted_at: datetime=field(default_factory=datetime.now)
     forecast_window: int = 3600    # seconds
 
     def is_high_confidence(self) -> bool:
@@ -128,7 +176,7 @@ class AnomalyAlert:
     current_value: float
     threshold_value: float
     deviation_percent: float
-    detected_at: datetime = field(default_factory=datetime.now)
+    detected_at: datetime=field(default_factory=datetime.now)
     acknowledged: bool = False
     root_cause: Optional[str] = None
     recommended_action: Optional[str] = None
@@ -151,7 +199,7 @@ class CostAnalysis:
     savings_opportunity: float
     waste_detected: float
     optimization_recommendations: List[str] = field(default_factory=list)
-    analyzed_at: datetime = field(default_factory=datetime.now)
+    analyzed_at: datetime=field(default_factory=datetime.now)
 
     def get_cost_efficiency_ratio(self) -> float:
         """Calculate cost efficiency ratio."""
@@ -218,17 +266,17 @@ class StatisticalAnomalyDetector(AnomalyDetector):
         for metric_name, value in metrics.items():
             if metric_name not in self.baselines:
                 self.baselines[metric_name] = value
-                base_abs = abs(value) if value is not None else 0.0
-                init_std = max(self.min_std, self.initial_rel_std * max(base_abs, 1.0))
+                _base_abs=abs(value) if value is not None else 0.0
+                _init_std=max(self.min_std, self.initial_rel_std * max(base_abs, 1.0))
                 self.std_devs[metric_name] = init_std
                 continue
 
             baseline = self.baselines[metric_name]
-            std_dev = self.std_devs.get(metric_name, self.min_std)
+            _std_dev=self.std_devs.get(metric_name, self.min_std)
 
-            std_dev = max(std_dev, self.min_std)
+            _std_dev=max(std_dev, self.min_std)
 
-            deviation = abs(value - baseline) / std_dev if std_dev > 0 else float("inf")
+            _deviation=abs(value - baseline) / std_dev if std_dev > 0 else float("inf")
 
             if deviation > self.std_dev_threshold:
                 _deviation_percent = (
@@ -242,15 +290,15 @@ class StatisticalAnomalyDetector(AnomalyDetector):
                 )
 
                 alert = AnomalyAlert(
-                    _alert_id = f"anomaly_{metric_name}_{datetime.now().timestamp()}",
+                    _alert_id=f"anomaly_{metric_name}_{datetime.now().timestamp()}",
                     _anomaly_type = anomaly_type,
                     _severity = (
                         "high" if deviation > self.std_dev_threshold * 1.5 else "medium"
                     ),
-                    metric_name=metric_name,
+                    _metric_name=metric_name,
                     _current_value = value,
-                    _threshold_value = baseline + (self.std_dev_threshold * std_dev),
-                    deviation_percent=deviation_percent,
+                    _threshold_value=baseline + (self.std_dev_threshold * std_dev),
+                    _deviation_percent=deviation_percent,
                     _recommended_action = f"Investigate {metric_name} spike: {deviation_percent:.1f}%",
                 )
 
@@ -260,11 +308,11 @@ class StatisticalAnomalyDetector(AnomalyDetector):
             # Use previous baseline for variance calculation
             prev_baseline = baseline
             alpha = self.ema_alpha
-            new_baseline = (1 - alpha) * prev_baseline + alpha * value
+            _new_baseline=(1 - alpha) * prev_baseline + alpha * value
             delta = value - prev_baseline
             # Update variance via EWMA of squared deviations, then sqrt
-            new_var = (1 - alpha) * (std_dev**2) + alpha * (delta**2)
-            new_std = max(self.min_std, new_var**0.5)
+            _new_var=(1 - alpha) * (std_dev**2) + alpha * (delta**2)
+            _new_std=max(self.min_std, new_var**0.5)
 
             self.baselines[metric_name] = new_baseline
             self.std_devs[metric_name] = new_std
@@ -337,10 +385,10 @@ class ComplianceAutomation:
 
         try:
             validator = self.validators[control_id]
-            compliant = validator()
+            _compliant=validator()
 
             control.compliant = compliant
-            control.last_validated = datetime.now()
+            control.last_validated=datetime.now()
 
             # Log audit event
             self.audit_log.append(
@@ -371,11 +419,11 @@ class ComplianceAutomation:
             Compliance report
         """
         framework_controls = {
-            cid: c for cid, c in self.controls.items() if c.framework == framework
+            cid: c for cid, c in self.controls.items() if c.framework== framework
         }
 
-        total_controls = len(framework_controls)
-        compliant_controls = sum(1 for c in framework_controls.values() if c.compliant)
+        _total_controls=len(framework_controls)
+        _compliant_controls=sum(1 for c in framework_controls.values() if c.compliant)
         _compliance_rate = (
             (compliant_controls / total_controls * 100) if total_controls > 0 else 0
         )
@@ -401,7 +449,7 @@ class ComplianceAutomation:
             "audit_events": len(self.audit_log),
         }
 
-    def get_audit_log(self, hours: int = 24) -> List[Dict[str, Any]]:
+    def get_audit_log(self, hours: int=24) -> List[Dict[str, Any]]:
         """
         Get audit log entries.
 
@@ -411,7 +459,7 @@ class ComplianceAutomation:
         Returns:
             Audit log entries
         """
-        cutoff = datetime.now() - timedelta(hours=hours)
+        _cutoff=datetime.now() - timedelta(hours=hours)
 
         return [
             entry
@@ -423,7 +471,7 @@ class ComplianceAutomation:
 class PredictiveAnalytics:
     """Predictive analytics for metrics."""
 
-    def __init__(self, history_size: int = 100):
+    def __init__(self, history_size: int=100) -> None:
         """
         Initialize predictive analytics.
 
@@ -473,16 +521,16 @@ class PredictiveAnalytics:
 
         # Simple linear trend
         if len(values) >= 2:
-            recent_trend = (values[-1] - values[-5 if len(values) >= 5 else 0]) / max(
+            _recent_trend=(values[-1] - values[-5 if len(values) >= 5 else 0]) / max(
                 len(values) - 1, 1
             )
-            predicted_value = current_value + (recent_trend * (ahead_seconds / 3600))
+            _predicted_value=current_value + (recent_trend * (ahead_seconds / 3600))
         else:
             _predicted_value = current_value
 
         # Calculate confidence based on variance
-        mean_value = sum(values) / len(values)
-        variance = sum((v - mean_value) ** 2 for v in values) / len(values)
+        _mean_value=sum(values) / len(values)
+        _variance=sum((v - mean_value) ** 2 for v in values) / len(values)
         std_dev = variance**0.5
 
         if std_dev == 0:
@@ -495,15 +543,15 @@ class PredictiveAnalytics:
         trend = "up" if recent_trend > 0 else "down" if recent_trend < 0 else "stable"
 
         return MetricPrediction(
-            metric_name=metric_name,
+            _metric_name=metric_name,
             _current_value = current_value,
             _predicted_value = predicted_value,
             _confidence = confidence,
-            trend=trend,
+            _trend=trend,
             _forecast_window = ahead_seconds,
         )
 
-    def get_trend(self, metric_name: str, minutes: int = 60) -> Optional[str]:
+    def get_trend(self, metric_name: str, minutes: int=60) -> Optional[str]:
         """
         Get trend direction.
 
@@ -518,17 +566,17 @@ class PredictiveAnalytics:
             return None
 
         history = self.history[metric_name]
-        cutoff = datetime.now() - timedelta(minutes=minutes)
+        _cutoff=datetime.now() - timedelta(minutes=minutes)
 
         recent_values = [v for t, v in history if t > cutoff]
 
         if len(recent_values) < 2:
             return "stable"
 
-        avg_first_half = sum(recent_values[: len(recent_values) // 2]) / max(
+        _avg_first_half=sum(recent_values[: len(recent_values) // 2]) / max(
             len(recent_values) // 2, 1
         )
-        avg_second_half = sum(recent_values[len(recent_values) // 2 :]) / max(
+        _avg_second_half=sum(recent_values[len(recent_values) // 2 :]) / max(
             len(recent_values) - len(recent_values) // 2, 1
         )
 
@@ -591,7 +639,7 @@ class CostOptimizer:
         recommendations = []
         for rule_fn in self.optimization_rules.values():
             try:
-                results = rule_fn(total_cost, cost_breakdown)
+                _results=rule_fn(total_cost, cost_breakdown)
                 recommendations.extend(
                     results if isinstance(results, list) else [results]
                 )
@@ -618,13 +666,13 @@ class CostOptimizer:
             return False
 
         latest = self.cost_history[-1]
-        total = sum(latest.cost_breakdown.values())
+        _total=sum(latest.cost_breakdown.values())
 
         return (
             latest.cost_breakdown.get(service, 0) / total < 0.1 if total > 0 else False
         )
 
-    def get_cost_history(self, periods: int = 30) -> List[CostAnalysis]:
+    def get_cost_history(self, periods: int=30) -> List[CostAnalysis]:
         """
         Get cost history.
 
@@ -693,7 +741,7 @@ class IntegrationManager:
 
         try:
             health_check_fn = integration["health_check"]
-            result = health_check_fn()
+            _result=health_check_fn()
 
             status = (
                 IntegrationStatus.CONNECTED if result else IntegrationStatus.DEGRADED

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -109,42 +157,42 @@ class Test2FAIntegration:
         """Create 2FA manager instance."""
         return TwoFactorAuthManager()  # type: ignore[return-value]
 
-    def test_totp_enrollment_flow(self, twofa_manager):
+    def test_totp_enrollment_flow(self, twofa_manager) -> None:
         """Test TOTP enrollment workflow."""
         user_id = "test_user"
 
         # Initiate enrollment
-        enrollment_data = twofa_manager.initiate_enrollment(user_id)
+        _enrollment_data=twofa_manager.initiate_enrollment(user_id)
 
         assert enrollment_data is not None
         assert "enrollment_id" in enrollment_data
         assert "totp_uri" in enrollment_data
         assert "qr_code_base64" in enrollment_data
 
-    def test_totp_token_verification(self, twofa_manager):
+    def test_totp_token_verification(self, twofa_manager) -> None:
         """Test TOTP token verification."""
         # user_id = "test_user"
 
         # Get TOTP manager
         totp_mgr = twofa_manager.totp_manager
-        secret = totp_mgr.generate_secret()
+        _secret=totp_mgr.generate_secret()
 
         # Generate token
         import pyotp
 
-        totp = pyotp.TOTP(secret)
-        token = totp.now()
+        _totp=pyotp.TOTP(secret)
+        _token=totp.now()
 
         # Verify token
-        is_valid = totp_mgr.verify_token(token, secret)
+        _is_valid=totp_mgr.verify_token(token, secret)
         assert is_valid
 
-    def test_backup_code_generation(self, twofa_manager):
+    def test_backup_code_generation(self, twofa_manager) -> None:
         """Test backup code generation."""
         backup_mgr = twofa_manager.backup_code_manager
 
         # Generate codes
-        codes = backup_mgr.generate_codes()
+        _codes=backup_mgr.generate_codes()
 
         assert len(codes) == 9
         # Check format XXXX-XXXX
@@ -152,19 +200,19 @@ class Test2FAIntegration:
             assert len(code) == 9
             assert code[4] == "-"
 
-    def test_invalid_token_verification(self, twofa_manager):
+    def test_invalid_token_verification(self, twofa_manager) -> None:
         """Test invalid token verification."""
         totp_mgr = twofa_manager.totp_manager
-        secret = totp_mgr.generate_secret()
+        _secret=totp_mgr.generate_secret()
 
         # Invalid token
-        is_valid = totp_mgr.verify_token("000000", secret)
+        _is_valid=totp_mgr.verify_token("000000", secret)
         assert not is_valid
 
     @pytest.mark.asyncio
     async def test_totp_performance(self) -> None:
         """Test TOTP generation performance."""
-        twofa_manager = TwoFactorAuthManager()
+        _twofa_manager=TwoFactorAuthManager()
         totp_mgr = twofa_manager.totp_manager
 
         # Measure performance
@@ -197,11 +245,11 @@ class TestWebSocketIntegration:
         )
 
         # Publish event
-        event = EventFactory.node_status_event("node1", "online")
+        _event=EventFactory.node_status_event("node1", "online")
         await event_bus.publish(event)
 
         # Receive message
-        message = await event_bus.get_message("client1", timeout=1)
+        _message=await event_bus.get_message("client1", timeout=1)
         assert message is not None
         assert message.event_type == "node_status"
 
@@ -217,11 +265,11 @@ class TestWebSocketIntegration:
         )
 
         # Publish node status event
-        event = EventFactory.node_status_event("node1", "online")
+        _event=EventFactory.node_status_event("node1", "online")
         await event_bus.publish(event)
 
         # Client should not receive (no permission)
-        message = await event_bus.get_message("client1", timeout=0.5)
+        _message=await event_bus.get_message("client1", timeout=0.5)
         assert message is None
 
     @pytest.mark.asyncio
@@ -237,12 +285,12 @@ class TestWebSocketIntegration:
             )
 
         # Publish alert
-        event = EventFactory.alert_event("HIGH_MEMORY", "Memory usage high")
+        _event=EventFactory.alert_event("HIGH_MEMORY", "Memory usage high")
         await event_bus.publish(event)
 
         # Both clients should receive
         for i in range(1, 3):
-            message = await event_bus.get_message(f"client{i}", timeout=1)
+            _message=await event_bus.get_message(f"client{i}", timeout=1)
             assert message is not None
             assert message.event_type == "alert"
 
@@ -252,7 +300,7 @@ class TestReportingIntegration:
 
     def test_health_report_generation(self) -> None:
         """Test health report HTML generation."""
-        report = HealthReport()
+        _report=HealthReport()
 
         # Add metrics
         report.add_metric(
@@ -269,7 +317,7 @@ class TestReportingIntegration:
         report.add_node_status("node1", "online", 45.0, 60.0, 70.0)
 
         # Generate HTML
-        html = report.generate_html()
+        _html=report.generate_html()
 
         assert "CPU" in html
         assert "node1" in html
@@ -277,7 +325,7 @@ class TestReportingIntegration:
 
     def test_capacity_planning_forecast(self) -> None:
         """Test capacity planning forecasting."""
-        report = CapacityPlanningReport()
+        _report=CapacityPlanningReport()
         report.growth_rate = 0.05    # 5% monthly growth
 
         # Add pool
@@ -290,14 +338,14 @@ class TestReportingIntegration:
         report.add_pool(pool)
 
         # Get summary
-        summary = report.get_summary()
+        _summary=report.get_summary()
 
         assert summary["total_capacity_gb"] == 10.0
         assert summary["total_used_gb"] == 5.0
 
     def test_recommendations_generation(self) -> None:
         """Test recommendation generation."""
-        report = HealthReport()
+        _report=HealthReport()
 
         # Add critical metric
         report.add_metric(
@@ -311,7 +359,7 @@ class TestReportingIntegration:
         )
 
         # Get recommendations
-        recommendations = report.get_recommendations()
+        _recommendations=report.get_recommendations()
 
         assert len(recommendations) > 0
         assert any("Memory" in rec for rec in recommendations)
@@ -326,33 +374,33 @@ class TestThemeIntegration:
         """Create theme manager."""
         return ThemeManager()  # type: ignore[return-value]
 
-    def test_default_themes_available(self, theme_manager):
+    def test_default_themes_available(self, theme_manager) -> None:
         """Test that default themes are registered."""
-        themes = theme_manager.list_themes()
+        _themes=theme_manager.list_themes()
 
         assert "light" in themes
         assert "dark" in themes
 
-    def test_theme_switching(self, theme_manager):
+    def test_theme_switching(self, theme_manager) -> None:
         """Test switching between themes."""
         # Switch to dark
-        result = theme_manager.set_theme("dark")
+        _result=theme_manager.set_theme("dark")
         assert result
 
         # Verify current theme
-        css = theme_manager.get_theme_css()
+        _css=theme_manager.get_theme_css()
         assert "dark" in css.lower() or "121212" in css    # Dark background color
 
-    def test_css_generation(self, theme_manager):
+    def test_css_generation(self, theme_manager) -> None:
         """Test CSS variable generation."""
-        css = theme_manager.get_theme_css()
+        _css=theme_manager.get_theme_css()
 
         # Check for CSS variables
         assert "--color-primary" in css
         assert "--color-background" in css
         assert "--font-family" in css
 
-    def test_custom_theme_creation(self, theme_manager):
+    def test_custom_theme_creation(self, theme_manager) -> None:
         """Test creating custom theme."""
         custom_colors = {
             "primary": "    #FF0000",  # Red
@@ -360,7 +408,7 @@ class TestThemeIntegration:
         }
 
         custom_theme = theme_manager.create_custom_theme(
-            name="custom",
+            _name="custom",
             _mode = ThemeMode.LIGHT,
             _colors_dict = custom_colors,
         )
@@ -401,7 +449,7 @@ class TestBatchOperationsIntegration:
             _resources = ["node1", "node2", "node3"],
         )
 
-        preview = await batch_manager.preview_dry_run(operation)
+        _preview=await batch_manager.preview_dry_run(operation)
 
         assert preview["resource_count"] == 3
         assert preview["rollback_supported"] is not None
@@ -419,7 +467,7 @@ class TestBatchOperationsIntegration:
             )
 
         # Get history
-        history = batch_manager.get_history(limit=10)
+        _history=batch_manager.get_history(limit=10)
 
         assert len(history) > 0
 
@@ -430,27 +478,27 @@ class TestEndToEndWorkflow:
     @pytest.mark.asyncio
     async def test_2fa_enrollment_workflow(self) -> None:
         """Test complete 2FA enrollment workflow."""
-        twofa_manager = TwoFactorAuthManager()
+        _twofa_manager=TwoFactorAuthManager()
         user_id = "e2e_test_user"
 
         # Step 1: Initiate enrollment
-        enrollment_data = twofa_manager.initiate_enrollment(user_id)
+        _enrollment_data=twofa_manager.initiate_enrollment(user_id)
         assert enrollment_data is not None
 
         # Step 2: Get QR code
-        qr_code = enrollment_data.get("qr_code_base64")
+        _qr_code=enrollment_data.get("qr_code_base64")
         assert qr_code is not None
 
         # Step 3: Get backup codes
-        backup_codes = twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
+        _backup_codes=twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
         assert len(backup_codes) == 9
 
     @pytest.mark.asyncio
     async def test_monitoring_workflow(self) -> None:
         """Test monitoring workflow with reports and alerts."""
         # Create event bus and report
-        event_bus = WebSocketEventBus()
-        _report = HealthReport()
+        _event_bus=WebSocketEventBus()
+        _report=HealthReport()
 
         # Subscribe to alerts
         await event_bus.subscribe(
@@ -479,5 +527,5 @@ class TestEndToEndWorkflow:
         await event_bus.publish(alert_event)
 
         # Verify alert received
-        message = await event_bus.get_message("monitor1", timeout=1)
+        _message=await event_bus.get_message("monitor1", timeout=1)
         assert message is not None

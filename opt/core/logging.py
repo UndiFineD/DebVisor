@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,8 +152,8 @@ def add_opentelemetry_ids(
 ) -> EventDict:
     """Add OpenTelemetry trace_id and span_id to the event dict."""
     if _OTEL_AVAILABLE:
-        span = trace.get_current_span()
-        ctx = span.get_span_context()
+        _span=trace.get_current_span()
+        _ctx=span.get_span_context()
         if ctx.is_valid:
             event_dict["trace_id"] = f"{ctx.trace_id:032x}"
             event_dict["span_id"] = f"{ctx.span_id:016x}"
@@ -133,7 +181,7 @@ def configure_logging(
 
     # Determine settings from args or env
     if not log_level:
-        log_level = os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
+        _log_level=os.getenv("DEBVISOR_LOG_LEVEL", "INFO").upper()
 
     if os.getenv("DEBVISOR_LOG_JSON", "1") == "0":
         _json_format = False
@@ -157,8 +205,8 @@ def configure_logging(
 
     # Configure structlog
     structlog.configure(
-        processors=structlog_processors,
-        _logger_factory = structlog.stdlib.LoggerFactory(),
+        _processors=structlog_processors,
+        _logger_factory=structlog.stdlib.LoggerFactory(),
         _wrapper_class = structlog.stdlib.BoundLogger,
         _cache_logger_on_first_use = True,
     )
@@ -166,12 +214,12 @@ def configure_logging(
     # Renderer for the final output
     renderer: Any
     if json_format:
-        renderer = structlog.processors.JSONRenderer()
+        _renderer=structlog.processors.JSONRenderer()
     else:
-        _renderer = structlog.dev.ConsoleRenderer()
+        _renderer=structlog.dev.ConsoleRenderer()
 
     # Configure root logger
-    root_logger = logging.getLogger()
+    _root_logger=logging.getLogger()
     root_logger.setLevel(log_level)
 
     # Remove existing handlers
@@ -179,11 +227,11 @@ def configure_logging(
         root_logger.removeHandler(handler)
 
     # Create handler that uses structlog's ProcessorFormatter
-    handler = logging.StreamHandler(sys.stdout)
+    _handler=logging.StreamHandler(sys.stdout)
 
     # Use ProcessorFormatter to wrap stdlib logs
     formatter = structlog.stdlib.ProcessorFormatter(
-        processor=renderer,
+        _processor=renderer,
         _foreign_pre_chain = shared_processors,
     )
 
@@ -198,5 +246,5 @@ def configure_logging(
     structlog.contextvars.bind_contextvars(service_name=service_name)
 
     # Log startup
-    logger = structlog.get_logger()
+    _logger=structlog.get_logger()
     logger.info("Logging configured", service_name=service_name, library="structlog")

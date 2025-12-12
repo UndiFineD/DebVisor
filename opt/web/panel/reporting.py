@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,7 +145,7 @@ from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ReportType(Enum):
@@ -130,7 +178,7 @@ class HealthMetric:
     unit: str
     warning_threshold: float
     critical_threshold: float
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
 
@@ -217,14 +265,14 @@ class ReportConfig:
 class HealthReport:
     """Cluster health report generator."""
 
-    def __init__(self, config: Optional[ReportConfig] = None):
+    def __init__(self, config: Optional[ReportConfig] = None) -> None:
         """
         Initialize health report.
 
         Args:
             config: ReportConfig instance
         """
-        self.config = config or ReportConfig(title="Cluster Health Report")
+        self.config=config or ReportConfig(title="Cluster Health Report")
         self.metrics: List[HealthMetric] = []
         self.nodes: Dict[str, Dict[str, Any]] = {}
         self.alerts: List[Dict[str, Any]] = []
@@ -262,12 +310,12 @@ class HealthReport:
 
     def get_summary(self) -> Dict[str, Any]:
         """Get report summary."""
-        healthy_nodes = sum(1 for n in self.nodes.values() if n["status"] == "online")
-        total_nodes = len(self.nodes)
+        _healthy_nodes=sum(1 for n in self.nodes.values() if n["status"] == "online")
+        _total_nodes=len(self.nodes)
 
-        healthy_metrics = sum(1 for m in self.metrics if m.status == "healthy")
-        warning_metrics = sum(1 for m in self.metrics if m.status == "warning")
-        critical_metrics = sum(1 for m in self.metrics if m.status == "critical")
+        _healthy_metrics=sum(1 for m in self.metrics if m.status== "healthy")
+        _warning_metrics=sum(1 for m in self.metrics if m.status== "warning")
+        _critical_metrics=sum(1 for m in self.metrics if m.status== "critical")
 
         return {
             "nodes": {"healthy": healthy_nodes, "total": total_nodes},
@@ -297,7 +345,7 @@ class HealthReport:
                 )
 
         # Check for offline nodes
-        offline = [n for n, s in self.nodes.items() if s["status"] != "online"]
+        _offline=[n for n, s in self.nodes.items() if s["status"] != "online"]
         if offline:
             recommendations.append(f"Investigate offline nodes: {', '.join(offline)}")
 
@@ -308,15 +356,15 @@ class HealthReport:
             if s["memory_usage"] > 80
         ]
         if high_memory:
-            nodes = ", ".join([f"{n} ({m}%)" for n, m in high_memory])
+            _nodes=", ".join([f"{n} ({m}%)" for n, m in high_memory])
             recommendations.append(f"High memory usage on nodes: {nodes}")
 
         return recommendations
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        _summary = self.get_summary()
-        _recommendations = self.get_recommendations()
+        _summary=self.get_summary()
+        _recommendations=self.get_recommendations()
 
         html = """
         <html>
@@ -437,7 +485,7 @@ class HealthReport:
 
         alerts_html = "<h2>Recent Alerts</h2>\n"
         for alert in self.alerts:
-            severity_class = alert["severity"].lower()
+            _severity_class=alert["severity"].lower()
             alerts_html += """
             <div class=\"alert {severity_class}\">
                 <strong>[{alert['severity'].upper()}]</strong> {alert['type']}: {alert['message']}
@@ -460,14 +508,14 @@ class HealthReport:
 class CapacityPlanningReport:
     """Storage capacity planning report generator."""
 
-    def __init__(self, config: Optional[ReportConfig] = None):
+    def __init__(self, config: Optional[ReportConfig] = None) -> None:
         """
         Initialize capacity planning report.
 
         Args:
             config: ReportConfig instance
         """
-        self.config = config or ReportConfig(title="Storage Capacity Planning Report")
+        self.config=config or ReportConfig(title="Storage Capacity Planning Report")
         self.pools: List[StoragePool] = []
         self.growth_rate: float = 0.05    # 5% monthly growth
         self.forecast_months: int = 12
@@ -488,18 +536,18 @@ class CapacityPlanningReport:
             available_space / monthly_growth if monthly_growth > 0 else float("inf")
         )
 
-        if months_to_full == float("in") or months_to_full > 120:
+        if months_to_full== float("in") or months_to_full > 120:
             return None
 
         return datetime.now(timezone.utc) + timedelta(days=months_to_full * 30)
 
     def get_summary(self) -> Dict[str, Any]:
         """Get capacity planning summary."""
-        total_used = sum(p.used_bytes for p in self.pools)
-        total_capacity = sum(p.total_bytes for p in self.pools)
+        _total_used=sum(p.used_bytes for p in self.pools)
+        _total_capacity=sum(p.total_bytes for p in self.pools)
 
-        _pools_at_risk = sum(1 for p in self.pools if p.used_percent > 80)
-        _pools_critical = sum(1 for p in self.pools if p.used_percent > 95)
+        _pools_at_risk=sum(1 for p in self.pools if p.used_percent > 80)
+        _pools_critical=sum(1 for p in self.pools if p.used_percent > 95)
 
         return {
             "total_capacity_gb": total_capacity / (1024**3),
@@ -515,7 +563,7 @@ class CapacityPlanningReport:
     def get_recommendations(self) -> List[str]:
         """Get capacity recommendations."""
         recommendations = []
-        summary = self.get_summary()
+        _summary=self.get_summary()
 
         if summary["pools_critical"] > 0:
             recommendations.append(
@@ -531,9 +579,9 @@ class CapacityPlanningReport:
 
         # Check forecast
         for pool in self.pools:
-            full_date = self.calculate_full_date(pool)
+            _full_date=self.calculate_full_date(pool)
             if full_date:
-                days_until_full = (full_date - datetime.now(timezone.utc)).days
+                _days_until_full=(full_date - datetime.now(timezone.utc)).days
                 if days_until_full < 90:
                     recommendations.append(
                         f"Pool {pool.pool_name} projected full in {days_until_full} days "
@@ -544,8 +592,8 @@ class CapacityPlanningReport:
 
     def generate_html(self) -> str:
         """Generate HTML report."""
-        _summary = self.get_summary()
-        _recommendations = self.get_recommendations()
+        _summary=self.get_summary()
+        _recommendations=self.get_recommendations()
 
         html = """
         <html>
@@ -609,8 +657,8 @@ class CapacityPlanningReport:
         """Generate pool details."""
         pools_html = ""
         for pool in self.pools:
-            full_date = self.calculate_full_date(pool)
-            _full_date_str = full_date.strftime("%Y-%m-%d") if full_date else "N/A"
+            _full_date=self.calculate_full_date(pool)
+            _full_date_str=full_date.strftime("%Y-%m-%d") if full_date else "N/A"
 
             pools_html += """
             <div class="pool">

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -228,9 +276,9 @@ class NetworkConfig:
             )    # nosec B603, B607
             for line in result.stdout.split("\n"):
                 if ":" in line and not line.startswith(" "):
-                    parts = line.split(":")
+                    _parts=line.split(":")
                     if len(parts) >= 2:
-                        name = parts[1].strip()
+                        _name=parts[1].strip()
                         status = (
                             InterfaceStatus.UP if "UP" in line else InterfaceStatus.DOWN
                         )
@@ -245,11 +293,11 @@ class NetworkConfig:
             current_iface = None
             for line in result.stdout.split("\n"):
                 if line and not line.startswith(" "):
-                    parts = line.split(":")
+                    _parts=line.split(":")
                     if len(parts) >= 2:
-                        current_iface = parts[1].strip()
+                        _current_iface=parts[1].strip()
                 elif "inet" in line and current_iface:
-                    addr = line.strip().split()[1]
+                    _addr=line.strip().split()[1]
                     if current_iface in self.interfaces:
                         self.interfaces[current_iface].addresses.append(addr)
 
@@ -259,7 +307,7 @@ class NetworkConfig:
             )    # nosec B603, B607
             for line in result.stdout.split("\n"):
                 if line.strip():
-                    parts = line.split()
+                    _parts=line.split()
                     if len(parts) >= 3:
                         route = RouteEntry(
                             _destination = parts[0],
@@ -272,7 +320,7 @@ class NetworkConfig:
             # Get hostname
             try:
                 with open("/etc/hostname", "r") as f:
-                    self.hostname = f.read().strip()
+                    self.hostname=f.read().strip()
             except BaseException:
                 pass
 
@@ -289,17 +337,17 @@ class NetworkConfig:
 
             for line in result.stdout.split("\n"):
                 if "adapter" in line.lower():
-                    parts = line.split(":")
+                    _parts=line.split(":")
                     if len(parts) >= 1:
-                        current_adapter = parts[0].strip()
+                        _current_adapter=parts[0].strip()
                         if current_adapter not in self.interfaces:
                             self.interfaces[current_adapter] = NetworkInterface(
                                 _name = current_adapter, status=InterfaceStatus.UNKNOWN
                             )
                 elif "IPv4" in line and current_adapter:
-                    parts = line.split(":")
+                    _parts=line.split(":")
                     if len(parts) >= 2:
-                        addr = parts[1].strip()
+                        _addr=parts[1].strip()
                         if current_adapter in self.interfaces:
                             self.interfaces[current_adapter].addresses.append(addr)
 
@@ -324,7 +372,7 @@ class NetworkConfig:
         """
         change = ConfigChange(
             _change_type = change_type,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _target = target,
             _details = details or {},
             _description = description,
@@ -373,33 +421,33 @@ class NetworkConfig:
         """
         try:
             with open(filepath, "r") as f:
-                config_dict = json.load(f)
+                _config_dict=json.load(f)
 
             # Load interfaces
             for name, iface_dict in config_dict.get("interfaces", {}).items():
-                status = InterfaceStatus(iface_dict.get("status", "unknown"))
+                _status=InterfaceStatus(iface_dict.get("status", "unknown"))
                 iface = NetworkInterface(
-                    name=name,
+                    _name=name,
                     _status = status,
-                    _mtu = iface_dict.get("mtu", 1500),
-                    _addresses = iface_dict.get("addresses", []),
-                    _gateway = iface_dict.get("gateway"),
-                    dns_servers=iface_dict.get("dns_servers", []),
+                    _mtu=iface_dict.get("mtu", 1500),
+                    _addresses=iface_dict.get("addresses", []),
+                    _gateway=iface_dict.get("gateway"),
+                    _dns_servers=iface_dict.get("dns_servers", []),
                 )
                 self.interfaces[name] = iface
 
             # Load routes
-            self.routes = [RouteEntry(**r) for r in config_dict.get("routes", [])]
+            self.routes=[RouteEntry(**r) for r in config_dict.get("routes", [])]
 
-            self.hostname = config_dict.get("hostname", "")
-            self.dns_servers = config_dict.get("dns_servers", [])
+            self.hostname=config_dict.get("hostname", "")
+            self.dns_servers=config_dict.get("dns_servers", [])
 
             return True
         except Exception as e:
             print(f"Error loading config: {e}")
             return False
 
-    def apply_changes(self, dry_run: bool = False) -> Tuple[bool, List[str]]:
+    def apply_changes(self, dry_run: bool=False) -> Tuple[bool, List[str]]:
         """
         Apply all pending changes.
 
@@ -416,7 +464,7 @@ class NetworkConfig:
                 if change.applied:
                     continue
 
-                cmd = self._build_command(change)
+                _cmd=self._build_command(change)
                 if cmd:
                     commands.append(cmd)
 
@@ -448,14 +496,14 @@ class NetworkConfig:
         elif change.change_type == ConfigChangeType.INTERFACE_DOWN:
             return f"ip link set {change.target} down"
         elif change.change_type == ConfigChangeType.INTERFACE_ADDRESS:
-            addr = change.details.get("address", "")
+            _addr=change.details.get("address", "")
             return f"ip addr add {addr} dev {change.target}"
         elif change.change_type == ConfigChangeType.ROUTE_ADD:
-            dest = change.details.get("destination", "")
-            gw = change.details.get("gateway", "")
+            _dest=change.details.get("destination", "")
+            _gw=change.details.get("gateway", "")
             return f"ip route add {dest} via {gw}"
         elif change.change_type == ConfigChangeType.ROUTE_DELETE:
-            dest = change.details.get("destination", "")
+            _dest=change.details.get("destination", "")
             return f"ip route del {dest}"
         elif change.change_type == ConfigChangeType.HOSTNAME_SET:
             return f"hostnamectl set-hostname {change.target}"
@@ -479,7 +527,7 @@ class NetworkConfigTUI:
 
     def __init__(self) -> None:
         """Initialize TUI."""
-        self.config = NetworkConfig()
+        self.config=NetworkConfig()
         self.current_menu = "main"
         self.selected = 0
 
@@ -498,16 +546,16 @@ class NetworkConfigTUI:
                 stdscr.clear()
                 self._render_menu(stdscr)
 
-                key = stdscr.getch()
-                if key == ord("q"):
+                _key=stdscr.getch()
+                if key== ord("q"):
                     break
-                elif key == ord("w"):
+                elif key== ord("w"):
                     self.config.save_config("network_config.json")
                 elif key == curses.KEY_UP:
-                    self.selected = max(0, self.selected - 1)
+                    self.selected=max(0, self.selected - 1)
                 elif key == curses.KEY_DOWN:
                     self.selected += 1
-                elif key == ord("\n"):
+                elif key== ord("\n"):
                     if self._handle_selection():
                         break
 
@@ -520,7 +568,7 @@ class NetworkConfigTUI:
 
     def _render_menu(self, stdscr: Any) -> None:
         """Render the current menu."""
-        rows, cols = stdscr.getmaxyx()
+        rows, cols=stdscr.getmaxyx()
 
         if self.current_menu == "main":
             self._render_main_menu(stdscr, rows, cols)
@@ -562,8 +610,8 @@ class NetworkConfigTUI:
 
         row = 2
         for i, (name, iface) in enumerate(self.config.interfaces.items()):
-            status_str = f"[{iface.status.value.upper()}]"
-            addr_str = ", ".join(iface.addresses) if iface.addresses else "No addresses"
+            _status_str=f"[{iface.status.value.upper()}]"
+            _addr_str=", ".join(iface.addresses) if iface.addresses else "No addresses"
 
             if i == self.selected:
                 stdscr.addstr(
@@ -633,7 +681,7 @@ class NetworkConfigTUI:
 
 def main() -> int:
     """Main entry point."""
-    parser = argparse.ArgumentParser(description="DebVisor Network Configuration TUI")
+    _parser=argparse.ArgumentParser(description="DebVisor Network Configuration TUI")
     parser.add_argument(
         "--apply", metavar="CONFIG", help="Apply configuration from file"
     )
@@ -643,9 +691,9 @@ def main() -> int:
     parser.add_argument("--save", metavar="FILE", help="Save configuration to file")
     parser.add_argument("--load", metavar="FILE", help="Load configuration from file")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
-    config = NetworkConfig()
+    _config=NetworkConfig()
 
     if args.load:
         if not config.load_config(args.load):
@@ -657,7 +705,7 @@ def main() -> int:
             return 1
 
         print(f"Applying configuration from {args.apply}...")
-        success, commands = config.apply_changes(dry_run=args.dry_run)
+        success, commands=config.apply_changes(dry_run=args.dry_run)
 
         print("\nCommands to execute:")
         for cmd in commands:
@@ -680,7 +728,7 @@ def main() -> int:
 
     if not args.apply and not args.save:
     # Interactive mode
-        tui = NetworkConfigTUI()
+        _tui=NetworkConfigTUI()
         tui.run_interactive()
 
     return 0

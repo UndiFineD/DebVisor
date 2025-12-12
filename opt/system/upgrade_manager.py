@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,13 +133,13 @@ import os
 import logging
 from typing import Dict
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class UpgradeManager:
 
     def __init__(self) -> None:
-        self.active_slot = self._detect_active_slot()
+        self.active_slot=self._detect_active_slot()
         self.inactive_slot = "B" if self.active_slot == "A" else "A"
 
         # Define partition map (Simulated for now, would be real device paths)
@@ -104,7 +152,7 @@ class UpgradeManager:
         """Detects the currently running slot from kernel command line."""
         try:
             with open("/proc/cmdline", "r") as f:
-                cmdline = f.read()
+                _cmdline=f.read()
                 if "root_slot=B" in cmdline:
                     return "B"
         except FileNotFoundError:
@@ -121,7 +169,7 @@ class UpgradeManager:
 
     def install_image(self, image_path: str) -> None:
         """Writes a raw system image to the inactive partition."""
-        target_device = self.partitions.get(self.inactive_slot)
+        _target_device=self.partitions.get(self.inactive_slot)
 
         if target_device is None:
             raise ValueError(f"No partition device found for slot {self.inactive_slot}")
@@ -165,5 +213,5 @@ class UpgradeManager:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    mgr = UpgradeManager()
+    _mgr=UpgradeManager()
     print(mgr.get_status())

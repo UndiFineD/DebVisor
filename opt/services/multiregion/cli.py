@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +137,8 @@ try:
     from opt.core.logging import configure_logging
 except ImportError:
 
-    def configure_logging(**kwargs):  # type: ignore[misc]
+    def configure_logging(**kwargs):  # type: ignore[misc] -> None:
+        """Placeholder docstring."""
         pass
 
 from opt.core.cli_utils import format_table, setup_common_args, handle_cli_error
@@ -112,8 +161,8 @@ class MultiRegionCLI:
         Args:
             manager: MultiRegionManager instance
         """
-        self.manager = manager or get_multi_region_manager()
-        self.parser = self._create_parser()
+        self.manager=manager or get_multi_region_manager()
+        self.parser=self._create_parser()
 
     def _create_parser(self) -> argparse.ArgumentParser:
         """Create argument parser."""
@@ -131,14 +180,14 @@ class MultiRegionCLI:
 
         setup_common_args(parser)
 
-        subparsers = parser.add_subparsers(dest="command", help="Command")
+        _subparsers=parser.add_subparsers(dest="command", help="Command")
 
         # Region commands
-        region_parser = subparsers.add_parser("region", help="Region management")
-        region_subparsers = region_parser.add_subparsers(dest="region_cmd")
+        _region_parser=subparsers.add_parser("region", help="Region management")
+        _region_subparsers=region_parser.add_subparsers(dest="region_cmd")
 
         # region add
-        add_parser = region_subparsers.add_parser("add", help="Add a region")
+        _add_parser=region_subparsers.add_parser("add", help="Add a region")
         add_parser.add_argument("region_id", help="Region ID")
         add_parser.add_argument("name", help="Region name")
         add_parser.add_argument("api_endpoint", help="API endpoint URL")
@@ -149,17 +198,17 @@ class MultiRegionCLI:
         add_parser.set_defaults(handler=self._cmd_region_add)
 
         # region list
-        list_parser = region_subparsers.add_parser("list", help="List regions")
+        _list_parser=region_subparsers.add_parser("list", help="List regions")
         list_parser.add_argument(
             "--status",
-            choices=["healthy", "degraded", "unreachable", "recovering"],
-            help="Filter by status",
+            _choices=["healthy", "degraded", "unreachable", "recovering"],
+            _help="Filter by status",
         )
         list_parser.add_argument("--format", choices=["table", "json"], default="table")
         list_parser.set_defaults(handler=self._cmd_region_list)
 
         # region show
-        show_parser = region_subparsers.add_parser("show", help="Show region details")
+        _show_parser=region_subparsers.add_parser("show", help="Show region details")
         show_parser.add_argument("region_id", help="Region ID")
         show_parser.add_argument("--format", choices=["table", "json"], default="table")
         show_parser.set_defaults(handler=self._cmd_region_show)
@@ -182,15 +231,15 @@ class MultiRegionCLI:
         repl_parser = subparsers.add_parser(
             "replication", help="Replication management"
         )
-        repl_subparsers = repl_parser.add_subparsers(dest="repl_cmd")
+        _repl_subparsers=repl_parser.add_subparsers(dest="repl_cmd")
 
         # replication setup
-        setup_parser = repl_subparsers.add_parser("setup", help="Setup replication")
+        _setup_parser=repl_subparsers.add_parser("setup", help="Setup replication")
         setup_parser.add_argument("source", help="Source region")
         setup_parser.add_argument("target", help="Target region")
         setup_parser.add_argument(
             "resource_types",
-            help="Comma-separated resource types (vm, storage, network, config, state)",
+            _help="Comma-separated resource types (vm, storage, network, config, state)",
         )
         setup_parser.add_argument(
             "--interval", type=int, default=300, help="Sync interval in seconds"
@@ -208,25 +257,25 @@ class MultiRegionCLI:
         status_parser.set_defaults(handler=self._cmd_replication_status)
 
         # replication sync
-        sync_parser = repl_subparsers.add_parser("sync", help="Sync resource")
+        _sync_parser=repl_subparsers.add_parser("sync", help="Sync resource")
         sync_parser.add_argument("resource_id", help="Resource ID")
         sync_parser.add_argument("source", help="Source region")
         sync_parser.add_argument("target", help="Target region")
         sync_parser.set_defaults(handler=self._cmd_replication_sync)
 
         # Failover commands
-        fail_parser = subparsers.add_parser("failover", help="Failover management")
-        fail_subparsers = fail_parser.add_subparsers(dest="fail_cmd")
+        _fail_parser=subparsers.add_parser("failover", help="Failover management")
+        _fail_subparsers=fail_parser.add_subparsers(dest="fail_cmd")
 
         # failover execute
-        exec_parser = fail_subparsers.add_parser("execute", help="Execute failover")
+        _exec_parser=fail_subparsers.add_parser("execute", help="Execute failover")
         exec_parser.add_argument("from_region", help="Source region")
         exec_parser.add_argument("to_region", help="Target region")
         exec_parser.add_argument(
             "--strategy",
             _choices = ["automatic", "manual", "graceful", "cascading"],
-            default="automatic",
-            help="Failover strategy",
+            _default="automatic",
+            _help="Failover strategy",
         )
         exec_parser.add_argument(
             "--reason", default="Manual failover", help="Reason for failover"
@@ -244,8 +293,8 @@ class MultiRegionCLI:
         hist_parser.set_defaults(handler=self._cmd_failover_history)
 
         # VM replication commands
-        vm_parser = subparsers.add_parser("vm", help="VM replication management")
-        vm_subparsers = vm_parser.add_subparsers(dest="vm_cmd")
+        _vm_parser=subparsers.add_parser("vm", help="VM replication management")
+        _vm_subparsers=vm_parser.add_subparsers(dest="vm_cmd")
 
         # vm replicate
         rep_parser = vm_subparsers.add_parser(
@@ -259,7 +308,7 @@ class MultiRegionCLI:
         rep_parser.set_defaults(handler=self._cmd_vm_replicate)
 
         # Global commands
-        global_parser = subparsers.add_parser("global", help="Global statistics")
+        _global_parser=subparsers.add_parser("global", help="Global statistics")
         global_parser.set_defaults(handler=self._cmd_global_stats)
 
         return parser
@@ -268,11 +317,11 @@ class MultiRegionCLI:
         """Add a region."""
         try:
             region = self.manager.register_region(
-                name=args.name,
-                location=args.region_id,
-                api_endpoint=args.api_endpoint,
-                is_primary=args.primary,
-                capacity_vms=args.capacity,
+                _name=args.name,
+                _location=args.region_id,
+                _api_endpoint=args.api_endpoint,
+                _is_primary=args.primary,
+                _capacity_vms=args.capacity,
             )
 
             print(f"? Region added: {region.region_id}")
@@ -291,9 +340,9 @@ class MultiRegionCLI:
         try:
             status_filter = None
             if args.status:
-                status_filter = RegionStatus(args.status)
+                _status_filter=RegionStatus(args.status)
 
-            regions = self.manager.list_regions(status=status_filter)
+            _regions=self.manager.list_regions(status=status_filter)
 
             if args.format == "json":
                 print(json.dumps([r.to_dict() for r in regions], indent=2))
@@ -331,7 +380,7 @@ class MultiRegionCLI:
     async def _cmd_region_show(self, args: argparse.Namespace) -> None:
         """Show region details."""
         try:
-            region = self.manager.get_region(args.region_id)
+            _region=self.manager.get_region(args.region_id)
             if not region:
                 print(f"? Region not found: {args.region_id}", file=sys.stderr)  # type: ignore[name-defined]
                 sys.exit(1)  # type: ignore[name-defined]
@@ -363,9 +412,9 @@ class MultiRegionCLI:
         """Check region health."""
         try:
             print(f"Checking health of {args.region_id}...")
-            status = await self.manager.check_region_health(args.region_id)
+            _status=await self.manager.check_region_health(args.region_id)
 
-            region = self.manager.get_region(args.region_id)
+            _region=self.manager.get_region(args.region_id)
             if not region:
                 print(f"? Region not found: {args.region_id}", file=sys.stderr)  # type: ignore[name-defined]
                 sys.exit(1)  # type: ignore[name-defined]
@@ -389,7 +438,7 @@ class MultiRegionCLI:
     async def _cmd_region_stats(self, args: argparse.Namespace) -> None:
         """Get region statistics."""
         try:
-            stats = self.manager.get_region_statistics(args.region_id)
+            _stats=self.manager.get_region_statistics(args.region_id)
             if not stats:
                 print(f"? Region not found: {args.region_id}", file=sys.stderr)  # type: ignore[name-defined]
                 sys.exit(1)  # type: ignore[name-defined]
@@ -410,9 +459,9 @@ class MultiRegionCLI:
             self.manager.setup_replication(
                 _source_region_id = args.source,
                 _target_region_id = args.target,
-                resource_types=resource_types,
+                _resource_types=resource_types,
                 _sync_interval_seconds = args.interval,
-                bidirectional=args.bidirectional,
+                _bidirectional=args.bidirectional,
             )
 
             print(f"? Replication configured: {args.source} -> {args.target}")
@@ -430,7 +479,7 @@ class MultiRegionCLI:
     async def _cmd_replication_status(self, args: argparse.Namespace) -> None:
         """Get replication status."""
         try:
-            status = self.manager.get_replication_status(args.resource_id)
+            _status=self.manager.get_replication_status(args.resource_id)
             if not status:
                 print(f"? Resource not found: {args.resource_id}", file=sys.stderr)  # type: ignore[name-defined]
                 sys.exit(1)  # type: ignore[name-defined]
@@ -464,7 +513,7 @@ class MultiRegionCLI:
     async def _cmd_failover_execute(self, args: argparse.Namespace) -> None:
         """Execute failover."""
         try:
-            _strategy = FailoverStrategy(args.strategy)
+            _strategy=FailoverStrategy(args.strategy)
 
             if not args.force:
                 response = input(
@@ -540,12 +589,12 @@ class MultiRegionCLI:
     async def _cmd_vm_replicate(self, args: argparse.Namespace) -> None:
         """Register VM for replication."""
         try:
-            replica_regions = [r.strip() for r in args.replica_regions.split(", ")]
+            _replica_regions=[r.strip() for r in args.replica_regions.split(", ")]
 
             self.manager.replicate_vm(
-                vm_id=args.vm_id,
+                _vm_id=args.vm_id,
                 _primary_region_id = args.primary_region,
-                replica_regions=replica_regions,
+                _replica_regions=replica_regions,
             )
 
             print(f"? VM registered for replication: {args.vm_id}")
@@ -559,7 +608,7 @@ class MultiRegionCLI:
     async def _cmd_global_stats(self, args: argparse.Namespace) -> None:
         """Get global statistics."""
         try:
-            stats = self.manager.get_global_statistics()
+            _stats=self.manager.get_global_statistics()
             print(json.dumps(stats, indent=2))
 
         except Exception as e:
@@ -572,7 +621,7 @@ class MultiRegionCLI:
         Args:
             args: Command-line arguments
         """
-        parsed_args = self.parser.parse_args(args)
+        _parsed_args=self.parser.parse_args(args)
 
         if not hasattr(parsed_args, "handler"):
             self.parser.print_help()
@@ -595,7 +644,7 @@ class MultiRegionCLI:
 def main() -> None:
     """Main entry point."""
     configure_logging(service_name="multiregion-cli")
-    cli = MultiRegionCLI()
+    _cli=MultiRegionCLI()
     cli.run_sync()
 
 

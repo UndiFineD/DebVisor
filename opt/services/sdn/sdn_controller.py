@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,7 +145,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class EncapsulationType(Enum):
@@ -163,12 +211,12 @@ class NetworkSegment:
     def __post_init__(self) -> None:
     # Validate CIDR
         try:
-            network = ipaddress.ip_network(self.cidr, strict=False)
+            _network=ipaddress.ip_network(self.cidr, strict=False)
             if not self.gateway:
             # Use first usable IP as gateway
-                hosts = list(network.hosts())
+                _hosts=list(network.hosts())
                 if hosts:
-                    self.gateway = str(hosts[0])
+                    self.gateway=str(hosts[0])
         except ValueError as e:
             raise ValueError(f"Invalid CIDR for segment {self.name}: {e}")
 
@@ -264,7 +312,7 @@ class TopologyIntent:
     overlays: List[OverlayLink]
     policies: List[PolicyRule]
     metadata: Dict[str, Any] = field(default_factory=dict)
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def get_segment(self, name: str) -> Optional[NetworkSegment]:
         for seg in self.segments:
@@ -301,8 +349,8 @@ class TopologyIntent:
         # Check for CIDR overlaps
         for i, seg1 in enumerate(self.segments):
             for seg2 in self.segments[i + 1 :]:
-                net1 = ipaddress.ip_network(seg1.cidr, strict=False)
-                net2 = ipaddress.ip_network(seg2.cidr, strict=False)
+                _net1=ipaddress.ip_network(seg1.cidr, strict=False)
+                _net2=ipaddress.ip_network(seg2.cidr, strict=False)
                 if net1.overlaps(net2):
                     errors.append(
                         f"CIDR overlap between segments '{seg1.name}' "
@@ -351,7 +399,7 @@ class CompiledTopology:
     vxlan_devices: List[Dict[str, Any]]
     nftables_rules: List[str]
     ip_commands: List[str]
-    compiled_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    compiled_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -367,23 +415,23 @@ class CompiledTopology:
 class SDNCompiler:
     """Compiles intent into network configuration artifacts."""
 
-    def __init__(self, dry_run: bool = False):
+    def __init__(self, dry_run: bool=False) -> None:
         self.dry_run = dry_run
 
     def compile(self, intent: TopologyIntent) -> CompiledTopology:
         """Compile intent into network configuration."""
         # Calculate intent hash for change detection
-        intent_json = json.dumps(intent.to_dict(), sort_keys=True)
-        intent_hash = hashlib.sha256(intent_json.encode()).hexdigest()[:12]
+        _intent_json=json.dumps(intent.to_dict(), sort_keys=True)
+        _intent_hash=hashlib.sha256(intent_json.encode()).hexdigest()[:12]
 
-        bridges = self._compile_bridges(intent)
-        vxlan_devices = self._compile_overlays(intent)
-        nftables_rules = self._compile_policies(intent)
-        ip_commands = self._generate_ip_commands(intent, bridges, vxlan_devices)
+        _bridges=self._compile_bridges(intent)
+        _vxlan_devices=self._compile_overlays(intent)
+        _nftables_rules=self._compile_policies(intent)
+        _ip_commands=self._generate_ip_commands(intent, bridges, vxlan_devices)
 
         return CompiledTopology(
             _intent_hash = intent_hash,
-            bridges=bridges,
+            _bridges=bridges,
             _vxlan_devices = vxlan_devices,
             _nftables_rules = nftables_rules,
             _ip_commands = ip_commands,
@@ -447,10 +495,10 @@ class SDNCompiler:
         rules.append("    type filter hook forward priority 0; policy drop;")
 
         # Sort policies by priority
-        sorted_policies = sorted(intent.policies, key=lambda p: p.priority)
+        _sorted_policies=sorted(intent.policies, key=lambda p: p.priority)
 
         for policy in sorted_policies:
-            rule_str = f'    {policy.to_nftables_rule()} comment "{policy.name}"'
+            _rule_str=f'    {policy.to_nftables_rule()} comment "{policy.name}"'
             rules.append(rule_str)
 
         rules.append("  }")
@@ -473,7 +521,7 @@ class SDNCompiler:
             commands.append(f"ip link set {bridge['name']} up")
             if bridge.get("gateway"):
                 cidr = bridge["cidr"]
-                prefix_len = cidr.split("/")[1]
+                _prefix_len=cidr.split("/")[1]
                 commands.append(
                     f"ip addr add {bridge['gateway']}/{prefix_len} dev {bridge['name']}"
                 )
@@ -517,8 +565,8 @@ class StateReconciler:
                 _text = True,
                 _timeout = 10,
             )
-            if result.returncode == 0 and result.stdout.strip():
-                data = json.loads(result.stdout)
+            if result.returncode== 0 and result.stdout.strip():
+                _data=json.loads(result.stdout)
                 return [d.get("ifname", "") for d in data]
         except Exception as e:
             logger.warning(f"Failed to get bridges: {e}")
@@ -533,8 +581,8 @@ class StateReconciler:
                 _text = True,
                 _timeout = 10,
             )
-            if result.returncode == 0 and result.stdout.strip():
-                data = json.loads(result.stdout)
+            if result.returncode== 0 and result.stdout.strip():
+                _data=json.loads(result.stdout)
                 return [d.get("ifname", "") for d in data]
         except Exception as e:
             logger.warning(f"Failed to get VXLAN devices: {e}")
@@ -549,7 +597,7 @@ class StateReconciler:
                 _text = True,
                 _timeout = 10,
             )
-            if result.returncode == 0 and result.stdout.strip():
+            if result.returncode== 0 and result.stdout.strip():
                 return json.loads(result.stdout)
         except Exception as e:
             logger.warning(f"Failed to get routes: {e}")
@@ -569,8 +617,8 @@ class StateReconciler:
 
         # Expected bridges
         expected_bridges = {b["name"] for b in compiled.bridges}
-        current_bridges = set(current_state.get("bridges", []))
-        sdn_bridges = {b for b in current_bridges if b.startswith("br-")}
+        _current_bridges=set(current_state.get("bridges", []))
+        _sdn_bridges={b for b in current_bridges if b.startswith("br-")}
 
         missing = expected_bridges - sdn_bridges
         extra = sdn_bridges - expected_bridges
@@ -584,8 +632,8 @@ class StateReconciler:
 
         # Expected VXLAN devices
         expected_vxlan = {d["name"] for d in compiled.vxlan_devices}
-        current_vxlan = set(current_state.get("vxlan_devices", []))
-        sdn_vxlan = {v for v in current_vxlan if v.startswith("vx-")}
+        _current_vxlan=set(current_state.get("vxlan_devices", []))
+        _sdn_vxlan={v for v in current_vxlan if v.startswith("vx-")}
 
         missing_vxlan = expected_vxlan - sdn_vxlan
         extra_vxlan = sdn_vxlan - expected_vxlan
@@ -606,17 +654,17 @@ class StateReconciler:
 class SDNController:
     """Main SDN controller with intent management."""
 
-    def __init__(self, state_path: Optional[Path] = None):
+    def __init__(self, state_path: Optional[Path] = None) -> None:
         self._current_intent: Optional[TopologyIntent] = None
         self._compiled: Optional[CompiledTopology] = None
-        self._lock = threading.RLock()
+        self._lock=threading.RLock()
 
-        self.compiler = SDNCompiler()
-        self.reconciler = StateReconciler()
+        self.compiler=SDNCompiler()
+        self.reconciler=StateReconciler()
 
         self._last_applied: Optional[datetime] = None
         self._apply_count = 0
-        self._state_path = state_path or Path("/var/lib/debvisor/sdn-state.json")
+        self._state_path=state_path or Path("/var/lib/debvisor/sdn-state.json")
 
         # Load persisted state
         self._load_state()
@@ -625,7 +673,7 @@ class SDNController:
         """Load persisted SDN state."""
         if self._state_path.exists():
             try:
-                data = json.loads(self._state_path.read_text())
+                _data=json.loads(self._state_path.read_text())
                 logger.info(f"Loaded SDN state: {data.get('intent_name', 'unknown')}")
             except Exception as e:
                 logger.warning(f"Failed to load SDN state: {e}")
@@ -651,7 +699,7 @@ class SDNController:
 
     def validate_intent(self, intent: TopologyIntent) -> Dict[str, Any]:
         """Validate intent without applying."""
-        errors = intent.validate()
+        _errors=intent.validate()
 
         return {
             "valid": len(errors) == 0,
@@ -663,14 +711,14 @@ class SDNController:
 
     def dry_run(self, intent: TopologyIntent) -> Dict[str, Any]:
         """Compile intent and show what would be applied."""
-        validation = self.validate_intent(intent)
+        _validation=self.validate_intent(intent)
         if not validation["valid"]:
             return {
                 "success": False,
                 "validation": validation,
             }
 
-        compiled = self.compiler.compile(intent)
+        _compiled=self.compiler.compile(intent)
 
         return {
             "success": True,
@@ -686,7 +734,7 @@ class SDNController:
         """Apply network topology intent."""
         with self._lock:
         # Validate
-            validation = self.validate_intent(intent)
+            _validation=self.validate_intent(intent)
             if not validation["valid"]:
                 return {
                     "success": False,
@@ -695,7 +743,7 @@ class SDNController:
                 }
 
             # Check for changes
-            compiled = self.compiler.compile(intent)
+            _compiled=self.compiler.compile(intent)
             if (
                 self._compiled
                 and self._compiled.intent_hash == compiled.intent_hash
@@ -718,7 +766,7 @@ class SDNController:
             # Store state
             self._current_intent = intent
             self._compiled = compiled
-            self._last_applied = datetime.now(timezone.utc)
+            self._last_applied=datetime.now(timezone.utc)
             self._apply_count += 1
 
             # Persist
@@ -782,8 +830,8 @@ class SDNController:
                 "message": "No topology configured",
             }
 
-        current_state = self.reconciler.get_current_state()
-        drift = self.reconciler.detect_drift(self._compiled, current_state)
+        _current_state=self.reconciler.get_current_state()
+        _drift=self.reconciler.detect_drift(self._compiled, current_state)
 
         return {
             "healthy": not drift["has_drift"],
@@ -816,45 +864,45 @@ class SDNController:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="DebVisor SDN Controller")
+    _parser=argparse.ArgumentParser(description="DebVisor SDN Controller")
     parser.add_argument(
         "action", choices=["status", "demo", "health"], help="Action to perform"
     )
     parser.add_argument("--json", action="store_true", help="Output as JSON")
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     logging.basicConfig(
-        level=logging.INFO,
-        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level=logging.INFO,
+        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    controller = SDNController()
+    _controller=SDNController()
 
     if args.action == "status":
-        status = controller.status()
+        _status=controller.status()
         print(json.dumps(status, indent=2) if args.json else f"Status: {status}")
 
     elif args.action == "health":
-        health = controller.check_health()
+        _health=controller.check_health()
         print(json.dumps(health, indent=2))
 
     elif args.action == "demo":
     # Create demo topology
         _intent = TopologyIntent(
             _version = 1,
-            name="demo-topology",
+            _name="demo-topology",
             _segments = [
                 NetworkSegment(
-                    name="frontend",
-                    cidr="10.10.0.0/24",
-                    role=SegmentRole.FRONTEND,
-                    security_zone=SecurityZone.DMZ,
+                    _name="frontend",
+                    _cidr="10.10.0.0/24",
+                    _role=SegmentRole.FRONTEND,
+                    _security_zone=SecurityZone.DMZ,
                 ),
                 NetworkSegment(
-                    name="backend",
-                    cidr="10.20.0.0/24",
-                    role=SegmentRole.BACKEND,
-                    security_zone=SecurityZone.INTERNAL,
+                    _name="backend",
+                    _cidr="10.20.0.0/24",
+                    _role=SegmentRole.BACKEND,
+                    _security_zone=SecurityZone.INTERNAL,
                 ),
                 NetworkSegment(
                     _name = "database",
@@ -865,13 +913,13 @@ if __name__ == "__main__":
             ],
             _overlays = [
                 OverlayLink(
-                    id="fe-be",
-                    src_segment="frontend",
-                    dst_segment="backend",
-                    allowed_labels=["api", "metrics"],
+                    _id="fe-be",
+                    _src_segment="frontend",
+                    _dst_segment="backend",
+                    _allowed_labels=["api", "metrics"],
                 ),
                 OverlayLink(
-                    id="be-db",
+                    _id="be-db",
                     _src_segment = "backend",
                     _dst_segment = "database",
                     _allowed_labels = ["mysql", "postgres"],
@@ -879,11 +927,11 @@ if __name__ == "__main__":
             ],
             _policies = [
                 PolicyRule(
-                    id="allow-http",
-                    name="allow-frontend-http",
-                    priority=100,
-                    action=PolicyAction.ALLOW,
-                    src_segment="frontend",
+                    _id="allow-http",
+                    _name="allow-frontend-http",
+                    _priority=100,
+                    _action=PolicyAction.ALLOW,
+                    _src_segment="frontend",
                     _protocol = "tcp",
                     _dst_port = 80,
                 ),
@@ -912,15 +960,15 @@ if __name__ == "__main__":
 
         # Validate and dry-run
         print("Validating intent...")
-        validation = controller.validate_intent(intent)
+        _validation=controller.validate_intent(intent)
         print(f"Validation: {'? Valid' if validation['valid'] else '? Invalid'}")
 
         print("\nDry-run...")
-        dry_run = controller.dry_run(intent)
+        _dry_run=controller.dry_run(intent)
         print(f"IP Commands: {len(dry_run['ip_commands'])}")
 
         print("\nApplying intent...")
-        result = controller.apply_intent(intent)
+        _result=controller.apply_intent(intent)
         print(f"Applied: {result['success']}")
 
         print("\nTopology:")

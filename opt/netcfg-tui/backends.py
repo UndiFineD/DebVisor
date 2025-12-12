@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +139,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Dict, Optional, Tuple
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -132,7 +180,7 @@ class IPAddress:
 
     def from_cidr(cls, cidr: str) -> "IPAddress":
         """Create from CIDR notation"""
-        parts = cidr.split("/")
+        _parts=cidr.split("/")
         if len(parts) != 2:
             raise ValueError(f"Invalid CIDR: {cidr}")
         return cls(address=parts[0], prefix_len=int(parts[1]))
@@ -192,10 +240,10 @@ class VLANConfig:
 class NetworkBackend(ABC):
     """Abstract base class for network backends"""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         """Initialize backend"""
         self.name = name
-        self.is_available = self._check_availability()
+        self.is_available=self._check_availability()
         logger.info(f"{name} backend initialized (available: {self.is_available})")
 
     @abstractmethod
@@ -284,19 +332,19 @@ class Iproute2Backend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if iproute2 is available"""
-        rc, _, _ = self.execute_command(["which", "ip"], check=False)
+        rc, _, _=self.execute_command(["which", "ip"], check=False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
         """Get interface configuration using 'ip addr'"""
-        rc, output, _ = self.execute_command(["ip", "link", "show", name], check=False)
+        rc, output, _=self.execute_command(["ip", "link", "show", name], check=False)
 
         if rc != 0:
             logger.warning(f"Interface not found: {name}")
             return None
 
         # Parse output
-        config = InterfaceConfig(name=name)
+        _config=InterfaceConfig(name=name)
 
         # Extract state
         if "UP" in output:
@@ -305,9 +353,9 @@ class Iproute2Backend(NetworkBackend):
             config.state = InterfaceState.DOWN
 
         # Extract MTU
-        mtu_match = re.search(r"mtu\s+(\d+)", output)
+        _mtu_match=re.search(r"mtu\s+(\d+)", output)
         if mtu_match:
-            config.mtu = int(mtu_match.group(1))
+            config.mtu=int(mtu_match.group(1))
 
         # Get addresses
         rc, addr_output, _ = self.execute_command(
@@ -316,7 +364,7 @@ class Iproute2Backend(NetworkBackend):
         if rc == 0:
             for line in addr_output.split("\n"):
                 if "inet" in line:
-                    parts = line.split()
+                    _parts=line.split()
                     if len(parts) >= 2:
                         cidr = parts[1]
                         config.addresses.append(IPAddress.from_cidr(cidr))  # type: ignore[union-attr]
@@ -348,8 +396,8 @@ class Iproute2Backend(NetworkBackend):
 
     def add_ip_address(self, name: str, address: IPAddress) -> bool:
         """Add IP address using 'ip addr add'"""
-        cmd = ["ip", "addr", "add", address.to_cidr(), "dev", name]
-        rc, _, err = self.execute_command(cmd, check=False)
+        _cmd=["ip", "addr", "add", address.to_cidr(), "dev", name]
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to add address: {err}")
             return False
@@ -358,8 +406,8 @@ class Iproute2Backend(NetworkBackend):
 
     def remove_ip_address(self, name: str, address: IPAddress) -> bool:
         """Remove IP address using 'ip addr del'"""
-        cmd = ["ip", "addr", "del", address.to_cidr(), "dev", name]
-        rc, _, err = self.execute_command(cmd, check=False)
+        _cmd=["ip", "addr", "del", address.to_cidr(), "dev", name]
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to remove address: {err}")
             return False
@@ -368,8 +416,8 @@ class Iproute2Backend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set interface MTU"""
-        cmd = ["ip", "link", "set", name, "mtu", str(mtu)]
-        rc, _, err = self.execute_command(cmd, check=False)
+        _cmd=["ip", "link", "set", name, "mtu", str(mtu)]
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to set MTU: {err}")
             return False
@@ -380,7 +428,7 @@ class Iproute2Backend(NetworkBackend):
         """Create bond interface"""
         # Create bond
         cmd = ["ip", "link", "add", config.name, "type", "bond", "mode", config.mode]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to create bond: {err}")
             return False
@@ -388,7 +436,7 @@ class Iproute2Backend(NetworkBackend):
         # Add slaves
         for slave in config.slaves:
             slave_cmd = ["ip", "link", "set", slave, "master", config.name]
-            rc, _, err = self.execute_command(slave_cmd, check=False)
+            rc, _, err=self.execute_command(slave_cmd, check=False)
             if rc != 0:
                 logger.error(f"Failed to add slave: {err}")
                 return False
@@ -414,7 +462,7 @@ class Iproute2Backend(NetworkBackend):
             "id",
             str(config.vlan_id),
         ]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to create VLAN: {err}")
             return False
@@ -432,7 +480,7 @@ class Iproute2Backend(NetworkBackend):
     def delete_interface(self, name: str) -> bool:
         """Delete interface"""
         cmd = ["ip", "link", "del", name]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to delete interface: {err}")
             return False
@@ -452,7 +500,7 @@ class NetworkManagerBackend(NetworkBackend):
 
     def _check_availability(self) -> bool:
         """Check if NetworkManager and nmcli are available"""
-        rc, _, _ = self.execute_command(["which", "nmcli"], check=False)
+        rc, _, _=self.execute_command(["which", "nmcli"], check=False)
         return rc == 0
 
     def get_interface(self, name: str) -> Optional[InterfaceConfig]:
@@ -465,7 +513,7 @@ class NetworkManagerBackend(NetworkBackend):
             logger.warning(f"Interface not found: {name}")
             return None
 
-        config = InterfaceConfig(name=name)
+        _config=InterfaceConfig(name=name)
 
         # Parse output
         for line in output.split("\n"):
@@ -478,19 +526,19 @@ class NetworkManagerBackend(NetworkBackend):
                 else:
                     config.state = InterfaceState.DOWN
             elif line.startswith("WIRED-PROPERTIES.MTU:"):
-                parts = line.split(":")
+                _parts=line.split(":")
                 if len(parts) > 1:
-                    config.mtu = int(parts[1].strip())
+                    config.mtu=int(parts[1].strip())
             elif line.startswith("IP4.ADDRESS"):
-                parts = line.split(":")
+                _parts=line.split(":")
                 if len(parts) > 1:
-                    address_str = parts[1].strip()
+                    _address_str=parts[1].strip()
                     if address_str:
                         config.addresses.append(IPAddress.from_cidr(address_str))  # type: ignore[union-attr]
             elif line.startswith("IP4.DNS"):
-                parts = line.split(":")
+                _parts=line.split(":")
                 if len(parts) > 1:
-                    dns = parts[1].strip()
+                    _dns=parts[1].strip()
                     if dns:
                         config.dns_servers.append(dns)  # type: ignore[union-attr]
 
@@ -532,7 +580,7 @@ class NetworkManagerBackend(NetworkBackend):
             "ipv4.method",
             "manual",
         ]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to add address via nmcli: {err}")
             return False
@@ -553,7 +601,7 @@ class NetworkManagerBackend(NetworkBackend):
             "-ipv4.addresses",
             address.to_cidr(),
         ]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to remove address via nmcli: {err}")
             return False
@@ -563,8 +611,8 @@ class NetworkManagerBackend(NetworkBackend):
 
     def set_mtu(self, name: str, mtu: int) -> bool:
         """Set MTU via nmcli"""
-        cmd = ["nmcli", "connection", "modify", name, "ethernet.mtu", str(mtu)]
-        rc, _, err = self.execute_command(cmd, check=False)
+        _cmd=["nmcli", "connection", "modify", name, "ethernet.mtu", str(mtu)]
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to set MTU via nmcli: {err}")
             return False
@@ -588,7 +636,7 @@ class NetworkManagerBackend(NetworkBackend):
             "bond.options",
             f"mode={config.mode}",
         ]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to create bond via nmcli: {err}")
             return False
@@ -608,7 +656,7 @@ class NetworkManagerBackend(NetworkBackend):
                 "slave-type",
                 "bond",
             ]
-            rc, _, err = self.execute_command(slave_cmd, check=False)
+            rc, _, err=self.execute_command(slave_cmd, check=False)
             if rc != 0:
                 logger.error(f"Failed to add slave via nmcli: {err}")
                 return False
@@ -633,7 +681,7 @@ class NetworkManagerBackend(NetworkBackend):
             "id",
             str(config.vlan_id),
         ]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to create VLAN via nmcli: {err}")
             return False
@@ -644,7 +692,7 @@ class NetworkManagerBackend(NetworkBackend):
     def delete_interface(self, name: str) -> bool:
         """Delete interface via nmcli"""
         cmd = ["nmcli", "connection", "delete", name]
-        rc, _, err = self.execute_command(cmd, check=False)
+        rc, _, err=self.execute_command(cmd, check=False)
         if rc != 0:
             logger.error(f"Failed to delete interface via nmcli: {err}")
             return False
@@ -669,14 +717,14 @@ class NetworkBackendFactory:
     def create_backend(cls, backend_name: Optional[str] = None) -> NetworkBackend:
         """Create backend instance"""
         if backend_name and backend_name in cls._backends:
-            backend = cls._backends[backend_name]()
+            _backend=cls._backends[backend_name]()
             if backend.is_available:
                 return backend
             logger.warning(f"Backend {backend_name} not available on system")
 
         # Try backends in order of preference
         for name in ["iproute2", "nmcli"]:
-            backend = cls._backends[name]()
+            _backend=cls._backends[name]()
             if backend.is_available:
                 logger.info(f"Using {name} backend")
                 return backend
@@ -699,22 +747,22 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     # Create backend
-    factory = NetworkBackendFactory()
-    backend = factory.create_backend()
+    _factory=NetworkBackendFactory()
+    _backend=factory.create_backend()
 
     print(f"Using backend: {backend.name}")
 
     # Get interface
-    if_config = backend.get_interface("eth0")
+    _if_config=backend.get_interface("eth0")
     if if_config:
         print(f"Interface: {if_config.name}, State: {if_config.state.value}")
 
     # Add IP address
-    new_addr = IPAddress(address="192.168.1.100", prefix_len=24)
-    result = backend.add_ip_address("eth0", new_addr)
+    _new_addr=IPAddress(address="192.168.1.100", prefix_len=24)
+    _result=backend.add_ip_address("eth0", new_addr)
     print(f"Address added: {result}")
 
     # Create VLAN
-    vlan_config = VLANConfig(name="eth0.100", parent="eth0", vlan_id=100)
-    result = backend.create_vlan(vlan_config)
+    _vlan_config=VLANConfig(name="eth0.100", parent="eth0", vlan_id=100)
+    _result=backend.create_vlan(vlan_config)
     print(f"VLAN created: {result}")

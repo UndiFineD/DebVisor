@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,12 +91,12 @@ def main() -> None:
 
     print("Fetching alerts...")
 
-    gh_path = shutil.which("gh")
+    _gh_path=shutil.which("gh")
     if not gh_path:
         print("Error: 'gh' executable not found in PATH.")
         return
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    _result=subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
         print("Error fetching alerts:")
@@ -58,8 +106,8 @@ def main() -> None:
     try:
     # Handle paginated output which might result in multiple JSON arrays separated by whitespace
         # We replace ']...[' with ',' to merge them into a single list.
-        json_str = re.sub(r'\]\s*\[', ', ', result.stdout)
-        alerts = json.loads(json_str)
+        _json_str=re.sub(r'\]\s*\[', ', ', result.stdout)
+        _alerts=json.loads(json_str)
     except json.JSONDecodeError as e:
         print(f"Failed to decode JSON: {e}")
         return
@@ -72,16 +120,16 @@ def main() -> None:
         f.write("Generated via GitHub CLI.\n\n")
 
         # Group by category
-        security_alerts = [a for a in alerts if not (a['rule'].startswith('E') or a['rule'].startswith('W'))]
-        _style_alerts = [a for a in alerts if (a['rule'].startswith('E') or a['rule'].startswith('W'))]
+        _security_alerts=[a for a in alerts if not (a['rule'].startswith('E') or a['rule'].startswith('W'))]
+        _style_alerts=[a for a in alerts if (a['rule'].startswith('E') or a['rule'].startswith('W'))]
 
         f.write("    ## Security Vulnerabilities (High Priority)\n\n")
         if security_alerts:
             f.write("| ID | Rule | Severity | File | Line | Message |\n")
             f.write("|----|------|----------|------|------|---------|\n")
             for a in security_alerts:
-                severity = a.get('severity', 'warning')
-                msg = a['message'].replace('|', '\\|').replace('\n', ' ')
+                _severity=a.get('severity', 'warning')
+                _msg=a['message'].replace('|', '\\|').replace('\n', ' ')
                 f.write(f"| {a['number']} | {a['rule']} | {severity} | `{a['file']}` | {a['line']} | {msg} |\n")
         else:
             f.write("*No security vulnerabilities found.*\n")
@@ -91,7 +139,7 @@ def main() -> None:
             f.write("| ID | Rule | File | Line | Message |\n")
             f.write("|----|------|------|------|---------|\n")
             for a in style_alerts:
-                msg = a['message'].replace('|', '\\|').replace('\n', ' ')
+                _msg=a['message'].replace('|', '\\|').replace('\n', ' ')
                 f.write(f"| {a['number']} | {a['rule']} | `{a['file']}` | {a['line']} | {msg} |\n")
         else:
             f.write("*No style issues found.*\n")

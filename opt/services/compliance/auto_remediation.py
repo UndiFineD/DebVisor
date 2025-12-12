@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from pathlib import Path
 import hashlib
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -215,7 +263,7 @@ class ConfigurationMonitor:
     Monitors system configuration for drift from baselines.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.baselines: Dict[str, ConfigurationBaseline] = {}
         self.scan_interval: int = 300  # 5 minutes
         self._running: bool = False
@@ -233,7 +281,7 @@ class ConfigurationMonitor:
         drifts: List[ConfigurationDrift] = []
 
         for baseline in self.baselines.values():
-            drift = await self._check_single_resource(baseline)
+            _drift=await self._check_single_resource(baseline)
             if drift:
                 drifts.append(drift)
 
@@ -252,28 +300,28 @@ class ConfigurationMonitor:
             )
 
             # Calculate checksum
-            current_checksum = self._calculate_checksum(current_config)
+            _current_checksum=self._calculate_checksum(current_config)
 
             # Compare with baseline
             if current_checksum == baseline.checksum:
                 return None
 
             # Detect specific changes
-            changes = self._detect_changes(baseline.configuration, current_config)
+            _changes=self._detect_changes(baseline.configuration, current_config)
 
             if not changes:
                 return None
 
             # Determine severity
-            severity = self._assess_drift_severity(changes, baseline)
+            _severity=self._assess_drift_severity(changes, baseline)
 
             drift = ConfigurationDrift(
-                _drift_id = f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
+                _drift_id=f"drift-{baseline.baseline_id}-{datetime.now().timestamp()}",
                 _baseline_id = baseline.baseline_id,
                 _resource_type = baseline.resource_type,
                 _resource_id = baseline.resource_id,
-                _detected_at = datetime.now(timezone.utc),
-                severity=severity,
+                _detected_at=datetime.now(timezone.utc),
+                _severity=severity,
                 _changes = changes,
             )
 
@@ -318,7 +366,7 @@ class ConfigurationMonitor:
 
     def _calculate_checksum(self, config: Dict[str, Any]) -> str:
         """Calculate checksum of configuration."""
-        config_json = json.dumps(config, sort_keys=True)
+        _config_json=json.dumps(config, sort_keys=True)
         return hashlib.sha256(config_json.encode()).hexdigest()
 
     def _detect_changes(
@@ -329,11 +377,11 @@ class ConfigurationMonitor:
         """Detect specific configuration changes."""
         changes = {}
 
-        all_keys = set(baseline_config.keys()) | set(current_config.keys())
+        _all_keys=set(baseline_config.keys()) | set(current_config.keys())
 
         for key in all_keys:
-            baseline_value = baseline_config.get(key)
-            current_value = current_config.get(key)
+            _baseline_value=baseline_config.get(key)
+            _current_value=current_config.get(key)
 
             if baseline_value != current_value:
                 changes[key] = {
@@ -374,7 +422,7 @@ class ConfigurationMonitor:
 
         while self._running:
             try:
-                drifts = await self.scan_for_drift()
+                _drifts=await self.scan_for_drift()
 
                 if drifts:
                     logger.warning(f"Detected {len(drifts)} configuration drifts")
@@ -399,7 +447,7 @@ class AutoRemediationEngine:
     Automatically remediates configuration drift based on rules.
     """
 
-    def __init__(self, monitor: ConfigurationMonitor):
+    def __init__(self, monitor: ConfigurationMonitor) -> None:
         self.monitor = monitor
         self.rules: Dict[str, RemediationRule] = {}
         self.remediation_history: List[RemediationRecord] = []
@@ -444,7 +492,7 @@ class AutoRemediationEngine:
     ) -> Optional[RemediationRecord]:
         """Process a detected drift and remediate if appropriate."""
         # Find matching rule
-        rule = self._find_matching_rule(drift)
+        _rule=self._find_matching_rule(drift)
 
         if not rule:
             logger.info(f"No remediation rule for drift {drift.drift_id}")
@@ -495,8 +543,8 @@ class AutoRemediationEngine:
 
     def _check_rate_limit(self, rule: RemediationRule) -> bool:
         """Check if rate limit allows remediation."""
-        now = datetime.now(timezone.utc)
-        one_hour_ago = now - timedelta(hours=1)
+        _now=datetime.now(timezone.utc)
+        _one_hour_ago=now - timedelta(hours=1)
 
         if rule.rule_id not in self.remediation_counts:
             self.remediation_counts[rule.rule_id] = []
@@ -508,7 +556,7 @@ class AutoRemediationEngine:
         ]
 
         # Check limit
-        count = len(self.remediation_counts[rule.rule_id])
+        _count=len(self.remediation_counts[rule.rule_id])
         if count >= rule.max_auto_remediations_per_hour:
             return False
 
@@ -536,8 +584,8 @@ class AutoRemediationEngine:
                 DriftSeverity.CRITICAL: 4,
             }
 
-            drift_level = severity_values.get(drift.severity, 0)
-            threshold_level = severity_values.get(rule.require_approval_threshold, 0)
+            _drift_level=severity_values.get(drift.severity, 0)
+            _threshold_level=severity_values.get(rule.require_approval_threshold, 0)
 
             if drift_level >= threshold_level:
                 return False
@@ -558,7 +606,7 @@ class AutoRemediationEngine:
         )
 
         # Get baseline configuration
-        baseline = self.monitor.baselines.get(drift.baseline_id)
+        _baseline=self.monitor.baselines.get(drift.baseline_id)
         if not baseline:
             raise ValueError(f"Baseline {drift.baseline_id} not found")
 
@@ -576,7 +624,7 @@ class AutoRemediationEngine:
                     baseline.configuration
                 )
             elif rule.action == RemediationAction.UPDATE_SETTING:
-                success = await self._update_settings(drift, baseline.configuration)
+                _success=await self._update_settings(drift, baseline.configuration)
             else:
                 logger.warning(f"Unsupported action: {rule.action}")
                 _success = False
@@ -587,9 +635,9 @@ class AutoRemediationEngine:
                 _drift_id = drift.drift_id,
                 _rule_id = rule.rule_id,
                 _action = rule.action,
-                _executed_at = datetime.now(timezone.utc),
+                _executed_at=datetime.now(timezone.utc),
                 _executed_by = "system",
-                success=success,
+                _success=success,
                 _changes_made = drift.changes if success else {},
                 _rollback_data = current_config,
             )
@@ -618,12 +666,12 @@ class AutoRemediationEngine:
                 _drift_id = drift.drift_id,
                 _rule_id = rule.rule_id,
                 _action = rule.action,
-                _executed_at = datetime.now(timezone.utc),
+                _executed_at=datetime.now(timezone.utc),
                 _executed_by = "system",
                 _success = False,
                 _changes_made = {},
                 _rollback_data = current_config,
-                _error_message = str(e),
+                _error_message=str(e),
             )
 
             self.remediation_history.append(record)
@@ -703,9 +751,9 @@ class ContinuousComplianceService:
     Main service for continuous compliance monitoring and auto-remediation.
     """
 
-    def __init__(self):
-        self.monitor = ConfigurationMonitor()
-        self.engine = AutoRemediationEngine(self.monitor)
+    def __init__(self) -> None:
+        self.monitor=ConfigurationMonitor()
+        self.engine=AutoRemediationEngine(self.monitor)
         self._running = False
 
     def register_baseline(
@@ -720,9 +768,9 @@ class ContinuousComplianceService:
             _baseline_id = f"baseline-{resource_type}-{resource_id}",
             _resource_type = resource_type,
             _resource_id = resource_id,
-            configuration=configuration,
-            _checksum = self.monitor._calculate_checksum(configuration),
-            _created_at = datetime.now(timezone.utc),
+            _configuration=configuration,
+            _checksum=self.monitor._calculate_checksum(configuration),
+            _created_at=datetime.now(timezone.utc),
             _tags = tags or [],
         )
 
@@ -737,7 +785,7 @@ class ContinuousComplianceService:
         while self._running:
             try:
             # Scan for drift
-                drifts = await self.monitor.scan_for_drift()
+                _drifts=await self.monitor.scan_for_drift()
 
                 # Process each drift
                 for drift in drifts:
@@ -764,7 +812,7 @@ class ContinuousComplianceService:
 
 async def main():
     """Example usage of continuous compliance auto-remediation."""
-    _service = ContinuousComplianceService()
+    _service=ContinuousComplianceService()
 
     # Register SSH configuration baseline
     _ssh_baseline_config = {
@@ -777,13 +825,13 @@ async def main():
     service.register_baseline(
         _resource_type = "ssh_config",
         _resource_id = "/etc/ssh/sshd_config",
-        configuration=ssh_baseline_config,
+        _configuration=ssh_baseline_config,
         _tags = ["security", "cis-benchmark"],
     )
 
     # Scan for drift once
     print("\nScanning for configuration drift...")
-    drifts = await service.monitor.scan_for_drift()
+    _drifts=await service.monitor.scan_for_drift()
 
     if drifts:
         print(f"\nFound {len(drifts)} configuration drift(s):")
@@ -797,7 +845,7 @@ async def main():
 
             # Process drift
             print("\n  Processing remediation...")
-            record = await service.engine.process_drift(drift)
+            _record=await service.engine.process_drift(drift)
 
             if record:
                 print(f"  Remediation {'succeeded' if record.success else 'failed'}")

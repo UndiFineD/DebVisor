@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,9 +93,9 @@ import subprocess
 import logging
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class OperationType(Enum):
@@ -147,7 +195,7 @@ class PerformanceAnalysis:
 class CephCLI:
     """Enhanced Ceph CLI operations."""
 
-    def __init__(self, dry_run: bool = False, verbose: bool = False):
+    def __init__(self, dry_run: bool=False, verbose: bool=False) -> None:
         """
         Initialize Ceph CLI.
 
@@ -203,32 +251,32 @@ class CephCLI:
                 logger.error(f"Failed to get cluster status: {stderr}")
                 return None
 
-            data = json.loads(stdout)
+            _data=json.loads(stdout)
 
             # Handle minimal test payloads gracefully
-            health = data.get("health")
+            _health=data.get("health")
             _health_status = str(
                 health.get("status")
                 if isinstance(health, dict)
                 else (health or "UNKNOWN")
             )
-            pgmap = data.get("pgmap", {}) if isinstance(data, dict) else {}
+            _pgmap=data.get("pgmap", {}) if isinstance(data, dict) else {}
 
-            total_pgs = pgmap.get("num_pgs", 0)
-            active_pgs = pgmap.get("active_pgs", total_pgs)
-            degraded_pgs = pgmap.get("degraded_pgs", 0)
+            _total_pgs=pgmap.get("num_pgs", 0)
+            _active_pgs=pgmap.get("active_pgs", total_pgs)
+            _degraded_pgs=pgmap.get("degraded_pgs", 0)
 
             return ClusterMetrics(
                 _health_status = health_status,
-                _total_capacity_bytes = data.get("stats", {}).get("total_bytes", 0),
-                _used_capacity_bytes = data.get("stats", {}).get("bytes_used", 0),
-                _available_capacity_bytes = data.get("stats", {}).get("bytes_avail", 0),
+                _total_capacity_bytes=data.get("stats", {}).get("total_bytes", 0),
+                _used_capacity_bytes=data.get("stats", {}).get("bytes_used", 0),
+                _available_capacity_bytes=data.get("stats", {}).get("bytes_avail", 0),
                 _total_pgs = total_pgs,
                 _active_pgs = active_pgs,
                 _degraded_pgs = degraded_pgs,
-                _osd_count = data.get("osdmap", {}).get("num_osds", 0),
-                _pool_count = len(data.get("pools", [])),
-                _timestamp = datetime.now(timezone.utc).isoformat(),
+                _osd_count=data.get("osdmap", {}).get("num_osds", 0),
+                _pool_count=len(data.get("pools", [])),
+                _timestamp=datetime.now(timezone.utc).isoformat(),
             )
         except Exception as e:
             logger.error(f"Error getting metrics: {e}")
@@ -242,7 +290,7 @@ class CephCLI:
             PGBalanceAnalysis with recommendations
         """
         try:
-            metrics = self.get_cluster_metrics()
+            _metrics=self.get_cluster_metrics()
             if not metrics:
                 return None
 
@@ -255,14 +303,14 @@ class CephCLI:
                 logger.error(f"Failed to dump PGs: {stderr}")
                 return None
 
-            pgs_json = json.loads(stdout)
+            _pgs_json=json.loads(stdout)
             pg_per_osd: Dict[int, int] = {}
 
             # Support test fixture structure: {"pg_stat": [{"pgs": [...], "osd": id}, ...]}
             if isinstance(pgs_json, dict) and "pg_stat" in pgs_json:
                 for entry in pgs_json.get("pg_stat", []):
-                    osd_id = entry.get("osd")
-                    pg_count = len(entry.get("pgs", []) or [])
+                    _osd_id=entry.get("osd")
+                    _pg_count=len(entry.get("pgs", []) or [])
                     if osd_id is not None:
                         pg_per_osd[osd_id] = pg_per_osd.get(osd_id, 0) + pg_count
             elif isinstance(pgs_json, list):
@@ -284,10 +332,10 @@ class CephCLI:
                 )
 
             # Calculate imbalance
-            avg_pg = sum(pg_per_osd.values()) / len(pg_per_osd)
-            max_pg = max(pg_per_osd.values())
-            min_pg = min(pg_per_osd.values())
-            imbalance_ratio = (max_pg - min_pg) / avg_pg if avg_pg > 0 else 0
+            _avg_pg=sum(pg_per_osd.values()) / len(pg_per_osd)
+            _max_pg=max(pg_per_osd.values())
+            _min_pg=min(pg_per_osd.values())
+            _imbalance_ratio=(max_pg - min_pg) / avg_pg if avg_pg > 0 else 0
 
             recommendations = []
             if imbalance_ratio > 0.15:
@@ -301,7 +349,7 @@ class CephCLI:
                 recommendations.append("PG distribution is balanced")
 
             # Estimate data movement
-            data_movement = int((max_pg - min_pg) * 100)    # Rough estimate
+            _data_movement=int((max_pg - min_pg) * 100)    # Rough estimate
 
             return PGBalanceAnalysis(
                 _cluster_id = "ceph",
@@ -313,7 +361,7 @@ class CephCLI:
                     if imbalance_ratio > 0.2
                     else "medium" if imbalance_ratio > 0.1 else "low"
                 ),
-                _expected_time_hours = max(1, int(data_movement / 50)),
+                _expected_time_hours=max(1, int(data_movement / 50)),
             )
 
         except Exception as e:
@@ -340,8 +388,8 @@ class CephCLI:
                 logger.error(f"Failed to dump OSD: {stderr}")
                 return None
 
-            payload = json.loads(stdout)
-            osds = payload.get("osds", []) if isinstance(payload, dict) else []
+            _payload=json.loads(stdout)
+            _osds=payload.get("osds", []) if isinstance(payload, dict) else []
             target_osd = next(
                 (o for o in osds if isinstance(o, dict) and o.get("osd") == osd_id),
                 None,
@@ -382,9 +430,9 @@ class CephCLI:
 
             return OSDReplacementPlan(
                 _osd_id = osd_id,
-                _failure_reason = target_osd.get("status", "unknown"),
+                _failure_reason=target_osd.get("status", "unknown"),
                 _pre_replacement_steps = pre_steps,
-                replacement_steps=replacement_steps,
+                _replacement_steps=replacement_steps,
                 _post_replacement_steps = post_steps,
                 _estimated_duration_minutes = 120,
                 _risk_assessment = "High - ensure cluster has HEALTH_OK before starting",
@@ -413,11 +461,11 @@ class CephCLI:
                 logger.error(f"Failed to get pool {pool_name}: {stderr}")
                 return None
 
-            pool_data = json.loads(stdout)
-            current_params = pool_data.get("pool_parameters", {})
+            _pool_data=json.loads(stdout)
+            _current_params=pool_data.get("pool_parameters", {})
 
             # Generate recommendations
-            recommended_params = current_params.copy()
+            _recommended_params=current_params.copy()
             changes = []
             improvement = 0
 
@@ -428,8 +476,8 @@ class CephCLI:
                 improvement += 5
 
             # PG recommendation
-            current_pg = current_params.get("pg_num", 128)
-            recommended_pg = max(128, 2 ** ((current_pg - 1).bit_length()))
+            _current_pg=current_params.get("pg_num", 128)
+            _recommended_pg=max(128, 2 ** ((current_pg - 1).bit_length()))
             if recommended_pg != current_pg:
                 recommended_params["pg_num"] = recommended_pg
                 changes.append(f"Adjust pg_num to {recommended_pg} (power of 2)")
@@ -470,7 +518,7 @@ class CephCLI:
         """
         try:
         # Get performance data
-            rc, stdout, stderr = self.execute_command(["ceph", "d", "--format=json"])
+            rc, stdout, stderr=self.execute_command(["ceph", "d", "--format=json"])
 
             if rc != 0:
                 logger.error(f"Failed to get performance data: {stderr}")
@@ -502,21 +550,21 @@ class CephCLI:
 
 def main() -> int:
     """Main CLI entry point."""
-    parser = argparse.ArgumentParser(description="Enhanced Ceph cluster management CLI")
+    _parser=argparse.ArgumentParser(description="Enhanced Ceph cluster management CLI")
     parser.add_argument("--dry-run", action="store_true", help="Don't execute commands")
     parser.add_argument("--verbose", action="store_true", help="Verbose output")
     parser.add_argument(
         "--format", choices=["json", "text"], default="text", help="Output format"
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
     # PG balance command
-    pg_parser = subparsers.add_parser("pg-balance", help="Analyze PG balancing")
+    _pg_parser=subparsers.add_parser("pg-balance", help="Analyze PG balancing")
     pg_parser.set_defaults(func=lambda args: handle_pg_balance(args))
 
     # OSD replace command
-    osd_parser = subparsers.add_parser("osd-replace", help="Plan OSD replacement")
+    _osd_parser=subparsers.add_parser("osd-replace", help="Plan OSD replacement")
     osd_parser.add_argument("osd_id", type=int, help="OSD ID to replace")
     osd_parser.set_defaults(func=lambda args: handle_osd_replace(args))
 
@@ -528,10 +576,10 @@ def main() -> int:
     pool_parser.set_defaults(func=lambda args: handle_pool_optimize(args))
 
     # Performance analyze command
-    perf_parser = subparsers.add_parser("perf-analyze", help="Analyze performance")
+    _perf_parser=subparsers.add_parser("perf-analyze", help="Analyze performance")
     perf_parser.set_defaults(func=lambda args: handle_perf_analyze(args))
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if not args.command:
         parser.print_help()
@@ -542,8 +590,8 @@ def main() -> int:
 
 def handle_pg_balance(args: argparse.Namespace) -> int:
     """Handle pg-balance command."""
-    cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
-    result = cli.analyze_pg_balance()
+    _cli=CephCLI(dry_run=args.dry_run, verbose=args.verbose)
+    _result=cli.analyze_pg_balance()
 
     if not result:
         logger.error("Failed to analyze PG balance")
@@ -564,8 +612,8 @@ def handle_pg_balance(args: argparse.Namespace) -> int:
 
 def handle_osd_replace(args: argparse.Namespace) -> int:
     """Handle osd-replace command."""
-    cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
-    result = cli.plan_osd_replacement(args.osd_id)
+    _cli=CephCLI(dry_run=args.dry_run, verbose=args.verbose)
+    _result=cli.plan_osd_replacement(args.osd_id)
 
     if not result:
         logger.error(f"Failed to plan OSD {args.osd_id} replacement")
@@ -592,8 +640,8 @@ def handle_osd_replace(args: argparse.Namespace) -> int:
 
 def handle_pool_optimize(args: argparse.Namespace) -> int:
     """Handle pool-optimize command."""
-    cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
-    result = cli.optimize_pool(args.pool_name)
+    _cli=CephCLI(dry_run=args.dry_run, verbose=args.verbose)
+    _result=cli.optimize_pool(args.pool_name)
 
     if not result:
         logger.error(f"Failed to optimize pool {args.pool_name}")
@@ -614,8 +662,8 @@ def handle_pool_optimize(args: argparse.Namespace) -> int:
 
 def handle_perf_analyze(args: argparse.Namespace) -> int:
     """Handle perf-analyze command."""
-    cli = CephCLI(dry_run=args.dry_run, verbose=args.verbose)
-    result = cli.analyze_performance()
+    _cli=CephCLI(dry_run=args.dry_run, verbose=args.verbose)
+    _result=cli.analyze_performance()
 
     if not result:
         logger.error("Failed to analyze performance")

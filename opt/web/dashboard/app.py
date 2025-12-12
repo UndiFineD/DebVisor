@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,13 +127,13 @@ from datetime import datetime
 from opt.services.compliance.core import ComplianceEngine
 from opt.services.compliance.reporting import ComplianceReporter
 
-dashboard_bp = Blueprint("dashboard", __name__, template_folder="templates")
+_dashboard_bp=Blueprint("dashboard", __name__, template_folder="templates")
 
 
 @dashboard_bp.route("/")
 
 
-def index():
+def index() -> None:
     return render_template("dashboard.html")
 
 @dashboard_bp.route("/api/stats")  # type: ignore[type-var]
@@ -129,7 +177,7 @@ def get_alerts() -> None:
 @dashboard_bp.route("/compliance")
 
 
-def compliance_dashboard():
+def compliance_dashboard() -> None:
     """Render the compliance dashboard page."""
     return render_template("compliance.html")
 
@@ -140,10 +188,10 @@ def compliance_dashboard():
 def get_compliance_overview() -> None:
     """Get compliance overview statistics."""
     try:
-        engine = ComplianceEngine()
-        reporter = ComplianceReporter(engine)
-        resources = reporter.fetch_resources()
-        report_data = engine.run_compliance_scan(resources)
+        _engine=ComplianceEngine()
+        _reporter=ComplianceReporter(engine)
+        _resources=reporter.fetch_resources()
+        _report_data=engine.run_compliance_scan(resources)
 
         return jsonify(  # type: ignore[return-value]
             {
@@ -151,10 +199,10 @@ def get_compliance_overview() -> None:
                 "total_policies": report_data.total_policies,
                 "total_resources": report_data.total_resources,
                 "violations_count": report_data.violations_count,
-                "critical_violations": len([v for v in report_data.violations if v.severity == "critical"]),
-                "high_violations": len([v for v in report_data.violations if v.severity == "high"]),
-                "medium_violations": len([v for v in report_data.violations if v.severity == "medium"]),
-                "low_violations": len([v for v in report_data.violations if v.severity == "low"]),
+                "critical_violations": len([v for v in report_data.violations if v.severity== "critical"]),
+                "high_violations": len([v for v in report_data.violations if v.severity== "high"]),
+                "medium_violations": len([v for v in report_data.violations if v.severity== "medium"]),
+                "low_violations": len([v for v in report_data.violations if v.severity== "low"]),
                 "generated_at": report_data.generated_at,
             }
         )
@@ -168,10 +216,10 @@ def get_compliance_overview() -> None:
 def get_compliance_violations() -> None:
     """Get detailed list of compliance violations."""
     try:
-        engine = ComplianceEngine()
-        reporter = ComplianceReporter(engine)
-        resources = reporter.fetch_resources()
-        _report_data = engine.run_compliance_scan(resources)
+        _engine=ComplianceEngine()
+        _reporter=ComplianceReporter(engine)
+        _resources=reporter.fetch_resources()
+        _report_data=engine.run_compliance_scan(resources)
 
         _violations = [
             {
@@ -197,7 +245,7 @@ def get_compliance_violations() -> None:
 def get_compliance_policies() -> None:
     """Get list of all compliance policies."""
     try:
-        _engine = ComplianceEngine()
+        _engine=ComplianceEngine()
 
         policies = [
             {
@@ -222,10 +270,10 @@ def get_compliance_policies() -> None:
 def get_compliance_by_framework() -> None:
     """Get compliance status grouped by framework (GDPR, HIPAA, SOC2)."""
     try:
-        engine = ComplianceEngine()
-        reporter = ComplianceReporter(engine)
-        resources = reporter.fetch_resources()
-        _report_data = engine.run_compliance_scan(resources)
+        _engine=ComplianceEngine()
+        _reporter=ComplianceReporter(engine)
+        _resources=reporter.fetch_resources()
+        _report_data=engine.run_compliance_scan(resources)
 
         frameworks = {}
         for policy in engine.policies.values():
@@ -240,7 +288,7 @@ def get_compliance_by_framework() -> None:
                     frameworks[tag]["total_policies"] += 1
 
         for violation in report_data.violations:
-            policy = engine.policies.get(violation.policy_id)  # type: ignore[assignment]
+            _policy=engine.policies.get(violation.policy_id)  # type: ignore[assignment]
             if policy and policy.tags:
                 for tag in policy.tags:
                     if tag in frameworks:

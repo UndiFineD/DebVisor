@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +150,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from enum import Enum
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class DiagnosticSeverity(Enum):
@@ -134,7 +182,7 @@ class DiagnosticIssue:
     message: str
     details: Dict[str, Any] = field(default_factory=dict)
     remediation: Optional[str] = None
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -198,19 +246,19 @@ class CPUDiagnostics(DiagnosticCheck):
 
     def execute(self) -> CheckResult:
         """Execute CPU diagnostics."""
-        _start = datetime.now(timezone.utc)
+        _start=datetime.now(timezone.utc)
 
         try:
         # Get CPU metrics
-            _cpu_percent = psutil.cpu_percent(interval=1)
-            _cpu_count = psutil.cpu_count()
-            _cpu_freq = psutil.cpu_freq()
-            _load_avg = psutil.getloadavg()
+            _cpu_percent=psutil.cpu_percent(interval=1)
+            _cpu_count=psutil.cpu_count()
+            _cpu_freq=psutil.cpu_freq()
+            _load_avg=psutil.getloadavg()
 
             _result = CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.PASSED,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = "CPU healthy",
                 _metrics = {
                     "cpu_percent": cpu_percent,
@@ -238,7 +286,7 @@ class CPUDiagnostics(DiagnosticCheck):
             return CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.UNKNOWN,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = f"Failed to check CPU: {e}",
             )
 
@@ -251,17 +299,17 @@ class MemoryDiagnostics(DiagnosticCheck):
 
     def execute(self) -> CheckResult:
         """Execute memory diagnostics."""
-        _start = datetime.now(timezone.utc)
+        _start=datetime.now(timezone.utc)
 
         try:
         # Get memory metrics
-            memory = psutil.virtual_memory()
-            _swap = psutil.swap_memory()
+            _memory=psutil.virtual_memory()
+            _swap=psutil.swap_memory()
 
             _result = CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.PASSED,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = "Memory healthy",
                 _metrics = {
                     "total_gb": memory.total / (1024**3),
@@ -303,7 +351,7 @@ class MemoryDiagnostics(DiagnosticCheck):
             return CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.UNKNOWN,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = f"Failed to check memory: {e}",
             )
 
@@ -311,23 +359,23 @@ class MemoryDiagnostics(DiagnosticCheck):
 class DiskDiagnostics(DiagnosticCheck):
     """Disk space and I/O diagnostics."""
 
-    def __init__(self, mount_point: str = "/") -> None:
+    def __init__(self, mount_point: str="/") -> None:
         super().__init__("Disk", "Disk space and I/O performance")
         self.mount_point = mount_point
 
     def execute(self) -> CheckResult:
         """Execute disk diagnostics."""
-        _start = datetime.now(timezone.utc)
+        _start=datetime.now(timezone.utc)
 
         try:
         # Get disk metrics
-            disk = psutil.disk_usage(self.mount_point)
-            io = psutil.disk_io_counters()
+            _disk=psutil.disk_usage(self.mount_point)
+            _io=psutil.disk_io_counters()
 
             _result = CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.PASSED,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = "Disk healthy",
                 _metrics = {
                     "total_gb": disk.total / (1024**3),
@@ -369,7 +417,7 @@ class DiskDiagnostics(DiagnosticCheck):
             return CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.UNKNOWN,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = f"Failed to check disk: {e}",
             )
 
@@ -377,24 +425,24 @@ class DiskDiagnostics(DiagnosticCheck):
 class NetworkDiagnostics(DiagnosticCheck):
     """Network connectivity and performance diagnostics."""
 
-    def __init__(self, test_host: str = "8.8.8.8") -> None:
+    def __init__(self, test_host: str="8.8.8.8") -> None:
         super().__init__("Network", "Network connectivity and latency")
         self.test_host = test_host
 
     def execute(self) -> CheckResult:
         """Execute network diagnostics."""
-        _start = datetime.now(timezone.utc)
+        _start=datetime.now(timezone.utc)
 
         try:
         # Get network metrics
-            _net_if = psutil.net_if_stats()
-            _net_io = psutil.net_io_counters()
+            _net_if=psutil.net_if_stats()
+            _net_io=psutil.net_io_counters()
 
             # Test connectivity
             try:
             # nosec B603, B607 - ping is safe here, and we handle platform differences
                 ping_cmd = (
-                    "ping" if __import__("sys").platform == "win32" else "/usr/bin/ping"
+                    "ping" if __import__("sys").platform== "win32" else "/usr/bin/ping"
                 )
                 _result_code = subprocess.call(
                     [
@@ -414,7 +462,7 @@ class NetworkDiagnostics(DiagnosticCheck):
             _result = CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.PASSED if connectivity else CheckStatus.WARNING,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = (
                     "Network healthy" if connectivity else "Network connectivity issues"
                 ),
@@ -445,7 +493,7 @@ class NetworkDiagnostics(DiagnosticCheck):
             return CheckResult(
                 _check_name = self.name,
                 _status = CheckStatus.UNKNOWN,
-                _duration_ms = (datetime.now(timezone.utc) - start).total_seconds() * 1000,
+                _duration_ms=(datetime.now(timezone.utc) - start).total_seconds() * 1000,
                 _message = f"Failed to check network: {e}",
             )
 
@@ -489,13 +537,13 @@ class DiagnosticsFramework:
         """
         import uuid
 
-        _timestamp = datetime.now(timezone.utc)
+        _timestamp=datetime.now(timezone.utc)
         check_results = []
 
         # Execute all checks
         for check in self.checks.values():
             try:
-                result = check.execute()
+                _result=check.execute()
                 check_results.append(result)
                 logger.debug(f"Completed check: {check.name} ({result.status.value})")
             except Exception as e:
@@ -503,7 +551,7 @@ class DiagnosticsFramework:
                 check_results.append(
                     CheckResult(
                         _check_name = check.name,
-                        status=CheckStatus.UNKNOWN,
+                        _status=CheckStatus.UNKNOWN,
                         _duration_ms = 0,
                         _message = f"Check error: {e}",
                     )
@@ -527,27 +575,27 @@ class DiagnosticsFramework:
 
         # Count issues
         critical_issues = sum(
-            len([i for i in r.issues if i.severity == DiagnosticSeverity.CRITICAL])
+            len([i for i in r.issues if i.severity== DiagnosticSeverity.CRITICAL])
             for r in check_results
         )
-        total_issues = sum(len(r.issues) for r in check_results)
+        _total_issues=sum(len(r.issues) for r in check_results)
 
         # Build summary
         if critical_issues > 0:
-            summary = f"[warn]? CRITICAL: {critical_issues} critical issue(s) found"
+            _summary=f"[warn]? CRITICAL: {critical_issues} critical issue(s) found"
         elif total_issues > 0:
-            summary = f"[warn]? WARNING: {total_issues} issue(s) found"
+            _summary=f"[warn]? WARNING: {total_issues} issue(s) found"
         else:
             summary = "? All systems healthy"
 
         report = DiagnosticReport(
-            _report_id = str(uuid.uuid4()),
+            _report_id=str(uuid.uuid4()),
             _timestamp = timestamp,
             _checks = check_results,
             _overall_health_score = overall_health,
             _issues_found = total_issues,
             _critical_issues = critical_issues,
-            summary=summary,
+            _summary=summary,
         )
 
         self.history.append(report)
@@ -573,7 +621,7 @@ class DiagnosticsFramework:
 
         return suggestions
 
-    def get_health_trend(self, hours: int = 24) -> List[Dict[str, Any]]:
+    def get_health_trend(self, hours: int=24) -> List[Dict[str, Any]]:
         """
         Get health score trend over time.
 
@@ -583,7 +631,7 @@ class DiagnosticsFramework:
         Returns:
             List of health scores with timestamps
         """
-        _cutoff = datetime.now(timezone.utc) - __import__("datetime").timedelta(
+        _cutoff=datetime.now(timezone.utc) - __import__("datetime").timedelta(
             _hours = hours
         )
 

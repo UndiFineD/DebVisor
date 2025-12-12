@@ -1,58 +1,30 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 17192
+Total Issues Found: 2481
 Summary by Type:
-  CRLF: 3880
-  ComprehensiveMarkdown: 21
-  E115: 138
-  E116: 535
-  E30x: 216
-  End Of File: 3441
-  F541: 24
-  F841: 7599
-  Flake8 E265: 464
-  License Header: 772
-  Lint Quality: 7
-  Markdown: 21
-  MarkdownLintJSON: 5
+  CRLF: 738
+  Documentation: 5
+  E251: 197
+  E304: 153
+  E30x: 293
+  End Of File: 102
+  F841: 193
+  License Header: 542
+  Line Length: 1
+  Lint Quality: 6
+  MarkdownLintJSON: 102
   NotificationsReport: 1
-  ShellCheck: 43
-  Trailing Whitespace: 3
-  Type Check: 1
-  Unit Tests: 21
+  ShellCheck: 39
+  Syntax: 1
+  Type Checking: 107
+  Whitespace: 1
 
 Details:
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:256 | 2086: Double quote to prevent globbing and word splitting.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:327 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:256 | 2086: Double quote to prevent globbing and word splitting.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:327 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
-[OPEN] Type Check | mypy:0 | Type checking timed out
-[OPEN] Unit Tests | pytest:0 | Test collection error: =================================== ERRORS ====================================
-[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_audit_chain.py __________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_compliance.py __________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: _____________ ERROR collecting tests/test_compliance_reporting.py _____________
-[OPEN] Unit Tests | pytest:0 | Test collection error: ______________ ERROR collecting tests/test_cost_optimization.py _______________
-[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_dashboard.py ___________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: ________________ ERROR collecting tests/test_feature_flags.py _________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_graphql_api.py __________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_migrations.py __________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_multiregion.py __________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: ________________ ERROR collecting tests/test_property_based.py ________________
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_audit_chain.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_compliance.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_compliance_reporting.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_cost_optimization.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_dashboard.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_feature_flags.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_graphql_api.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_migrations.py
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_multiregion.py - NameError: name 'datetime' is not defined
-[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_property_based.py
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1936 | Line too long (149 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1939 | Line too long (151 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3803 | Line too long (123 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:271 | Line too long (121 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:370 | Line too long (121 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:930 | Line too long (202 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:956 | Line too long (146 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1956 | Line too long (148 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1959 | Line too long (150 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:4285 | Line too long (123 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:399 | Line too long (121 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:962 | Line too long (202 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:988 | Line too long (146 > 120 chars)
+[OPEN] Syntax | C:\Users\kdejo\DEV\DebVisor\opt\services\cost\cost_engine.py:746 | Syntax error: invalid syntax

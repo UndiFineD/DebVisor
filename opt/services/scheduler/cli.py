@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,20 +151,21 @@ try:
 except ImportError:
     # Fallback or mock for tests if needed
 
-    def configure_logging(**kwargs):  # type: ignore[misc]
+    def configure_logging(**kwargs):  # type: ignore[misc] -> None:
+        """Placeholder docstring."""
         pass
 
 
 class SchedulerCLI:
     """Command-line interface for job scheduler."""
 
-    def __init__(self, scheduler: Optional[JobScheduler] = None):
+    def __init__(self, scheduler: Optional[JobScheduler] = None) -> None:
         """Initialize the CLI.
 
         Args:
             scheduler: JobScheduler instance (uses global if None)
         """
-        self.scheduler = scheduler or get_scheduler()
+        self.scheduler=scheduler or get_scheduler()
 
     def create_argument_parser(self) -> argparse.ArgumentParser:
         """Create argument parser.
@@ -156,14 +205,14 @@ schedule job delete f8a2d3c4
 
         setup_common_args(parser)
 
-        subparsers = parser.add_subparsers(dest="command", help="Command to execute")
+        _subparsers=parser.add_subparsers(dest="command", help="Command to execute")
 
         # Job management commands
-        job_parser = subparsers.add_parser("job", help="Job management commands")
-        job_subparsers = job_parser.add_subparsers(dest="action", help="Job action")
+        _job_parser=subparsers.add_parser("job", help="Job management commands")
+        _job_subparsers=job_parser.add_subparsers(dest="action", help="Job action")
 
         # job create
-        create_parser = job_subparsers.add_parser("create", help="Create a new job")
+        _create_parser=job_subparsers.add_parser("create", help="Create a new job")
         create_parser.add_argument("--name", required=True, help="Job name")
         create_parser.add_argument(
             "--cron", required=True, help="Cron expression (e.g., '0 * * * *')"
@@ -177,8 +226,8 @@ schedule job delete f8a2d3c4
         create_parser.add_argument(
             "--priority",
             _choices = ["low", "normal", "high", "critical"],
-            default="normal",
-            help="Job priority",
+            _default="normal",
+            _help="Job priority",
         )
         create_parser.add_argument("--owner", default="system", help="Job owner")
         create_parser.add_argument("--description", default="", help="Job description")
@@ -193,12 +242,12 @@ schedule job delete f8a2d3c4
             "--tag",
             _action = "append",
             _nargs = 2,
-            _metavar = ("KEY", "VALUE"),
-            help="Add metadata tag",
+            _metavar=("KEY", "VALUE"),
+            _help="Add metadata tag",
         )
 
         # job list
-        list_parser = job_subparsers.add_parser("list", help="List jobs")
+        _list_parser=job_subparsers.add_parser("list", help="List jobs")
         list_parser.add_argument("--owner", help="Filter by owner")
         list_parser.add_argument("--status", help="Filter by status")
         list_parser.add_argument(
@@ -206,21 +255,21 @@ schedule job delete f8a2d3c4
         )
 
         # job show
-        show_parser = job_subparsers.add_parser("show", help="Show job details")
+        _show_parser=job_subparsers.add_parser("show", help="Show job details")
         show_parser.add_argument("job_id", help="Job ID")
         show_parser.add_argument(
             "--format", choices=["text", "json"], default="text", help="Output format"
         )
 
         # job delete
-        delete_parser = job_subparsers.add_parser("delete", help="Delete a job")
+        _delete_parser=job_subparsers.add_parser("delete", help="Delete a job")
         delete_parser.add_argument("job_id", help="Job ID")
         delete_parser.add_argument(
             "--force", action="store_true", help="Skip confirmation"
         )
 
         # job run
-        run_parser = job_subparsers.add_parser("run", help="Execute job immediately")
+        _run_parser=job_subparsers.add_parser("run", help="Execute job immediately")
         run_parser.add_argument("job_id", help="Job ID")
         run_parser.add_argument("--dry-run", action="store_true", help="Dry run mode")
 
@@ -237,14 +286,14 @@ schedule job delete f8a2d3c4
         )
 
         # job stats
-        stats_parser = job_subparsers.add_parser("stats", help="Get job statistics")
+        _stats_parser=job_subparsers.add_parser("stats", help="Get job statistics")
         stats_parser.add_argument("job_id", help="Job ID")
         stats_parser.add_argument(
             "--format", choices=["text", "json"], default="text", help="Output format"
         )
 
         # job update
-        update_parser = job_subparsers.add_parser("update", help="Update a job")
+        _update_parser=job_subparsers.add_parser("update", help="Update a job")
         update_parser.add_argument("job_id", help="Job ID")
         update_parser.add_argument("--name", help="New job name")
         update_parser.add_argument("--cron", help="New cron expression")
@@ -254,11 +303,11 @@ schedule job delete f8a2d3c4
         update_parser.add_argument(
             "--priority",
             _choices = ["low", "normal", "high", "critical"],
-            help="New priority",
+            _help="New priority",
         )
 
         # job retry
-        retry_parser = job_subparsers.add_parser("retry", help="Retry failed execution")
+        _retry_parser=job_subparsers.add_parser("retry", help="Retry failed execution")
         retry_parser.add_argument("job_id", help="Job ID")
         retry_parser.add_argument("execution_id", help="Execution ID")
 
@@ -272,7 +321,7 @@ schedule job delete f8a2d3c4
         )
 
         # Config management
-        config_parser = subparsers.add_parser("config", help="Configuration management")
+        _config_parser=subparsers.add_parser("config", help="Configuration management")
         config_subparsers = config_parser.add_subparsers(
             _dest = "action", help="Config action"
         )
@@ -317,8 +366,8 @@ schedule job delete f8a2d3c4
         Returns:
             Exit code
         """
-        parser = self.create_argument_parser()
-        parsed = parser.parse_args(args)
+        _parser=self.create_argument_parser()
+        _parsed=parser.parse_args(args)
 
         if not parsed.command:
             parser.print_help()
@@ -372,12 +421,12 @@ schedule job delete f8a2d3c4
     def _cmd_create_job(self, args: argparse.Namespace) -> int:
         """Create a new job."""
         try:
-            _task_config = json.loads(args.task_config)
+            _task_config=json.loads(args.task_config)
         except json.JSONDecodeError as e:
             print(f"Invalid task config JSON: {e}")
             return 1
 
-        _priority = JobPriority[args.priority.upper()]
+        _priority=JobPriority[args.priority.upper()]
         tags = {}
         if hasattr(args, "tag") and args.tag:
             _tags = {key: value for key, value in args.tag}
@@ -406,7 +455,7 @@ schedule job delete f8a2d3c4
     def _cmd_list_jobs(self, args: argparse.Namespace) -> int:
         """List jobs."""
         jobs = self.scheduler.list_jobs(
-            _owner = args.owner if hasattr(args, "owner") else None
+            _owner=args.owner if hasattr(args, "owner") else None
         )
 
         if args.format == "json":
@@ -427,7 +476,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_show_job(self, args: argparse.Namespace) -> int:
         """Show job details."""
-        job = self.scheduler.get_job(args.job_id)
+        _job=self.scheduler.get_job(args.job_id)
         if not job:
             print(f"Job {args.job_id} not found")
             return 1
@@ -457,13 +506,13 @@ schedule job delete f8a2d3c4
 
     def _cmd_delete_job(self, args: argparse.Namespace) -> int:
         """Delete a job."""
-        job = self.scheduler.get_job(args.job_id)
+        _job=self.scheduler.get_job(args.job_id)
         if not job:
             print(f"Job {args.job_id} not found")
             return 1
 
         if not args.force:
-            response = input(f"Delete job '{job.name}' ({args.job_id})? [y/N]: ")
+            _response=input(f"Delete job '{job.name}' ({args.job_id})? [y/N]: ")
             if response.lower() != "y":
                 print("Cancelled")
                 return 0
@@ -475,7 +524,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_run_job(self, args: argparse.Namespace) -> int:
         """Run a job immediately."""
-        job = self.scheduler.get_job(args.job_id)
+        _job=self.scheduler.get_job(args.job_id)
         if not job:
             print(f"Job {args.job_id} not found")
             return 1
@@ -485,7 +534,7 @@ schedule job delete f8a2d3c4
             return 0
 
         print(f"Executing job {args.job_id}: {job.name}...")
-        result = asyncio.run(self.scheduler.execute_job(args.job_id, manual=True))
+        _result=asyncio.run(self.scheduler.execute_job(args.job_id, manual=True))
 
         print(f"Status: {result.status.value}")
         print(f"Execution ID: {result.execution_id}")
@@ -499,7 +548,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_job_history(self, args: argparse.Namespace) -> int:
         """Show job execution history."""
-        history = self.scheduler.get_execution_history(args.job_id, limit=args.limit)
+        _history=self.scheduler.get_execution_history(args.job_id, limit=args.limit)
 
         if not history:
             print(f"No execution history for job {args.job_id}")
@@ -525,7 +574,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_job_stats(self, args: argparse.Namespace) -> int:
         """Show job statistics."""
-        stats = self.scheduler.get_job_statistics(args.job_id)
+        _stats=self.scheduler.get_job_statistics(args.job_id)
 
         if not stats:
             print(f"Job {args.job_id} not found")
@@ -548,7 +597,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_update_job(self, args: argparse.Namespace) -> int:
         """Update a job."""
-        job = self.scheduler.get_job(args.job_id)
+        _job=self.scheduler.get_job(args.job_id)
         if not job:
             print(f"Job {args.job_id} not found")
             return 1
@@ -567,14 +616,14 @@ schedule job delete f8a2d3c4
             print("No updates specified")
             return 0
 
-        updated = self.scheduler.update_job(args.job_id, **updates)
+        _updated=self.scheduler.update_job(args.job_id, **updates)
         print(f"? Updated job {updated.job_id}: {updated.name}")  # type: ignore[union-attr]
 
         return 0
 
     def _cmd_retry_job(self, args: argparse.Namespace) -> int:
         """Retry a failed job execution."""
-        result = self.scheduler.retry_job(args.job_id, args.execution_id)
+        _result=self.scheduler.retry_job(args.job_id, args.execution_id)
         print(f"? Retrying job {args.job_id} (execution {args.execution_id})")
         print(f"New execution ID: {result.execution_id}")
 
@@ -582,7 +631,7 @@ schedule job delete f8a2d3c4
 
     def _cmd_show_dependencies(self, args: argparse.Namespace) -> int:
         """Show job dependencies."""
-        job = self.scheduler.get_job(args.job_id)
+        _job=self.scheduler.get_job(args.job_id)
         if not job:
             print(f"Job {args.job_id} not found")
             return 1
@@ -671,13 +720,13 @@ schedule job delete f8a2d3c4
         """Restore configuration."""
         try:
             with open(args.input, "r") as f:
-                backup_data = json.load(f)
+                _backup_data=json.load(f)
         except (IOError, json.JSONDecodeError) as e:
             print(f"Failed to read backup: {e}")
             return 1
 
         if not args.force:
-            response = input(f"Restore {len(backup_data['jobs'])} jobs? [y/N]: ")
+            _response=input(f"Restore {len(backup_data['jobs'])} jobs? [y/N]: ")
             if response.lower() != "y":
                 print("Cancelled")
                 return 0
@@ -701,7 +750,7 @@ def main(args: Optional[list[Any]] = None) -> int:
         Exit code
     """
     configure_logging(service_name="scheduler-cli")
-    cli = SchedulerCLI()
+    _cli=SchedulerCLI()
     return cli.run(args)
 
 

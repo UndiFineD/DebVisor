@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,7 +149,7 @@ from opt.services.rpc.versioning import (
     APIVersion,
 )
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -116,9 +164,9 @@ class RPCServiceConfig:
 
     def __post_init__(self) -> None:
         if self.pool_config is None:
-            self.pool_config = PoolConfig()
+            self.pool_config=PoolConfig()
         if self.compression_config is None:
-            self.compression_config = CompressionConfig()
+            self.compression_config=CompressionConfig()
 
 
 class RPCService:
@@ -126,7 +174,7 @@ class RPCService:
     Main RPC service class integrating pooling, compression, and versioning.
 
     Usage:
-        service = RPCService(RPCServiceConfig(target="localhost:50051"))
+        _service=RPCService(RPCServiceConfig(target="localhost:50051"))
         await service.initialize()
 
         # Make RPC call with automatic pooling and compression
@@ -137,7 +185,7 @@ class RPCService:
         await service.shutdown()
     """
 
-    def __init__(self, config: RPCServiceConfig):
+    def __init__(self, config: RPCServiceConfig) -> None:
         """
         Initialize RPC service.
 
@@ -145,10 +193,10 @@ class RPCService:
             config: RPCServiceConfig instance
         """
         self.config = config
-        self.connection_pool = ConnectionPool(config.target, config.pool_config)
-        self.compression_manager = CompressionManager(config.compression_config)
-        self.version_negotiator = VersionNegotiator()
-        self.request_router = VersionedRequestRouter(self.version_negotiator)
+        self.connection_pool=ConnectionPool(config.target, config.pool_config)
+        self.compression_manager=CompressionManager(config.compression_config)
+        self.version_negotiator=VersionNegotiator()
+        self.request_router=VersionedRequestRouter(self.version_negotiator)
         self._initialized = False
         self.call_metrics = {
             "total_calls": 0,
@@ -209,7 +257,7 @@ class RPCService:
 
         import time
 
-        _start_time = time.time()
+        _start_time=time.time()
 
         try:
         # Validate version
@@ -217,7 +265,7 @@ class RPCService:
                 raise ValueError(f"Unsupported API version: {version}")
 
             # Log deprecation warnings if any
-            warnings = self.version_negotiator.get_deprecation_warnings(version)
+            _warnings=self.version_negotiator.get_deprecation_warnings(version)
             if warnings:
                 logger.warning(f"Version warnings: {warnings}")
 
@@ -250,13 +298,13 @@ class RPCService:
                     )
 
                 # Record metrics
-                latency_ms = (time.time() - start_time) * 1000
+                _latency_ms=(time.time() - start_time) * 1000
                 self._record_call_metric(success=True, latency_ms=latency_ms)
 
                 return response
 
         except Exception as e:
-            latency_ms = (time.time() - start_time) * 1000
+            _latency_ms=(time.time() - start_time) * 1000
             self._record_call_metric(success=False, latency_ms=latency_ms)
             logger.error(f"RPC call failed: {operation} (version {version}): {e}")
             raise
@@ -298,7 +346,7 @@ class RPCService:
             handler: Callable handler function
         """
         try:
-            api_version = APIVersion(version)
+            _api_version=APIVersion(version)
             self.request_router.register_handler(api_version, operation, handler)
         except ValueError:
             raise ValueError(f"Invalid API version: {version}")
@@ -373,7 +421,7 @@ class RPCService:
 class HealthCheckService:
     """Health check endpoint for the RPC service."""
 
-    def __init__(self, rpc_service: RPCService):
+    def __init__(self, rpc_service: RPCService) -> None:
         """
         Initialize health check service.
 
@@ -395,7 +443,7 @@ class HealthCheckService:
                 return {"status": "NOT_READY", "reason": "Service not initialized"}
 
             # Check pool status
-            pool_metrics = self.rpc_service.connection_pool.get_metrics()
+            _pool_metrics=self.rpc_service.connection_pool.get_metrics()
             if pool_metrics["available"] == 0 and pool_metrics["in_use"] == 0:
                 return {
                     "status": "UNHEALTHY",

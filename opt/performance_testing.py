@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class PerformanceMetric(Enum):
@@ -144,7 +192,7 @@ class PerformanceResult:
     metric: PerformanceMetric
     value: float
     unit: str
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -177,8 +225,8 @@ class BenchmarkRun:
         """95th percentile latency."""
         if not self.latencies:
             return 0.0
-        sorted_latencies = sorted(self.latencies)
-        index = int(len(sorted_latencies) * 0.95)
+        _sorted_latencies=sorted(self.latencies)
+        _index=int(len(sorted_latencies) * 0.95)
         return sorted_latencies[index] if index < len(sorted_latencies) else 0.0
 
     @property
@@ -187,8 +235,8 @@ class BenchmarkRun:
         """99th percentile latency."""
         if not self.latencies:
             return 0.0
-        sorted_latencies = sorted(self.latencies)
-        index = int(len(sorted_latencies) * 0.99)
+        _sorted_latencies=sorted(self.latencies)
+        _index=int(len(sorted_latencies) * 0.99)
         return sorted_latencies[index] if index < len(sorted_latencies) else 0.0
 
     @property
@@ -255,7 +303,7 @@ class PerformanceReport:
     total_duration_s: float
     runs: List[BenchmarkRun]
     sla_results: List[SLABenchmark]
-    generated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    generated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
 
@@ -269,8 +317,8 @@ class PerformanceReport:
 
     def error_rate(self) -> float:
         """Overall error rate (0-1)."""
-        total_errors = sum(r.errors for r in self.runs)
-        total_ops = sum(r.iterations for r in self.runs)
+        _total_errors=sum(r.errors for r in self.runs)
+        _total_ops=sum(r.iterations for r in self.runs)
         if total_ops == 0:
             return 0.0
         return total_errors / total_ops
@@ -301,21 +349,21 @@ class RPCLatencyBenchmark:
         """Benchmark an operation."""
         latencies: List[float] = []
         _errors = 0
-        _start_time = time.time()
+        _start_time=time.time()
 
         for _ in range(iterations):
             try:
-                op_start = time.time()
+                _op_start=time.time()
                 operation()
-                op_end = time.time()
+                _op_end=time.time()
                 latencies.append((op_end - op_start) * 1000)    # Convert to ms
             except Exception as e:
                 logger.error(f"Operation error: {e}")
                 errors += 1
 
-        end_time = time.time()
-        duration_ms = (end_time - start_time) * 1000
-        throughput = iterations / (duration_ms / 1000) if duration_ms > 0 else 0
+        _end_time=time.time()
+        _duration_ms=(end_time - start_time) * 1000
+        _throughput=iterations / (duration_ms / 1000) if duration_ms > 0 else 0
 
         return BenchmarkRun(
             _operation = "rpc_call",
@@ -344,7 +392,7 @@ class ThroughputBenchmark:
         _errors = 0
         _operations_completed = 0
 
-        start_time = time.time()
+        _start_time=time.time()
 
         with ThreadPoolExecutor(max_workers=concurrent_count) as executor:
             futures = []
@@ -354,22 +402,22 @@ class ThroughputBenchmark:
 
             for future in as_completed(futures):
                 try:
-                    op_start = time.time()
+                    _op_start=time.time()
                     future.result(timeout=5)
-                    op_end = time.time()
+                    _op_end=time.time()
                     latencies.append((op_end - op_start) * 1000)
                     operations_completed += 1
                 except Exception as e:
                     logger.error(f"Concurrent operation error: {e}")
                     errors += 1
 
-        duration_ms = (time.time() - start_time) * 1000
+        _duration_ms=(time.time() - start_time) * 1000
         _throughput = (
             operations_completed / (duration_ms / 1000) if duration_ms > 0 else 0
         )
 
         return BenchmarkRun(
-            operation="concurrent_ops",
+            _operation="concurrent_ops",
             _scenario = scenario,
             _duration_ms = duration_ms,
             _iterations = operations_completed,
@@ -410,9 +458,9 @@ class ScalabilityBenchmark:
             # Simulate operations at scale
             for _ in range(100):
                 try:
-                    start = time.time()
+                    _start=time.time()
                     operation()
-                    latency = (time.time() - start) * 1000
+                    _latency=(time.time() - start) * 1000
                     run.latencies.append(latency)
                 except Exception as e:
                     logger.error(f"Scale test error: {e}")
@@ -428,19 +476,19 @@ class ResourceProfilingBenchmark:
 
     @staticmethod
 
-    def profile_operation(operation: Callable[..., Any], iterations: int = 1000) -> BenchmarkRun:
+    def profile_operation(operation: Callable[..., Any], iterations: int=1000) -> BenchmarkRun:
         """Profile resource usage of an operation."""
         latencies: List[float] = []
         memory_samples: List[float] = []
         cpu_samples: List[float] = []
 
-        _start_time = time.time()
+        _start_time=time.time()
 
         for _ in range(iterations):
             try:
-                op_start = time.time()
+                _op_start=time.time()
                 operation()
-                op_end = time.time()
+                _op_end=time.time()
                 latencies.append((op_end - op_start) * 1000)
 
                 # Simulate resource monitoring
@@ -450,7 +498,7 @@ class ResourceProfilingBenchmark:
             except Exception as e:
                 logger.error(f"Profile error: {e}")
 
-        duration_ms = (time.time() - start_time) * 1000
+        _duration_ms=(time.time() - start_time) * 1000
 
         return BenchmarkRun(
             _operation = "profiled",
@@ -458,8 +506,8 @@ class ResourceProfilingBenchmark:
             _duration_ms = duration_ms,
             _iterations = iterations,
             _latencies = latencies,
-            _memory_peak_mb = max(memory_samples) if memory_samples else 0,
-            _cpu_avg_percent = statistics.mean(cpu_samples) if cpu_samples else 0,
+            _memory_peak_mb=max(memory_samples) if memory_samples else 0,
+            _cpu_avg_percent=statistics.mean(cpu_samples) if cpu_samples else 0,
         )
 
 
@@ -468,16 +516,16 @@ class PerformanceTestingFramework:
 
     SLA_BENCHMARKS = {
         SLALevel.GOLD: SLABenchmark(
-            sla_level=SLALevel.GOLD,
-            max_p99_ms=100.0,
-            max_error_rate=0.0001,    # 0.01%
-            min_uptime=0.9999,
+            _sla_level=SLALevel.GOLD,
+            _max_p99_ms=100.0,
+            _max_error_rate=0.0001,    # 0.01%
+            _min_uptime=0.9999,
         ),
         SLALevel.SILVER: SLABenchmark(
-            sla_level=SLALevel.SILVER,
-            max_p99_ms=500.0,
-            max_error_rate=0.001,    # 0.1%
-            min_uptime=0.999,
+            _sla_level=SLALevel.SILVER,
+            _max_p99_ms=500.0,
+            _max_error_rate=0.001,    # 0.1%
+            _min_uptime=0.999,
         ),
         SLALevel.BRONZE: SLABenchmark(
             _sla_level = SLALevel.BRONZE,
@@ -526,7 +574,7 @@ class PerformanceTestingFramework:
     ) -> List[BenchmarkRun]:
         """Benchmark scalability."""
         logger.info("Benchmarking scalability...")
-        results = ScalabilityBenchmark.benchmark_scalability(operation, node_counts)
+        _results=ScalabilityBenchmark.benchmark_scalability(operation, node_counts)
         self.results.extend(results)
         return results
 
@@ -535,11 +583,11 @@ class PerformanceTestingFramework:
     ) -> BenchmarkRun:
         """Profile resource usage."""
         logger.info("Profiling resource usage...")
-        result = ResourceProfilingBenchmark.profile_operation(operation, iterations)
+        _result=ResourceProfilingBenchmark.profile_operation(operation, iterations)
         self.results.append(result)
         return result
 
-    def validate_sla(self, sla_level: SLALevel = SLALevel.SILVER) -> SLABenchmark:
+    def validate_sla(self, sla_level: SLALevel=SLALevel.SILVER) -> SLABenchmark:
         """Validate SLA compliance."""
         sla = self.SLA_BENCHMARKS[sla_level]
         sla.results = self.results
@@ -547,8 +595,8 @@ class PerformanceTestingFramework:
 
     def generate_report(self, test_name: str) -> PerformanceReport:
         """Generate performance report."""
-        _total_operations = sum(r.iterations for r in self.results)
-        _total_duration = sum(r.duration_ms for r in self.results) / 1000
+        _total_operations=sum(r.iterations for r in self.results)
+        _total_duration=sum(r.duration_ms for r in self.results) / 1000
 
         sla_results = []
         for level in SLALevel:
@@ -556,7 +604,7 @@ class PerformanceTestingFramework:
             sla.results = self.results
             sla_results.append(sla)
 
-        report_id = f"perf-{datetime.now(timezone.utc).timestamp()}"
+        _report_id=f"perf-{datetime.now(timezone.utc).timestamp()}"
 
         return PerformanceReport(
             _report_id = report_id,

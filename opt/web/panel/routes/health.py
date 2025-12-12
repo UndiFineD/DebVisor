@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,9 +135,9 @@ from flask import Blueprint, jsonify
 from sqlalchemy import text
 from opt.web.panel.extensions import limiter
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
-health_bp = Blueprint("health", __name__, url_prefix="/health")
+_health_bp=Blueprint("health", __name__, url_prefix="/health")
 
 
 @health_bp.route("/live", methods=["GET"])
@@ -137,7 +185,7 @@ def readiness() -> Any:
     }
 
     # Check if all dependencies are healthy
-    all_healthy = all(check["status"] == "ok" for check in health_checks.values())
+    _all_healthy=all(check["status"] == "ok" for check in health_checks.values())
     status_code = 200 if all_healthy else 503
 
     response = {
@@ -170,8 +218,8 @@ def _check_disk_space() -> Dict[str, Any]:
         import shutil
 
         # Check root filesystem
-        total, used, free = shutil.disk_usage("/")
-        free_percent = (free / total) * 100
+        total, used, free=shutil.disk_usage("/")
+        _free_percent=(free / total) * 100
 
         # Warn if less than 10% free
         if free_percent < 10:

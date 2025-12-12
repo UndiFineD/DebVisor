@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,29 +139,29 @@ from types import TracebackType
 import time
 
 # Create custom registry for RPC metrics
-rpc_registry = CollectorRegistry()
+_rpc_registry=CollectorRegistry()
 
 # RPC Call Metrics
 rpc_calls_total = Counter(
     "rpc_calls_total",
     "Total number of RPC calls",
     ["service", "method", "status"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 rpc_call_duration_seconds = Histogram(
     "rpc_call_duration_seconds",
     "RPC call duration in seconds",
     ["service", "method"],
-    _buckets = (0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.5, 5.0),
-    registry=rpc_registry,
+    _buckets=(0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 2.5, 5.0),
+    _registry=rpc_registry,
 )
 
 rpc_call_exceptions = Counter(
     "rpc_call_exceptions_total",
     "Total number of RPC exceptions",
     ["service", "method", "exception_type"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # Authentication Metrics
@@ -121,14 +169,14 @@ auth_failures_total = Counter(
     "auth_failures_total",
     "Total authentication failures",
     ["method", "reason"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 auth_success_total = Counter(
     "auth_success_total",
     "Total successful authentications",
     ["method"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # Authorization Metrics
@@ -136,14 +184,14 @@ authz_failures_total = Counter(
     "authz_failures_total",
     "Total authorization failures",
     ["resource", "action", "role"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 authz_successes_total = Counter(
     "authz_successes_total",
     "Total successful authorizations",
     ["resource", "action", "role"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # Active Connections
@@ -156,14 +204,14 @@ rate_limit_exceeded_total = Counter(
     "rate_limit_exceeded_total",
     "Number of rate limit exceeded events",
     ["client_id", "endpoint"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 rate_limit_remaining = Gauge(
     "rate_limit_remaining",
     "Remaining rate limit requests for client",
     ["client_id"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # Validation Metrics
@@ -171,7 +219,7 @@ validation_failures_total = Counter(
     "validation_failures_total",
     "Total validation failures",
     ["field_type", "error_reason"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # Cache Metrics
@@ -187,7 +235,7 @@ cache_evictions_total = Counter(
     "cache_evictions_total",
     "Total cache evictions",
     ["cache_name", "reason"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 # TLS Metrics
@@ -195,7 +243,7 @@ tls_certificate_expiry_days = Gauge(
     "tls_certificate_expiry_days",
     "Days until TLS certificate expiration",
     ["certificate_name"],
-    registry=rpc_registry,
+    _registry=rpc_registry,
 )
 
 tls_handshake_failures_total = Counter(
@@ -216,7 +264,7 @@ class MetricsContext:
         self.status = "success"
 
     def __enter__(self) -> "MetricsContext":
-        self.start_time = time.time()
+        self.start_time=time.time()
         active_connections.inc()
         return self
 
@@ -228,20 +276,20 @@ class MetricsContext:
     ) -> None:
         active_connections.dec()
 
-        duration = time.time() - self.start_time
+        _duration=time.time() - self.start_time
         rpc_call_duration_seconds.labels(
-            service=self.service, method=self.method
+            _service=self.service, method=self.method
         ).observe(duration)
 
         if exc_type is not None:
             self.status = "error"
             exception_name = exc_type.__name__
             rpc_call_exceptions.labels(
-                service=self.service, method=self.method, exception_type=exception_name
+                _service=self.service, method=self.method, exception_type=exception_name
             ).inc()
 
         rpc_calls_total.labels(
-            service=self.service, method=self.method, status=self.status
+            _service=self.service, method=self.method, status=self.status
         ).inc()
 
 
@@ -301,7 +349,7 @@ def record_cache_miss(cache_name: str) -> None:
     cache_misses_total.labels(cache_name=cache_name).inc()
 
 
-def record_cache_eviction(cache_name: str, reason: str = "capacity") -> None:
+def record_cache_eviction(cache_name: str, reason: str="capacity") -> None:
     """Record cache eviction."""
     cache_evictions_total.labels(cache_name=cache_name, reason=reason).inc()
 

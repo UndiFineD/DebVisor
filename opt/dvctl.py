@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,15 +94,16 @@ try:
 except ImportError:
     # Fallback for standalone testing if modules aren't in pythonpath
 
-    def configure_logging(service_name="dvctl"):  # type: ignore[misc]
+    def configure_logging(service_name="dvctl"):  # type: ignore[misc] -> None:
+        """Placeholder docstring."""
         logging.basicConfig(
-            level=logging.INFO,
-            _format = "%(asctime)s - DVCTL - %(levelname)s - %(message)s",
+            _level=logging.INFO,
+            _format="%(asctime)s - DVCTL - %(levelname)s - %(message)s",
         )
 
 
 configure_logging(service_name="dvctl")
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class DriftDetector:
@@ -71,9 +120,9 @@ class DriftDetector:
         "/etc/resolv.con",
     ]
 
-    def __init__(self, manifest_path: str = "/etc/debvisor/manifest.json"):
+    def __init__(self, manifest_path: str="/etc/debvisor/manifest.json") -> None:
         self.manifest_path = manifest_path
-        self.manifest = self._load_manifest()
+        self.manifest=self._load_manifest()
 
     def _load_manifest(self) -> Dict[str, str]:
         if os.path.exists(self.manifest_path):
@@ -110,7 +159,7 @@ class DriftDetector:
                 drift_found = True
                 continue
 
-            current_hash = self._calculate_hash(filepath)
+            _current_hash=self._calculate_hash(filepath)
             if current_hash != expected_hash:
                 logger.error(f"DRIFT: {filepath} (Hash mismatch)")
                 drift_found = True
@@ -118,7 +167,7 @@ class DriftDetector:
         return drift_found
 
     def _calculate_hash(self, filepath: str) -> str:
-        sha256_hash = hashlib.sha256()
+        _sha256_hash=hashlib.sha256()
         try:
             with open(filepath, "rb") as f:
                 for byte_block in iter(lambda: f.read(4096), b""):
@@ -132,9 +181,9 @@ class DebVisorController:
 
     def __init__(self) -> None:
         self.version = "0.1.0-alpha"
-        self.drift_detector = DriftDetector()
+        self.drift_detector=DriftDetector()
 
-    def status(self, component: str = "all") -> None:
+    def status(self, component: str="all") -> None:
         """Get status of the entire stack."""
         status_report = {"timestamp": "now", "components": {}}
 
@@ -159,7 +208,7 @@ class DebVisorController:
         except (subprocess.CalledProcessError, FileNotFoundError):
             return "Inactive/Missing"
 
-    def drift_check(self, generate: bool = False) -> None:
+    def drift_check(self, generate: bool=False) -> None:
         """Check for configuration drift (Immutability check)."""
         if generate:
             self.drift_detector.generate_manifest()
@@ -175,8 +224,8 @@ class DebVisorController:
     def upgrade(self, image_path: str) -> None:
         """Perform an atomic OS upgrade using A/B partitions."""
         try:
-            mgr = UpgradeManager()
-            status = mgr.get_status()
+            _mgr=UpgradeManager()
+            _status=mgr.get_status()
             logger.info(
                 f"Current Status: Active={status['active_slot']}, Target={status['inactive_slot']}"
             )
@@ -190,7 +239,7 @@ class DebVisorController:
 
     def tui(self) -> None:
         """Launch the Text User Interface."""
-        tui_path = os.path.join(os.path.dirname(__file__), "netcfg_tui_app.py")
+        _tui_path=os.path.join(os.path.dirname(__file__), "netcfg_tui_app.py")
         if os.path.exists(tui_path):
             logger.info("Launching TUI...")
             try:
@@ -211,7 +260,7 @@ class DebVisorController:
         else:
             logger.error(f"Hardening script not found at {script_path}")
 
-    def discover(self, timeout: int = 5) -> None:
+    def discover(self, timeout: int=5) -> None:
         """Scan for other nodes."""
         script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
@@ -223,7 +272,7 @@ class DebVisorController:
         else:
             logger.error(f"Discovery script not found at {script_path}")
 
-    def advertise(self, role: str = "worker") -> None:
+    def advertise(self, role: str="worker") -> None:
         """Advertise this node."""
         script_path = os.path.join(
             os.path.dirname(__file__), "discovery", "zerotouch.py"
@@ -235,27 +284,27 @@ class DebVisorController:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="DebVisor Unified Control Plane")
+    _parser=argparse.ArgumentParser(description="DebVisor Unified Control Plane")
     parser.add_argument("--version", action="version", version="0.1.0")
 
-    subparsers = parser.add_subparsers(dest="command", help="Sub-command help")
+    _subparsers=parser.add_subparsers(dest="command", help="Sub-command help")
 
     # Status Command
-    status_parser = subparsers.add_parser("status", help="Show system status")
+    _status_parser=subparsers.add_parser("status", help="Show system status")
     status_parser.add_argument(
         "--component", choices=["all", "k8s", "storage", "vm"], default="all"
     )
 
     # Drift Command
-    drift_parser = subparsers.add_parser("drift", help="Check for configuration drift")
+    _drift_parser=subparsers.add_parser("drift", help="Check for configuration drift")
     drift_parser.add_argument(
         "--generate",
         _action = "store_true",
-        help="Generate golden manifest from current state",
+        _help="Generate golden manifest from current state",
     )
 
     # Upgrade Command
-    upgrade_parser = subparsers.add_parser("upgrade", help="Upgrade DebVisor OS")
+    _upgrade_parser=subparsers.add_parser("upgrade", help="Upgrade DebVisor OS")
     upgrade_parser.add_argument("version", help="Target version")
 
     # TUI Command
@@ -265,27 +314,27 @@ def main() -> None:
     subparsers.add_parser("harden", help="Apply security hardening (SSH)")
 
     # Discovery Commands
-    discover_parser = subparsers.add_parser("discover", help="Scan for other nodes")
+    _discover_parser=subparsers.add_parser("discover", help="Scan for other nodes")
     discover_parser.add_argument("--timeout", type=int, default=5, help="Scan duration")
 
-    advertise_parser = subparsers.add_parser("advertise", help="Advertise this node")
+    _advertise_parser=subparsers.add_parser("advertise", help="Advertise this node")
     advertise_parser.add_argument("--role", default="worker", help="Node role")
 
     # K8s Passthrough
-    k8s_parser = subparsers.add_parser("k8s", help="Kubernetes operations")
+    _k8s_parser=subparsers.add_parser("k8s", help="Kubernetes operations")
     k8s_parser.add_argument("action", help="Action to perform")
 
     # Storage Passthrough
-    storage_parser = subparsers.add_parser("storage", help="Storage operations")
+    _storage_parser=subparsers.add_parser("storage", help="Storage operations")
     storage_parser.add_argument("action", help="Action to perform")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if not args.command:
         parser.print_help()
         return
 
-    ctl = DebVisorController()
+    _ctl=DebVisorController()
 
     if args.command == "status":
         ctl.status(args.component)

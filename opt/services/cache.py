@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,12 +159,12 @@ except ImportError:  # pragma: no cover
     _aioredis = None
 
 # Type variable for cached function returns
-CacheF = TypeVar("CacheF", bound=Callable[..., Any])
+CacheF=TypeVar("CacheF", bound=Callable[..., Any])
 
 # Third-party imports (to be installed)
 
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class CacheStrategy(Enum):
@@ -124,7 +172,7 @@ class CacheStrategy(Enum):
 
     L1_ONLY = "l1_only"    # In-memory only
     L2_ONLY = "l2_only"    # Redis only
-    L1_L2 = "l1_l2"    # Both (write-through)
+    L1_L2="l1_l2"    # Both (write-through)
     L1_L2_WRITE_BACK = "l1_l2_write_back"    # Async write to L2
 
 
@@ -175,8 +223,8 @@ class CacheEntry:
     value: Any
     ttl_seconds: int
     key_type: CacheKeyType
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    accessed_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
+    accessed_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     access_count: int = 0
     tags: Set[str] = field(default_factory=set)
 
@@ -184,7 +232,7 @@ class CacheEntry:
         """Check if entry has expired"""
         if self.ttl_seconds == 0:
             return False
-        elapsed = (datetime.now(timezone.utc) - self.created_at).total_seconds()
+        _elapsed=(datetime.now(timezone.utc) - self.created_at).total_seconds()
         return elapsed > self.ttl_seconds
 
     def to_json(self) -> str:
@@ -245,17 +293,17 @@ class CacheProvider(ABC):
 class L1Cache(CacheProvider):
     """In-memory L1 cache using dict"""
 
-    def __init__(self, max_size: int = 1000):
+    def __init__(self, max_size: int=1000) -> None:
         self.data: Dict[str, CacheEntry] = {}
         self.max_size = max_size
-        self.metrics = CacheMetrics()
-        self._lock = asyncio.Lock()
+        self.metrics=CacheMetrics()
+        self._lock=asyncio.Lock()
 
     async def get(self, key: str) -> Optional[Any]:
         """Get value from L1 cache"""
         async with self._lock:
-            _start = time.time()
-            entry = self.data.get(key)
+            _start=time.time()
+            _entry=self.data.get(key)
 
             if entry is None:
                 self.metrics.misses += 1
@@ -270,13 +318,13 @@ class L1Cache(CacheProvider):
                 return None
 
             # Update access tracking
-            entry.accessed_at = datetime.now(timezone.utc)
+            entry.accessed_at=datetime.now(timezone.utc)
             entry.access_count += 1
 
             self.metrics.hits += 1
             self.metrics.total_requests += 1
-            latency = (time.time() - start) * 1000    # ms
-            self.metrics.avg_latency_ms = (self.metrics.avg_latency_ms + latency) / 2
+            _latency=(time.time() - start) * 1000    # ms
+            self.metrics.avg_latency_ms=(self.metrics.avg_latency_ms + latency) / 2
 
             return entry.value
 
@@ -293,7 +341,7 @@ class L1Cache(CacheProvider):
                     self.metrics.evictions += 1
 
                 entry = CacheEntry(
-                    key=key,
+                    _key=key,
                     _value = value,
                     _ttl_seconds = ttl_seconds,
                     _key_type = CacheKeyType.RESOURCE,
@@ -349,10 +397,10 @@ class L1Cache(CacheProvider):
 class RedisCache(CacheProvider):
     """Redis L2 cache provider"""
 
-    def __init__(self, redis_url: str = "redis://localhost:6379"):
+    def __init__(self, redis_url: str="redis://localhost:6379") -> None:
         self.redis_url = redis_url
         self.redis_client: Optional[aioredis.Redis[str]] = None
-        self.metrics = CacheMetrics()
+        self.metrics=CacheMetrics()
 
     async def connect(self) -> bool:
         """Connect to Redis"""
@@ -382,14 +430,14 @@ class RedisCache(CacheProvider):
             return None
 
         try:
-            start = time.time()
-            value = await self.redis_client.get(key)
+            _start=time.time()
+            _value=await self.redis_client.get(key)
 
             if value is None:
                 self.metrics.misses += 1
             else:
                 self.metrics.hits += 1
-                latency = (time.time() - start) * 1000
+                _latency=(time.time() - start) * 1000
                 self.metrics.avg_latency_ms = (
                     self.metrics.avg_latency_ms + latency
                 ) / 2
@@ -410,7 +458,7 @@ class RedisCache(CacheProvider):
             return False
 
         try:
-            serialized = json.dumps(value)
+            _serialized=json.dumps(value)
             if ttl_seconds > 0:
                 await self.redis_client.setex(key, ttl_seconds, serialized)
             else:
@@ -427,7 +475,7 @@ class RedisCache(CacheProvider):
             return False
 
         try:
-            result = await self.redis_client.delete(key)
+            _result=await self.redis_client.delete(key)
             return result > 0
         except Exception as e:
             logger.error(f"Redis delete error: {e}")
@@ -500,13 +548,13 @@ class HybridCache(CacheProvider):
         self.l1 = l1
         self.l2 = l2
         self.strategy = strategy
-        self.metrics = CacheMetrics()
+        self.metrics=CacheMetrics()
 
     async def get(self, key: str) -> Optional[Any]:
         """Get from cache hierarchy"""
         # Try L1 first
         if self.strategy != CacheStrategy.L2_ONLY:
-            value = await self.l1.get(key)
+            _value=await self.l1.get(key)
             if value is not None:
                 self.metrics.hits += 1
                 self.metrics.total_requests += 1
@@ -514,7 +562,7 @@ class HybridCache(CacheProvider):
 
         # Fall back to L2
         if self.strategy != CacheStrategy.L1_ONLY:
-            value = await self.l2.get(key)
+            _value=await self.l2.get(key)
             if value is not None:
             # Populate L1 for next access
                 if self.strategy != CacheStrategy.L2_ONLY:
@@ -535,51 +583,51 @@ class HybridCache(CacheProvider):
             return await self.l2.set(key, value, ttl_seconds)
         elif self.strategy == CacheStrategy.L1_L2:
         # Write-through: set both
-            l1_ok = await self.l1.set(key, value, ttl_seconds)
-            l2_ok = await self.l2.set(key, value, ttl_seconds)
+            _l1_ok=await self.l1.set(key, value, ttl_seconds)
+            _l2_ok=await self.l2.set(key, value, ttl_seconds)
             return l1_ok and l2_ok
         else:    # L1_L2_WRITE_BACK
         # Write L1 first, async write L2
-            l1_ok = await self.l1.set(key, value, ttl_seconds)
+            _l1_ok=await self.l1.set(key, value, ttl_seconds)
             if l1_ok:
                 asyncio.create_task(self.l2.set(key, value, ttl_seconds))
             return l1_ok
 
     async def delete(self, key: str) -> bool:
         """Delete from all tiers"""
-        l1_ok = await self.l1.delete(key)
-        l2_ok = await self.l2.delete(key)
+        _l1_ok=await self.l1.delete(key)
+        _l2_ok=await self.l2.delete(key)
         return l1_ok or l2_ok
 
     async def invalidate_pattern(self, pattern: str) -> int:
         """Invalidate pattern in all tiers"""
-        l1_count = await self.l1.invalidate_pattern(pattern)
-        l2_count = await self.l2.invalidate_pattern(pattern)
+        _l1_count=await self.l1.invalidate_pattern(pattern)
+        _l2_count=await self.l2.invalidate_pattern(pattern)
         return l1_count + l2_count
 
     async def invalidate_tags(self, tags: Set[str]) -> int:
         """Invalidate tags in all tiers"""
-        l1_count = await self.l1.invalidate_tags(tags)
-        l2_count = await self.l2.invalidate_tags(tags)
+        _l1_count=await self.l1.invalidate_tags(tags)
+        _l2_count=await self.l2.invalidate_tags(tags)
         return l1_count + l2_count
 
     async def clear(self) -> bool:
         """Clear all cache tiers"""
-        l1_ok = await self.l1.clear()
-        l2_ok = await self.l2.clear()
+        _l1_ok=await self.l1.clear()
+        _l2_ok=await self.l2.clear()
         return l1_ok and l2_ok
 
     async def get_metrics(self) -> CacheMetrics:
         """Get combined metrics"""
-        l1_metrics = await self.l1.get_metrics()
-        l2_metrics = await self.l2.get_metrics()
+        _l1_metrics=await self.l1.get_metrics()
+        _l2_metrics=await self.l2.get_metrics()
 
         return CacheMetrics(
             _hits = l1_metrics.hits + l2_metrics.hits,
             _misses = l1_metrics.misses + l2_metrics.misses,
             _evictions = l1_metrics.evictions + l2_metrics.evictions,
             _errors = l1_metrics.errors + l2_metrics.errors,
-            _avg_latency_ms = (l1_metrics.avg_latency_ms + l2_metrics.avg_latency_ms) / 2,
+            _avg_latency_ms=(l1_metrics.avg_latency_ms + l2_metrics.avg_latency_ms) / 2,
             _total_requests = l1_metrics.total_requests + l2_metrics.total_requests,
         )
 
@@ -596,17 +644,17 @@ def cached(
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
         # Generate cache key from function name and arguments
-            key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
-            cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
+            _key_data=f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
+            _cache_key=f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
 
             # Try to get from cache
             if cache:
-                cached_value = await cache.get(cache_key)
+                _cached_value=await cache.get(cache_key)
                 if cached_value is not None:
                     return cached_value
 
             # Execute function
-            result = await func(*args, **kwargs)
+            _result=await func(*args, **kwargs)
 
             # Store in cache
             if cache:
@@ -623,14 +671,14 @@ class CacheManager:
     """Central cache management for DebVisor"""
 
     def __init__(self) -> None:
-        self.l1 = L1Cache(max_size=1000)
-        self.l2 = RedisCache()
-        self.hybrid = HybridCache(self.l1, self.l2, CacheStrategy.L1_L2)
+        self.l1=L1Cache(max_size=1000)
+        self.l2=RedisCache()
+        self.hybrid=HybridCache(self.l1, self.l2, CacheStrategy.L1_L2)
 
     async def initialize(self) -> bool:
         """Initialize cache system"""
         try:
-            redis_ok = await self.l2.connect()
+            _redis_ok=await self.l2.connect()
             if not redis_ok:
                 logger.warning("Redis cache unavailable, using L1 only")
             logger.info("Cache manager initialized")
@@ -652,8 +700,8 @@ class CacheManager:
 
     async def get_cache_status(self) -> Dict[str, Any]:
         """Get cache system status"""
-        l1_metrics = await self.l1.get_metrics()
-        l2_metrics = await self.l2.get_metrics()
+        _l1_metrics=await self.l1.get_metrics()
+        _l2_metrics=await self.l2.get_metrics()
 
         return {
             "l1": {
@@ -677,6 +725,6 @@ async def get_cache_manager() -> CacheManager:
     """Get or create global cache manager"""
     global _cache_manager
     if _cache_manager is None:
-        _cache_manager = CacheManager()
+        _cache_manager=CacheManager()
         await _cache_manager.initialize()
     return _cache_manager

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,9 +147,9 @@ from typing import Dict, List, Optional, Any
 from contextlib import contextmanager
 
 # Check CI environment
-IS_CI = os.getenv("CI", "").lower() in ("true", "1", "yes")
-IS_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS", "").lower() == "true"
-MOCK_ENABLED = os.getenv("NETCFG_MOCK", "").lower() in ("true", "1", "yes") or IS_CI
+IS_CI=os.getenv("CI", "").lower() in ("true", "1", "yes")
+IS_GITHUB_ACTIONS=os.getenv("GITHUB_ACTIONS", "").lower() == "true"
+MOCK_ENABLED=os.getenv("NETCFG_MOCK", "").lower() in ("true", "1", "yes") or IS_CI
 
 
 class MockInterfaceType(Enum):
@@ -180,7 +228,7 @@ class MockNetworkState:
 
     def __new__(cls) -> "MockNetworkState":
         if cls._instance is None:
-            cls._instance = super().__new__(cls)
+            cls._instance=super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
@@ -201,7 +249,7 @@ class MockNetworkState:
         self._generate_wifi_networks()
         self._generate_routes()
 
-    def reset(self, seed: int = 42) -> None:
+    def reset(self, seed: int=42) -> None:
         """Reset mock state with optional seed."""
         self._seed = seed
         random.seed(seed)
@@ -233,7 +281,7 @@ class MockNetworkState:
             _name = "eth0",
             _type = MockInterfaceType.ETHERNET,
             _state = MockConnectionState.UP,
-            _mac_address = self._generate_mac(),
+            _mac_address=self._generate_mac(),
             _mtu = 1500,
             _ipv4_addresses = ["192.168.1.100/24"],
             _ipv6_addresses = ["fe80::1/64"],
@@ -248,7 +296,7 @@ class MockNetworkState:
             _name = "eth1",
             _type = MockInterfaceType.ETHERNET,
             _state = MockConnectionState.DOWN,
-            _mac_address = self._generate_mac(),
+            _mac_address=self._generate_mac(),
             _mtu = 1500,
             _speed_mbps = 10000,
             _driver = "ixgbe",
@@ -259,7 +307,7 @@ class MockNetworkState:
             _name = "mgmt0",
             _type = MockInterfaceType.ETHERNET,
             _state = MockConnectionState.UP,
-            _mac_address = self._generate_mac(),
+            _mac_address=self._generate_mac(),
             _mtu = 1500,
             _ipv4_addresses = ["10.0.0.10/24"],
             _gateway = "10.0.0.1",
@@ -273,7 +321,7 @@ class MockNetworkState:
             _name = "wlan0",
             _type = MockInterfaceType.WIFI,
             _state = MockConnectionState.DOWN,
-            _mac_address = self._generate_mac(),
+            _mac_address=self._generate_mac(),
             _mtu = 1500,
             _driver = "iwlwifi",
         )
@@ -283,7 +331,7 @@ class MockNetworkState:
             _name = "br0",
             _type = MockInterfaceType.BRIDGE,
             _state = MockConnectionState.UP,
-            _mac_address = self._generate_mac(),
+            _mac_address=self._generate_mac(),
             _mtu = 1500,
             _ipv4_addresses = ["172.16.0.1/24"],
             _driver = "bridge",
@@ -304,11 +352,11 @@ class MockNetworkState:
         for i, (ssid, security, signal) in enumerate(networks):
             self.wifi_networks.append(
                 MockWiFiNetwork(
-                    ssid=ssid,
-                    _bssid = self._generate_mac(),
-                    _signal_strength = signal + random.randint(-5, 5),    # nosec B311
-                    _channel = random.choice([1, 6, 11, 36, 40, 44, 48]),    # nosec B311
-                    _frequency_mhz = 2412 if random.random() > 0.5 else 5180,    # nosec B311
+                    _ssid=ssid,
+                    _bssid=self._generate_mac(),
+                    _signal_strength=signal + random.randint(-5, 5),    # nosec B311
+                    _channel=random.choice([1, 6, 11, 36, 40, 44, 48]),    # nosec B311
+                    _frequency_mhz=2412 if random.random() > 0.5 else 5180,    # nosec B311
                     _security = security,
                     _connected = False,
                 )
@@ -360,7 +408,7 @@ class MockNetworkState:
 
 
 # Global mock state singleton
-_mock_state = MockNetworkState()
+_mock_state=MockNetworkState()
 
 
 def get_mock_state() -> MockNetworkState:
@@ -368,7 +416,7 @@ def get_mock_state() -> MockNetworkState:
     return _mock_state
 
 
-def reset_mock_state(seed: int = 42) -> None:
+def reset_mock_state(seed: int=42) -> None:
     """Reset mock state to initial values."""
     _mock_state.reset(seed)
 
@@ -376,7 +424,7 @@ def reset_mock_state(seed: int = 42) -> None:
 @contextmanager
 
 
-def mock_network_mode(seed: int = 42) -> Any:
+def mock_network_mode(seed: int=42) -> Any:
     """Context manager for mock network mode."""
     reset_mock_state(seed)
     try:
@@ -392,7 +440,7 @@ class MockNetworkBackend:
     """Mock network backend for testing."""
 
     def __init__(self) -> None:
-        self.state = get_mock_state()
+        self.state=get_mock_state()
 
     def list_interfaces(self) -> List[Dict[str, Any]]:
         """List all network interfaces."""
@@ -400,7 +448,7 @@ class MockNetworkBackend:
 
     def get_interface(self, name: str) -> Optional[Dict[str, Any]]:
         """Get a specific interface."""
-        iface = self.state.interfaces.get(name)
+        _iface=self.state.interfaces.get(name)
         return iface.to_dict() if iface else None
 
     def set_interface_up(self, name: str) -> bool:
@@ -503,7 +551,7 @@ class MockNetworkBackend:
         self.state.interfaces[vlan_name] = MockInterface(
             _name = vlan_name,
             _type = MockInterfaceType.VLAN,
-            state=MockConnectionState.DOWN,
+            _state=MockConnectionState.DOWN,
             _mac_address = self.state.interfaces[parent].mac_address,
             _mtu = self.state.interfaces[parent].mtu,
             _driver = "8021q",
@@ -538,9 +586,9 @@ class MockNetworkBackend:
                 return False
 
         self.state.interfaces[name] = MockInterface(
-            name=name,
+            _name=name,
             _type = MockInterfaceType.BOND,
-            state=MockConnectionState.DOWN,
+            _state=MockConnectionState.DOWN,
             _mac_address = self.state.interfaces[slaves[0]].mac_address,
             _mtu = 1500,
             _driver = "bonding",
@@ -554,10 +602,10 @@ class MockNetworkBackend:
     def create_bridge(self, name: str, ports: Optional[List[str]] = None) -> bool:
         """Create bridge interface."""
         self.state.interfaces[name] = MockInterface(
-            name=name,
+            _name=name,
             _type = MockInterfaceType.BRIDGE,
-            state=MockConnectionState.DOWN,
-            _mac_address = get_mock_state()._generate_mac(),
+            _state=MockConnectionState.DOWN,
+            _mac_address=get_mock_state()._generate_mac(),
             _mtu = 1500,
             _driver = "bridge",
         )
@@ -567,7 +615,7 @@ class MockNetworkBackend:
         )
         return True
 
-    def scan_wifi(self, interface: str = "wlan0") -> List[Dict[str, Any]]:
+    def scan_wifi(self, interface: str="wlan0") -> List[Dict[str, Any]]:
         """Scan for WiFi networks."""
         if interface not in self.state.interfaces:
             return []
@@ -597,7 +645,7 @@ class MockNetworkBackend:
         if interface not in self.state.interfaces:
             return False
 
-        network = next((n for n in self.state.wifi_networks if n.ssid == ssid), None)
+        _network=next((n for n in self.state.wifi_networks if n.ssid== ssid), None)
         if not network:
             return False
 
@@ -653,12 +701,12 @@ class MockNetworkBackend:
 
     def delete_route(self, destination: str) -> bool:
         """Delete a route."""
-        original_len = len(self.state.routes)
+        _original_len=len(self.state.routes)
         self.state.routes = [
             r for r in self.state.routes if r["destination"] != destination
         ]
 
-        deleted = len(self.state.routes) < original_len
+        _deleted=len(self.state.routes) < original_len
         self.state.log_operation("delete_route", {"destination": destination}, deleted)
         return deleted
 
@@ -679,7 +727,7 @@ def verify_operation_logged(
     operation: str, params: Optional[Dict[str, Any]] = None
 ) -> bool:
     """Verify an operation was logged."""
-    state = get_mock_state()
+    _state=get_mock_state()
 
     for log in state.operation_log:
         if log["operation"] == operation:
@@ -693,13 +741,13 @@ def verify_operation_logged(
 
 def get_operation_count(operation: str) -> int:
     """Get count of a specific operation."""
-    state = get_mock_state()
+    _state=get_mock_state()
     return sum(1 for log in state.operation_log if log["operation"] == operation)
 
 
 def export_mock_state() -> str:
     """Export mock state as JSON for debugging."""
-    state = get_mock_state()
+    _state=get_mock_state()
     return json.dumps(
         {
             "interfaces": {
@@ -726,12 +774,12 @@ if __name__ == "__main__":
     print("DebVisor Network Configuration Mock Mode")
     print("=" * 50)
 
-    backend = MockNetworkBackend()
+    _backend=MockNetworkBackend()
 
     print("\n[Interfaces]")
     for iface in backend.list_interfaces():
         status = "UP" if iface["state"] == "up" else "DOWN"
-        ips = ", ".join(iface["ipv4_addresses"]) or "no IP"
+        _ips=", ".join(iface["ipv4_addresses"]) or "no IP"
         print(f"  {iface['name']:10} [{status:4}] {iface['type']:10} {ips}")
 
     print("\n[WiFi Networks]")
@@ -749,17 +797,17 @@ if __name__ == "__main__":
     print("\n[Testing Operations]")
 
     backend.set_interface_down("eth1")
-    eth1 = backend.get_interface("eth1")
+    _eth1=backend.get_interface("eth1")
     if eth1:
         print(f"  Set eth1 down: {eth1['state']}")
 
     backend.add_ip_address("eth1", "192.168.2.100/24")
-    eth1 = backend.get_interface("eth1")
+    _eth1=backend.get_interface("eth1")
     if eth1:
         print(f"  Added IP to eth1: {eth1['ipv4_addresses']}")
 
     backend.set_interface_up("eth1")
-    eth1 = backend.get_interface("eth1")
+    _eth1=backend.get_interface("eth1")
     if eth1:
         print(f"  Set eth1 up: {eth1['state']}")
 
@@ -767,6 +815,6 @@ if __name__ == "__main__":
     print("  Created VLAN: eth0.100")
 
     print("\n[Operation Log]")
-    state = get_mock_state()
+    _state=get_mock_state()
     for log in state.operation_log[-5:]:
         print(f"  {log['operation']}: {log['params']} -> {log['result']}")

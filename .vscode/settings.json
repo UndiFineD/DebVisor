@@ -1,11 +1,11 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:workspace",
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
     "python-envs.pythonProjects": [
         {
             "path": "${workspaceFolder}",
             "pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
             "type": "venv",
-            "envManager": "ms-python.python:workspace",
+            "envManager": "ms-python.python:venv",
             "packageManager": "ms-python.python:pip"
         }
     ],

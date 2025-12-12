@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,7 +144,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class GraphQLAuthenticator:
@@ -118,17 +166,17 @@ class GraphQLAuthenticator:
         """
         if token in self.valid_tokens:
             token_data = self.valid_tokens[token]
-            expires_at = token_data.get("expires_at")
+            _expires_at=token_data.get("expires_at")
             # Normalize expires_at to a datetime
             if isinstance(expires_at, datetime):
                 exp_dt = expires_at
             elif isinstance(expires_at, str):
                 try:
                 # Expect ISO 8601 string; parse deterministically
-                    exp_dt = datetime.fromisoformat(expires_at)
+                    _exp_dt=datetime.fromisoformat(expires_at)
                     # If naive, assume UTC
                     if exp_dt.tzinfo is None:
-                        exp_dt = exp_dt.replace(tzinfo=timezone.utc)
+                        _exp_dt=exp_dt.replace(tzinfo=timezone.utc)
                 except ValueError:
                     return None
             else:
@@ -154,7 +202,7 @@ class GraphQLAuthenticator:
         """
         import uuid
 
-        token = f"token_{uuid.uuid4().hex}"
+        _token=f"token_{uuid.uuid4().hex}"
         self.valid_tokens[token] = {
             "user_id": user_id,
             "cluster": cluster,
@@ -168,7 +216,7 @@ class GraphQLAuthenticator:
 class GraphQLCache:
     """Simple query result cache."""
 
-    def __init__(self, ttl_seconds: int = 300):
+    def __init__(self, ttl_seconds: int=300) -> None:
         """
         Initialize cache.
 
@@ -217,7 +265,7 @@ class GraphQLCache:
 class GraphQLMiddleware:
     """Middleware for GraphQL request processing."""
 
-    def __init__(self, authenticator: GraphQLAuthenticator, cache: GraphQLCache):
+    def __init__(self, authenticator: GraphQLAuthenticator, cache: GraphQLCache) -> None:
         """
         Initialize middleware.
 
@@ -242,13 +290,13 @@ class GraphQLMiddleware:
         @wraps(f)
 
         def decorated_function(*args: Any, **kwargs: Any) -> Any:
-            auth_header = request.headers.get("Authorization", "")
+            _auth_header=request.headers.get("Authorization", "")
 
             if not auth_header.startswith("Bearer "):
                 return jsonify({"error": "Missing authorization token"}), 401
 
             token = auth_header[7:]
-            token_data = self.authenticator.authenticate_token(token)
+            _token_data=self.authenticator.authenticate_token(token)
 
             if not token_data:
                 return jsonify({"error": "Invalid or expired token"}), 401
@@ -271,12 +319,12 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
     Returns:
         Blueprint with GraphQL endpoints
     """
-    bp = Blueprint("graphql", __name__, url_prefix="/graphql")
+    _bp=Blueprint("graphql", __name__, url_prefix="/graphql")
 
-    authenticator = GraphQLAuthenticator()
-    cache = GraphQLCache(ttl_seconds=300)
-    middleware = GraphQLMiddleware(authenticator, cache)
-    limiter = Limiter(key_func=get_remote_address)
+    _authenticator=GraphQLAuthenticator()
+    _cache=GraphQLCache(ttl_seconds=300)
+    _middleware=GraphQLMiddleware(authenticator, cache)
+    _limiter=Limiter(key_func=get_remote_address)
 
     @bp.route("/query", methods=["POST"])
     @middleware.require_auth
@@ -290,12 +338,12 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             JSON response with query results
         """
         try:
-            body = request.get_json()
+            _body=request.get_json()
 
             if not body:
                 return jsonify({"error": "Empty request body"}), 400
 
-            query = body.get("query")
+            _query=body.get("query")
             if not query:
                 return jsonify({"error": "Missing query"}), 400
 
@@ -305,17 +353,17 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             )
 
             # Check cache
-            cached_result = cache.get(cache_key)
+            _cached_result=cache.get(cache_key)
             if cached_result:
                 cached_result["cached"] = True
                 return jsonify(cached_result)
 
             # Execute query
-            loop = asyncio.new_event_loop()
+            _loop=asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
 
             try:
-                response = loop.run_until_complete(graphql_server.handle_request(body))
+                _response=loop.run_until_complete(graphql_server.handle_request(body))
             finally:
                 loop.close()
 
@@ -341,21 +389,21 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             JSON response with mutation results
         """
         try:
-            body = request.get_json()
+            _body=request.get_json()
 
             if not body:
                 return jsonify({"error": "Empty request body"}), 400
 
-            mutation = body.get("mutation")
+            _mutation=body.get("mutation")
             if not mutation:
                 return jsonify({"error": "Missing mutation"}), 400
 
             # Execute mutation
-            loop = asyncio.new_event_loop()
+            _loop=asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
 
             try:
-                response = loop.run_until_complete(graphql_server.handle_request(body))
+                _response=loop.run_until_complete(graphql_server.handle_request(body))
             finally:
                 loop.close()
 
@@ -376,7 +424,7 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             Schema definition
         """
         try:
-            schema = graphql_server.get_schema_introspection()
+            _schema=graphql_server.get_schema_introspection()
             return jsonify(schema)
 
         except Exception as e:
@@ -393,11 +441,11 @@ def create_graphql_blueprint(graphql_server: Any) -> Blueprint:
             Bearer token
         """
         try:
-            body = request.get_json()
-            user_id = body.get("user_id", "anonymous")
-            cluster = body.get("cluster", "default")
+            _body=request.get_json()
+            _user_id=body.get("user_id", "anonymous")
+            _cluster=body.get("cluster", "default")
 
-            token = authenticator.create_token(user_id, cluster)
+            _token=authenticator.create_token(user_id, cluster)
 
             return jsonify(
                 {"token": token, "expires_in_hours": 24, "token_type": "Bearer"}
@@ -438,7 +486,7 @@ class GraphQLMetrics:
         self.total_execution_time = 0.0
         self.cache_hits = 0
 
-    def record_query(self, execution_time: float, error: bool = False) -> None:
+    def record_query(self, execution_time: float, error: bool=False) -> None:
         """
         Record query execution.
 

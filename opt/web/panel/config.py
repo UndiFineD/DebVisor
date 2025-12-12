@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -146,7 +194,7 @@ class CORSConfig:
 
     @classmethod
 
-    def get_allowed_origins(cls, env: str = "production") -> List[str]:
+    def get_allowed_origins(cls, env: str="production") -> List[str]:
         """
         Get allowed origins for environment.
 
@@ -162,11 +210,11 @@ class CORSConfig:
         if HAS_CENTRAL_CONFIG and settings.CORS_ORIGINS:
             return settings.CORS_ORIGINS
 
-        default_origins = cls.ALLOWED_ORIGINS.get(env, [])
+        _default_origins=cls.ALLOWED_ORIGINS.get(env, [])
 
         # Get additional origins from environment variable
-        env_origins = os.getenv("CORS_ALLOWED_ORIGINS", "")
-        additional = [o.strip() for o in env_origins.split(", ") if o.strip()]
+        _env_origins=os.getenv("CORS_ALLOWED_ORIGINS", "")
+        _additional=[o.strip() for o in env_origins.split(", ") if o.strip()]
 
         return default_origins + additional
 
@@ -195,7 +243,7 @@ class CORSConfig:
 
             # Wildcard matching for subdomains (e.g., *.example.com)
             if "*" in allowed:
-                pattern = allowed.replace(".", r"\.").replace("*", ".+")
+                _pattern=allowed.replace(".", r"\.").replace("*", ".+")
                 import re
 
                 if re.match(f"^{pattern}$", origin):
@@ -209,7 +257,7 @@ class Config:
 
     # Flask settings
     # Note: In production, SECRET_KEY is enforced by opt.core.config.Settings
-    SECRET_KEY = os.getenv("SECRET_KEY")
+    SECRET_KEY=os.getenv("SECRET_KEY")
     if not SECRET_KEY and os.getenv("FLASK_ENV") != "production":
         SECRET_KEY = "dev-key-change-in-production"
 
@@ -217,7 +265,7 @@ class Config:
     TESTING = False
 
     # Session settings
-    PERMANENT_SESSION_LIFETIME = timedelta(hours=8)
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=8)
     SESSION_REFRESH_EACH_REQUEST = True
 
     # Database
@@ -227,23 +275,23 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # RPC Service configuration
-    RPC_HOST = os.getenv("RPC_HOST", "localhost")
-    RPC_PORT = int(os.getenv("RPC_PORT", "7443"))
-    RPC_CA_CERT = os.getenv("RPC_CA_CERT", "/etc/debvisor/panel/tls/ca.crt")
-    RPC_CLIENT_CERT = os.getenv("RPC_CLIENT_CERT", "/etc/debvisor/panel/tls/client.crt")
-    RPC_CLIENT_KEY = os.getenv("RPC_CLIENT_KEY", "/etc/debvisor/panel/tls/client.key")
-    RPC_TIMEOUT = int(os.getenv("RPC_TIMEOUT", "30"))
+    RPC_HOST=os.getenv("RPC_HOST", "localhost")
+    RPC_PORT=int(os.getenv("RPC_PORT", "7443"))
+    RPC_CA_CERT=os.getenv("RPC_CA_CERT", "/etc/debvisor/panel/tls/ca.crt")
+    RPC_CLIENT_CERT=os.getenv("RPC_CLIENT_CERT", "/etc/debvisor/panel/tls/client.crt")
+    RPC_CLIENT_KEY=os.getenv("RPC_CLIENT_KEY", "/etc/debvisor/panel/tls/client.key")
+    RPC_TIMEOUT=int(os.getenv("RPC_TIMEOUT", "30"))
 
     # TLS/HTTPS
-    TLS_CERT = os.getenv("TLS_CERT", "/etc/debvisor/panel/tls/server.crt")
-    TLS_KEY = os.getenv("TLS_KEY", "/etc/debvisor/panel/tls/server.key")
+    TLS_CERT=os.getenv("TLS_CERT", "/etc/debvisor/panel/tls/server.crt")
+    TLS_KEY=os.getenv("TLS_KEY", "/etc/debvisor/panel/tls/server.key")
 
     # Logging
-    LOG_DIR = os.getenv("LOG_DIR", "/var/log/debvisor")
-    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+    LOG_DIR=os.getenv("LOG_DIR", "/var/log/debvisor")
+    LOG_LEVEL=os.getenv("LOG_LEVEL", "INFO")
 
     # Rate limiting
-    RATELIMIT_STORAGE_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    RATELIMIT_STORAGE_URL=os.getenv("REDIS_URL", "redis://localhost:6379/0")
     RATELIMIT_DEFAULT = "100/hour"
 
     # CSRF
@@ -252,7 +300,7 @@ class Config:
     WTF_CSRF_TIME_LIMIT = None    # No time limit for CSRF tokens
 
     # CORS configuration
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins()
+    CORS_ALLOWED_ORIGINS=CORSConfig.get_allowed_origins()
     CORS_ALLOWED_METHODS = CORSConfig.ALLOWED_METHODS
     CORS_ALLOWED_HEADERS = CORSConfig.ALLOWED_HEADERS
     CORS_EXPOSED_HEADERS = CORSConfig.EXPOSED_HEADERS
@@ -267,7 +315,7 @@ class DevelopmentConfig(Config):
     TESTING = False
     SQLALCHEMY_ECHO = True
     WTF_CSRF_SSL_STRICT = False    # Allow self-signed certs in dev
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("development")
+    CORS_ALLOWED_ORIGINS=CORSConfig.get_allowed_origins("development")
 
 
 class TestingConfig(Config):
@@ -277,7 +325,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     WTF_CSRF_ENABLED = False
     RATELIMIT_ENABLED = False
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("testing")
+    CORS_ALLOWED_ORIGINS=CORSConfig.get_allowed_origins("testing")
 
 
 class ProductionConfig(Config):
@@ -288,7 +336,7 @@ class ProductionConfig(Config):
     # In production, SECRET_KEY must be set via environment
     if not os.getenv("SECRET_KEY"):
         raise RuntimeError("SECRET_KEY must be set in production")
-    CORS_ALLOWED_ORIGINS = CORSConfig.get_allowed_origins("production")
+    CORS_ALLOWED_ORIGINS=CORSConfig.get_allowed_origins("production")
 
 
 # Configuration dictionary

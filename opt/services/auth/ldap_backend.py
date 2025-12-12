@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +146,7 @@ from enum import Enum
 import asyncio
 from abc import ABC, abstractmethod
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ADUserProvisioningStatus(Enum):
@@ -120,8 +168,8 @@ class LDAPConfig:
     base_dn: str    # Base DN for searches (e.g., dc=example, dc=com)
     bind_dn: Optional[str] = None    # Service account DN
     bind_password: Optional[str] = None    # Service account password
-    search_filter: str = "(uid={username})"    # User search filter
-    group_search_filter: str = "(cn={group})"    # Group search filter
+    search_filter: str="(uid={username})"    # User search filter
+    group_search_filter: str="(cn={group})"    # Group search filter
     user_objectclass: str = "inetOrgPerson"    # User object class
     group_objectclass: str = "groupOfNames"    # Group object class
     connection_timeout: int = 10    # Seconds
@@ -200,7 +248,7 @@ class LDAPConnectionPool:
         self.config = config
         self.pool: List[ldap.ldapobject.LDAPObject] = []
         self.available: asyncio.Queue[ldap.ldapobject.LDAPObject] = asyncio.Queue()
-        self._lock = asyncio.Lock()
+        self._lock=asyncio.Lock()
         self._initialized = False
 
     async def initialize(self) -> bool:
@@ -218,7 +266,7 @@ class LDAPConnectionPool:
 
             # Create connections
             for _ in range(self.config.pool_size):
-                conn = ldap.initialize(self.config.server_url)
+                _conn=ldap.initialize(self.config.server_url)
 
                 if self.config.enable_starttls:
                     conn.start_tls_s()
@@ -287,7 +335,7 @@ class LDAPBackend(AuthenticationBackend):
 
     def __init__(self, config: LDAPConfig) -> None:
         self.config = config
-        self.pool = LDAPConnectionPool(config)
+        self.pool=LDAPConnectionPool(config)
         self._user_cache: Dict[str, Tuple[LDAPUser, float]] = {}
         self._group_cache: Dict[str, Tuple[List[str], float]] = {}
 
@@ -308,13 +356,13 @@ class LDAPBackend(AuthenticationBackend):
         """
         try:
         # Search for user
-            user = await self.get_user(username)
+            _user=await self.get_user(username)
             if not user:
                 logger.warning(f"User not found: {username}")
                 return None
 
             # Try to bind as user
-            conn = ldap.initialize(self.config.server_url)
+            _conn=ldap.initialize(self.config.server_url)
             if self.config.enable_starttls:
                 conn.start_tls_s()
 
@@ -341,14 +389,14 @@ class LDAPBackend(AuthenticationBackend):
                 if time.time() - timestamp < self.config.cache_ttl:
                     return user
 
-            conn = await self.pool.get_connection()
+            _conn=await self.pool.get_connection()
             if not conn:
                 logger.error("Failed to get LDAP connection for user lookup")
                 return None
 
             try:
             # Search for user
-                search_filter = self.config.search_filter.format(username=username)
+                _search_filter=self.config.search_filter.format(username=username)
                 results = conn.search_s(
                     self.config.base_dn, ldap.SCOPE_SUBTREE, search_filter
                 )
@@ -359,7 +407,7 @@ class LDAPBackend(AuthenticationBackend):
                 dn, attributes = results[0]
 
                 # Extract user information
-                user = self._parse_ldap_entry(username, dn, attributes)
+                _user=self._parse_ldap_entry(username, dn, attributes)
 
                 # Cache user
                 self._user_cache[username] = (user, time.time())
@@ -383,18 +431,18 @@ class LDAPBackend(AuthenticationBackend):
                 if time.time() - timestamp < self.config.cache_ttl:
                     return groups
 
-            user = await self.get_user(username)
+            _user=await self.get_user(username)
             if not user:
                 return []
 
-            conn = await self.pool.get_connection()
+            _conn=await self.pool.get_connection()
             if not conn:
                 logger.error("Failed to get LDAP connection for group lookup")
                 return []
 
             try:
             # Search for groups user is member of
-                search_filter = f"(member={user.distinguished_name})"
+                _search_filter=f"(member={user.distinguished_name})"
                 results = conn.search_s(
                     self.config.base_dn,
                     ldap.SCOPE_SUBTREE,
@@ -429,21 +477,21 @@ class LDAPBackend(AuthenticationBackend):
         email_bytes = (
             attributes.get("mail") or attributes.get("userPrincipalName") or [b""]
         )[0]
-        _email = email_bytes.decode() if isinstance(email_bytes, bytes) else str(email_bytes)
+        _email=email_bytes.decode() if isinstance(email_bytes, bytes) else str(email_bytes)
 
-        full_name_bytes = (attributes.get("displayName") or attributes.get("cn") or [b""])[
+        _full_name_bytes=(attributes.get("displayName") or attributes.get("cn") or [b""])[
             0
         ]
-        _full_name = full_name_bytes.decode() if isinstance(full_name_bytes, bytes) else str(full_name_bytes)
+        _full_name=full_name_bytes.decode() if isinstance(full_name_bytes, bytes) else str(full_name_bytes)
 
-        groups_bytes = attributes.get("memberOf", [])
-        _groups = [g.decode() if isinstance(g, bytes) else str(g) for g in groups_bytes]
+        _groups_bytes=attributes.get("memberOf", [])
+        _groups=[g.decode() if isinstance(g, bytes) else str(g) for g in groups_bytes]
 
         enabled = True
-        user_account_control = attributes.get("userAccountControl")
+        _user_account_control=attributes.get("userAccountControl")
         if user_account_control:
-            uac_int = int(user_account_control[0])
-            enabled = not (uac_int & 2)    # Check if ACCOUNTDISABLE flag is set
+            _uac_int=int(user_account_control[0])
+            _enabled=not (uac_int & 2)    # Check if ACCOUNTDISABLE flag is set
 
         return LDAPUser(
             _username = username,
@@ -468,11 +516,11 @@ class LDAPBackend(AuthenticationBackend):
         Returns:
             SyncResult with operation details
         """
-        result = SyncResult(status=ADUserProvisioningStatus.SUCCESS)
-        _start_time = time.time()
+        _result=SyncResult(status=ADUserProvisioningStatus.SUCCESS)
+        _start_time=time.time()
 
         try:
-            conn = await self.pool.get_connection()
+            _conn=await self.pool.get_connection()
             if not conn:
                 result.status = ADUserProvisioningStatus.FAILED
                 result.errors.append("Failed to get LDAP connection")
@@ -490,7 +538,7 @@ class LDAPBackend(AuthenticationBackend):
                     _attrlist = ["uid", "mail", "displayName", "memberOf"],
                 )
 
-                result.total_processed = len(results)
+                result.total_processed=len(results)
 
                 for dn, attributes in results:
                     if not dn:
@@ -498,8 +546,8 @@ class LDAPBackend(AuthenticationBackend):
                         continue
 
                     try:
-                        uid = (attributes.get(b"uid") or [b""])[0]
-                        username = uid.decode() if isinstance(uid, bytes) else uid
+                        _uid=(attributes.get(b"uid") or [b""])[0]
+                        _username=uid.decode() if isinstance(uid, bytes) else uid
 
                         self._parse_ldap_entry(username, dn, attributes)
 
@@ -522,7 +570,7 @@ class LDAPBackend(AuthenticationBackend):
             result.errors.append(f"Sync failed: {str(e)}")
 
         finally:
-            result.duration_seconds = time.time() - start_time
+            result.duration_seconds=time.time() - start_time
 
         return result
 
@@ -553,7 +601,7 @@ class HybridAuthBackend:
     Tries LDAP/AD first, falls back to local authentication if LDAP is unavailable.
     """
 
-    def __init__(self, ldap_backend: LDAPBackend, local_backend: LocalAuthBackend):
+    def __init__(self, ldap_backend: LDAPBackend, local_backend: LocalAuthBackend) -> None:
         self.ldap_backend = ldap_backend
         self.local_backend = local_backend
 
@@ -561,7 +609,7 @@ class HybridAuthBackend:
         """Authenticate user with fallback"""
         try:
         # Try LDAP/AD first
-            user = await self.ldap_backend.authenticate(username, password)
+            _user=await self.ldap_backend.authenticate(username, password)
             if user:
                 return user
 
@@ -570,7 +618,7 @@ class HybridAuthBackend:
 
         # Fallback to local authentication
         try:
-            user = await self.local_backend.authenticate(username, password)
+            _user=await self.local_backend.authenticate(username, password)
             return user
         except Exception as e:
             logger.error(f"Local authentication also failed: {e}")
@@ -579,7 +627,7 @@ class HybridAuthBackend:
     async def get_user(self, username: str) -> Optional[LDAPUser]:
         """Get user with fallback"""
         try:
-            user = await self.ldap_backend.get_user(username)
+            _user=await self.ldap_backend.get_user(username)
             if user:
                 return user
         except Exception as e:
@@ -590,7 +638,7 @@ class HybridAuthBackend:
     async def get_user_groups(self, username: str) -> List[str]:
         """Get user groups with fallback"""
         try:
-            groups = await self.ldap_backend.get_user_groups(username)
+            _groups=await self.ldap_backend.get_user_groups(username)
             if groups:
                 return groups
         except Exception as e:

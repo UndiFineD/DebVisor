@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class TestStatus(Enum):
@@ -163,7 +211,7 @@ class DeploymentE2ETests:
     async def test_single_node_deployment() -> TestResult:
         """Test single-node cluster deployment."""
         _test_name = "Single-node deployment"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -193,34 +241,34 @@ class DeploymentE2ETests:
             await asyncio.sleep(0.1)
             logs.append("? Health checks passed")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.DEPLOYMENT,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"nodes_deployed": 1, "time_seconds": duration},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.DEPLOYMENT,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
-                logs=logs,
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
+                _logs=logs,
             )
 
     @staticmethod
     async def test_multi_node_deployment() -> TestResult:
         """Test multi-node cluster deployment."""
         _test_name = "Multi-node deployment"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -244,26 +292,26 @@ class DeploymentE2ETests:
             await asyncio.sleep(0.1)
             logs.append("? Replication verified")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.DEPLOYMENT,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"nodes_deployed": nodes, "time_seconds": duration},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.DEPLOYMENT,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -275,7 +323,7 @@ class OperationsE2ETests:
     async def test_node_drain_and_recovery() -> TestResult:
         """Test draining and recovering a node."""
         _test_name = "Node drain and recovery"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -305,34 +353,34 @@ class OperationsE2ETests:
             await asyncio.sleep(0.1)
             logs.append("? Workloads rebalanced")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.OPERATIONS,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"workloads_migrated": 5, "time_seconds": duration},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.OPERATIONS,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
-                logs=logs,
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
+                _logs=logs,
             )
 
     @staticmethod
     async def test_rolling_update() -> TestResult:
         """Test rolling cluster update."""
         _test_name = "Rolling update"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -353,26 +401,26 @@ class OperationsE2ETests:
             await asyncio.sleep(0.1)
             logs.append("? Cluster healthy")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.OPERATIONS,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"nodes_updated": cluster_size, "time_seconds": duration},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.OPERATIONS,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -384,7 +432,7 @@ class WorkloadE2ETests:
     async def test_application_deployment() -> TestResult:
         """Test deploying and scaling an application."""
         _test_name = "Application deployment and scaling"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -412,26 +460,26 @@ class WorkloadE2ETests:
             await asyncio.sleep(0.1)
             logs.append("? All endpoints responding")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.WORKLOAD,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"replicas": target_replicas, "time_seconds": duration},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.WORKLOAD,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -443,7 +491,7 @@ class FailoverE2ETests:
     async def test_node_failure_recovery() -> TestResult:
         """Test cluster recovery from node failure."""
         _test_name = "Node failure and recovery"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -466,7 +514,7 @@ class FailoverE2ETests:
             logs.append("? Data integrity maintained")
 
             # Recovery time
-            recovery_time = time.time() - start_time
+            _recovery_time=time.time() - start_time
             logs.append(f"Recovery time: {recovery_time:.2f}s")
 
             return TestResult(
@@ -474,20 +522,20 @@ class FailoverE2ETests:
                 _status = TestStatus.PASSED,
                 _category = TestCategory.FAILOVER,
                 _duration_seconds = recovery_time,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {"recovery_time_seconds": recovery_time},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.FAILOVER,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -499,7 +547,7 @@ class PerformanceE2ETests:
     async def test_throughput_baseline() -> TestResult:
         """Test cluster throughput baseline."""
         _test_name = "Throughput baseline"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -518,13 +566,13 @@ class PerformanceE2ETests:
             latency_ms = 12.3    # Simulated result
             logs.append(f"Average latency: {latency_ms} ms")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.PERFORMANCE,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
+                _timestamp=datetime.now(timezone.utc),
                 _metrics = {
                     "throughput_mb_s": throughput_mb_s,
                     "latency_ms": latency_ms,
@@ -533,14 +581,14 @@ class PerformanceE2ETests:
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.PERFORMANCE,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -552,7 +600,7 @@ class SecurityE2ETests:
     async def test_rbac_enforcement() -> TestResult:
         """Test RBAC policy enforcement."""
         _test_name = "RBAC enforcement"
-        _start_time = time.time()
+        _start_time=time.time()
         logs = []
 
         try:
@@ -570,26 +618,26 @@ class SecurityE2ETests:
             await asyncio.sleep(0.05)
             logs.append("? Violation properly blocked")
 
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.PASSED,
                 _category = TestCategory.SECURITY,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _metrics = {"roles_tested": len(roles)},
+                _timestamp=datetime.now(timezone.utc),
+                _metrics={"roles_tested": len(roles)},
                 _logs = logs,
             )
 
         except Exception as e:
-            duration = time.time() - start_time
+            _duration=time.time() - start_time
             return TestResult(
                 _name = test_name,
                 _status = TestStatus.FAILED,
                 _category = TestCategory.SECURITY,
                 _duration_seconds = duration,
-                _timestamp = datetime.now(timezone.utc),
-                _error_message = str(e),
+                _timestamp=datetime.now(timezone.utc),
+                _error_message=str(e),
                 _logs = logs,
             )
 
@@ -600,12 +648,12 @@ class E2ETestSuite:
     def __init__(self) -> None:
         """Initialize test suite."""
         self.results: List[TestResult] = []
-        self.deployment_tests = DeploymentE2ETests()
-        self.operations_tests = OperationsE2ETests()
-        self.workload_tests = WorkloadE2ETests()
-        self.failover_tests = FailoverE2ETests()
-        self.performance_tests = PerformanceE2ETests()
-        self.security_tests = SecurityE2ETests()
+        self.deployment_tests=DeploymentE2ETests()
+        self.operations_tests=OperationsE2ETests()
+        self.workload_tests=WorkloadE2ETests()
+        self.failover_tests=FailoverE2ETests()
+        self.performance_tests=PerformanceE2ETests()
+        self.security_tests=SecurityE2ETests()
 
     async def run_all_tests(self) -> Dict[str, Any]:
         """Run all E2E tests."""
@@ -629,17 +677,17 @@ class E2ETestSuite:
             self.security_tests.test_rbac_enforcement(),
         ]
 
-        self.results = await asyncio.gather(*tasks)
+        self.results=await asyncio.gather(*tasks)
 
         # Generate report
         return self.generate_report()
 
     def generate_report(self) -> Dict[str, Any]:
         """Generate test report."""
-        total_tests = len(self.results)
-        passed = sum(1 for r in self.results if r.status == TestStatus.PASSED)
-        failed = sum(1 for r in self.results if r.status == TestStatus.FAILED)
-        skipped = sum(1 for r in self.results if r.status == TestStatus.SKIPPED)
+        _total_tests=len(self.results)
+        _passed=sum(1 for r in self.results if r.status== TestStatus.PASSED)
+        _failed=sum(1 for r in self.results if r.status== TestStatus.FAILED)
+        _skipped=sum(1 for r in self.results if r.status== TestStatus.SKIPPED)
 
         _report = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -669,8 +717,8 @@ class E2ETestSuite:
 
 async def main() -> int:
     """Main entry point."""
-    suite = E2ETestSuite()
-    report = await suite.run_all_tests()
+    _suite=E2ETestSuite()
+    _report=await suite.run_all_tests()
 
     # Print report
     print("\n" + "=" * 80)
@@ -686,7 +734,7 @@ async def main() -> int:
 
     print("\nBy Category:")
     for category, results in report["by_category"].items():
-        passed = sum(1 for r in results if r["status"] == "passed")
+        _passed=sum(1 for r in results if r["status"] == "passed")
         print(f"  {category}: {passed}/{len(results)}")
 
     print("\n" + "=" * 80)
@@ -696,5 +744,5 @@ async def main() -> int:
 
 
 if __name__ == "__main__":
-    exit_code = asyncio.run(main())
+    _exit_code=asyncio.run(main())
     sys.exit(exit_code)

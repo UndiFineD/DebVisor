@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -101,10 +149,10 @@ from dataclasses import dataclass, field, asdict
 from enum import Enum
 from abc import ABC, abstractmethod
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Type variable for generic query results
-T = TypeVar("T")
+T=TypeVar("T")
 
 
 class QueryOptimizationType(Enum):
@@ -127,7 +175,7 @@ class QueryProfile:
     """Profile for a single query execution"""
 
     query_name: str
-    start_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    start_time: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     end_time: Optional[datetime] = None
     duration_ms: float = 0.0
     rows_fetched: int = 0
@@ -137,12 +185,12 @@ class QueryProfile:
     cache_hit: bool = False
     error: Optional[str] = None
 
-    def finish(self, rows_fetched: int = 0, rows_examined: int = 0) -> None:
+    def finish(self, rows_fetched: int=0, rows_examined: int=0) -> None:
         """Mark query as finished"""
-        self.end_time = datetime.now(timezone.utc)
+        self.end_time=datetime.now(timezone.utc)
         self.rows_fetched = rows_fetched
         self.rows_examined = rows_examined
-        self.duration_ms = (self.end_time - self.start_time).total_seconds() * 1000
+        self.duration_ms=(self.end_time - self.start_time).total_seconds() * 1000
 
     def efficiency_ratio(self) -> float:
         """Calculate efficiency: rows_fetched / rows_examined"""
@@ -152,7 +200,7 @@ class QueryProfile:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
-        d = asdict(self)
+        _d=asdict(self)
         d["start_time"] = self.start_time.isoformat()
         d["end_time"] = self.end_time.isoformat() if self.end_time else None
         d["optimizations_applied"] = [opt.value for opt in self.optimizations_applied]
@@ -169,7 +217,7 @@ class QueryStatistics:
     query_name: str
     total_executions: int = 0
     total_duration_ms: float = 0.0
-    min_duration_ms: float = float("in")
+    min_duration_ms: float=float("in")
     max_duration_ms: float = 0.0
     avg_duration_ms: float = 0.0
     errors: int = 0
@@ -180,8 +228,8 @@ class QueryStatistics:
         """Add a query profile to statistics"""
         self.total_executions += 1
         self.total_duration_ms += profile.duration_ms
-        self.min_duration_ms = min(self.min_duration_ms, profile.duration_ms)
-        self.max_duration_ms = max(self.max_duration_ms, profile.duration_ms)
+        self.min_duration_ms=min(self.min_duration_ms, profile.duration_ms)
+        self.max_duration_ms=max(self.max_duration_ms, profile.duration_ms)
         self.avg_duration_ms = self.total_duration_ms / self.total_executions
 
         if profile.error:
@@ -275,7 +323,7 @@ class ProjectionOptimizer(QueryOptimizer):
         Returns:
             Tuple of (optimized query, list of optimizations)
         """
-        optimized = query.copy()
+        _optimized=query.copy()
         optimizations: List[QueryOptimizationType] = []
 
         # If query has requested_fields, project only those
@@ -313,7 +361,7 @@ class PaginationOptimizer(QueryOptimizer):
     large result sets to prevent memory issues.
     """
 
-    def __init__(self, default_page_size: int = 100) -> None:
+    def __init__(self, default_page_size: int=100) -> None:
         """
         Initialize pagination optimizer.
 
@@ -334,7 +382,7 @@ class PaginationOptimizer(QueryOptimizer):
         Returns:
             Tuple of (optimized query with limit, list of optimizations)
         """
-        optimized = query.copy()
+        _optimized=query.copy()
         optimizations: List[QueryOptimizationType] = []
 
         # If no limit specified, add pagination
@@ -383,7 +431,7 @@ class FilterPushdownOptimizer(QueryOptimizer):
         Returns:
             Tuple of (optimized query with reordered filters, list of optimizations)
         """
-        _optimized = query.copy()
+        _optimized=query.copy()
         optimizations: List[QueryOptimizationType] = []
 
         # Move expensive filters after index-based filters
@@ -443,7 +491,7 @@ class LazyLoadingOptimizer(QueryOptimizer):
         Returns:
             Tuple of (optimized query with lazy_load flag, list of optimizations)
         """
-        optimized = query.copy()
+        _optimized=query.copy()
         optimizations: List[QueryOptimizationType] = []
 
         # If loading relationships, enable lazy loading
@@ -605,12 +653,12 @@ class QueryOptimizationEngine:
         Returns:
             Tuple of (optimized query, list of all optimizations applied)
         """
-        optimized = query.copy()
+        _optimized=query.copy()
         all_optimizations: List[QueryOptimizationType] = []
 
         for optimizer in self.optimizers:
             try:
-                optimized, optimizations = await optimizer.optimize(optimized)
+                optimized, optimizations=await optimizer.optimize(optimized)
                 all_optimizations.extend(optimizations)
             except Exception as e:
                 logger.warning(f"Optimizer {optimizer.__class__.__name__} failed: {e}")
@@ -631,7 +679,7 @@ class QueryOptimizationEngine:
 
         for optimizer in self.optimizers:
             try:
-                result = await optimizer.analyze(query)
+                _result=await optimizer.analyze(query)
                 if "suggestions" in result:
                     analysis["suggestions"].extend(result["suggestions"])
             except Exception as e:
@@ -649,7 +697,7 @@ class QueryOptimizationEngine:
         Returns:
             QueryProfile instance for tracking
         """
-        profile = QueryProfile(query_name=query_name)
+        _profile=QueryProfile(query_name=query_name)
         self.profiles.append(profile)
         return profile
 
@@ -676,7 +724,7 @@ class QueryOptimizationEngine:
         # Update statistics
         if profile.query_name not in self.statistics:
             self.statistics[profile.query_name] = QueryStatistics(
-                query_name=profile.query_name
+                _query_name=profile.query_name
             )
 
         self.statistics[profile.query_name].add_profile(profile)
@@ -701,7 +749,7 @@ class QueryOptimizationEngine:
 
         return {name: stats.to_dict() for name, stats in self.statistics.items()}
 
-    def get_slow_queries(self, threshold_ms: float = 1000) -> List[QueryProfile]:
+    def get_slow_queries(self, threshold_ms: float=1000) -> List[QueryProfile]:
         """
         Find queries slower than threshold.
 
@@ -748,8 +796,8 @@ class QueryOptimizationEngine:
             Dictionary with summary, slow queries, N+1 issues,
             statistics, and recommendations
         """
-        slow_queries = self.get_slow_queries()
-        n_plus_one_issues = self.detect_n_plus_one()
+        _slow_queries=self.get_slow_queries()
+        _n_plus_one_issues=self.detect_n_plus_one()
 
         return {
             "summary": {
@@ -774,21 +822,21 @@ class QueryOptimizationEngine:
         recommendations: List[str] = []
 
         # Check for slow queries
-        slow = self.get_slow_queries(threshold_ms=500)
+        _slow=self.get_slow_queries(threshold_ms=500)
         if slow:
             recommendations.append(
                 f"Found {len(slow)} queries slower than 500ms - consider adding indexes"
             )
 
         # Check for N+1
-        n_plus_one = self.detect_n_plus_one()
+        _n_plus_one=self.detect_n_plus_one()
         if n_plus_one:
             recommendations.append(
                 f"Detected {len(n_plus_one)} potential N+1 query patterns"
             )
 
         # Check cache effectiveness
-        cache_hits = sum(stats.cache_hits for stats in self.statistics.values())
+        _cache_hits=sum(stats.cache_hits for stats in self.statistics.values())
         if cache_hits == 0 and self.profiles:
             recommendations.append(
                 "No cache hits detected - consider enabling query caching"
@@ -810,5 +858,5 @@ async def get_optimization_engine() -> QueryOptimizationEngine:
     """
     global _optimization_engine
     if _optimization_engine is None:
-        _optimization_engine = QueryOptimizationEngine()
+        _optimization_engine=QueryOptimizationEngine()
     return _optimization_engine

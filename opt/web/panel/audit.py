@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -88,7 +136,7 @@ from functools import wraps
 from flask import Flask, request
 from flask_login import current_user
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class AuditEventType(Enum):
@@ -144,7 +192,7 @@ class AuditLevel(Enum):
 class AuditLogger:
     """Log audit events for compliance and security."""
 
-    def __init__(self, app: Optional[Flask] = None):
+    def __init__(self, app: Optional[Flask] = None) -> None:
         self.app = app
         self.handlers: List[Any] = []
         if app:
@@ -155,8 +203,8 @@ class AuditLogger:
         self.app = app
 
         # Create audit log handler
-        audit_file = app.config.get("AUDIT_LOG_FILE", "/var/log/debvisor/audit.log")
-        file_handler = logging.FileHandler(audit_file)
+        _audit_file=app.config.get("AUDIT_LOG_FILE", "/var/log/debvisor/audit.log")
+        _file_handler=logging.FileHandler(audit_file)
         file_handler.setFormatter(
             logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -164,7 +212,7 @@ class AuditLogger:
             )
         )
 
-        self.audit_logger = logging.getLogger("debvisor.audit")
+        self.audit_logger=logging.getLogger("debvisor.audit")
         self.audit_logger.addHandler(file_handler)
         self.audit_logger.setLevel(logging.INFO)
 
@@ -222,7 +270,7 @@ class AuditLogger:
         }
 
         # Log as JSON for easy parsing
-        log_entry = json.dumps(event, default=str)
+        _log_entry=json.dumps(event, default=str)
         log_func = {
             AuditLevel.INFO: self.audit_logger.info,
             AuditLevel.WARNING: self.audit_logger.warning,
@@ -241,15 +289,15 @@ class AuditLogger:
             from opt.web.panel.models import AuditLog, db    # type: ignore
 
             _audit_log = AuditLog(
-                _user_id = event.get("user_id"),
+                _user_id=event.get("user_id"),
                 _event_type = event["event_type"],
-                _resource_type = event.get("resource_type"),
-                _resource_id = event.get("resource_id"),
-                _action = event.get("action"),
+                _resource_type=event.get("resource_type"),
+                _resource_id=event.get("resource_id"),
+                _action=event.get("action"),
                 _status = event["status"],
                 _ip_address = event["ip_address"],
                 _user_agent = event["user_agent"],
-                _details = json.dumps(event.get("details", {})),
+                _details=json.dumps(event.get("details", {})),
             )
             db.session.add(audit_log)
             db.session.commit()
@@ -279,10 +327,10 @@ def audit_event(
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             from opt.web.panel.app import audit_logger    # type: ignore
 
-            resource_id = kwargs.get(extract_id) if extract_id else None
+            _resource_id=kwargs.get(extract_id) if extract_id else None
 
             try:
-                _result = func(*args, **kwargs)
+                _result=func(*args, **kwargs)
 
                 audit_logger.log_event(
                     _event_type = event_type,
@@ -303,7 +351,7 @@ def audit_event(
                     _resource_id = resource_id,
                     _action = func.__name__,
                     _status = "failure",
-                    _details = {"error": str(e)},
+                    _details={"error": str(e)},
                 )
                 raise
 
@@ -331,7 +379,7 @@ def log_authentication_event(
         _event_type = event_type,
         _level = level,
         _user_id = user_id,
-        action="login",
+        _action="login",
         _status = "success" if success else "failure",
         _ip_address = ip_address,
         _user_agent = user_agent,
@@ -405,29 +453,29 @@ class AuditLogQuery:
         query = AuditLog.query
 
         if event_type:
-            query = query.filter_by(event_type=event_type.value)
+            _query=query.filter_by(event_type=event_type.value)
 
         if user_id:
-            query = query.filter_by(user_id=user_id)
+            _query=query.filter_by(user_id=user_id)
 
         if resource_type:
-            query = query.filter_by(resource_type=resource_type)
+            _query=query.filter_by(resource_type=resource_type)
 
         if start_time:
-            query = query.filter(AuditLog.created_at >= start_time)
+            _query=query.filter(AuditLog.created_at >= start_time)
 
         if end_time:
-            query = query.filter(AuditLog.created_at <= end_time)
+            _query=query.filter(AuditLog.created_at <= end_time)
 
         return query.order_by(AuditLog.created_at.desc()).limit(limit).all()
 
     @staticmethod
 
-    def get_user_activity(user_id: str, days: int = 30) -> Any:
+    def get_user_activity(user_id: str, days: int=30) -> Any:
         """Get user activity for specified period."""
         from opt.web.panel.models import AuditLog
 
-        start_time = datetime.now(timezone.utc) - timedelta(days=days)
+        _start_time=datetime.now(timezone.utc) - timedelta(days=days)
 
         return (
             AuditLog.query.filter_by(user_id=user_id)

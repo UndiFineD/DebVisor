@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ import shutil
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, Future
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Configuration
@@ -308,14 +356,14 @@ class ESXiConnector(SourceConnector):
 
             context = None
             if not conn.verify_ssl:
-                context = ssl._create_unverified_context()    # nosec B323
+                _context=ssl._create_unverified_context()    # nosec B323
 
             self.si = SmartConnect(
-                host=conn.host,
+                _host=conn.host,
                 _user = conn.username,
                 _pwd = conn.password,
-                port=conn.port,
-                sslContext=context,
+                _port=conn.port,
+                _sslContext=context,
             )
             logger.info(f"Connected to ESXi/vCenter at {conn.host}")
             return True
@@ -343,7 +391,7 @@ class ESXiConnector(SourceConnector):
 
         from pyVmomi import vim
 
-        content = self.si.RetrieveContent()
+        _content=self.si.RetrieveContent()
         container = content.rootFolder
         view_type = [vim.VirtualMachine]
         recursive = True
@@ -396,8 +444,8 @@ class ESXiConnector(SourceConnector):
                         _networks = networks,
                         _os_type = summary.config.guestId or "unknown",
                         _os_version = summary.config.guestFullName or "Unknown",
-                        _firmware = ("uefi" if config.firmware == "efi" else "bios"),
-                        _guest_tools_installed = (summary.guest.toolsStatus == "toolsOk"),
+                        _firmware=("uefi" if config.firmware== "efi" else "bios"),
+                        _guest_tools_installed=(summary.guest.toolsStatus== "toolsOk"),
                         _power_state = summary.runtime.powerState,
                     )
                 )
@@ -449,7 +497,7 @@ class ESXiConnector(SourceConnector):
                     {"name": "VM Network", "mac": "00:50:56:dd:ee:", "vlan": None}
                 ],
                 _os_type = "ubuntu64Guest",
-                _os_version = "Ubuntu Linux (64-bit)",
+                _os_version="Ubuntu Linux (64-bit)",
                 _firmware = "bios",
                 _guest_tools_installed = True,
                 _power_state = "poweredOff",
@@ -457,7 +505,7 @@ class ESXiConnector(SourceConnector):
         ]
 
     def get_vm_details(self, vm_id: str) -> SourceVMInfo:
-        vms = self.list_vms()
+        _vms=self.list_vms()
         for vm in vms:
             if vm.vm_id == vm_id:
                 return vm
@@ -552,7 +600,7 @@ class HyperVConnector(SourceConnector):
                 logger.warning(f"PowerShell Get-VM failed: {result.stderr}")
                 return self._mock_list_vms()
 
-            vms_data = json.loads(result.stdout) if result.stdout.strip() else []
+            _vms_data=json.loads(result.stdout) if result.stdout.strip() else []
             if not isinstance(vms_data, list):
                 vms_data = [vms_data]
 
@@ -563,22 +611,22 @@ class HyperVConnector(SourceConnector):
                     if "Windows" in vm.get("GuestOperatingSystem", "")
                     else "linux"
                 )
-                _firmware = "uefi" if vm.get("Generation", 1) == 2 else "bios"
-                _tools_ok = vm.get("IntegrationServicesState") == "Up to date"
+                _firmware="uefi" if vm.get("Generation", 1) == 2 else "bios"
+                _tools_ok=vm.get("IntegrationServicesState") == "Up to date"
 
                 vms.append(
                     SourceVMInfo(
-                        _vm_id = vm.get("Id", str(uuid.uuid4())),
-                        _name = vm.get("Name", "Unknown"),
-                        _cpu_count = vm.get("ProcessorCount", 1),
-                        _memory_mb = vm.get("MemoryStartup", 0) // (1024 * 1024),
+                        _vm_id=vm.get("Id", str(uuid.uuid4())),
+                        _name=vm.get("Name", "Unknown"),
+                        _cpu_count=vm.get("ProcessorCount", 1),
+                        _memory_mb=vm.get("MemoryStartup", 0) // (1024 * 1024),
                         _disks = [],    # Would need Get-VMHardDiskDrive
                         _networks = [],    # Would need Get-VMNetworkAdapter
                         _os_type = os_type,
-                        _os_version = vm.get("GuestOperatingSystem", "Unknown"),
+                        _os_version=vm.get("GuestOperatingSystem", "Unknown"),
                         _firmware = firmware,
                         _guest_tools_installed = tools_ok,
-                        _power_state = vm.get("State", "Off"),
+                        _power_state=vm.get("State", "Off"),
                     )
                 )
             return vms
@@ -613,7 +661,7 @@ class HyperVConnector(SourceConnector):
         ]
 
     def get_vm_details(self, vm_id: str) -> SourceVMInfo:
-        vms = self.list_vms()
+        _vms=self.list_vms()
         for vm in vms:
             if vm.vm_id == vm_id:
                 return vm
@@ -629,13 +677,13 @@ class HyperVConnector(SourceConnector):
         """Copy VHDX file (local or via SMB)."""
         try:
             if os.path.exists(disk_path):
-                _total = os.path.getsize(disk_path)
+                _total=os.path.getsize(disk_path)
                 copied = 0
                 chunk_size = 10 * 1024 * 1024    # 10MB chunks
 
                 with open(disk_path, "rb") as src, open(output_path, "wb") as dst:
                     while True:
-                        chunk = src.read(chunk_size)
+                        _chunk=src.read(chunk_size)
                         if not chunk:
                             break
                         dst.write(chunk)
@@ -683,10 +731,10 @@ class OVAConnector(SourceConnector):
 
         # Extract OVA if needed
         if self.ova_path.endswith(".ova"):
-            self.extracted_dir = tempfile.mkdtemp(prefix="ova_extract_")
+            self.extracted_dir=tempfile.mkdtemp(prefix="ova_extract_")
             self._extract_ova()
         else:
-            self.extracted_dir = os.path.dirname(self.ova_path)
+            self.extracted_dir=os.path.dirname(self.ova_path)
 
         # Parse OVF
         self._parse_ovf()
@@ -708,7 +756,7 @@ class OVAConnector(SourceConnector):
         if self.extracted_dir is None:
             raise ValueError("No extraction directory available - OVA must be loaded first")
 
-        ovf_files = list(Path(self.extracted_dir).glob("*.ovf"))
+        _ovf_files=list(Path(self.extracted_dir).glob("*.ovf"))
         if not ovf_files:
             raise ValueError("No OVF file found in archive")
 
@@ -716,8 +764,8 @@ class OVAConnector(SourceConnector):
         try:
             import defusedxml.ElementTree as ET
 
-            tree = ET.parse(ovf_path)
-            _root = tree.getroot()
+            _tree=ET.parse(ovf_path)
+            _root=tree.getroot()
 
             # Namespace handling
             _ns = {
@@ -733,7 +781,7 @@ class OVAConnector(SourceConnector):
             }
 
             # Extract basic info
-            vs = root.find(".//ovf:VirtualSystem", ns)
+            _vs=root.find(".//ovf:VirtualSystem", ns)
             name = "imported-vm"
             if vs is not None:
                 name = vs.attrib.get(
@@ -746,7 +794,7 @@ class OVAConnector(SourceConnector):
             }
         except Exception as e:
             logger.warning(f"OVF parsing error (using defaults): {e}")
-            self.ovf_data = {"name": "imported-vm", "ovf_path": str(ovf_files[0])}
+            self.ovf_data={"name": "imported-vm", "ovf_path": str(ovf_files[0])}
 
     def list_vms(self) -> List[SourceVMInfo]:
         """List VMs described in OVF (usually one)."""
@@ -767,7 +815,7 @@ class OVAConnector(SourceConnector):
         return [
             SourceVMInfo(
                 _vm_id = "ova-vm-1",
-                name=self.ovf_data.get("name", "imported-vm"),
+                _name=self.ovf_data.get("name", "imported-vm"),
                 _cpu_count = 2,
                 _memory_mb = 4096,
                 _disks = disks,
@@ -793,7 +841,7 @@ class OVAConnector(SourceConnector):
         """Copy disk from extracted directory."""
         try:
             shutil.copy2(disk_path, output_path)
-            total = os.path.getsize(disk_path)
+            _total=os.path.getsize(disk_path)
             if progress_callback:
                 progress_callback(total, total)
             return True
@@ -802,7 +850,7 @@ class OVAConnector(SourceConnector):
             return False
 
     def disconnect(self) -> None:
-        is_ova = self.ova_path and self.ova_path.endswith(".ova")
+        _is_ova=self.ova_path and self.ova_path.endswith(".ova")
         if self.extracted_dir and is_ova:
             try:
                 shutil.rmtree(self.extracted_dir)
@@ -836,7 +884,7 @@ class DiskConverter:
             DiskFormat.VHDX: "vhdx",
         }
 
-        output_fmt = fmt_map.get(output_format, "qcow2")
+        _output_fmt=fmt_map.get(output_format, "qcow2")
 
         cmd = [cls.QEMU_IMG, "convert"]
         if thin_provision and output_format == DiskFormat.QCOW2:
@@ -848,7 +896,7 @@ class DiskConverter:
         try:
             process = subprocess.Popen(
                 cmd,    # nosec B603
-                stdout=subprocess.PIPE,
+                _stdout=subprocess.PIPE,
                 _stderr = subprocess.STDOUT,
                 _text = True,
             )
@@ -856,11 +904,11 @@ class DiskConverter:
             # Parse progress from qemu-img output
             if process.stdout:
                 for line in process.stdout:
-                    line = line.strip()
+                    _line=line.strip()
                     if "%" in line:
                     # Parse "( X.XX/100%)"
                         try:
-                            _ = float(line.split("(")[1].split("/")[0])
+                            _=float(line.split("(")[1].split("/")[0])
                             if progress_callback:
                                 progress_callback(
                                     ConversionProgress(
@@ -920,12 +968,12 @@ class ImportWizard:
         SourceType.OVF: OVAConnector,
     }
 
-    def __init__(self, work_dir: str = "/var/lib/debvisor/imports"):
-        self.work_dir = Path(work_dir)
+    def __init__(self, work_dir: str="/var/lib/debvisor/imports") -> None:
+        self.work_dir=Path(work_dir)
         self.work_dir.mkdir(parents=True, exist_ok=True)
         self._jobs: Dict[str, ImportJob] = {}
         self._connectors: Dict[str, SourceConnector] = {}
-        self._executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="import_")
+        self._executor=ThreadPoolExecutor(max_workers=2, thread_name_prefix="import_")
         self._futures: Dict[str, Future[Any]] = {}
         self._callbacks: List[Callable[[ImportJob], None]] = []
 
@@ -943,15 +991,15 @@ class ImportWizard:
 
     def connect_source(self, conn: SourceConnection) -> Tuple[bool, str]:
         """Establish connection to source hypervisor."""
-        connector_cls = self.CONNECTORS.get(conn.source_type)
+        _connector_cls=self.CONNECTORS.get(conn.source_type)
         if not connector_cls:
             return False, f"Unsupported source type: {conn.source_type.value}"
 
-        connector = connector_cls()
-        success = connector.connect(conn)
+        _connector=connector_cls()
+        _success=connector.connect(conn)
 
         if success:
-            conn_id = str(uuid.uuid4())[:8]
+            _conn_id=str(uuid.uuid4())[:8]
             self._connectors[conn_id] = connector
             return True, conn_id
 
@@ -959,7 +1007,7 @@ class ImportWizard:
 
     def list_source_vms(self, connection_id: str) -> List[SourceVMInfo]:
         """List VMs available for import."""
-        connector = self._connectors.get(connection_id)
+        _connector=self._connectors.get(connection_id)
         if not connector:
             raise ValueError(f"Invalid connection: {connection_id}")
         return connector.list_vms()
@@ -968,18 +1016,18 @@ class ImportWizard:
         self, connection_id: str, vm_id: str, options: ImportOptions
     ) -> PreflightResult:
         """Run pre-import validation checks."""
-        connector = self._connectors.get(connection_id)
+        _connector=self._connectors.get(connection_id)
         if not connector:
             raise ValueError(f"Invalid connection: {connection_id}")
 
-        vm = connector.get_vm_details(vm_id)
+        _vm=connector.get_vm_details(vm_id)
         checks = []
         _warnings = []
         _blockers = []
 
         # Check 1: Disk space
-        total_disk = sum(d.get("size_bytes", 0) for d in vm.disks)
-        free_space = shutil.disk_usage(self.work_dir).free
+        _total_disk=sum(d.get("size_bytes", 0) for d in vm.disks)
+        _free_space=shutil.disk_usage(self.work_dir).free
         disk_check_passed = free_space > total_disk * 1.5
         checks.append(
             {
@@ -999,7 +1047,7 @@ class ImportWizard:
             subprocess.run(
                 ["qemu-img", "--version"],    # nosec B603, B607
                 _capture_output = True,
-                check=True,
+                _check=True,
             )
             checks.append({"name": "qemu-img", "passed": True, "message": "Available"})
         except Exception:
@@ -1034,7 +1082,7 @@ class ImportWizard:
             )
 
         return PreflightResult(
-            _passed = len(blockers) == 0,
+            _passed=len(blockers) == 0,
             _checks = checks,
             _warnings = warnings,
             _blockers = blockers,
@@ -1044,19 +1092,19 @@ class ImportWizard:
         self, connection_id: str, vm_id: str, options: ImportOptions
     ) -> str:
         """Start asynchronous import job."""
-        connector = self._connectors.get(connection_id)
+        _connector=self._connectors.get(connection_id)
         if not connector:
             raise ValueError(f"Invalid connection: {connection_id}")
 
         # Get full VM details
-        vm = connector.get_vm_details(vm_id)
+        _vm=connector.get_vm_details(vm_id)
 
         # Create job
-        job_id = str(uuid.uuid4())
+        _job_id=str(uuid.uuid4())
         job = ImportJob(
             _id = job_id,
-            source_type=SourceType.ESXI,    # Would be determined from connector
-            _source_connection = SourceConnection(source_type=SourceType.ESXI, host=""),
+            _source_type=SourceType.ESXI,    # Would be determined from connector
+            _source_connection=SourceConnection(source_type=SourceType.ESXI, host=""),
             _source_vm = vm,
             _options = options,
             _status = ImportStatus.PENDING,
@@ -1067,7 +1115,7 @@ class ImportWizard:
         self._jobs[job_id] = job
 
         # Submit to executor
-        future = self._executor.submit(self._run_import, job, connector)
+        _future=self._executor.submit(self._run_import, job, connector)
         self._futures[job_id] = future
 
         logger.info(f"Started import job {job_id} for VM {vm.name}")
@@ -1076,7 +1124,7 @@ class ImportWizard:
     def _run_import(self, job: ImportJob, connector: SourceConnector) -> None:
         """Execute import workflow (runs in thread)."""
         try:
-            job.started_at = datetime.now(timezone.utc)
+            job.started_at=datetime.now(timezone.utc)
             job.status = ImportStatus.DOWNLOADING
             job.current_phase = "Downloading disks"
             self._notify(job)
@@ -1096,13 +1144,13 @@ class ImportWizard:
                 job.logs.append(f"Downloading: {disk['path']}")
                 self._notify(job)
 
-                _local_path = job_dir / f"disk{i}.{disk.get('format', 'vmdk')}"
+                _local_path=job_dir / f"disk{i}.{disk.get('format', 'vmdk')}"
 
                 def progress_cb(done: int, total: int) -> None:
                     job.bytes_transferred = done
                     job.total_bytes = total
                     # 0-50% for download
-                    job.progress = (done / total * 50) if total > 0 else 0
+                    job.progress=(done / total * 50) if total > 0 else 0
 
                 success = connector.download_disk(
                     job.source_vm.vm_id,
@@ -1119,8 +1167,8 @@ class ImportWizard:
             # Convert disks
             job.status = ImportStatus.CONVERTING
             for i, disk_path in enumerate(downloaded_disks):
-                job.current_phase = f"Converting disk {i + 1}/{len(downloaded_disks)}"
-                job.progress = 50 + (i / len(downloaded_disks) * 30)    # 50-80%
+                job.current_phase=f"Converting disk {i + 1}/{len(downloaded_disks)}"
+                job.progress=50 + (i / len(downloaded_disks) * 30)    # 50-80%
                 job.logs.append(f"Converting: {disk_path}")
                 self._notify(job)
 
@@ -1150,7 +1198,7 @@ class ImportWizard:
             job.progress = 85
             self._notify(job)
 
-            vm_config = self._generate_vm_config(job, converted_disks)
+            _vm_config=self._generate_vm_config(job, converted_disks)
             config_path = job_dir / "vm.json"
             with open(config_path, "w") as f:
                 json.dump(vm_config, f, indent=2)
@@ -1163,14 +1211,14 @@ class ImportWizard:
             job.progress = 95
             self._notify(job)
 
-            result_vm_id = f"vm-{uuid.uuid4().hex[:8]}"
+            _result_vm_id=f"vm-{uuid.uuid4().hex[:8]}"
             job.logs.append(f"Registered as VM: {result_vm_id}")
 
             # Complete
             job.status = ImportStatus.COMPLETED
             job.current_phase = "Complete"
             job.progress = 100
-            job.completed_at = datetime.now(timezone.utc)
+            job.completed_at=datetime.now(timezone.utc)
             job.result_vm_id = result_vm_id
             self._notify(job)
 
@@ -1178,8 +1226,8 @@ class ImportWizard:
 
         except Exception as e:
             job.status = ImportStatus.FAILED
-            job.error = str(e)
-            job.error_details = repr(e)
+            job.error=str(e)
+            job.error_details=repr(e)
             job.logs.append(f"ERROR: {e}")
             self._notify(job)
             logger.error(f"Import job {job.id} failed: {e}")
@@ -1238,18 +1286,18 @@ class ImportWizard:
         self, status_filter: Optional[ImportStatus] = None
     ) -> List[ImportJob]:
         """List all import jobs."""
-        jobs = list(self._jobs.values())
+        _jobs=list(self._jobs.values())
         if status_filter:
             jobs = [j for j in jobs if j.status == status_filter]
         return sorted(jobs, key=lambda j: j.started_at or datetime.min, reverse=True)
 
     def cancel_job(self, job_id: str) -> bool:
         """Cancel running import job."""
-        job = self._jobs.get(job_id)
+        _job=self._jobs.get(job_id)
         if not job:
             return False
 
-        future = self._futures.get(job_id)
+        _future=self._futures.get(job_id)
         if future and not future.done():
             future.cancel()
 
@@ -1260,7 +1308,7 @@ class ImportWizard:
 
     def disconnect_source(self, connection_id: str) -> None:
         """Close source connection."""
-        connector = self._connectors.pop(connection_id, None)
+        _connector=self._connectors.pop(connection_id, None)
         if connector:
             connector.disconnect()
 
@@ -1280,8 +1328,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     # Create wizard with temp work dir
-    work_dir = tempfile.mkdtemp(prefix="import_wizard_")
-    wizard = ImportWizard(work_dir=work_dir)
+    _work_dir=tempfile.mkdtemp(prefix="import_wizard_")
+    _wizard=ImportWizard(work_dir=work_dir)
 
     # Register status callback
 
@@ -1306,7 +1354,7 @@ if __name__ == "__main__":
         print(f"Connected: {conn_id}")
 
         # List VMs
-        vms = wizard.list_source_vms(conn_id)
+        _vms=wizard.list_source_vms(conn_id)
         print(f"\nAvailable VMs ({len(vms)}):")
         for vm in vms:
             print(

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -135,19 +183,19 @@ class TestResponse:
 
     @classmethod
 
-    def from_flask_response(cls, response):
+    def from_flask_response(cls, response) -> None:
         """Create from Flask response."""
         json_data = None
         try:
-            json_data = response.get_json()
+            _json_data=response.get_json()
         except Exception:
             pass
 
         return cls(
-            status_code=response.status_code,
-            data=response.data,
+            _status_code=response.status_code,
+            _data=response.data,
             _json_data = json_data,
-            _headers = dict(response.headers),
+            _headers=dict(response.headers),
         )
 
     def assert_status(self, expected: int) -> None:
@@ -190,7 +238,7 @@ class TestResponse:
 class FlaskTestClient:
     """Wrapper for Flask test client."""
 
-    def __init__(self, app: "Flask"):
+    def __init__(self, app: "Flask") -> None:
         """
         Initialize test client.
 
@@ -198,13 +246,13 @@ class FlaskTestClient:
             app: Flask application instance
         """
         self.app = app
-        self.client = app.test_client()
-        self.app_context = app.app_context()
+        self.client=app.test_client()
+        self.app_context=app.app_context()
         self.app_context.push()
 
     def get(self, path: str, **kwargs) -> TestResponse:
         """GET request."""
-        response = self.client.get(path, **kwargs)
+        _response=self.client.get(path, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def post(
@@ -216,9 +264,9 @@ class FlaskTestClient:
     ) -> TestResponse:
         """POST request."""
         if json:
-            response = self.client.post(path, json=json, **kwargs)
+            _response=self.client.post(path, json=json, **kwargs)
         else:
-            response = self.client.post(path, data=data, **kwargs)
+            _response=self.client.post(path, data=data, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def put(
@@ -230,14 +278,14 @@ class FlaskTestClient:
     ) -> TestResponse:
         """PUT request."""
         if json:
-            response = self.client.put(path, json=json, **kwargs)
+            _response=self.client.put(path, json=json, **kwargs)
         else:
-            response = self.client.put(path, data=data, **kwargs)
+            _response=self.client.put(path, data=data, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def delete(self, path: str, **kwargs) -> TestResponse:
         """DELETE request."""
-        response = self.client.delete(path, **kwargs)
+        _response=self.client.delete(path, **kwargs)
         return TestResponse.from_flask_response(response)
 
     def cleanup(self) -> None:
@@ -306,7 +354,7 @@ class MockDatabase:
 
         # Apply filters
         for key, value in filters.items():
-            results = [r for r in results if r.get(key) == value]
+            _results=[r for r in results if r.get(key) == value]
 
         return results
 
@@ -375,7 +423,7 @@ def flask_app() -> "Flask":
     if Flask is None:
         pytest.skip("Flask not installed")
 
-    app = Flask(__name__)
+    _app=Flask(__name__)
     app.config.from_object(TestConfig)
     return app
 
@@ -518,12 +566,12 @@ class PerformanceTester:
         """
         import time
 
-        start = time.time()
+        _start=time.time()
 
         for _ in range(iterations):
             func(*args, **kwargs)
 
-        duration = (time.time() - start) * 1000 / iterations
+        _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
             _duration_ms = duration,
@@ -542,12 +590,12 @@ class PerformanceTester:
         """Measure async function execution time."""
         import time
 
-        start = time.time()
+        _start=time.time()
 
         for _ in range(iterations):
             await func(*args, **kwargs)
 
-        duration = (time.time() - start) * 1000 / iterations
+        _duration=(time.time() - start) * 1000 / iterations
 
         return PerformanceMetrics(
             _duration_ms = duration,
@@ -560,7 +608,7 @@ class PerformanceTester:
 class IntegrationTestHelper:
     """Helper for integration tests."""
 
-    def __init__(self, test_client: FlaskTestClient):
+    def __init__(self, test_client: FlaskTestClient) -> None:
         """
         Initialize helper.
 

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,7 +135,7 @@ from enum import Enum
 from typing import Dict, List, Optional, Any
 from datetime import timedelta
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -167,7 +215,7 @@ class AlertRule:
 
     name: str
     expr: str
-    for_duration: timedelta = field(default_factory=lambda: timedelta(minutes=5))
+    for_duration: timedelta=field(default_factory=lambda: timedelta(minutes=5))
     severity: AlertSeverity = AlertSeverity.WARNING
     description: str = ""
     runbook_url: Optional[str] = None
@@ -193,7 +241,7 @@ class RecordingRule:
 
     name: str
     expr: str
-    interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
+    interval: timedelta=field(default_factory=lambda: timedelta(minutes=1))
     description: str = ""
 
     def to_yaml(self) -> str:
@@ -214,8 +262,8 @@ class ScrapeConfig:
     job_name: str
     metrics_path: str = "/metrics"
     scheme: str = "http"
-    scrape_interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
-    scrape_timeout: timedelta = field(default_factory=lambda: timedelta(seconds=10))
+    scrape_interval: timedelta=field(default_factory=lambda: timedelta(minutes=1))
+    scrape_timeout: timedelta=field(default_factory=lambda: timedelta(seconds=10))
     static_configs: List[Dict[str, Any]] = field(default_factory=list)
     relabel_configs: List[Dict[str, Any]] = field(default_factory=list)
 
@@ -267,52 +315,52 @@ class MonitoringConfigManager:
         """Initialize default metrics"""
         _default_metrics = [
             MetricDefinition(
-                name="debvisor_cluster_nodes_total",
-                type=MetricType.GAUGE,
-                help_text="Total number of nodes in cluster",
-                labels=["cluster"],
+                _name="debvisor_cluster_nodes_total",
+                _type=MetricType.GAUGE,
+                _help_text="Total number of nodes in cluster",
+                _labels=["cluster"],
             ),
             MetricDefinition(
-                name="debvisor_cluster_pods_total",
-                type=MetricType.GAUGE,
-                help_text="Total number of pods in cluster",
-                labels=["cluster", "namespace"],
+                _name="debvisor_cluster_pods_total",
+                _type=MetricType.GAUGE,
+                _help_text="Total number of pods in cluster",
+                _labels=["cluster", "namespace"],
             ),
             MetricDefinition(
-                name="debvisor_node_cpu_usage_percent",
-                type=MetricType.GAUGE,
-                help_text="CPU usage percentage per node",
-                labels=["node"],
+                _name="debvisor_node_cpu_usage_percent",
+                _type=MetricType.GAUGE,
+                _help_text="CPU usage percentage per node",
+                _labels=["node"],
             ),
             MetricDefinition(
-                name="debvisor_node_memory_usage_bytes",
-                type=MetricType.GAUGE,
-                help_text="Memory usage in bytes per node",
-                labels=["node"],
+                _name="debvisor_node_memory_usage_bytes",
+                _type=MetricType.GAUGE,
+                _help_text="Memory usage in bytes per node",
+                _labels=["node"],
             ),
             MetricDefinition(
-                name="debvisor_disk_used_bytes",
-                type=MetricType.GAUGE,
-                help_text="Disk usage in bytes",
-                labels=["node", "mount_point"],
+                _name="debvisor_disk_used_bytes",
+                _type=MetricType.GAUGE,
+                _help_text="Disk usage in bytes",
+                _labels=["node", "mount_point"],
             ),
             MetricDefinition(
-                name="debvisor_network_bytes_in_total",
-                type=MetricType.COUNTER,
-                help_text="Total bytes received",
-                labels=["interface"],
+                _name="debvisor_network_bytes_in_total",
+                _type=MetricType.COUNTER,
+                _help_text="Total bytes received",
+                _labels=["interface"],
             ),
             MetricDefinition(
-                name="debvisor_network_bytes_out_total",
-                type=MetricType.COUNTER,
-                help_text="Total bytes transmitted",
-                labels=["interface"],
+                _name="debvisor_network_bytes_out_total",
+                _type=MetricType.COUNTER,
+                _help_text="Total bytes transmitted",
+                _labels=["interface"],
             ),
             MetricDefinition(
-                name="debvisor_rpc_requests_total",
-                type=MetricType.COUNTER,
-                help_text="Total RPC requests",
-                labels=["method", "status"],
+                _name="debvisor_rpc_requests_total",
+                _type=MetricType.COUNTER,
+                _help_text="Total RPC requests",
+                _labels=["method", "status"],
             ),
             MetricDefinition(
                 _name = "debvisor_rpc_request_duration_seconds",
@@ -330,8 +378,8 @@ class MonitoringConfigManager:
         """Initialize default alert rules"""
         _default_alerts = [
             AlertRule(
-                name="HighCPUUsage",
-                expr="debvisor_node_cpu_usage_percent > 80",
+                _name="HighCPUUsage",
+                _expr="debvisor_node_cpu_usage_percent > 80",
                 _severity = AlertSeverity.WARNING,
                 _description = "Node CPU usage is above 80%",
                 _runbook_url = "/docs/runbooks/high-cpu",
@@ -342,21 +390,21 @@ class MonitoringConfigManager:
                     "(debvisor_node_memory_usage_bytes / "
                     "debvisor_node_memory_available_bytes) > 0.9"
                 ),
-                severity=AlertSeverity.WARNING,
-                description="Node memory usage is above 90%",
-                runbook_url="/docs/runbooks/high-memory",
+                _severity=AlertSeverity.WARNING,
+                _description="Node memory usage is above 90%",
+                _runbook_url="/docs/runbooks/high-memory",
             ),
             AlertRule(
-                name="DiskSpaceCritical",
-                expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
-                severity=AlertSeverity.CRITICAL,
-                description="Disk usage is above 95%",
-                runbook_url="/docs/runbooks/disk-space",
+                _name="DiskSpaceCritical",
+                _expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
+                _severity=AlertSeverity.CRITICAL,
+                _description="Disk usage is above 95%",
+                _runbook_url="/docs/runbooks/disk-space",
             ),
             AlertRule(
-                name="NodeNotReady",
-                expr="debvisor_node_status == 0",
-                _for_duration = timedelta(minutes=5),
+                _name="NodeNotReady",
+                _expr="debvisor_node_status == 0",
+                _for_duration=timedelta(minutes=5),
                 _severity = AlertSeverity.CRITICAL,
                 _description = "Node is not ready",
                 _runbook_url = "/docs/runbooks/node-not-ready",
@@ -462,7 +510,7 @@ class MonitoringTemplates:
 
     def get_kubernetes_monitoring() -> MonitoringConfigManager:
         """Get Kubernetes monitoring template"""
-        _mgr = MonitoringConfigManager()
+        _mgr=MonitoringConfigManager()
 
         # Add K8s-specific scrape config
         _k8s_config = ScrapeConfig(
@@ -491,7 +539,7 @@ class MonitoringTemplates:
 
     def get_infra_monitoring() -> MonitoringConfigManager:
         """Get infrastructure monitoring template"""
-        mgr = MonitoringConfigManager()
+        _mgr=MonitoringConfigManager()
 
         # Add node scrape config
         node_config = ScrapeConfig(
@@ -505,7 +553,7 @@ class MonitoringTemplates:
         # Add node recording rules
         node_recording = RecordingRule(
             _name = "node:cpu_usage_percent",
-            _expr = "100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+            _expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
             _description = "CPU usage percentage",
         )
         mgr.register_recording_rule(node_recording)
@@ -516,7 +564,7 @@ class MonitoringTemplates:
 
     def get_storage_monitoring() -> MonitoringConfigManager:
         """Get storage monitoring template"""
-        _mgr = MonitoringConfigManager()
+        _mgr=MonitoringConfigManager()
 
         # Add storage scrape config
         storage_config = ScrapeConfig(
@@ -540,11 +588,11 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     # Create manager
-    mgr = MonitoringConfigManager()
+    _mgr=MonitoringConfigManager()
 
     # Add custom metric
     custom_metric = MetricDefinition(
-        name="debvisor_custom_metric",
+        _name="debvisor_custom_metric",
         _type = MetricType.GAUGE,
         _help_text = "Custom application metric",
         _labels = ["app", "instance"],
@@ -561,10 +609,10 @@ if __name__ == "__main__":
     mgr.register_alert_rule(custom_alert)
 
     # Export configuration
-    config = mgr.export_configuration()
+    _config=mgr.export_configuration()
     print(f"Total metrics: {len(config['metrics'])}")
     print(f"Total alerts: {len(config['alert_rules'])}")
 
     # Get Kubernetes template
-    k8s_mgr = MonitoringTemplates.get_kubernetes_monitoring()
+    _k8s_mgr=MonitoringTemplates.get_kubernetes_monitoring()
     print(f"K8s template scrape configs: {len(k8s_mgr.scrape_configs)}")

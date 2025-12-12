@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ class TestQueryOptimization:
         """Fixture for query optimization engine"""
         from opt.services.query_optimization_enhanced import QueryOptimizationEngine
 
-        engine = QueryOptimizationEngine()
+        _engine=QueryOptimizationEngine()
         yield engine
 
     @pytest.mark.asyncio
@@ -108,7 +156,7 @@ class TestQueryOptimization:
         # Given: A query optimization engine
         # When: We profile a query execution
         query_text = "SELECT * FROM users WHERE id = 1"
-        profile = await optimization_engine.start_query(query_text)
+        _profile=await optimization_engine.start_query(query_text)
 
         # Simulate query execution
         await asyncio.sleep(0.01)    # Simulate execution time
@@ -136,15 +184,15 @@ class TestQueryOptimization:
         query2 = "SELECT * FROM users WHERE id = 456"
 
         # When: We generate signatures
-        sig1 = QueryAnalyzer.generate_signature(query1)
-        sig2 = QueryAnalyzer.generate_signature(query2)
+        _sig1=QueryAnalyzer.generate_signature(query1)
+        _sig2=QueryAnalyzer.generate_signature(query2)
 
         # Then: Same pattern should have same signature
         assert sig1 == sig2
 
         # When: Different query
         query3 = "SELECT * FROM products WHERE id = 123"
-        sig3 = QueryAnalyzer.generate_signature(query3)
+        _sig3=QueryAnalyzer.generate_signature(query3)
 
         # Then: Different pattern should have different signature
         assert sig1 != sig3
@@ -161,14 +209,14 @@ class TestQueryOptimization:
         ]
 
         for query_text, duration_ms in queries:
-            profile = await optimization_engine.start_query(query_text)
+            _profile=await optimization_engine.start_query(query_text)
             profile.duration_ms = duration_ms
             profile.rows_scanned = 1000
             profile.rows_returned = 100
             await optimization_engine.end_query(profile)
 
         # When: We detect slow queries
-        slow = optimization_engine.get_slow_queries(threshold_ms=1000)
+        _slow=optimization_engine.get_slow_queries(threshold_ms=1000)
 
         # Then: Only queries over threshold should be returned
         assert len(slow) == 1
@@ -182,14 +230,14 @@ class TestQueryOptimization:
         base_query = "SELECT * FROM users WHERE id = ?"
 
         for i in range(101):    # Execute 101 times
-            profile = await optimization_engine.start_query(base_query)
+            _profile=await optimization_engine.start_query(base_query)
             profile.rows_scanned = 10000    # Many rows scanned
             profile.rows_returned = 1    # Few rows returned
             profile.duration_ms = 50
             await optimization_engine.end_query(profile)
 
         # When: We detect N+1 patterns
-        n_plus_one = optimization_engine.detect_n_plus_one()
+        _n_plus_one=optimization_engine.detect_n_plus_one()
 
         # Then: Pattern should be detected
         assert len(n_plus_one) >= 1
@@ -220,7 +268,7 @@ class TestLDAPIntegration:
         from opt.services.auth.ldap_backend import LDAPBackend
 
         # Given: LDAP backend
-        _backend = LDAPBackend(ldap_config)
+        _backend=LDAPBackend(ldap_config)
 
         # When: We parse an LDAP entry
         _dn = "uid=testuser, ou=people, dc=example, dc=com"
@@ -233,7 +281,7 @@ class TestLDAPIntegration:
             "userAccountControl": ["512"],    # Enabled
         }
 
-        user = backend._parse_ldap_entry("testuser", dn, attributes)  # type: ignore[arg-type]
+        _user=backend._parse_ldap_entry("testuser", dn, attributes)  # type: ignore[arg-type]
 
         # Then: User should be correctly parsed
         assert user.username == "testuser"
@@ -248,7 +296,7 @@ class TestLDAPIntegration:
 
         # Given: Valid LDAP configuration
         config = LDAPConfig(
-            server_url="ldap://localhost:389", base_dn="dc=example, dc=com"
+            _server_url="ldap://localhost:389", base_dn="dc=example, dc=com"
         )
 
         # Then: Configuration should be valid
@@ -285,9 +333,9 @@ class TestCertificatePinning:
 
         # When: We create a pin
         pin = CertificatePin(
-            pin_type=pin_type,
-            algorithm=algorithm,
-            hash_value=hash_value,
+            _pin_type=pin_type,
+            _algorithm=algorithm,
+            _hash_value=hash_value,
             _description = "Production API",
         )
 
@@ -306,7 +354,7 @@ class TestCertificatePinning:
         )
 
         # Given: A pin expiring tomorrow
-        future = datetime.now(timezone.utc) + timedelta(days=1)
+        _future=datetime.now(timezone.utc) + timedelta(days=1)
         pin = CertificatePin(
             _pin_type = PinType.PUBLIC_KEY,
             _algorithm = PinAlgorithm.SHA256,
@@ -318,7 +366,7 @@ class TestCertificatePinning:
         assert not pin.is_expired()
 
         # Given: A pin expired yesterday
-        past = datetime.now(timezone.utc) - timedelta(days=1)
+        _past=datetime.now(timezone.utc) - timedelta(days=1)
         expired_pin = CertificatePin(
             _pin_type = PinType.PUBLIC_KEY,
             _algorithm = PinAlgorithm.SHA256,
@@ -340,9 +388,9 @@ class TestCertificatePinning:
 
         # Given: A pinning policy with primary and backup pins
         _pin1 = CertificatePin(
-            pin_type=PinType.PUBLIC_KEY,
-            algorithm=PinAlgorithm.SHA256,
-            hash_value="pin_1",
+            _pin_type=PinType.PUBLIC_KEY,
+            _algorithm=PinAlgorithm.SHA256,
+            _hash_value="pin_1",
         )
         pin2 = CertificatePin(
             _pin_type = PinType.PUBLIC_KEY,
@@ -377,9 +425,9 @@ class TestErrorHandling:
         )
 
         # Given: Various error types
-        auth_error = AuthenticationError("Invalid credentials")
-        val_error = ValidationError("email", "Invalid email format")
-        rate_error = RateLimitError("client_123", 100, 60)
+        _auth_error=AuthenticationError("Invalid credentials")
+        _val_error=ValidationError("email", "Invalid email format")
+        _rate_error=RateLimitError("client_123", 100, 60)
 
         # Then: All should be DebVisorRPCError
         assert isinstance(auth_error, DebVisorRPCError)
@@ -391,7 +439,7 @@ class TestErrorHandling:
         from opt.services.rpc.error_handling import ValidationError
 
         # Given: A validation error
-        error = ValidationError("username", "Too short", value="ab")
+        _error=ValidationError("username", "Too short", value="ab")
 
         # Then: Error should have context
         assert error.error_code == "VALIDATION_ERROR"
@@ -416,7 +464,7 @@ class TestErrorHandling:
             return "success"
 
         # When: We call the flaky function
-        result = flaky_function()
+        _result=flaky_function()
 
         # Then: Function should succeed after retries
         assert result == "success"
@@ -435,10 +483,10 @@ class TestHealthChecks:
 
         # Given: Health check parameters
         result = HealthCheckResult(
-            component="database",
-            status=HealthStatus.HEALTHY,
+            _component="database",
+            _status=HealthStatus.HEALTHY,
             _message = "Database is responding",
-            details={"response_time_ms": 5},
+            _details={"response_time_ms": 5},
         )
 
         # Then: Result should be created correctly
@@ -455,15 +503,15 @@ class TestHealthChecks:
         )
 
         # Given: A health checker
-        _checker = HealthChecker()
+        _checker=HealthChecker()
 
         # When: We register checks
 
         def check_service1() -> HealthCheckResult:
             return HealthCheckResult(
-                component="service1",
-                status=HealthStatus.HEALTHY,
-                message="Service 1 OK",
+                _component="service1",
+                _status=HealthStatus.HEALTHY,
+                _message="Service 1 OK",
             )
 
         def check_service2() -> HealthCheckResult:
@@ -477,13 +525,13 @@ class TestHealthChecks:
         checker.register_check("service2", check_service2, critical=False)
 
         # When: We run all checks
-        results = checker.run_all_checks()
+        _results=checker.run_all_checks()
 
         # Then: All checks should complete
         assert len(results) == 2
 
         # When: We get overall status
-        overall = checker.get_overall_status(results)
+        _overall=checker.get_overall_status(results)
 
         # Then: Overall should be degraded (one service degraded)
         assert overall == HealthStatus.DEGRADED
@@ -493,7 +541,7 @@ class TestHealthChecks:
         from opt.services.rpc.health_check import check_disk_space, HealthStatus
 
         # When: We check disk space
-        result = check_disk_space("/tmp")    # nosec B108
+        _result=check_disk_space("/tmp")    # nosec B108
 
         # Then: Should return valid result
         assert result.component == "disk_space"
@@ -526,7 +574,7 @@ class TestPhase5Integration:
         @retry_with_backoff(
             _max_retries = 2,
             _initial_delay = 0.01,
-            _retryable_exceptions = (ServiceUnavailableError,),
+            _retryable_exceptions=(ServiceUnavailableError,),
         )
 
         def api_call() -> Dict[str, str]:
@@ -537,7 +585,7 @@ class TestPhase5Integration:
             return {"status": "ok"}
 
         # When: We call the function
-        result = api_call()
+        _result=api_call()
 
         # Then: Should succeed after retry
         assert result["status"] == "ok"

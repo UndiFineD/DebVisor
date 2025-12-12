@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,9 +174,9 @@ class AnomalyAPI:
             engine: AnomalyDetectionEngine instance
         """
         self.engine = engine
-        self.logger = logging.getLogger("DebVisor.AnomalyAPI")
+        self.logger=logging.getLogger("DebVisor.AnomalyAPI")
 
-    def _json_response(self, data: Any, status_code: int = 200) -> Tuple[str, int]:
+    def _json_response(self, data: Any, status_code: int=200) -> Tuple[str, int]:
         """Create JSON response.
 
         Args:
@@ -178,14 +226,14 @@ class AnomalyAPI:
             }
         """
         try:
-            data = request.get_json()
+            _data=request.get_json()
 
             if not data:
                 return self._error_response("No JSON data provided", 400)
 
-            resource_id = data.get("resource_id")
-            metric_type_str = data.get("metric_type")
-            value = data.get("value")
+            _resource_id=data.get("resource_id")
+            _metric_type_str=data.get("metric_type")
+            _value=data.get("value")
 
             if not resource_id or not metric_type_str or value is None:
                 return self._error_response(
@@ -195,7 +243,7 @@ class AnomalyAPI:
                 )
 
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
@@ -226,8 +274,8 @@ class AnomalyAPI:
             metric_type: Optional filter by metric type
         """
         try:
-            resource_filter = request.args.get("resource_id")
-            metric_filter = request.args.get("metric_type")
+            _resource_filter=request.args.get("resource_id")
+            _metric_filter=request.args.get("metric_type")
 
             metrics_list = []
 
@@ -271,23 +319,23 @@ class AnomalyAPI:
             limit: Maximum records (default: 50)
         """
         try:
-            _limit = int(request.args.get("limit", 50))
+            _limit=int(request.args.get("limit", 50))
 
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
                 )
 
-            key = (resource_id, metric_type)
+            _key=(resource_id, metric_type)
 
             if key not in self.engine.metrics:
                 return self._error_response(
                     f"No data for {resource_id}/{metric_type_str}", 404
                 )
 
-            history = list(self.engine.metrics[key])[-limit:]
+            _history=list(self.engine.metrics[key])[-limit:]
 
             return self._json_response(
                 {
@@ -324,14 +372,14 @@ class AnomalyAPI:
             }
         """
         try:
-            data = request.get_json()
+            _data=request.get_json()
 
             if not data:
                 return self._error_response("No JSON data provided", 400)
 
-            resource_id = data.get("resource_id")
-            metric_type_str = data.get("metric_type")
-            _percentile_based = data.get("percentile_based", False)
+            _resource_id=data.get("resource_id")
+            _metric_type_str=data.get("metric_type")
+            _percentile_based=data.get("percentile_based", False)
 
             if not resource_id or not metric_type_str:
                 return self._error_response(
@@ -341,7 +389,7 @@ class AnomalyAPI:
                 )
 
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
@@ -371,7 +419,7 @@ class AnomalyAPI:
             resource_id: Optional filter by resource
         """
         try:
-            resource_filter = request.args.get("resource_id")
+            _resource_filter=request.args.get("resource_id")
 
             baselines_list = []
 
@@ -398,13 +446,13 @@ class AnomalyAPI:
         """GET /baselines/{resource_id}/{metric_type} - Get baseline details."""
         try:
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
                 )
 
-            key = (resource_id, metric_type)
+            _key=(resource_id, metric_type)
 
             if key not in self.engine.baselines:
                 return self._error_response(
@@ -437,15 +485,15 @@ class AnomalyAPI:
             }
         """
         try:
-            data = request.get_json()
+            _data=request.get_json()
 
             if not data:
                 return self._error_response("No JSON data provided", 400)
 
-            resource_id = data.get("resource_id")
-            metric_type_str = data.get("metric_type")
-            value = data.get("value")
-            _methods_str = data.get("methods", ["z_score", "iqr", "ewma"])
+            _resource_id=data.get("resource_id")
+            _metric_type_str=data.get("metric_type")
+            _value=data.get("value")
+            _methods_str=data.get("methods", ["z_score", "iqr", "ewma"])
 
             if not resource_id or not metric_type_str or value is None:
                 return self._error_response(
@@ -455,7 +503,7 @@ class AnomalyAPI:
                 )
 
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
@@ -499,9 +547,9 @@ class AnomalyAPI:
             limit: Maximum results (default: 50)
         """
         try:
-            resource_filter = request.args.get("resource_id")
-            hours = int(request.args.get("hours", 24))
-            limit = int(request.args.get("limit", 50))
+            _resource_filter=request.args.get("resource_id")
+            _hours=int(request.args.get("hours", 24))
+            _limit=int(request.args.get("limit", 50))
 
             alerts = self.engine.get_alert_history(
                 _resource_id = resource_filter, hours=hours, limit=limit
@@ -534,13 +582,13 @@ class AnomalyAPI:
             severity: Optional filter (info, warning, critical)
         """
         try:
-            _resource_filter = request.args.get("resource_id")
-            severity_str = request.args.get("severity")
+            _resource_filter=request.args.get("resource_id")
+            _severity_str=request.args.get("severity")
 
             severity = None
             if severity_str:
                 try:
-                    severity = SeverityLevel[severity_str.upper()]
+                    _severity=SeverityLevel[severity_str.upper()]
                 except KeyError:
                     return self._error_response(
                         f"Unknown severity level: {severity_str}", 400
@@ -572,9 +620,9 @@ class AnomalyAPI:
             limit: Maximum results (default: 100)
         """
         try:
-            resource_filter = request.args.get("resource_id")
-            hours = int(request.args.get("hours", 24))
-            limit = int(request.args.get("limit", 100))
+            _resource_filter=request.args.get("resource_id")
+            _hours=int(request.args.get("hours", 24))
+            _limit=int(request.args.get("limit", 100))
 
             alerts = self.engine.get_alert_history(
                 _resource_id = resource_filter, hours=hours, limit=limit
@@ -607,25 +655,25 @@ class AnomalyAPI:
         if not request.view_args:
             return self._error_response("Internal error: No view args", 500)
 
-        alert_id = request.view_args.get("alert_id")
+        _alert_id=request.view_args.get("alert_id")
         if not alert_id:
             return self._error_response("Missing alert_id", 400)
 
         try:
-            data = request.get_json()
+            _data=request.get_json()
 
             if not data:
                 return self._error_response("No JSON data provided", 400)
 
-            acknowledged_by = data.get("acknowledged_by")
-            notes = data.get("notes", "")
+            _acknowledged_by=data.get("acknowledged_by")
+            _notes=data.get("notes", "")
 
             if not acknowledged_by:
                 return self._error_response(
                     "Missing required field: acknowledged_by", 400
                 )
 
-            success = self.engine.acknowledge_alert(alert_id, acknowledged_by, notes)
+            _success=self.engine.acknowledge_alert(alert_id, acknowledged_by, notes)
 
             if success:
                 return self._json_response(
@@ -673,14 +721,14 @@ class AnomalyAPI:
             }
         """
         try:
-            data = request.get_json()
+            _data=request.get_json()
 
             if not data:
                 return self._error_response("No JSON data provided", 400)
 
-            resource_id = data.get("resource_id")
-            metric_type_str = data.get("metric_type")
-            _hours = data.get("hours", 24)
+            _resource_id=data.get("resource_id")
+            _metric_type_str=data.get("metric_type")
+            _hours=data.get("hours", 24)
 
             if not resource_id or not metric_type_str:
                 return self._error_response(
@@ -690,13 +738,13 @@ class AnomalyAPI:
                 )
 
             try:
-                metric_type = MetricType[metric_type_str.upper().replace("-", "_")]
+                _metric_type=MetricType[metric_type_str.upper().replace("-", "_")]
             except KeyError:
                 return self._error_response(
                     f"Unknown metric type: {metric_type_str}", 400
                 )
 
-            trend = self.engine.analyze_trend(resource_id, metric_type, hours=hours)
+            _trend=self.engine.analyze_trend(resource_id, metric_type, hours=hours)
 
             if trend:
                 return self._json_response(
@@ -716,7 +764,7 @@ class AnomalyAPI:
             resource_id: Optional filter
         """
         try:
-            resource_filter = request.args.get("resource_id")
+            _resource_filter=request.args.get("resource_id")
 
             trends_list = []
 
@@ -742,7 +790,7 @@ class AnomalyAPI:
     def get_statistics(self) -> Tuple[str, int]:
         """GET /system/stats - Get system statistics."""
         try:
-            stats = self.engine.get_statistics()
+            _stats=self.engine.get_statistics()
 
             return self._json_response({"status": "success", "statistics": stats}, 200)
 
@@ -778,19 +826,19 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
         raise ImportError("Flask is required for REST API support")
 
     if engine is None:
-        _engine = get_anomaly_engine()
+        _engine=get_anomaly_engine()
 
-    app = Flask(__name__)
+    _app=Flask(__name__)
 
     # Load and validate configuration (INFRA-003)
     from opt.core.config import Settings
-    settings = Settings.load_validated_config()
+    _settings=Settings.load_validated_config()
     app.config["SETTINGS"] = settings
 
     # Initialize graceful shutdown
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
 
-    shutdown_manager = init_graceful_shutdown(app)
+    _shutdown_manager=init_graceful_shutdown(app)
 
     # Register standard health checks
 
@@ -799,7 +847,7 @@ def create_flask_app(engine: Optional[AnomalyDetectionEngine] = None) -> Any:
 
     shutdown_manager.register_health_check("engine", check_anomaly_engine)
 
-    api = AnomalyAPI(engine)
+    _api=AnomalyAPI(engine)
 
     # ========================================================================
     # Metric Routes
@@ -917,6 +965,6 @@ if __name__ == "__main__":
 
     configure_logging(service_name="anomaly-detection-api")
 
-    engine = get_anomaly_engine()
-    app = create_flask_app(engine)
+    _engine=get_anomaly_engine()
+    _app=create_flask_app(engine)
     app.run(host="0.0.0.0", port=5000, debug=False)    # nosec B104

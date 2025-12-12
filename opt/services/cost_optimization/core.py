@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,7 +127,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 
 # Configure logging
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -119,7 +167,7 @@ class OptimizationRecommendation:
 
 class CostOptimizer:
 
-    def __init__(self, pricing_config: Optional[Dict[str, Any]] = None):
+    def __init__(self, pricing_config: Optional[Dict[str, Any]] = None) -> None:
         self.pricing = pricing_config or {
             "cpu_hourly": 0.05,
             "memory_hourly": 0.02,
@@ -156,7 +204,7 @@ class CostOptimizer:
                     res["metrics"].get("cpu_avg", 0) < 5
                     and res["metrics"].get("network_io", 0) < 100
                 ):
-                    savings = self._calculate_monthly_cost(res["specs"])
+                    _savings=self._calculate_monthly_cost(res["specs"])
                     rec = OptimizationRecommendation(
                         _resource_id = res["id"],
                         _resource_type = "vm",
@@ -173,13 +221,13 @@ class CostOptimizer:
 
                 # Check for over-provisioning
                 elif res["metrics"].get("cpu_avg", 0) < 20:
-                    current_cost = self._calculate_monthly_cost(res["specs"])
+                    _current_cost=self._calculate_monthly_cost(res["specs"])
                     # Suggest halving resources
                     new_specs = {
                         "cpu": max(1, res["specs"]["cpu"] // 2),
                         "memory_gb": max(1, res["specs"]["memory_gb"] // 2),
                     }
-                    new_cost = self._calculate_monthly_cost(new_specs)
+                    _new_cost=self._calculate_monthly_cost(new_specs)
                     _savings = current_cost - new_cost
 
                     rec = OptimizationRecommendation(
@@ -205,8 +253,8 @@ class CostOptimizer:
     def _calculate_monthly_cost(self, specs: Dict[str, float]) -> float:
         """Calculate estimated monthly cost for a resource spec."""
         hours = 730    # Average hours in a month
-        cpu_cost = specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
-        mem_cost = specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
+        _cpu_cost=specs.get("cpu", 0) * self.pricing["cpu_hourly"] * hours
+        _mem_cost=specs.get("memory_gb", 0) * self.pricing["memory_hourly"] * hours
         storage_cost = (
             specs.get("storage_gb", 0) * self.pricing["storage_hourly"] * hours
         )
@@ -221,29 +269,29 @@ class CostOptimizer:
         project_breakdown: Any = {}
 
         for res in resources:
-            monthly_cost = self._calculate_monthly_cost(res["specs"])
+            _monthly_cost=self._calculate_monthly_cost(res["specs"])
             # Adjust for actual uptime if available, otherwise assume 100% for projection
-            uptime_ratio = res.get("metrics", {}).get("uptime_hours", 730) / 730
+            _uptime_ratio=res.get("metrics", {}).get("uptime_hours", 730) / 730
             actual_cost = monthly_cost * uptime_ratio
 
             total_cost += actual_cost
 
-            r_type = res.get("type", "unknown")
+            _r_type=res.get("type", "unknown")
             resource_breakdown[r_type] = resource_breakdown.get(r_type, 0) + actual_cost
 
-            project = res.get("project", "default")
+            _project=res.get("project", "default")
             project_breakdown[project] = project_breakdown.get(project, 0) + actual_cost
 
         # Simple linear forecast
         forecast = total_cost    # Assuming steady state for next month
 
         return CostReport(
-            _period_start = (datetime.now() - timedelta(days=days)).isoformat(),
-            _period_end = datetime.now().isoformat(),
-            _total_cost = round(total_cost, 2),
-            _resource_breakdown = {k: round(v, 2) for k, v in resource_breakdown.items()},
-            _project_breakdown = {k: round(v, 2) for k, v in project_breakdown.items()},
-            _forecast_next_month = round(forecast, 2),
+            _period_start=(datetime.now() - timedelta(days=days)).isoformat(),
+            _period_end=datetime.now().isoformat(),
+            _total_cost=round(total_cost, 2),
+            _resource_breakdown={k: round(v, 2) for k, v in resource_breakdown.items()},
+            _project_breakdown={k: round(v, 2) for k, v in project_breakdown.items()},
+            _forecast_next_month=round(forecast, 2),
         )
 
     def get_recommendations(self) -> List[Dict[str, Any]]:

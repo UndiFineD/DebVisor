@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -92,7 +140,7 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional, Callable, Awaitable
 
-_logger = logging.getLogger("DebVisor.MessageQueue")
+_logger=logging.getLogger("DebVisor.MessageQueue")
 
 try:
 
@@ -163,7 +211,7 @@ class InMemoryMessageQueue(MessageQueue):
         Returns:
             Generated message ID
         """
-        msg_id = str(uuid.uuid4())
+        _msg_id=str(uuid.uuid4())
         message["_id"] = msg_id
 
         if topic in self.subscribers:
@@ -225,7 +273,7 @@ class RedisMessageQueue(MessageQueue):
         listen_task: Background task for listening to messages
     """
 
-    def __init__(self, url: str = "redis://localhost:6379/0") -> None:
+    def __init__(self, url: str="redis://localhost:6379/0") -> None:
         """
         Initialize Redis message queue.
 
@@ -237,8 +285,8 @@ class RedisMessageQueue(MessageQueue):
         """
         if not HAS_REDIS:
             raise ImportError("redis package is required for RedisMessageQueue")
-        self.redis = redis.asyncio.from_url(url, decode_responses=True)
-        self.pubsub = self.redis.pubsub()
+        self.redis=redis.asyncio.from_url(url, decode_responses=True)
+        self.pubsub=self.redis.pubsub()
         self.handlers: Dict[str, list[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
         self.listen_task: Optional[asyncio.Task[None]] = None
 
@@ -253,7 +301,7 @@ class RedisMessageQueue(MessageQueue):
         Returns:
             Generated message ID
         """
-        msg_id = str(uuid.uuid4())
+        _msg_id=str(uuid.uuid4())
         message["_id"] = msg_id
         await self.redis.publish(topic, json.dumps(message))
         return msg_id
@@ -275,7 +323,7 @@ class RedisMessageQueue(MessageQueue):
         self.handlers[topic].append(callback)
 
         if not self.listen_task:
-            self.listen_task = asyncio.create_task(self._listen())
+            self.listen_task=asyncio.create_task(self._listen())
 
         logger.info(f"Subscribed to Redis topic: {topic}")
 
@@ -292,7 +340,7 @@ class RedisMessageQueue(MessageQueue):
                     topic = message["channel"]
                     data = message["data"]
                     try:
-                        payload = json.loads(data)
+                        _payload=json.loads(data)
                         if topic in self.handlers:
                             for handler in self.handlers[topic]:
                                 asyncio.create_task(
@@ -364,9 +412,9 @@ def get_message_queue(
                 logger.warning(
                     f"Failed to init Redis queue, falling back to memory: {e}"
                 )
-                _queue_instance = InMemoryMessageQueue()
+                _queue_instance=InMemoryMessageQueue()
         else:
-            _queue_instance = InMemoryMessageQueue()
+            _queue_instance=InMemoryMessageQueue()
             logger.info("Initialized in-memory message queue")
 
     return _queue_instance

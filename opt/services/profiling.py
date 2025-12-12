@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,10 +155,10 @@ import functools
 import tracemalloc
 from collections import defaultdict
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Type variable for decorated functions
-F = TypeVar("F", bound=Callable[..., Any])
+F=TypeVar("F", bound=Callable[..., Any])
 
 
 class ResourceType(Enum):
@@ -133,12 +181,12 @@ class FunctionProfile:
     module_name: str
     call_count: int = 1
     total_time_ms: float = 0.0
-    min_time_ms: float = float("inf")
-    max_time_ms: float = float("inf")
+    min_time_ms: float=float("inf")
+    max_time_ms: float=float("inf")
     avg_time_ms: float = 0.0
     memory_delta_mb: float = 0.0
     peak_memory_mb: float = 0.0
-    start_time: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    start_time: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     children: List["FunctionProfile"] = field(default_factory=list)
 
     @property
@@ -147,19 +195,19 @@ class FunctionProfile:
         """Get fully qualified name"""
         return f"{self.module_name}.{self.function_name}"
 
-    def add_call(self, duration_ms: float, memory_mb: float = 0.0) -> None:
+    def add_call(self, duration_ms: float, memory_mb: float=0.0) -> None:
         """Record a function call"""
         self.call_count += 1
         self.total_time_ms += duration_ms
-        self.min_time_ms = min(self.min_time_ms, duration_ms)
-        self.max_time_ms = max(self.max_time_ms, duration_ms)
+        self.min_time_ms=min(self.min_time_ms, duration_ms)
+        self.max_time_ms=max(self.max_time_ms, duration_ms)
         self.avg_time_ms = self.total_time_ms / self.call_count
         self.memory_delta_mb += memory_mb
-        self.peak_memory_mb = max(self.peak_memory_mb, memory_mb)
+        self.peak_memory_mb=max(self.peak_memory_mb, memory_mb)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
-        d = asdict(self)
+        _d=asdict(self)
         d["full_name"] = self.full_name
         d["start_time"] = self.start_time.isoformat()
         d["children"] = [c.to_dict() for c in self.children]
@@ -172,7 +220,7 @@ class FunctionProfile:
 class ResourceSnapshot:
     """Snapshot of system resource usage"""
 
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     process_cpu_percent: float = 0.0
     process_memory_mb: float = 0.0
     system_cpu_percent: float = 0.0
@@ -183,7 +231,7 @@ class ResourceSnapshot:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
-        d = asdict(self)
+        _d=asdict(self)
         d["timestamp"] = self.timestamp.isoformat()
         return d
 
@@ -208,7 +256,7 @@ class PerformanceProfiler:
         self.profiles: Dict[str, FunctionProfile] = {}
         self.resource_snapshots: List[ResourceSnapshot] = []
         self.current_stack: List[FunctionProfile] = []
-        self.process = psutil.Process(os.getpid())
+        self.process=psutil.Process(os.getpid())
         self.enabled = True
 
     def profile_function(self, func_name: str, module_name: str) -> FunctionProfile:
@@ -245,12 +293,12 @@ class PerformanceProfiler:
         if not self.enabled:
             return None, None, None
 
-        profile = self.profile_function(func_name, module_name)
-        start_time = time.perf_counter()
+        _profile=self.profile_function(func_name, module_name)
+        _start_time=time.perf_counter()
 
         # Capture memory before
         tracemalloc.start()
-        mem_before = self._get_memory_usage()
+        _mem_before=self._get_memory_usage()
 
         return profile, start_time, mem_before
 
@@ -271,10 +319,10 @@ class PerformanceProfiler:
         if not self.enabled or profile is None:
             return
 
-        end_time = time.perf_counter()
-        mem_after = self._get_memory_usage()
+        _end_time=time.perf_counter()
+        _mem_after=self._get_memory_usage()
 
-        duration_ms = (end_time - start_time) * 1000 if start_time is not None else 0.0
+        _duration_ms=(end_time - start_time) * 1000 if start_time is not None else 0.0
         memory_delta = mem_after - mem_before if mem_before else 0.0
 
         profile.add_call(duration_ms, memory_delta)
@@ -295,17 +343,17 @@ class PerformanceProfiler:
     def capture_resource_snapshot(self) -> ResourceSnapshot:
         """Capture current resource usage"""
         try:
-            cpu_percent = self.process.cpu_percent(interval=0.1)
-            _memory_mb = self._get_memory_usage()
+            _cpu_percent=self.process.cpu_percent(interval=0.1)
+            _memory_mb=self._get_memory_usage()
             # memory_percent = self.process.memory_percent()
 
             # System-wide metrics
-            _system_cpu = psutil.cpu_percent(interval=0.1)
-            _system_memory = psutil.virtual_memory().percent
-            _disk = psutil.disk_usage("/").percent
+            _system_cpu=psutil.cpu_percent(interval=0.1)
+            _system_memory=psutil.virtual_memory().percent
+            _disk=psutil.disk_usage("/").percent
 
-            threads = self.process.num_threads()
-            open_files = len(self.process.open_files())
+            _threads=self.process.num_threads()
+            _open_files=len(self.process.open_files())
 
             _snapshot = ResourceSnapshot(
                 _process_cpu_percent = cpu_percent,
@@ -336,11 +384,11 @@ class PerformanceProfiler:
         Returns:
             List of top FunctionProfile instances
         """
-        profiles = list(self.profiles.values())
+        _profiles=list(self.profiles.values())
         profiles.sort(key=lambda p: getattr(p, sort_by, 0), reverse=True)
         return profiles[:n]
 
-    def get_slow_functions(self, threshold_ms: float = 100) -> List[FunctionProfile]:
+    def get_slow_functions(self, threshold_ms: float=100) -> List[FunctionProfile]:
         """
         Get functions slower than threshold.
 
@@ -374,15 +422,15 @@ class PerformanceProfiler:
             Dictionary with summary, top functions, slow functions,
             memory-heavy functions, and resource snapshots
         """
-        _top_by_time = self.get_top_functions(n=10, sort_by="total_time_ms")
-        _top_by_calls = self.get_top_functions(n=10, sort_by="call_count")
-        _top_by_memory = self.get_top_functions(n=10, sort_by="memory_delta_mb")
+        _top_by_time=self.get_top_functions(n=10, sort_by="total_time_ms")
+        _top_by_calls=self.get_top_functions(n=10, sort_by="call_count")
+        _top_by_memory=self.get_top_functions(n=10, sort_by="memory_delta_mb")
 
-        _slow = self.get_slow_functions(threshold_ms=50)
-        _memory_heavy = self.get_memory_heavy_functions(threshold_mb=5.0)
+        _slow=self.get_slow_functions(threshold_ms=50)
+        _memory_heavy=self.get_memory_heavy_functions(threshold_mb=5.0)
 
         # Calculate total time
-        total_time = sum(p.total_time_ms for p in self.profiles.values())
+        _total_time=sum(p.total_time_ms for p in self.profiles.values())
 
         return {
             "summary": {
@@ -412,7 +460,7 @@ class PerformanceProfiler:
 
         for name, profile in self.profiles.items():
         # Create simplified call stack
-            stack_str = " ".join([name] * profile.call_count)
+            _stack_str=" ".join([name] * profile.call_count)
             call_stacks[stack_str] = profile.total_time_ms
             total_time += profile.total_time_ms
 
@@ -461,7 +509,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
     Example:
         @profile_function
 
-        def my_function():
+        def my_function() -> None:
             pass
 
         @profile_function()
@@ -471,7 +519,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
 
     def decorator(fn: F) -> F:
     # Get profiler instance
-        _profiler = _get_global_profiler()
+        _profiler=_get_global_profiler()
 
         # Determine if async or sync
         if asyncio.iscoroutinefunction(fn):
@@ -486,7 +534,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
                 )
 
                 try:
-                    result = await fn(*args, **kwargs)
+                    _result=await fn(*args, **kwargs)
                     return result
                 finally:
                     profiler.end_profiling(profile, start_time, mem_before)
@@ -505,7 +553,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
                 )
 
                 try:
-                    result = fn(*args, **kwargs)
+                    _result=fn(*args, **kwargs)
                     return result
                 finally:
                     profiler.end_profiling(profile, start_time, mem_before)
@@ -528,7 +576,7 @@ class MonitoringContext:
 
     Example:
         with MonitoringContext("database_query"):
-            _results = db.execute(query)
+            _results=db.execute(query)
     """
 
     def __init__(
@@ -542,7 +590,7 @@ class MonitoringContext:
             profiler: Optional custom profiler instance
         """
         self.name = name
-        self.profiler = profiler or _get_global_profiler()
+        self.profiler=profiler or _get_global_profiler()
         self.start_time: Optional[float] = None
         self.mem_before: Optional[float] = None
         self.profile: Optional[FunctionProfile] = None
@@ -591,7 +639,7 @@ class ResourceMonitor:
         self.cpu_threshold = cpu_threshold
         self.memory_threshold = memory_threshold
         self.disk_threshold = disk_threshold
-        self.process = psutil.Process(os.getpid())
+        self.process=psutil.Process(os.getpid())
         self.alerts: List[str] = []
 
     def check_resources(self) -> Dict[str, Any]:
@@ -603,10 +651,10 @@ class ResourceMonitor:
         """
         try:
         # Get metrics
-            process_cpu = self.process.cpu_percent(interval=0.1)
-            process_mem_percent = self.process.memory_percent()
-            system_mem = psutil.virtual_memory()
-            disk = psutil.disk_usage("/").percent
+            _process_cpu=self.process.cpu_percent(interval=0.1)
+            _process_mem_percent=self.process.memory_percent()
+            _system_mem=psutil.virtual_memory()
+            _disk=psutil.disk_usage("/").percent
 
             status: Dict[str, Any] = {
                 "ok": True,
@@ -650,7 +698,7 @@ class ResourceMonitor:
                 "metrics": {},
             }
 
-    def get_alerts(self, clear: bool = False) -> List[str]:
+    def get_alerts(self, clear: bool=False) -> List[str]:
         """
         Get accumulated resource alerts.
 
@@ -660,7 +708,7 @@ class ResourceMonitor:
         Returns:
             List of alert message strings
         """
-        alerts = self.alerts.copy()
+        _alerts=self.alerts.copy()
         if clear:
             self.alerts.clear()
         return alerts
@@ -680,7 +728,7 @@ def _get_global_profiler() -> PerformanceProfiler:
     """
     global _global_profiler
     if _global_profiler is None:
-        _global_profiler = PerformanceProfiler()
+        _global_profiler=PerformanceProfiler()
     return _global_profiler
 
 
@@ -703,5 +751,5 @@ def get_resource_monitor() -> ResourceMonitor:
     """
     global _resource_monitor
     if _resource_monitor is None:
-        _resource_monitor = ResourceMonitor()
+        _resource_monitor=ResourceMonitor()
     return _resource_monitor

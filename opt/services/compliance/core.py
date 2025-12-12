@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,7 +130,7 @@ from opt.core.audit import get_audit_logger
 from opt.services.compliance.remediation import RemediationManager
 
 # Configure logging
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -153,39 +201,39 @@ class ComplianceEngine:
         self.policies: Dict[str, CompliancePolicy] = {}
         self.violations: List[ComplianceViolation] = []
         self.audit_log: List[Dict[str, Any]] = []
-        self.remediation_manager = RemediationManager()
+        self.remediation_manager=RemediationManager()
         self._register_default_policies()
 
     def _register_default_policies(self) -> None:
         """Register built-in compliance policies."""
         _defaults = [
             CompliancePolicy(
-                id="SEC-001",
-                name="SSH Root Login Disabled",
-                description="Root login via SSH should be disabled",
-                severity="critical",
-                check_function="check_ssh_root_login",
+                _id="SEC-001",
+                _name="SSH Root Login Disabled",
+                _description="Root login via SSH should be disabled",
+                _severity="critical",
+                _check_function="check_ssh_root_login",
                 _remediation_function = "disable_ssh_root_login",
-                tags=["SOC2", "HIPAA", "GDPR"],
+                _tags=["SOC2", "HIPAA", "GDPR"],
             ),
             CompliancePolicy(
-                id="SEC-002",
-                name="Password Complexity",
-                description="Password policy must enforce complexity",
-                severity="high",
-                check_function="check_password_policy",
-                tags=["SOC2", "HIPAA", "GDPR"],
+                _id="SEC-002",
+                _name="Password Complexity",
+                _description="Password policy must enforce complexity",
+                _severity="high",
+                _check_function="check_password_policy",
+                _tags=["SOC2", "HIPAA", "GDPR"],
             ),
             CompliancePolicy(
-                id="OPS-001",
-                name="Backup Configuration",
-                description="Critical systems must have backups enabled",
-                severity="medium",
-                check_function="check_backup_enabled",
-                tags=["SOC2", "HIPAA"],
+                _id="OPS-001",
+                _name="Backup Configuration",
+                _description="Critical systems must have backups enabled",
+                _severity="medium",
+                _check_function="check_backup_enabled",
+                _tags=["SOC2", "HIPAA"],
             ),
             CompliancePolicy(
-                id="PRIV-001",
+                _id="PRIV-001",
                 _name = "Data Encryption at Rest",
                 _description = "Sensitive data must be encrypted at rest",
                 _severity = "critical",
@@ -225,14 +273,14 @@ class ComplianceEngine:
                 # Simulate check execution (in real implementation, this would call
                 # actual check logic)
                 # For demo, we use a mock check based on resource tags/properties
-                is_compliant = self._mock_check(policy, res)
+                _is_compliant=self._mock_check(policy, res)
 
                 if not is_compliant:
                     violation = ComplianceViolation(
                         _policy_id = policy.id,
-                        _resource_id = res.get("id", "unknown"),
-                        _resource_type = res.get("type", "unknown"),
-                        _timestamp = datetime.now(timezone.utc).isoformat(),
+                        _resource_id=res.get("id", "unknown"),
+                        _resource_type=res.get("type", "unknown"),
+                        _timestamp=datetime.now(timezone.utc).isoformat(),
                         _details = f"Failed check: {policy.name}",
                     )
                     scan_violations.append(violation)
@@ -247,21 +295,21 @@ class ComplianceEngine:
                         self._attempt_remediation(policy, res)
 
         # Calculate score
-        relevant_policies = [p for p in self.policies.values() if p.enabled]
+        _relevant_policies=[p for p in self.policies.values() if p.enabled]
         if standard:
-            relevant_policies = [p for p in relevant_policies if standard in (p.tags or [])]
+            _relevant_policies=[p for p in relevant_policies if standard in (p.tags or [])]
 
-        total_checks = len(resources) * len(relevant_policies)
+        _total_checks=len(resources) * len(relevant_policies)
         score = 100.0
         if total_checks > 0:
-            score = ((total_checks - len(scan_violations)) / total_checks) * 100
+            _score=((total_checks - len(scan_violations)) / total_checks) * 100
 
         return ComplianceReport(
-            _generated_at = datetime.now(timezone.utc).isoformat(),
-            _total_policies = len(relevant_policies),
-            _total_resources = len(resources),
-            _violations_count = len(scan_violations),
-            _compliance_score = round(score, 2),
+            _generated_at=datetime.now(timezone.utc).isoformat(),
+            _total_policies=len(relevant_policies),
+            _total_resources=len(resources),
+            _violations_count=len(scan_violations),
+            _compliance_score=round(score, 2),
             _violations = scan_violations,
         )
 
@@ -293,18 +341,18 @@ class ComplianceEngine:
         if success:
             self._log_audit(
                 f"Remediation successful: {policy.id} on {resource.get('id')}",
-                tags=policy.tags,
+                _tags=policy.tags,
             )
         else:
             self._log_audit(
                 f"Remediation failed: {policy.id} on {resource.get('id')}",
-                tags=policy.tags,
+                _tags=policy.tags,
             )
 
     def _log_audit(self, message: str, tags: Optional[List[str]] = None) -> None:
         """Add entry to secure audit trail."""
         try:
-            audit_logger = get_audit_logger()
+            _audit_logger=get_audit_logger()
             audit_logger.create_entry(
                 _operation = "compliance_check",
                 _resource_type = "system",

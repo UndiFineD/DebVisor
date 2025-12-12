@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,7 +138,7 @@ import grpc
 import re
 from typing import Dict, Any, Tuple, Callable
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class RequestValidator:
@@ -101,18 +149,18 @@ class RequestValidator:
         r"^[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0, 61}[a-z0-9])?)*$",
         re.IGNORECASE,
     )
-    IPV4_PATTERN = re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
+    IPV4_PATTERN=re.compile(r"^(\d{1, 3}\.){3}\d{1, 3}$")
     UUID_PATTERN = re.compile(
         r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", re.IGNORECASE
     )
-    MAC_PATTERN = re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
+    MAC_PATTERN=re.compile(r"^([0-9a-f]{2}:){5}([0-9a-f]{2})$", re.IGNORECASE)
     LABEL_PATTERN = re.compile(
         r"^[a-z0-9]([a-z0-9._-]{0, 253}[a-z0-9])?$", re.IGNORECASE
     )
 
     @staticmethod
 
-    def validate_hostname(hostname: str, max_length: int = 253) -> str:
+    def validate_hostname(hostname: str, max_length: int=253) -> str:
         """
         Validate hostname format.
 
@@ -216,7 +264,7 @@ class RequestValidator:
 
     @staticmethod
 
-    def validate_label(label: str, max_length: int = 256) -> str:
+    def validate_label(label: str, max_length: int=256) -> str:
         """
         Validate DNS label format (for pool/snapshot names, etc).
 
@@ -243,7 +291,7 @@ class RequestValidator:
 
     @staticmethod
 
-    def validate_string(s: str, min_length: int = 1, max_length: int = 1024) -> str:
+    def validate_string(s: str, min_length: int=1, max_length: int=1024) -> str:
         """
         Validate generic string within length bounds.
 
@@ -271,7 +319,7 @@ class RequestValidator:
 
     @staticmethod
 
-    def validate_port(port: int, min_port: int = 1, max_port: int = 65535) -> int:
+    def validate_port(port: int, min_port: int=1, max_port: int=65535) -> int:
         """
         Validate port number.
 
@@ -308,10 +356,10 @@ class AuditLogger:
             log_file: Path to audit log file
         """
         self.log_file = log_file
-        self.logger = logging.getLogger("debvisor.audit")
+        self.logger=logging.getLogger("debvisor.audit")
 
         # Create file handler for audit logs
-        handler = logging.FileHandler(log_file)
+        _handler=logging.FileHandler(log_file)
         handler.setFormatter(logging.Formatter("%(message)s"))
         self.logger.addHandler(handler)
         self.logger.setLevel(logging.INFO)
@@ -333,7 +381,7 @@ class AuditLogger:
         }
 
         # Redact sensitive data
-        event_str = self._redact_sensitive(json.dumps(event))
+        _event_str=self._redact_sensitive(json.dumps(event))
 
         self.logger.info(event_str)
 
@@ -372,8 +420,8 @@ class AuditInterceptor(grpc.ServerInterceptor):
         Args:
             config: Configuration dict with audit_log_file path
         """
-        audit_log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
-        self.audit = AuditLogger(audit_log_file)
+        _audit_log_file=config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        self.audit=AuditLogger(audit_log_file)
         logger.info("AuditInterceptor initialized")
 
     def intercept_service(
@@ -392,7 +440,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             Handler response
         """
         # Extract service and method
-        service, method = self._extract_service_method(handler_call_details)
+        service, method=self._extract_service_method(handler_call_details)
 
         # Get principal from context (set by AuthenticationInterceptor)
         principal = "unknown"
@@ -401,7 +449,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         try:
             from auth import extract_identity
 
-            identity = extract_identity(handler_call_details.context)
+            _identity=extract_identity(handler_call_details.context)
             if identity:
                 principal = identity.principal_id
                 _auth_method = identity.auth_method
@@ -413,7 +461,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             "rpc_call",
             _principal = principal,
             _service = service,
-            method=method,
+            _method=method,
             _auth_method = auth_method,
         )
 
@@ -422,7 +470,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         def logged_handler(request: Any) -> Any:
             try:
             # Execute handler
-                _response = continuation(handler_call_details)
+                _response=continuation(handler_call_details)
 
                 # Log success
                 self.audit.log_event(
@@ -441,8 +489,8 @@ class AuditInterceptor(grpc.ServerInterceptor):
                     _principal = principal,
                     _service = service,
                     _method = method,
-                    _error_code = str(e.code()),
-                    _error_details = e.details(),
+                    _error_code=str(e.code()),
+                    _error_details=e.details(),
                 )
                 raise
 
@@ -451,9 +499,9 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 self.audit.log_event(
                     "rpc_error",
                     _principal = principal,
-                    service=service,
-                    method=method,
-                    _error = str(e),
+                    _service=service,
+                    _method=method,
+                    _error=str(e),
                 )
                 raise
 
@@ -478,13 +526,13 @@ class AuditInterceptor(grpc.ServerInterceptor):
         """
         try:
         # Get the full method path from handler_call_details
-            full_method = getattr(handler_call_details, "method", "")
+            _full_method=getattr(handler_call_details, "method", "")
 
             if full_method:
             # Format: /package.Service/Method
-                parts = full_method.split("/")
+                _parts=full_method.split("/")
                 if len(parts) >= 2:
-                    service = parts[-2].split(".")[-1]    # Last component of service path
+                    _service=parts[-2].split(".")[-1]    # Last component of service path
                     method = parts[-1]
                     return service, method
         except BaseException:
@@ -531,6 +579,6 @@ if __name__ == "__main__":
 
     # Test audit logger
     print("\nTesting AuditLogger:")
-    audit = AuditLogger("/tmp/test-audit.log")    # nosec B108
+    _audit=AuditLogger("/tmp/test-audit.log")    # nosec B108
     audit.log_event("test_event", principal="test-user", action="test_action")
     print("Audit event logged to /tmp/test-audit.log")

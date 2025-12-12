@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -169,7 +217,7 @@ class TestCommentHandling:
                 from ipaddress import ip_network
 
                 for line in f:
-                    line = line.split("    #")[0].strip()
+                    _line=line.split("    #")[0].strip()
                     if line:
                         assert ip_network(line, strict=False)
         finally:
@@ -191,7 +239,7 @@ class TestCommentHandling:
                 from ipaddress import ip_network
 
                 for line in f:
-                    line = line.strip()
+                    _line=line.strip()
                     if line and not line.startswith("    #"):
                         valid_entries += 1
                         ip_network(line, strict=False)
@@ -215,7 +263,7 @@ class TestCommentHandling:
                 from ipaddress import ip_network
 
                 for line in f:
-                    line = line.strip()
+                    _line=line.strip()
                     if line and not line.startswith("    #"):
                         valid_entries += 1
                         ip_network(line, strict=False)
@@ -231,8 +279,8 @@ class TestOverlapDetection:
         """Identical ranges should be detected as overlapping"""
         from ipaddress import ip_network
 
-        net1 = ip_network("10.0.0.0/8")
-        net2 = ip_network("10.0.0.0/8")
+        _net1=ip_network("10.0.0.0/8")
+        _net2=ip_network("10.0.0.0/8")
 
         assert net1 == net2
 
@@ -240,8 +288,8 @@ class TestOverlapDetection:
         """Subnet should be detected as overlap with supernet"""
         from ipaddress import ip_network
 
-        supernet = ip_network("10.0.0.0/8")
-        subnet = ip_network("10.0.0.0/24")
+        _supernet=ip_network("10.0.0.0/8")
+        _subnet=ip_network("10.0.0.0/24")
 
         assert subnet.subnet_of(supernet)  # type: ignore[arg-type]
         assert supernet.supernet_of(subnet)  # type: ignore[arg-type]
@@ -250,8 +298,8 @@ class TestOverlapDetection:
         """Partial overlaps in same address family should be detected"""
         from ipaddress import ip_network
 
-        net1 = ip_network("10.0.0.0/16")
-        net2 = ip_network("10.0.128.0/17")
+        _net1=ip_network("10.0.0.0/16")
+        _net2=ip_network("10.0.128.0/17")
 
         # These overlap
         assert net2.subnet_of(net1)  # type: ignore[arg-type]
@@ -260,8 +308,8 @@ class TestOverlapDetection:
         """Non-overlapping ranges should not overlap"""
         from ipaddress import ip_network
 
-        net1 = ip_network("10.0.0.0/24")
-        net2 = ip_network("10.0.1.0/24")
+        _net1=ip_network("10.0.0.0/24")
+        _net2=ip_network("10.0.1.0/24")
 
         # Should not overlap (different subnets)
         assert not net1.overlaps(net2)
@@ -270,8 +318,8 @@ class TestOverlapDetection:
         """IPv4 and IPv6 should not overlap (different address families)"""
         from ipaddress import ip_network
 
-        ipv4_net = ip_network("10.0.0.0/8")
-        ipv6_net = ip_network("2001:db8::/32")
+        _ipv4_net=ip_network("10.0.0.0/8")
+        _ipv6_net=ip_network("2001:db8::/32")
 
         # Different families - should not compare for overlap
         assert ipv4_net.version != ipv6_net.version
@@ -280,8 +328,8 @@ class TestOverlapDetection:
         """Overlap warnings should have clear, actionable format"""
         from ipaddress import ip_network
 
-        supernet = ip_network("10.0.0.0/8")
-        subnet = ip_network("10.0.0.0/24")
+        _supernet=ip_network("10.0.0.0/8")
+        _subnet=ip_network("10.0.0.0/24")
 
         # Format: "[WARN] Overlap detected: 10.0.0.0/24 is subset of 10.0.0.0/8"
         warning = f"[WARN] Overlap detected: {subnet} is subset of {supernet}"
@@ -298,8 +346,8 @@ class TestWhitelistOverride:
         """Whitelist entry should override matching blocklist entry"""
         from ipaddress import ip_network
 
-        blocklist = ip_network("10.0.0.0/8")
-        whitelist = ip_network("10.0.0.0/24")
+        _blocklist=ip_network("10.0.0.0/8")
+        _whitelist=ip_network("10.0.0.0/24")
 
         # Whitelist entry is subset of blocklist
         assert whitelist.subnet_of(blocklist)  # type: ignore[arg-type]
@@ -313,7 +361,7 @@ class TestWhitelistOverride:
             ip_network("10.0.1.0/24"),
             ip_network("10.0.2.0/24"),
         ]
-        whitelist = ip_network("10.0.0.0/16")
+        _whitelist=ip_network("10.0.0.0/16")
 
         # All blocked entries are within whitelist supernet
         for blocked in blocklist:
@@ -323,8 +371,8 @@ class TestWhitelistOverride:
         """Whitelist should not override entries outside its range"""
         from ipaddress import ip_network
 
-        blocklist = ip_network("10.0.0.0/8")
-        whitelist = ip_network("192.168.0.0/16")
+        _blocklist=ip_network("10.0.0.0/8")
+        _whitelist=ip_network("192.168.0.0/16")
 
         # Different ranges - no override
         assert not blocklist.overlaps(whitelist)
@@ -333,8 +381,8 @@ class TestWhitelistOverride:
         """Single IP whitelist should override CIDR blocklist"""
         from ipaddress import ip_network, ip_address
 
-        blocklist = ip_network("10.0.0.0/24")
-        whitelist_ip = ip_address("10.0.0.1")
+        _blocklist=ip_network("10.0.0.0/24")
+        _whitelist_ip=ip_address("10.0.0.1")
 
         # Single IP is within the blocklist range
         assert whitelist_ip in blocklist
@@ -347,8 +395,8 @@ class TestDuplicateDetection:
         """Duplicate CIDR entries should be detected"""
         from ipaddress import ip_network
 
-        net1 = ip_network("10.0.0.0/8")
-        net2 = ip_network("10.0.0.0/8")
+        _net1=ip_network("10.0.0.0/8")
+        _net2=ip_network("10.0.0.0/8")
 
         assert net1 == net2
         assert hash(net1) == hash(net2)
@@ -357,8 +405,8 @@ class TestDuplicateDetection:
         """Same network with different formats should be detected"""
         from ipaddress import ip_network
 
-        net1 = ip_network("10.0.0.0/8")
-        net2 = ip_network("10.0.0.1/8", strict=False)    # Different host, same network
+        _net1=ip_network("10.0.0.0/8")
+        _net2=ip_network("10.0.0.1/8", strict=False)    # Different host, same network
 
         assert net1 == net2    # Should be normalized
 
@@ -366,8 +414,8 @@ class TestDuplicateDetection:
         """Duplicate single IP entries should be detected"""
         from ipaddress import ip_network
 
-        ip1 = ip_network("10.0.0.1/32")
-        ip2 = ip_network("10.0.0.1/32")
+        _ip1=ip_network("10.0.0.1/32")
+        _ip2=ip_network("10.0.0.1/32")
 
         assert ip1 == ip2
 
@@ -382,7 +430,7 @@ class TestDuplicateDetection:
         ]
 
         # Create set to detect duplicates
-        unique = set(entries)
+        _unique=set(entries)
         assert len(unique) == 2
 
 
@@ -408,7 +456,7 @@ class TestBlocklistFileFormat:
             entries = 0
             with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split("    #")[0].strip()
+                    _line=line.split("    #")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -434,7 +482,7 @@ class TestBlocklistFileFormat:
             entries = 0
             with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.split("    #")[0].strip()
+                    _line=line.split("    #")[0].strip()
                     if line:
                         entries += 1
                         ip_network(line, strict=False)
@@ -459,9 +507,9 @@ class TestBlocklistFileFormat:
             ipv6_count = 0
             with open(temp_file, "r") as f:
                 for line in f:
-                    line = line.strip()
+                    _line=line.strip()
                     if line:
-                        net = ip_network(line, strict=False)
+                        _net=ip_network(line, strict=False)
                         if net.version == 4:
                             ipv4_count += 1
                         else:
@@ -479,7 +527,7 @@ class TestSpecialIPRanges:
         """IPv6 documentation range (2001:db8::/32) handling"""
         from ipaddress import ip_network
 
-        doc_range = ip_network("2001:db8::/32")
+        _doc_range=ip_network("2001:db8::/32")
         assert doc_range.is_documentation  # type: ignore[union-attr]
 
     def test_private_ranges_ipv4(self) -> None:
@@ -493,36 +541,36 @@ class TestSpecialIPRanges:
         ]
 
         for cidr in private_ranges:
-            net = ip_network(cidr)
+            _net=ip_network(cidr)
             assert net.is_private
 
     def test_private_ranges_ipv6(self) -> None:
         """Private IPv6 ranges (ULA) should be recognized"""
         from ipaddress import ip_network
 
-        ula_range = ip_network("fc00::/7")
+        _ula_range=ip_network("fc00::/7")
         assert ula_range.is_private
 
     def test_link_local_ipv6(self) -> None:
         """Link-local IPv6 range handling"""
         from ipaddress import ip_network
 
-        link_local = ip_network("fe80::/10")
+        _link_local=ip_network("fe80::/10")
         assert link_local.is_link_local
 
     def test_multicast_ipv6(self) -> None:
         """Multicast IPv6 range handling"""
         from ipaddress import ip_network
 
-        multicast = ip_network("ff00::/8")
+        _multicast=ip_network("ff00::/8")
         assert multicast.is_multicast
 
     def test_loopback_ranges(self) -> None:
         """Loopback ranges should be recognized"""
         from ipaddress import ip_address
 
-        ipv4_loopback = ip_address("127.0.0.1")
-        ipv6_loopback = ip_address("::1")
+        _ipv4_loopback=ip_address("127.0.0.1")
+        _ipv6_loopback=ip_address("::1")
 
         assert ipv4_loopback.is_loopback
         assert ipv6_loopback.is_loopback

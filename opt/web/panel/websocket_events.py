@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class EventType(Enum):
@@ -138,11 +186,11 @@ class WebSocketEvent:
     def from_dict(cls, data: Dict[str, Any]) -> "WebSocketEvent":
         """Create event from dictionary."""
         return cls(
-            _event_type = data.get("event_type", "unknown"),
-            _timestamp = data.get("timestamp", datetime.now(timezone.utc).isoformat()),
-            data=data.get("data", {}),
-            _source = data.get("source", "system"),
-            _severity = data.get("severity", "info"),
+            _event_type=data.get("event_type", "unknown"),
+            _timestamp=data.get("timestamp", datetime.now(timezone.utc).isoformat()),
+            _data=data.get("data", {}),
+            _source=data.get("source", "system"),
+            _severity=data.get("severity", "info"),
         )
 
 
@@ -160,7 +208,7 @@ class ClientSubscription:
 
     def __post_init__(self) -> None:
         if self.subscribed_at is None:
-            self.subscribed_at = datetime.now(timezone.utc)
+            self.subscribed_at=datetime.now(timezone.utc)
 
     def is_allowed(self, event: WebSocketEvent) -> bool:
         """Check if client is allowed to receive event."""
@@ -192,7 +240,7 @@ class WebSocketEventBus:
         self.subscriptions: Dict[str, ClientSubscription] = {}
         self.event_handlers: Dict[str, List[Callable[..., Any]]] = {}
         self.message_queues: Dict[str, asyncio.Queue[WebSocketEvent]] = {}
-        self.lock = asyncio.Lock()
+        self.lock=asyncio.Lock()
         self.event_history: List[WebSocketEvent] = []
         self.max_history_size = 1000
 
@@ -217,10 +265,10 @@ class WebSocketEventBus:
         """
         async with self.lock:
             subscription = ClientSubscription(
-                client_id=client_id,
-                _event_types = set(event_types),
+                _client_id=client_id,
+                _event_types=set(event_types),
                 _user_id = user_id,
-                _permissions = set(permissions),
+                _permissions=set(permissions),
             )
 
             self.subscriptions[client_id] = subscription
@@ -267,7 +315,7 @@ class WebSocketEventBus:
         async with self.lock:
             for client_id, subscription in self.subscriptions.items():
                 if subscription.is_allowed(event):
-                    queue = self.message_queues.get(client_id)
+                    _queue=self.message_queues.get(client_id)
                     if queue:
                         try:
                             queue.put_nowait(event)
@@ -289,7 +337,7 @@ class WebSocketEventBus:
 
         Args:
             client_id: Client identifier
-            timeout: Timeout in seconds (None = wait indefinitely)
+            timeout: Timeout in seconds (None=wait indefinitely)
 
         Returns:
             WebSocketEvent or None if timeout
@@ -297,15 +345,15 @@ class WebSocketEventBus:
         Raises:
             KeyError: If client not subscribed
         """
-        queue = self.message_queues.get(client_id)
+        _queue=self.message_queues.get(client_id)
         if queue is None:
             raise KeyError(f"Client {client_id} not subscribed")
 
         try:
             if timeout:
-                event = await asyncio.wait_for(queue.get(), timeout=timeout)
+                _event=await asyncio.wait_for(queue.get(), timeout=timeout)
             else:
-                event = await queue.get()
+                _event=await queue.get()
             return event
         except asyncio.TimeoutError:
             return None
@@ -358,7 +406,7 @@ class EventFactory:
         """Create node status event."""
         return WebSocketEvent(
             _event_type = EventType.NODE_STATUS.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "node_id": node_id,
                 "status": status,
@@ -373,12 +421,12 @@ class EventFactory:
         """Create node metrics event."""
         return WebSocketEvent(
             _event_type = EventType.NODE_METRICS.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "node_id": node_id,
                 "metrics": metrics,
             },
-            severity="info",
+            _severity="info",
         )
 
     @staticmethod
@@ -389,7 +437,7 @@ class EventFactory:
         """Create alert event."""
         return WebSocketEvent(
             _event_type = EventType.CLUSTER_ALERT.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "alert_type": alert_type,
                 "message": message,
@@ -403,7 +451,7 @@ class EventFactory:
         """Create job progress event."""
         return WebSocketEvent(
             _event_type = EventType.JOB_PROGRESS.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "job_id": job_id,
                 "progress": progress,    # 0-100
@@ -419,7 +467,7 @@ class EventFactory:
         """Create storage metric event."""
         return WebSocketEvent(
             _event_type = EventType.STORAGE_METRIC.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "pool_id": pool_id,
                 "used_bytes": used,
@@ -434,7 +482,7 @@ class EventFactory:
         """Create error event."""
         return WebSocketEvent(
             _event_type = EventType.ERROR.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {
                 "message": message,
                 "error_code": error_code,
@@ -448,7 +496,7 @@ class EventFactory:
         """Create heartbeat event (keep-alive)."""
         return WebSocketEvent(
             _event_type = EventType.HEARTBEAT.value,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            _timestamp=datetime.now(timezone.utc).isoformat(),
             _data = {"status": "ok"},
         )
 
@@ -463,9 +511,9 @@ class WebSocketConnectionManager:
         Args:
             event_bus: WebSocketEventBus instance
         """
-        self.event_bus = event_bus or WebSocketEventBus()
+        self.event_bus=event_bus or WebSocketEventBus()
         self.connections: Dict[str, Any] = {}
-        self.lock = asyncio.Lock()
+        self.lock=asyncio.Lock()
 
     async def connect(
         self,
@@ -518,7 +566,7 @@ class WebSocketConnectionManager:
             True if sent successfully, False if client not connected
         """
         async with self.lock:
-            websocket = self.connections.get(client_id)
+            _websocket=self.connections.get(client_id)
 
         if websocket is None:
             return False

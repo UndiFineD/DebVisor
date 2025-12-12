@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,13 +138,13 @@ from typing import Any, Dict, Callable
 
 from opt.core.audit import AuditSigner, AuditLogger, AuditEntry
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class FileAuditPersistence:
     """Persists audit entries to a file."""
 
-    def __init__(self, log_path: str):
+    def __init__(self, log_path: str) -> None:
         self.log_path = log_path
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
 
@@ -112,7 +160,7 @@ class FileAuditPersistence:
 class RPCAuditLogger(AuditLogger):
     """RPC-specific audit logger with persistence."""
 
-    def __init__(self, signer: AuditSigner, persistence: FileAuditPersistence):
+    def __init__(self, signer: AuditSigner, persistence: FileAuditPersistence) -> None:
         super().__init__(signer)
         self.persistence = persistence
         self.last_hash = None
@@ -121,10 +169,10 @@ class RPCAuditLogger(AuditLogger):
         try:
             if os.path.exists(persistence.log_path):
                 with open(persistence.log_path, "r") as f:
-                    lines = f.readlines()
+                    _lines=f.readlines()
                     if lines:
-                        last_entry = json.loads(lines[-1])
-                        self.last_hash = last_entry.get("signature")
+                        _last_entry=json.loads(lines[-1])
+                        self.last_hash=last_entry.get("signature")
         except Exception:
             pass
 
@@ -153,18 +201,18 @@ class AuditInterceptor(grpc.ServerInterceptor):
     """
 
     def __init__(self, config: Dict[str, Any]) -> None:
-        _log_file = config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
+        _log_file=config.get("audit_log_file", "/var/log/debvisor/rpc-audit.log")
 
         # In production, SECRET_KEY must be set in environment
-        secret_key = os.getenv("SECRET_KEY")
+        _secret_key=os.getenv("SECRET_KEY")
         if not secret_key:
             if os.getenv("FLASK_ENV") == "production":
                 raise ValueError("SECRET_KEY not set in production environment")
             secret_key = "dev-key"
 
-        signer = AuditSigner(secret_key=secret_key)
-        persistence = FileAuditPersistence(log_file)
-        self.audit = RPCAuditLogger(signer, persistence)
+        _signer=AuditSigner(secret_key=secret_key)
+        _persistence=FileAuditPersistence(log_file)
+        self.audit=RPCAuditLogger(signer, persistence)
         logger.info(f"AuditInterceptor initialized (log: {log_file})")
 
     def intercept_service(
@@ -173,7 +221,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         handler_call_details: grpc.HandlerCallDetails,
     ) -> Any:
         _method = handler_call_details.method
-        _start_time = datetime.now(timezone.utc)
+        _start_time=datetime.now(timezone.utc)
 
         # Extract principal (placeholder - needs integration with auth context)
         principal = "anonymous"
@@ -189,7 +237,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
             try:
                 from opt.services.rpc.auth import extract_identity
 
-                identity = extract_identity(context)
+                _identity=extract_identity(context)
                 if identity:
                     _principal = identity.principal_id
             except ImportError:
@@ -201,11 +249,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
             error_details = None
 
             try:
-                response = continuation(handler_call_details)(request, context)
+                _response=continuation(handler_call_details)(request, context)
                 return response
             except Exception as e:
                 status = "failure"
-                error_details = str(e)
+                _error_details=str(e)
                 raise
             finally:
             # Log the call
@@ -217,10 +265,10 @@ class AuditInterceptor(grpc.ServerInterceptor):
 
         return grpc.unary_unary_rpc_method_handler(
             _wrapped_behavior,
-            request_deserializer=handler_call_details.method_handlers[
+            _request_deserializer=handler_call_details.method_handlers[
                 handler_call_details.method
             ].request_deserializer,
-            response_serializer=handler_call_details.method_handlers[
+            _response_serializer=handler_call_details.method_handlers[
                 handler_call_details.method
             ].response_serializer,
         )

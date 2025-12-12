@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,12 +135,12 @@ from opt.services.compliance.core import (  # type: ignore[attr-defined]
 from opt.web.panel.models.node import Node
 from opt.web.panel.models.user import User
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ComplianceReporter:
 
-    def __init__(self, engine: ComplianceEngine):
+    def __init__(self, engine: ComplianceEngine) -> None:
         self.engine = engine
 
     def fetch_resources(self) -> List[Dict[str, Any]]:
@@ -101,7 +149,7 @@ class ComplianceReporter:
 
         # Fetch Nodes
         try:
-            nodes = Node.query.all()
+            _nodes=Node.query.all()
             for node in nodes:
                 resources.append({
                     "id": str(node.id),
@@ -115,7 +163,7 @@ class ComplianceReporter:
 
         # Fetch Users
         try:
-            users = User.query.all()
+            _users=User.query.all()
             for user in users:
                 resources.append({
                     "id": str(user.id),
@@ -130,23 +178,23 @@ class ComplianceReporter:
 
         return resources
 
-    def generate_report(self, report_id: str, format: str = "pd") -> GeneratedReport:
+    def generate_report(self, report_id: str, format: str="pd") -> GeneratedReport:
         """Generate a compliance report."""
-        resources = self.fetch_resources()
-        _report_data = self.engine.run_compliance_scan(resources)
+        _resources=self.fetch_resources()
+        _report_data=self.engine.run_compliance_scan(resources)
 
         content = ""
         _file_path = None
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
         if format.lower() == "pdf":
         # PDF generation requires reportlab or similar.
             # Fallback to HTML if not available, but try to simulate PDF path
             logger.warning("PDF generation not supported (missing libraries). Falling back to HTML.")
-            content = self._generate_html(report_data)
+            _content=self._generate_html(report_data)
             # In a real scenario, we would write to a PDF file here.
             # For now, we'll save as .html but pretend it's what was asked
-            file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")
+            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")
             try:
                 with open(file_path, "w") as f:
                     f.write(content)
@@ -154,8 +202,8 @@ class ComplianceReporter:
                 logger.error(f"Failed to write report file: {e}")
 
         elif format.lower() == "html":
-            content = self._generate_html(report_data)
-            file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")
+            _content=self._generate_html(report_data)
+            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")
             try:
                 with open(file_path, "w") as f:
                     f.write(content)
@@ -163,8 +211,8 @@ class ComplianceReporter:
                 pass
 
         elif format.lower() == "markdown":
-            content = self._generate_markdown(report_data)
-            file_path = os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.md")
+            _content=self._generate_markdown(report_data)
+            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.md")
             try:
                 with open(file_path, "w") as f:
                     f.write(content)
@@ -180,7 +228,7 @@ class ComplianceReporter:
             _status = ReportStatus.COMPLETED,
             _content = content,
             _file_path = file_path,
-            generated_at=datetime.now(timezone.utc)
+            _generated_at=datetime.now(timezone.utc)
         )
 
     def _generate_markdown(self, report: ComplianceReport) -> str:

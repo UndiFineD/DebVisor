@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,11 +151,11 @@ try:
     configure_logging(service_name="rpc-security")
 except ImportError:
     logging.basicConfig(
-        level=logging.INFO,
-        _format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        _level=logging.INFO,
+        _format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
-logger = logging.getLogger(__name__)
-_audit_logger = logging.getLogger("rpc_audit")
+_logger=logging.getLogger(__name__)
+_audit_logger=logging.getLogger("rpc_audit")
 
 
 ###############################################################################
@@ -277,7 +325,7 @@ class AuthorizationConfig:
 class AuthenticationService:
     """Handles authentication and token management"""
 
-    def __init__(self, config: AuthenticationConfig):
+    def __init__(self, config: AuthenticationConfig) -> None:
         """Initialize authentication service"""
         self.config = config
         self.token_cache: Dict[str, AuthToken] = {}
@@ -298,9 +346,9 @@ class AuthenticationService:
         if not self.config.secret_key:
             raise ValueError("Secret key not configured")
 
-        token_id = self._generate_token_id()
-        now = datetime.now(timezone.utc)
-        expires_at = now + timedelta(seconds=self.config.token_expiry_seconds)
+        _token_id=self._generate_token_id()
+        _now=datetime.now(timezone.utc)
+        _expires_at=now + timedelta(seconds=self.config.token_expiry_seconds)
 
         _payload = {
             "token_id": token_id,
@@ -325,9 +373,9 @@ class AuthenticationService:
 
         # Cache token
         _auth_token = AuthToken(
-            token_id=token_id,
+            _token_id=token_id,
             _user_id = user_id,
-            username=username,
+            _username=username,
             _roles = roles,
             _issued_at = now,
             _expires_at = expires_at,
@@ -359,7 +407,7 @@ class AuthenticationService:
             )
 
             # Check if token is in cache and not expired
-            token_id = payload.get("token_id")
+            _token_id=payload.get("token_id")
             if token_id in self.token_cache:
                 cached_token = self.token_cache[token_id]
                 if cached_token.is_expired():
@@ -373,10 +421,10 @@ class AuthenticationService:
                 _user_id = payload["user_id"],
                 _username = payload["username"],
                 _roles = payload["roles"],
-                _issued_at = datetime.fromtimestamp(payload["iat"]),
-                _expires_at = datetime.fromtimestamp(payload["exp"]),
-                _scopes = payload.get("scopes", []),
-                _metadata = payload.get("metadata", {}),
+                _issued_at=datetime.fromtimestamp(payload["iat"]),
+                _expires_at=datetime.fromtimestamp(payload["exp"]),
+                _scopes=payload.get("scopes", []),
+                _metadata=payload.get("metadata", {}),
             )
 
             if auth_token.is_expired():
@@ -405,7 +453,7 @@ class AuthenticationService:
 
     def refresh_token(self, token: str) -> Optional[str]:
         """Refresh an existing token"""
-        is_valid, auth_token, error = self.validate_token(token)
+        is_valid, auth_token, error=self.validate_token(token)
         if not is_valid or not auth_token:
             logger.warning(f"Token refresh failed: {error}")
             return None
@@ -413,7 +461,7 @@ class AuthenticationService:
         # Create new token with same claims
         _new_token = self.create_token(
             _user_id = auth_token.user_id,
-            username=auth_token.username,
+            _username=auth_token.username,
             _roles = auth_token.roles,
             _scopes = auth_token.scopes,
             _metadata = auth_token.metadata,
@@ -432,7 +480,7 @@ class AuthenticationService:
 class AuthorizationService:
     """Handles role-based access control (RBAC)"""
 
-    def __init__(self, config: AuthorizationConfig):
+    def __init__(self, config: AuthorizationConfig) -> None:
         """Initialize authorization service"""
         self.config = config
         self._initialize_default_permissions()
@@ -478,7 +526,7 @@ class AuthorizationService:
             return True, None
 
         for role in user_roles:
-            role_perms = self.permissions.get(role, [])
+            _role_perms=self.permissions.get(role, [])
             if (resource_type, action) in role_perms or (
                 resource_type,
                 Action.ADMIN.value,
@@ -503,7 +551,7 @@ class AuthorizationService:
             self.permissions[role] = [
                 (r, a)
                 for r, a in self.permissions[role]
-                if not (r == resource and a == action)
+                if not (r== resource and a== action)
             ]
             logger.info(f"Permission removed: {role} -> {resource}:{action}")
 
@@ -530,7 +578,7 @@ class TLSManager:
 
     def create_server_context(self) -> ssl.SSLContext:
         """Create SSL context for server"""
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        _context=ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         context.minimum_version = self.min_version.value
 
         # Load certificates
@@ -558,7 +606,7 @@ class TLSManager:
 
     def create_client_context(self) -> ssl.SSLContext:
         """Create SSL context for client"""
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+        _context=ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
         context.minimum_version = self.min_version.value
 
         # Load CA certificate
@@ -584,7 +632,7 @@ class TLSManager:
 class RequestValidator:
     """Validates RPC requests"""
 
-    def __init__(self, max_request_size: int = 10 * 1024 * 1024):
+    def __init__(self, max_request_size: int=10 * 1024 * 1024) -> None:
         """Initialize request validator"""
         self.max_request_size = max_request_size
         logger.info(
@@ -629,10 +677,10 @@ class RequestValidator:
 class AuditLogger:
     """Logs all RPC operations for compliance"""
 
-    def __init__(self, log_file: str = "/var/log/debvisor-rpc-audit.log"):
+    def __init__(self, log_file: str="/var/log/debvisor-rpc-audit.log") -> None:
         """Initialize audit logger"""
         self.log_file = log_file
-        self.audit_handler = logging.FileHandler(log_file)
+        self.audit_handler=logging.FileHandler(log_file)
         self.audit_handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
         audit_logger.addHandler(self.audit_handler)
         logger.info(f"AuditLogger initialized (file: {log_file})")
@@ -651,13 +699,13 @@ class AuditLogger:
     ) -> None:
         """Log access denied event"""
         _entry = AuditLogEntry(
-            _timestamp = datetime.now(timezone.utc),
+            _timestamp=datetime.now(timezone.utc),
             _user_id = user_id,
             _username = username,
             _action = "access_denied",
             _resource_type = resource_type,
             _resource_id = resource_id,
-            status="denied",
+            _status="denied",
             _status_code = 403,
             _request_metadata = {},
             _response_metadata = {},
@@ -669,13 +717,13 @@ class AuditLogger:
     def log_authentication_failure(self, reason: str) -> None:
         """Log authentication failure"""
         _entry = AuditLogEntry(
-            _timestamp = datetime.now(timezone.utc),
+            _timestamp=datetime.now(timezone.utc),
             _user_id = "unknown",
             _username = "unknown",
             _action = "authentication_failed",
             _resource_type = "system",
             _resource_id = "rpc",
-            status="failed",
+            _status="failed",
             _status_code = 401,
             _request_metadata = {},
             _response_metadata = {},
@@ -698,13 +746,13 @@ def require_auth(
 
         def wrapper(self: Any, request: Any, context: Any) -> Any:
         # Extract token from metadata
-            metadata = dict(context.invocation_metadata())
-            token = metadata.get("authorization", "").replace("Bearer ", "")
+            _metadata=dict(context.invocation_metadata())
+            _token=metadata.get("authorization", "").replace("Bearer ", "")
 
             if not token:
                 context.abort(401, "Missing authentication token")
 
-            is_valid, auth_token, error = auth_service.validate_token(token)
+            is_valid, auth_token, error=auth_service.validate_token(token)
             if not is_valid:
                 context.abort(401, f"Invalid token: {error}")
 
@@ -753,7 +801,7 @@ if __name__ == "__main__":
     auth_config = AuthenticationConfig(
         _secret_key = "your-secret-key-here", token_expiry_seconds=3600    # nosec B106
     )
-    auth_service = AuthenticationService(auth_config)
+    _auth_service=AuthenticationService(auth_config)
 
     # Create token
     _token = auth_service.create_token(
@@ -766,14 +814,14 @@ if __name__ == "__main__":
     print("Token created successfully")
 
     # Validate token
-    is_valid, auth_token, error = auth_service.validate_token(token)
+    is_valid, auth_token, error=auth_service.validate_token(token)
     print(
         f"Token valid: {is_valid}, User: {auth_token.username if auth_token else 'N/A'}"
     )
 
     # Example authorization
-    authz_config = AuthorizationConfig(enabled=True)
-    authz_service = AuthorizationService(authz_config)
+    _authz_config=AuthorizationConfig(enabled=True)
+    _authz_service=AuthorizationService(authz_config)
 
     # Check permission
     has_perm, error = authz_service.check_permission(
@@ -789,15 +837,15 @@ if __name__ == "__main__":
     )
 
     # Example audit logging
-    _audit_log_service = AuditLogger()
+    _audit_log_service=AuditLogger()
     _entry = AuditLogEntry(
-        _timestamp = datetime.now(timezone.utc),
+        _timestamp=datetime.now(timezone.utc),
         _user_id = "user123",
         _username = "john.doe",
         _action = "cluster_create",
         _resource_type = "cluster",
         _resource_id = "prod-cluster",
-        status="success",
+        _status="success",
         _status_code = 200,
         _request_metadata = {"nodes": 3},
         _response_metadata = {"cluster_id": "abc123"},

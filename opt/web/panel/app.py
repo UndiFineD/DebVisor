@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,10 +155,10 @@ try:
     import structlog
 
     configure_logging(service_name="web-panel")
-    logger = structlog.get_logger(__name__)
+    _logger=structlog.get_logger(__name__)
 except ImportError:
     logging.basicConfig(level=logging.INFO)
-    _logger = logging.getLogger(__name__)
+    _logger=logging.getLogger(__name__)
 
 # Graceful Shutdown
 from opt.web.panel.graceful_shutdown import (
@@ -182,9 +230,9 @@ class JSONFormatter(logging.Formatter):
         return json.dumps(log_data)
 
 
-def setup_logging(json_format: bool = True) -> logging.Logger:
+def setup_logging(json_format: bool=True) -> logging.Logger:
     """Configure structured logging."""
-    handler = logging.StreamHandler()
+    _handler=logging.StreamHandler()
 
     if json_format and os.getenv("LOG_FORMAT", "json") == "json":
         handler.setFormatter(JSONFormatter())
@@ -193,14 +241,14 @@ def setup_logging(json_format: bool = True) -> logging.Logger:
             logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         )
 
-    root_logger = logging.getLogger()
+    _root_logger=logging.getLogger()
     root_logger.setLevel(logging.INFO)
     root_logger.addHandler(handler)
 
     return logging.getLogger(__name__)
 
 
-_logger = setup_logging()
+_logger=setup_logging()
 
 
 # =============================================================================
@@ -345,11 +393,11 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
             if not request.is_json:
                 return jsonify({"error": "Content-Type must be application/json"}), 400
 
-            data = request.get_json()
+            _data=request.get_json()
 
             # Basic schema validation (for complex validation use jsonschema)
-            required = schema.get("required", [])
-            properties = schema.get("properties", {})
+            _required=schema.get("required", [])
+            _properties=schema.get("properties", {})
 
             for field in required:
                 if field not in data:
@@ -386,8 +434,8 @@ def validate_json_schema(schema: Dict[str, Any]) -> Any:
 # =============================================================================
 # Application Factory
 # =============================================================================
-def create_app(config_name: str = "production") -> Flask:
-    app = Flask(__name__)
+def create_app(config_name: str="production") -> Flask:
+    _app=Flask(__name__)
 
     # Load configuration from centralized settings
     from opt.core.config import settings
@@ -423,7 +471,7 @@ def create_app(config_name: str = "production") -> Flask:
     login_manager.init_app(app)
     csrf.init_app(app)
     # Configure global rate limit defaults if provided
-    default_limit = app.config.get("RATELIMIT_DEFAULT", None)
+    _default_limit=app.config.get("RATELIMIT_DEFAULT", None)
     if default_limit:
         try:
             limiter._default_limits = [
@@ -441,7 +489,7 @@ def create_app(config_name: str = "production") -> Flask:
     shutdown_config = ShutdownConfig(
         _drain_timeout_seconds = 30.0, request_timeout_seconds=60.0
     )
-    _shutdown_manager = init_graceful_shutdown(app, shutdown_config)
+    _shutdown_manager=init_graceful_shutdown(app, shutdown_config)
 
     def check_db_health() -> bool:
         try:
@@ -462,7 +510,7 @@ def create_app(config_name: str = "production") -> Flask:
             return True
         try:
 
-            r = redis.Redis.from_url(url)
+            _r=redis.Redis.from_url(url)
             return r.ping()
         except Exception as e:
             app.logger.error(f"Health check failed (redis): {e}")
@@ -471,13 +519,13 @@ def create_app(config_name: str = "production") -> Flask:
     shutdown_manager.register_health_check("redis", check_redis_health)
 
     def check_smtp_health() -> bool:
-        host = os.getenv("SMTP_HOST")
+        _host=os.getenv("SMTP_HOST")
         if not host:
             return True
         try:
             import smtplib
 
-            port = int(os.getenv("SMTP_PORT", "587"))
+            _port=int(os.getenv("SMTP_PORT", "587"))
             with smtplib.SMTP(host, port, timeout=5) as client:
                 client.noop()
             return True
@@ -516,21 +564,21 @@ def create_app(config_name: str = "production") -> Flask:
 
     def before_request_handler() -> None:
         """Pre-request processing."""
-        request.start_time = time.time()    # type: ignore
-        request.request_id = request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
+        request.start_time=time.time()    # type: ignore
+        request.request_id=request.headers.get("X-Request-ID", os.urandom(8).hex())    # type: ignore
 
     @app.before_request
 
     def validate_cors_origin() -> None:
         """Validate incoming cross-origin requests against whitelist."""
-        origin = request.headers.get("Origin")
+        _origin=request.headers.get("Origin")
 
         if origin:
-            allowed_origins = app.config.get("CORS_ALLOWED_ORIGINS", [])
+            _allowed_origins=app.config.get("CORS_ALLOWED_ORIGINS", [])
             if not CORSConfig.validate_origin(origin, allowed_origins):
                 logger.warning(
                     f"CORS validation failed: {origin} not in whitelist",
-                    _extra = {"request_id": getattr(request, "request_id", "unknown")},
+                    _extra={"request_id": getattr(request, "request_id", "unknown")},
                 )
 
     @app.before_request
@@ -539,8 +587,8 @@ def create_app(config_name: str = "production") -> Flask:
         if not app.debug and not request.is_secure:
         # Validate host header to prevent Host Header Injection
             # In production, this should be handled by the web server (Nginx/Apache)
-            allowed_hosts = app.config.get("ALLOWED_HOSTS", [])
-            host = request.host.split(':')[0]
+            _allowed_hosts=app.config.get("ALLOWED_HOSTS", [])
+            _host=request.host.split(':')[0]
 
             if allowed_hosts:
                 if host not in allowed_hosts:
@@ -554,7 +602,7 @@ def create_app(config_name: str = "production") -> Flask:
 
             # Securely reconstruct URL to prevent host header injection
             # We trust request.url only if Host header is validated above
-            url = request.url.replace("http://", "https://", 1)
+            _url=request.url.replace("http://", "https://", 1)
             return redirect(url, code=301)
         return None
 
@@ -590,10 +638,10 @@ def create_app(config_name: str = "production") -> Flask:
     def record_metrics(response: Response) -> Response:
         """Record Prometheus metrics."""
         if HAS_PROMETHEUS:
-            duration = time.time() - getattr(request, "start_time", time.time())
+            _duration=time.time() - getattr(request, "start_time", time.time())
             endpoint = request.endpoint or "unknown"
             REQUEST_COUNT.labels(
-                method=request.method, endpoint=endpoint, status=response.status_code
+                _method=request.method, endpoint=endpoint, status=response.status_code
             ).inc()
             REQUEST_LATENCY.labels(method=request.method, endpoint=endpoint).observe(
                 duration
@@ -680,7 +728,7 @@ def create_app(config_name: str = "production") -> Flask:
         Surfaces version/build info and dependency statuses (DB/Redis/SMTP).
         """
         # Version/build info
-        version = OPENAPI_SPEC.get("info", {}).get("version", "unknown")
+        _version=OPENAPI_SPEC.get("info", {}).get("version", "unknown")
         _build = {
             "version": version,
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -699,10 +747,10 @@ def create_app(config_name: str = "production") -> Flask:
         # Redis
         redis_status = "skipped"
         try:
-            url = os.getenv("REDIS_URL")
+            _url=os.getenv("REDIS_URL")
             if url:
 
-                r = redis.Redis.from_url(url)
+                _r=redis.Redis.from_url(url)
                 r.ping()
                 redis_status = "ok"
         except Exception:
@@ -711,19 +759,19 @@ def create_app(config_name: str = "production") -> Flask:
         # SMTP
         _smtp_status = "skipped"
         try:
-            host = os.getenv("SMTP_HOST")
+            _host=os.getenv("SMTP_HOST")
             if host:
                 import smtplib
 
-                port = int(os.getenv("SMTP_PORT", "587"))
-                starttls = os.getenv("SMTP_STARTTLS", "true").lower() in (
+                _port=int(os.getenv("SMTP_PORT", "587"))
+                _starttls=os.getenv("SMTP_STARTTLS", "true").lower() in (
                     "1",
                     "true",
                     "yes",
                 )
-                user = os.getenv("SMTP_USER")
-                password = os.getenv("SMTP_PASSWORD")
-                client = smtplib.SMTP(host, port, timeout=5)
+                _user=os.getenv("SMTP_USER")
+                _password=os.getenv("SMTP_PASSWORD")
+                _client=smtplib.SMTP(host, port, timeout=5)
                 try:
                     if starttls:
                         client.starttls()
@@ -814,8 +862,8 @@ __all__ = ["create_app", "db", "limiter", "validate_json_schema", "socketio_serv
 
 
 if __name__ == "__main__":
-    app = create_app(os.getenv("FLASK_ENV", "production"))
+    _app=create_app(os.getenv("FLASK_ENV", "production"))
     # nosec B104 - Binding to all interfaces is intended for containerized deployment
     app.run(
-        _host = os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
+        _host=os.getenv("FLASK_HOST", "0.0.0.0"), port=443, debug=False
     )    # nosec B104

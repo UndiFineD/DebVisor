@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -114,9 +162,9 @@ class AnomalyType(Enum):
 class SeverityLevel(Enum):
     """Severity level of anomaly."""
 
-    INFO = "info"    # Informational (confidence 50-65%)
-    WARNING = "warning"    # Warning level (confidence 65-80%)
-    CRITICAL = "critical"    # Critical alert (confidence 80%+)
+    INFO="info"    # Informational (confidence 50-65%)
+    WARNING="warning"    # Warning level (confidence 65-80%)
+    CRITICAL="critical"    # Critical alert (confidence 80%+)
 
 
 class DetectionMethod(Enum):
@@ -126,7 +174,7 @@ class DetectionMethod(Enum):
     IQR = "iqr"    # Interquartile range
     EWMA = "ewma"    # Exponential weighted moving average
     ISOLATION_FOREST = "isolation_forest"    # Isolation forest algorithm
-    LSTM = "lstm"    # LSTM neural network (future)
+    LSTM="lstm"    # LSTM neural network (future)
 
 
 class MetricType(Enum):
@@ -185,8 +233,8 @@ class Baseline:
     p75: float    # 75th percentile
     p95: float    # 95th percentile
     sample_count: int
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    last_updated: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
+    last_updated: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
@@ -291,26 +339,26 @@ class TrendAnalysis:
 class LSTMModel:
     """Simplified LSTM model for time-series prediction using NumPy."""
 
-    def __init__(self, input_size: int = 1, hidden_size: int = 8, output_size: int = 1):
+    def __init__(self, input_size: int=1, hidden_size: int=8, output_size: int=1) -> None:
         self.hidden_size = hidden_size
         self.input_size = input_size
         self.output_size = output_size
 
         # Xavier initialization
-        std = 1.0 / np.sqrt(hidden_size + input_size)
-        self.Wf = np.random.randn(hidden_size, hidden_size + input_size) * std
-        self.Wi = np.random.randn(hidden_size, hidden_size + input_size) * std
-        self.Wc = np.random.randn(hidden_size, hidden_size + input_size) * std
-        self.Wo = np.random.randn(hidden_size, hidden_size + input_size) * std
-        self.Wy = np.random.randn(output_size, hidden_size) * std
+        _std=1.0 / np.sqrt(hidden_size + input_size)
+        self.Wf=np.random.randn(hidden_size, hidden_size + input_size) * std
+        self.Wi=np.random.randn(hidden_size, hidden_size + input_size) * std
+        self.Wc=np.random.randn(hidden_size, hidden_size + input_size) * std
+        self.Wo=np.random.randn(hidden_size, hidden_size + input_size) * std
+        self.Wy=np.random.randn(output_size, hidden_size) * std
 
-        self.bf = np.zeros((hidden_size, 1))
-        self.bi = np.zeros((hidden_size, 1))
-        self.bc = np.zeros((hidden_size, 1))
-        self.bo = np.zeros((hidden_size, 1))
-        self.by = np.zeros((output_size, 1))
+        self.bf=np.zeros((hidden_size, 1))
+        self.bi=np.zeros((hidden_size, 1))
+        self.bc=np.zeros((hidden_size, 1))
+        self.bo=np.zeros((hidden_size, 1))
+        self.by=np.zeros((output_size, 1))
 
-        self.last_trained = datetime.min.replace(tzinfo=timezone.utc)
+        self.last_trained=datetime.min.replace(tzinfo=timezone.utc)
         self.is_trained = False
 
     def sigmoid(self, x: Any) -> Any:
@@ -321,36 +369,36 @@ class LSTMModel:
 
     def forward(self, inputs: List[float]) -> List[float]:
         """Forward pass through the LSTM."""
-        h = np.zeros((self.hidden_size, 1))
-        c = np.zeros((self.hidden_size, 1))
+        _h=np.zeros((self.hidden_size, 1))
+        _c=np.zeros((self.hidden_size, 1))
 
         _outputs = []
 
         for x_val in inputs:
-            x_arr = np.array([[x_val]])
-            z = np.row_stack((h, x_arr))
+            _x_arr=np.array([[x_val]])
+            _z=np.row_stack((h, x_arr))
 
-            f = self.sigmoid(np.dot(self.Wf, z) + self.bf)
-            i = self.sigmoid(np.dot(self.Wi, z) + self.bi)
-            C_bar = self.tanh(np.dot(self.Wc, z) + self.bc)
+            _f=self.sigmoid(np.dot(self.Wf, z) + self.bf)
+            _i=self.sigmoid(np.dot(self.Wi, z) + self.bi)
+            C_bar=self.tanh(np.dot(self.Wc, z) + self.bc)
 
             c = f * c + i * C_bar
-            o = self.sigmoid(np.dot(self.Wo, z) + self.bo)
-            h = o * self.tanh(c)
+            _o=self.sigmoid(np.dot(self.Wo, z) + self.bo)
+            _h=o * self.tanh(c)
 
-            y = np.dot(self.Wy, h) + self.by
+            _y=np.dot(self.Wy, h) + self.by
             outputs.append(y[0, 0])
 
         return outputs
 
-    def train(self, data: List[float], epochs: int = 50, learning_rate: float = 0.01) -> None:
+    def train(self, data: List[float], epochs: int=50, learning_rate: float=0.01) -> None:
         """Train the model (Simplified BPTT)."""
         # Normalize data
-        mean = float(np.mean(data))
-        std = float(np.std(data))
+        _mean=float(np.mean(data))
+        _std=float(np.std(data))
         if std == 0:
             std = 1.0
-        norm_data = [(x - mean) / std for x in data]
+        _norm_data=[(x - mean) / std for x in data]
 
         # Create sequences
         seq_length = 5
@@ -380,7 +428,7 @@ class LSTMModel:
                 pass
 
         self.is_trained = True
-        self.last_trained = datetime.now(timezone.utc)
+        self.last_trained=datetime.now(timezone.utc)
         self.stats = {"mean": mean, "std": std}
 
     def predict(self, sequence: List[float]) -> float:
@@ -391,8 +439,8 @@ class LSTMModel:
         mean = self.stats["mean"]
         std = self.stats["std"]
 
-        norm_seq = [(x - mean) / std for x in sequence]
-        outputs = self.forward(norm_seq)
+        _norm_seq=[(x - mean) / std for x in sequence]
+        _outputs=self.forward(norm_seq)
 
         pred_norm = outputs[-1]
         return float((pred_norm * std) + mean)
@@ -445,8 +493,8 @@ class AnomalyDetectionEngine:
             config: Configuration object
             logger: Logger instance
         """
-        self.config = config or AnomalyConfig()
-        self.logger = logger or logging.getLogger("DebVisor.Anomaly")
+        self.config=config or AnomalyConfig()
+        self.logger=logger or logging.getLogger("DebVisor.Anomaly")
 
         self.baselines: Dict[Tuple[str, MetricType], Baseline] = {}
         self.metrics: Dict[Tuple[str, MetricType], deque[MetricPoint]] = {}
@@ -475,17 +523,17 @@ class AnomalyDetectionEngine:
             value: Metric value
             timestamp: Optional timestamp (defaults to now)
         """
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         # Initialize if needed
         if key not in self.metrics:
             self.metrics[key] = deque(maxlen=self.max_history)
 
         point = MetricPoint(
-            _timestamp = timestamp or datetime.now(timezone.utc),
+            _timestamp=timestamp or datetime.now(timezone.utc),
             _value = value,
-            resource_id=resource_id,
-            metric_type=metric_type,
+            _resource_id=resource_id,
+            _metric_type=metric_type,
         )
 
         self.metrics[key].append(point)
@@ -503,7 +551,7 @@ class AnomalyDetectionEngine:
         Returns:
             Baseline object or None if insufficient data
         """
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         if key not in self.metrics or len(self.metrics[key]) < 10:
             self.logger.warning(f"Insufficient data for baseline: {key}")
@@ -516,29 +564,29 @@ class AnomalyDetectionEngine:
                 _baseline = Baseline(
                     _metric_type = metric_type,
                     _resource_id = resource_id,
-                    _mean = statistics.mean(values),
-                    _stddev = statistics.stdev(values) if len(values) > 1 else 0,
-                    _min_value = min(values),
-                    _max_value = max(values),
-                    _p25 = self._percentile(values, 25),
-                    _p50 = self._percentile(values, 50),
-                    _p75 = self._percentile(values, 75),
-                    _p95 = self._percentile(values, 95),
-                    _sample_count = len(values),
+                    _mean=statistics.mean(values),
+                    _stddev=statistics.stdev(values) if len(values) > 1 else 0,
+                    _min_value=min(values),
+                    _max_value=max(values),
+                    _p25=self._percentile(values, 25),
+                    _p50=self._percentile(values, 50),
+                    _p75=self._percentile(values, 75),
+                    _p95=self._percentile(values, 95),
+                    _sample_count=len(values),
                 )
             else:
                 _baseline = Baseline(
                     _metric_type = metric_type,
                     _resource_id = resource_id,
-                    _mean = statistics.mean(values),
-                    _stddev = statistics.stdev(values) if len(values) > 1 else 0,
-                    _min_value = min(values),
-                    _max_value = max(values),
-                    _p25 = self._percentile(values, 25),
-                    _p50 = self._percentile(values, 50),
-                    _p75 = self._percentile(values, 75),
-                    _p95 = self._percentile(values, 95),
-                    _sample_count = len(values),
+                    _mean=statistics.mean(values),
+                    _stddev=statistics.stdev(values) if len(values) > 1 else 0,
+                    _min_value=min(values),
+                    _max_value=max(values),
+                    _p25=self._percentile(values, 25),
+                    _p50=self._percentile(values, 50),
+                    _p75=self._percentile(values, 75),
+                    _p95=self._percentile(values, 95),
+                    _sample_count=len(values),
                 )
 
             self.baselines[key] = baseline
@@ -576,13 +624,13 @@ class AnomalyDetectionEngine:
             ]
 
         alerts: List[AnomalyAlert] = []
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         # Get baseline
-        baseline = self.baselines.get(key)
+        _baseline=self.baselines.get(key)
         if not baseline:
         # Try to establish from data
-            baseline = self.establish_baseline(resource_id, metric_type)
+            _baseline=self.establish_baseline(resource_id, metric_type)
             if not baseline:
                 return alerts
 
@@ -636,7 +684,7 @@ class AnomalyDetectionEngine:
         if baseline.stddev == 0:
             return None
 
-        z_score = abs((current_value - baseline.mean) / baseline.stddev)
+        _z_score=abs((current_value - baseline.mean) / baseline.stddev)
 
         if z_score > self.z_score_threshold:
         # Determine type and severity
@@ -646,7 +694,7 @@ class AnomalyDetectionEngine:
                 _anomaly_type = AnomalyType.DIP
 
             # Calculate confidence
-            confidence = min(1.0, (z_score - self.z_score_threshold) / 2.0)
+            _confidence=min(1.0, (z_score - self.z_score_threshold) / 2.0)
 
             # Determine severity
             if confidence < 0.7:
@@ -660,11 +708,11 @@ class AnomalyDetectionEngine:
             )
 
             return AnomalyAlert(
-                _alert_id = str(uuid4())[:8],
-                _timestamp = datetime.now(timezone.utc),
+                _alert_id=str(uuid4())[:8],
+                _timestamp=datetime.now(timezone.utc),
                 _resource_id = resource_id,
                 _metric_type = metric_type,
-                anomaly_type=anomaly_type,
+                _anomaly_type=anomaly_type,
                 _severity = severity,
                 _confidence = confidence,
                 _detected_value = current_value,
@@ -716,20 +764,20 @@ class AnomalyDetectionEngine:
             else:
                 _severity = SeverityLevel.CRITICAL
 
-            _expected_range = (lower_fence, upper_fence)
+            _expected_range=(lower_fence, upper_fence)
 
             return AnomalyAlert(
-                _alert_id = str(uuid4())[:8],
-                _timestamp = datetime.now(timezone.utc),
+                _alert_id=str(uuid4())[:8],
+                _timestamp=datetime.now(timezone.utc),
                 _resource_id = resource_id,
                 _metric_type = metric_type,
-                anomaly_type=anomaly_type,
+                _anomaly_type=anomaly_type,
                 _severity = severity,
                 _confidence = confidence,
                 _detected_value = current_value,
                 _expected_range = expected_range,
                 _detection_method = DetectionMethod.IQR,
-                _message = f"{anomaly_type.value} detected (IQR): {current_value:.2f}",
+                _message=f"{anomaly_type.value} detected (IQR): {current_value:.2f}",
                 _details = {
                     "iqr": iqr,
                     "lower_fence": lower_fence,
@@ -747,21 +795,21 @@ class AnomalyDetectionEngine:
         baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using Exponential Weighted Moving Average."""
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         if key not in self.metrics or len(self.metrics[key]) < 5:
             return None
 
-        values = [p.value for p in list(self.metrics[key])[-50:]]    # Last 50 points
+        _values=[p.value for p in list(self.metrics[key])[-50:]]    # Last 50 points
 
         # Calculate EWMA
-        ewma = self._calculate_ewma(values, alpha=0.3)
-        ewma_stddev = self._calculate_ewma_stddev(values, ewma, alpha=0.3)
+        _ewma=self._calculate_ewma(values, alpha=0.3)
+        _ewma_stddev=self._calculate_ewma_stddev(values, ewma, alpha=0.3)
 
         if ewma_stddev == 0:
             return None
 
-        deviation = abs(current_value - ewma) / ewma_stddev
+        _deviation=abs(current_value - ewma) / ewma_stddev
 
         if deviation > 2.0:
             if current_value > ewma:
@@ -769,7 +817,7 @@ class AnomalyDetectionEngine:
             else:
                 _anomaly_type = AnomalyType.DIP
 
-            confidence = min(1.0, (deviation - 2.0) / 2.0)
+            _confidence=min(1.0, (deviation - 2.0) / 2.0)
 
             if confidence < 0.7:
                 severity = SeverityLevel.INFO
@@ -778,20 +826,20 @@ class AnomalyDetectionEngine:
             else:
                 _severity = SeverityLevel.CRITICAL
 
-            _expected_range = (ewma - 2 * ewma_stddev, ewma + 2 * ewma_stddev)
+            _expected_range=(ewma - 2 * ewma_stddev, ewma + 2 * ewma_stddev)
 
             return AnomalyAlert(
-                _alert_id = str(uuid4())[:8],
-                _timestamp = datetime.now(timezone.utc),
+                _alert_id=str(uuid4())[:8],
+                _timestamp=datetime.now(timezone.utc),
                 _resource_id = resource_id,
                 _metric_type = metric_type,
-                anomaly_type=anomaly_type,
+                _anomaly_type=anomaly_type,
                 _severity = severity,
                 _confidence = confidence,
                 _detected_value = current_value,
                 _expected_range = expected_range,
                 _detection_method = DetectionMethod.EWMA,
-                _message = f"{anomaly_type.value} detected (EWMA): {current_value:.2f}",
+                _message=f"{anomaly_type.value} detected (EWMA): {current_value:.2f}",
                 _details = {
                     "ewma": ewma,
                     "ewma_stddev": ewma_stddev,
@@ -809,7 +857,7 @@ class AnomalyDetectionEngine:
         baseline: Baseline,
     ) -> Optional[AnomalyAlert]:
         """Detect anomaly using LSTM prediction."""
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         # Check if model exists and is trained
         if key not in self.lstm_models:
@@ -828,14 +876,14 @@ class AnomalyDetectionEngine:
             return None
 
         # Use last 10 points (excluding current) for prediction
-        sequence = [p.value for p in list(self.metrics[key])[-11:-1]]
+        _sequence=[p.value for p in list(self.metrics[key])[-11:-1]]
         if not sequence:
             return None
 
-        predicted_value = model.predict(sequence)
+        _predicted_value=model.predict(sequence)
 
         # Calculate deviation
-        deviation = abs(current_value - predicted_value)
+        _deviation=abs(current_value - predicted_value)
         threshold = baseline.stddev * 2.5    # Slightly tighter than Z-score
 
         if deviation > threshold:
@@ -844,7 +892,7 @@ class AnomalyDetectionEngine:
             else:
                 _anomaly_type = AnomalyType.DIP
 
-            confidence = min(1.0, (deviation - threshold) / threshold)
+            _confidence=min(1.0, (deviation - threshold) / threshold)
 
             if confidence < 0.6:
                 severity = SeverityLevel.INFO
@@ -853,14 +901,14 @@ class AnomalyDetectionEngine:
             else:
                 _severity = SeverityLevel.CRITICAL
 
-            _expected_range = (predicted_value - threshold, predicted_value + threshold)
+            _expected_range=(predicted_value - threshold, predicted_value + threshold)
 
             return AnomalyAlert(
-                _alert_id = str(uuid4())[:8],
-                _timestamp = datetime.now(timezone.utc),
+                _alert_id=str(uuid4())[:8],
+                _timestamp=datetime.now(timezone.utc),
                 _resource_id = resource_id,
                 _metric_type = metric_type,
-                anomaly_type=anomaly_type,
+                _anomaly_type=anomaly_type,
                 _severity = severity,
                 _confidence = confidence,
                 _detected_value = current_value,
@@ -881,7 +929,7 @@ class AnomalyDetectionEngine:
 
     def train_model(self, resource_id: str, metric_type: MetricType) -> bool:
         """Train LSTM model for a metric."""
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         if key not in self.metrics or len(self.metrics[key]) < 50:
             return False
@@ -907,12 +955,12 @@ class AnomalyDetectionEngine:
         Returns:
             TrendAnalysis object or None
         """
-        key = (resource_id, metric_type)
+        _key=(resource_id, metric_type)
 
         if key not in self.metrics:
             return None
 
-        cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
+        _cutoff_time=datetime.now(timezone.utc) - timedelta(hours=hours)
         recent_data = [p for p in self.metrics[key] if p.timestamp >= cutoff_time]
 
         if len(recent_data) < 3:
@@ -925,7 +973,7 @@ class AnomalyDetectionEngine:
         ]
 
         # Linear regression for trend
-        trend_strength = self._calculate_correlation(times, values)
+        _trend_strength=self._calculate_correlation(times, values)
 
         # Determine direction
         if trend_strength > 0.3:
@@ -936,21 +984,21 @@ class AnomalyDetectionEngine:
             _trend_direction = "stable"
 
         # Calculate average change per hour
-        avg_change = (values[-1] - values[0]) / hours if hours > 0 else 0
+        _avg_change=(values[-1] - values[0]) / hours if hours > 0 else 0
 
         # Simple 24h forecast
-        _forecast_24h = values[-1] + (avg_change * 24)
+        _forecast_24h=values[-1] + (avg_change * 24)
 
         _analysis = TrendAnalysis(
             _resource_id = resource_id,
             _metric_type = metric_type,
             _period_start = recent_data[0].timestamp,
             _period_end = recent_data[-1].timestamp,
-            trend_direction=trend_direction,
-            _trend_strength = abs(trend_strength),
+            _trend_direction=trend_direction,
+            _trend_strength=abs(trend_strength),
             _average_change_per_hour = avg_change,
             _forecast_value_24h = forecast_24h,
-            _confidence = min(1.0, len(recent_data) / 100.0),
+            _confidence=min(1.0, len(recent_data) / 100.0),
             _analysis_method = "linear_regression",
         )
 
@@ -975,7 +1023,7 @@ class AnomalyDetectionEngine:
         for alert in self.alerts:
             if alert.alert_id == alert_id:
                 alert.acknowledged = True
-                alert.acknowledged_at = datetime.now(timezone.utc)
+                alert.acknowledged_at=datetime.now(timezone.utc)
                 alert.acknowledged_by = acknowledged_by
                 alert.details["acknowledgment_notes"] = notes
                 self.logger.info(f"Alert acknowledged: {alert_id}")
@@ -1020,7 +1068,7 @@ class AnomalyDetectionEngine:
         Returns:
             List of historical alerts
         """
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
+        _cutoff=datetime.now(timezone.utc) - timedelta(hours=hours)
 
         alerts = [a for a in self.alerts if a.timestamp >= cutoff]
 
@@ -1028,7 +1076,7 @@ class AnomalyDetectionEngine:
             alerts = [a for a in alerts if a.resource_id == resource_id]
 
         # Sort by timestamp, newest first
-        alerts = sorted(alerts, key=lambda a: a.timestamp, reverse=True)
+        _alerts=sorted(alerts, key=lambda a: a.timestamp, reverse=True)
 
         return alerts[:limit]
 
@@ -1038,7 +1086,7 @@ class AnomalyDetectionEngine:
         Returns:
             Statistics dictionary
         """
-        active_alerts = self.get_active_alerts()
+        _active_alerts=self.get_active_alerts()
         _critical_alerts = len(
             [a for a in active_alerts if a.severity == SeverityLevel.CRITICAL]
         )
@@ -1070,24 +1118,24 @@ class AnomalyDetectionEngine:
         if not data:
             return 0.0
 
-        sorted_data = sorted(data)
-        index = (percentile / 100.0) * (len(sorted_data) - 1)
+        _sorted_data=sorted(data)
+        _index=(percentile / 100.0) * (len(sorted_data) - 1)
 
-        if index == int(index):
+        if index== int(index):
             return sorted_data[int(index)]
         else:
-            lower = sorted_data[int(index)]
-            upper = sorted_data[int(index) + 1]
+            _lower=sorted_data[int(index)]
+            _upper=sorted_data[int(index) + 1]
             return lower + (upper - lower) * (index - int(index))
 
-    def _calculate_ewma(self, values: List[float], alpha: float = 0.3) -> float:
+    def _calculate_ewma(self, values: List[float], alpha: float=0.3) -> float:
         """Calculate exponential weighted moving average."""
         if not values:
             return 0.0
 
         ewma = values[0]
         for value in values[1:]:
-            ewma = alpha * value + (1 - alpha) * ewma
+            _ewma=alpha * value + (1 - alpha) * ewma
 
         return ewma
 
@@ -1098,11 +1146,11 @@ class AnomalyDetectionEngine:
         if not values or len(values) < 2:
             return 0.0
 
-        squared_devs = [(v - ewma) ** 2 for v in values]
+        _squared_devs=[(v - ewma) ** 2 for v in values]
         ewma_var = squared_devs[0]
 
         for dev in squared_devs[1:]:
-            ewma_var = alpha * dev + (1 - alpha) * ewma_var
+            _ewma_var=alpha * dev + (1 - alpha) * ewma_var
 
         return math.sqrt(ewma_var)
 
@@ -1111,13 +1159,13 @@ class AnomalyDetectionEngine:
         if len(x) < 2 or len(x) != len(y):
             return 0.0
 
-        n = len(x)
-        mean_x = sum(x) / n
-        mean_y = sum(y) / n
+        _n=len(x)
+        _mean_x=sum(x) / n
+        _mean_y=sum(y) / n
 
-        numerator = sum((x[i] - mean_x) * (y[i] - mean_y) for i in range(n))
-        denom_x = math.sqrt(sum((x[i] - mean_x) ** 2 for i in range(n)))
-        denom_y = math.sqrt(sum((y[i] - mean_y) ** 2 for i in range(n)))
+        _numerator=sum((x[i] - mean_x) * (y[i] - mean_y) for i in range(n))
+        _denom_x=math.sqrt(sum((x[i] - mean_x) ** 2 for i in range(n)))
+        _denom_y=math.sqrt(sum((y[i] - mean_y) ** 2 for i in range(n)))
 
         if denom_x == 0 or denom_y == 0:
             return 0.0
@@ -1143,7 +1191,7 @@ def get_anomaly_engine(
     global _engine
     if _engine is None:
     # Setup default logger
-        logger = logging.getLogger("DebVisor.Anomaly")
+        _logger=logging.getLogger("DebVisor.Anomaly")
         logger.setLevel(logging.INFO)
 
         # Ensure config dir exists for logging
@@ -1151,7 +1199,7 @@ def get_anomaly_engine(
 
         try:
             os.makedirs(config_dir, exist_ok=True)
-            handler = logging.FileHandler(os.path.join(config_dir, "anomaly.log"))
+            _handler=logging.FileHandler(os.path.join(config_dir, "anomaly.log"))
             formatter = logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
@@ -1160,6 +1208,6 @@ def get_anomaly_engine(
         except (OSError, IOError):
             pass
 
-        config = AnomalyConfig(config_dir=config_dir)
-        _engine = AnomalyDetectionEngine(config=config, logger=logger)
+        _config=AnomalyConfig(config_dir=config_dir)
+        _engine=AnomalyDetectionEngine(config=config, logger=logger)
     return _engine

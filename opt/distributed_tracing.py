@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,16 +126,16 @@ except ImportError:
     OTLPSpanExporter = None    # type: ignore
 
 logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Custom Exporter Wrappers for Compatibility
 if _JaegerExporter:
 
     class JaegerExporter(_JaegerExporter):
 
-        def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs):
+        def __init__(self, agent_host_name="localhost", agent_port=6831, **kwargs) -> None:
             super().__init__(
-                agent_host_name=agent_host_name, agent_port=agent_port, **kwargs
+                _agent_host_name=agent_host_name, agent_port=agent_port, **kwargs
             )
             self.agent_host = agent_host_name
             self.agent_port = agent_port
@@ -106,7 +154,7 @@ if _ZipkinExporter:
 
     class ZipkinExporter(_ZipkinExporter):
 
-        def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs):
+        def __init__(self, endpoint="http://localhost:9411/api/v2/spans", **kwargs) -> None:
             super().__init__(endpoint=endpoint, **kwargs)
             self.url = endpoint
             self.traces_buffer = []
@@ -126,17 +174,17 @@ try:
     otlp_endpoint = settings.OTEL_EXPORTER_OTLP_ENDPOINT
     trace_debug = settings.DEBUG
 except ImportError:
-    service_name = os.getenv("DEBVISOR_SERVICE_NAME", "debvisor-core")
-    otlp_endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
-    _trace_debug = os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1"
+    _service_name=os.getenv("DEBVISOR_SERVICE_NAME", "debvisor-core")
+    _otlp_endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
+    _trace_debug=os.getenv("DEBVISOR_TRACE_DEBUG", "0") == "1"
 
-resource = Resource(attributes={SERVICE_NAME: service_name})
-provider = TracerProvider(resource=resource)
+_resource=Resource(attributes={SERVICE_NAME: service_name})
+_provider=TracerProvider(resource=resource)
 
 # Configure Exporters based on Environment
 if otlp_endpoint:
     if OTLPSpanExporter is not None:
-        otlp_exporter = OTLPSpanExporter(endpoint=otlp_endpoint)
+        _otlp_exporter=OTLPSpanExporter(endpoint=otlp_endpoint)
         provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
         logger.info("OTLP exporter configured")
     else:
@@ -145,8 +193,8 @@ if otlp_endpoint:
 if os.getenv("JAEGER_AGENT_HOST"):
     if JaegerExporter is not None:
         jaeger_exporter = JaegerExporter(
-            _agent_host_name = os.getenv("JAEGER_AGENT_HOST", "localhost"),
-            _agent_port = int(os.getenv("JAEGER_AGENT_PORT", 6831)),
+            _agent_host_name=os.getenv("JAEGER_AGENT_HOST", "localhost"),
+            _agent_port=int(os.getenv("JAEGER_AGENT_PORT", 6831)),
         )
         provider.add_span_processor(BatchSpanProcessor(jaeger_exporter))
         logger.info("Jaeger exporter configured")
@@ -198,7 +246,7 @@ class Event:
     ):
         self.name = name
         self.attributes = attributes or {}
-        self.time = time_val or time.time()
+        self.time=time_val or time.time()
 
 
 class Span:
@@ -241,7 +289,7 @@ class Span:
             self._otel_span.set_attribute(key, value)
 
     def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None) -> None:
-        event = Event(name, attributes)
+        _event=Event(name, attributes)
         self.events.append(event)
         if self._otel_span:
             self._otel_span.add_event(name, attributes)
@@ -257,10 +305,10 @@ class Span:
             self._otel_span.set_status(otel_status)
 
     def end(self, end_time: Optional[float] = None) -> None:
-        self.end_time = end_time or time.time()
+        self.end_time=end_time or time.time()
         if self._otel_span:
         # OTel expects nanoseconds int
-            end_time_ns = int(self.end_time * 1e9)
+            _end_time_ns=int(self.end_time * 1e9)
             self._otel_span.end(end_time=end_time_ns)
 
     def __enter__(self) -> "Span":
@@ -279,7 +327,7 @@ class TraceContext:
 
     def __init__(self) -> None:
         self._current_span: Optional[Span] = None
-        self._trace_id: str = uuid.uuid4().hex
+        self._trace_id: str=uuid.uuid4().hex
 
     def set_current_span(self, span: Span) -> None:
         self._current_span = span
@@ -301,7 +349,7 @@ class TraceContext:
 class Tracer:
     """OpenTelemetry tracer wrapper for DebVisor compatibility."""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         """
         Initialize tracer.
 
@@ -309,8 +357,8 @@ class Tracer:
             name: Tracer name (usually service name)
         """
         self.name = name
-        self._tracer = trace.get_tracer(name)
-        self.context = TraceContext()
+        self._tracer=trace.get_tracer(name)
+        self.context=TraceContext()
         self.spans: List[Span] = []
 
     def start_span(
@@ -331,14 +379,14 @@ class Tracer:
         # Reconstruct context from IDs
             try:
             # OTel expects integers for IDs
-                trace_id_int = int(trace_id.replace("-", ""), 16)
-                span_id_int = int(parent_span_id.replace("-", ""), 16)
+                _trace_id_int=int(trace_id.replace("-", ""), 16)
+                _span_id_int=int(parent_span_id.replace("-", ""), 16)
 
                 span_context = trace.SpanContext(
                     _trace_id = trace_id_int,
-                    span_id=span_id_int,
+                    _span_id=span_id_int,
                     _is_remote = True,
-                    _trace_flags = TraceFlags(TraceFlags.SAMPLED),
+                    _trace_flags=TraceFlags(TraceFlags.SAMPLED),
                 )
                 context = trace.set_span_in_context(
                     trace.NonRecordingSpan(span_context)
@@ -348,10 +396,10 @@ class Tracer:
                     f"Invalid trace/span ID format: {trace_id}/{parent_span_id}"
                 )
 
-        otel_span = self._tracer.start_span(name, kind=kind.value, context=context)
+        _otel_span=self._tracer.start_span(name, kind=kind.value, context=context)
 
         # Create custom Span wrapper
-        span_ctx = otel_span.get_span_context()
+        _span_ctx=otel_span.get_span_context()
         # Handle invalid/empty trace/span IDs (e.g. if no-op tracer)
         _t_id = (
             format(span_ctx.trace_id, "032x")
@@ -366,10 +414,10 @@ class Tracer:
 
         span = Span(
             _trace_id = t_id,
-            span_id=s_id,
+            _span_id=s_id,
             _parent_span_id = parent_span_id,
             _name = name,
-            _start_time = time.time(),
+            _start_time=time.time(),
             _kind = kind,
         )
         span._otel_span = otel_span
@@ -396,11 +444,11 @@ class Tracer:
         span.set_status(status, description)
         span.end()
 
-    def create_child_span(self, name: str, kind: SpanKind = SpanKind.INTERNAL) -> Span:
+    def create_child_span(self, name: str, kind: SpanKind=SpanKind.INTERNAL) -> Span:
         """
         Create child span of current active span.
         """
-        parent = self.context.get_current_span()
+        _parent=self.context.get_current_span()
         parent_id = parent.span_id if parent else None
         trace_id = parent.trace_id if parent else None
         return self.start_span(name, kind, trace_id, parent_id)
@@ -422,7 +470,7 @@ class Tracer:
 class TracingDecorator:
     """Decorator for automatic tracing."""
 
-    def __init__(self, tracer: Tracer):
+    def __init__(self, tracer: Tracer) -> None:
         """
         Initialize decorator.
 
@@ -451,14 +499,14 @@ class TracingDecorator:
             def wrapper(*args: Any, **kwargs: Any) -> Any:
                 span_name = name or func.__name__
 
-                span = self.tracer.start_span(span_name, kind=kind)
+                _span=self.tracer.start_span(span_name, kind=kind)
                 try:
                 # Add function arguments to span
                     span.set_attribute("function", func.__name__)
                     span.set_attribute("args_count", len(args))
                     span.set_attribute("kwargs_count", len(kwargs))
 
-                    result = func(*args, **kwargs)
+                    _result=func(*args, **kwargs)
 
                     span.add_event("completed")
                     self.tracer.end_span(span, SpanStatus.OK)
@@ -484,13 +532,13 @@ class TracingDecorator:
             async def wrapper(*args: Any, **kwargs: Any) -> Any:
                 span_name = name or func.__name__
 
-                span = self.tracer.start_span(span_name, kind=kind)
+                _span=self.tracer.start_span(span_name, kind=kind)
                 try:
                     span.set_attribute("function", func.__name__)
                     span.set_attribute("args_count", len(args))
                     span.set_attribute("kwargs_count", len(kwargs))
 
-                    result = await func(*args, **kwargs)
+                    _result=await func(*args, **kwargs)
 
                     span.add_event("completed")
                     self.tracer.end_span(span, SpanStatus.OK)
@@ -508,19 +556,19 @@ class TracingDecorator:
 class TracingMiddleware:
     """Middleware for request tracing."""
 
-    def __init__(self, tracer: Tracer):
+    def __init__(self, tracer: Tracer) -> None:
         self.tracer = tracer
 
     def trace_request(
         self, request_id: Optional[str] = None, name: str = "http_request"
     ) -> Tuple[str, Callable[[int, Optional[str]], None]]:
         if not request_id:
-            request_id = str(uuid.uuid4())
+            _request_id=str(uuid.uuid4())
 
         # Start span
-        span = self.tracer.start_span(name, trace_id=request_id)
+        _span=self.tracer.start_span(name, trace_id=request_id)
 
-        def cleanup(status_code: int = 200, error: Optional[str] = None) -> None:
+        def cleanup(status_code: int=200, error: Optional[str] = None) -> None:
             status = SpanStatus.OK if status_code < 400 else SpanStatus.ERROR
             self.tracer.end_span(span, status=status, description=error)
 

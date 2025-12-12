@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,9 +142,9 @@ except ImportError:
     sys.exit(1)
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - DISCOVERY - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - DISCOVERY - %(levelname)s - %(message)s"
 )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 SERVICE_TYPE = "_debvisor._tcp.local."
 
@@ -112,9 +160,9 @@ class DebVisorListener(ServiceListener):
             del self.nodes[name]
 
     def add_service(self, zeroconf: Zeroconf, type: str, name: str) -> None:
-        info = zeroconf.get_service_info(type, name)
+        _info=zeroconf.get_service_info(type, name)
         if info:
-            _address = socket.inet_ntoa(info.addresses[0])
+            _address=socket.inet_ntoa(info.addresses[0])
             _port = info.port
             # Decode properties if any
             props = {
@@ -138,23 +186,23 @@ class DebVisorListener(ServiceListener):
         pass
 
 
-def advertise_self(role: str = "worker", status: str = "ready") -> None:
+def advertise_self(role: str="worker", status: str="ready") -> None:
     """Advertise this node to the network."""
-    hostname = socket.gethostname()
-    local_ip = get_local_ip()
+    _hostname=socket.gethostname()
+    _local_ip=get_local_ip()
 
     desc = {"role": role, "status": status, "version": "0.1.0"}
 
     _info = ServiceInfo(
         SERVICE_TYPE,
         f"{hostname}.{SERVICE_TYPE}",
-        _addresses = [socket.inet_aton(local_ip)],
+        _addresses=[socket.inet_aton(local_ip)],
         _port = 22,    # Advertising SSH port as the entry point
         _properties = desc,
         _server = f"{hostname}.local.",
     )
 
-    zeroconf = Zeroconf()
+    _zeroconf=Zeroconf()
     logger.info(f"Advertising {hostname} as {role} on {local_ip}...")
     zeroconf.register_service(info)
 
@@ -169,10 +217,10 @@ def advertise_self(role: str = "worker", status: str = "ready") -> None:
         zeroconf.close()
 
 
-def discover_nodes(timeout: int = 5) -> List[Dict[str, Any]]:
+def discover_nodes(timeout: int=5) -> List[Dict[str, Any]]:
     """Scan for other nodes for a set duration."""
-    zeroconf = Zeroconf()
-    listener = DebVisorListener()
+    _zeroconf=Zeroconf()
+    _listener=DebVisorListener()
     ServiceBrowser(zeroconf, SERVICE_TYPE, listener)
 
     logger.info(f"Scanning for DebVisor nodes for {timeout} seconds...")
@@ -184,11 +232,11 @@ def discover_nodes(timeout: int = 5) -> List[Dict[str, Any]]:
 
 def get_local_ip() -> str:
     """Best effort to get the primary LAN IP."""
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    _s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
     # doesn't even have to be reachable
         s.connect(("10.255.255.255", 1))
-        IP = s.getsockname()[0]
+        IP=s.getsockname()[0]
     except Exception:
         IP = "127.0.0.1"
     finally:
@@ -199,23 +247,23 @@ def get_local_ip() -> str:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="DebVisor Zero-Touch Discovery")
-    subparsers = parser.add_subparsers(dest="command")
+    _parser=argparse.ArgumentParser(description="DebVisor Zero-Touch Discovery")
+    _subparsers=parser.add_subparsers(dest="command")
 
-    advertise_parser = subparsers.add_parser("advertise", help="Advertise this node")
+    _advertise_parser=subparsers.add_parser("advertise", help="Advertise this node")
     advertise_parser.add_argument(
         "--role", default="worker", help="Node role (controller/worker)"
     )
 
-    scan_parser = subparsers.add_parser("scan", help="Scan for nodes")
+    _scan_parser=subparsers.add_parser("scan", help="Scan for nodes")
     scan_parser.add_argument("--timeout", type=int, default=5, help="Scan duration")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if args.command == "advertise":
         advertise_self(role=args.role)
     elif args.command == "scan":
-        nodes = discover_nodes(args.timeout)
+        _nodes=discover_nodes(args.timeout)
         print(json.dumps(nodes, indent=2))
     else:
         parser.print_help()

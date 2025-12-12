@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +150,7 @@ from enum import Enum
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class ReportFrequency(Enum):
@@ -150,9 +198,9 @@ class ScheduledReport:
     frequency: ReportFrequency
     recipients: List[str]
     enabled: bool = True
-    next_run: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    next_run: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     last_run: Optional[datetime] = None
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     parameters: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -168,7 +216,7 @@ class GeneratedReport:
     status: ReportStatus
     content: Optional[str] = None
     file_path: Optional[str] = None
-    generated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    generated_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     delivered_at: Optional[datetime] = None
     delivery_attempts: int = 0
     error_message: Optional[str] = None
@@ -233,7 +281,7 @@ class EmailNotifier:
         """
         try:
         # Create email
-            msg = MIMEMultipart()
+            _msg=MIMEMultipart()
             msg["From"] = self.from_address
             msg["To"] = ", ".join(recipients)
             msg["Subject"] = subject
@@ -303,7 +351,7 @@ class ReportScheduler:
         Args:
             email_notifier: EmailNotifier instance for sending reports
         """
-        self.email_notifier = email_notifier or EmailNotifier()
+        self.email_notifier=email_notifier or EmailNotifier()
         self.scheduled_reports: Dict[str, ScheduledReport] = {}
         self.generated_reports: List[GeneratedReport] = []
         self.report_templates: Dict[str, ReportTemplate] = {}
@@ -361,10 +409,10 @@ class ReportScheduler:
             raise ValueError(f"Unknown template: {template_id}")
 
         scheduled_report = ScheduledReport(
-            report_id=report_id,
-            name=name,
+            _report_id=report_id,
+            _name=name,
             _template_id = template_id,
-            frequency=frequency,
+            _frequency=frequency,
             _recipients = recipients,
             _parameters = parameters or {},
         )
@@ -389,22 +437,22 @@ class ReportScheduler:
         import uuid
 
         report_instance = GeneratedReport(
-            _report_instance_id = str(uuid.uuid4()),
+            _report_instance_id=str(uuid.uuid4()),
             _scheduled_report_id = scheduled_report.report_id,
-            template_id=scheduled_report.template_id,
+            _template_id=scheduled_report.template_id,
             _status = ReportStatus.GENERATING,
         )
 
         try:
         # Get generation callback
-            callback = self.generation_callbacks.get(scheduled_report.template_id)
+            _callback=self.generation_callbacks.get(scheduled_report.template_id)
             if not callback:
                 raise ValueError(
                     f"No generation callback for template {scheduled_report.template_id}"
                 )
 
             # Generate content
-            content = callback(scheduled_report)
+            _content=callback(scheduled_report)
 
             report_instance.content = content
             report_instance.status = ReportStatus.COMPLETED
@@ -413,7 +461,7 @@ class ReportScheduler:
 
         except Exception as e:
             report_instance.status = ReportStatus.FAILED
-            report_instance.error_message = str(e)
+            report_instance.error_message=str(e)
             logger.error(f"Failed to generate report {scheduled_report.name}: {e}")
 
         self.generated_reports.append(report_instance)
@@ -449,7 +497,7 @@ class ReportScheduler:
         )
 
         if success:
-            generated_report.delivered_at = datetime.now(timezone.utc)
+            generated_report.delivered_at=datetime.now(timezone.utc)
             generated_report.status = ReportStatus.DELIVERED
             logger.info(f"Delivered report {generated_report.report_instance_id}")
         else:
@@ -475,7 +523,7 @@ class ReportScheduler:
         Returns:
             Execution summary
         """
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         _executed = []
         _failed = []
 
@@ -488,7 +536,7 @@ class ReportScheduler:
 
             try:
             # Generate report
-                generated_report = self.generate_report(scheduled_report)
+                _generated_report=self.generate_report(scheduled_report)
 
                 # Deliver report
                 if generated_report.status == ReportStatus.COMPLETED:
@@ -571,7 +619,7 @@ class ReportScheduler:
 
     def get_scheduler_status(self) -> Dict[str, Any]:
         """Get scheduler status and statistics."""
-        _total_reports = len(self.generated_reports)
+        _total_reports=len(self.generated_reports)
         _delivered = len(
             [r for r in self.generated_reports if r.status == ReportStatus.DELIVERED]
         )

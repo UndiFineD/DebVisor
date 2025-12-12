@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 import json
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -243,7 +291,7 @@ class PowerMonitor:
     - BMC/iDRAC/iLO (for comprehensive datacenter power)
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.metrics_history: List[PowerMetrics] = []
         self.thermal_history: List[ThermalMetrics] = []
         self.collection_interval: int = 60  #
@@ -251,29 +299,29 @@ class PowerMonitor:
 
     def _prune_history(self) -> None:
         """Remove metrics older than max_history_hours."""
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=self.max_history_hours)
+        _cutoff=datetime.now(timezone.utc) - timedelta(hours=self.max_history_hours)
         self.metrics_history = [m for m in self.metrics_history if m.timestamp > cutoff]
         self.thermal_history = [m for m in self.thermal_history if m.timestamp > cutoff]
 
     async def collect_power_metrics(self) -> List[PowerMetrics]:
         """Collect current power metrics from all components."""
         metrics = []
-        timestamp = datetime.now(timezone.utc)
+        _timestamp=datetime.now(timezone.utc)
 
         # CPU power
-        cpu_power = await self._read_cpu_power()
+        _cpu_power=await self._read_cpu_power()
         if cpu_power:
             metrics.append(PowerMetrics(
                 _component_type = ComponentType.CPU,
                 _component_id = "cpu0",
                 _timestamp = timestamp,
                 _power_watts = cpu_power["power"],
-                _temperature_celsius = cpu_power.get("temperature"),
-                _utilization_percent = cpu_power.get("utilization"),
+                _temperature_celsius=cpu_power.get("temperature"),
+                _utilization_percent=cpu_power.get("utilization"),
             ))
 
         # RAM power (estimated)
-        ram_power = await self._estimate_ram_power()
+        _ram_power=await self._estimate_ram_power()
         if ram_power:
             metrics.append(PowerMetrics(
                 _component_type = ComponentType.RAM,
@@ -283,7 +331,7 @@ class PowerMonitor:
             ))
 
         # Disk power
-        disk_metrics = await self._read_disk_power()
+        _disk_metrics=await self._read_disk_power()
         for disk_id, disk_power in disk_metrics.items():
             metrics.append(PowerMetrics(
                 _component_type = ComponentType.DISK,
@@ -293,15 +341,15 @@ class PowerMonitor:
             ))
 
         # GPU power
-        gpu_metrics = await self._read_gpu_power()
+        _gpu_metrics=await self._read_gpu_power()
         for gpu_id, gpu_data in gpu_metrics.items():
             metrics.append(PowerMetrics(
                 _component_type = ComponentType.GPU,
                 _component_id = gpu_id,
                 _timestamp = timestamp,
                 _power_watts = gpu_data["power"],
-                _temperature_celsius = gpu_data.get("temperature"),
-                _utilization_percent = gpu_data.get("utilization"),
+                _temperature_celsius=gpu_data.get("temperature"),
+                _utilization_percent=gpu_data.get("utilization"),
             ))
 
         self.metrics_history.extend(metrics)
@@ -311,7 +359,7 @@ class PowerMonitor:
         """Read CPU power using Intel RAPL or similar."""
         try:
         # Try Intel RAPL first
-            rapl_path = Path("/sys/class/powercap/intel-rapl/intel-rapl:0")
+            _rapl_path=Path("/sys/class/powercap/intel-rapl/intel-rapl:0")
             if rapl_path.exists():
                 energy_uj_file = rapl_path / "energy_uj"
                 if energy_uj_file.exists():
@@ -320,14 +368,14 @@ class PowerMonitor:
                         self._last_rapl_reading = None
                         self._last_rapl_time = None
 
-                    energy_uj = int(energy_uj_file.read_text().strip())
-                    current_time = datetime.now(timezone.utc)
+                    _energy_uj=int(energy_uj_file.read_text().strip())
+                    _current_time=datetime.now(timezone.utc)
 
                     if self._last_rapl_reading is not None and self._last_rapl_time is not None:
                         delta_energy_uj = energy_uj - self._last_rapl_reading
-                        delta_time_s = (current_time - self._last_rapl_time).total_seconds()
+                        _delta_time_s=(current_time - self._last_rapl_time).total_seconds()
                         if delta_time_s > 0:
-                            power_watts = (delta_energy_uj / 1_000_000) / delta_time_s
+                            _power_watts=(delta_energy_uj / 1_000_000) / delta_time_s
                         else:
                             power_watts = 45.0  # fallback
                     else:
@@ -343,10 +391,10 @@ class PowerMonitor:
                     }
 
             # Fallback to estimation based on utilization
-            utilization = await self._read_cpu_utilization()
+            _utilization=await self._read_cpu_utilization()
             if utilization is not None:
             # Estimate: 65W TDP * utilization
-                estimated_power = 65.0 * (utilization / 100.0)
+                _estimated_power=65.0 * (utilization / 100.0)
                 return {
                     "power": estimated_power,
                     "temperature": await self._read_cpu_temp(),
@@ -368,7 +416,7 @@ class PowerMonitor:
 
             for temp_path in temp_paths:
                 if Path(temp_path).exists():
-                    temp_millicelsius = int(Path(temp_path).read_text().strip())
+                    _temp_millicelsius=int(Path(temp_path).read_text().strip())
                     return temp_millicelsius / 1000.0
         except Exception as e:
             logger.debug(f"Error reading CPU temperature: {e}")
@@ -393,10 +441,10 @@ class PowerMonitor:
         """Estimate RAM power consumption."""
         try:
             import psutil
-            mem = psutil.virtual_memory()
+            _mem=psutil.virtual_memory()
             # Typical DDR4: ~3W per 8GB stick
-            total_gb = mem.total / (1024 ** 3)
-            estimated_power = (total_gb / 8.0) * 3.0
+            _total_gb=mem.total / (1024 ** 3)
+            _estimated_power=(total_gb / 8.0) * 3.0
             return estimated_power
         except Exception as e:
             logger.debug(f"Error estimating RAM power: {e}")
@@ -447,7 +495,7 @@ class PowerMonitor:
             if result.returncode == 0:
                 for line in result.stdout.strip().split("\n"):
                     if line:
-                        parts = [p.strip() for p in line.split(",")]
+                        _parts=[p.strip() for p in line.split(",")]
                         if len(parts) >= 4:
                             gpu_id = f"gpu{parts[0]}"
                             gpu_metrics[gpu_id] = {
@@ -463,21 +511,21 @@ class PowerMonitor:
     async def collect_thermal_metrics(self) -> List[ThermalMetrics]:
         """Collect thermal metrics from system sensors."""
         _metrics = []
-        _timestamp = datetime.now(timezone.utc)
+        _timestamp=datetime.now(timezone.utc)
 
         try:
         # Read from hwmon
-            hwmon_path = Path("/sys/class/hwmon")
+            _hwmon_path=Path("/sys/class/hwmon")
             if hwmon_path.exists():
                 for hwmon_dir in hwmon_path.iterdir():
                     name_file = hwmon_dir / "name"
                     if name_file.exists():
-                        sensor_name = name_file.read_text().strip()
+                        _sensor_name=name_file.read_text().strip()
 
                         # Find temperature inputs
                         for temp_file in hwmon_dir.glob("temp*_input"):
                             try:
-                                temp_millicelsius = int(temp_file.read_text().strip())
+                                _temp_millicelsius=int(temp_file.read_text().strip())
                                 temp_celsius = temp_millicelsius / 1000.0
 
                                 metric = ThermalMetrics(
@@ -526,10 +574,10 @@ class CarbonIntensityService:
     - Custom regional data
     """
 
-    def __init__(self, region: str = "US-CA"):
+    def __init__(self, region: str="US-CA") -> None:
         self.region = region
         self.cache: Optional[CarbonIntensity] = None
-        self.cache_duration = timedelta(hours=1)
+        self.cache_duration=timedelta(hours=1)
 
     async def get_carbon_intensity(self) -> CarbonIntensity:
         """Get current carbon intensity for the region."""
@@ -538,7 +586,7 @@ class CarbonIntensityService:
             return self.cache
 
         # Try to fetch from API
-        intensity = await self._fetch_from_api()
+        _intensity=await self._fetch_from_api()
 
         if intensity:
             self.cache = intensity
@@ -569,11 +617,11 @@ class CarbonIntensityService:
             "GLOBAL": 475, # Global average
         }
 
-        intensity = regional_data.get(self.region, regional_data["GLOBAL"])
+        _intensity=regional_data.get(self.region, regional_data["GLOBAL"])
 
         return CarbonIntensity(
-            region=self.region,
-            _timestamp = datetime.now(timezone.utc),
+            _region=self.region,
+            _timestamp=datetime.now(timezone.utc),
             _grams_co2_per_kwh = intensity,
             _source = "regional_average",
         )
@@ -587,7 +635,7 @@ class CarbonFootprintCalculator:
     Calculates carbon footprint from energy consumption.
     """
 
-    def __init__(self, carbon_service: CarbonIntensityService):
+    def __init__(self, carbon_service: CarbonIntensityService) -> None:
         self.carbon_service = carbon_service
 
     async def calculate_footprint(
@@ -596,7 +644,7 @@ class CarbonFootprintCalculator:
     ) -> CarbonFootprint:
         """Calculate carbon footprint for energy consumption."""
         # Get carbon intensity
-        intensity = await self.carbon_service.get_carbon_intensity()
+        _intensity=await self.carbon_service.get_carbon_intensity()
 
         # Calculate total carbon
         total_carbon_grams = energy.total_energy_kwh * intensity.grams_co2_per_kwh
@@ -611,12 +659,12 @@ class CarbonFootprintCalculator:
         return CarbonFootprint(
             _start_time = energy.start_time,
             _end_time = energy.end_time,
-            energy_kwh=energy.total_energy_kwh,
+            _energy_kwh=energy.total_energy_kwh,
             _carbon_intensity_avg = intensity.grams_co2_per_kwh,
             _total_carbon_kg = total_carbon_kg,
             _equivalent_km_driven = equivalent_km_driven,
             _equivalent_trees = equivalent_trees,
-            component_breakdown={
+            _component_breakdown={
                 comp_type: (energy_kwh / 1000.0) * intensity.grams_co2_per_kwh
                 for comp_type, energy_kwh in energy.component_breakdown.items()
             },
@@ -647,9 +695,9 @@ class CarbonFootprintCalculator:
 
         if not metrics_in_range:
             return EnergyConsumption(
-                start_time=start_time,
-                end_time=end_time,
-                duration_hours=0,
+                _start_time=start_time,
+                _end_time=end_time,
+                _duration_hours=0,
                 _total_energy_kwh = 0,
                 _average_power_watts = 0,
                 _peak_power_watts = 0,
@@ -657,7 +705,7 @@ class CarbonFootprintCalculator:
 
         # Calculate duration
         duration = end_time - start_time
-        _duration_hours = duration.total_seconds() / 3600.0
+        _duration_hours=duration.total_seconds() / 3600.0
 
         # Group metrics by timestamp and sum component power per timestamp
         timestamp_power: Dict[datetime, float] = {}
@@ -667,7 +715,7 @@ class CarbonFootprintCalculator:
             timestamp_power[m.timestamp] += m.power_watts
 
         # Get per-timestamp system power values
-        system_power_samples = list(timestamp_power.values())
+        _system_power_samples=list(timestamp_power.values())
 
         if not system_power_samples:
             return EnergyConsumption(
@@ -680,21 +728,21 @@ class CarbonFootprintCalculator:
             )
 
         # Calculate average power from per-timestamp system power
-        average_power = sum(system_power_samples) / len(system_power_samples)
+        _average_power=sum(system_power_samples) / len(system_power_samples)
 
         # Calculate peak power from per-timestamp system power
-        _peak_power = max(system_power_samples)
+        _peak_power=max(system_power_samples)
 
         # Calculate total energy (kWh)
-        _total_energy_kwh = (average_power * duration_hours) / 1000.0
+        _total_energy_kwh=(average_power * duration_hours) / 1000.0
 
         # Component breakdown
         component_breakdown = {}
         for comp_type in ComponentType:
             comp_metrics = [m for m in metrics_in_range if m.component_type == comp_type]
             if comp_metrics:
-                comp_avg_power = sum(m.power_watts for m in comp_metrics) / len(comp_metrics)
-                comp_energy_kwh = (comp_avg_power * duration_hours) / 1000.0
+                _comp_avg_power=sum(m.power_watts for m in comp_metrics) / len(comp_metrics)
+                _comp_energy_kwh=(comp_avg_power * duration_hours) / 1000.0
                 component_breakdown[comp_type] = comp_energy_kwh
 
         return EnergyConsumption(
@@ -716,7 +764,7 @@ class EnergyEfficiencyAnalyzer:
     Analyzes energy efficiency and provides recommendations.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.recommendations: List[EnergyRecommendation] = []
 
     def analyze_efficiency(
@@ -729,7 +777,7 @@ class EnergyEfficiencyAnalyzer:
             return EnergyEfficiencyRating.MODERATE, []
 
         # Calculate average power
-        avg_power = sum(m.power_watts for m in metrics) / len(metrics)
+        _avg_power=sum(m.power_watts for m in metrics) / len(metrics)
 
         # Determine rating
         if avg_power < 50:
@@ -749,7 +797,7 @@ class EnergyEfficiencyAnalyzer:
         # Check CPU power
         cpu_metrics = [m for m in metrics if m.component_type == ComponentType.CPU]
         if cpu_metrics:
-            avg_cpu_power = sum(m.power_watts for m in cpu_metrics) / len(cpu_metrics)
+            _avg_cpu_power=sum(m.power_watts for m in cpu_metrics) / len(cpu_metrics)
             avg_cpu_util = sum(
                 m.utilization_percent for m in cpu_metrics if m.utilization_percent
             ) / max(len([m for m in cpu_metrics if m.utilization_percent]), 1)
@@ -772,7 +820,7 @@ class EnergyEfficiencyAnalyzer:
 
         # Check thermal efficiency
         if thermal_metrics:
-            avg_temp = sum(m.temperature_celsius for m in thermal_metrics) / len(thermal_metrics)
+            _avg_temp=sum(m.temperature_celsius for m in thermal_metrics) / len(thermal_metrics)
 
             if avg_temp > 70:
                 recommendations.append(EnergyRecommendation(
@@ -800,23 +848,23 @@ class CarbonTelemetryService:
     Main service for carbon and energy telemetry.
     """
 
-    def __init__(self, region: str = "US-CA"):
-        self.power_monitor = PowerMonitor()
-        self.carbon_service = CarbonIntensityService(region)
-        self.footprint_calculator = CarbonFootprintCalculator(self.carbon_service)
-        self.efficiency_analyzer = EnergyEfficiencyAnalyzer()
+    def __init__(self, region: str="US-CA") -> None:
+        self.power_monitor=PowerMonitor()
+        self.carbon_service=CarbonIntensityService(region)
+        self.footprint_calculator=CarbonFootprintCalculator(self.carbon_service)
+        self.efficiency_analyzer=EnergyEfficiencyAnalyzer()
         self._running = False
 
     async def collect_metrics(self) -> Tuple[List[PowerMetrics], List[ThermalMetrics]]:
         """Collect all metrics."""
-        power_metrics = await self.power_monitor.collect_power_metrics()
-        thermal_metrics = await self.power_monitor.collect_thermal_metrics()
+        _power_metrics=await self.power_monitor.collect_power_metrics()
+        _thermal_metrics=await self.power_monitor.collect_thermal_metrics()
         return power_metrics, thermal_metrics
 
-    async def get_current_footprint(self, duration_minutes: int = 60) -> CarbonFootprint:
+    async def get_current_footprint(self, duration_minutes: int=60) -> CarbonFootprint:
         """Get carbon footprint for the specified duration."""
-        end_time = datetime.now(timezone.utc)
-        start_time = end_time - timedelta(minutes=duration_minutes)
+        _end_time=datetime.now(timezone.utc)
+        _start_time=end_time - timedelta(minutes=duration_minutes)
 
         # Get metrics from history
         recent_metrics = [
@@ -837,7 +885,7 @@ class CarbonTelemetryService:
     async def get_efficiency_report(self) -> Dict[str, Any]:
         """Get comprehensive efficiency report."""
         # Collect current metrics
-        power_metrics, thermal_metrics = await self.collect_metrics()
+        power_metrics, thermal_metrics=await self.collect_metrics()
 
         # Analyze efficiency
         rating, recommendations = self.efficiency_analyzer.analyze_efficiency(
@@ -846,7 +894,7 @@ class CarbonTelemetryService:
         )
 
         # Get footprint
-        footprint = await self.get_current_footprint(60)
+        _footprint=await self.get_current_footprint(60)
 
         return {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -892,11 +940,11 @@ class CarbonTelemetryService:
 
 async def main():
     """Example usage of carbon telemetry."""
-    service = CarbonTelemetryService(region="US-CA")
+    _service=CarbonTelemetryService(region="US-CA")
 
     # Collect metrics
     print("Collecting power and thermal metrics...")
-    power_metrics, thermal_metrics = await service.collect_metrics()
+    power_metrics, thermal_metrics=await service.collect_metrics()
 
     print(f"\nPower Metrics ({len(power_metrics)} components):")
     for metric in power_metrics:
@@ -904,12 +952,12 @@ async def main():
         if metric.temperature_celsius:
             print(f"    Temperature: {metric.temperature_celsius:.1f}°C")
 
-    total_power = service.power_monitor.get_total_power(power_metrics)
+    _total_power=service.power_monitor.get_total_power(power_metrics)
     print(f"\nTotal Power Consumption: {total_power:.2f}W")
 
     # Get footprint
     print("\nCalculating carbon footprint...")
-    footprint = await service.get_current_footprint(60)
+    _footprint=await service.get_current_footprint(60)
 
     print("\nCarbon Footprint (last hour):")
     print(f"  Energy: {footprint.energy_kwh:.4f} kWh")
@@ -918,7 +966,7 @@ async def main():
     print(f"  Trees needed to offset: {footprint.equivalent_trees:.4f}")
 
     # Get efficiency report
-    report = await service.get_efficiency_report()
+    _report=await service.get_efficiency_report()
 
     print(f"\nEfficiency Rating: {report['efficiency_rating'].upper()}")
     if report['recommendations']:

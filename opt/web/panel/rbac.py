@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,10 +145,10 @@ from flask import abort
 if TYPE_CHECKING:
     from flask import Flask
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Type variable for decorated functions
-F = TypeVar("F", bound=Callable[..., Any])
+F=TypeVar("F", bound=Callable[..., Any])
 
 
 class Role(Enum):
@@ -199,7 +247,7 @@ class PermissionChecker:
             role: The user's role
         """
         self.role = role
-        self.permissions = ROLE_PERMISSIONS.get(role, set())
+        self.permissions=ROLE_PERMISSIONS.get(role, set())
 
     def can(self, resource: Resource, action: Action) -> bool:
         """
@@ -245,7 +293,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
         @app.route('/nodes')
         @require_permission(Resource.NODE, Action.READ)
 
-        def list_nodes():
+        def list_nodes() -> None:
             return jsonify(nodes)
     """
 
@@ -260,7 +308,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
                 abort(401)
 
             # Check permission
-            checker = PermissionChecker(Role(current_user.role))
+            _checker=PermissionChecker(Role(current_user.role))
             if not checker.can(resource, action):
                 logger.warning(
                     f"Permission denied: user {current_user.email} "
@@ -295,7 +343,7 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
             (Resource.SYSTEM, Action.READ)
         )
 
-        def get_audit_log():
+        def get_audit_log() -> None:
             return jsonify(events)
     """
 
@@ -308,7 +356,7 @@ def require_any_permission(*permissions: Tuple[Resource, Action]) -> Callable[[F
             if not current_user.is_authenticated:
                 abort(401)
 
-            checker = PermissionChecker(Role(current_user.role))
+            _checker=PermissionChecker(Role(current_user.role))
 
             has_permission = any(
                 checker.can(resource, action) for resource, action in permissions
@@ -341,7 +389,7 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
         @app.route('/users', methods=['POST'])
         @require_role(Role.ADMIN)
 
-        def create_user():
+        def create_user() -> None:
             return jsonify(user)
     """
 
@@ -354,7 +402,7 @@ def require_role(*allowed_roles: Role) -> Callable[[F], F]:
             if not current_user.is_authenticated:
                 abort(401)
 
-            user_role = Role(current_user.role)
+            _user_role=Role(current_user.role)
             if user_role not in allowed_roles:
                 logger.warning(
                     f"Role check failed: user {current_user.email} "
@@ -442,7 +490,7 @@ def require_attribute_permission(
         @app.route('/nodes/<node_id>')
         @require_attribute_permission(Resource.NODE, Action.UPDATE, 'node')
 
-        def update_node(node_id, node=None):
+        def update_node(node_id, node=None) -> None:
             return jsonify(node)
     """
 
@@ -456,12 +504,12 @@ def require_attribute_permission(
                 abort(401)
 
             # Get the object being accessed from kwargs
-            obj = kwargs.get(context_key)
+            _obj=kwargs.get(context_key)
             if not obj:
                 abort(400)
 
             # Check RBAC first
-            role_checker = PermissionChecker(Role(current_user.role))
+            _role_checker=PermissionChecker(Role(current_user.role))
             if not role_checker.can(resource, action):
                 abort(403)
 

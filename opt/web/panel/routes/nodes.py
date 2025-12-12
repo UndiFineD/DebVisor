@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +137,7 @@ from opt.web.panel.extensions import db, limiter
 from opt.web.panel.rbac import require_permission, Resource, Action
 
 # Create blueprint
-nodes_bp = Blueprint("nodes", __name__, url_prefix="/nodes")
+_nodes_bp=Blueprint("nodes", __name__, url_prefix="/nodes")
 
 
 @nodes_bp.route("/", methods=["GET"])
@@ -103,15 +151,15 @@ def list_nodes() -> Any:
 
     GET: Display paginated node list
     """
-    page = request.args.get("page", 1, type=int)
+    _page=request.args.get("page", 1, type=int)
     per_page = 20
-    status_filter = request.args.get("status", None)
+    _status_filter=request.args.get("status", None)
 
     query = Node.query
     if status_filter:
-        query = query.filter_by(status=status_filter)
+        _query=query.filter_by(status=status_filter)
 
-    pagination = query.order_by(Node.updated_at.desc()).paginate(
+    _pagination=query.order_by(Node.updated_at.desc()).paginate(
         _page = page, per_page=per_page
     )
     _nodes = pagination.items
@@ -122,13 +170,13 @@ def list_nodes() -> Any:
         _operation = "read",
         _resource_type = "node",
         _action = "Viewed node list",
-        status="success",
+        _status="success",
         _ip_address = request.remote_addr,
     )
 
     return render_template(
         "nodes/list.html",
-        nodes=nodes,
+        _nodes=nodes,
         _pagination = pagination,
         _status_filter = status_filter,
     )
@@ -145,7 +193,7 @@ def view_node(node_id: int) -> Any:
 
     GET: Display node information and status
     """
-    node = Node.query.get(node_id)
+    _node=Node.query.get(node_id)
     if not node:
         flash("Node not found", "error")
         return redirect(url_for("nodes.list_nodes"))
@@ -160,7 +208,7 @@ def view_node(node_id: int) -> Any:
         _resource_type = "node",
         _action = f"Viewed node details: {node.hostname}",
         _status = "success",
-        _resource_id = str(node_id),
+        _resource_id=str(node_id),
         _ip_address = request.remote_addr,
     )
 
@@ -180,13 +228,13 @@ def register_node() -> Any:
     POST: Register node with RPC service
     """
     if request.method == "POST":
-        _hostname = request.form.get("hostname", "").strip().lower()
-        _ip_address = request.form.get("ip_address", "").strip()
-        _cpu_cores = request.form.get("cpu_cores", type=int, default=0)
-        _memory_gb = request.form.get("memory_gb", type=int, default=0)
-        _storage_gb = request.form.get("storage_gb", type=int, default=0)
-        _region = request.form.get("region", "").strip()
-        _rack = request.form.get("rack", "").strip()
+        _hostname=request.form.get("hostname", "").strip().lower()
+        _ip_address=request.form.get("ip_address", "").strip()
+        _cpu_cores=request.form.get("cpu_cores", type=int, default=0)
+        _memory_gb=request.form.get("memory_gb", type=int, default=0)
+        _storage_gb=request.form.get("storage_gb", type=int, default=0)
+        _region=request.form.get("region", "").strip()
+        _rack=request.form.get("rack", "").strip()
 
         # Validate input
         errors = []
@@ -213,7 +261,7 @@ def register_node() -> Any:
 
         try:
         # Register with RPC service
-            rpc_client = get_rpc_client()
+            _rpc_client=get_rpc_client()
             _rpc_response = rpc_client.register_node(
                 _hostname = hostname,
                 _ip_address = ip_address,
@@ -226,7 +274,7 @@ def register_node() -> Any:
 
             # Save node to database
             node = Node(
-                _node_id = rpc_response.get("node_id"),
+                _node_id=rpc_response.get("node_id"),
                 _hostname = hostname,
                 _ip_address = ip_address,
                 _cpu_cores = cpu_cores,
@@ -246,7 +294,7 @@ def register_node() -> Any:
                 _resource_type = "node",
                 _action = f"Registered node: {hostname}",
                 _status = "success",
-                _resource_id = str(node.id),
+                _resource_id=str(node.id),
                 _rpc_method = "RegisterNode",
                 _ip_address = request.remote_addr,
             )
@@ -262,7 +310,7 @@ def register_node() -> Any:
                 _resource_type = "node",
                 _action = f"Failed to register node: {hostname}",
                 _status = "failure",
-                _error_message = str(e),
+                _error_message=str(e),
                 _rpc_method = "RegisterNode",
                 _ip_address = request.remote_addr,
             )
@@ -281,13 +329,13 @@ def send_heartbeat(node_id: int) -> Any:
 
     POST: Update node status
     """
-    node = Node.query.get(node_id)
+    _node=Node.query.get(node_id)
     if not node:
         return jsonify({"error": "Node not found"}), 404
 
     try:
     # Send heartbeat to RPC service
-        rpc_client = get_rpc_client()
+        _rpc_client=get_rpc_client()
         rpc_client.heartbeat(node.node_id, {})
 
         # Update node status
@@ -299,8 +347,8 @@ def send_heartbeat(node_id: int) -> Any:
             _operation = "execute",
             _resource_type = "node",
             _action = f"Sent heartbeat to node: {node.hostname}",
-            status="success",
-            _resource_id = str(node_id),
+            _status="success",
+            _resource_id=str(node_id),
             _rpc_method = "Heartbeat",
             _ip_address = request.remote_addr,
         )
@@ -315,7 +363,7 @@ def send_heartbeat(node_id: int) -> Any:
             _resource_type = "node",
             _action = f"Failed to send heartbeat to node: {node.hostname}",
             _status = "failure",
-            _error_message = str(e),
+            _error_message=str(e),
             _rpc_method = "Heartbeat",
             _ip_address = request.remote_addr,
         )
@@ -334,7 +382,7 @@ def disable_node(node_id: int) -> Any:
 
     POST: Mark node as offline
     """
-    node = Node.query.get(node_id)
+    _node=Node.query.get(node_id)
     if not node:
         flash("Node not found", "error")
         return redirect(url_for("nodes.list_nodes"))
@@ -349,7 +397,7 @@ def disable_node(node_id: int) -> Any:
         _resource_type = "node",
         _action = f"Disabled node: {node.hostname}",
         _status = "success",
-        _resource_id = str(node_id),
+        _resource_id=str(node_id),
         _ip_address = request.remote_addr,
     )
 
@@ -368,7 +416,7 @@ def delete_node(node_id: int) -> Any:
 
     POST: Remove node and associated data
     """
-    node = Node.query.get(node_id)
+    _node=Node.query.get(node_id)
     if not node:
         flash("Node not found", "error")
         return redirect(url_for("nodes.list_nodes"))
@@ -383,8 +431,8 @@ def delete_node(node_id: int) -> Any:
         _operation = "delete",
         _resource_type = "node",
         _action = f"Deleted node: {hostname}",
-        status="success",
-        _resource_id = str(node_id),
+        _status="success",
+        _resource_id=str(node_id),
         _ip_address = request.remote_addr,
     )
 
@@ -403,5 +451,5 @@ def api_nodes_status() -> Any:
 
     GET: Return JSON array of node statuses
     """
-    nodes = Node.query.all()
+    _nodes=Node.query.all()
     return jsonify([node.to_dict() for node in nodes])

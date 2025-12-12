@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,9 +130,9 @@ from opt.core.health import create_health_blueprint
 from .core import ComplianceEngine
 from .gdpr import GDPRManager
 
-_compliance_bp = Blueprint("compliance", __name__)
-_engine = ComplianceEngine()
-_gdpr_manager = GDPRManager()
+_compliance_bp=Blueprint("compliance", __name__)
+_engine=ComplianceEngine()
+_gdpr_manager=GDPRManager()
 
 # Mock resources
 _mock_resources = [
@@ -98,8 +146,8 @@ _mock_resources = [
 
 
 def run_scan() -> Response:
-    standard = request.args.get("standard")    # e.g., ?standard=GDPR
-    report = engine.run_compliance_scan(mock_resources, standard=standard)
+    _standard=request.args.get("standard")    # e.g., ?standard=GDPR
+    _report=engine.run_compliance_scan(mock_resources, standard=standard)
     return jsonify(report.__dict__)
 
 
@@ -108,7 +156,7 @@ def run_scan() -> Response:
 
 def generate_report(standard: str) -> Response:
     """Generate a specific compliance report (GDPR, SOC2, HIPAA)."""
-    report = engine.run_compliance_scan(mock_resources, standard=standard.upper())
+    _report=engine.run_compliance_scan(mock_resources, standard=standard.upper())
     return jsonify(report.__dict__)
 
 
@@ -131,7 +179,7 @@ def get_audit() -> Response:
 
 def export_user_data(user_id: int) -> Tuple[Response, int]:
     try:
-        data = gdpr_manager.export_user_data(user_id)
+        _data=gdpr_manager.export_user_data(user_id)
         return jsonify(data), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
@@ -144,23 +192,23 @@ def export_user_data(user_id: int) -> Tuple[Response, int]:
 
 def forget_user(user_id: int) -> Tuple[Response, int]:
     # In a real app, we'd check permissions here (admin only or self)
-    success = gdpr_manager.anonymize_user(user_id)
+    _success=gdpr_manager.anonymize_user(user_id)
     if success:
         return jsonify({"status": "success", "message": "User anonymized"}), 200
     return jsonify({"error": "Failed to anonymize user"}), 500
 
 
 # Create Flask app
-app = Flask(__name__)
+_app=Flask(__name__)
 
 # Load and validate configuration (INFRA-003)
-settings = Settings.load_validated_config()
+_settings=Settings.load_validated_config()
 app.config["SETTINGS"] = settings
 
 # Initialize graceful shutdown and health checks
 try:
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
-    shutdown_manager = init_graceful_shutdown(app)
+    _shutdown_manager=init_graceful_shutdown(app)
 
     def check_compliance_engine() -> bool:
         return engine is not None
@@ -175,7 +223,7 @@ except ImportError:
             return {"status": "ok", "message": "ComplianceEngine active"}
         return {"status": "error", "message": "ComplianceEngine missing"}
 
-    health_bp = create_health_blueprint("compliance-service", {"engine": check_compliance_engine_fallback})
+    _health_bp=create_health_blueprint("compliance-service", {"engine": check_compliance_engine_fallback})
     app.register_blueprint(health_bp)
 
 app.register_blueprint(compliance_bp, url_prefix="/api/v1/compliance")

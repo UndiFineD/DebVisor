@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +137,7 @@ import os
 from typing import Any, Dict, Optional, List
 from opt.core.config import settings
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class FeatureFlagManager:
@@ -97,7 +145,7 @@ class FeatureFlagManager:
     Manages feature flags using Redis as a backend.
     """
 
-    def __init__(self, redis_url: str = settings.REDIS_URL):
+    def __init__(self, redis_url: str=settings.REDIS_URL) -> None:
         """
         Initialize the FeatureFlagManager.
 
@@ -105,7 +153,7 @@ class FeatureFlagManager:
             redis_url: The URL of the Redis instance to use.
         """
         try:
-            self.redis = redis.from_url(redis_url, decode_responses=True)
+            self.redis=redis.from_url(redis_url, decode_responses=True)
             self.prefix = "feature_flag:"
             self.enabled = True
         except Exception as e:
@@ -125,7 +173,7 @@ class FeatureFlagManager:
             bool: True if the feature is enabled, False otherwise.
         """
         # 1. Check Environment Variable Override
-        env_key = f"DEBVISOR_FEATURE_{flag_name.upper()}"
+        _env_key=f"DEBVISOR_FEATURE_{flag_name.upper()}"
         if env_key in os.environ:
             return os.environ[env_key].lower() in ("true", "1", "yes", "on")
 
@@ -134,39 +182,39 @@ class FeatureFlagManager:
             return False
 
         try:
-            flag_data_json = self.redis.get(f"{self.prefix}{flag_name}")
+            _flag_data_json=self.redis.get(f"{self.prefix}{flag_name}")
             if not flag_data_json:
                 return False    # Default to disabled if not found
 
-            flag_data = json.loads(flag_data_json)
+            _flag_data=json.loads(flag_data_json)
 
             if not flag_data.get("enabled", False):
                 return False
 
             # Targeted users/tenants
             if context:
-                user_id = str(context.get("user_id", ""))
-                tenant_id = str(context.get("tenant_id", ""))
+                _user_id=str(context.get("user_id", ""))
+                _tenant_id=str(context.get("tenant_id", ""))
 
-                allowed_users = flag_data.get("users", [])
+                _allowed_users=flag_data.get("users", [])
                 if user_id and user_id in allowed_users:
                     return True
 
-                allowed_tenants = flag_data.get("tenants", [])
+                _allowed_tenants=flag_data.get("tenants", [])
                 if tenant_id and tenant_id in allowed_tenants:
                     return True
 
             # Percentage-based rollout
-            rollout_percentage = flag_data.get("rollout_percentage", 100)
+            _rollout_percentage=flag_data.get("rollout_percentage", 100)
             if rollout_percentage < 100:
                 if not context:
                 # If no context provided but rollout < 100%, default to disabled
                     return False
 
-                identifier = str(context.get("user_id") or context.get("tenant_id") or "anonymous")
+                _identifier=str(context.get("user_id") or context.get("tenant_id") or "anonymous")
                 # Deterministic hashing
-                hash_input = f"{flag_name}:{identifier}".encode("utf-8")
-                hash_val = int(hashlib.sha256(hash_input).hexdigest(), 16)
+                _hash_input=f"{flag_name}:{identifier}".encode("utf-8")
+                _hash_val=int(hashlib.sha256(hash_input).hexdigest(), 16)
                 if (hash_val % 100) >= rollout_percentage:
                     return False
 
@@ -252,11 +300,11 @@ class FeatureFlagManager:
             return {}
 
         try:
-            keys = self.redis.keys(f"{self.prefix}*")
+            _keys=self.redis.keys(f"{self.prefix}*")
             flags = {}
             for key in keys:
-                flag_name = key.replace(self.prefix, "")
-                val = self.redis.get(key)
+                _flag_name=key.replace(self.prefix, "")
+                _val=self.redis.get(key)
                 if val:
                     flags[flag_name] = json.loads(val)
             return flags
@@ -266,4 +314,4 @@ class FeatureFlagManager:
 
 
 # Singleton instance
-_feature_flags = FeatureFlagManager()
+_feature_flags=FeatureFlagManager()

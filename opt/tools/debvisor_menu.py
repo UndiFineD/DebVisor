@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,12 +128,12 @@ def get_ip_addresses() -> str:
 def get_system_status() -> str:
     """Get basic system status."""
     if hasattr(os, "getloadavg"):
-        load = os.getloadavg()
+        _load=os.getloadavg()
     else:
-        load = (0.0, 0.0, 0.0)
+        _load=(0.0, 0.0, 0.0)
 
-    mem = psutil.virtual_memory()
-    uptime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    _mem=psutil.virtual_memory()
+    _uptime=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return f"Load: {load[0]:.2f}, {load[1]:.2f}, {load[2]:.2f} | Mem: {mem.percent}% | {uptime}"
 
 
@@ -114,10 +162,10 @@ class MenuApp:
         self.main_loop: Optional[urwid.MainLoop] = None
 
     def create_menu(self) -> urwid.Widget:
-        header_text = urwid.Text(" DebVisor Enterprise Console ", align="center")
-        _header = urwid.AttrMap(header_text, "header")
+        _header_text=urwid.Text(" DebVisor Enterprise Console ", align="center")
+        _header=urwid.AttrMap(header_text, "header")
 
-        self.status_text = urwid.Text(get_system_status(), align="center")
+        self.status_text=urwid.Text(get_system_status(), align="center")
         self.ip_text = urwid.Text(
             f"Management URL: https://{socket.gethostname()}:8443\nIPs: {get_ip_addresses()}",
             _align = "center",
@@ -138,12 +186,12 @@ class MenuApp:
             self.create_button("Exit Menu", self.on_exit),
         ]
 
-        listbox = urwid.ListBox(urwid.SimpleListWalker(body_content))
-        view = urwid.Frame(urwid.AttrMap(listbox, "body"), header=header)
+        _listbox=urwid.ListBox(urwid.SimpleListWalker(body_content))
+        _view=urwid.Frame(urwid.AttrMap(listbox, "body"), header=header)
         return view
 
     def create_button(self, label: str, callback: Any) -> urwid.Widget:
-        button = urwid.Button(label)
+        _button=urwid.Button(label)
         urwid.connect_signal(button, "click", callback)
         return urwid.AttrMap(button, "button", focus_map="button_focus")
 
@@ -177,7 +225,7 @@ class MenuApp:
         # Use shlex to split command safely and avoid shell=True
             import shlex
 
-            args = shlex.split(command)
+            _args=shlex.split(command)
             subprocess.call(
                 args, shell=False
             )    # nosec B603 - Input is controlled menu selection
@@ -195,7 +243,7 @@ class MenuApp:
         loop.set_alarm_in(2, self.update_status)
 
     def run(self) -> None:
-        self.main_loop = urwid.MainLoop(self.create_menu(), PALETTE)
+        self.main_loop=urwid.MainLoop(self.create_menu(), PALETTE)
         self.main_loop.set_alarm_in(2, self.update_status)
         self.main_loop.run()
 
@@ -206,7 +254,7 @@ if __name__ == "__main__":
         print("Warning: Not running as root. Some functions may fail.")
 
     try:
-        app = MenuApp()
+        _app=MenuApp()
         app.run()
     except KeyboardInterrupt:
         pass

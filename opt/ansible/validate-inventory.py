@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,7 +152,7 @@ class InventoryValidator:
     def __init__(
         self, inventory_path: str, verbose: bool = False, strict: bool = False
     ):
-        self.inventory_path = Path(inventory_path)
+        self.inventory_path=Path(inventory_path)
         self.verbose = verbose
         self.strict = strict
         self.errors: List[str] = []
@@ -115,7 +163,7 @@ class InventoryValidator:
         """Load YAML inventory file."""
         try:
             with open(self.inventory_path, "r") as f:
-                self.inventory = yaml.safe_load(f)
+                self.inventory=yaml.safe_load(f)
             if not self.inventory:
                 self.errors.append(f"Inventory file {self.inventory_path} is empty")
                 return False
@@ -133,7 +181,7 @@ class InventoryValidator:
             self.errors.append("Missing 'all' group in inventory")
             return False
 
-        all_group = self.inventory.get("all", {})
+        _all_group=self.inventory.get("all", {})
         if "children" not in all_group:
             self.warnings.append("No child groups defined in 'all' group")
 
@@ -149,7 +197,7 @@ class InventoryValidator:
             "management": [],
         }
 
-        all_children = self.inventory.get("all", {}).get("children", {})
+        _all_children=self.inventory.get("all", {}).get("children", {})
 
         for group_name, required_subgroups in required_groups.items():
             if group_name not in all_children:
@@ -186,9 +234,9 @@ class InventoryValidator:
             "management": ["is_management_node"],
         }
 
-        all_group = self.inventory.get("all", {})
-        all_vars = all_group.get("vars", {})
-        _all_children = all_group.get("children", {})
+        _all_group=self.inventory.get("all", {})
+        _all_vars=all_group.get("vars", {})
+        _all_children=all_group.get("children", {})
 
         # Check global vars
         for var in required_vars.get("all", []):
@@ -199,8 +247,8 @@ class InventoryValidator:
 
         def check_group_vars(group_name: str, group_data: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
-                group_vars = group_data.get("vars", {})
-                _group_children = group_data.get("children", {})
+                _group_vars=group_data.get("vars", {})
+                _group_children=group_data.get("children", {})
 
                 # Check this group's variables
                 for var in required_vars.get(group_name, []):
@@ -244,11 +292,11 @@ class InventoryValidator:
             group_name: str, group_data: Dict[str, Any], parent_path: str = ""
         ) -> None:
             if isinstance(group_data, dict):
-                group_hosts = group_data.get("hosts", {})
-                _group_children = group_data.get("children", {})
+                _group_hosts=group_data.get("hosts", {})
+                _group_children=group_data.get("children", {})
 
                 # Check hosts in this group
-                required_vars = host_var_requirements.get(group_name, [])
+                _required_vars=host_var_requirements.get(group_name, [])
                 for host_name, host_data in group_hosts.items():
                     if isinstance(host_data, dict):
                         for var in required_vars:
@@ -272,7 +320,7 @@ class InventoryValidator:
                         subgroup_name, subgroup_data, f"{parent_path}/{group_name}"
                     )
 
-        all_children = self.inventory.get("all", {}).get("children", {})
+        _all_children=self.inventory.get("all", {}).get("children", {})
         for group_name, group_data in all_children.items():
             extract_hosts(group_name, group_data)
 
@@ -280,7 +328,7 @@ class InventoryValidator:
 
     def _is_valid_ip(self, ip: str) -> bool:
         """Check if string is a valid IPv4 address."""
-        parts = ip.split(".")
+        _parts=ip.split(".")
         if len(parts) != 4:
             return False
         try:
@@ -290,10 +338,10 @@ class InventoryValidator:
 
     def _is_valid_hostname(self, hostname: str) -> bool:
         """Check if string is a valid hostname."""
-        pattern = r"^(?!-)[a-zA-Z0-9-]{1, 63}(?<!-)(\.[a-zA-Z0-9-]{1, 63})*$"
+        _pattern=r"^(?!-)[a-zA-Z0-9-]{1, 63}(?<!-)(\.[a-zA-Z0-9-]{1, 63})*$"
         return bool(re.match(pattern, hostname))
 
-    def validate_network_connectivity(self, check_ssh: bool = False) -> bool:
+    def validate_network_connectivity(self, check_ssh: bool=False) -> bool:
         """Validate network connectivity to hosts."""
         if not check_ssh:
             return True
@@ -303,8 +351,8 @@ class InventoryValidator:
 
         def extract_hosts_with_ips(group_data: Dict[str, Any]) -> None:
             if isinstance(group_data, dict):
-                group_hosts = group_data.get("hosts", {})
-                group_children = group_data.get("children", {})
+                _group_hosts=group_data.get("hosts", {})
+                _group_children=group_data.get("children", {})
 
                 for host_name, host_data in group_hosts.items():
                     if isinstance(host_data, dict) and "ansible_host" in host_data:
@@ -313,7 +361,7 @@ class InventoryValidator:
                 for subgroup_data in group_children.values():
                     extract_hosts_with_ips(subgroup_data)
 
-        all_children = self.inventory.get("all", {}).get("children", {})
+        _all_children=self.inventory.get("all", {}).get("children", {})
         for group_data in all_children.values():
             extract_hosts_with_ips(group_data)
 
@@ -352,7 +400,7 @@ class InventoryValidator:
 
         return True
 
-    def validate(self, check_ssh: bool = False) -> bool:
+    def validate(self, check_ssh: bool=False) -> bool:
         """Run all validations."""
         print(f"Validating inventory: {self.inventory_path}\n")
 
@@ -422,12 +470,12 @@ def main() -> None:
     )
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     validator = InventoryValidator(
         args.inventory, verbose=args.verbose, strict=args.strict
     )
-    success = validator.validate(check_ssh=args.check_ssh)
+    _success=validator.validate(check_ssh=args.check_ssh)
 
     sys.exit(0 if success else 1)
 

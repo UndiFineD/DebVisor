@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,12 +148,12 @@ _request_context: contextvars.ContextVar[Optional["RequestContext"]] = contextva
 )
 
 # Thread-local for sync code compatibility
-_thread_local = threading.local()
+_thread_local=threading.local()
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # Type variable for function decoration
-F = TypeVar("F", bound=Callable[..., Any])
+F=TypeVar("F", bound=Callable[..., Any])
 
 
 # =============================================================================
@@ -153,7 +201,7 @@ class RequestContext:
     """
 
     # Primary identifiers
-    request_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    request_id: str=field(default_factory=lambda: str(uuid.uuid4()))
     correlation_id: Optional[str] = None
 
     # Tracing identifiers
@@ -169,7 +217,7 @@ class RequestContext:
     tracestate: Optional[str] = None
 
     # Metadata
-    started_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    started_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     service_name: str = "unknown"
     operation_name: str = "unknown"
 
@@ -183,9 +231,9 @@ class RequestContext:
         if self.trace_id is None:
             self.trace_id = self.request_id
         if self.span_id is None:
-            self.span_id = str(uuid.uuid4())[:16]
+            self.span_id=str(uuid.uuid4())[:16]
 
-    def create_child_span(self, operation_name: str = "child") -> "RequestContext":
+    def create_child_span(self, operation_name: str="child") -> "RequestContext":
         """
         Create a child context for nested operations.
 
@@ -199,14 +247,14 @@ class RequestContext:
             _request_id = self.request_id,
             _correlation_id = self.correlation_id,
             _trace_id = self.trace_id,
-            span_id=str(uuid.uuid4())[:16],
+            _span_id=str(uuid.uuid4())[:16],
             _parent_span_id = self.span_id,
             _causation_id = self.span_id,
             _traceparent = self.traceparent,
             _tracestate = self.tracestate,
             _service_name = self.service_name,
             _operation_name = operation_name,
-            _baggage = dict(self.baggage),
+            _baggage=dict(self.baggage),
         )
 
     def to_headers(self) -> Dict[str, str]:
@@ -257,17 +305,17 @@ class RequestContext:
                     return value
             return None
 
-        request_id = get_header(HEADER_REQUEST_ID) or str(uuid.uuid4())
+        _request_id=get_header(HEADER_REQUEST_ID) or str(uuid.uuid4())
 
         return cls(
             _request_id = request_id,
-            _correlation_id = get_header(HEADER_CORRELATION_ID),
-            _trace_id = get_header(HEADER_TRACE_ID),
-            span_id=get_header(HEADER_SPAN_ID),
-            _parent_span_id = get_header(HEADER_PARENT_SPAN_ID),
-            _causation_id = get_header(HEADER_CAUSATION_ID),
-            _traceparent = get_header(HEADER_TRACEPARENT),
-            _tracestate = get_header(HEADER_TRACESTATE),
+            _correlation_id=get_header(HEADER_CORRELATION_ID),
+            _trace_id=get_header(HEADER_TRACE_ID),
+            _span_id=get_header(HEADER_SPAN_ID),
+            _parent_span_id=get_header(HEADER_PARENT_SPAN_ID),
+            _causation_id=get_header(HEADER_CAUSATION_ID),
+            _traceparent=get_header(HEADER_TRACEPARENT),
+            _tracestate=get_header(HEADER_TRACESTATE),
         )
 
     def to_log_extra(self) -> Dict[str, Any]:
@@ -299,7 +347,7 @@ def get_current_context() -> Optional[RequestContext]:
         Current RequestContext or None
     """
     # Try contextvars first (works with asyncio)
-    ctx = _request_context.get()
+    _ctx=_request_context.get()
     if ctx is not None:
         return ctx
 
@@ -344,7 +392,7 @@ def get_request_id() -> Optional[str]:
     Returns:
         Current request ID or None
     """
-    ctx = get_current_context()
+    _ctx=get_current_context()
     return ctx.request_id if ctx else None
 
 
@@ -355,7 +403,7 @@ def get_correlation_id() -> Optional[str]:
     Returns:
         Current correlation ID or None
     """
-    ctx = get_current_context()
+    _ctx=get_current_context()
     return ctx.correlation_id if ctx else None
 
 
@@ -390,12 +438,12 @@ class request_context:
             **kwargs: Additional context fields
         """
         if headers:
-            self.context = RequestContext.from_headers(headers)
+            self.context=RequestContext.from_headers(headers)
             self.context.service_name = service_name
             self.context.operation_name = operation_name
         else:
             self.context = RequestContext(
-                _request_id = request_id or str(uuid.uuid4()),
+                _request_id=request_id or str(uuid.uuid4()),
                 _service_name = service_name,
                 _operation_name = operation_name,
                 **kwargs,
@@ -404,7 +452,7 @@ class request_context:
 
     def __enter__(self) -> RequestContext:
         """Enter context."""
-        self.token = set_current_context(self.context)
+        self.token=set_current_context(self.context)
         return self.context
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
@@ -413,7 +461,7 @@ class request_context:
 
     async def __aenter__(self) -> RequestContext:
         """Async enter context."""
-        self.token = set_current_context(self.context)
+        self.token=set_current_context(self.context)
         return self.context
 
     async def __aexit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
@@ -427,10 +475,10 @@ class child_span:
 
     Example:
         with child_span("database_query") as span:
-            _result = db.execute(query)
+            _result=db.execute(query)
     """
 
-    def __init__(self, operation_name: str):
+    def __init__(self, operation_name: str) -> None:
         """
         Initialize child span.
 
@@ -444,16 +492,16 @@ class child_span:
 
     def __enter__(self) -> RequestContext:
         """Enter child span."""
-        self.parent_context = get_current_context()
+        self.parent_context=get_current_context()
 
         if self.parent_context:
             self.child_context = self.parent_context.create_child_span(
                 self.operation_name
             )
         else:
-            self.child_context = RequestContext(operation_name=self.operation_name)
+            self.child_context=RequestContext(operation_name=self.operation_name)
 
-        self.token = set_current_context(self.child_context)
+        self.token=set_current_context(self.child_context)
         return self.child_context
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
@@ -499,7 +547,7 @@ def with_request_context(
         @functools.wraps(func)
 
         def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
-            ctx = get_current_context()
+            _ctx=get_current_context()
             if ctx:
                 return func(*args, **kwargs)
 
@@ -508,7 +556,7 @@ def with_request_context(
 
         @functools.wraps(func)
         async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
-            ctx = get_current_context()
+            _ctx=get_current_context()
             if ctx:
                 return await func(*args, **kwargs)
 
@@ -567,7 +615,7 @@ class RequestContextFilter(logging.Filter):
 
     def filter(self, record: logging.LogRecord) -> bool:
         """Add context to log record."""
-        ctx = get_current_context()
+        _ctx=get_current_context()
 
         if ctx:
             record.request_id = ctx.request_id
@@ -592,16 +640,16 @@ class ContextAwareLogger(logging.LoggerAdapter[Any]):
     Logger adapter that automatically includes request context.
 
     Example:
-        logger = ContextAwareLogger(logging.getLogger(__name__))
+        _logger=ContextAwareLogger(logging.getLogger(__name__))
         logger.info("Processing request")    # Automatically includes context
     """
 
     def process(self, msg: str, kwargs: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:  # type: ignore[override]
         """Add context to log message."""
-        ctx = get_current_context()
+        _ctx=get_current_context()
 
         if ctx:
-            extra = kwargs.get("extra", {})
+            _extra=kwargs.get("extra", {})
             extra.update(ctx.to_log_extra())
             kwargs["extra"] = extra
 
@@ -636,18 +684,18 @@ def create_flask_middleware() -> Tuple[Callable[[], None], Callable[[Any], Any]]
     def before_request() -> None:
         """Extract or create request context before handling."""
         # Extract from headers
-        headers = dict(flask_request.headers)
-        ctx = RequestContext.from_headers(headers)
+        _headers=dict(flask_request.headers)
+        _ctx=RequestContext.from_headers(headers)
         ctx.service_name = "debvisor-panel"
         ctx.operation_name = f"{flask_request.method} {flask_request.path}"
 
         # Store in Flask's g object
         g.request_context = ctx
-        g.context_token = set_current_context(ctx)
+        g.context_token=set_current_context(ctx)
 
-    def after_request(response):
+    def after_request(response) -> None:
         """Add context headers to response and cleanup."""
-        ctx = getattr(g, "request_context", None)
+        _ctx=getattr(g, "request_context", None)
 
         if ctx:
         # Add response headers
@@ -657,7 +705,7 @@ def create_flask_middleware() -> Tuple[Callable[[], None], Callable[[Any], Any]]
             )
 
             # Cleanup
-            token = getattr(g, "context_token", None)
+            _token=getattr(g, "context_token", None)
             clear_current_context(token)
 
         return response
@@ -672,7 +720,7 @@ def init_flask_context_propagation(app) -> None:
     Args:
         app: Flask application
     """
-    before, after = create_flask_middleware()
+    before, after=create_flask_middleware()
     app.before_request(before)
     app.after_request(after)
 
@@ -692,12 +740,12 @@ def inject_context_headers(headers: Optional[Dict[str, str]] = None) -> Dict[str
     Returns:
         Headers with context injected
     """
-    result = dict(headers) if headers else {}
+    _result=dict(headers) if headers else {}
 
-    ctx = get_current_context()
+    _ctx=get_current_context()
     if ctx:
     # Create child span for outgoing request
-        child = ctx.create_child_span("http_request")
+        _child=ctx.create_child_span("http_request")
         result.update(child.to_headers())
     else:
     # Generate new request ID
@@ -713,11 +761,11 @@ class ContextPropagatingSession:
     Wraps requests.Session to add context headers to all requests.
 
     Example:
-        session = ContextPropagatingSession()
-        _response = session.get("http://other-service/api/data")
+        _session=ContextPropagatingSession()
+        _response=session.get("http://other-service/api/data")
     """
 
-    def __init__(self, session: Optional[Any] = None):
+    def __init__(self, session: Optional[Any] = None) -> None:
         """
         Initialize session wrapper.
 
@@ -725,7 +773,7 @@ class ContextPropagatingSession:
             session: Existing requests.Session (optional)
         """
 
-        self.session = session or requests.Session()
+        self.session=session or requests.Session()
 
     def _prepare_headers(
         self, headers: Optional[Dict[str, str]] = None
@@ -772,7 +820,7 @@ def inject_context_to_message(message: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Message with context metadata
     """
-    ctx = get_current_context()
+    _ctx=get_current_context()
 
     if ctx:
         message["_context"] = {
@@ -796,15 +844,15 @@ def extract_context_from_message(message: Dict[str, Any]) -> Optional[RequestCon
     Returns:
         RequestContext if present
     """
-    ctx_data = message.get("_context")
+    _ctx_data=message.get("_context")
 
     if ctx_data:
         return RequestContext(
-            _request_id = ctx_data.get("request_id", str(uuid.uuid4())),
-            _correlation_id = ctx_data.get("correlation_id"),
-            _trace_id = ctx_data.get("trace_id"),
-            _parent_span_id = ctx_data.get("span_id"),
-            _causation_id = ctx_data.get("causation_id"),
+            _request_id=ctx_data.get("request_id", str(uuid.uuid4())),
+            _correlation_id=ctx_data.get("correlation_id"),
+            _trace_id=ctx_data.get("trace_id"),
+            _parent_span_id=ctx_data.get("span_id"),
+            _causation_id=ctx_data.get("causation_id"),
         )
 
     return None
@@ -818,14 +866,14 @@ if __name__ == "__main__":
     # Demo
     logging.basicConfig(
         _level = logging.DEBUG,
-        _format = "%(asctime)s [%(request_id)s] %(name)s - %(message)s",
+        _format="%(asctime)s [%(request_id)s] %(name)s - %(message)s",
     )
 
     # Add filter to root logger
     for handler in logging.root.handlers:
         handler.addFilter(RequestContextFilter())
 
-    demo_logger = get_context_logger(__name__)
+    _demo_logger=get_context_logger(__name__)
 
     # Test context propagation
     with request_context(service_name="demo", operation_name="main") as ctx:
@@ -837,7 +885,7 @@ if __name__ == "__main__":
         demo_logger.info("Back in parent")
 
         # Test header injection
-        headers = inject_context_headers()
+        _headers=inject_context_headers()
         print(f"Outgoing headers: {headers}")
 
     print("Demo complete!")

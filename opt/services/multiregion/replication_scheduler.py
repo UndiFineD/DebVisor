@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,7 +155,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -252,7 +300,7 @@ class ReplicationJob:
     priority: Priority = Priority.NORMAL
 
     # Timestamps
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     scheduled_at: Optional[datetime] = None
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
@@ -288,7 +336,7 @@ class ReplicationJob:
         """Calculate job duration."""
         if not self.started_at:
             return 0.0
-        end = self.completed_at or datetime.now(timezone.utc)
+        _end=self.completed_at or datetime.now(timezone.utc)
         return (end - self.started_at).total_seconds()
 
     def to_dict(self) -> Dict[str, Any]:
@@ -326,7 +374,7 @@ class SyncWindow:
     def is_within_window(self, dt: Optional[datetime] = None) -> bool:
         """Check if given time is within sync window."""
         if dt is None:
-            dt = datetime.now(timezone.utc)
+            _dt=datetime.now(timezone.utc)
 
         if dt.weekday() not in self.days_of_week:
             return False
@@ -416,8 +464,8 @@ class MockReplicationEngine(ReplicationEngine):
     async def get_changes(self, region: str, since: datetime) -> List[Dict[str, Any]]:
         """Get changes since timestamp."""
         changes = []
-        timestamps = self._timestamps.get(region, {})
-        data = self._data.get(region, {})
+        _timestamps=self._timestamps.get(region, {})
+        _data=self._data.get(region, {})
 
         for item_id, ts in timestamps.items():
             if ts > since:
@@ -433,7 +481,7 @@ class MockReplicationEngine(ReplicationEngine):
 
     async def get_checksum(self, region: str, item_id: str) -> str:
         """Calculate item checksum."""
-        data = self._data.get(region, {}).get(item_id, b"")
+        _data=self._data.get(region, {}).get(item_id, b"")
         return hashlib.sha256(data).hexdigest()
 
     async def resolve_conflict(
@@ -441,7 +489,7 @@ class MockReplicationEngine(ReplicationEngine):
     ) -> bool:
         """Resolve conflict."""
         conflict.resolution = resolution
-        conflict.resolved_at = datetime.now(timezone.utc)
+        conflict.resolved_at=datetime.now(timezone.utc)
         return True
 
 
@@ -453,14 +501,14 @@ class JobQueue:
 
     def __init__(self) -> None:
         self._queue: List[Tuple[int, float, ReplicationJob]] = []
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._job_map: Dict[str, ReplicationJob] = {}
 
     def push(self, job: ReplicationJob) -> None:
         """Add job to queue."""
         with self._lock:
         # Priority tuple: (priority_value, timestamp, job)
-            priority_key = (job.priority.value, time.time())
+            _priority_key=(job.priority.value, time.time())
             heapq.heappush(self._queue, (priority_key[0], priority_key[1], job))
             self._job_map[job.id] = job
 
@@ -468,7 +516,7 @@ class JobQueue:
         """Get highest priority job."""
         with self._lock:
             while self._queue:
-                _, _, job = heapq.heappop(self._queue)
+                _, _, job=heapq.heappop(self._queue)
                 if job.id in self._job_map:
                     del self._job_map[job.id]
                     return job
@@ -511,20 +559,20 @@ class ReplicationScheduler:
     - Health monitoring
     """
 
-    def __init__(self, engine: Optional[ReplicationEngine] = None):
-        self._engine = engine or MockReplicationEngine()
+    def __init__(self, engine: Optional[ReplicationEngine] = None) -> None:
+        self._engine=engine or MockReplicationEngine()
         self._regions: Dict[str, Region] = {}
         self._policies: Dict[str, ReplicationPolicy] = {}
         self._jobs: Dict[str, ReplicationJob] = {}
         self._conflicts: Dict[str, ReplicationConflict] = {}
-        self._job_queue = JobQueue()
+        self._job_queue=JobQueue()
 
         # Runtime state
         self._running = False
         self._worker_task: Optional[asyncio.Task] = None
         self._health_check_task: Optional[asyncio.Task] = None
         self._scheduler_task: Optional[asyncio.Task] = None
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
 
         # Configuration
         self._max_concurrent_jobs = 10
@@ -573,10 +621,10 @@ class ReplicationScheduler:
 
     def set_region_status(self, region_id: str, status: RegionStatus) -> bool:
         """Update region status."""
-        region = self._regions.get(region_id)
+        _region=self._regions.get(region_id)
         if region:
             region.status = status
-            region.last_health_check = datetime.now(timezone.utc)
+            region.last_health_check=datetime.now(timezone.utc)
             return True
         return False
 
@@ -602,7 +650,7 @@ class ReplicationScheduler:
 
     def enable_policy(self, policy_id: str) -> bool:
         """Enable a policy."""
-        policy = self._policies.get(policy_id)
+        _policy=self._policies.get(policy_id)
         if policy:
             policy.enabled = True
             return True
@@ -610,7 +658,7 @@ class ReplicationScheduler:
 
     def disable_policy(self, policy_id: str) -> bool:
         """Disable a policy."""
-        policy = self._policies.get(policy_id)
+        _policy=self._policies.get(policy_id)
         if policy:
             policy.enabled = False
             return True
@@ -627,7 +675,7 @@ class ReplicationScheduler:
         sync_type: Optional[SyncType] = None,
     ) -> Optional[ReplicationJob]:
         """Create a new replication job from policy."""
-        policy = self._policies.get(policy_id)
+        _policy=self._policies.get(policy_id)
         if not policy or not policy.enabled:
             return None
 
@@ -644,7 +692,7 @@ class ReplicationScheduler:
                 continue
 
             job = ReplicationJob(
-                id=f"job_{uuid.uuid4().hex[:12]}",
+                _id=f"job_{uuid.uuid4().hex[:12]}",
                 _policy_id = policy_id,
                 _source_region = policy.source_region,
                 _target_region = target,
@@ -667,11 +715,11 @@ class ReplicationScheduler:
         self, job_id: str, scheduled_time: Optional[datetime] = None
     ) -> bool:
         """Schedule a job for execution."""
-        job = self._jobs.get(job_id)
+        _job=self._jobs.get(job_id)
         if not job:
             return False
 
-        job.scheduled_at = scheduled_time or datetime.now(timezone.utc)
+        job.scheduled_at=scheduled_time or datetime.now(timezone.utc)
         job.status = ReplicationStatus.SCHEDULED
         self._job_queue.push(job)
 
@@ -680,7 +728,7 @@ class ReplicationScheduler:
 
     def cancel_job(self, job_id: str) -> bool:
         """Cancel a pending or running job."""
-        job = self._jobs.get(job_id)
+        _job=self._jobs.get(job_id)
         if not job:
             return False
 
@@ -698,11 +746,11 @@ class ReplicationScheduler:
 
     def get_jobs_by_status(self, status: ReplicationStatus) -> List[ReplicationJob]:
         """Get jobs by status."""
-        return [j for j in self._jobs.values() if j.status == status]
+        return [j for j in self._jobs.values() if j.status== status]
 
     def get_jobs_by_policy(self, policy_id: str) -> List[ReplicationJob]:
         """Get jobs for a policy."""
-        return [j for j in self._jobs.values() if j.policy_id == policy_id]
+        return [j for j in self._jobs.values() if j.policy_id== policy_id]
 
     # -------------------------------------------------------------------------
     # Job Execution
@@ -710,14 +758,14 @@ class ReplicationScheduler:
 
     async def execute_job(self, job: ReplicationJob) -> bool:
         """Execute a replication job."""
-        policy = self._policies.get(job.policy_id)
+        _policy=self._policies.get(job.policy_id)
         if not policy:
             job.status = ReplicationStatus.FAILED
             job.errors.append("Policy not found")
             return False
 
-        source = self._regions.get(job.source_region)
-        target = self._regions.get(job.target_region)
+        _source=self._regions.get(job.source_region)
+        _target=self._regions.get(job.target_region)
 
         if not source or not target:
             job.status = ReplicationStatus.FAILED
@@ -731,12 +779,12 @@ class ReplicationScheduler:
 
         # Start execution
         job.status = ReplicationStatus.RUNNING
-        job.started_at = datetime.now(timezone.utc)
+        job.started_at=datetime.now(timezone.utc)
 
         try:
         # Get changes to sync
             if job.sync_type == SyncType.FULL:
-                since = datetime.min.replace(tzinfo=timezone.utc)
+                _since=datetime.min.replace(tzinfo=timezone.utc)
             else:
             # Get last successful sync time
                 last_job = self._get_last_successful_job(
@@ -747,20 +795,20 @@ class ReplicationScheduler:
                     if last_job and last_job.completed_at
                     else datetime.min.replace(tzinfo=timezone.utc)
                 )
-            changes = await self._engine.get_changes(job.source_region, since)
-            job.total_items = len(changes)
+            _changes=await self._engine.get_changes(job.source_region, since)
+            job.total_items=len(changes)
 
             # Apply filters
             if policy.include_patterns or policy.exclude_patterns:
-                changes = self._apply_filters(changes, policy)
+                _changes=self._apply_filters(changes, policy)
 
             # Process changes
             for change in changes:
-                item_id = change.get("item_id", "")
-                item_data = change.get("data", b"")
+                _item_id=change.get("item_id", "")
+                _item_data=change.get("data", b"")
 
                 if isinstance(item_data, str):
-                    _item_data = item_data.encode()
+                    _item_data=item_data.encode()
 
                 # Check for conflicts
                 if policy.require_checksum:
@@ -804,7 +852,7 @@ class ReplicationScheduler:
                 ).hexdigest()
 
             job.status = ReplicationStatus.COMPLETED
-            job.completed_at = datetime.now(timezone.utc)
+            job.completed_at=datetime.now(timezone.utc)
 
             # Update metrics
             with self._lock:
@@ -824,7 +872,7 @@ class ReplicationScheduler:
 
         except Exception as e:
             job.status = ReplicationStatus.FAILED
-            job.completed_at = datetime.now(timezone.utc)
+            job.completed_at=datetime.now(timezone.utc)
             job.errors.append(str(e))
 
             with self._lock:
@@ -866,7 +914,7 @@ class ReplicationScheduler:
 
         _filtered = []
         for change in changes:
-            item_id = change.get("item_id", "")
+            _item_id=change.get("item_id", "")
 
             # Check exclude patterns
             excluded = False
@@ -902,13 +950,13 @@ class ReplicationScheduler:
     ) -> Optional[ReplicationConflict]:
         """Handle replication conflict."""
         conflict = ReplicationConflict(
-            id=f"conflict_{uuid.uuid4().hex[:12]}",
+            _id=f"conflict_{uuid.uuid4().hex[:12]}",
             _job_id = job.id,
             _item_id = item_id,
             _source_version = source_version,
             _target_version = target_version,
-            _source_timestamp = datetime.now(timezone.utc),
-            _target_timestamp = datetime.now(timezone.utc),
+            _source_timestamp=datetime.now(timezone.utc),
+            _target_timestamp=datetime.now(timezone.utc),
         )
 
         self._conflicts[conflict.id] = conflict
@@ -920,7 +968,7 @@ class ReplicationScheduler:
         if policy.conflict_resolution != ConflictResolution.MANUAL:
             await self._engine.resolve_conflict(conflict, policy.conflict_resolution)
             conflict.resolution = policy.conflict_resolution
-            conflict.resolved_at = datetime.now(timezone.utc)
+            conflict.resolved_at=datetime.now(timezone.utc)
 
             with self._lock:
                 self._metrics["conflicts_resolved"] += 1
@@ -948,13 +996,13 @@ class ReplicationScheduler:
         self._running = True
 
         # Start worker task
-        self._worker_task = asyncio.create_task(self._worker_loop())
+        self._worker_task=asyncio.create_task(self._worker_loop())
 
         # Start health check task
-        self._health_check_task = asyncio.create_task(self._health_check_loop())
+        self._health_check_task=asyncio.create_task(self._health_check_loop())
 
         # Start policy scheduler task
-        self._scheduler_task = asyncio.create_task(self._policy_scheduler_loop())
+        self._scheduler_task=asyncio.create_task(self._policy_scheduler_loop())
 
         logger.info("Replication scheduler started")
 
@@ -989,7 +1037,7 @@ class ReplicationScheduler:
         """Main worker loop processing jobs."""
         while self._running:
             try:
-                job = self._job_queue.pop()
+                _job=self._job_queue.pop()
 
                 if job:
                 # Check if scheduled time has passed
@@ -1025,7 +1073,7 @@ class ReplicationScheduler:
             try:
                 for region in self._regions.values():
                 # Simulate health check (in production, ping endpoint)
-                    region.last_health_check = datetime.now(timezone.utc)
+                    region.last_health_check=datetime.now(timezone.utc)
 
                 await asyncio.sleep(self._health_check_interval)
 
@@ -1041,13 +1089,13 @@ class ReplicationScheduler:
 
         while self._running:
             try:
-                _now = datetime.now(timezone.utc)
+                _now=datetime.now(timezone.utc)
 
                 for policy in self._policies.values():
                     if not policy.enabled:
                         continue
 
-                    last_run = policy_last_run.get(policy.id)
+                    _last_run=policy_last_run.get(policy.id)
 
                     if last_run is None:
                     # First run
@@ -1055,9 +1103,9 @@ class ReplicationScheduler:
                         continue
 
                     # Check if interval has passed
-                    elapsed = (now - last_run).total_seconds()
+                    _elapsed=(now - last_run).total_seconds()
                     if elapsed >= policy.interval_seconds:
-                        job = self.create_job(policy.id)
+                        _job=self.create_job(policy.id)
                         if job:
                             self.schedule_job(job.id)
                         policy_last_run[policy.id] = now
@@ -1134,7 +1182,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
     try:
         from flask import Blueprint, request, jsonify
 
-        bp = Blueprint("replication", __name__, url_prefix="/api/replication")
+        _bp=Blueprint("replication", __name__, url_prefix="/api/replication")
 
         @bp.route("/regions", methods=["GET"])  # type: ignore[type-var]
 
@@ -1163,16 +1211,16 @@ def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
 
         def list_jobs() -> None:
             """List jobs with optional status filter."""
-            status_param = request.args.get("status")
+            _status_param=request.args.get("status")
 
             if status_param:
                 try:
-                    status = ReplicationStatus(status_param)
-                    jobs = scheduler.get_jobs_by_status(status)
+                    _status=ReplicationStatus(status_param)
+                    _jobs=scheduler.get_jobs_by_status(status)
                 except ValueError:
                     return jsonify({"error": "Invalid status"}), 400  # type: ignore[return-value]
             else:
-                jobs = list(scheduler._jobs.values())
+                _jobs=list(scheduler._jobs.values())
 
             return jsonify(  # type: ignore[return-value]
                 {
@@ -1185,7 +1233,7 @@ def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
 
         def get_job(job_id: str) -> Any:
             """Get job details."""
-            job = scheduler.get_job(job_id)
+            _job=scheduler.get_job(job_id)
             if not job:
                 return jsonify({"error": "Job not found"}), 404
             return jsonify(job.to_dict())
@@ -1194,16 +1242,16 @@ def create_replication_blueprint(scheduler: ReplicationScheduler) -> Any:
 
         def create_job() -> None:
             """Create new replication job."""
-            data = request.get_json() or {}
-            policy_id = data.get("policy_id")
+            _data=request.get_json() or {}
+            _policy_id=data.get("policy_id")
 
             if not policy_id:
                 return jsonify({"error": "policy_id required"}), 400  # type: ignore[return-value]
 
             job = scheduler.create_job(
                 policy_id,
-                _target_region = data.get("target_region"),
-                _sync_type = SyncType(data["sync_type"]) if "sync_type" in data else None,
+                _target_region=data.get("target_region"),
+                _sync_type=SyncType(data["sync_type"]) if "sync_type" in data else None,
             )
 
             if not job:

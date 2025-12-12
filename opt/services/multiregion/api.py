@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,8 +148,8 @@ class MultiRegionAPI:
         Args:
             manager: MultiRegionManager instance
         """
-        self.manager = manager or get_multi_region_manager()
-        self.logger = logging.getLogger("DebVisor.MultiRegionAPI")
+        self.manager=manager or get_multi_region_manager()
+        self.logger=logging.getLogger("DebVisor.MultiRegionAPI")
 
     def _json_response(
         self,
@@ -146,9 +194,9 @@ class MultiRegionAPI:
             (response_dict, status_code)
         """
         return self._json_response(
-            status="error",
+            _status="error",
             _message = message,
-            data={"error": error},
+            _data={"error": error},
             _status_code = status_code,
         )
 
@@ -178,13 +226,13 @@ class MultiRegionAPI:
                 _name = request_data["name"],
                 _location = request_data["location"],
                 _api_endpoint = request_data["api_endpoint"],
-                _is_primary = request_data.get("is_primary", False),
-                _capacity_vms = request_data.get("capacity_vms", 1000),
+                _is_primary=request_data.get("is_primary", False),
+                _capacity_vms=request_data.get("capacity_vms", 1000),
             )
 
             self.logger.info(f"Region registered: {region.region_id}")
             return self._json_response(
-                _data = region.to_dict(),
+                _data=region.to_dict(),
                 _message = f"Region {region.region_id} registered",
                 _status_code = 201,
             )
@@ -206,16 +254,16 @@ class MultiRegionAPI:
             status_filter = None
             if status:
                 try:
-                    status_filter = RegionStatus(status)
+                    _status_filter=RegionStatus(status)
                 except ValueError:
                     return self._error_response(
                         f"Invalid status: {status}", "validation_error", 400
                     )
 
-            regions = self.manager.list_regions(status=status_filter)
+            _regions=self.manager.list_regions(status=status_filter)
             return self._json_response(
-                _data = [r.to_dict() for r in regions],
-                _message = f"Retrieved {len(regions)} regions",
+                _data=[r.to_dict() for r in regions],
+                _message=f"Retrieved {len(regions)} regions",
             )
 
         except Exception as e:
@@ -232,7 +280,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            region = self.manager.get_region(region_id)
+            _region=self.manager.get_region(region_id)
             if not region:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
@@ -257,7 +305,7 @@ class MultiRegionAPI:
             import asyncio
 
             # Run async health check
-            loop = asyncio.new_event_loop()
+            _loop=asyncio.new_event_loop()
             try:
                 _status = loop.run_until_complete(
                     self.manager.check_region_health(region_id)
@@ -265,7 +313,7 @@ class MultiRegionAPI:
             finally:
                 loop.close()
 
-            region = self.manager.get_region(region_id)
+            _region=self.manager.get_region(region_id)
             if not region:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
@@ -294,7 +342,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            stats = self.manager.get_region_statistics(region_id)
+            _stats=self.manager.get_region_statistics(region_id)
             if not stats:
                 return self._error_response(
                     f"Region not found: {region_id}", "not_found", 404
@@ -338,18 +386,18 @@ class MultiRegionAPI:
                     )
 
             config = self.manager.setup_replication(
-                source_region_id=request_data["source_region_id"],
-                target_region_id=request_data["target_region_id"],
+                _source_region_id=request_data["source_region_id"],
+                _target_region_id=request_data["target_region_id"],
                 _resource_types = resource_types,
-                _sync_interval_seconds = request_data.get("sync_interval_seconds", 300),
-                _bidirectional = request_data.get("bidirectional", False),
+                _sync_interval_seconds=request_data.get("sync_interval_seconds", 300),
+                _bidirectional=request_data.get("bidirectional", False),
             )
 
             self.logger.info(
                 f"Replication setup: {config.source_region_id} -> {config.target_region_id}"
             )
             return self._json_response(
-                data=config.to_dict(), message="Replication configured", status_code=201
+                _data=config.to_dict(), message="Replication configured", status_code=201
             )
 
         except Exception as e:
@@ -374,11 +422,11 @@ class MultiRegionAPI:
 
             import asyncio
 
-            loop = asyncio.new_event_loop()
+            _loop=asyncio.new_event_loop()
             try:
                 _success = loop.run_until_complete(
                     self.manager.sync_resource(
-                        resource_id=request_data["resource_id"],
+                        _resource_id=request_data["resource_id"],
                         _source_region_id = request_data["source_region_id"],
                         _target_region_id = request_data["target_region_id"],
                     )
@@ -409,7 +457,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            status = self.manager.get_replication_status(resource_id)
+            _status=self.manager.get_replication_status(resource_id)
             if not status:
                 return self._error_response(
                     f"Resource not found: {resource_id}", "not_found", 404
@@ -445,16 +493,16 @@ class MultiRegionAPI:
 
             import asyncio
 
-            loop = asyncio.new_event_loop()
+            _loop=asyncio.new_event_loop()
             try:
                 success, event = loop.run_until_complete(
                     self.manager.perform_failover(
                         _from_region_id = request_data["from_region_id"],
                         _to_region_id = request_data["to_region_id"],
-                        strategy=FailoverStrategy(
+                        _strategy=FailoverStrategy(
                             request_data.get("strategy", "automatic")
                         ),
-                        _reason = request_data.get("reason", "API-initiated failover"),
+                        _reason=request_data.get("reason", "API-initiated failover"),
                     )
                 )
             finally:
@@ -463,7 +511,7 @@ class MultiRegionAPI:
             if success:
                 self.logger.info(f"Failover executed: {event.event_id}")
                 return self._json_response(
-                    _data = event.to_dict(), message="Failover completed", status_code=201
+                    _data=event.to_dict(), message="Failover completed", status_code=201
                 )
             else:
                 self.logger.error(f"Failover failed: {event.notes}")
@@ -488,11 +536,11 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            events = self.manager.get_failover_history(region_id=region_id, limit=limit)
+            _events=self.manager.get_failover_history(region_id=region_id, limit=limit)
 
             return self._json_response(
-                _data = [e.to_dict() for e in events],
-                _message = f"Retrieved {len(events)} failover events",
+                _data=[e.to_dict() for e in events],
+                _message=f"Retrieved {len(events)} failover events",
             )
 
         except Exception as e:
@@ -520,14 +568,14 @@ class MultiRegionAPI:
                 )
 
             resource = self.manager.replicate_vm(
-                vm_id=request_data["vm_id"],
+                _vm_id=request_data["vm_id"],
                 _primary_region_id = request_data["primary_region_id"],
                 _replica_regions = request_data["replica_regions"],
             )
 
             self.logger.info(f"VM registered for replication: {request_data['vm_id']}")
             return self._json_response(
-                _data = resource.to_dict(),
+                _data=resource.to_dict(),
                 _message = "VM registered for replication",
                 _status_code = 201,
             )
@@ -547,7 +595,7 @@ class MultiRegionAPI:
             (response, status_code)
         """
         try:
-            stats = self.manager.get_global_statistics()
+            _stats=self.manager.get_global_statistics()
             return self._json_response(data=stats)
 
         except Exception as e:
@@ -581,15 +629,15 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
     except ImportError:
         raise ImportError("Flask is required for API. Install with: pip install flask")
 
-    app = Flask(__name__)
+    _app=Flask(__name__)
 
     # Load and validate configuration (INFRA-003)
     from opt.core.config import Settings
-    settings = Settings.load_validated_config()
+    _settings=Settings.load_validated_config()
     app.config["SETTINGS"] = settings
 
     # Initialize graceful shutdown
-    shutdown_manager = init_graceful_shutdown(app)
+    _shutdown_manager=init_graceful_shutdown(app)
 
     # Register standard health checks
 
@@ -598,96 +646,96 @@ def create_flask_app(manager: Optional[MultiRegionManager] = None) -> Any:
 
     shutdown_manager.register_health_check("manager", check_multiregion)
 
-    api = MultiRegionAPI(manager)
+    _api=MultiRegionAPI(manager)
 
     # Region endpoints
     @app.route("/api/v1/regions", methods=["POST"])
 
     def regions_register() -> Any:
-        response, status = api.register_region(request.get_json() or {})
+        response, status=api.register_region(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/regions", methods=["GET"])
 
     def regions_list() -> Any:
-        response, status = api.list_regions(request.args.get("status"))
+        response, status=api.list_regions(request.args.get("status"))
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>", methods=["GET"])
 
     def regions_get(region_id: str) -> Any:
-        response, status = api.get_region(region_id)
+        response, status=api.get_region(region_id)
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>/health", methods=["POST"])
 
     def regions_health(region_id: str) -> Any:
-        response, status = api.check_region_health(region_id)
+        response, status=api.check_region_health(region_id)
         return jsonify(response), status
 
     @app.route("/api/v1/regions/<region_id>/stats", methods=["GET"])
 
     def regions_stats(region_id: str) -> Any:
-        response, status = api.get_region_stats(region_id)
+        response, status=api.get_region_stats(region_id)
         return jsonify(response), status
 
     # Replication endpoints
     @app.route("/api/v1/replication/setup", methods=["POST"])
 
     def replication_setup() -> Any:
-        response, status = api.setup_replication(request.get_json() or {})
+        response, status=api.setup_replication(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/replication/sync", methods=["POST"])
 
     def replication_sync() -> Any:
-        response, status = api.sync_resource(request.get_json() or {})
+        response, status=api.sync_resource(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/replication/<resource_id>/status", methods=["GET"])
 
     def replication_status(resource_id: str) -> Any:
-        response, status = api.get_replication_status(resource_id)
+        response, status=api.get_replication_status(resource_id)
         return jsonify(response), status
 
     # Failover endpoints
     @app.route("/api/v1/failover/execute", methods=["POST"])
 
     def failover_execute() -> Any:
-        response, status = api.execute_failover(request.get_json() or {})
+        response, status=api.execute_failover(request.get_json() or {})
         return jsonify(response), status
 
     @app.route("/api/v1/failover/history", methods=["GET"])
 
     def failover_history() -> Any:
-        region_id = request.args.get("region_id")
-        limit = request.args.get("limit", 50, type=int)
-        response, status = api.get_failover_history(region_id, limit)
+        _region_id=request.args.get("region_id")
+        _limit=request.args.get("limit", 50, type=int)
+        response, status=api.get_failover_history(region_id, limit)
         return jsonify(response), status
 
     # VM endpoints
     @app.route("/api/v1/vms/replicate", methods=["POST"])
 
     def vms_replicate() -> Any:
-        response, status = api.replicate_vm(request.get_json() or {})
+        response, status=api.replicate_vm(request.get_json() or {})
         return jsonify(response), status
 
     # Global endpoints
     @app.route("/api/v1/stats", methods=["GET"])
 
     def global_stats() -> Any:
-        response, status = api.get_global_stats()
+        response, status=api.get_global_stats()
         return jsonify(response), status
 
     @app.route("/api/v1/health", methods=["GET"])
 
     def health() -> Any:
-        response, status = api.get_health()
+        response, status=api.get_health()
         return jsonify(response), status
 
     return app
 
 
 if __name__ == "__main__":
-    app = create_flask_app()
+    _app=create_flask_app()
     app.run(debug=False, host="0.0.0.0", port=5000)    # nosec B201, B104

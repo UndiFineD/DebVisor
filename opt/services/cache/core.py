@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,7 +139,7 @@ import pickle    # nosec B403
 from abc import ABC, abstractmethod
 from typing import Any
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class CacheBackend(ABC):
@@ -103,7 +151,7 @@ class CacheBackend(ABC):
         pass
 
     @abstractmethod
-    async def set(self, key: str, value: Any, ttl: int = 300) -> bool:
+    async def set(self, key: str, value: Any, ttl: int=300) -> bool:
         """Set value in cache with TTL in seconds."""
         pass
 
@@ -133,7 +181,7 @@ class InMemoryCache(CacheBackend):
                 return None
         return self._store.get(key)
 
-    async def set(self, key: str, value: Any, ttl: int = 300) -> bool:
+    async def set(self, key: str, value: Any, ttl: int=300) -> bool:
         self._store[key] = value
         self._expiry[key] = asyncio.get_event_loop().time() + ttl
         return True
@@ -176,7 +224,7 @@ class RedisCache(CacheBackend):
         if not self.enabled:
             return None
         try:
-            data = await self.redis.get(key)
+            _data=await self.redis.get(key)
             if data:
                 return pickle.loads(data)    # nosec B301
             return None
@@ -184,11 +232,11 @@ class RedisCache(CacheBackend):
             logger.error(f"Redis get error: {e}")
             return None
 
-    async def set(self, key: str, value: Any, ttl: int = 300) -> bool:
+    async def set(self, key: str, value: Any, ttl: int=300) -> bool:
         if not self.enabled:
             return False
         try:
-            data = pickle.dumps(value)
+            _data=pickle.dumps(value)
             return await self.redis.setex(key, ttl, data)
         except Exception as e:
             logger.error(f"Redis set error: {e}")
@@ -216,18 +264,18 @@ class RedisCache(CacheBackend):
 class CacheManager:
     """Main entry point for caching."""
 
-    def __init__(self, backend: str = "memory", **kwargs: Any) -> None:
+    def __init__(self, backend: str="memory", **kwargs: Any) -> None:
         if backend == "redis":
-            self.backend: CacheBackend = RedisCache(**kwargs)
+            self.backend: CacheBackend=RedisCache(**kwargs)
             if not getattr(self.backend, "enabled", False):
-                self.backend = InMemoryCache()
+                self.backend=InMemoryCache()
         else:
-            self.backend = InMemoryCache()
+            self.backend=InMemoryCache()
 
     async def get(self, key: str) -> Any:
         return await self.backend.get(key)
 
-    async def set(self, key: str, value: Any, ttl: int = 300) -> bool:
+    async def set(self, key: str, value: Any, ttl: int=300) -> bool:
         return await self.backend.set(key, value, ttl)
 
     async def delete(self, key: str) -> bool:
@@ -238,4 +286,4 @@ class CacheManager:
 
 
 # Global instance
-_cache = CacheManager()
+_cache=CacheManager()

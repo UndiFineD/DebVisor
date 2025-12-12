@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,7 +152,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import uuid
 
-Base: Any = declarative_base()
+Base: Any=declarative_base()
 
 
 class User2FA(Base):
@@ -113,30 +161,30 @@ class User2FA(Base):
     __tablename__ = "user_2fa"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
-    _user_id = Column(String(128), unique=True, nullable=False, index=True)
+    _user_id=Column(String(128), unique=True, nullable=False, index=True)
 
     # 2FA settings
-    _totp_enabled = Column(Boolean, default=False)
-    _totp_secret = Column(String(32), nullable=True)    # Base32-encoded
-    _totp_verified = Column(Boolean, default=False)
+    _totp_enabled=Column(Boolean, default=False)
+    _totp_secret=Column(String(32), nullable=True)    # Base32-encoded
+    _totp_verified=Column(Boolean, default=False)
 
-    _webauthn_enabled = Column(Boolean, default=False)
-    _webauthn_verified = Column(Boolean, default=False)
+    _webauthn_enabled=Column(Boolean, default=False)
+    _webauthn_verified=Column(Boolean, default=False)
 
-    _backup_codes_enabled = Column(Boolean, default=False)
-    _backup_codes_generated_at = Column(DateTime, nullable=True)
+    _backup_codes_enabled=Column(Boolean, default=False)
+    _backup_codes_generated_at=Column(DateTime, nullable=True)
 
     # Metadata
-    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
     _updated_at = Column(
         DateTime,
-        _default = lambda: datetime.now(timezone.utc),
-        _onupdate = lambda: datetime.now(timezone.utc),
+        _default=lambda: datetime.now(timezone.utc),
+        _onupdate=lambda: datetime.now(timezone.utc),
     )
-    _last_verified_at = Column(DateTime, nullable=True)
+    _last_verified_at=Column(DateTime, nullable=True)
 
     # Relationships
     _backup_codes = relationship(
@@ -162,27 +210,27 @@ class BackupCode(Base):
     __tablename__ = "backup_code"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
     _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
-        nullable=False,
+        _nullable=False,
         _index = True,
     )
 
     # Code data
-    _code_hash = Column(String(64), nullable=False, unique=True)    # SHA256
-    used = Column(Boolean, default=False)
-    _used_at = Column(DateTime, nullable=True)
+    _code_hash=Column(String(64), nullable=False, unique=True)    # SHA256
+    _used=Column(Boolean, default=False)
+    _used_at=Column(DateTime, nullable=True)
 
     # Metadata
-    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    sequence = Column(Integer, nullable=False)    # 1-9
+    _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _sequence=Column(Integer, nullable=False)    # 1-9
 
     # Relationship
-    user_2fa = relationship("User2FA", back_populates="backup_codes")
+    _user_2fa=relationship("User2FA", back_populates="backup_codes")
 
     # Indexes
     __table_args__ = (
@@ -198,39 +246,39 @@ class WebAuthnCredential(Base):
     __tablename__ = "webauthn_credential"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
     _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
-        nullable=False,
+        _nullable=False,
         _index = True,
     )
 
     # Credential data
-    _credential_id = Column(String(255), nullable=False, unique=True)
-    _public_key = Column(Text, nullable=False)    # PEM-encoded
-    _sign_count = Column(Integer, default=0)
+    _credential_id=Column(String(255), nullable=False, unique=True)
+    _public_key=Column(Text, nullable=False)    # PEM-encoded
+    _sign_count=Column(Integer, default=0)
 
     # Device info
-    _device_name = Column(String(128), nullable=True)
-    _device_type = Column(String(64), nullable=True)    # e.g., "USB", "NFC"
+    _device_name=Column(String(128), nullable=True)
+    _device_type=Column(String(64), nullable=True)    # e.g., "USB", "NFC"
 
     # Status
-    _active = Column(Boolean, default=True)
-    _last_used_at = Column(DateTime, nullable=True)
+    _active=Column(Boolean, default=True)
+    _last_used_at=Column(DateTime, nullable=True)
 
     # Metadata
-    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
     _updated_at = Column(
         DateTime,
-        _default = lambda: datetime.now(timezone.utc),
-        _onupdate = lambda: datetime.now(timezone.utc),
+        _default=lambda: datetime.now(timezone.utc),
+        _onupdate=lambda: datetime.now(timezone.utc),
     )
 
     # Relationship
-    user_2fa = relationship("User2FA", back_populates="webauthn_credentials")
+    _user_2fa=relationship("User2FA", back_populates="webauthn_credentials")
 
     # Indexes
     __table_args__ = (
@@ -245,30 +293,30 @@ class TwoFAVerification(Base):
     __tablename__ = "two_fa_verification"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
     _user_2fa_id = Column(
         String(36),
         ForeignKey("user_2fa.id", ondelete="CASCADE"),
-        nullable=False,
+        _nullable=False,
         _index = True,
     )
 
     # Verification details
-    _method = Column(String(32), nullable=False)    # "totp", "backup", "webauthn"
-    _success = Column(Boolean, nullable=False)
-    _attempts = Column(Integer, default=1)
+    _method=Column(String(32), nullable=False)    # "totp", "backup", "webauthn"
+    _success=Column(Boolean, nullable=False)
+    _attempts=Column(Integer, default=1)
 
     # Device/session info
-    _ip_address = Column(String(45), nullable=True)
-    _user_agent = Column(String(255), nullable=True)
+    _ip_address=Column(String(45), nullable=True)
+    _user_agent=Column(String(255), nullable=True)
 
     # Metadata
-    verified_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _verified_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     # Relationship
-    user_2fa = relationship("User2FA", back_populates="verification_history")
+    _user_2fa=relationship("User2FA", back_populates="verification_history")
 
     # Indexes
     __table_args__ = (
@@ -284,35 +332,35 @@ class ThemePreference(Base):
     __tablename__ = "theme_preference"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # User reference (non-FK to support flexible auth)
-    _user_id = Column(String(128), unique=True, nullable=False, index=True)
+    _user_id=Column(String(128), unique=True, nullable=False, index=True)
 
     # Theme settings
-    _theme_mode = Column(String(32), default="light")    # light, dark, auto
-    _theme_name = Column(String(64), default="light")
+    _theme_mode=Column(String(32), default="light")    # light, dark, auto
+    _theme_name=Column(String(64), default="light")
 
     # Custom preferences
-    _accent_color = Column(String(7), nullable=True)    # Hex color
-    _font_size = Column(String(32), default="medium")
-    _reduce_motion = Column(Boolean, default=False)
-    _high_contrast = Column(Boolean, default=False)
+    _accent_color=Column(String(7), nullable=True)    # Hex color
+    _font_size=Column(String(32), default="medium")
+    _reduce_motion=Column(Boolean, default=False)
+    _high_contrast=Column(Boolean, default=False)
 
     # Layout
-    _sidebar_collapsed = Column(Boolean, default=False)
-    _compact_mode = Column(Boolean, default=False)
+    _sidebar_collapsed=Column(Boolean, default=False)
+    _compact_mode=Column(Boolean, default=False)
 
     # Metadata
-    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
     _updated_at = Column(
         DateTime,
-        _default = lambda: datetime.now(timezone.utc),
-        _onupdate = lambda: datetime.now(timezone.utc),
+        _default=lambda: datetime.now(timezone.utc),
+        _onupdate=lambda: datetime.now(timezone.utc),
     )
 
     # Indexes
-    __table_args__ = (Index("idx_theme_preference_user_id", "user_id"),)
+    __table_args__=(Index("idx_theme_preference_user_id", "user_id"),)
 
 
 class BatchOperation(Base):
@@ -321,43 +369,43 @@ class BatchOperation(Base):
     __tablename__ = "batch_operation"
 
     # Primary key
-    _id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Operation details
-    _operation_type = Column(String(64), nullable=False, index=True)
-    _operation_name = Column(String(255), nullable=False)
-    _description = Column(Text, nullable=True)
+    _operation_type=Column(String(64), nullable=False, index=True)
+    _operation_name=Column(String(255), nullable=False)
+    _description=Column(Text, nullable=True)
 
     # Actor and resources
-    _actor = Column(String(128), nullable=False)
-    _resource_count = Column(Integer, default=0)
+    _actor=Column(String(128), nullable=False)
+    _resource_count=Column(Integer, default=0)
 
     # Status
     _status = Column(
         String(32), nullable=False, index=True
     )    # pending, running, completed, failed
-    _progress = Column(Integer, default=0)    # 0-100
+    _progress=Column(Integer, default=0)    # 0-100
 
     # Results
-    _success_count = Column(Integer, default=0)
-    _failure_count = Column(Integer, default=0)
+    _success_count=Column(Integer, default=0)
+    _failure_count=Column(Integer, default=0)
 
     # Rollback
-    _rollback_available = Column(Boolean, default=False)
-    rolled_back = Column(Boolean, default=False)
-    _rolled_back_at = Column(DateTime, nullable=True)
+    _rollback_available=Column(Boolean, default=False)
+    _rolled_back=Column(Boolean, default=False)
+    _rolled_back_at=Column(DateTime, nullable=True)
 
     # Error handling
-    _error_message = Column(Text, nullable=True)
+    _error_message=Column(Text, nullable=True)
 
     # Timing
-    _created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _started_at = Column(DateTime, nullable=True)
-    _completed_at = Column(DateTime, nullable=True)
+    _created_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _started_at=Column(DateTime, nullable=True)
+    _completed_at=Column(DateTime, nullable=True)
 
     # Metadata
-    _parameters = Column(JSON, default={})
-    _results = Column(JSON, default={})
+    _parameters=Column(JSON, default={})
+    _results=Column(JSON, default={})
 
     # Relationships
     _operations = relationship(
@@ -380,32 +428,32 @@ class BatchOperationResult(Base):
     __tablename__ = "batch_operation_result"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Foreign key
     _batch_operation_id = Column(
         String(36),
         ForeignKey("batch_operation.id", ondelete="CASCADE"),
-        nullable=False,
+        _nullable=False,
         _index = True,
     )
 
     # Resource
-    _resource_id = Column(String(128), nullable=False)
+    _resource_id=Column(String(128), nullable=False)
 
     # Status
-    _status = Column(String(32), nullable=False)    # success, failure
-    _error_message = Column(Text, nullable=True)
+    _status=Column(String(32), nullable=False)    # success, failure
+    _error_message=Column(Text, nullable=True)
 
     # Result data
-    _result_data = Column(JSON, default={})
+    _result_data=Column(JSON, default={})
 
     # Timing
-    _started_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _completed_at = Column(DateTime, nullable=True)
+    _started_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _completed_at=Column(DateTime, nullable=True)
 
     # Relationship
-    batch_operation = relationship("BatchOperation", back_populates="operations")
+    _batch_operation=relationship("BatchOperation", back_populates="operations")
 
     # Indexes
     __table_args__ = (
@@ -420,23 +468,23 @@ class AuditLog(Base):
     __tablename__ = "audit_log"
 
     # Primary key
-    _id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Action
-    _action = Column(String(128), nullable=False, index=True)
-    _actor = Column(String(128), nullable=False, index=True)
-    _resource = Column(String(255), nullable=False)
+    _action=Column(String(128), nullable=False, index=True)
+    _actor=Column(String(128), nullable=False, index=True)
+    _resource=Column(String(255), nullable=False)
 
     # Result
-    _result = Column(String(32), nullable=False)    # success, failure, partial
-    _error = Column(Text, nullable=True)
+    _result=Column(String(32), nullable=False)    # success, failure, partial
+    _error=Column(Text, nullable=True)
 
     # Details
-    _details = Column(JSON, default={})
-    _duration_ms = Column(Float, nullable=True)
+    _details=Column(JSON, default={})
+    _duration_ms=Column(Float, nullable=True)
 
     # Timing
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    _timestamp=Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
 
     # Indexes
     __table_args__ = (
@@ -453,26 +501,26 @@ class WebSocketConnection(Base):
     __tablename__ = "websocket_connection"
 
     # Primary key
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    _id=Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
 
     # Client info
-    _client_id = Column(String(128), unique=True, nullable=False)
-    _user_id = Column(String(128), nullable=True, index=True)
+    _client_id=Column(String(128), unique=True, nullable=False)
+    _user_id=Column(String(128), nullable=True, index=True)
 
     # Connection details
-    _namespace = Column(String(64), nullable=False)
-    _session_id = Column(String(128), nullable=True)
+    _namespace=Column(String(64), nullable=False)
+    _session_id=Column(String(128), nullable=True)
 
     # Subscriptions
-    _subscribed_topics = Column(JSON, default=[])
+    _subscribed_topics=Column(JSON, default=[])
 
     # Timing
-    connected_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _last_activity_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    _disconnected_at = Column(DateTime, nullable=True)
+    _connected_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _last_activity_at=Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    _disconnected_at=Column(DateTime, nullable=True)
 
     # Connection state
-    active = Column(Boolean, default=True, index=True)
+    _active=Column(Boolean, default=True, index=True)
 
     # Indexes
     __table_args__ = (
@@ -496,5 +544,5 @@ BatchOperation.__table_args__ += (  # type: ignore[assignment]
 )
 
 User2FA.__table_args__ += (  # type: ignore[assignment]
-    CheckConstraint("(totp_enabled = false OR totp_secret IS NOT NULL)"),
+    CheckConstraint("(totp_enabled=false OR totp_secret IS NOT NULL)"),
 )

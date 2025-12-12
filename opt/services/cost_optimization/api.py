@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,8 +129,8 @@ from opt.core.health import create_health_blueprint
 
 from .core import CostOptimizer
 
-_cost_bp = Blueprint("cost_optimization", __name__)
-_optimizer = CostOptimizer()
+_cost_bp=Blueprint("cost_optimization", __name__)
+_optimizer=CostOptimizer()
 
 # Mock data store for API demo
 _mock_resources = [
@@ -107,8 +155,8 @@ _mock_resources = [
 
 
 def get_cost_report() -> Any:
-    days = int(request.args.get("days", 30))
-    report = optimizer.generate_cost_report(mock_resources, days=days)
+    _days=int(request.args.get("days", 30))
+    _report=optimizer.generate_cost_report(mock_resources, days=days)
     return jsonify(report.__dict__)
 
 
@@ -116,7 +164,7 @@ def get_cost_report() -> Any:
 
 
 def get_recommendations() -> Any:
-    recommendations = optimizer.analyze_resource_usage(mock_resources)
+    _recommendations=optimizer.analyze_resource_usage(mock_resources)
     return jsonify([rec.__dict__ for rec in recommendations])
 
 
@@ -132,16 +180,16 @@ def manage_pricing() -> Any:
 
 
 # Create Flask app
-app = Flask(__name__)
+_app=Flask(__name__)
 
 # Load and validate configuration (INFRA-003)
-settings = Settings.load_validated_config()
+_settings=Settings.load_validated_config()
 app.config["SETTINGS"] = settings
 
 # Initialize graceful shutdown and health checks
 try:
     from opt.web.panel.graceful_shutdown import init_graceful_shutdown
-    shutdown_manager = init_graceful_shutdown(app)
+    _shutdown_manager=init_graceful_shutdown(app)
 
     def check_optimizer() -> bool:
         return optimizer is not None
@@ -156,7 +204,7 @@ except ImportError:
             return {"status": "ok", "message": "CostOptimizer active"}
         return {"status": "error", "message": "CostOptimizer missing"}
 
-    health_bp = create_health_blueprint("cost-optimization-service", {"optimizer": check_optimizer_fallback})
+    _health_bp=create_health_blueprint("cost-optimization-service", {"optimizer": check_optimizer_fallback})
     app.register_blueprint(health_bp)
 
 app.register_blueprint(cost_bp, url_prefix="/api/v1/cost")

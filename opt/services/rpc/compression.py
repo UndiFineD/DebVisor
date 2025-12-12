@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +150,7 @@ try:
 except ImportError:
     BROTLI_AVAILABLE = False
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class CompressionAlgorithm(Enum):
@@ -211,15 +259,15 @@ class CompressionMetrics:
 class CompressionManager:
     """Manages compression and decompression operations."""
 
-    def __init__(self, config: Optional[CompressionConfig] = None):
+    def __init__(self, config: Optional[CompressionConfig] = None) -> None:
         """
         Initialize compression manager.
 
         Args:
             config: CompressionConfig instance (uses defaults if None)
         """
-        self.config = config or CompressionConfig()
-        self.metrics = CompressionMetrics()
+        self.config=config or CompressionConfig()
+        self.metrics=CompressionMetrics()
 
         # Validate Brotli availability
         if self.config.allow_brotli and not BROTLI_AVAILABLE:
@@ -304,23 +352,23 @@ class CompressionManager:
         try:
         # Auto-select algorithm if not specified
             if algorithm is None:
-                algorithm = self.select_algorithm(len(data), content_type=content_type)
+                _algorithm=self.select_algorithm(len(data), content_type=content_type)
 
             if algorithm == CompressionAlgorithm.NONE:
                 return data, algorithm
 
-            _start_time = time.time()
+            _start_time=time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
-                compressed = gzip.compress(data, compresslevel=self.config.gzip_level)
+                _compressed=gzip.compress(data, compresslevel=self.config.gzip_level)
             elif algorithm == CompressionAlgorithm.BROTLI:
                 if not BROTLI_AVAILABLE:
                     raise ValueError("Brotli not available")
-                compressed = brotli.compress(data, quality=self.config.brotli_quality)
+                _compressed=brotli.compress(data, quality=self.config.brotli_quality)
             else:
                 raise ValueError(f"Unknown compression algorithm: {algorithm}")
 
-            duration_ms = (time.time() - start_time) * 1000
+            _duration_ms=(time.time() - start_time) * 1000
 
             # Only use compression if it actually reduces size
             if len(compressed) < len(data):
@@ -364,18 +412,18 @@ class CompressionManager:
             return data
 
         try:
-            _start_time = time.time()
+            _start_time=time.time()
 
             if algorithm == CompressionAlgorithm.GZIP:
-                decompressed = gzip.decompress(data)
+                _decompressed=gzip.decompress(data)
             elif algorithm == CompressionAlgorithm.BROTLI:
                 if not BROTLI_AVAILABLE:
                     raise ValueError("Brotli not available")
-                decompressed = brotli.decompress(data)
+                _decompressed=brotli.decompress(data)
             else:
                 raise ValueError(f"Unknown compression algorithm: {algorithm}")
 
-            duration_ms = (time.time() - start_time) * 1000
+            _duration_ms=(time.time() - start_time) * 1000
             self.metrics.record_decompression(duration_ms)
 
             logger.debug(

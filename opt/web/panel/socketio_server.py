@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -126,7 +174,7 @@ from opt.web.panel.websocket_events import (
     WebSocketEventBus,
 )
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class NamespaceAuthenticationRequired(Exception):
@@ -150,7 +198,7 @@ class WebSocketAuthenticationManager:
     import os
     import secrets
 
-    JWT_SECRET = os.getenv("JWT_SECRET", secrets.token_hex(32))
+    JWT_SECRET=os.getenv("JWT_SECRET", secrets.token_hex(32))
     JWT_ALGORITHM = "HS256"
     JWT_EXPIRY_SECONDS = 3600
 
@@ -162,7 +210,7 @@ class WebSocketAuthenticationManager:
         "/admin": ["admin"],
     }
 
-    def __init__(self, secret: Optional[str] = None):
+    def __init__(self, secret: Optional[str] = None) -> None:
         """
         Initialize authentication manager.
 
@@ -194,13 +242,13 @@ class WebSocketAuthenticationManager:
             return False, "Authentication required"
 
         # Verify token
-        token = auth.get("token")
+        _token=auth.get("token")
         if not token:
             return False, "No authentication token provided"
 
         try:
         # Decode and validate JWT
-            payload = jwt.decode(token, self.secret, algorithms=[self.JWT_ALGORITHM])
+            _payload=jwt.decode(token, self.secret, algorithms=[self.JWT_ALGORITHM])
         except jwt.ExpiredSignatureError:
             return False, "Authentication token expired"
         except jwt.InvalidTokenError as e:
@@ -208,8 +256,8 @@ class WebSocketAuthenticationManager:
             return False, "Invalid authentication token"
 
         # Extract user info
-        user_id = payload.get("user_id")
-        _user_permissions = payload.get("permissions", [])
+        _user_id=payload.get("user_id")
+        _user_permissions=payload.get("permissions", [])
 
         if not user_id:
             return False, "Token missing user_id"
@@ -259,7 +307,7 @@ class WebSocketAuthenticationManager:
             JWT token string
         """
         expiry = expiry_seconds or self.JWT_EXPIRY_SECONDS
-        now = time.time()
+        _now=time.time()
 
         payload = {
             "user_id": user_id,
@@ -268,7 +316,7 @@ class WebSocketAuthenticationManager:
             "exp": now + expiry,
         }
 
-        token = jwt.encode(payload, self.secret, algorithm=self.JWT_ALGORITHM)
+        _token=jwt.encode(payload, self.secret, algorithm=self.JWT_ALGORITHM)
 
         logger.debug(f"Created session token for user {user_id}")
         return token
@@ -297,7 +345,7 @@ class SocketIOConfig:
 
     async_mode: str = "threading"    # threading, eventlet, gevent
     cors_allowed_origins: List[str] = field(
-        default_factory=lambda: ["http://localhost:3000", "http://localhost:5000"]
+        _default_factory=lambda: ["http://localhost:3000", "http://localhost:5000"]
     )
     ping_timeout: int = 10
     ping_interval: int = 5
@@ -332,9 +380,9 @@ class SocketIONamespace:
         self.namespace = namespace
         self.connection_manager = connection_manager
         self.event_bus = event_bus
-        self.auth_manager = auth_manager or WebSocketAuthenticationManager()
+        self.auth_manager=auth_manager or WebSocketAuthenticationManager()
         self.clients: Dict[str, Dict[str, Any]] = {}
-        self.lock = asyncio.Lock()
+        self.lock=asyncio.Lock()
 
     def register_handlers(self, socketio: Any) -> None:
         """
@@ -368,8 +416,8 @@ class NodeNamespace(SocketIONamespace):
                 disconnect()
                 return False
 
-            client_id = f"node_client_{id(auth)}"
-            user_id = auth.get("user_id", "anonymous") if auth else "anonymous"
+            _client_id=f"node_client_{id(auth)}"
+            _user_id=auth.get("user_id", "anonymous") if auth else "anonymous"
             # permissions = auth.get("permissions", [])
 
             self.clients[client_id] = {
@@ -385,7 +433,7 @@ class NodeNamespace(SocketIONamespace):
 
         def handle_subscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node updates."""
-            node_id = data.get("node_id")
+            _node_id=data.get("node_id")
             room = f"node:{node_id}"
 
             join_room(room)
@@ -397,7 +445,7 @@ class NodeNamespace(SocketIONamespace):
 
         def handle_unsubscribe_node(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node updates."""
-            node_id = data.get("node_id")
+            _node_id=data.get("node_id")
             room = f"node:{node_id}"
 
             leave_room(room)
@@ -409,7 +457,7 @@ class NodeNamespace(SocketIONamespace):
 
         def handle_subscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to node metrics."""
-            node_id = data.get("node_id")
+            _node_id=data.get("node_id")
             room = f"node_metrics:{node_id}"
 
             join_room(room)
@@ -421,7 +469,7 @@ class NodeNamespace(SocketIONamespace):
 
         def handle_unsubscribe_metrics(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from node metrics."""
-            node_id = data.get("node_id")
+            _node_id=data.get("node_id")
             room = f"node_metrics:{node_id}"
 
             leave_room(room)
@@ -433,7 +481,7 @@ class NodeNamespace(SocketIONamespace):
 
         def handle_get_node_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current node status."""
-            node_id = data.get("node_id")
+            _node_id=data.get("node_id")
 
             # In production, fetch from database/cache
             status = {
@@ -460,7 +508,7 @@ class NodeNamespace(SocketIONamespace):
             status: Node status
         """
         room = f"node:{node_id}"
-        event = EventFactory.node_status_event(node_id, status)
+        _event=EventFactory.node_status_event(node_id, status)
 
         if emit:
             emit(
@@ -479,7 +527,7 @@ class NodeNamespace(SocketIONamespace):
             metrics: Node metrics
         """
         room = f"node_metrics:{node_id}"
-        event = EventFactory.node_metrics_event(node_id, metrics)
+        _event=EventFactory.node_metrics_event(node_id, metrics)
 
         if emit:
             emit(
@@ -505,7 +553,7 @@ class NodeNamespace(SocketIONamespace):
             logger.warning("WebSocket connection attempt without authentication")
             return False
 
-        token = auth.get("token")
+        _token=auth.get("token")
         if not token:
             logger.warning("WebSocket connection attempt without token")
             return False
@@ -555,7 +603,7 @@ class JobNamespace(SocketIONamespace):
 
         def handle_subscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to job progress."""
-            job_id = data.get("job_id")
+            _job_id=data.get("job_id")
             room = f"job:{job_id}"
 
             join_room(room)
@@ -567,7 +615,7 @@ class JobNamespace(SocketIONamespace):
 
         def handle_unsubscribe_job(data: Dict[str, Any]) -> Dict[str, Any]:
             """Unsubscribe from job progress."""
-            job_id = data.get("job_id")
+            _job_id=data.get("job_id")
             room = f"job:{job_id}"
 
             leave_room(room)
@@ -579,7 +627,7 @@ class JobNamespace(SocketIONamespace):
 
         def handle_get_job_status(data: Dict[str, Any]) -> Dict[str, Any]:
             """Get current job status."""
-            job_id = data.get("job_id")
+            _job_id=data.get("job_id")
 
             # In production, fetch from database/cache
             status = {
@@ -607,7 +655,7 @@ class JobNamespace(SocketIONamespace):
             status: Job status
         """
         room = f"job:{job_id}"
-        event = EventFactory.job_progress_event(job_id, progress, status)
+        _event=EventFactory.job_progress_event(job_id, progress, status)
 
         if emit:
             emit(
@@ -624,7 +672,7 @@ class JobNamespace(SocketIONamespace):
         if auth is None:
             return False
 
-        token = auth.get("token")
+        _token=auth.get("token")
         return token is not None
 
 
@@ -656,7 +704,7 @@ class AlertNamespace(SocketIONamespace):
 
         def handle_subscribe_alerts(data: Dict[str, Any]) -> Dict[str, Any]:
             """Subscribe to cluster alerts."""
-            severity = data.get("severity", "warning")
+            _severity=data.get("severity", "warning")
             room = f"alerts:{severity}"
 
             join_room(room)
@@ -668,7 +716,7 @@ class AlertNamespace(SocketIONamespace):
 
         def handle_acknowledge_alert(data: Dict[str, Any]) -> Dict[str, Any]:
             """Acknowledge alert."""
-            alert_id = data.get("alert_id")
+            _alert_id=data.get("alert_id")
             logger.debug(f"Alert {alert_id} acknowledged")
 
             return {"status": "acknowledged", "alert_id": alert_id}
@@ -691,7 +739,7 @@ class AlertNamespace(SocketIONamespace):
             severity: Severity level (info, warning, error, critical)
         """
         room = f"alerts:{severity}"
-        event = EventFactory.alert_event(alert_type, message, severity)
+        _event=EventFactory.alert_event(alert_type, message, severity)
 
         if emit:
             emit(
@@ -708,7 +756,7 @@ class AlertNamespace(SocketIONamespace):
         if auth is None:
             return False
 
-        token = auth.get("token")
+        _token=auth.get("token")
         return token is not None
 
 
@@ -733,7 +781,7 @@ class NotificationNamespace(SocketIONamespace):
                 disconnect()
                 return False
 
-            user_id = auth.get("user_id") if auth else None
+            _user_id=auth.get("user_id") if auth else None
             if user_id:
                 join_room(f"user:{user_id}")
                 logger.info(f"User {user_id} connected to /notifications")
@@ -743,8 +791,8 @@ class NotificationNamespace(SocketIONamespace):
 
         def handle_send_message(data: Dict[str, Any]) -> Dict[str, Any]:
             """Handle chat message."""
-            user_id = data.get("user_id")    # Target user
-            message = data.get("message")
+            _user_id=data.get("user_id")    # Target user
+            _message=data.get("message")
 
             if user_id and message:
             # In a real app, we would validate permissions and persist the message
@@ -788,14 +836,14 @@ class NotificationNamespace(SocketIONamespace):
         if auth is None:
             return False
 
-        token = auth.get("token")
+        _token=auth.get("token")
         return token is not None
 
 
 class SocketIOServer:
     """Socket.IO server for DebVisor real-time updates."""
 
-    def __init__(self, app: Any = None, config: Optional[SocketIOConfig] = None):
+    def __init__(self, app: Any=None, config: Optional[SocketIOConfig] = None) -> None:
         """
         Initialize Socket.IO server.
 
@@ -803,12 +851,12 @@ class SocketIOServer:
             app: Flask application instance
             config: SocketIOConfig instance
         """
-        self.config = config or SocketIOConfig()
+        self.config=config or SocketIOConfig()
         self.app = app
         self.socketio: Any = None
 
-        self.event_bus = WebSocketEventBus()
-        self.connection_manager = WebSocketConnectionManager(self.event_bus)
+        self.event_bus=WebSocketEventBus()
+        self.connection_manager=WebSocketConnectionManager(self.event_bus)
 
         self.namespaces: Dict[str, Any] = {}
 
@@ -840,10 +888,10 @@ class SocketIOServer:
 
     def _register_namespaces(self) -> None:
         """Register all namespaces."""
-        node_ns = NodeNamespace(self.connection_manager, self.event_bus)
-        job_ns = JobNamespace(self.connection_manager, self.event_bus)
-        alert_ns = AlertNamespace(self.connection_manager, self.event_bus)
-        notification_ns = NotificationNamespace(self.connection_manager, self.event_bus)
+        _node_ns=NodeNamespace(self.connection_manager, self.event_bus)
+        _job_ns=JobNamespace(self.connection_manager, self.event_bus)
+        _alert_ns=AlertNamespace(self.connection_manager, self.event_bus)
+        _notification_ns=NotificationNamespace(self.connection_manager, self.event_bus)
 
         self.namespaces["/nodes"] = node_ns
         self.namespaces["/jobs"] = job_ns
@@ -860,19 +908,19 @@ class SocketIOServer:
 
     def emit_node_status(self, node_id: str, status: str) -> None:
         """Emit node status update."""
-        node_ns = self.namespaces.get("/nodes")
+        _node_ns=self.namespaces.get("/nodes")
         if node_ns:
             node_ns.broadcast_node_status(node_id, status)
 
     def emit_node_metrics(self, node_id: str, metrics: Dict[str, Any]) -> None:
         """Emit node metrics update."""
-        node_ns = self.namespaces.get("/nodes")
+        _node_ns=self.namespaces.get("/nodes")
         if node_ns:
             node_ns.broadcast_node_metrics(node_id, metrics)
 
     def emit_job_progress(self, job_id: str, progress: int, status: str) -> None:
         """Emit job progress update."""
-        job_ns = self.namespaces.get("/jobs")
+        _job_ns=self.namespaces.get("/jobs")
         if job_ns:
             job_ns.broadcast_job_progress(job_id, progress, status)
 
@@ -880,7 +928,7 @@ class SocketIOServer:
         self, alert_type: str, message: str, severity: str = "warning"
     ) -> None:
         """Emit alert."""
-        alert_ns = self.namespaces.get("/alerts")
+        _alert_ns=self.namespaces.get("/alerts")
         if alert_ns:
             alert_ns.broadcast_alert(alert_type, message, severity)
 
@@ -888,7 +936,7 @@ class SocketIOServer:
         """Send periodic heartbeat to all connected clients."""
         while True:
             try:
-                event = EventFactory.heartbeat_event()
+                _event=EventFactory.heartbeat_event()
                 await self.event_bus.publish(event)
                 await asyncio.sleep(self.config.heartbeat_interval)
             except Exception as e:

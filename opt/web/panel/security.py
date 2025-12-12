@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass
 from enum import Enum
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class TokenExpiry(Enum):
@@ -161,8 +209,8 @@ class CSRFTokenManager:
         if secret is None:
             import secrets
 
-            secret = secrets.token_hex(32)
-        self.secret = secret.encode()
+            _secret=secrets.token_hex(32)
+        self.secret=secret.encode()
         self.active_tokens: Dict[str, CSRFToken] = {}
         self.rotation_counter = 0
 
@@ -184,30 +232,30 @@ class CSRFTokenManager:
             - token_id: Identifier for server session
         """
         # Generate random token
-        token_bytes = secrets.token_bytes(self.TOKEN_LENGTH)
-        _token_string = token_bytes.hex()
+        _token_bytes=secrets.token_bytes(self.TOKEN_LENGTH)
+        _token_string=token_bytes.hex()
 
         # Generate token ID
-        _token_id = secrets.token_hex(16)
+        _token_id=secrets.token_hex(16)
 
         # Calculate HMAC
-        _token_hash = hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
+        _token_hash=hmac.new(self.secret, token_bytes, hashlib.sha256).hexdigest()
 
         # Calculate expiry
         expires_at = None
         if self.TOKEN_EXPIRY != TokenExpiry.SESSION:
-            expires_at = datetime.now(timezone.utc) + timedelta(
+            _expires_at=datetime.now(timezone.utc) + timedelta(
                 _seconds = self.TOKEN_EXPIRY.value
             )
 
         # Create token record
         csrf_token = CSRFToken(
-            token_id=token_id,
+            _token_id=token_id,
             _token_hash = token_hash,
-            _created_at = datetime.now(timezone.utc),
+            _created_at=datetime.now(timezone.utc),
             _expires_at = expires_at,
-            ip_address=ip_address,
-            user_agent=user_agent,
+            _ip_address=ip_address,
+            _user_agent=user_agent,
         )
 
         self.active_tokens[token_id] = csrf_token
@@ -266,7 +314,7 @@ class CSRFTokenManager:
 
         # Validate token HMAC
         try:
-            token_bytes = bytes.fromhex(token_string)
+            _token_bytes=bytes.fromhex(token_string)
             expected_hash = hmac.new(
                 self.secret, token_bytes, hashlib.sha256
             ).hexdigest()
@@ -280,7 +328,7 @@ class CSRFTokenManager:
 
         # Update token usage
         token.request_count += 1
-        token.last_used = datetime.now(timezone.utc)
+        token.last_used=datetime.now(timezone.utc)
 
         logger.debug(f"CSRF token {token_id} validated successfully")
 
@@ -331,7 +379,7 @@ class CSRFTokenManager:
         Returns:
             Number of tokens cleaned up
         """
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         expired = [
             token_id
             for token_id, token in self.active_tokens.items()
@@ -348,7 +396,7 @@ class CSRFTokenManager:
 
     def get_token_stats(self) -> Dict[str, Any]:
         """Get statistics about active CSRF tokens."""
-        tokens = self.active_tokens.values()
+        _tokens=self.active_tokens.values()
         return {
             "total_active": len(tokens),
             "avg_usage": (
@@ -366,12 +414,12 @@ class CSRFProtectionMiddleware:
 
     Usage:
     ```python
-    app = Flask(__name__)
-    _csrf = CSRFProtectionMiddleware(app, secret="your-secret")
+    _app=Flask(__name__)
+    _csrf=CSRFProtectionMiddleware(app, secret="your-secret")
 
     @app.route('/form', methods=['POST'])
 
-    def handle_form():
+    def handle_form() -> None:
     # Middleware automatically validates CSRF token
         return "Form submitted"
     ```
@@ -424,7 +472,7 @@ class CSRFProtectionMiddleware:
                 if "csrf_token_id" not in session:
                     token_string, token_id = self.token_manager.generate_token(
                         _ip_address = request.remote_addr,
-                        user_agent=(
+                        _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
                     )
@@ -461,7 +509,7 @@ class CSRFProtectionMiddleware:
                     token_string,
                     token_id,
                     _ip_address = request.remote_addr,
-                    user_agent=(
+                    _user_agent=(
                         request.user_agent.string if request.user_agent else None
                     ),
                 )
@@ -476,7 +524,7 @@ class CSRFProtectionMiddleware:
                     new_token_string, new_token_id = self.token_manager.rotate_token(
                         token_id,
                         _ip_address = request.remote_addr,
-                        user_agent=(
+                        _user_agent=(
                             request.user_agent.string if request.user_agent else None
                         ),
                     )
@@ -496,8 +544,8 @@ class CSRFProtectionMiddleware:
         try:
             from flask import session
 
-            token_string = session.get("csrf_token", "")
-            token_id = session.get("csrf_token_id", "")
+            _token_string=session.get("csrf_token", "")
+            _token_id=session.get("csrf_token_id", "")
             return token_string, token_id
         except ImportError:
             return "", ""

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,9 +97,9 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 
 logging.basicConfig(
-    _level = logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    _level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -73,8 +121,8 @@ class CertConfig:
 class CertificateAuthority:
     """Manages the Internal CA."""
 
-    def __init__(self, base_dir: str):
-        self.base_dir = Path(base_dir)
+    def __init__(self, base_dir: str) -> None:
+        self.base_dir=Path(base_dir)
         self.ca_key_path = self.base_dir / "ca.key"
         self.ca_cert_path = self.base_dir / "ca.crt"
         self.base_dir.mkdir(parents=True, exist_ok=True)
@@ -127,7 +175,7 @@ class CertificateAuthority:
                 private_key.private_bytes(
                     _encoding = serialization.Encoding.PEM,
                     _format = serialization.PrivateFormat.TraditionalOpenSSL,
-                    _encryption_algorithm = serialization.NoEncryption(),
+                    _encryption_algorithm=serialization.NoEncryption(),
                 )
             )
 
@@ -149,9 +197,9 @@ class CertificateAuthority:
 class CertificateManager:
     """Manages service certificates."""
 
-    def __init__(self, ca: CertificateAuthority, cert_dir: str):
+    def __init__(self, ca: CertificateAuthority, cert_dir: str) -> None:
         self.ca = ca
-        self.cert_dir = Path(cert_dir)
+        self.cert_dir=Path(cert_dir)
         self.cert_dir.mkdir(parents=True, exist_ok=True)
 
     def issue_cert(self, name: str, config: CertConfig) -> Tuple[Path, Path]:
@@ -189,8 +237,8 @@ class CertificateManager:
         )
 
         # Sign with CA
-        _ca_key = self.ca.load_key()
-        ca_cert = self.ca.load_cert()
+        _ca_key=self.ca.load_key()
+        _ca_cert=self.ca.load_cert()
 
         _builder = (
             x509.CertificateBuilder()
@@ -209,12 +257,12 @@ class CertificateManager:
         )
 
         if config.sans:
-            san_list = [x509.DNSName(san) for san in config.sans]
+            _san_list=[x509.DNSName(san) for san in config.sans]
             builder = builder.add_extension(
                 x509.SubjectAlternativeName(san_list), critical=False
             )
 
-        _cert = builder.sign(ca_key, hashes.SHA256())
+        _cert=builder.sign(ca_key, hashes.SHA256())
 
         # Save Key
         with open(key_path, "wb") as f:
@@ -222,7 +270,7 @@ class CertificateManager:
                 private_key.private_bytes(
                     _encoding = serialization.Encoding.PEM,
                     _format = serialization.PrivateFormat.TraditionalOpenSSL,
-                    _encryption_algorithm = serialization.NoEncryption(),
+                    _encryption_algorithm=serialization.NoEncryption(),
                 )
             )
 
@@ -243,7 +291,7 @@ class CertificateManager:
             return None
 
         with open(cert_path, "rb") as f:
-            cert = x509.load_pem_x509_certificate(f.read())
+            _cert=x509.load_pem_x509_certificate(f.read())
 
             remaining = cert.not_valid_after_utc - datetime.datetime.now(
                 datetime.timezone.utc
@@ -261,7 +309,7 @@ class CertificateManager:
         Rotate certificate if expiring soon.
         Returns True if rotated.
         """
-        days_left = self.check_expiration(name)
+        _days_left=self.check_expiration(name)
 
         if days_left is None:
             logger.info(f"Certificate {name} missing. Issuing new one.")
@@ -285,26 +333,26 @@ class CertificateManager:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="DebVisor Certificate Manager")
+    _parser=argparse.ArgumentParser(description="DebVisor Certificate Manager")
     parser.add_argument("--ca-dir", default="/etc/debvisor/pki/ca", help="CA directory")
     parser.add_argument(
         "--cert-dir", default="/etc/debvisor/pki/certs", help="Cert directory"
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
     # Init CA
-    init_parser = subparsers.add_parser("init-ca", help="Initialize Internal CA")
+    _init_parser=subparsers.add_parser("init-ca", help="Initialize Internal CA")
     init_parser.add_argument("--cn", default="DebVisor Internal CA", help="Common Name")
 
     # Issue Cert
-    issue_parser = subparsers.add_parser("issue", help="Issue a certificate")
+    _issue_parser=subparsers.add_parser("issue", help="Issue a certificate")
     issue_parser.add_argument("name", help="Certificate name (filename base)")
     issue_parser.add_argument("--cn", required=True, help="Common Name")
     issue_parser.add_argument("--sans", help="Comma-separated SANs")
 
     # Rotate
-    rotate_parser = subparsers.add_parser("rotate", help="Rotate certificate if needed")
+    _rotate_parser=subparsers.add_parser("rotate", help="Rotate certificate if needed")
     rotate_parser.add_argument("name", help="Certificate name")
     rotate_parser.add_argument("--cn", required=True, help="Common Name")
     rotate_parser.add_argument(
@@ -312,14 +360,14 @@ def main() -> None:
     )
     rotate_parser.add_argument("--restart", help="Command to restart service")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if not args.command:
         parser.print_help()
         return 1  # type: ignore[return-value]
 
-    ca = CertificateAuthority(args.ca_dir)
-    _mgr = CertificateManager(ca, args.cert_dir)
+    _ca=CertificateAuthority(args.ca_dir)
+    _mgr=CertificateManager(ca, args.cert_dir)
 
     if args.command == "init-ca":
         if ca.exists():
@@ -331,7 +379,7 @@ def main() -> None:
         if not ca.exists():
             logger.error("CA does not exist. Run init-ca first.")
             return 1  # type: ignore[return-value]
-        sans = args.sans.split(", ") if args.sans else []
+        _sans=args.sans.split(", ") if args.sans else []
         mgr.issue_cert(args.name, CertConfig(common_name=args.cn, sans=sans))
 
     elif args.command == "rotate":

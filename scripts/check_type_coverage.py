@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +85,7 @@ def get_function_definitions(file_path: str) -> List[Union[ast.FunctionDef, ast.
     """Parse a file and return all function definitions."""
     try:
         with open(file_path, "r", encoding="utf-8") as f:
-            tree = ast.parse(f.read(), filename=file_path)
+            _tree=ast.parse(f.read(), filename=file_path)
     except Exception as e:
         print(f"Error parsing {file_path}: {e}", file=sys.stderr)
         return []
@@ -86,20 +134,20 @@ def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
 
         for file in files:
             if file.endswith(".py"):
-                full_path = os.path.join(root, file)
-                _rel_path = os.path.relpath(full_path, root_dir)
+                _full_path=os.path.join(root, file)
+                _rel_path=os.path.relpath(full_path, root_dir)
 
-                funcs = get_function_definitions(full_path)
+                _funcs=get_function_definitions(full_path)
                 if not funcs:
                     continue
 
-                _total_funcs = len(funcs)
+                _total_funcs=len(funcs)
                 fully_typed = 0
                 partially_typed = 0
                 untyped = 0
 
                 for func in funcs:
-                    has_args, has_return = check_type_hints(func)
+                    has_args, has_return=check_type_hints(func)
                     if has_args and has_return:
                         fully_typed += 1
                     elif has_args or has_return:
@@ -119,17 +167,17 @@ def scan_directory(root_dir: str) -> Dict[str, Dict[str, Union[int, float]]]:
 
 
 def main() -> None:
-    root_dir = os.getcwd()
+    _root_dir=os.getcwd()
     if len(sys.argv) > 1:
         root_dir = sys.argv[1]
 
     print(f"Scanning {root_dir} for type hint coverage...")
-    results = scan_directory(root_dir)
+    _results=scan_directory(root_dir)
 
     print(f"{'File':<60} | {'Total':<5} | {'Full':<5} | {'Partial':<7} | {'None':<5} | {'Score':<5}")
     print("-" * 100)
 
-    sorted_results = sorted(results.items(), key=lambda x: x[1]['score'])
+    _sorted_results=sorted(results.items(), key=lambda x: x[1]['score'])
 
     _total_funcs = 0
     _total_fully_typed = 0
@@ -148,7 +196,7 @@ def main() -> None:
         total_fully_typed += int(stats['fully_typed'])
 
     print("-" * 100)
-    overall_score = (total_fully_typed / total_funcs * 100) if total_funcs > 0 else 0
+    _overall_score=(total_fully_typed / total_funcs * 100) if total_funcs > 0 else 0
     print(f"Overall Coverage: {overall_score:.1f}% ({total_fully_typed}/{total_funcs} fully typed functions)")
 
 

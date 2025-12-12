@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,7 +152,7 @@ from io import BytesIO
 import base64
 from collections import defaultdict
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 @dataclass
@@ -137,7 +185,7 @@ class TwoFAVerificationRateLimiter:
         """Initialize the rate limiter."""
         self.attempts: Dict[str, List[RateLimitAttemppt]] = defaultdict(list)
         self.lockouts: Dict[str, datetime] = {}
-        self._lock = __import__("threading").Lock()
+        self._lock=__import__("threading").Lock()
 
     def record_failed_attempt(
         self, ip_address: str, method: str, user_account: Optional[str] = None
@@ -151,17 +199,17 @@ class TwoFAVerificationRateLimiter:
             user_account: User account if known
         """
         with self._lock:
-            now = datetime.now(timezone.utc)
+            _now=datetime.now(timezone.utc)
             attempt = RateLimitAttemppt(
                 _timestamp = now,
-                ip_address=ip_address,
+                _ip_address=ip_address,
                 _method = method,
                 _user_account = user_account,
             )
             self.attempts[ip_address].append(attempt)
 
             # Clean old attempts outside window
-            window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
+            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
             self.attempts[ip_address] = [
                 a for a in self.attempts[ip_address] if a.timestamp > window_start
             ]
@@ -176,7 +224,7 @@ class TwoFAVerificationRateLimiter:
             # Trigger lockout if threshold exceeded
             if len(self.attempts[ip_address]) >= self.MAX_ATTEMPTS:
                 self.lockouts[ip_address] = now + timedelta(
-                    seconds=self.LOCKOUT_SECONDS
+                    _seconds=self.LOCKOUT_SECONDS
                 )
                 logger.error(
                     f"2FA verification rate limit exceeded for IP {ip_address}: "
@@ -197,20 +245,20 @@ class TwoFAVerificationRateLimiter:
             If limited, seconds_until_available shows when lockout expires
         """
         with self._lock:
-            now = datetime.now(timezone.utc)
+            _now=datetime.now(timezone.utc)
 
             # Check active lockout
             if ip_address in self.lockouts:
                 lockout_expires = self.lockouts[ip_address]
                 if now < lockout_expires:
-                    seconds_remaining = (lockout_expires - now).total_seconds()
+                    _seconds_remaining=(lockout_expires - now).total_seconds()
                     return True, int(seconds_remaining)
                 else:
                 # Lockout expired, clean it up
                     del self.lockouts[ip_address]
 
             # Check recent attempts in window
-            window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
+            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
             recent_attempts = [
                 a
                 for a in self.attempts.get(ip_address, [])
@@ -245,8 +293,8 @@ class TwoFAVerificationRateLimiter:
             Number of failed attempts in current window
         """
         with self._lock:
-            now = datetime.now(timezone.utc)
-            window_start = now - timedelta(seconds=self.WINDOW_SECONDS)
+            _now=datetime.now(timezone.utc)
+            _window_start=now - timedelta(seconds=self.WINDOW_SECONDS)
             return len(
                 [
                     a
@@ -267,9 +315,9 @@ class TwoFAVerificationRateLimiter:
         """
         with self._lock:
             if ip_address:
-                attempts = self.attempts.get(ip_address, [])
+                _attempts=self.attempts.get(ip_address, [])
             else:
-                attempts = [a for ips in self.attempts.values() for a in ips]
+                _attempts=[a for ips in self.attempts.values() for a in ips]
 
             return [
                 {
@@ -308,14 +356,14 @@ class BackupCodeConfig:
 class TOTPManager:
     """Manages TOTP (Time-based One-Time Password) authentication."""
 
-    def __init__(self, config: Optional[TOTPConfig] = None):
+    def __init__(self, config: Optional[TOTPConfig] = None) -> None:
         """
         Initialize TOTP manager.
 
         Args:
             config: TOTPConfig instance
         """
-        self.config = config or TOTPConfig()
+        self.config=config or TOTPConfig()
 
     def generate_secret(self) -> str:
         """
@@ -341,9 +389,9 @@ class TOTPManager:
             Provisioning URI for QR code
         """
         issuer = issuer or self.config.issuer_name
-        totp = pyotp.TOTP(secret)
+        _totp=pyotp.TOTP(secret)
         return totp.provisioning_uri(
-            name=f"{self.config.account_name_prefix}:{account_name}",
+            _name=f"{self.config.account_name_prefix}:{account_name}",
             _issuer_name = issuer,
         )
 
@@ -366,12 +414,12 @@ class TOTPManager:
         qr.add_data(provisioning_uri)
         qr.make(fit=True)
 
-        img = qr.make_image(fill_color="black", back_color="white")
-        buffer = BytesIO()
+        _img=qr.make_image(fill_color="black", back_color="white")
+        _buffer=BytesIO()
         img.save(buffer, format="PNG")
         buffer.seek(0)
 
-        img_base64 = base64.b64encode(buffer.getvalue()).decode()
+        _img_base64=base64.b64encode(buffer.getvalue()).decode()
         return f"data:image/png;base64, {img_base64}"
 
     def verify_token(self, secret: str, token: str) -> bool:
@@ -385,7 +433,7 @@ class TOTPManager:
         Returns:
             True if token is valid, False otherwise
         """
-        totp = pyotp.TOTP(secret)
+        _totp=pyotp.TOTP(secret)
         return totp.verify(token, valid_window=self.config.window_size)
 
     def get_provisioning_info(self, secret: str, account_name: str) -> Dict[str, Any]:
@@ -399,8 +447,8 @@ class TOTPManager:
         Returns:
             Dictionary with secret, provisioning URI, and QR code
         """
-        provisioning_uri = self.get_totp_uri(secret, account_name)
-        qr_code = self.generate_qr_code(provisioning_uri)
+        _provisioning_uri=self.get_totp_uri(secret, account_name)
+        _qr_code=self.generate_qr_code(provisioning_uri)
 
         return {
             "secret": secret,
@@ -414,14 +462,14 @@ class TOTPManager:
 class BackupCodeManager:
     """Manages backup codes for account recovery."""
 
-    def __init__(self, config: Optional[BackupCodeConfig] = None):
+    def __init__(self, config: Optional[BackupCodeConfig] = None) -> None:
         """
         Initialize backup code manager.
 
         Args:
             config: BackupCodeConfig instance
         """
-        self.config = config or BackupCodeConfig()
+        self.config=config or BackupCodeConfig()
 
     def generate_codes(self) -> List[str]:
         """
@@ -459,7 +507,7 @@ class BackupCodeManager:
         import hashlib
 
         # Normalize: remove spaces, convert to uppercase
-        normalized = code.replace(" ", "").replace("-", "").upper()
+        _normalized=code.replace(" ", "").replace("-", "").upper()
         return hashlib.sha256(normalized.encode()).hexdigest()
 
     def verify_code(self, code: str, hashed_code: str) -> bool:
@@ -556,7 +604,7 @@ class WebAuthnManager:
         _options = generate_registration_options(
             _rp_id = "debvisor.local",
             _rp_name = "DebVisor",
-            _user_id = user_id.encode(),
+            _user_id=user_id.encode(),
             _user_name = user_name,
             _user_display_name = user_display_name,
             _authenticator_selection = AuthenticatorSelectionCriteria(
@@ -590,25 +638,25 @@ class WebAuthnManager:
         from webauthn import base64url_to_bytes
 
         try:
-            credential = RegistrationCredential.parse_raw(response_json)
+            _credential=RegistrationCredential.parse_raw(response_json)
             verification = verify_registration_response(
-                credential=credential,
-                _expected_challenge = base64url_to_bytes(challenge),
+                _credential=credential,
+                _expected_challenge=base64url_to_bytes(challenge),
                 _expected_origin = "https://debvisor.local",    # Should be configurable
                 _expected_rp_id = "debvisor.local",
             )
 
             return WebAuthnCredential(
-                credential_id=(
+                _credential_id=(
                     verification.credential_id.decode("utf-8")
                     if isinstance(verification.credential_id, bytes)
                     else verification.credential_id
                 ),
-                _public_key = base64.b64encode(verification.credential_public_key).decode(
+                _public_key=base64.b64encode(verification.credential_public_key).decode(
                     "utf-8"
                 ),
                 _sign_count = verification.sign_count,
-                _created_at = datetime.now(timezone.utc),
+                _created_at=datetime.now(timezone.utc),
                 _name = "WebAuthn Key",
                 _is_primary = True,
             )
@@ -677,14 +725,14 @@ class WebAuthnManager:
         from webauthn import base64url_to_bytes
 
         try:
-            credential = AuthenticationCredential.parse_raw(response_json)
+            _credential=AuthenticationCredential.parse_raw(response_json)
 
             verification = verify_authentication_response(
-                credential=credential,
-                _expected_challenge = base64url_to_bytes(challenge),
+                _credential=credential,
+                _expected_challenge=base64url_to_bytes(challenge),
                 _expected_origin = "https://debvisor.local",
                 _expected_rp_id = "debvisor.local",
-                _credential_public_key = base64.b64decode(credential_public_key),
+                _credential_public_key=base64.b64decode(credential_public_key),
                 _credential_current_sign_count = credential_sign_count,
             )
 
@@ -714,12 +762,12 @@ class TwoFactorAuthManager:
             totp_config: TOTP configuration
             backup_config: Backup code configuration
         """
-        self.totp_manager = TOTPManager(totp_config)
-        self.backup_manager = BackupCodeManager(backup_config)
-        self.webauthn_manager = WebAuthnManager()
-        self.rate_limiter = TwoFAVerificationRateLimiter()
+        self.totp_manager=TOTPManager(totp_config)
+        self.backup_manager=BackupCodeManager(backup_config)
+        self.webauthn_manager=WebAuthnManager()
+        self.rate_limiter=TwoFAVerificationRateLimiter()
 
-    def initiate_enrollment(self, account_name: str, use_totp: bool = True) -> Dict[str, Any]:
+    def initiate_enrollment(self, account_name: str, use_totp: bool=True) -> Dict[str, Any]:
         """
         Initiate 2FA enrollment for a user.
 
@@ -737,12 +785,12 @@ class TwoFactorAuthManager:
 
         # Generate TOTP secret and QR code
         if use_totp:
-            secret = self.totp_manager.generate_secret()
-            totp_info = self.totp_manager.get_provisioning_info(secret, account_name)
+            _secret=self.totp_manager.generate_secret()
+            _totp_info=self.totp_manager.get_provisioning_info(secret, account_name)
             enrollment_data["totp"] = totp_info
 
         # Generate backup codes
-        backup_codes = self.backup_manager.generate_codes()
+        _backup_codes=self.backup_manager.generate_codes()
         enrollment_data["backup_codes"] = backup_codes
         enrollment_data["backup_codes_display"] = (
             self.backup_manager.format_for_display(backup_codes)
@@ -800,10 +848,10 @@ class TwoFactorAuthManager:
             import json
 
             try:
-                context = json.loads(stored_secret)
-                challenge = context.get("challenge")
-                public_key = context.get("public_key")
-                _sign_count = context.get("sign_count", 0)
+                _context=json.loads(stored_secret)
+                _challenge=context.get("challenge")
+                _public_key=context.get("public_key")
+                _sign_count=context.get("sign_count", 0)
 
                 if not challenge or not public_key:
                     raise ValueError("Invalid WebAuthn context")
@@ -856,7 +904,7 @@ class TwoFactorAuthManager:
             - If verification succeeds: (True, None)
         """
         # Check rate limit first
-        is_limited, seconds_remaining = self.rate_limiter.is_rate_limited(ip_address)
+        is_limited, seconds_remaining=self.rate_limiter.is_rate_limited(ip_address)
         if is_limited:
             return False, (
                 "2FA verification rate limited. "
@@ -865,7 +913,7 @@ class TwoFactorAuthManager:
 
         # Attempt verification
         try:
-            success = self.verify_2fa_method(method, credential, stored_secret)
+            _success=self.verify_2fa_method(method, credential, stored_secret)
 
             if success:
             # Clear attempt history on success

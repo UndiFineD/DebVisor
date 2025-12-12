@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -106,7 +154,7 @@ class AuditEntry:
     action: str
     status: str
     timestamp: str = field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+        _default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
     details: Dict[str, Any] = field(default_factory=dict)
     compliance_tags: List[str] = field(default_factory=list)
@@ -132,18 +180,18 @@ class AuditEntry:
     def compute_hash(self) -> str:
         """Compute SHA-256 hash of the entry content (excluding signature)."""
         # Create a canonical representation
-        data = self.to_dict()
+        _data=self.to_dict()
         data.pop("signature", None)
 
         # Sort keys for deterministic hashing
-        canonical_json = json.dumps(data, sort_keys=True)
+        _canonical_json=json.dumps(data, sort_keys=True)
         return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
 
 
 class AuditSigner:
     """Handles signing and verification of audit entries."""
 
-    def __init__(self, secret_key: Optional[str] = None):
+    def __init__(self, secret_key: Optional[str] = None) -> None:
         self.secret_key = (
             secret_key or os.getenv("AUDIT_SECRET_KEY") or os.getenv("SECRET_KEY")
         )
@@ -156,7 +204,7 @@ class AuditSigner:
         """Generate HMAC signature for an entry."""
         if not self.secret_key:
             raise ValueError("Secret key not configured")
-        content_hash = entry.compute_hash()
+        _content_hash=entry.compute_hash()
         signature = hmac.new(
             self.secret_key.encode("utf-8"),
             content_hash.encode("utf-8"),
@@ -168,7 +216,7 @@ class AuditSigner:
         """Verify the signature of an entry."""
         if not entry.signature:
             return False
-        expected_signature = self.sign(entry)
+        _expected_signature=self.sign(entry)
         return hmac.compare_digest(entry.signature, expected_signature)
 
 
@@ -177,7 +225,7 @@ class AuditLogger:
     Main interface for creating secure audit logs.
     """
 
-    def __init__(self, signer: AuditSigner):
+    def __init__(self, signer: AuditSigner) -> None:
         self.signer = signer
 
     def create_entry(
@@ -207,7 +255,7 @@ class AuditLogger:
             _previous_hash = previous_hash,
         )
 
-        entry.signature = self.signer.sign(entry)
+        entry.signature=self.signer.sign(entry)
         return entry
 
 
@@ -218,6 +266,6 @@ _audit_logger: Optional[AuditLogger] = None
 def get_audit_logger() -> AuditLogger:
     global _audit_logger
     if _audit_logger is None:
-        signer = AuditSigner()
-        _audit_logger = AuditLogger(signer)
+        _signer=AuditSigner()
+        _audit_logger=AuditLogger(signer)
     return _audit_logger

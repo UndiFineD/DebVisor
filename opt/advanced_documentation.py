@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,8 +129,8 @@ class ArchitectureDecisionRecord:
     decision: str
     consequences: List[str]
     alternatives: Dict[str, str]    # alternative -> rationale
-    created_date: datetime = field(default_factory=datetime.now)
-    updated_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
+    updated_date: datetime=field(default_factory=datetime.now)
     author: str = "Architecture Team"
     related_adrs: List[str] = field(default_factory=list)
     implementation_notes: str = ""
@@ -150,8 +198,8 @@ class OperationalPlaybook:
     steps: List[PlaybookStep] = field(default_factory=list)
     prerequisites: List[str] = field(default_factory=list)
     success_criteria: List[str] = field(default_factory=list)
-    created_date: datetime = field(default_factory=datetime.now)
-    updated_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
+    updated_date: datetime=field(default_factory=datetime.now)
     author: str = "Operations Team"
     estimated_duration_minutes: int = 30
     requires_approval: bool = False
@@ -163,7 +211,7 @@ class OperationalPlaybook:
 
     def total_duration_minutes(self) -> float:
         """Calculate total duration."""
-        total_seconds = sum(step.estimated_duration_seconds for step in self.steps)
+        _total_seconds=sum(step.estimated_duration_seconds for step in self.steps)
         return total_seconds / 60
 
     def get_critical_steps(self) -> List[PlaybookStep]:
@@ -203,8 +251,8 @@ class SecurityProcedure:
     affected_systems: List[str]
     steps: List[str]
     compliance_frameworks: List[str]
-    created_date: datetime = field(default_factory=datetime.now)
-    updated_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
+    updated_date: datetime=field(default_factory=datetime.now)
     author: str = "Security Team"
     review_frequency_days: int = 90
     requires_audit_log: bool = True
@@ -244,8 +292,8 @@ class TroubleshootingGuide:
     log_files_to_check: List[str] = field(default_factory=list)
     related_issues: List[str] = field(default_factory=list)
     severity: Severity = Severity.MEDIUM
-    created_date: datetime = field(default_factory=datetime.now)
-    updated_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
+    updated_date: datetime=field(default_factory=datetime.now)
     author: str = "Support Team"
 
     def to_dict(self) -> Dict[str, Any]:
@@ -282,7 +330,7 @@ class PerformanceTuningGuide:
     prerequisites: List[str]
     rollback_steps: List[str]
     monitoring_metrics: List[str]
-    created_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
     author: str = "Performance Team"
 
     def to_dict(self) -> Dict[str, Any]:
@@ -320,8 +368,8 @@ class DisasterRecoveryProcedure:
     validation_steps: List[str]
     communication_plan: str
     backup_location: str
-    created_date: datetime = field(default_factory=datetime.now)
-    updated_date: datetime = field(default_factory=datetime.now)
+    created_date: datetime=field(default_factory=datetime.now)
+    updated_date: datetime=field(default_factory=datetime.now)
     author: str = "Disaster Recovery Team"
     last_tested: Optional[datetime] = None
     test_frequency_days: int = 90
@@ -402,7 +450,7 @@ class DocumentationLibrary:
         self, playbook_type: PlaybookType
     ) -> List[OperationalPlaybook]:
         """Get playbooks by type."""
-        return [p for p in self.playbooks.values() if p.playbook_type == playbook_type]
+        return [p for p in self.playbooks.values() if p.playbook_type== playbook_type]
 
     def get_security_procedure(self, procedure_id: str) -> Optional[SecurityProcedure]:
         """Get security procedure."""
@@ -428,7 +476,7 @@ class DocumentationLibrary:
 
     def get_guides_by_component(self, component: str) -> List[PerformanceTuningGuide]:
         """Get performance guides by component."""
-        return [g for g in self.performance_guides.values() if g.component == component]
+        return [g for g in self.performance_guides.values() if g.component== component]
 
     def get_dr_procedure(
         self, procedure_id: str

@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -99,7 +147,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from enum import Enum
 from pathlib import Path
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 
 class KeyStatus(Enum):
@@ -130,7 +178,7 @@ class APIKey:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage."""
-        data = asdict(self)
+        _data=asdict(self)
         data["created_at"] = self.created_at.isoformat()
         data["expires_at"] = self.expires_at.isoformat()
         data["last_used_at"] = (
@@ -176,7 +224,7 @@ class APIKeyManager:
 
     def __init__(self, config: KeyRotationConfig, storage_path: str) -> None:
         self.config = config
-        self.storage_path = Path(storage_path)
+        self.storage_path=Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
         self.keys_file = self.storage_path / "api_keys.json"
         self.audit_log = self.storage_path / "api_key_audit.log"
@@ -194,7 +242,7 @@ class APIKeyManager:
         """Load keys from persistent storage."""
         if self.keys_file.exists():
             with open(self.keys_file, "r") as f:
-                data = json.load(f)
+                _data=json.load(f)
                 self.keys = {
                     key_id: APIKey.from_dict(key_data)
                     for key_id, key_data in data.items()
@@ -203,7 +251,7 @@ class APIKeyManager:
 
     def _save_keys(self) -> None:
         """Save keys to persistent storage."""
-        data = {key_id: key.to_dict() for key_id, key in self.keys.items()}
+        _data={key_id: key.to_dict() for key_id, key in self.keys.items()}
         with open(self.keys_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -250,14 +298,14 @@ class APIKeyManager:
             (api_key, APIKey): The actual key and metadata
         """
         # Generate key
-        api_key = self._generate_key()
-        _key_hash = self._hash_key(api_key)
-        key_id = f"key_{secrets.token_hex(8)}"
+        _api_key=self._generate_key()
+        _key_hash=self._hash_key(api_key)
+        _key_id=f"key_{secrets.token_hex(8)}"
 
         # Calculate expiration
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         expiration_days = custom_expiration_days or self.config.expiration_days
-        expires_at = now + timedelta(days=expiration_days)
+        _expires_at=now + timedelta(days=expiration_days)
 
         # Create key object
         _key_obj = APIKey(
@@ -280,8 +328,8 @@ class APIKeyManager:
         if not skip_audit:
             self._audit_log_event(
                 _event = "key_created",
-                key_id=key_id,
-                principal_id=principal_id,
+                _key_id=key_id,
+                _principal_id=principal_id,
                 _details = {
                     "expires_at": expires_at.isoformat(),
                     "description": description,
@@ -301,7 +349,7 @@ class APIKeyManager:
 
         Returns None if key is invalid, expired, or revoked.
         """
-        key_hash = self._hash_key(api_key)
+        _key_hash=self._hash_key(api_key)
 
         # Find key by hash
         for key_obj in self.keys.values():
@@ -315,7 +363,7 @@ class APIKeyManager:
                     return None
 
                 # Check expiration
-                now = datetime.now(timezone.utc)
+                _now=datetime.now(timezone.utc)
                 if now > key_obj.expires_at:
                     logger.warning(
                         f"Rejected expired key: key_id={key_obj.key_id}, "
@@ -347,12 +395,12 @@ class APIKeyManager:
         Returns:
             (new_api_key, APIKey): The new key and metadata
         """
-        old_key = self.keys.get(old_key_id)
+        _old_key=self.keys.get(old_key_id)
         if not old_key:
             raise ValueError(f"Key not found: {old_key_id}")
 
         # Generate rotation ID to link keys
-        rotation_id = f"rotation_{secrets.token_hex(8)}"
+        _rotation_id=f"rotation_{secrets.token_hex(8)}"
 
         # Create new key
         new_api_key, new_key_obj = self.create_key(
@@ -363,17 +411,17 @@ class APIKeyManager:
         new_key_obj.rotation_id = rotation_id
 
         # Update old key status
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         old_key.status = KeyStatus.EXPIRING
         old_key.rotation_id = rotation_id
-        old_key.expires_at = now + timedelta(days=self.config.overlap_days)
+        old_key.expires_at=now + timedelta(days=self.config.overlap_days)
 
         self._save_keys()
 
         # Audit log
         self._audit_log_event(
             _event = "key_rotated",
-            key_id=old_key_id,
+            _key_id=old_key_id,
             _principal_id = old_key.principal_id,
             _details = {
                 "new_key_id": new_key_obj.key_id,
@@ -389,9 +437,9 @@ class APIKeyManager:
 
         return new_api_key, new_key_obj
 
-    def revoke_key(self, key_id: str, reason: str = "") -> None:
+    def revoke_key(self, key_id: str, reason: str="") -> None:
         """Revoke an API key immediately."""
-        key_obj = self.keys.get(key_id)
+        _key_obj=self.keys.get(key_id)
         if not key_obj:
             raise ValueError(f"Key not found: {key_id}")
 
@@ -401,8 +449,8 @@ class APIKeyManager:
         # Audit log
         self._audit_log_event(
             _event = "key_revoked",
-            key_id=key_id,
-            principal_id=key_obj.principal_id,
+            _key_id=key_id,
+            _principal_id=key_obj.principal_id,
             _details = {"reason": reason},
         )
 
@@ -413,7 +461,7 @@ class APIKeyManager:
 
     def list_keys_for_principal(self, principal_id: str) -> List[APIKey]:
         """List all keys for a principal."""
-        return [key for key in self.keys.values() if key.principal_id == principal_id]
+        return [key for key in self.keys.values() if key.principal_id== principal_id]
 
     def check_expiring_keys(self) -> List[APIKey]:
         """
@@ -421,8 +469,8 @@ class APIKeyManager:
 
         Returns list of keys needing rotation.
         """
-        now = datetime.now(timezone.utc)
-        warning_threshold = now + timedelta(days=self.config.warning_days)
+        _now=datetime.now(timezone.utc)
+        _warning_threshold=now + timedelta(days=self.config.warning_days)
 
         expiring_keys = [
             key
@@ -442,7 +490,7 @@ class APIKeyManager:
             logger.info("Auto-rotation disabled")
             return {}
 
-        expiring_keys = self.check_expiring_keys()
+        _expiring_keys=self.check_expiring_keys()
         rotations = {}
 
         for old_key in expiring_keys:
@@ -460,14 +508,14 @@ class APIKeyManager:
 
         return rotations
 
-    def cleanup_expired_keys(self, retention_days: int = 365) -> int:
+    def cleanup_expired_keys(self, retention_days: int=365) -> int:
         """
         Remove expired/revoked keys older than retention period.
 
         Keeps audit log intact, only removes from active key store.
         """
-        now = datetime.now(timezone.utc)
-        retention_threshold = now - timedelta(days=retention_days)
+        _now=datetime.now(timezone.utc)
+        _retention_threshold=now - timedelta(days=retention_days)
 
         keys_to_remove = [
             key_id
@@ -477,7 +525,7 @@ class APIKeyManager:
         ]
 
         for key_id in keys_to_remove:
-            key = self.keys.pop(key_id)
+            _key=self.keys.pop(key_id)
             logger.info(
                 f"Cleaned up old key: key_id={key_id}, "
                 f"principal={key.principal_id}, status={key.status.value}"
@@ -490,16 +538,16 @@ class APIKeyManager:
 
     def get_key_stats(self) -> Dict[str, int]:
         """Get statistics about API keys."""
-        _total_keys = len(self.keys)
-        _active_keys = sum(1 for k in self.keys.values() if k.status == KeyStatus.ACTIVE)
+        _total_keys=len(self.keys)
+        _active_keys=sum(1 for k in self.keys.values() if k.status== KeyStatus.ACTIVE)
         _expiring_keys = sum(
-            1 for k in self.keys.values() if k.status == KeyStatus.EXPIRING
+            1 for k in self.keys.values() if k.status== KeyStatus.EXPIRING
         )
         _expired_keys = sum(
-            1 for k in self.keys.values() if k.status == KeyStatus.EXPIRED
+            1 for k in self.keys.values() if k.status== KeyStatus.EXPIRED
         )
         revoked_keys = sum(
-            1 for k in self.keys.values() if k.status == KeyStatus.REVOKED
+            1 for k in self.keys.values() if k.status== KeyStatus.REVOKED
         )
 
         return {
@@ -524,11 +572,11 @@ if __name__ == "__main__":
 
     import tempfile
 
-    manager = APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
+    _manager=APIKeyManager(config, f"{tempfile.gettempdir()}/debvisor_keys")
 
     # Create key
     api_key, key_obj = manager.create_key(
-        principal_id="admin@debvisor.local",
+        _principal_id="admin@debvisor.local",
         _description = "Admin API key",
     )
     print(f"Created key: {api_key}")
@@ -536,9 +584,9 @@ if __name__ == "__main__":
     print(f"Expires: {key_obj.expires_at}")
 
     # Validate key
-    validated = manager.validate_key(api_key)
+    _validated=manager.validate_key(api_key)
     print(f"Validation: {validated.principal_id if validated else 'FAILED'}")
 
     # Check stats
-    stats = manager.get_key_stats()
+    _stats=manager.get_key_stats()
     print(f"Stats: {stats}")

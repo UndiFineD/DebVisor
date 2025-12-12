@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -103,7 +151,7 @@ from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-_logger = logging.getLogger(__name__)
+_logger=logging.getLogger(__name__)
 
 # -----------------------------------------------------------------------------
 # Enums and Configuration
@@ -122,10 +170,10 @@ class EncryptionMode(Enum):  # type: ignore[name-defined]
 
 
 class RetentionPolicy(Enum):  # type: ignore[name-defined]
-    KEEP_ALL = auto()  # type: ignore[name-defined]
-    KEEP_LAST_N = auto()  # type: ignore[name-defined]
-    KEEP_DAILY_WEEKLY_MONTHLY = auto()    # GFS  # type: ignore[name-defined]
-    EXPIRE_AFTER_DAYS = auto()  # type: ignore[name-defined]
+    KEEP_ALL=auto()  # type: ignore[name-defined]
+    KEEP_LAST_N=auto()  # type: ignore[name-defined]
+    KEEP_DAILY_WEEKLY_MONTHLY=auto()    # GFS  # type: ignore[name-defined]
+    EXPIRE_AFTER_DAYS=auto()  # type: ignore[name-defined]
 
 
 @dataclass
@@ -152,7 +200,7 @@ class BackupConfig:
     compression_level: int = 3
     encryption: EncryptionMode = EncryptionMode.NONE  # type: ignore[assignment]
     encryption_key: Optional[bytes] = None
-    chunking: ChunkingConfig = field(default_factory=ChunkingConfig)
+    chunking: ChunkingConfig=field(default_factory=ChunkingConfig)
     max_concurrent_io: int = 4
     scrub_interval_hours: int = 168    # Weekly
     gc_grace_period_hours: int = 24
@@ -224,22 +272,22 @@ class RollingHash:
     """Simple rolling hash for content-defined chunking."""
 
     PRIME = 31
-    MOD = (1 << 32) - 1
+    MOD=(1 << 32) - 1
 
-    def __init__(self, window_size: int = 48):
+    def __init__(self, window_size: int=48) -> None:
         self.window_size = window_size
         self.window: List[int] = []
         self.hash_value = 0
-        self.pow_cache = pow(self.PRIME, window_size - 1, self.MOD)
+        self.pow_cache=pow(self.PRIME, window_size - 1, self.MOD)
 
     def update(self, byte: int) -> int:
         """Add byte to window, return current hash."""
         if len(self.window) >= self.window_size:
-            old = self.window.pop(0)
-            self.hash_value = (self.hash_value - old * self.pow_cache) & self.MOD
+            _old=self.window.pop(0)
+            self.hash_value=(self.hash_value - old * self.pow_cache) & self.MOD
 
         self.window.append(byte)
-        self.hash_value = ((self.hash_value * self.PRIME) + byte) & self.MOD
+        self.hash_value=((self.hash_value * self.PRIME) + byte) & self.MOD
         return self.hash_value
 
     def reset(self) -> None:
@@ -250,26 +298,26 @@ class RollingHash:
 class ContentDefinedChunker:
     """Split data stream into variable-size chunks at content boundaries."""
 
-    def __init__(self, config: ChunkingConfig):
+    def __init__(self, config: ChunkingConfig) -> None:
         self.config = config
-        self.mask = (1 << config.mask_bits) - 1
-        self.rolling = RollingHash(config.window_size)
+        self.mask=(1 << config.mask_bits) - 1
+        self.rolling=RollingHash(config.window_size)
 
     def chunk_stream(self, stream: BinaryIO) -> Iterable[bytes]:
         """Yield variable-size chunks from binary stream."""
-        buffer = bytearray()
+        _buffer=bytearray()
         self.rolling.reset()
 
         while True:
-            byte = stream.read(1)
+            _byte=stream.read(1)
             if not byte:
                 break
 
             buffer.append(byte[0])
-            h = self.rolling.update(byte[0])
+            _h=self.rolling.update(byte[0])
 
             # Check for boundary: hash matches mask OR hit max size
-            is_boundary = len(buffer) >= self.config.min_size and (
+            _is_boundary=len(buffer) >= self.config.min_size and (
                 (h & self.mask) == 0 or len(buffer) >= self.config.max_size
             )
 
@@ -313,7 +361,7 @@ class CompressionPipeline:
             elif algo == CompressionAlgo.ZSTD:
                 import zstandard
 
-                cctx = zstandard.ZstdCompressor(level=level)
+                _cctx=zstandard.ZstdCompressor(level=level)
                 return cctx.compress(data), "zstd"
             elif algo == CompressionAlgo.GZIP:
                 import gzip
@@ -340,7 +388,7 @@ class CompressionPipeline:
         elif algo == "zstd":
             import zstandard
 
-            dctx = zstandard.ZstdDecompressor()
+            _dctx=zstandard.ZstdDecompressor()
             return dctx.decompress(data)    # type: ignore[no-any-return]
         elif algo == "gzip":
             import gzip
@@ -361,7 +409,7 @@ class CompressionPipeline:
         if algo == "zstd":
             import zstandard
 
-            dctx = zstandard.ZstdDecompressor()
+            _dctx=zstandard.ZstdDecompressor()
             with dctx.stream_reader(source) as reader:
                 while chunk := reader.read(65536):
                     yield chunk
@@ -399,14 +447,14 @@ class EncryptionPipeline:
             )
 
             if mode == EncryptionMode.AES_256_GCM:
-                nonce = os.urandom(12)
-                cipher_aes = AESGCM(key[:32])    # Ensure 256-bit key
-                ciphertext = cipher_aes.encrypt(nonce, data, None)
+                _nonce=os.urandom(12)
+                _cipher_aes=AESGCM(key[:32])    # Ensure 256-bit key
+                _ciphertext=cipher_aes.encrypt(nonce, data, None)
                 return nonce + ciphertext
             elif mode == EncryptionMode.CHACHA20_POLY1305:
-                nonce = os.urandom(12)
-                cipher_chacha = ChaCha20Poly1305(key[:32])
-                ciphertext = cipher_chacha.encrypt(nonce, data, None)
+                _nonce=os.urandom(12)
+                _cipher_chacha=ChaCha20Poly1305(key[:32])
+                _ciphertext=cipher_chacha.encrypt(nonce, data, None)
                 return nonce + ciphertext
         except ImportError:
             logger.error("cryptography library not available for encryption")
@@ -424,10 +472,10 @@ class EncryptionPipeline:
         nonce, ciphertext = data[:12], data[12:]
 
         if mode == EncryptionMode.AES_256_GCM:
-            cipher_aes = AESGCM(key[:32])
+            _cipher_aes=AESGCM(key[:32])
             return cipher_aes.decrypt(nonce, ciphertext, None)
         elif mode == EncryptionMode.CHACHA20_POLY1305:
-            cipher_chacha = ChaCha20Poly1305(key[:32])
+            _cipher_chacha=ChaCha20Poly1305(key[:32])
             return cipher_chacha.decrypt(nonce, ciphertext, None)
 
         raise ValueError(f"Unknown encryption mode: {mode}")
@@ -439,15 +487,15 @@ class EncryptionPipeline:
 class BlockStore:
     """Content-addressed block storage with ref counting."""
 
-    def __init__(self, config: BackupConfig):
+    def __init__(self, config: BackupConfig) -> None:
         self.config = config
-        self.root = Path(config.store_root)
+        self.root=Path(config.store_root)
         self.blocks_dir = self.root / "blocks"
         self.index_file = self.root / "block_index.json"
 
         self.blocks_dir.mkdir(parents=True, exist_ok=True)
         self.index: Dict[str, BlockRecord] = {}
-        self._lock = threading.Lock()
+        self._lock=threading.Lock()
         self._load_index()
 
     def _load_index(self) -> None:
@@ -455,17 +503,17 @@ class BlockStore:
         if self.index_file.exists():
             try:
                 with open(self.index_file, "r") as f:
-                    data = json.load(f)
+                    _data=json.load(f)
                 for digest, rec in data.items():
                     self.index[digest] = BlockRecord(
                         _digest = rec["digest"],
-                        size=rec["size"],
+                        _size=rec["size"],
                         _compressed_size = rec["compressed_size"],
-                        _stored_at = datetime.fromisoformat(rec["stored_at"]),
+                        _stored_at=datetime.fromisoformat(rec["stored_at"]),
                         _ref_count = rec["ref_count"],
-                        _compression = rec.get("compression", "none"),
-                        _encrypted = rec.get("encrypted", False),
-                        verified_at=(
+                        _compression=rec.get("compression", "none"),
+                        _encrypted=rec.get("encrypted", False),
+                        _verified_at=(
                             datetime.fromisoformat(rec["verified_at"])
                             if rec.get("verified_at")
                             else None
@@ -498,8 +546,8 @@ class BlockStore:
 
     def put(self, data: bytes) -> Tuple[str, int]:
         """Store block, return (digest, original_size). Deduplicates by hash."""
-        digest = hashlib.sha256(data).hexdigest()
-        _original_size = len(data)
+        _digest=hashlib.sha256(data).hexdigest()
+        _original_size=len(data)
 
         with self._lock:
             if digest in self.index:
@@ -525,7 +573,7 @@ class BlockStore:
             _encrypted = True
 
         # Write to disk
-        path = self._block_path(digest)
+        _path=self._block_path(digest)
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "wb") as f:
             f.write(compressed)
@@ -533,9 +581,9 @@ class BlockStore:
         with self._lock:
             self.index[digest] = BlockRecord(
                 _digest = digest,
-                size=original_size,
-                _compressed_size = len(compressed),
-                _stored_at = datetime.now(timezone.utc),
+                _size=original_size,
+                _compressed_size=len(compressed),
+                _stored_at=datetime.now(timezone.utc),
                 _ref_count = 1,
                 _compression = algo,
                 _encrypted = encrypted,
@@ -553,10 +601,10 @@ class BlockStore:
             raise KeyError(f"Block {digest} not in index")
 
         record = self.index[digest]
-        path = self._block_path(digest)
+        _path=self._block_path(digest)
 
         with open(path, "rb") as f:
-            data = f.read()
+            _data=f.read()
 
         # Decrypt
         if record.encrypted and self.config.encryption_key:
@@ -565,19 +613,19 @@ class BlockStore:
             )
 
         # Decompress
-        data = CompressionPipeline.decompress(data, record.compression)
+        _data=CompressionPipeline.decompress(data, record.compression)
 
         return data
 
     def verify(self, digest: str) -> bool:
         """Verify block integrity."""
         try:
-            data = self.get(digest)
-            actual_digest = hashlib.sha256(data).hexdigest()
+            _data=self.get(digest)
+            _actual_digest=hashlib.sha256(data).hexdigest()
             valid = actual_digest == digest
             if valid:
                 with self._lock:
-                    self.index[digest].verified_at = datetime.now(timezone.utc)
+                    self.index[digest].verified_at=datetime.now(timezone.utc)
             return valid
         except Exception as e:
             logger.error(f"Verification failed for {digest}: {e}")
@@ -602,7 +650,7 @@ class BlockStore:
                 )
                 return 0
 
-            path = self._block_path(digest)
+            _path=self._block_path(digest)
             bytes_freed = record.compressed_size
             try:
                 path.unlink()
@@ -614,8 +662,8 @@ class BlockStore:
 
     def stats(self) -> Dict[str, Any]:
         """Return storage statistics."""
-        total_logical = sum(r.size for r in self.index.values())
-        total_physical = sum(r.compressed_size for r in self.index.values())
+        _total_logical=sum(r.size for r in self.index.values())
+        _total_physical=sum(r.compressed_size for r in self.index.values())
         return {
             "unique_blocks": len(self.index),
             "total_logical_bytes": total_logical,
@@ -633,13 +681,13 @@ class BlockStore:
 class DedupBackupService:
     """Enterprise deduplicating backup service."""
 
-    def __init__(self, config: Optional[BackupConfig] = None):
-        self.config = config or BackupConfig()
-        self.store = BlockStore(self.config)
-        self.chunker = ContentDefinedChunker(self.config.chunking)
+    def __init__(self, config: Optional[BackupConfig] = None) -> None:
+        self.config=config or BackupConfig()
+        self.store=BlockStore(self.config)
+        self.chunker=ContentDefinedChunker(self.config.chunking)
         self.manifests: Dict[str, BackupManifest] = {}
-        self.manifest_file = Path(self.config.store_root) / "manifests.json"
-        self._executor = ThreadPoolExecutor(max_workers=self.config.max_concurrent_io)
+        self.manifest_file=Path(self.config.store_root) / "manifests.json"
+        self._executor=ThreadPoolExecutor(max_workers=self.config.max_concurrent_io)
         self._load_manifests()
 
     def _load_manifests(self) -> None:
@@ -647,23 +695,23 @@ class DedupBackupService:
         if self.manifest_file.exists():
             try:
                 with open(self.manifest_file, "r") as f:
-                    data = json.load(f)
+                    _data=json.load(f)
                 for mid, m in data.items():
                     self.manifests[mid] = BackupManifest(
-                        id=m["id"],
-                        _created_at = datetime.fromisoformat(m["created_at"]),
-                        source=m["source"],
-                        _source_size = m.get("source_size", 0),
+                        _id=m["id"],
+                        _created_at=datetime.fromisoformat(m["created_at"]),
+                        _source=m["source"],
+                        _source_size=m.get("source_size", 0),
                         _blocks = m["blocks"],
-                        _block_sizes = m.get("block_sizes", []),
-                        _metadata = m.get("metadata", {}),
-                        _parent_id = m.get("parent_id"),
-                        retention_until=(
+                        _block_sizes=m.get("block_sizes", []),
+                        _metadata=m.get("metadata", {}),
+                        _parent_id=m.get("parent_id"),
+                        _retention_until=(
                             datetime.fromisoformat(m["retention_until"])
                             if m.get("retention_until")
                             else None
                         ),
-                        _tags = m.get("tags", []),
+                        _tags=m.get("tags", []),
                     )
                 logger.info(f"Loaded {len(self.manifests)} backup manifests")
             except Exception as e:
@@ -699,7 +747,7 @@ class DedupBackupService:
         """Backup a single file with content-defined chunking."""
         from uuid import uuid4
 
-        path = Path(file_path)
+        _path=Path(file_path)
         if not path.exists():
             raise FileNotFoundError(f"Source file not found: {file_path}")
 
@@ -709,15 +757,15 @@ class DedupBackupService:
 
         with open(path, "rb") as f:
             for chunk in self.chunker.chunk_stream(f):
-                digest, size = self.store.put(chunk)
+                digest, size=self.store.put(chunk)
                 block_digests.append(digest)
                 block_sizes.append(size)
                 total_size += size
 
         _manifest = BackupManifest(
-            _id = str(uuid4()),
-            _created_at = datetime.now(timezone.utc),
-            source=str(path.absolute()),
+            _id=str(uuid4()),
+            _created_at=datetime.now(timezone.utc),
+            _source=str(path.absolute()),
             _source_size = total_size,
             _blocks = block_digests,
             _block_sizes = block_sizes,
@@ -752,15 +800,15 @@ class DedupBackupService:
         total_size = 0
 
         for chunk in self.chunker.chunk_stream(stream):
-            digest, size = self.store.put(chunk)
+            digest, size=self.store.put(chunk)
             block_digests.append(digest)
             block_sizes.append(size)
             total_size += size
 
         _manifest = BackupManifest(
-            id=str(uuid4()),
-            _created_at = datetime.now(timezone.utc),
-            source=source,
+            _id=str(uuid4()),
+            _created_at=datetime.now(timezone.utc),
+            _source=source,
             _source_size = total_size,
             _blocks = block_digests,
             _block_sizes = block_sizes,
@@ -778,14 +826,14 @@ class DedupBackupService:
 
     def restore_to_file(self, manifest_id: str, output_path: str) -> int:
         """Restore backup to file, return bytes written."""
-        manifest = self.manifests.get(manifest_id)
+        _manifest=self.manifests.get(manifest_id)
         if not manifest:
             raise ValueError(f"Manifest {manifest_id} not found")
 
         bytes_written = 0
         with open(output_path, "wb") as f:
             for digest in manifest.blocks:
-                data = self.store.get(digest)
+                _data=self.store.get(digest)
                 f.write(data)
                 bytes_written += len(data)
 
@@ -796,7 +844,7 @@ class DedupBackupService:
 
     def restore_stream(self, manifest_id: str) -> Iterable[bytes]:
         """Stream blocks for restore."""
-        manifest = self.manifests.get(manifest_id)
+        _manifest=self.manifests.get(manifest_id)
         if not manifest:
             raise ValueError(f"Manifest {manifest_id} not found")
 
@@ -805,7 +853,7 @@ class DedupBackupService:
 
     def delete_backup(self, manifest_id: str) -> bool:
         """Delete backup manifest and decrement block references."""
-        manifest = self.manifests.get(manifest_id)
+        _manifest=self.manifests.get(manifest_id)
         if not manifest:
             return False
 
@@ -819,12 +867,12 @@ class DedupBackupService:
 
     def scrub(self, max_blocks: Optional[int] = None) -> ScrubResult:
         """Verify integrity of stored blocks."""
-        _start = time.time()
+        _start=time.time()
         _verified = 0
         _corrupted = []
         _missing = []
 
-        blocks = list(self.store.index.keys())
+        _blocks=list(self.store.index.keys())
         if max_blocks:
             blocks = blocks[:max_blocks]
 
@@ -840,12 +888,12 @@ class DedupBackupService:
                 logger.error(f"Scrub error for {digest}: {e}")
                 corrupted.append(digest)
 
-        duration = time.time() - start
+        _duration=time.time() - start
         _result = ScrubResult(
-            _total_blocks = len(blocks),
+            _total_blocks=len(blocks),
             _verified_ok = verified,
-            corrupted=corrupted,
-            missing=missing,
+            _corrupted=corrupted,
+            _missing=missing,
             _duration_seconds = duration,
         )
 
@@ -857,13 +905,13 @@ class DedupBackupService:
 
     def garbage_collect(self) -> GCResult:
         """Remove orphaned blocks with zero references."""
-        _start = time.time()
+        _start=time.time()
         orphans = []
 
         for digest, record in list(self.store.index.items()):
             if record.ref_count <= 0:
             # Check grace period
-                age = datetime.now(timezone.utc) - record.stored_at
+                _age=datetime.now(timezone.utc) - record.stored_at
                 if age.total_seconds() > self.config.gc_grace_period_hours * 3600:
                     orphans.append(digest)
 
@@ -871,10 +919,10 @@ class DedupBackupService:
         for digest in orphans:
             bytes_reclaimed += self.store.delete_block(digest)
 
-        duration = time.time() - start
+        _duration=time.time() - start
         result = GCResult(
-            _orphan_blocks = len(orphans),
-            bytes_reclaimed=bytes_reclaimed,
+            _orphan_blocks=len(orphans),
+            _bytes_reclaimed=bytes_reclaimed,
             _duration_seconds = duration,
         )
 
@@ -885,7 +933,7 @@ class DedupBackupService:
 
     def apply_retention(self) -> List[str]:
         """Delete backups past retention date."""
-        now = datetime.now(timezone.utc)
+        _now=datetime.now(timezone.utc)
         expired = []
 
         for mid, manifest in list(self.manifests.items()):
@@ -912,8 +960,8 @@ class DedupBackupService:
 
     def dedup_stats(self) -> Dict[str, Any]:
         """Return comprehensive deduplication statistics."""
-        store_stats = self.store.stats()
-        total_backup_size = sum(m.source_size for m in self.manifests.values())
+        _store_stats=self.store.stats()
+        _total_backup_size=sum(m.source_size for m in self.manifests.values())
 
         return {
             **store_stats,
@@ -930,7 +978,7 @@ class DedupBackupService:
 
     def export_manifest(self, manifest_id: str) -> Dict[str, Any]:
         """Export manifest for external tooling."""
-        manifest = self.manifests.get(manifest_id)
+        _manifest=self.manifests.get(manifest_id)
         if not manifest:
             raise ValueError(f"Manifest not found: {manifest_id}")
 
@@ -963,13 +1011,13 @@ if __name__ == "__main__":
 
     # Create service with LZ4 compression
     config = BackupConfig(
-        _store_root = tempfile.mkdtemp(prefix="dedup_test_"),
+        _store_root=tempfile.mkdtemp(prefix="dedup_test_"),
         _compression = CompressionAlgo.LZ4,  # type: ignore[arg-type]
     )
-    svc = DedupBackupService(config)
+    _svc=DedupBackupService(config)
 
     # Simulate VM disk with repeating patterns (high dedup potential)
-    test_data = (b"A" * 100_000 + b"B" * 50_000 + b"A" * 100_000 + b"C" * 25_000) * 3
+    _test_data=(b"A" * 100_000 + b"B" * 50_000 + b"A" * 100_000 + b"C" * 25_000) * 3
     print(f"Test data size: {len(test_data):, } bytes")
 
     # Backup stream
@@ -980,17 +1028,17 @@ if __name__ == "__main__":
     print(f"Blocks: {len(manifest.blocks)}")
 
     # Check dedup
-    stats = svc.dedup_stats()
+    _stats=svc.dedup_stats()
     print(f"Dedup ratio: {stats['global_dedup_ratio']:.2f}x")
     print(f"Space saved: {stats['space_saved_bytes']:, } bytes")
 
     # Restore and verify
-    restored = b"".join(svc.restore_stream(manifest.id))
+    _restored=b"".join(svc.restore_stream(manifest.id))
     assert restored == test_data, "Restore mismatch!"
     print("? Restore verified")
 
     # Scrub
-    scrub_result = svc.scrub()
+    _scrub_result=svc.scrub()
     print(f"Scrub: {scrub_result.verified_ok}/{scrub_result.total_blocks} OK")
 
     # Cleanup

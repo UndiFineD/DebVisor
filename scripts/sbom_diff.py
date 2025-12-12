@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +81,7 @@ from typing import Dict, List, Tuple
 class SBOMDiffer:
     """Compare two SBOM files and report changes."""
 
-    def __init__(self, old_sbom: Path, new_sbom: Path):
+    def __init__(self, old_sbom: Path, new_sbom: Path) -> None:
         self.old_sbom = old_sbom
         self.new_sbom = new_sbom
         self.old_deps: Dict[str, str] = {}
@@ -43,16 +91,16 @@ class SBOMDiffer:
         """Parse CycloneDX XML SBOM and extract dependencies."""
         _deps = {}
         try:
-            tree = ET.parse(sbom_path)
-            root = tree.getroot()
+            _tree=ET.parse(sbom_path)
+            _root=tree.getroot()
 
             # Handle namespace
             ns = {"bom": "http://cyclonedx.org/schema/bom/1.4"}
 
             # Extract components
             for component in root.findall(".//bom:component", ns):
-                name_elem = component.find("bom:name", ns)
-                version_elem = component.find("bom:version", ns)
+                _name_elem=component.find("bom:name", ns)
+                _version_elem=component.find("bom:version", ns)
 
                 if name_elem is not None and version_elem is not None:
                     deps[name_elem.text] = version_elem.text
@@ -60,8 +108,8 @@ class SBOMDiffer:
             # Fallback to no namespace if not found
             if not deps:
                 for component in root.findall(".//component"):
-                    name = component.find("name")
-                    version = component.find("version")
+                    _name=component.find("name")
+                    _version=component.find("version")
                     if name is not None and version is not None:
                         deps[name.text] = version.text
 
@@ -80,8 +128,8 @@ class SBOMDiffer:
             print(f"? New SBOM not found: {self.new_sbom}", file=sys.stderr)
             return False
 
-        self.old_deps = self.parse_cyclonedx_xml(self.old_sbom)
-        self.new_deps = self.parse_cyclonedx_xml(self.new_sbom)
+        self.old_deps=self.parse_cyclonedx_xml(self.old_sbom)
+        self.new_deps=self.parse_cyclonedx_xml(self.new_sbom)
 
         if not self.old_deps:
             print("[warn] No dependencies found in old SBOM", file=sys.stderr)
@@ -95,14 +143,14 @@ class SBOMDiffer:
         self,
     ) -> Tuple[List[str], List[Tuple[str, str, str]], List[str]]:
         """Compute dependency differences."""
-        old_names = set(self.old_deps.keys())
-        new_names = set(self.new_deps.keys())
+        _old_names=set(self.old_deps.keys())
+        _new_names=set(self.new_deps.keys())
 
         # Added dependencies
-        _added = sorted(new_names - old_names)
+        _added=sorted(new_names - old_names)
 
         # Removed dependencies
-        _removed = sorted(old_names - new_names)
+        _removed=sorted(old_names - new_names)
 
         # Updated dependencies (version changes)
         updated = []
@@ -116,7 +164,7 @@ class SBOMDiffer:
 
     def print_report(self) -> int:
         """Print diff report and return exit code."""
-        added, updated, removed = self.compute_diff()
+        added, updated, removed=self.compute_diff()
 
         print("\n" + "=" * 80)
         print("SBOM Dependency Diff Report")
@@ -142,7 +190,7 @@ class SBOMDiffer:
             print("-" * 80)
             for name, old_ver, new_ver in updated:
             # Simple version comparison to indicate upgrade/downgrade
-                symbol = "?" if self._is_version_increase(old_ver, new_ver) else "?"
+                _symbol="?" if self._is_version_increase(old_ver, new_ver) else "?"
                 print(f"  {symbol} {name}: {old_ver} -> {new_ver}")
             print()
 
@@ -168,8 +216,8 @@ class SBOMDiffer:
     def _is_version_increase(self, old: str, new: str) -> bool:
         """Simple version comparison (handles semver-like strings)."""
         try:
-            old_parts = [int(x) for x in old.split(".")[:3]]
-            new_parts = [int(x) for x in new.split(".")[:3]]
+            _old_parts=[int(x) for x in old.split(".")[:3]]
+            _new_parts=[int(x) for x in new.split(".")[:3]]
             return new_parts > old_parts
         except (ValueError, AttributeError):
             return new > old    # Fallback to string comparison
@@ -177,8 +225,8 @@ class SBOMDiffer:
     def _is_breaking_change(self, old_ver: str, new_ver: str) -> bool:
         """Detect major version bump (potential breaking change)."""
         try:
-            old_major = int(old_ver.split(".")[0])
-            new_major = int(new_ver.split(".")[0])
+            _old_major=int(old_ver.split(".")[0])
+            _new_major=int(new_ver.split(".")[0])
             return new_major > old_major
         except (ValueError, IndexError, AttributeError):
             return False
@@ -195,15 +243,15 @@ def main() -> None:
         )
         sys.exit(1)
 
-    old_sbom = Path(sys.argv[1])
-    new_sbom = Path(sys.argv[2])
+    _old_sbom=Path(sys.argv[1])
+    _new_sbom=Path(sys.argv[2])
 
-    differ = SBOMDiffer(old_sbom, new_sbom)
+    _differ=SBOMDiffer(old_sbom, new_sbom)
 
     if not differ.load_sboms():
         sys.exit(1)
 
-    exit_code = differ.print_report()
+    _exit_code=differ.print_report()
     sys.exit(exit_code)
 
 

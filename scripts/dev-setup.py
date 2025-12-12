@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,8 +98,8 @@ from typing import Dict, List, Optional, Tuple
 # Constants
 # =============================================================================
 
-MINIMUM_PYTHON_VERSION = (3, 10)
-RECOMMENDED_PYTHON_VERSION = (3, 12)
+MINIMUM_PYTHON_VERSION=(3, 10)
+RECOMMENDED_PYTHON_VERSION=(3, 12)
 
 REQUIRED_SYSTEM_PACKAGES = {
     "linux": ["git", "curl", "build-essential", "libffi-dev", "libssl-dev"],
@@ -157,7 +205,7 @@ def print_header(text: str) -> None:
     print("=" * width)
 
 
-def print_step(name: str, status: Status, message: str = "") -> None:
+def print_step(name: str, status: Status, message: str="") -> None:
     """Print a step status."""
     status_str = status.value
     print(f"  {status_str} {name}: {message}")
@@ -183,7 +231,7 @@ def run_command(
     Returns:
         Tuple of (return_code, stdout, stderr)
     """
-    full_env = os.environ.copy()
+    _full_env=os.environ.copy()
     if env:
         full_env.update(env)
 
@@ -193,7 +241,7 @@ def run_command(
         _capture_output = capture,
         _text = True,
         _env = full_env,
-        check=False,    # Explicitly set check=False to handle return code manually
+        _check=False,    # Explicitly set check=False to handle return code manually
     )    # nosec B603 - Dev setup script running trusted commands
 
     if check and result.returncode != 0:
@@ -216,7 +264,7 @@ def get_python_version() -> Tuple[int, int, int]:
 
 def get_platform() -> str:
     """Get current platform."""
-    system = platform.system().lower()
+    _system=platform.system().lower()
     return system
 
 
@@ -226,7 +274,7 @@ def get_platform() -> str:
 class DevSetup:
     """Developer environment setup manager."""
 
-    def __init__(self, config: SetupConfig):
+    def __init__(self, config: SetupConfig) -> None:
         """
         Initialize setup manager.
 
@@ -261,7 +309,7 @@ class DevSetup:
         for phase, handler in phases:
             print_header(f"Phase: {phase.value}")
             try:
-                result = handler()
+                _result=handler()
                 if result.status == Status.FAILED:
                     success = False
                     if not self.config.ci_mode:
@@ -269,7 +317,7 @@ class DevSetup:
                 self.results.append(result)
             except Exception as e:
                 result = StepResult(
-                    _name = phase.value, status=Status.FAILED, message=str(e)
+                    _name=phase.value, status=Status.FAILED, message=str(e)
                 )
                 self.results.append(result)
                 success = False
@@ -282,7 +330,7 @@ class DevSetup:
     def _preflight_checks(self) -> StepResult:
         """Run preflight checks."""
         # Check Python version
-        version = get_python_version()
+        _version=get_python_version()
         print_step(
             "Python version", Status.RUNNING, f"{version[0]}.{version[1]}.{version[2]}"
         )
@@ -307,7 +355,7 @@ class DevSetup:
         print_step("Git", Status.RUNNING, "Checking...")
         if not command_exists("git"):
             return StepResult(
-                name="preflight", status=Status.FAILED, message="Git is not installed"
+                _name="preflight", status=Status.FAILED, message="Git is not installed"
             )
         print_step("Git", Status.SUCCESS, "Found")
 
@@ -325,7 +373,7 @@ class DevSetup:
         print_step("Project structure", Status.SUCCESS, "OK")
 
         return StepResult(
-            name="preflight", status=Status.SUCCESS, message="All checks passed"
+            _name="preflight", status=Status.SUCCESS, message="All checks passed"
         )
 
     def _setup_virtual_environment(self) -> StepResult:
@@ -354,9 +402,9 @@ class DevSetup:
 
         # Update python executable path
         if get_platform() == "windows":
-            self.python_executable = str(venv_path / "Scripts" / "python.exe")
+            self.python_executable=str(venv_path / "Scripts" / "python.exe")
         else:
-            self.python_executable = str(venv_path / "bin" / "python")
+            self.python_executable=str(venv_path / "bin" / "python")
 
         # Upgrade pip
         print_step("pip", Status.RUNNING, "Upgrading...")
@@ -424,8 +472,8 @@ class DevSetup:
 
         return StepResult(
             _name = "dependencies",
-            status=Status.SUCCESS,
-            message="All dependencies installed",
+            _status=Status.SUCCESS,
+            _message="All dependencies installed",
         )
 
     def _setup_pre_commit(self) -> StepResult:
@@ -456,9 +504,9 @@ class DevSetup:
         except subprocess.CalledProcessError:
             print_step("Pre-commit hooks", Status.WARNING, "Failed to install")
             return StepResult(
-                name="hooks",
-                status=Status.WARNING,
-                message="Pre-commit hooks installation failed",
+                _name="hooks",
+                _status=Status.WARNING,
+                _message="Pre-commit hooks installation failed",
             )
 
         return StepResult(
@@ -539,7 +587,7 @@ repos:
         print_step("Configurations", Status.SUCCESS, "Created")
 
         return StepResult(
-            name="config", status=Status.SUCCESS, message="Configuration files created"
+            _name="config", status=Status.SUCCESS, message="Configuration files created"
         )
 
     def _create_pyproject_toml(self, path: Path) -> None:
@@ -590,9 +638,9 @@ _exclude_lines = [
         venv_path = self.config.venv_path
 
         if get_platform() == "windows":
-            python_path = str(venv_path / "Scripts" / "python.exe")
+            _python_path=str(venv_path / "Scripts" / "python.exe")
         else:
-            python_path = str(venv_path / "bin" / "python")
+            _python_path=str(venv_path / "bin" / "python")
 
         _settings = {
             "python.defaultInterpreterPath": python_path,
@@ -693,14 +741,14 @@ _exclude_lines = [
 
         if issues:
             return StepResult(
-                name="verify",
-                status=Status.WARNING,
-                message=f"{len(issues)} issues found",
-                _details = "\n".join(issues),
+                _name="verify",
+                _status=Status.WARNING,
+                _message=f"{len(issues)} issues found",
+                _details="\n".join(issues),
             )
 
         return StepResult(
-            name="verify", status=Status.SUCCESS, message="Setup verified successfully"
+            _name="verify", status=Status.SUCCESS, message="Setup verified successfully"
         )
 
     def _print_summary(self) -> None:
@@ -761,13 +809,13 @@ def main() -> int:
         "--venv-path", type=str, default=".venv", help="Path for virtual environment"
     )
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     # Determine project root
-    project_root = Path(__file__).parent.parent.resolve()
+    _project_root=Path(__file__).parent.parent.resolve()
     if not (project_root / "opt").exists():
     # Fallback: current directory
-        project_root = Path.cwd()
+        _project_root=Path.cwd()
 
     venv_path = project_root / args.venv_path
 
@@ -780,8 +828,8 @@ def main() -> int:
         _verbose = args.verbose,
     )
 
-    setup = DevSetup(config)
-    success = setup.run()
+    _setup=DevSetup(config)
+    _success=setup.run()
 
     return 0 if success else 1
 

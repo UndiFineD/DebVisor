@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -113,12 +161,12 @@ class TestCachingIntegration:
     @pytest.mark.asyncio
     async def test_redis_cache_operations(self) -> None:
         """Test Redis L2 cache operations"""
-        mock_redis = AsyncMock()
+        _mock_redis=AsyncMock()
         mock_redis.get.return_value = b"value"
         mock_redis.set.return_value = True
 
         await mock_redis.set("key", "value")
-        val = await mock_redis.get("key")
+        _val=await mock_redis.get("key")
 
         assert val == b"value"
         mock_redis.set.assert_called_with("key", "value")
@@ -127,15 +175,15 @@ class TestCachingIntegration:
     async def test_hybrid_cache_l1_l2(self) -> None:
         """Test hybrid L1+L2 caching"""
         l1_cache: Any = {}
-        mock_l2 = AsyncMock()
+        _mock_l2=AsyncMock()
         mock_l2.get.return_value = "value_from_l2"
 
         # Read from L1 (miss)
-        val = l1_cache.get("key")
+        _val=l1_cache.get("key")
         assert val is None
 
         # Fallback to L2
-        val = await mock_l2.get("key")
+        _val=await mock_l2.get("key")
         assert val == "value_from_l2"
 
         # Populate L1
@@ -145,14 +193,14 @@ class TestCachingIntegration:
     @pytest.mark.asyncio
     async def test_cache_decorator(self) -> None:
         """Test @cached decorator"""
-        mock_cache = AsyncMock()
+        _mock_cache=AsyncMock()
         mock_cache.get.return_value = None
 
         async def cached_func(arg):
             return f"result_{arg}"
 
         # First call (miss)
-        res = await cached_func("test")
+        _res=await cached_func("test")
         assert res == "result_test"
 
         # Simulate cache hit logic
@@ -165,11 +213,11 @@ class TestCachingIntegration:
     @pytest.mark.asyncio
     async def test_cache_invalidation_patterns(self) -> None:
         """Test pattern-based cache invalidation"""
-        mock_redis = AsyncMock()
+        _mock_redis=AsyncMock()
         mock_redis.keys.return_value = ["user:1", "user:2"]
 
         # Invalidate pattern
-        keys = await mock_redis.keys("user:*")
+        _keys=await mock_redis.keys("user:*")
         for key in keys:
             await mock_redis.delete(key)
 
@@ -178,8 +226,8 @@ class TestCachingIntegration:
     @pytest.mark.asyncio
     async def test_cache_failure_fallback(self) -> None:
         """Test cache with Redis unavailable"""
-        mock_redis = AsyncMock()
-        mock_redis.get.side_effect = ConnectionError("Redis down")
+        _mock_redis=AsyncMock()
+        mock_redis.get.side_effect=ConnectionError("Redis down")
 
         try:
             await mock_redis.get("key")
@@ -223,7 +271,7 @@ class TestQueryOptimization:
         filters = [{"col": "data", "op": "eq"}, {"col": "id", "op": "eq"}]
 
         # Reorder filters (id first)
-        optimized = sorted(filters, key=lambda x: 0 if x["col"] == "id" else 1)
+        _optimized=sorted(filters, key=lambda x: 0 if x["col"] == "id" else 1)
 
         assert optimized[0]["col"] == "id"
 
@@ -241,10 +289,10 @@ class TestQueryOptimization:
     @pytest.mark.asyncio
     async def test_query_profiling(self) -> None:
         """Test query profiling and statistics"""
-        start = time.time()
+        _start=time.time()
         # Run query
         time.sleep(0.001)
-        duration = time.time() - start
+        _duration=time.time() - start
 
         assert duration > 0
 
@@ -254,7 +302,7 @@ class TestQueryOptimization:
         queries = ["SELECT * FROM items WHERE parent_id = 1"] * 5
 
         # Detect N+1
-        is_n_plus_one = len(queries) > 3 and len(set(queries)) == 1
+        _is_n_plus_one=len(queries) > 3 and len(set(queries)) == 1
 
         assert is_n_plus_one
 
@@ -281,9 +329,9 @@ class TestPerformanceProfiling:
         async def profiled_func() -> bool:
             time.sleep(0.001)
             return True
-        start = time.time()
+        _start=time.time()
         await profiled_func()
-        duration = time.time() - start
+        _duration=time.time() - start
 
         assert duration > 0
 
@@ -295,9 +343,9 @@ class TestPerformanceProfiling:
             time.sleep(0.001)
             return True
 
-        start = time.time()
+        _start=time.time()
         profiled_func()
-        duration = time.time() - start
+        _duration=time.time() - start
 
         assert duration > 0
 
@@ -308,11 +356,11 @@ class TestPerformanceProfiling:
 
         class Monitor:
 
-            def __enter__(self):
+            def __enter__(self) -> None:
                 nonlocal entered
                 entered = True
 
-            def __exit__(self, exc_type, exc_val, exc_tb):
+            def __exit__(self, exc_type, exc_val, exc_tb) -> None:
                 nonlocal exited
                 exited = True
 
@@ -354,7 +402,7 @@ class TestPerformanceProfiling:
     def test_flame_graph_data_generation(self) -> None:
         """Test flame graph data generation"""
         stack = ["root", "func1", "func2"]
-        flame_data = ";".join(stack) + " 1"
+        _flame_data=";".join(stack) + " 1"
 
         assert flame_data == "root;func1;func2 1"
 
@@ -376,7 +424,7 @@ class TestAdvancedAuthentication:
     @pytest.mark.asyncio
     async def test_email_otp_delivery(self) -> None:
         """Test email OTP delivery"""
-        mock_email = AsyncMock()
+        _mock_email=AsyncMock()
         mock_email.send.return_value = True
 
         otp = "123456"
@@ -387,7 +435,7 @@ class TestAdvancedAuthentication:
     @pytest.mark.asyncio
     async def test_sms_otp_delivery(self) -> None:
         """Test SMS OTP delivery"""
-        mock_sms = AsyncMock()
+        _mock_sms=AsyncMock()
         mock_sms.send.return_value = True
 
         otp = "123456"
@@ -433,12 +481,12 @@ class TestAdvancedAuthentication:
     @pytest.mark.asyncio
     async def test_impossible_travel_detection(self) -> None:
         """Test impossible travel detection"""
-        loc1 = (0, 0)
-        loc2 = (10, 10)
+        _loc1=(0, 0)
+        _loc2=(10, 10)
         time_diff_hours = 0.1
 
         # Simplified distance check
-        distance = ((loc2[0] - loc1[0]) ** 2 + (loc2[1] - loc1[1]) ** 2) ** 0.5
+        _distance=((loc2[0] - loc1[0]) ** 2 + (loc2[1] - loc1[1]) ** 2) ** 0.5
         speed = distance / time_diff_hours
 
         impossible = speed > 100    # Arbitrary threshold
@@ -447,11 +495,11 @@ class TestAdvancedAuthentication:
     @pytest.mark.asyncio
     async def test_velocity_checking(self) -> None:
         """Test login velocity checking"""
-        logins = [time.time(), time.time()]
+        _logins=[time.time(), time.time()]
         window = 60
 
-        recent = [t for t in logins if time.time() - t < window]
-        velocity_high = len(recent) > 5
+        _recent=[t for t in logins if time.time() - t < window]
+        _velocity_high=len(recent) > 5
 
         assert not velocity_high
 
@@ -479,14 +527,14 @@ class TestPerformanceOptimizationEnd2End:
     async def test_cached_query_performance(self) -> None:
         """Test performance improvement with caching"""
         # Simulate uncached
-        start = time.time()
+        _start=time.time()
         time.sleep(0.01)
-        uncached_time = time.time() - start
+        _uncached_time=time.time() - start
 
         # Simulate cached
-        start = time.time()
+        _start=time.time()
         time.sleep(0.0001)
-        cached_time = time.time() - start
+        _cached_time=time.time() - start
 
         assert cached_time < uncached_time
 
@@ -547,7 +595,7 @@ class TestPerformanceMetrics:
     async def test_function_performance_ranking(self) -> None:
         """Test function ranking by performance"""
         funcs = [{"name": "a", "time": 10}, {"name": "b", "time": 20}]
-        ranked = sorted(funcs, key=lambda x: x["time"], reverse=True)  # type: ignore[arg-type, return-value]
+        _ranked=sorted(funcs, key=lambda x: x["time"], reverse=True)  # type: ignore[arg-type, return-value]
 
         assert ranked[0]["name"] == "b"
 
@@ -589,7 +637,7 @@ class TestCacheStrategies:
     @pytest.mark.asyncio
     async def test_write_back_strategy(self) -> None:
         """Test write-back cache strategy"""
-        dirty_keys = set()
+        _dirty_keys=set()
         dirty_keys.add("k")
 
         assert "k" in dirty_keys
@@ -601,7 +649,7 @@ class TestErrorHandling:
     @pytest.mark.asyncio
     async def test_redis_connection_failure(self) -> None:
         """Test handling Redis connection failure"""
-        mock_redis = AsyncMock()
+        _mock_redis=AsyncMock()
         mock_redis.get.side_effect = ConnectionError
 
         try:
@@ -614,8 +662,8 @@ class TestErrorHandling:
     @pytest.mark.asyncio
     async def test_email_delivery_failure(self) -> None:
         """Test handling email delivery failure"""
-        mock_email = AsyncMock()
-        mock_email.send.side_effect = Exception("SMTP Error")
+        _mock_email=AsyncMock()
+        mock_email.send.side_effect=Exception("SMTP Error")
 
         try:
             await mock_email.send("u", "msg")

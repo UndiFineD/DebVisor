@@ -1,3 +1,51 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,10 +150,10 @@ from enum import Enum
 # Configuration
 # ==============================================================================
 
-LOG_DIR = Path("/var/log/debvisor")
+LOG_DIR=Path("/var/log/debvisor")
 LOG_FILE = LOG_DIR / "install-profile.log"
-PROFILE_DIR = Path("/etc/debvisor/profiles")
-STATE_FILE = Path("/var/lib/debvisor/install-state.json")
+PROFILE_DIR=Path("/etc/debvisor/profiles")
+STATE_FILE=Path("/var/lib/debvisor/install-state.json")
 
 
 class InstallPhase(Enum):
@@ -242,12 +290,12 @@ class InstallProfile:
     install_method: str = ""    # iso, pxe, cloud-init, upgrade
 
     # Hardware
-    hardware: HardwareProfile = field(default_factory=HardwareProfile)
+    hardware: HardwareProfile=field(default_factory=HardwareProfile)
 
     # Configuration
-    network: NetworkConfig = field(default_factory=NetworkConfig)
-    storage: StorageConfig = field(default_factory=StorageConfig)
-    cluster: ClusterConfig = field(default_factory=ClusterConfig)
+    network: NetworkConfig=field(default_factory=NetworkConfig)
+    storage: StorageConfig=field(default_factory=StorageConfig)
+    cluster: ClusterConfig=field(default_factory=ClusterConfig)
 
     # Components
     components: list[Any] = field(default_factory=list[Any])
@@ -283,30 +331,30 @@ class InstallProfileLogger:
     choices, and system state for audit and support purposes.
     """
 
-    def __init__(self, profile_id: Optional[str] = None):
+    def __init__(self, profile_id: Optional[str] = None) -> None:
         """Initialize the profile logger."""
-        self.profile_id = profile_id or self._generate_profile_id()
+        self.profile_id=profile_id or self._generate_profile_id()
         self.profile = InstallProfile(
-            profile_id=self.profile_id,
-            _created_at = datetime.now(timezone.utc).isoformat() + "Z",
-            _start_time = datetime.now(timezone.utc).isoformat() + "Z",
+            _profile_id=self.profile_id,
+            _created_at=datetime.now(timezone.utc).isoformat() + "Z",
+            _start_time=datetime.now(timezone.utc).isoformat() + "Z",
         )
         self._setup_logging()
         self._ensure_directories()
 
     def _generate_profile_id(self) -> str:
         """Generate unique profile ID."""
-        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        hostname = socket.gethostname()[:8]
+        _timestamp=datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        _hostname=socket.gethostname()[:8]
         return f"debvisor-{hostname}-{timestamp}"
 
     def _setup_logging(self) -> None:
         """Configure logging handlers."""
-        self.logger = logging.getLogger(f"debvisor.install.{self.profile_id}")
+        self.logger=logging.getLogger(f"debvisor.install.{self.profile_id}")
         self.logger.setLevel(logging.DEBUG)
 
         # Console handler
-        console = logging.StreamHandler()
+        _console=logging.StreamHandler()
         console.setLevel(logging.INFO)
         console.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
         self.logger.addHandler(console)
@@ -314,7 +362,7 @@ class InstallProfileLogger:
         # File handler (if writable)
         try:
             self._ensure_directories()
-            file_handler = logging.FileHandler(LOG_FILE)
+            _file_handler=logging.FileHandler(LOG_FILE)
             file_handler.setLevel(logging.DEBUG)
             file_handler.setFormatter(
                 logging.Formatter("%(asctime)s [%(levelname)s] [%(name)s] %(message)s")
@@ -335,11 +383,11 @@ class InstallProfileLogger:
     # Phase Management
     # --------------------------------------------------------------------------
 
-    def set_phase(self, phase: InstallPhase, message: str = "") -> None:
+    def set_phase(self, phase: InstallPhase, message: str="") -> None:
         """Update installation phase."""
         old_phase = self.profile.install_phase
         self.profile.install_phase = phase.value
-        self.profile.updated_at = datetime.now(timezone.utc).isoformat() + "Z"
+        self.profile.updated_at=datetime.now(timezone.utc).isoformat() + "Z"
 
         self.logger.info(f"Phase: {old_phase} -> {phase.value}")
         if message:
@@ -351,14 +399,14 @@ class InstallProfileLogger:
             {"old_phase": old_phase, "new_phase": phase.value, "message": message},
         )
 
-    def complete_installation(self, success: bool = True) -> None:
+    def complete_installation(self, success: bool=True) -> None:
         """Mark installation as complete."""
-        self.profile.end_time = datetime.now(timezone.utc).isoformat() + "Z"
+        self.profile.end_time=datetime.now(timezone.utc).isoformat() + "Z"
 
         if self.profile.start_time:
-            start = datetime.fromisoformat(self.profile.start_time.rstrip("Z"))
-            end = datetime.fromisoformat(self.profile.end_time.rstrip("Z"))
-            self.profile.duration_seconds = (end - start).total_seconds()
+            _start=datetime.fromisoformat(self.profile.start_time.rstrip("Z"))
+            _end=datetime.fromisoformat(self.profile.end_time.rstrip("Z"))
+            self.profile.duration_seconds=(end - start).total_seconds()
 
         if success:
             self.set_phase(InstallPhase.COMPLETE, "Installation completed successfully")
@@ -376,54 +424,54 @@ class InstallProfileLogger:
         """Detect and log hardware configuration."""
         self.set_phase(InstallPhase.HARDWARE_DETECTION, "Detecting hardware...")
 
-        hw = HardwareProfile()
+        _hw=HardwareProfile()
 
         # CPU info
         try:
-            hw.cpu_model = self._get_cpu_model()
-            hw.cpu_cores = os.cpu_count() or 0
-            hw.cpu_threads = self._get_cpu_threads()
+            hw.cpu_model=self._get_cpu_model()
+            hw.cpu_cores=os.cpu_count() or 0
+            hw.cpu_threads=self._get_cpu_threads()
         except Exception as e:
             self.logger.warning(f"CPU detection error: {e}")
 
         # Memory
         try:
-            hw.memory_gb = self._get_memory_gb()
+            hw.memory_gb=self._get_memory_gb()
         except Exception as e:
             self.logger.warning(f"Memory detection error: {e}")
 
         # Storage devices
         try:
-            hw.storage_devices = self._detect_storage_devices()
+            hw.storage_devices=self._detect_storage_devices()
         except Exception as e:
             self.logger.warning(f"Storage detection error: {e}")
 
         # Network interfaces
         try:
-            hw.network_interfaces = self._detect_network_interfaces()
+            hw.network_interfaces=self._detect_network_interfaces()
         except Exception as e:
             self.logger.warning(f"Network detection error: {e}")
 
         # GPU devices
         try:
-            hw.gpu_devices = self._detect_gpu_devices()
+            hw.gpu_devices=self._detect_gpu_devices()
         except Exception as e:
             self.logger.warning(f"GPU detection error: {e}")
 
         # Virtualization support
-        hw.virtualization_support = self._check_virtualization()
+        hw.virtualization_support=self._check_virtualization()
 
         # IOMMU groups
         try:
-            iommu_path = Path("/sys/kernel/iommu_groups")
+            _iommu_path=Path("/sys/kernel/iommu_groups")
             if iommu_path.exists():
-                hw.iommu_groups = len(list(iommu_path.iterdir()))
+                hw.iommu_groups=len(list(iommu_path.iterdir()))
         except Exception as e:
             self.logger.debug(f"IOMMU detection error: {e}")
 
         # NUMA nodes
         try:
-            numa_path = Path("/sys/devices/system/node")
+            _numa_path=Path("/sys/devices/system/node")
             if numa_path.exists():
                 hw.numa_nodes = len(
                     [d for d in numa_path.iterdir() if d.name.startswith("node")]
@@ -432,7 +480,7 @@ class InstallProfileLogger:
             self.logger.debug(f"NUMA detection error: {e}")
 
         # TPM
-        hw.tpm_version = self._detect_tpm()
+        hw.tpm_version=self._detect_tpm()
 
         self.profile.hardware = hw
         self._log_profile_event("hardware_detected", asdict(hw))
@@ -476,7 +524,7 @@ class InstallProfileLogger:
                 with open("/proc/meminfo") as f:
                     for line in f:
                         if line.startswith("MemTotal"):
-                            kb = int(line.split()[1])
+                            _kb=int(line.split()[1])
                             return kb / (1024 * 1024)
             except Exception as e:
                 self.logger.debug(f"Memory detection error: {e}")
@@ -493,7 +541,7 @@ class InstallProfileLogger:
                     _text = True,
                 )    # nosec B603, B607 - Trusted system command for hardware detection
                 if result.returncode == 0:
-                    data = json.loads(result.stdout)
+                    _data=json.loads(result.stdout)
                     for dev in data.get("blockdevices", []):
                         if dev.get("type") == "disk":
                             devices.append(
@@ -516,7 +564,7 @@ class InstallProfileLogger:
         _interfaces = []
         if platform.system() == "Linux":
             try:
-                net_path = Path("/sys/class/net")
+                _net_path=Path("/sys/class/net")
                 for iface in net_path.iterdir():
                     if iface.name == "lo":
                         continue
@@ -554,7 +602,7 @@ class InstallProfileLogger:
                 if result.returncode == 0:
                     for line in result.stdout.splitlines():
                         if "VGA" in line or "3D" in line or "Display" in line:
-                            parts = line.split('"')
+                            _parts=line.split('"')
                             if len(parts) >= 6:
                                 gpus.append({"vendor": parts[3], "model": parts[5]})
             except Exception as e:
@@ -573,15 +621,15 @@ class InstallProfileLogger:
         if platform.system() == "Linux":
             try:
                 with open("/proc/cpuinfo") as f:
-                    cpuinfo = f.read()
+                    _cpuinfo=f.read()
                     virt["vmx"] = "vmx" in cpuinfo
                     virt["svm"] = "svm" in cpuinfo
 
                 virt["kvm_available"] = Path("/dev/kvm").exists()
 
-                nested_path = Path("/sys/module/kvm_intel/parameters/nested")
+                _nested_path=Path("/sys/module/kvm_intel/parameters/nested")
                 if not nested_path.exists():
-                    nested_path = Path("/sys/module/kvm_amd/parameters/nested")
+                    _nested_path=Path("/sys/module/kvm_amd/parameters/nested")
                 if nested_path.exists():
                     virt["nested_supported"] = nested_path.read_text().strip() in (
                         "1",
@@ -595,10 +643,10 @@ class InstallProfileLogger:
     def _detect_tpm(self) -> str:
         """Detect TPM version."""
         if platform.system() == "Linux":
-            tpm2_path = Path("/sys/class/tpm/tpm0")
+            _tpm2_path=Path("/sys/class/tpm/tpm0")
             if tpm2_path.exists():
                 try:
-                    caps = (tpm2_path / "caps").read_text()
+                    _caps=(tpm2_path / "caps").read_text()
                     if "TPM-2.0" in caps or "2.0" in caps:
                         return "2.0"
                     return "1.2"
@@ -830,7 +878,7 @@ STATUS:           {self.profile.install_phase.upper()}
 
     def export_profile(self, path: Optional[Path] = None) -> str:
         """Export profile as JSON."""
-        data = json.dumps(asdict(self.profile), indent=2)
+        _data=json.dumps(asdict(self.profile), indent=2)
         if path:
             path.write_text(data)
             self.logger.info(f"Profile exported to: {path}")
@@ -849,16 +897,16 @@ def main() -> None:
         _formatter_class = argparse.RawDescriptionHelpFormatter,
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    _subparsers=parser.add_subparsers(dest="command", help="Commands")
 
     # new command
-    new_parser = subparsers.add_parser("new", help="Start new installation profile")
+    _new_parser=subparsers.add_parser("new", help="Start new installation profile")
     new_parser.add_argument("--name", help="Profile name")
     new_parser.add_argument(
         "--method",
         _choices = ["iso", "pxe", "cloud-init", "upgrade"],
         _default = "iso",
-        help="Installation method",
+        _help="Installation method",
     )
     new_parser.add_argument("--operator", help="Operator name")
 
@@ -869,13 +917,13 @@ def main() -> None:
     subparsers.add_parser("status", help="Show current installation status")
 
     # export command
-    export_parser = subparsers.add_parser("export", help="Export profile")
+    _export_parser=subparsers.add_parser("export", help="Export profile")
     export_parser.add_argument("--output", "-o", help="Output file path")
 
-    args = parser.parse_args()
+    _args=parser.parse_args()
 
     if args.command == "new":
-        logger = InstallProfileLogger()
+        _logger=InstallProfileLogger()
         if args.name:
             logger.profile.profile_name = args.name
         logger.set_install_method(args.method)
@@ -884,13 +932,13 @@ def main() -> None:
         print(f"Created new profile: {logger.profile_id}")
 
     elif args.command == "detect":
-        logger = InstallProfileLogger()
-        hw = logger.detect_hardware()
+        _logger=InstallProfileLogger()
+        _hw=logger.detect_hardware()
         print(json.dumps(asdict(hw), indent=2))
 
     elif args.command == "status":
         if STATE_FILE.exists():
-            state = json.loads(STATE_FILE.read_text())
+            _state=json.loads(STATE_FILE.read_text())
             print(f"Profile:  {state.get('profile_id', 'Unknown')}")
             print(f"Phase:    {state.get('phase', 'Unknown')}")
             print(f"Updated:  {state.get('updated_at', 'Unknown')}")
@@ -899,10 +947,10 @@ def main() -> None:
 
     elif args.command == "export":
         if STATE_FILE.exists():
-            state = json.loads(STATE_FILE.read_text())
+            _state=json.loads(STATE_FILE.read_text())
             profile_file = PROFILE_DIR / f"{state['profile_id']}.json"
             if profile_file.exists():
-                data = profile_file.read_text()
+                _data=profile_file.read_text()
                 if args.output:
                     Path(args.output).write_text(data)
                     print(f"Exported to: {args.output}")
