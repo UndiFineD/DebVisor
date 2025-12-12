@@ -637,11 +637,13 @@ class MarkdownFixer(BaseFixer):
             while i < len(lines):
                 line = lines[i]
 
-                # Fix ```text to ```
+                # Fix ```text to ``` and treat as opening fence
                 if line.strip() == '```text':
                     output.append('```\n')
                     i += 1
-                    fence_stack.pop() if fence_stack else None
+                    # Treat ```text as an opening fence (not closing)
+                    if not fence_stack:
+                        fence_stack.append(True)
                     continue
 
                 # Handle code fences
