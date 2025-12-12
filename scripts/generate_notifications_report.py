@@ -10,55 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
 """
 Generate a report of unread GitHub notifications for UndiFineD/DebVisor.
 
@@ -94,14 +45,13 @@ def _fetch_notifications() -> List[Dict[str, str]]:
     """Fetch unread notifications for the repository using gh api."""
     jq_filter = (
         "map({id, unread, reason, updated_at, repository: .repository.full_name, "
-        "subject_title: .subject.title, subject_type: .subject.type, subject_url: .subject.url, "
-        "latest_comment_url: .subject.latest_comment_url})"
+        "subject_title: .subject.title, subject_type: .subject.type, subject_url: .subject.url})"
     )
 
     cmd = [
         "gh",
         "api",
-        f"repos/{OWNER}/{REPO}/notifications",
+        "notifications",
         "--paginate",
         "--jq",
         jq_filter,
@@ -120,15 +70,23 @@ def _fetch_notifications() -> List[Dict[str, str]]:
         print(f"Failed to decode JSON: {exc}")
         return []
 
-    return [n for n in data if n.get("unread")]
+    return [n for n in data if n.get("unread") and REPO in n.get("repository", "")]
 
 
-def _api_url_to_html(url: str, subject_type: str) -> str:
-    """Convert an API URL to a human-friendly HTML URL."""
-    if not url:
+def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: str) -> str:
+    """Convert an API URL to a human-friendly HTML URL, or construct one for CheckSuite notifications."""
+    # For CheckSuite (workflow failures), construct link from repository and title
+    if subject_type == "CheckSuite" and repository:
+        # Extract workflow name from title if possible
+        if "workflow run failed" in title or "workflow run" in title:
+            # Link to the actions page for the repository
+            return f"https://github.com/{repository}/actions"
+        return f"https://github.com/{repository}"
+    
+    if not api_url:
         return ""
 
-    html = url.replace("api.github.com/repos/", "github.com/")
+    html = api_url.replace("api.github.com/repos/", "github.com/")
 
     if "pulls/" in html:
         return html.replace("pulls/", "pull/")
@@ -171,12 +129,17 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
         lines.append("| ID | Type | Reason | Updated | Title | Link |")
         lines.append("|----|------|--------|---------|-------|------|")
         for n in notifications:
-            link = _api_url_to_html(n.get("subject_url", ""), n.get("subject_type", ""))
+            link = _api_url_to_html(
+                n.get("subject_url", ""), 
+                n.get("subject_type", ""),
+                n.get("repository", ""),
+                n.get("subject_title", "")
+            )
             title = _escape_md(n.get("subject_title", "")) or "(no title)"
             reason = n.get("reason", "")
             updated = _format_timestamp(n.get("updated_at", ""))
             subject_type = n.get("subject_type", "")
-            link_md = f"[{link}]({link})" if link else ""
+            link_md = f"[View]({link})" if link else ""
             lines.append(
                 f"| {n.get('id','')} | {subject_type} | {reason} | {updated} | {title} | {link_md} |"
             )
