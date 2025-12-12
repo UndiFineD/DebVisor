@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -309,7 +312,7 @@ class APIVersionManager:
             v for v in self._versions.values() if v.status == VersionStatus.CURRENT
         ]
         if current_versions:
-            # Return the highest version number if multiple CURRENT versions
+        # Return the highest version number if multiple CURRENT versions
             return max(current_versions)
         return None
 
@@ -344,7 +347,7 @@ class APIVersionManager:
                     return self.parse_version(version_str)
 
             elif source == "url":
-                # Extract from path like /v2/users
+            # Extract from path like /v2/users
 
                 match = re.search(r"/v(\d+(?:\.\d+)?)", request.path)
                 if match:
@@ -367,7 +370,7 @@ class APIVersionManager:
             return self.current_version
 
         except (ImportError, RuntimeError):
-            # Not in Flask context
+        # Not in Flask context
             return self.current_version
 
     def get_migration_path(

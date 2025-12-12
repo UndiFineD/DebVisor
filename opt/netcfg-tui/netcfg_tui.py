@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -190,7 +193,7 @@ def detect_interfaces(
     items: List[InterfaceConfig] = []
 
     if mock_mode or benchmark_count > 0:
-        # Mock interfaces for testing/demo
+    # Mock interfaces for testing/demo
         count = benchmark_count if benchmark_count > 0 else 4
         if benchmark_count > 0:
             for i in range(count):
@@ -207,7 +210,7 @@ def detect_interfaces(
     sys_net = "/sys/class/net"
     try:
         for name in sorted(os.listdir(sys_net)):
-            # Skip loopback
+        # Skip loopback
             if name == "lo":
                 continue
             kind = "wired"
@@ -215,7 +218,7 @@ def detect_interfaces(
             if os.path.isdir(os.path.join(sys_net, name, "wireless")):
                 kind = "wireless"
             else:
-                # InfiniBand: ARPHRD_INFINIBAND (32) in 'type'
+            # InfiniBand: ARPHRD_INFINIBAND (32) in 'type'
                 try:
                     with open(
                         os.path.join(sys_net, name, "type"), "r", encoding="utf-8"
@@ -273,7 +276,7 @@ def edit_interface(
     if method in ("dhcp", "static"):
         cfg.method = method
     if cfg.method == "static":
-        # Address
+    # Address
         while True:
             addr = prompt(
                 stdscr, (row, 2), "Address (e.g. 192.168.1.10)", cfg.address or ""
@@ -424,7 +427,7 @@ def edit_bridge(stdscr: Any, br: BridgeConfig) -> None:
     if method in ("dhcp", "static"):
         br.method = method
     if br.method == "static":
-        # Address
+    # Address
         while True:
             addr = prompt(stdscr, (row, 2), "Bridge address", br.address or "")
             if not addr:
@@ -625,7 +628,7 @@ def edit_bond(
     if auto in ("yes", "no"):
         bond.auto_members = auto == "yes"
     if not bond.auto_members:
-        # allow comma-separated members by name
+    # allow comma-separated members by name
         current = ", ".join(bond.members)
         names = prompt(
             stdscr, (row, 2), "Members (comma-separated iface names)", current
@@ -695,7 +698,7 @@ def write_networkd(
         emitted.append(bond_netdev)
 
     for c in cfgs:
-        # Create VLAN netdev first if requested
+    # Create VLAN netdev first if requested
         enslave_name = c.name
         if c.vlan_id is not None:
             vlan_name = f"{c.name}.{c.vlan_id}"
@@ -742,7 +745,7 @@ def write_networkd(
                 master = bond.name
 
             if master:
-                # Systemd-networkd uses Bridge= for both bridge and bond? No, Bond= for bond.
+            # Systemd-networkd uses Bridge= for both bridge and bond? No, Bond= for bond.
                 f.write(f"Bridge={master}\n")
                 # Actually, for systemd-networkd:
                 # [Network]
@@ -754,7 +757,7 @@ def write_networkd(
                 if bond and master == bond.name:
                     f.write(f"Bond={master}\n")
                 else:
-                    # Assume bridge
+                # Assume bridge
                     f.write(f"Bridge={master}\n")
             else:
                 if c.method == "dhcp":
@@ -812,14 +815,14 @@ def write_netplan(
 
     # Helper to check if interface is enslaved
     def is_enslaved(name: str) -> bool:
-        # Check if master is set on config
+    # Check if master is set on config
         for c in cfgs:
             t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
             if t == name and c.master:
                 return True
         # Check legacy bond auto-members
         if bond and bond.auto_members:
-            # If wired, it's enslaved
+        # If wired, it's enslaved
             # Find config for name
             for c in cfgs:
                 t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
@@ -834,7 +837,7 @@ def write_netplan(
             if is_enslaved(e):
                 lines.append("      dhcp4: false")
             else:
-                # Find config
+            # Find config
                 # This logic is getting complex because we separated lists from configs.
                 # Let's simplify: we iterate configs again?
                 # Or just assume dhcp4: false if enslaved, else check config?
@@ -888,7 +891,7 @@ def write_netplan(
         if bond.auto_members:
             members.extend([e for e in eths])    # All wired
         else:
-            # Check explicit master
+        # Check explicit master
             for c in cfgs:
                 if c.master == bond.name:
                     t = c.name if c.vlan_id is None else f"{c.name}.{c.vlan_id}"
@@ -1061,7 +1064,7 @@ def apply_config(outdir: str, backend: str) -> bool:
     try:
         print("Applying new configuration...")
         if backend == "networkd":
-            # Clear existing? Maybe too dangerous. Just overwrite/add.
+        # Clear existing? Maybe too dangerous. Just overwrite/add.
             # But old configs might conflict.
             # Strategy: Move old configs to a backup folder inside /etc/systemd/network/backup?
             # For now, let's just copy over.
@@ -1100,7 +1103,7 @@ def apply_config(outdir: str, backend: str) -> bool:
         # 5. Rollback
         try:
             if backend == "networkd":
-                # Clean up potentially bad files?
+            # Clean up potentially bad files?
                 # Ideally we should have cleared the dir before applying if we want a clean state.
                 # For rollback, we extract the tarball.
                 # But tarball extraction might not remove *new* files.
@@ -1131,13 +1134,13 @@ def scan_wifi(interface: str) -> List[str]:
     """Scan for WiFi networks using iwlist or iw."""
     networks = []
     try:
-        # Try iwlist first (more detailed output usually)
+    # Try iwlist first (more detailed output usually)
         # iwlist wlan0 scan
         result = subprocess.run(
             ["iwlist", interface, "scan"], capture_output=True, text=True
         )    # nosec B603, B607
         if result.returncode == 0:
-            # Parse ESSID:"..."
+        # Parse ESSID:"..."
             for line in result.stdout.splitlines():
                 line = line.strip()
                 if line.startswith("ESSID:"):
@@ -1145,7 +1148,7 @@ def scan_wifi(interface: str) -> List[str]:
                     if ssid:
                         networks.append(ssid)
         else:
-            # Try iw
+        # Try iw
             # iw dev wlan0 scan
             result = subprocess.run(
                 ["iw", "dev", interface, "scan"], capture_output=True, text=True
@@ -1316,7 +1319,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             viewport_start = 0
             msg = "Interfaces reloaded"
         elif ch == ord("b"):
-            # Add bridge
+        # Add bridge
             name = prompt(
                 stdscr, (curses.LINES - 3, 2), "New Bridge Name", f"br{len(bridges)}"
             )
@@ -1324,7 +1327,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                 bridges.append(BridgeConfig(name=name))
                 msg = f"Added bridge {name}"
         elif ch == ord("d"):
-            # Delete bridge
+        # Delete bridge
             if display_items:
                 kind, obj = display_items[selected]
                 if kind == "bridge":
@@ -1334,7 +1337,7 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
                 else:
                     msg = "Can only delete bridges"
         elif ch == ord("w"):
-            # WiFi Scan
+        # WiFi Scan
             if display_items:
                 kind, obj = display_items[selected]
                 if kind == "iface" and obj.kind == "wireless":
@@ -1361,15 +1364,15 @@ def run_tui(stdscr: Any, args: argparse.Namespace) -> None:
             kind, obj = display_items[selected]
 
             if kind == "bridge":
-                # obj is BridgeConfig
+            # obj is BridgeConfig
                 edit_bridge(stdscr, obj)
                 msg = f"Edited {obj.name}"
             elif kind == "bond":
-                # obj is BondConfig
+            # obj is BondConfig
                 edit_bond(stdscr, obj, cfgs)
                 msg = f"Edited {obj.name}"
             else:
-                # obj is InterfaceConfig
+            # obj is InterfaceConfig
                 # Collect masters
                 masters = [b.name for b in bridges]
                 if bond_cfg:

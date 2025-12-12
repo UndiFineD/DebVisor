@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -289,7 +292,7 @@ class Span:
     def end(self, end_time: Optional[float] = None) -> None:
         self.end_time = end_time or time.time()
         if self._otel_span:
-            # OTel expects nanoseconds int
+        # OTel expects nanoseconds int
             end_time_ns = int(self.end_time * 1e9)
             self._otel_span.end(end_time=end_time_ns)
 
@@ -358,9 +361,9 @@ class Tracer:
         """
         context = None
         if trace_id and parent_span_id:
-            # Reconstruct context from IDs
+        # Reconstruct context from IDs
             try:
-                # OTel expects integers for IDs
+            # OTel expects integers for IDs
                 trace_id_int = int(trace_id.replace("-", ""), 16)
                 span_id_int = int(parent_span_id.replace("-", ""), 16)
 
@@ -482,7 +485,7 @@ class TracingDecorator:
 
                 span = self.tracer.start_span(span_name, kind=kind)
                 try:
-                    # Add function arguments to span
+                # Add function arguments to span
                     span.set_attribute("function", func.__name__)
                     span.set_attribute("args_count", len(args))
                     span.set_attribute("kwargs_count", len(kwargs))

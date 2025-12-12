@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -357,7 +360,7 @@ class SecurityHeaderManager:
     def get_security_headers() -> Dict[str, str]:
         """Get recommended security headers"""
         return {
-            # Prevent clickjacking
+        # Prevent clickjacking
             "X-Frame-Options": "DENY",
             # Prevent MIME sniffing
             "X-Content-Type-Options": "nosniff",

@@ -16,7 +16,7 @@ class TestComplianceReporting(unittest.TestCase):
     @patch('opt.services.compliance.reporting.Node')
     @patch('opt.services.compliance.reporting.User')
     def test_generate_report_markdown(self, mock_user, mock_node):
-        # Mock DB
+    # Mock DB
         mock_node.query.all.return_value = []
         mock_user.query.all.return_value = []
 
@@ -49,7 +49,7 @@ class TestComplianceReporting(unittest.TestCase):
     @patch('opt.services.compliance.reporting.Node')
     @patch('opt.services.compliance.reporting.User')
     def test_generate_report_html_fallback(self, mock_user, mock_node):
-        # Mock DB
+    # Mock DB
         mock_node.query.all.return_value = []
         mock_user.query.all.return_value = []
 

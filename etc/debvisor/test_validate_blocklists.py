@@ -13,6 +13,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 #
 # tests/test_validate_blocklists.py
 #
@@ -44,7 +47,7 @@ class TestCIDRValidation:
             "255.255.255.255/32",
         ]
         for cidr in valid_cidrs:
-            # Should not raise exception via ipaddress module
+        # Should not raise exception via ipaddress module
             from ipaddress import ip_network
 
             assert ip_network(cidr, strict=False)
@@ -141,7 +144,7 @@ class TestCommentHandling:
             temp_file = f.name
 
         try:
-            # Should be able to parse without issue
+        # Should be able to parse without issue
             with open(temp_file, "r") as f:
                 from ipaddress import ip_network
 
@@ -524,7 +527,7 @@ class TestValidationScriptIntegration:
             temp_file = f.name
 
         try:
-            # Script should accept valid file (exit code 0)
+        # Script should accept valid file (exit code 0)
             result = subprocess.run(
                 [
                     "bash",

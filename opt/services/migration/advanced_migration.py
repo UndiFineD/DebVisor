@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -434,7 +437,7 @@ class TargetHostSelector:
         scores: List[TargetScore] = []
 
         for host_id, metrics in self.host_metrics.items():
-            # Basic exclusions
+        # Basic exclusions
             if host_id in exclude_hosts:
                 continue
             if metrics.maintenance_mode:
@@ -657,7 +660,7 @@ class MigrationExecutor:
         self.active_migrations[plan.id] = progress
 
         try:
-            # Validation phase
+        # Validation phase
             progress.state = MigrationState.VALIDATING
             await self._validate_migration(plan)
 
@@ -712,7 +715,7 @@ class MigrationExecutor:
         logger.info(f"Pre-warming {len(plan.hot_regions_to_warm)} memory regions")
 
         for start_page, count in plan.hot_regions_to_warm:
-            # In production: use RDMA or optimized transfer
+        # In production: use RDMA or optimized transfer
             # to pre-fetch hot memory regions
             await asyncio.sleep(0.01)
 
@@ -780,7 +783,7 @@ class MigrationExecutor:
         )
 
         while remaining_pages > 0:
-            # Simulate batch of page faults
+        # Simulate batch of page faults
             faults = min(random.randint(10, 100), remaining_pages)    # nosec B311
             progress.post_copy_faults += faults
             remaining_pages -= faults
@@ -961,7 +964,7 @@ class ResourceConsolidator:
         hosts_to_evacuate: Any = []
 
         for host_id in underutilized:
-            # Get VMs on this host
+        # Get VMs on this host
             vms_on_host = [
                 vm_id for vm_id, h in self.selector.vm_placement.items() if h == host_id
             ]

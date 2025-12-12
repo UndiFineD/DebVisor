@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -253,7 +256,7 @@ class PluginLoader:
 
             if module_name:
                 try:
-                    # Dry run import to check for PluginInterface
+                # Dry run import to check for PluginInterface
                     module = importlib.import_module(module_name)
                     for name, obj in inspect.getmembers(module):
                         if (
@@ -273,7 +276,7 @@ class PluginLoader:
         logger.info(f"Loading plugin from {module_path}")
 
         try:
-            # Import module
+        # Import module
             module = importlib.import_module(module_path)
 
             # Find plugin class
@@ -373,7 +376,7 @@ class PluginLoader:
             return False
 
         try:
-            # plugin_info = self.plugins[plugin_name]
+        # plugin_info = self.plugins[plugin_name]
             # new_config = config or plugin_info.config
 
             self.unload_plugin(plugin_name)
@@ -449,7 +452,7 @@ class PluginLoader:
                 return False
             return True
         except ValueError:
-            # If version format is invalid, assume incompatible
+        # If version format is invalid, assume incompatible
             return False
 
     @staticmethod

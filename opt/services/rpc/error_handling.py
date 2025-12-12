@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -320,7 +323,7 @@ def retry_with_backoff(
                     last_exception = e
 
                     if attempt < max_retries:
-                        # Calculate delay with exponential backoff
+                    # Calculate delay with exponential backoff
                         delay = min(
                             initial_delay * (exponential_base**attempt), max_delay
                         )

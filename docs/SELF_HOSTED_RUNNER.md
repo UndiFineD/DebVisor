@@ -17,7 +17,7 @@ This repository uses a self-hosted GitHub Actions runner to execute CI/CD workfl
 - Windows 10/11 or Windows Server 2019+
 - PowerShell 5.1 or later
 - Administrator access (for service installation)
-- Network access to GitHub (<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com>>>>>>>>>>>>>>>>>>>>>>>>>)
+- Network access to GitHub (<<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com>>>>>>>>>>>>>>>>>>>>>>>>>>)
 
 ## Installation Steps
 
@@ -49,7 +49,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 - *Note**: The token in configuration commands expires after 1 hour. Get a fresh token from:
 
-<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>>
 ```powershell
 
 # Configure runner (replace TOKEN with fresh token from GitHub)
@@ -205,7 +205,7 @@ npm install -g markdownlint-cli
 
 On GitHub:
 
-1. Go to <<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners>>>>>>>>>>>>>>>>>>>>>>>>>
+1. Go to <<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. Look for your runner (green dot = online, gray = offline)
 
 On the runner machine:
@@ -310,7 +310,7 @@ Invoke-WebRequest -Uri <https://github.com/actions/runner/releases/download/v2.X
 - *Solutions**:
 
 1. Tokens expire after 1 hour
-1. Generate new token: <<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>
+1. Generate new token: <<<<<<<<<<<<<<<<<<<<<<<<<<https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>>>>>>>>>>>>>>>>>>>>>>>>>
 1. Copy and use immediately
 
 ## Security Considerations

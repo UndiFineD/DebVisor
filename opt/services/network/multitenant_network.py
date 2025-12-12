@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -328,7 +331,7 @@ class IPAddressManager:
         address = None
 
         if preferred_ip and preferred_ip not in self.reserved[tenant_id]:
-            # Check if preferred IP is in our network and available
+        # Check if preferred IP is in our network and available
             try:
                 ip = ipaddress.ip_address(preferred_ip)
                 if ip in network and str(ip) not in [
@@ -339,7 +342,7 @@ class IPAddressManager:
                 pass
 
         if not address:
-            # Allocate from pool
+        # Allocate from pool
             used = {
                 a.address for a in self.allocations.values() if a.tenant_id == tenant_id
             }
@@ -519,12 +522,12 @@ class DNSZoneManager:
         ip = ipaddress.ip_address(ip_address)
 
         if isinstance(ip, ipaddress.IPv4Address):
-            # Create reverse zone name
+        # Create reverse zone name
             octets = str(ip).split(".")
             ptr_name = ".".join(reversed(octets))
             reverse_zone = f"{octets[2]}.{octets[1]}.{octets[0]}.in-addr.arpa"
         else:
-            # IPv6 reverse
+        # IPv6 reverse
             expanded = ip.exploded.replace(":", "")
             ptr_name = ".".join(reversed(expanded))
             reverse_zone = "ip6.arpa"
@@ -819,7 +822,7 @@ class NFTablesManager:
         ruleset = self.export_ruleset()
 
         try:
-            # Write to temp file and apply
+        # Write to temp file and apply
             temp_path = Path("/tmp/nft-debvisor.conf")    # nosec B108
             temp_path.write_text(ruleset)
 
@@ -1070,12 +1073,12 @@ class MultiTenantNetworkManager:
             raise ValueError(f"Unknown tenant: {tenant_id}")
 
         if mode == IPv6Mode.ULA:
-            # Generate ULA prefix (fd00::/8)
+        # Generate ULA prefix (fd00::/8)
             # Use tenant hash for consistent allocation
             tenant_hash = hashlib.sha256(tenant_id.encode()).hexdigest()[:4]
             prefix = f"fd{tenant_hash}::{network.vlan_id}/64"
         else:
-            # Global unicast (example)
+        # Global unicast (example)
             prefix = f"2001:db8:{network.vlan_id}::/64"
 
         network.ipv6_subnet = prefix
@@ -1130,7 +1133,7 @@ class MultiTenantNetworkManager:
         )
 
         if alloc:
-            # Add DNS record
+        # Add DNS record
             self.add_dns_record(tenant_id, hostname, alloc.address)
             return alloc.address
 

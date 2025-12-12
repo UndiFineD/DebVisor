@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -121,7 +124,7 @@ class CostOptimizer:
 
         for res in resources:
             if res["type"] == "vm":
-                # Check for idle resources
+            # Check for idle resources
                 if (
                     res["metrics"].get("cpu_avg", 0) < 5
                     and res["metrics"].get("network_io", 0) < 100

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -196,7 +199,7 @@ class ChannelPool:
 
         while time.time() - start_time < timeout:
             with self.lock:
-                # Try to get an available channel
+            # Try to get an available channel
                 if self.available:
                     pooled = self.available.popleft()
 
@@ -205,7 +208,7 @@ class ChannelPool:
                         not pooled.is_healthy
                         or pooled.idle_time() > self.config.max_idle_time
                     ):
-                        # Close unhealthy/stale channel and create new one
+                    # Close unhealthy/stale channel and create new one
                         pooled.channel.close()
                         pooled = self._create_channel()
 
@@ -236,7 +239,7 @@ class ChannelPool:
     def release(self, channel: grpc.Channel) -> None:
         """Release a channel back to the pool."""
         with self.lock:
-            # Find the pooled channel wrapper
+        # Find the pooled channel wrapper
             pooled = None
             for p in self.in_use:
                 if p.channel == channel:
@@ -250,7 +253,7 @@ class ChannelPool:
                 if pooled.is_healthy and pooled.idle_time() < self.config.max_idle_time:
                     self.available.append(pooled)
                 else:
-                    # Close unhealthy channel
+                # Close unhealthy channel
                     pooled.channel.close()
                     logger.debug("Closed unhealthy channel during release")
 
@@ -266,7 +269,7 @@ class ChannelPool:
 
             try:
                 with self.lock:
-                    # Check available channels
+                # Check available channels
                     channels_to_remove = []
                     for pooled in self.available:
                         if pooled.idle_time() > self.config.max_idle_time:
@@ -368,7 +371,7 @@ class RPCClient:
     def _init_pool(self) -> None:
         """Initialize gRPC channel pool with mTLS credentials."""
         try:
-            # Load certificates
+        # Load certificates
             if not self.cert_file or not self.key_file or not self.ca_cert_file:
                 raise RPCClientError("Missing certificate configuration")
 
@@ -419,14 +422,14 @@ class RPCClient:
         """
         channel = None
         try:
-            # Acquire channel from pool
+        # Acquire channel from pool
             channel = self.channel_pool.acquire(timeout=self.timeout)
 
             # Get stub for service
             stub = self._get_stub(service_name, channel)
 
             if not stub:
-                # Placeholder behavior
+            # Placeholder behavior
                 return None
 
             # Get method from stub
@@ -447,7 +450,7 @@ class RPCClient:
             logger.error(error_msg)
             raise RPCClientError(error_msg)
         finally:
-            # Always release channel back to pool
+        # Always release channel back to pool
             if channel:
                 self.channel_pool.release(channel)
 
@@ -499,7 +502,7 @@ class RPCClient:
             Dictionary with node_id and registration details
         """
         try:
-            # Build request (placeholder)
+        # Build request (placeholder)
             # request = {
             #     'hostname': hostname,
             #     'ip_address': ip_address,
@@ -532,7 +535,7 @@ class RPCClient:
             List of node dictionaries
         """
         try:
-            # response = self._call_rpc('NodeService', 'ListNodes', {})
+        # response = self._call_rpc('NodeService', 'ListNodes', {})
 
             return [
                 {
@@ -559,7 +562,7 @@ class RPCClient:
             True if heartbeat accepted
         """
         try:
-            # response = self._call_rpc('NodeService', 'Heartbeat', {'node_id': node_id})
+        # response = self._call_rpc('NodeService', 'Heartbeat', {'node_id': node_id})
             return True
         except Exception as e:
             logger.error(f"Failed to send heartbeat for {node_id}: {e}")
@@ -582,7 +585,7 @@ class RPCClient:
             Dictionary with snapshot_id and creation details
         """
         try:
-            # request = {
+        # request = {
             #     'node_id': node_id,
             #     'source_volume': source_volume,
             #     'name': name,
@@ -615,7 +618,7 @@ class RPCClient:
             List of snapshot dictionaries
         """
         try:
-            # response = self._call_rpc('StorageService', 'ListSnapshots', {})
+        # response = self._call_rpc('StorageService', 'ListSnapshots', {})
 
             return [
                 {
@@ -641,7 +644,7 @@ class RPCClient:
             True if deletion initiated
         """
         try:
-            # response = self._call_rpc('StorageService', 'DeleteSnapshot', {'snapshot_id': snapshot_id})
+        # response = self._call_rpc('StorageService', 'DeleteSnapshot', {'snapshot_id': snapshot_id})
             return True
         except Exception as e:
             logger.error(f"Failed to delete snapshot {snapshot_id}: {e}")
@@ -663,7 +666,7 @@ class RPCClient:
             Dictionary with migration plan details
         """
         try:
-            # request = {
+        # request = {
             #     'source_node_id': source_node_id,
             #     'target_node_id': target_node_id,
             #     'vm_ids': vm_ids,

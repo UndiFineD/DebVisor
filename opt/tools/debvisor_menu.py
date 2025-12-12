@@ -13,6 +13,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 """
 DebVisor Console Menu (debvisor-menu)
 A TUI for managing the DebVisor system from the physical console or SSH.
@@ -137,7 +140,7 @@ class MenuApp:
         self.run_external("journalctl -f")
 
     def on_reboot(self, button: Any) -> None:
-        # Confirmation dialog could be added here
+    # Confirmation dialog could be added here
         self.run_external("reboot")
 
     def on_shutdown(self, button: Any) -> None:
@@ -147,14 +150,14 @@ class MenuApp:
         raise urwid.ExitMainLoop()
 
     def run_external(self, command: str) -> None:
-        # Stop the loop, run command, restore loop
+    # Stop the loop, run command, restore loop
         if self.main_loop:
             self.main_loop.stop()
         subprocess.run(
             ["/usr/bin/clear"], check=False
         )    # nosec B603 - Clear command is safe
         try:
-            # Use shlex to split command safely and avoid shell=True
+        # Use shlex to split command safely and avoid shell=True
             import shlex
 
             args = shlex.split(command)

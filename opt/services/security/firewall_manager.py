@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -837,7 +840,7 @@ class FirewallManager:
             return True, config
 
         try:
-            # Write to temp file
+        # Write to temp file
             with tempfile.NamedTemporaryFile(
                 mode="w", suffix=".nft", delete=False
             ) as tmp:
@@ -845,7 +848,7 @@ class FirewallManager:
                 config_path = tmp.name
 
             try:
-                # Validate
+            # Validate
                 result = subprocess.run(
                     ["/usr/sbin/nft", "-c", "-f", config_path],    # nosec B603
                     capture_output=True,
@@ -882,7 +885,7 @@ class FirewallManager:
         config = self.generate_nftables_config()
 
         try:
-            # Backup existing
+        # Backup existing
             config_path = Path(path)
             if config_path.exists():
                 backup = config_path.with_suffix(

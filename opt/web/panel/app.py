@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -429,7 +432,7 @@ def create_app(config_name: str = "production") -> Flask:
 
     def check_db_health() -> bool:
         try:
-            # Use a lightweight query to check connection
+        # Use a lightweight query to check connection
             db.session.execute(text("SELECT 1"))
             return True
         except Exception as e:
@@ -518,7 +521,7 @@ def create_app(config_name: str = "production") -> Flask:
     @app.before_request
     def enforce_https() -> Any:
         if not app.debug and not request.is_secure:
-            # Validate host header to prevent Host Header Injection
+        # Validate host header to prevent Host Header Injection
             # In production, this should be handled by the web server (Nginx/Apache)
             allowed_hosts = app.config.get("ALLOWED_HOSTS", [])
             host = request.host.split(':')[0]
@@ -528,7 +531,7 @@ def create_app(config_name: str = "production") -> Flask:
                     logger.warning(f"Invalid Host header: {request.host}")
                     return "Invalid Host header", 400
             else:
-                # If ALLOWED_HOSTS is not set, we cannot safely redirect
+            # If ALLOWED_HOSTS is not set, we cannot safely redirect
                 # as we cannot validate the Host header.
                 logger.warning("ALLOWED_HOSTS not set, skipping HTTPS redirect")
                 return None

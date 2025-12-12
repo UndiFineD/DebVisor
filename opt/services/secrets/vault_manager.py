@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -164,7 +167,7 @@ class VaultClient:
     def _connect(self) -> None:
         """Connect to Vault and authenticate."""
         try:
-            # Create Vault client
+        # Create Vault client
             self.client = hvac.Client(
                 url=self.config.url,
                 verify=self.config.verify_ssl,
@@ -259,7 +262,7 @@ class VaultClient:
         def renew_token() -> None:
             while self.is_authenticated:
                 try:
-                    # Renew token every 12 hours
+                # Renew token every 12 hours
                     time.sleep(12 * 3600)
 
                     if self.client and self.client.is_authenticated():
@@ -478,7 +481,7 @@ class VaultClient:
             SecretMetadata for new version
         """
         try:
-            # Create new version
+        # Create new version
             metadata = self.create_secret(path, new_data)
 
             # Clean up old versions
@@ -548,7 +551,7 @@ class VaultClient:
 
             if self.check_rotation_needed(path):
                 try:
-                    # Call rotation callback if provided
+                # Call rotation callback if provided
                     if policy.rotation_callback:
                         new_data = policy.rotation_callback(path)
                     else:

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -197,7 +200,7 @@ class SLOTarget(SLODefinition):
         # Handle target conversion
         if target is None:
             if target_value is not None:
-                # For latency, target_value is threshold in ms
+            # For latency, target_value is threshold in ms
                 # Convert to percentage (assume 95% meet threshold)
                 if sli_type == SLIType.LATENCY:
                     target = 95.0
@@ -501,7 +504,7 @@ class SLOTracker:
         """Get summary report (backward compatibility for get_all_status)."""
         all_status = self.get_all_status()
         return {
-            # Nested legacy key (service name)
+        # Nested legacy key (service name)
             self.service
             or "unknown": {
                 "targets": all_status,
@@ -530,7 +533,7 @@ class SLOTracker:
         if calculator:
             self._calculators[slo.name] = calculator
         else:
-            # Use latency threshold from SLOTarget-like objects if available
+        # Use latency threshold from SLOTarget-like objects if available
             if getattr(slo, "sli_type", None) == SLIType.LATENCY and hasattr(
                 slo, "target_value"
             ):
@@ -596,7 +599,7 @@ class SLOTracker:
         """
         # Handle backward compatibility
         if data_point is None and value is not None:
-            # Old API: create data point from individual params
+        # Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,
@@ -612,7 +615,7 @@ class SLOTracker:
             setattr(data_point, "sli_type", sli_type)
             # For old API, try to find SLO by sli_type
             if slo_name is None and sli_type:
-                # Find first SLO with matching type
+            # Find first SLO with matching type
                 for name, slo in self._slos.items():
                     if slo.sli_type == sli_type:
                         slo_name = name
@@ -649,7 +652,7 @@ class SLOTracker:
         """Synchronous version of record for non-async contexts."""
         # Handle backward compatibility
         if data_point is None and value is not None:
-            # Old API: create data point from individual params
+        # Old API: create data point from individual params
             data_point = SLIDataPoint(
                 timestamp=datetime.now(timezone.utc),
                 value=value,
@@ -665,7 +668,7 @@ class SLOTracker:
             setattr(data_point, "sli_type", sli_type)
             # For old API, try to find SLO by sli_type
             if slo_name is None and sli_type:
-                # Find first SLO with matching type
+            # Find first SLO with matching type
                 for name, slo in self._slos.items():
                     if slo.sli_type == sli_type:
                         slo_name = name
@@ -691,14 +694,14 @@ class SLOTracker:
 
             frame = inspect.currentframe()
             if frame and frame.f_back:
-                # Check if we're in an async context
+            # Check if we're in an async context
                 import asyncio
 
                 try:
                     asyncio.current_task()
                     # In async context - this won't work well, but tests are sync
                 except RuntimeError:
-                    # Not in async context - use sync version
+                # Not in async context - use sync version
                     return self.record_sync(*args, **kwargs)
         except BaseException:
             pass

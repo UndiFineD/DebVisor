@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -227,7 +230,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                     cursor.execute(step.up_sql)
 
             if not dry_run:
-                # Record migration
+            # Record migration
                 cursor.execute(
                     """
                     INSERT INTO debvisor_migrations
@@ -273,7 +276,7 @@ class SQLiteMigrationExecutor(MigrationExecutor):
                     cursor.execute(step.down_sql)
 
             if not dry_run:
-                # Record rollback
+            # Record rollback
                 cursor.execute(
                     """
                     UPDATE debvisor_migrations

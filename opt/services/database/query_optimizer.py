@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -259,7 +262,7 @@ class QueryCache:
             return
 
         try:
-            # Scan for matching keys
+        # Scan for matching keys
             keys = []
             async for key in self.redis.scan_iter(match=f"query:*{pattern}*"):
                 keys.append(key)
@@ -410,7 +413,7 @@ class AsyncDatabasePool:
         # Execute query
         try:
             async with self.acquire() as conn:
-                # Get query plan for slow query analysis
+            # Get query plan for slow query analysis
                 if logger.isEnabledFor(logging.DEBUG):
                     plan = await self._explain_query(conn, query, params)
                 else:
@@ -518,7 +521,7 @@ class AsyncDatabasePool:
             filter_cond = node.get("Filter")
 
             if filter_cond and table:
-                # Recommend index on filtered columns
+            # Recommend index on filtered columns
                 # This is simplified - production would parse filter conditions
                 logger.info(
                     f"Index recommendation: Consider adding index on {table} "
@@ -609,7 +612,7 @@ async def main() -> None:
     await pool.connect()
 
     try:
-        # Create table
+    # Create table
         await pool.execute(
             """
             CREATE TABLE IF NOT EXISTS vms (

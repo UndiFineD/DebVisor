@@ -417,7 +417,7 @@ class TestWiFiOperations:
         secured = next((n for n in networks if n["security"] != "Open"), None)
 
         if secured:
-            # Without password should fail
+        # Without password should fail
             result = self.backend.connect_wifi("wlan0", secured["ssid"])
             assert result is False
 

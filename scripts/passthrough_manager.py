@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -84,7 +87,7 @@ class PassthroughProfile:
 
 class PassthroughManager:
     def __init__(self) -> None:
-        # Minimal stub; real functionality not required for current tests
+    # Minimal stub; real functionality not required for current tests
         self.PROFILES = {
             "gaming": PassthroughProfile(
                 "Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"]

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -86,7 +89,7 @@ def main() -> None:
         return
 
     try:
-        # Handle paginated output which might result in multiple JSON arrays separated by whitespace
+    # Handle paginated output which might result in multiple JSON arrays separated by whitespace
         # We replace ']...[' with ',' to merge them into a single list.
         json_str = re.sub(r'\]\s*\[', ', ', result.stdout)
         alerts = json.loads(json_str)

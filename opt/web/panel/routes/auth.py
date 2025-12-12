@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -305,7 +308,7 @@ def profile() -> Any:
             current_user.full_name = full_name
 
         if email and email != current_user.email:
-            # Check if email already in use
+        # Check if email already in use
             if User.query.filter_by(email=email).first():
                 flash("Email already in use", "error")
             else:
@@ -385,7 +388,7 @@ def password_reset() -> Any:
 
         user = User.query.filter_by(email=email).first()
         if not user:
-            # Avoid user enumeration: respond success regardless
+        # Avoid user enumeration: respond success regardless
             AuditLog.log_operation(
                 user_id=None,
                 operation="read",
@@ -431,7 +434,7 @@ def reset_verify() -> Any:
     )
 
     if request.method == "GET":
-        # Render form to set new password
+    # Render form to set new password
         return render_template("auth/reset_verify.html", token=token)
 
     # POST: apply new password

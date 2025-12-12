@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -269,13 +272,13 @@ class ConnectivityChecker:
 
         for name, endpoint in self.ENDPOINTS:
             if endpoint.startswith("/"):
-                # Unix socket
+            # Unix socket
                 import os
 
                 if not os.path.exists(endpoint):
                     failed.append(name)
             else:
-                # TCP endpoint
+            # TCP endpoint
                 host, port = endpoint.split(":")
                 try:
                     subprocess.run(
@@ -336,7 +339,7 @@ class ConfigurationChecker:
             if not os.path.exists(config_file):
                 missing.append(config_file)
             else:
-                # Basic validation - file is readable
+            # Basic validation - file is readable
                 try:
                     with open(config_file, "r") as f:
                         f.read(100)

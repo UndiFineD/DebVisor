@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -583,7 +586,7 @@ class RequestValidator:
             if isinstance(request_data, bytes):
                 json.loads(request_data)
         except json.JSONDecodeError:
-            # Binary protobuf is acceptable
+        # Binary protobuf is acceptable
             pass
 
         return True, None
@@ -676,7 +679,7 @@ def require_auth(
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(self: Any, request: Any, context: Any) -> Any:
-            # Extract token from metadata
+        # Extract token from metadata
             metadata = dict(context.invocation_metadata())
             token = metadata.get("authorization", "").replace("Bearer ", "")
 

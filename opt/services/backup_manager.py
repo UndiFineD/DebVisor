@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -179,7 +182,7 @@ class BackupEncryption:
 
         try:
             with open(input_path, "rb") as fin, open(output_path, "wb") as fout:
-                # Write header
+            # Write header
                 fout.write(json.dumps(header).encode("utf-8") + b"\n")
 
                 while True:
@@ -211,7 +214,7 @@ class BackupEncryption:
 
         try:
             with open(input_path, "rb") as fin:
-                # Read header
+            # Read header
                 header_line = fin.readline()
                 header = json.loads(header_line)
 
@@ -240,7 +243,7 @@ class BackupEncryption:
                             plaintext = file_gcm.decrypt(chunk_nonce, ciphertext, None)
                             fout.write(plaintext)
                     else:
-                        # Legacy non-chunked format (v1)
+                    # Legacy non-chunked format (v1)
                         file_nonce = base64.b64decode(header["file_nonce"])
                         ciphertext = fin.read()
                         plaintext = file_gcm.decrypt(file_nonce, ciphertext, None)
@@ -412,7 +415,7 @@ class BackupManager:
         )
 
         try:
-            # 1. Create Snapshot
+        # 1. Create Snapshot
             snap_name = await backend.create_snapshot(policy.dataset, tag)
 
             # 2. Replicate (if ZFS and target set)

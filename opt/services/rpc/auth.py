@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -241,7 +244,7 @@ class ClientCertificateValidator:
             return False
 
         try:
-            # Check if certificate serial is in CRL
+        # Check if certificate serial is in CRL
             for revoked_cert in self.crl:
                 if revoked_cert.serial_number == cert.serial_number:
                     return True
@@ -409,7 +412,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
 
         # Wrap to set identity before execution
         def authenticated_handler(request: Any) -> Any:
-            # Get the context and set identity
+        # Get the context and set identity
             context = handler_call_details.context
             setattr(context, "_identity", identity)
             return handler(request)
@@ -498,7 +501,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                     logger.warning("Could not extract CN from validated certificate")
                     return None
             else:
-                # Fallback to subject parsing if no validator
+            # Fallback to subject parsing if no validator
                 for part in x509_subject.split("/"):
                     if part.startswith("CN="):
                         principal_id = part[3:]
@@ -641,7 +644,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             Identity if valid API key, None otherwise
         """
         try:
-            # Hash the key for comparison
+        # Hash the key for comparison
             key_hash = hashlib.sha256(api_key.encode()).hexdigest()
 
             # Look up in key storage

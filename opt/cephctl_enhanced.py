@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -288,7 +291,7 @@ class CephCLI:
                     if osd_id is not None:
                         pg_per_osd[osd_id] = pg_per_osd.get(osd_id, 0) + pg_count
             elif isinstance(pgs_json, list):
-                # Fallback: list of PGs with "up" field
+            # Fallback: list of PGs with "up" field
                 for pg in pgs_json:
                     for osd in (pg.get("up", []) if isinstance(pg, dict) else []):
                         pg_per_osd[osd] = pg_per_osd.get(osd, 0) + 1
@@ -353,7 +356,7 @@ class CephCLI:
             OSDReplacementPlan with detailed steps
         """
         try:
-            # Check OSD status
+        # Check OSD status
             rc, stdout, stderr = self.execute_command(
                 ["ceph", "osd", "dump", "--format=json"]
             )
@@ -491,7 +494,7 @@ class CephCLI:
             PerformanceAnalysis with recommendations
         """
         try:
-            # Get performance data
+        # Get performance data
             rc, stdout, stderr = self.execute_command(["ceph", "d", "--format=json"])
 
             if rc != 0:

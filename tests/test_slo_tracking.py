@@ -431,7 +431,7 @@ class TestSLOIntegration:
 
         # Simulate some traffic
         for i in range(100):
-            # Most requests are fast
+        # Most requests are fast
             latency = 50.0 if i < 95 else 500.0    # 5% slow
             success = i < 98    # 2% failures
 

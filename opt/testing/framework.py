@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -537,7 +540,7 @@ class IntegrationTestHelper:
         # Delete in reverse order
         for resource_type, resource_id in reversed(self.created_resources):
             try:
-                # Implement resource-specific cleanup
+            # Implement resource-specific cleanup
                 pass
             except Exception as e:
                 print(f"Cleanup error: {e}")

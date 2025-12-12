@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -107,7 +110,7 @@ class FeatureFlagManager:
             return os.environ[env_key].lower() in ("true", "1", "yes", "on")
 
         if not self.enabled:
-            # If Redis is down or not configured, default to False (safe)
+        # If Redis is down or not configured, default to False (safe)
             return False
 
         try:
@@ -137,7 +140,7 @@ class FeatureFlagManager:
             rollout_percentage = flag_data.get("rollout_percentage", 100)
             if rollout_percentage < 100:
                 if not context:
-                    # If no context provided but rollout < 100%, default to disabled
+                # If no context provided but rollout < 100%, default to disabled
                     return False
 
                 identifier = str(context.get("user_id") or context.get("tenant_id") or "anonymous")

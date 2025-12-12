@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -801,7 +804,7 @@ def main() -> int:
     # Determine project root
     project_root = Path(__file__).parent.parent.resolve()
     if not (project_root / "opt").exists():
-        # Fallback: current directory
+    # Fallback: current directory
         project_root = Path.cwd()
 
     venv_path = project_root / args.venv_path

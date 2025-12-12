@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -159,7 +162,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         # We might need to wrap the behavior.
 
         def _wrapped_behavior(request: Any, context: grpc.ServicerContext) -> Any:
-            # Extract identity from context if available
+        # Extract identity from context if available
             # This depends on AuthInterceptor running before this one
             # or we can try to extract metadata here.
             nonlocal principal
@@ -185,7 +188,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 error_details = str(e)
                 raise
             finally:
-                # Log the call
+            # Log the call
                 duration = (
                     datetime.now(timezone.utc) - start_time
                 ).total_seconds() * 1000

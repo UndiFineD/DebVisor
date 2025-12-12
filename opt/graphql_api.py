@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -616,7 +619,7 @@ class GraphQLResolver:
             Parsed query object or None
         """
         try:
-            # Simple validation - in production would use graphql-core
+        # Simple validation - in production would use graphql-core
             if "query" not in query and "mutation" not in query:
                 return None
             return {"raw": query}
@@ -1020,7 +1023,7 @@ class SubscriptionManager:
                 event = await asyncio.wait_for(queue.get(), timeout=60.0)
                 yield event
             except asyncio.TimeoutError:
-                # Send keepalive
+            # Send keepalive
                 yield {
                     "type": "keepalive",
                     "timestamp": datetime.now(timezone.utc).isoformat(),

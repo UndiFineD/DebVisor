@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -575,7 +578,7 @@ class ContextAwareLogger(logging.LoggerAdapter[Any]):
         logger.info("Processing request")    # Automatically includes context
     """
 
-    def process(self, msg: str, kwargs: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
+    def process(self, msg: str, kwargs: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:  # type: ignore[override]
         """Add context to log message."""
         ctx = get_current_context()
 
@@ -631,7 +634,7 @@ def create_flask_middleware() -> Tuple[Callable[[], None], Callable[[Any], Any]]
         ctx = getattr(g, "request_context", None)
 
         if ctx:
-            # Add response headers
+        # Add response headers
             response.headers[HEADER_REQUEST_ID] = ctx.request_id
             response.headers[HEADER_CORRELATION_ID] = (
                 ctx.correlation_id or ctx.request_id
@@ -679,11 +682,11 @@ def inject_context_headers(headers: Optional[Dict[str, str]] = None) -> Dict[str
 
     ctx = get_current_context()
     if ctx:
-        # Create child span for outgoing request
+    # Create child span for outgoing request
         child = ctx.create_child_span("http_request")
         result.update(child.to_headers())
     else:
-        # Generate new request ID
+    # Generate new request ID
         result[HEADER_REQUEST_ID] = str(uuid.uuid4())
 
     return result

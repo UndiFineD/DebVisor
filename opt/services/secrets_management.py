@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -176,7 +179,7 @@ class VaultSecretsManager:
     def _initialize_client(self) -> hvac.Client:
         """Initialize Vault client with configured authentication."""
         try:
-            # Create client with TLS support
+        # Create client with TLS support
             client = hvac.Client(
                 url=self.config.url,
                 timeout=self.config.timeout,
@@ -190,7 +193,7 @@ class VaultSecretsManager:
                 logger.info("Authenticated with token method")
 
             elif self.config.auth_method == "kubernetes":
-                # Kubernetes auth with in-cluster service account
+            # Kubernetes auth with in-cluster service account
                 with open("/var/run/secrets/kubernetes.io/serviceaccount/token") as f:
                     jwt = f.read()
 
@@ -201,7 +204,7 @@ class VaultSecretsManager:
                 logger.info("Authenticated with Kubernetes auth method")
 
             elif self.config.auth_method == "approle":
-                # AppRole authentication for service-to-service
+            # AppRole authentication for service-to-service
                 role_id = self._read_secret_file("/etc/vault/role-id")
                 secret_id = self._read_secret_file("/etc/vault/secret-id")
 
@@ -260,7 +263,7 @@ class VaultSecretsManager:
         path = f"secret/data/{self.config.namespace}/{name}"
 
         try:
-            # Check if secret already exists
+        # Check if secret already exists
             if not overwrite:
                 try:
                     self.client.secrets.kv.v2.read_secret_version(path=path)
@@ -324,7 +327,7 @@ class VaultSecretsManager:
                 return cast(Dict[str, Any], secret_data)
 
         try:
-            # Retrieve from Vault
+        # Retrieve from Vault
             response = self.client.secrets.kv.v2.read_secret_version(path=path)
             secret_data = cast(Dict[str, Any], response["data"]["data"])
 
@@ -381,7 +384,7 @@ class VaultSecretsManager:
         path = f"secret/data/{self.config.namespace}/{name}"
 
         try:
-            # Get current version metadata
+        # Get current version metadata
             current = self.client.secrets.kv.v2.read_secret_version(path=path)
             metadata = current.get("metadata", {})
 
@@ -448,13 +451,13 @@ class VaultSecretsManager:
 
         try:
             if purge:
-                # Permanently delete all versions
+            # Permanently delete all versions
                 self.client.secrets.kv.v2.destroy_secret_version(
                     path=path, version=None
                 )
                 logger.info(f"Permanently purged secret: {name}")
             else:
-                # Soft delete (mark for deletion)
+            # Soft delete (mark for deletion)
                 self.client.secrets.kv.v2.delete_secret_version(path=path)
                 logger.info(f"Deleted secret: {name}")
 
@@ -639,7 +642,7 @@ class VaultSecretsManager:
         """Enable Vault audit logging."""
         try:
             if enable:
-                # Enable file audit backend
+            # Enable file audit backend
                 self.client.sys.enable_audit_backend(
                     backend_type="file",
                     description="DebVisor audit log",

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -134,7 +137,7 @@ class ClientRateLimiter:
                 self.tokens -= tokens
                 return True, 0.0
             else:
-                # Calculate wait time until tokens are available
+            # Calculate wait time until tokens are available
                 tokens_needed = tokens - self.tokens
                 wait_time = tokens_needed / self.config.requests_per_second
                 return False, wait_time

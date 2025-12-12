@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -409,7 +412,7 @@ class GracefulShutdownManager:
     def _run_shutdown_sequence(self) -> None:
         """Execute the shutdown sequence."""
         try:
-            # Phase 1: Draining
+        # Phase 1: Draining
             self._phase_draining()
 
             # Phase 2: Completing
@@ -625,7 +628,7 @@ class FlaskShutdownMiddleware:
 
         # Check if accepting requests
         if not self.shutdown_manager.accepting_requests:
-            # Return 503 Service Unavailable
+        # Return 503 Service Unavailable
             status = "503 Service Unavailable"
             headers = [
                 ("Content-Type", "application/json"),
@@ -719,7 +722,7 @@ def init_graceful_shutdown(
     _shutdown_manager.install_signal_handlers()
 
     if app is not None:
-        # Wrap app with middleware
+    # Wrap app with middleware
         app.wsgi_app = FlaskShutdownMiddleware(app.wsgi_app, _shutdown_manager)
 
         # Register blueprint

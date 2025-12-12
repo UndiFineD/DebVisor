@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -396,7 +399,7 @@ def require_signed_request(signer: RequestSigner) -> Callable[[F], F]:
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Import Flask here to avoid circular imports
+        # Import Flask here to avoid circular imports
             from flask import request, jsonify
 
             # Extract signature headers
@@ -659,7 +662,7 @@ def get_default_signer() -> RequestSigner:
     """
     secret_key = os.getenv("DEBVISOR_SIGNING_KEY")
     if not secret_key:
-        # Generate a random key for development
+    # Generate a random key for development
         secret_key = base64.b64encode(os.urandom(32)).decode("utf-8")
         logger.warning(
             "DEBVISOR_SIGNING_KEY not set, using random key. " "Set this in production!"

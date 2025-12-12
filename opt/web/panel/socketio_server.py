@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -176,7 +179,7 @@ class WebSocketAuthenticationManager:
             return False, "No authentication token provided"
 
         try:
-            # Decode and validate JWT
+        # Decode and validate JWT
             payload = jwt.decode(token, self.secret, algorithms=[self.JWT_ALGORITHM])
         except jwt.ExpiredSignatureError:
             return False, "Authentication token expired"
@@ -701,7 +704,7 @@ class NotificationNamespace(SocketIONamespace):
             message = data.get("message")
 
             if user_id and message:
-                # In a real app, we would validate permissions and persist the message
+            # In a real app, we would validate permissions and persist the message
                 self.send_notification(user_id, f"New message: {message}", "info")
                 return {"status": "sent"}
             return {"status": "error", "message": "Invalid data"}

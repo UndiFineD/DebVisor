@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -383,7 +386,7 @@ class AnalyticsEngine:
         last_value = smoothed_values[-1]
         forecast_values: List[float] = []
         for _ in range(periods_ahead):
-            # Use last smoothed value as naive forecast
+        # Use last smoothed value as naive forecast
             forecast_values.append(last_value)
         return forecast_values
 
@@ -419,14 +422,14 @@ class AnalyticsEngine:
 
         # Analyze each metric type
         for metric_type in list(MetricType):
-            # Get aggregated metrics
+        # Get aggregated metrics
             metrics = self.aggregate_metrics(metric_type, start_time, now)
 
             # Consolidated stats across buckets
             if metrics:
                 all_values = []
                 for m in metrics:
-                    # reconstruct values from sum/count for basic stats
+                # reconstruct values from sum/count for basic stats
                     if m.count > 0:
                         all_values.append(m.sum_value / m.count)
                 current = all_values[-1] if all_values else 0

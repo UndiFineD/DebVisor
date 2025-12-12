@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -386,6 +389,6 @@ class BackwardCompatibilityLayer:
         """Convert V2 request to V1 format for legacy backend."""
         # Example transformation logic
         if "pool_id" in v2_request:
-            # V1 doesn't support pool filtering, remove it
+        # V1 doesn't support pool filtering, remove it
             v2_request.pop("pool_id", None)
         return v2_request

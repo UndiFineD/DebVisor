@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -67,7 +70,7 @@ class TestLSTMAnomalyDetection(unittest.TestCase):
         self.metric_type = MetricType.CPU_USAGE
 
     def test_lstm_training_and_detection(self) -> None:
-        # Generate sine wave data
+    # Generate sine wave data
         print("Generating training data...")
         base_time = datetime.now(timezone.utc) - timedelta(days=1)
 

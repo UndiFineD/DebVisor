@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -388,7 +391,7 @@ class MonitoringConfigManager:
         yaml_output += "    rules:\n"
 
         for alert in self.alert_rules.values():
-            # Indent for group structure
+        # Indent for group structure
             for line in alert.to_yaml().split("\n"):
                 if line:
                     yaml_output += f"      {line}\n"

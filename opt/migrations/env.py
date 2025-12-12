@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -71,10 +74,10 @@ logger = logging.getLogger("alembic.env")
 
 def get_engine() -> Any:
     try:
-        # this works with Flask-SQLAlchemy<3 and Alchemical
+    # this works with Flask-SQLAlchemy<3 and Alchemical
         return current_app.extensions["migrate"].db.get_engine()
     except (TypeError, AttributeError):
-        # this works with Flask-SQLAlchemy>=3
+    # this works with Flask-SQLAlchemy>=3
         return current_app.extensions["migrate"].db.engine
 
 

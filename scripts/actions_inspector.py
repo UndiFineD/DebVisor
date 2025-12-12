@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -142,7 +145,7 @@ DEFAULT_TOKEN_FILE = r"C:\Users\kdejo\DEV\github-vscode.txt"    # nosec B105 - P
 def _token() -> str:
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     if not token:
-        # Attempt to load from file if env vars missing
+    # Attempt to load from file if env vars missing
         token_file = os.getenv("GH_TOKEN_FILE") or DEFAULT_TOKEN_FILE
         if os.path.isfile(token_file):
             try:
@@ -150,12 +153,12 @@ def _token() -> str:
                     raw = f.read().strip()
                 # Support either raw token or KEY=VALUE style
                 if "=" in raw and "\n" not in raw:
-                    # Single line KEY=VALUE
+                # Single line KEY=VALUE
                     k, v = raw.split("=", 1)
                     if k.strip().upper() in {"GH_TOKEN", "GITHUB_TOKEN"}:
                         token = v.strip()
                 elif "\n" in raw:
-                    # Multi-line: search for GH_TOKEN= or GITHUB_TOKEN=
+                # Multi-line: search for GH_TOKEN= or GITHUB_TOKEN=
                     for line in raw.splitlines():
                         if line.strip().startswith("GH_TOKEN="):
                             token = line.split("=", 1)[1].strip()
@@ -164,7 +167,7 @@ def _token() -> str:
                             token = line.split("=", 1)[1].strip()
                             break
                     if not token:
-                        # Fallback: first non-empty line assumed token
+                    # Fallback: first non-empty line assumed token
                         for line in raw.splitlines():
                             if line.strip():
                                 token = line.strip()
@@ -172,7 +175,7 @@ def _token() -> str:
                 else:
                     token = raw
                 if token:
-                    # Set in process env for downstream steps
+                # Set in process env for downstream steps
                     os.environ["GH_TOKEN"] = token
                     print(f"[info] Loaded GH_TOKEN from file: {token_file}")
                 else:
@@ -311,13 +314,13 @@ def fetch_logs(run_id: int, out_dir: str) -> None:
             extracted = len(zf.namelist())
             print(f"    Extracted {extracted} entries -> {job_dir}")
         except zipfile.BadZipFile:
-            # Some endpoints may redirect; handle plain text fallback
+        # Some endpoints may redirect; handle plain text fallback
             log_path = os.path.join(out_dir, f"{jid}-{name.replace(' ', '_')}.log")
             with open(log_path, "wb") as f:
                 f.write(data)
             print(f"    Stored raw log (non-zip) at {log_path}")
         except SystemExit:
-            # Continue to next job if a single job log 404s
+        # Continue to next job if a single job log 404s
             print(f"    ! Skipping job {jid} due to log retrieval error")
             continue
     print("Done. To inspect errors quickly:")
@@ -489,7 +492,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 def main(argv: List[str]) -> None:
     args = parse_args(argv)
     if args.debug:
-        # Basic token diagnostics before executing command
+    # Basic token diagnostics before executing command
         tok = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN") or ""
         print(
             f"[debug] token length={len(tok)} startswith={tok[:4]!r} endswith={tok[-4:]!r} "

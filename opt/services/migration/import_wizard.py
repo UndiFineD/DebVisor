@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -266,7 +269,7 @@ class ESXiConnector(SourceConnector):
     def connect(self, conn: SourceConnection) -> bool:
         self.conn = conn
         try:
-            # Try pyVmomi (vSphere API)
+        # Try pyVmomi (vSphere API)
             from pyVim.connect import SmartConnect
             import ssl
 
@@ -465,7 +468,7 @@ class ESXiConnector(SourceConnector):
 
         with open(output_path, "wb") as f:
             for i in range(100):
-                # Write up to 1MB per iteration
+            # Write up to 1MB per iteration
                 f.write(b"\x00" * min(chunk, 1024 * 1024))
                 if progress_callback:
                     progress_callback(chunk * (i + 1), total)
@@ -823,7 +826,7 @@ class DiskConverter:
                 for line in process.stdout:
                     line = line.strip()
                     if "%" in line:
-                        # Parse "( X.XX/100%)"
+                    # Parse "( X.XX/100%)"
                         try:
                             _ = float(line.split("(")[1].split("/")[0])
                             if progress_callback:
@@ -1279,7 +1282,7 @@ if __name__ == "__main__":
             )
 
         if vms:
-            # Preflight check
+        # Preflight check
             print(f"\nPreflight check for {vms[0].name}...")
             result = wizard.preflight_check(
                 conn_id, vms[0].vm_id, ImportOptions(target_name="imported-vm-test")

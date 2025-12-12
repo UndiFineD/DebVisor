@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -327,7 +330,7 @@ class CloudflareDNSProvider(DNSChallengeProvider):
             record_name = f"_acme-challenge.{domain}"
 
             async with aiohttp.ClientSession() as session:
-                # Get zone ID if not provided
+            # Get zone ID if not provided
                 zone_id = self.zone_id
                 if not zone_id:
                     zone_id = await self._get_zone_id(session, domain)
@@ -500,7 +503,7 @@ class ACMECertificateManager:
         )
 
         try:
-            # Use certbot or acme.sh for actual certificate issuance
+        # Use certbot or acme.sh for actual certificate issuance
             success = await self._issue_certificate(cert)
 
             if success:
@@ -524,7 +527,7 @@ class ACMECertificateManager:
     async def _issue_certificate(self, cert: Certificate) -> bool:
         """Issue certificate using certbot."""
         try:
-            # Build certbot command
+        # Build certbot command
             cmd = [
                 "certbot",
                 "certonly",
@@ -577,7 +580,7 @@ class ACMECertificateManager:
             )
 
             if result.returncode == 0:
-                # Update certificate paths
+            # Update certificate paths
                 live_path = Path("/etc/letsencrypt/live") / cert_name
                 cert.cert_path = str(live_path / "cert.pem")
                 cert.key_path = str(live_path / "privkey.pem")
@@ -704,7 +707,7 @@ class ACMECertificateManager:
         cert.renewal_attempts += 1
 
         try:
-            # Use certbot renew
+        # Use certbot renew
             result = subprocess.run(
                 [
                     "/usr/bin/certbot",
@@ -732,7 +735,7 @@ class ACMECertificateManager:
         except subprocess.TimeoutExpired:
             return False, "Renewal timed out"
         except FileNotFoundError:
-            # Fallback: request new certificate
+        # Fallback: request new certificate
             success, _ = await self.request_certificate(cert.domains, force=True)
             return success, "Renewed via re-issuance"
         except Exception as e:

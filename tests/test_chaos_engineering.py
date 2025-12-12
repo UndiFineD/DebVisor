@@ -337,7 +337,7 @@ class ChaosMonkey:
                 raise TimeoutError(f"Operation {operation} timed out")
 
             elif failure_mode == FailureMode.PARTIAL_FAILURE:
-                # 50% chance of success after partial work
+            # 50% chance of success after partial work
                 if random.random() > 0.5:
                     yield
                 else:
@@ -498,7 +498,7 @@ class TestCacheResilience:
                 mock_cache.get("key")
                 cache_available = True
         except Exception:
-            # Fallback to database
+        # Fallback to database
             mock_database.query("SELECT value FROM cache WHERE key = 'key'")
             data_retrieved = True
 
@@ -532,7 +532,7 @@ class TestCacheResilience:
                 mock_cache.set("key", "data")
                 cache_success = True
         except Exception:
-            # Cache failure is acceptable
+        # Cache failure is acceptable
             pass
 
         chaos_monkey.record_experiment(
@@ -558,7 +558,7 @@ class TestAPIResilience:
 
         for i in range(10):
             if circuit_open:
-                # Skip call, circuit is open
+            # Skip call, circuit is open
                 continue
 
             try:
@@ -709,7 +709,7 @@ class TestResourceExhaustion:
         oom_occurred = False
 
         try:
-            # Simulate checking memory before allocation
+        # Simulate checking memory before allocation
             if memory_usage_mb > 80:    # 80% threshold
                 raise MemoryError("Memory threshold exceeded")
         except MemoryError:

@@ -28,7 +28,7 @@ class TestAuditChain(unittest.TestCase):
         self.app_context.pop()
 
     def test_audit_chain_integrity(self) -> None:
-        # 1. Create some logs
+    # 1. Create some logs
         log1 = AuditLog.log_operation(
             user_id=1,
             operation="create",
@@ -60,7 +60,7 @@ class TestAuditChain(unittest.TestCase):
         self.assertEqual(result["reason"], "Signature mismatch")
 
     def test_audit_chain_broken_link(self) -> None:
-        # 1. Create logs
+    # 1. Create logs
         log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
         log2 = AuditLog.log_operation(user_id=1, operation="op2", resource_type="res", action="act2")
 

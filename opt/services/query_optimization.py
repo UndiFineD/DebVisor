@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -695,7 +698,7 @@ class QueryOptimizationEngine:
 
         for query_name, stats in self.statistics.items():
             if stats.total_executions > 10:
-                # Check if query runs many times in short succession
+            # Check if query runs many times in short succession
                 if stats.avg_efficiency_ratio < 50:    # Low efficiency
                     issues.append(
                         {

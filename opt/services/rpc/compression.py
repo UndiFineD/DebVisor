@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -277,7 +280,7 @@ class CompressionManager:
             ValueError: If compression fails
         """
         try:
-            # Auto-select algorithm if not specified
+        # Auto-select algorithm if not specified
             if algorithm is None:
                 algorithm = self.select_algorithm(len(data), content_type=content_type)
 

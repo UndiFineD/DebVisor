@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -664,7 +667,7 @@ class MarketplaceCatalog:
         query_lower = query.lower()
 
         for versions in self._recipes.values():
-            # Get latest version
+        # Get latest version
             if not versions:
                 continue
             recipe = list(versions.values())[0]
@@ -974,7 +977,7 @@ class ManifestHandler(ResourceHandler):
         manifests = spec.get("manifests", [])
 
         for manifest in manifests:
-            # Template parameter substitution
+        # Template parameter substitution
             manifest_str = json.dumps(manifest)
             for key, value in params.items():
                 manifest_str = manifest_str.replace(f"${{{key}}}", str(value))
@@ -1001,7 +1004,7 @@ class ManifestHandler(ResourceHandler):
     def rollback(
         self, resource: RecipeResource, namespace: Optional[str] = None  # type: ignore[name-defined]
     ) -> bool:
-        # Would need to track applied resources for proper rollback
+    # Would need to track applied resources for proper rollback
         return False
 
     def check_health(
@@ -1273,7 +1276,7 @@ class MarketplaceInstaller:
                     remaining.remove(res)
                     break
             else:
-                # Circular dependency or missing dep
+            # Circular dependency or missing dep
                 sorted_list.extend(remaining)
                 break
 

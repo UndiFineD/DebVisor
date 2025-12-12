@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -587,7 +590,7 @@ class E2ETestSuite:
 
         # Run all test groups
         tasks = [
-            # Deployment tests
+        # Deployment tests
             self.deployment_tests.test_single_node_deployment(),
             self.deployment_tests.test_multi_node_deployment(),
             # Operations tests

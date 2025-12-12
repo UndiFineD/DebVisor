@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -340,14 +343,14 @@ class LSTMModel:
         # best_loss = float('inf')
 
         for _ in range(epochs):
-            # Mutate weights
+        # Mutate weights
             # Wf_mut = self.Wf + np.random.randn(*self.Wf.shape) * learning_rate
             # Wy_mut = self.Wy + np.random.randn(*self.Wy.shape) * learning_rate
 
             # Evaluate
             # total_loss = 0
             for i in range(len(X)):
-                # Forward with mutated weights (simplified for this block)
+            # Forward with mutated weights (simplified for this block)
                 # In a real implementation, we'd do full BPTT.
                 # For this "Enterprise Ready" demo, we'll assume the weights are adjusted.
                 pass
@@ -554,7 +557,7 @@ class AnomalyDetectionEngine:
         # Get baseline
         baseline = self.baselines.get(key)
         if not baseline:
-            # Try to establish from data
+        # Try to establish from data
             baseline = self.establish_baseline(resource_id, metric_type)
             if not baseline:
                 return alerts
@@ -612,7 +615,7 @@ class AnomalyDetectionEngine:
         z_score = abs((current_value - baseline.mean) / baseline.stddev)
 
         if z_score > self.z_score_threshold:
-            # Determine type and severity
+        # Determine type and severity
             if current_value > baseline.mean:
                 anomaly_type = AnomalyType.SPIKE
             else:
@@ -669,7 +672,7 @@ class AnomalyDetectionEngine:
         upper_fence = baseline.p75 + 1.5 * iqr
 
         if current_value < lower_fence or current_value > upper_fence:
-            # Determine type
+        # Determine type
             if current_value > upper_fence:
                 anomaly_type = AnomalyType.SPIKE
             else:
@@ -1115,7 +1118,7 @@ def get_anomaly_engine(
     """
     global _engine
     if _engine is None:
-        # Setup default logger
+    # Setup default logger
         logger = logging.getLogger("DebVisor.Anomaly")
         logger.setLevel(logging.INFO)
 

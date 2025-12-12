@@ -125,7 +125,7 @@ class ISOValidator:
 
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
-                # Mount ISO
+            # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,
@@ -165,9 +165,9 @@ class ISOValidator:
         print("Checking boot sectors...")
 
         try:
-            # Check boot sector signature
+        # Check boot sector signature
             with open(self.iso_path, 'rb') as f:
-                # Read sector at offset 16 (bootable ISO)
+            # Read sector at offset 16 (bootable ISO)
                 f.seek(16 * 512)
                 sector = f.read(512)
 
@@ -187,7 +187,7 @@ class ISOValidator:
 
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
-                # Mount ISO
+            # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,
@@ -242,7 +242,7 @@ class ISOValidator:
 
         with tempfile.TemporaryDirectory() as tmpdir:
             try:
-                # Mount ISO
+            # Mount ISO
                 subprocess.run(
                     ['mount', '-o', 'loop, ro', str(self.iso_path), tmpdir],
                     timeout=10,

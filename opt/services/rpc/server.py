@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -154,7 +157,7 @@ class RateLimitingInterceptor(grpc.ServerInterceptor):
                 handler_call_details.method, {}
             )
             if not method_cfg:
-                # Try prefix matches
+            # Try prefix matches
                 for prefix, cfg in self.method_limits_prefix.items():
                     if handler_call_details.method.startswith(prefix):
                         method_cfg = cfg
@@ -206,7 +209,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     ) -> debvisor_pb2.NodeAck:
         """Register a new node or update existing node"""
         try:
-            # Validate inputs
+        # Validate inputs
             hostname = RequestValidator.validate_hostname(request.hostname)
             ip = RequestValidator.validate_ipv4(request.ip)
 
@@ -254,7 +257,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     ) -> debvisor_pb2.HeartbeatAck:
         """Send heartbeat from node"""
         try:
-            # Validate inputs
+        # Validate inputs
             node_id = RequestValidator.validate_uuid(request.node_id)
 
             # Check authorization
@@ -294,7 +297,7 @@ class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):
     ) -> debvisor_pb2.NodeList:
         """List all registered nodes"""
         try:
-            # Check authorization
+        # Check authorization
             principal = extract_identity(context)
             check_permission(principal, "node:list", context)
 
@@ -344,7 +347,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
     ) -> debvisor_pb2.SnapshotStatus:
         """Create a ZFS or Ceph RBD snapshot"""
         try:
-            # Validate inputs
+        # Validate inputs
             pool = RequestValidator.validate_label(request.pool, max_length=256)
             snapshot = RequestValidator.validate_label(request.snapshot, max_length=256)
 
@@ -396,7 +399,7 @@ class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):
     ) -> debvisor_pb2.SnapshotList:
         """List storage snapshots"""
         try:
-            # Check authorization
+        # Check authorization
             principal = extract_identity(context)
             check_permission(principal, "storage:snapshot:list", context)
 
@@ -557,7 +560,7 @@ class RPCServer:
 
             # Helper to apply setting if set in env or missing in config
             def apply_setting(conf_key: str, setting_key: str) -> None:
-                # If explicitly set in environment (in model_fields_set), it overrides everything
+            # If explicitly set in environment (in model_fields_set), it overrides everything
                 # If not set in environment, but missing in config, use default from settings
                 if setting_key in settings.model_fields_set:
                     config[conf_key] = getattr(settings, setting_key)
@@ -694,7 +697,7 @@ class RPCServer:
         self.server.start()
 
         try:
-            # Block while serving
+        # Block while serving
             logger.info("RPC server started successfully")
             while True:
                 time.sleep(86400)    # Sleep for a day
@@ -745,7 +748,7 @@ def main() -> None:
         server.start()
 
     except ImportError:
-        # Fallback to legacy behavior
+    # Fallback to legacy behavior
         config_file = os.environ.get("RPC_CONFIG_FILE", "/etc/debvisor/rpc/config.json")
         try:
             server = RPCServer(config_file)

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -238,7 +241,7 @@ class EmailDeliveryProvider(DeliveryProvider):
             return False, "Invalid email address"
 
         try:
-            # In production, integrate with real SMTP
+        # In production, integrate with real SMTP
             # For now, log and simulate
             logger.info(
                 f"Email OTP sent to {recipient}: {code} " f"(from {context.ip_address})"
@@ -270,7 +273,7 @@ class SMSDeliveryProvider(DeliveryProvider):
             return False, "Invalid phone number"
 
         try:
-            # In production, integrate with SMS service (Twilio, etc)
+        # In production, integrate with SMS service (Twilio, etc)
             # For now, log and simulate
             logger.info(
                 f"SMS OTP sent to {recipient}: {code} " f"(from {context.ip_address})"
@@ -475,7 +478,7 @@ class AdvancedAuthenticationManager:
         success, message = await provider.send_code(recipient, code, context)
 
         if success:
-            # Store OTP
+        # Store OTP
             otp = OTPCode(
                 code=code,
                 method=method,

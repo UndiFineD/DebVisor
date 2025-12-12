@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -390,7 +393,7 @@ class BatchOperationManager:
 
         while True:
             try:
-                # Get next operation from queue
+            # Get next operation from queue
                 operation = await asyncio.wait_for(self.queue.get(), timeout=10.0)
 
                 await self._process_operation(operation)
@@ -414,7 +417,7 @@ class BatchOperationManager:
         logger.info(f"Processing operation {operation.id}")
 
         try:
-            # Process each resource
+        # Process each resource
             for idx, resource_id in enumerate(operation.resources):
                 result = await self.executor.execute(
                     operation, resource_id, operation.parameters
@@ -448,7 +451,7 @@ class BatchOperationManager:
             operation.completed_at = datetime.now(timezone.utc)
 
         finally:
-            # Add to history
+        # Add to history
             await self._add_to_history(operation)
 
     async def _add_to_history(self, operation: BatchOperation) -> None:
@@ -542,7 +545,7 @@ class BatchOperationManager:
                 }
 
                 try:
-                    # Execute rollback via executor
+                # Execute rollback via executor
                     rollback_result = await self.executor.execute_rollback(
                         operation, result.resource_id, result.result_data
                     )
@@ -552,7 +555,7 @@ class BatchOperationManager:
                     if rollback_result.get("status") == "success":
                         success_count += 1
                     elif rollback_result.get("status") == "skipped":
-                        # Fallback to legacy/stub logic if no handler
+                    # Fallback to legacy/stub logic if no handler
                         if operation.type == OperationType.NODE_DRAIN:
                             rollback_step["action"] = "uncordon_node"
                             rollback_step["status"] = "success"

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -277,9 +280,9 @@ class LXDManager:
     async def connect(self) -> bool:
         """Connect to LXD daemon."""
         try:
-            # Check socket exists
+        # Check socket exists
             if not Path(self.socket_path).exists():
-                # Try alternative paths
+            # Try alternative paths
                 alt_paths = [
                     "/var/lib/lxd/unix.socket",
                     "/var/snap/lxd/common/lxd/unix.socket",
@@ -356,12 +359,12 @@ class LXDManager:
         # Check if profile exists
         check = await self._run_lxc(["profile", "show", profile.name])
         if check.returncode == 0:
-            # Update existing
+        # Update existing
             result = await self._run_lxc(
                 ["profile", "edit", profile.name], input_data=json.dumps(config)
             )
         else:
-            # Create new
+        # Create new
             result = await self._run_lxc(["profile", "create", profile.name])
             if result.returncode == 0:
                 result = await self._run_lxc(
@@ -835,7 +838,7 @@ class RootlessDockerManager:
                     userns_path.read_text().strip() == "1"
                 )
             else:
-                # May be enabled by default on newer kernels
+            # May be enabled by default on newer kernels
                 checks["user_namespaces_enabled"] = True
         except Exception:
             pass    # nosec B110
@@ -862,7 +865,7 @@ class RootlessDockerManager:
         try:
             cgroup_path = Path("/sys/fs/cgroup")
             if cgroup_path.exists():
-                # cgroup v2 has cgroup.controllers file at root
+            # cgroup v2 has cgroup.controllers file at root
                 checks["cgroup_v2"] = (cgroup_path / "cgroup.controllers").exists()
         except Exception:
             pass    # nosec B110
@@ -1020,7 +1023,7 @@ class RootlessDockerManager:
     async def enable_systemd_service(self, user: str) -> bool:
         """Enable rootless Docker systemd service."""
         try:
-            # Enable user service
+        # Enable user service
             proc = await asyncio.create_subprocess_exec(
                 "systemctl",
                 "--user",

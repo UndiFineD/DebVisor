@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -523,7 +526,7 @@ class SSHHardeningManager:
             return True, config_content
 
         try:
-            # Backup existing config
+        # Backup existing config
             self.backup_config()
 
             # Write new config
@@ -563,7 +566,7 @@ class SSHHardeningManager:
             )
 
             if result.returncode != 0:
-                # Try ssh instead of sshd
+            # Try ssh instead of sshd
                 result = subprocess.run(
                     ["/usr/bin/systemctl", "reload", "ssh"],    # nosec B603
                     capture_output=True,
@@ -677,7 +680,7 @@ class SSHHardeningManager:
     ) -> Tuple[bool, str]:
         """Add public key to user's authorized_keys."""
         try:
-            # Get user home directory
+        # Get user home directory
             import pwd
 
             user_info = pwd.getpwnam(username)    # type: ignore
@@ -803,7 +806,7 @@ class SSHHardeningManager:
     def configure_totp_mfa(self, user: str) -> Tuple[bool, Dict[str, Any]]:
         """Configure TOTP-based MFA for user."""
         try:
-            # This would typically integrate with google-authenticator-libpam
+        # This would typically integrate with google-authenticator-libpam
             # For now, we'll generate the configuration
 
             secret = secrets.token_hex(20)

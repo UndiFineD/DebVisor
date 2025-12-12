@@ -51,7 +51,7 @@ This records probe success/failure and latency. Pair with native `/metrics` for 
 
 Grafana can read JSON endpoints. Add a JSON API datasource and create a panel to fetch `GET /health/detail`.
 
-Example panel query URL: `<<https://debvisor.example.com/health/detail`>>
+Example panel query URL: `<<<https://debvisor.example.com/health/detail`>>>
 
 Panel transformation:
 

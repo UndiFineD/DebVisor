@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -628,7 +631,7 @@ class E2ETestingFramework:
         logger.info(f"Starting test: {test_case.name}")
 
         try:
-            # Run setup steps
+        # Run setup steps
             for step in test_case.setup_steps:
                 step.start_time = datetime.now(timezone.utc)
                 try:

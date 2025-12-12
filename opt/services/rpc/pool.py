@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -114,7 +117,7 @@ class PooledConnection:
     async def health_check(self) -> bool:
         """Verify connection is still healthy."""
         try:
-            # Create a simple health check call
+        # Create a simple health check call
             # This assumes the service implements the Health Check API (gRPC standard)
             health_stub = grpc.health.v1.health_pb2_grpc.HealthStub(self.channel)
             response = await health_stub.Check(
@@ -176,7 +179,7 @@ class ConnectionPool:
                 return
 
             try:
-                # Create minimum number of connections
+            # Create minimum number of connections
                 for _ in range(self.config.min_connections):
                     await self._create_connection()
 
@@ -194,7 +197,7 @@ class ConnectionPool:
     async def _create_connection(self) -> PooledConnection:
         """Create a new pooled connection."""
         try:
-            # Create gRPC channel with keepalive options
+        # Create gRPC channel with keepalive options
             keepalive_params = (
                 [
                     ("grpc.keepalive_time_ms", 30000),
@@ -240,7 +243,7 @@ class ConnectionPool:
 
         Usage:
             async with pool.acquire() as connection:
-                # Use connection.channel for gRPC calls
+            # Use connection.channel for gRPC calls
 
         Args:
             timeout: Maximum time to wait for available connection (seconds)
@@ -257,7 +260,7 @@ class ConnectionPool:
 
         connection = None
         try:
-            # Try to acquire existing connection
+        # Try to acquire existing connection
             async with self.lock:
                 if self.available_connections:
                     connection = self.available_connections.pop(0)
@@ -295,7 +298,7 @@ class ConnectionPool:
             yield connection
 
         finally:
-            # Return connection to pool
+        # Return connection to pool
             if connection is not None:
                 async with self.lock:
                     if connection in self.in_use_connections:
@@ -320,7 +323,7 @@ class ConnectionPool:
                                     f"Failed to create replacement connection: {e}"
                                 )
                     else:
-                        # Return healthy connection to available pool
+                    # Return healthy connection to available pool
                         connection.in_use = False
                         self.available_connections.append(connection)
 
@@ -360,7 +363,7 @@ class ConnectionPool:
                 pass
 
         async with self.lock:
-            # Close all available connections
+        # Close all available connections
             for conn in self.available_connections:
                 await conn.close()
             self.available_connections.clear()

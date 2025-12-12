@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -180,7 +183,7 @@ class CertificateManager:
             return None
 
         try:
-            # Use openssl to extract certificate details
+        # Use openssl to extract certificate details
             result = subprocess.run(
                 [
                     "/usr/bin/openssl",

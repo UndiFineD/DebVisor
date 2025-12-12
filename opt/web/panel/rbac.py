@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -112,7 +115,7 @@ class Action(Enum):
 # Define role permissions
 ROLE_PERMISSIONS: Dict[Role, Set[Tuple[Resource, Action]]] = {
     Role.ADMIN: {
-        # Admin has all permissions
+    # Admin has all permissions
         (Resource.NODE, Action.CREATE),
         (Resource.NODE, Action.READ),
         (Resource.NODE, Action.UPDATE),
@@ -131,7 +134,7 @@ ROLE_PERMISSIONS: Dict[Role, Set[Tuple[Resource, Action]]] = {
         (Resource.SYSTEM, Action.READ),
     },
     Role.OPERATOR: {
-        # Operators can manage nodes and snapshots
+    # Operators can manage nodes and snapshots
         (Resource.NODE, Action.READ),
         (Resource.NODE, Action.UPDATE),
         (Resource.NODE, Action.EXECUTE),
@@ -141,14 +144,14 @@ ROLE_PERMISSIONS: Dict[Role, Set[Tuple[Resource, Action]]] = {
         (Resource.AUDIT_LOG, Action.READ),
     },
     Role.DEVELOPER: {
-        # Developers can create and manage snapshots for testing
+    # Developers can create and manage snapshots for testing
         (Resource.NODE, Action.READ),
         (Resource.SNAPSHOT, Action.CREATE),
         (Resource.SNAPSHOT, Action.READ),
         (Resource.SNAPSHOT, Action.DELETE),
     },
     Role.VIEWER: {
-        # Viewers can only read
+    # Viewers can only read
         (Resource.NODE, Action.READ),
         (Resource.SNAPSHOT, Action.READ),
         (Resource.AUDIT_LOG, Action.READ),
@@ -228,7 +231,7 @@ def require_permission(resource: Resource, action: Action) -> Callable[[F], F]:
     def decorator(func: F) -> F:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Get current user from Flask-Login
+        # Get current user from Flask-Login
             from flask_login import current_user
 
             if not current_user.is_authenticated:

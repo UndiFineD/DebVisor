@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -383,7 +386,7 @@ class PerformanceProfiler:
         total_time = 0.0
 
         for name, profile in self.profiles.items():
-            # Create simplified call stack
+        # Create simplified call stack
             stack_str = " ".join([name] * profile.call_count)
             call_stacks[stack_str] = profile.total_time_ms
             total_time += profile.total_time_ms
@@ -441,7 +444,7 @@ def profile_function(func_or_coro: Optional[F] = None) -> Union[F, Callable[[F],
     """
 
     def decorator(fn: F) -> F:
-        # Get profiler instance
+    # Get profiler instance
         profiler = _get_global_profiler()
 
         # Determine if async or sync
@@ -572,7 +575,7 @@ class ResourceMonitor:
             Dictionary with 'ok' status, 'warnings' list, and 'metrics' dict
         """
         try:
-            # Get metrics
+        # Get metrics
             process_cpu = self.process.cpu_percent(interval=0.1)
             process_mem_percent = self.process.memory_percent()
             system_mem = psutil.virtual_memory()

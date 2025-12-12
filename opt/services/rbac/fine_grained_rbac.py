@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -166,7 +169,7 @@ class Condition:
         if start_time <= end_time:
             return start_time <= current_time <= end_time
         else:
-            # Handles ranges that cross midnight
+        # Handles ranges that cross midnight
             return current_time >= start_time or current_time <= end_time
 
     def _evaluate_ip_address(self, context: "AuthorizationContext") -> bool:
@@ -206,7 +209,7 @@ class Condition:
         resource_attrs = context.resource_attributes
 
         for key, value in required_attrs.items():
-            # Check both principal and resource attributes
+        # Check both principal and resource attributes
             if principal_attrs.get(key) != value and resource_attrs.get(key) != value:
                 return False
 
@@ -525,7 +528,7 @@ class RoleManager:
 
         # Check each permission
         for permission in permissions:
-            # Check if permission applies to this resource
+        # Check if permission applies to this resource
             if not permission.matches_resource(
                 context.resource_type, context.resource_id
             ):

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -181,7 +184,7 @@ class TwoFAVerificationRateLimiter:
                     seconds_remaining = (lockout_expires - now).total_seconds()
                     return True, int(seconds_remaining)
                 else:
-                    # Lockout expired, clean it up
+                # Lockout expired, clean it up
                     del self.lockouts[ip_address]
 
             # Check recent attempts in window
@@ -405,7 +408,7 @@ class BackupCodeManager:
         codes = []
 
         for _ in range(self.config.num_codes):
-            # Generate code with format: XXXX-XXXX
+        # Generate code with format: XXXX-XXXX
             code_part1 = "".join(
                 secrets.choice(alphabet) for _ in range(self.config.code_length // 2)
             )
@@ -609,7 +612,7 @@ class WebAuthnManager:
             try:
                 allow_credentials.append(base64url_to_bytes(cid))
             except Exception:
-                # nosec B112 - Skip invalid credential IDs during authentication options generation
+            # nosec B112 - Skip invalid credential IDs during authentication options generation
                 continue
 
         options = generate_authentication_options(
@@ -756,7 +759,7 @@ class TwoFactorAuthManager:
             return self.backup_manager.verify_code(credential, stored_secret)
 
         elif method == "webauthn":
-            # WebAuthn verification
+        # WebAuthn verification
             # stored_secret is expected to be a JSON string containing:
             # {
             #   "challenge": "...",
@@ -837,18 +840,18 @@ class TwoFactorAuthManager:
             success = self.verify_2fa_method(method, credential, stored_secret)
 
             if success:
-                # Clear attempt history on success
+            # Clear attempt history on success
                 self.rate_limiter.record_successful_attempt(ip_address)
                 return True, None
             else:
-                # Record failed attempt
+            # Record failed attempt
                 self.rate_limiter.record_failed_attempt(
                     ip_address, method, user_account
                 )
                 return False, None
 
         except ValueError:
-            # Record failed attempt for invalid input
+        # Record failed attempt for invalid input
             self.rate_limiter.record_failed_attempt(ip_address, method, user_account)
             raise
 

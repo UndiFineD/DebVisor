@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -238,7 +241,7 @@ def trace_span(
 
     Usage:
         with trace_span('node.register', trace_ctx, tags={'node_id': '123'}) as span:
-            # do work
+        # do work
             span.add_tag('result', 'success')
     """
     tracer = get_tracer()

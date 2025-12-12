@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -96,7 +99,7 @@ class DatabaseMigrations:
 
     # Performance-critical indexes for slow queries
     PERFORMANCE_INDEXES = [
-        # Node status queries - most frequently accessed
+    # Node status queries - most frequently accessed
         Index(
             name="idx_nodes_status_updated",
             table="nodes",

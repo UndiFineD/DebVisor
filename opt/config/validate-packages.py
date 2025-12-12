@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -192,7 +195,7 @@ class PackageValidator:
             Tuple of (exists: bool, status: str)
         """
         try:
-            # Use apt-cache to check availability
+        # Use apt-cache to check availability
             # This works if apt is available and cache is up to date
             result = subprocess.run(
                 ["apt-cache", "policy", package],
@@ -206,7 +209,7 @@ class PackageValidator:
 
             # Check if package appears in policy output
             if f"{package}:" in result.stdout or f"{package} " in result.stdout:
-                # Parse policy output to check architecture availability
+            # Parse policy output to check architecture availability
                 if self.arch in result.stdout or "all" in result.stdout:
                     return True, "available"
                 else:

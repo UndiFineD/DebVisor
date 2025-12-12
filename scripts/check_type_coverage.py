@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -90,11 +93,11 @@ def check_type_hints(func: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> Tupl
     # Check arguments
     args = func.args.args
     if not args:
-        # No arguments, so effectively typed if return is typed?
+    # No arguments, so effectively typed if return is typed?
         # Or we consider it typed for args since there are none.
         has_args = True
     else:
-        # Check if all args (except self/cls) have annotations
+    # Check if all args (except self/cls) have annotations
         missing_arg_annotation = False
         for arg in args:
             if arg.arg in ('sel', 'cls'):
@@ -166,7 +169,7 @@ def main() -> None:
     total_fully_typed = 0
 
     for file_path, stats in sorted_results:
-        # Filter out fully typed files to reduce noise if desired, but let's show all for now
+    # Filter out fully typed files to reduce noise if desired, but let's show all for now
         # or maybe just the worst ones.
         if stats['score'] < 100:
             print(

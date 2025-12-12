@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -268,7 +271,7 @@ class APIKeyGenerator:
         key = f"{prefix}{key_body}"
 
         if include_checksum:
-            # Add 4-character checksum
+        # Add 4-character checksum
             checksum = cls._calculate_checksum(key)[:4]
             key = f"{key}_{checksum}"
 
@@ -595,7 +598,7 @@ class APIKeyRotationManager:
         key_hash = APIKeyGenerator.hash_key(plaintext_key)
 
         for api_key in self._keys.values():
-            # Skip revoked/expired keys
+        # Skip revoked/expired keys
             if api_key.status == KeyStatus.REVOKED:
                 continue
             if api_key.is_expired:

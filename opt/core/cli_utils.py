@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -79,14 +82,14 @@ except ImportError:
         # Simple string representation
         result = []
         if headers:
-            # Convert headers to string
+        # Convert headers to string
             header_row = [str(h) for h in headers]
             result.append(" | ".join(header_row))
             # Add separator line
             result.append("-" * len(result[0]))
 
         for row in data:
-            # Convert row items to string
+        # Convert row items to string
             str_row = [str(c) for c in row]
             result.append(" | ".join(str_row))
 

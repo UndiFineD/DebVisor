@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -193,7 +196,7 @@ class XenHostManager:
     def _check_xen_availability(self) -> None:
         """Check if Xen is available on the system."""
         try:
-            # Check for xl command
+        # Check for xl command
             result = subprocess.run(
                 ["xl", "info"],
                 capture_output=True,
@@ -218,7 +221,7 @@ class XenHostManager:
             return None
 
         try:
-            # Get Xen info
+        # Get Xen info
             result = subprocess.run(
                 ["xl", "info"],
                 capture_output=True,
@@ -334,7 +337,7 @@ class XenVMManager:
 
     def _parse_xl_list(self, output: str) -> List[XenVM]:
         """Parse xl list output."""
-        vms = []
+        vms = []  # type: ignore[var-annotated]
         lines = output.strip().split("\n")
 
         # Skip header line
@@ -428,7 +431,7 @@ class XenVMManager:
         temp_config_path = None
 
         try:
-            # Create secure temporary file with restrictive permissions (0600)
+        # Create secure temporary file with restrictive permissions (0600)
             temp_config_fd, temp_config_path = tempfile.mkstemp(
                 suffix=".cfg",
                 prefix="xen-config-",
@@ -470,7 +473,7 @@ class XenVMManager:
             return None
 
         finally:
-            # Always cleanup: close fd if still open and remove temp file
+        # Always cleanup: close fd if still open and remove temp file
             if temp_config_fd is not None:
                 try:
                     os.close(temp_config_fd)
@@ -525,12 +528,12 @@ on_crash = "restart"
 
         # HVM-specific settings
         if vm_type == XenVMType.HVM:
-            # VNC configuration with secure defaults
+        # VNC configuration with secure defaults
             vnc_bind = "127.0.0.1"  # Default: localhost only
             vnc_auth = ""
 
             if vnc_config:
-                # Validate and extract bind address
+            # Validate and extract bind address
                 bind_address = vnc_config.get("bind_address", "127.0.0.1")
                 # Basic validation: ensure it's a valid-looking IP or hostname
                 if bind_address and all(c.isalnum() or c in ".-:" for c in bind_address):
@@ -655,7 +658,7 @@ class MultiHypervisorScheduler:
 
         # Check KVM (simplified - would use libvirt in production)
         if Path("/dev/kvm").exists():
-            # Mock KVM capabilities
+        # Mock KVM capabilities
             discovered["kvm"] = HypervisorCapabilities(
                 hypervisor_type=HypervisorType.KVM,
                 version="QEMU 8.0",
@@ -688,7 +691,7 @@ class MultiHypervisorScheduler:
 
         # Check each hypervisor
         for hv_type, caps in self.hypervisors.items():
-            # Check capacity
+        # Check capacity
             if caps.free_memory_mb < required_memory:
                 continue
 

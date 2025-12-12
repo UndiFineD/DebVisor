@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -309,7 +312,7 @@ class ChangeRateEstimator:
         if hour not in m.daily_pattern:
             m.daily_pattern[hour] = rate_per_hour
         else:
-            # Exponential moving average
+        # Exponential moving average
             alpha = 0.3
             m.daily_pattern[hour] = (
                 alpha * rate_per_hour + (1 - alpha) * m.daily_pattern[hour]
@@ -415,7 +418,7 @@ class ChangeRateEstimator:
         - Preferred backup windows
         """
         if vm_id not in self.metrics:
-            # No data - use next available window
+        # No data - use next available window
             return self._next_window_start(windows)
 
         m = self.metrics[vm_id]
@@ -589,7 +592,7 @@ class RestoreTestManager:
         test.started_at = datetime.now(timezone.utc)
 
         try:
-            # Phase 1: Provision sandbox
+        # Phase 1: Provision sandbox
             test.status = RestoreTestStatus.PROVISIONING
             sandbox_id = await self._provision_sandbox(test)
             test.sandbox_vm_id = sandbox_id
@@ -1098,7 +1101,7 @@ class BackupIntelligence:
         )
 
         if not optimal_time:
-            # Fallback to next window start if no optimal time found
+        # Fallback to next window start if no optimal time found
             optimal_time = self.change_estimator._next_window_start(windows)
 
         # Estimate duration and size

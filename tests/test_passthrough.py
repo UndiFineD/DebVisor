@@ -140,7 +140,7 @@ def passthrough_manager() -> None:
     if HAS_PASSTHROUGH:
         manager = PassthroughManager()
     else:
-        # Create mock manager
+    # Create mock manager
         manager = Mock()
         manager.PROFILES = {
             "gaming": (
@@ -337,7 +337,7 @@ class TestErrorHandling:
     def test_permission_denied_simulation(self) -> None:
         """Test handling of permission denied errors."""
         with patch("builtins.open", side_effect=PermissionError("Access denied")):
-            # Simulate permission error when reading sysfs
+        # Simulate permission error when reading sysfs
             with pytest.raises(PermissionError):
                 open("/sys/bus/pci/devices/0000:01:00.0/driver_override", "w")
 

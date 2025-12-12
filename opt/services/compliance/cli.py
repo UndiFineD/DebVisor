@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -127,7 +130,7 @@ def handle_command(args: argparse.Namespace) -> None:
             print("")
 
     elif args.comp_command == "audit":
-        # Trigger a scan first to generate some logs
+    # Trigger a scan first to generate some logs
         engine.run_compliance_scan(mock_resources)
 
         print("\nAudit Log:")

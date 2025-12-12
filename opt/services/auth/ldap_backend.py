@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -177,7 +180,7 @@ class LDAPConnectionPool:
     async def initialize(self) -> bool:
         """Initialize connection pool"""
         try:
-            # Set LDAP options
+        # Set LDAP options
             ldap.set_option(ldap.OPT_NETWORK_TIMEOUT, self.config.connection_timeout)
             ldap.set_option(ldap.OPT_REFERRALS, 0)
 
@@ -278,7 +281,7 @@ class LDAPBackend(AuthenticationBackend):
             LDAPUser if authentication successful, None otherwise
         """
         try:
-            # Search for user
+        # Search for user
             user = await self.get_user(username)
             if not user:
                 logger.warning(f"User not found: {username}")
@@ -306,7 +309,7 @@ class LDAPBackend(AuthenticationBackend):
     async def get_user(self, username: str) -> Optional[LDAPUser]:
         """Get user by username from LDAP/AD"""
         try:
-            # Check cache
+        # Check cache
             if username in self._user_cache:
                 user, timestamp = self._user_cache[username]
                 if time.time() - timestamp < self.config.cache_ttl:
@@ -318,7 +321,7 @@ class LDAPBackend(AuthenticationBackend):
                 return None
 
             try:
-                # Search for user
+            # Search for user
                 search_filter = self.config.search_filter.format(username=username)
                 results = conn.search_s(
                     self.config.base_dn, ldap.SCOPE_SUBTREE, search_filter
@@ -348,7 +351,7 @@ class LDAPBackend(AuthenticationBackend):
     async def get_user_groups(self, username: str) -> List[str]:
         """Get user's group memberships"""
         try:
-            # Check cache
+        # Check cache
             if username in self._group_cache:
                 groups, timestamp = self._group_cache[username]
                 if time.time() - timestamp < self.config.cache_ttl:
@@ -364,7 +367,7 @@ class LDAPBackend(AuthenticationBackend):
                 return []
 
             try:
-                # Search for groups user is member of
+            # Search for groups user is member of
                 search_filter = f"(member={user.distinguished_name})"
                 results = conn.search_s(
                     self.config.base_dn,
@@ -450,7 +453,7 @@ class LDAPBackend(AuthenticationBackend):
                 return result
 
             try:
-                # Search for users
+            # Search for users
                 search_filter = (
                     user_filter or f"(objectClass={self.config.user_objectclass})"
                 )
@@ -531,7 +534,7 @@ class HybridAuthBackend:
     async def authenticate(self, username: str, password: str) -> Optional[LDAPUser]:
         """Authenticate user with fallback"""
         try:
-            # Try LDAP/AD first
+        # Try LDAP/AD first
             user = await self.ldap_backend.authenticate(username, password)
             if user:
                 return user

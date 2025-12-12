@@ -13,6 +13,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 """
 First-Boot Key Generation Tool for DebVisor
 

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -164,7 +167,7 @@ class MetricDefinition:
     unit: str = ""
 
     def __post_init__(self) -> None:
-        # Validate metric name
+    # Validate metric name
         if not self.name or not self.name.replace("_", "").replace(".", "").isalnum():
             raise ValueError(f"Invalid metric name: {self.name}")
 
@@ -283,7 +286,7 @@ class BusinessMetrics:
 
     # Metric definitions
     METRICS = {
-        # Debt resolution metrics
+    # Debt resolution metrics
         "debvisor_debts_created_total": MetricDefinition(
             name="debvisor_debts_created_total",
             type=MetricType.COUNTER,

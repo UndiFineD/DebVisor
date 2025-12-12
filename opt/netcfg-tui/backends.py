@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -283,7 +286,7 @@ class Iproute2Backend(NetworkBackend):
                     parts = line.split()
                     if len(parts) >= 2:
                         cidr = parts[1]
-                        config.addresses.append(IPAddress.from_cidr(cidr))
+                        config.addresses.append(IPAddress.from_cidr(cidr))  # type: ignore[union-attr]
 
         logger.debug(f"Interface retrieved: {name}")
         return config
@@ -436,7 +439,7 @@ class NetworkManagerBackend(NetworkBackend):
         # Parse output
         for line in output.split("\n"):
             if line.startswith("GENERAL.CONNECTION:"):
-                # Connection is active
+            # Connection is active
                 config.state = InterfaceState.UP
             elif line.startswith("GENERAL.STATE:"):
                 if "connected" in line.lower():
@@ -452,13 +455,13 @@ class NetworkManagerBackend(NetworkBackend):
                 if len(parts) > 1:
                     address_str = parts[1].strip()
                     if address_str:
-                        config.addresses.append(IPAddress.from_cidr(address_str))
+                        config.addresses.append(IPAddress.from_cidr(address_str))  # type: ignore[union-attr]
             elif line.startswith("IP4.DNS"):
                 parts = line.split(":")
                 if len(parts) > 1:
                     dns = parts[1].strip()
                     if dns:
-                        config.dns_servers.append(dns)
+                        config.dns_servers.append(dns)  # type: ignore[union-attr]
 
         logger.debug(f"Interface retrieved via nmcli: {name}")
         return config

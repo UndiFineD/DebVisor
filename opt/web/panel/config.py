@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -93,7 +96,7 @@ class CORSConfig:
             "http://localhost:5000",
         ],
         "production": [
-            # MUST be configured via environment variables in production
+        # MUST be configured via environment variables in production
         ],
     }
 
@@ -164,7 +167,7 @@ class CORSConfig:
             return False
 
         for allowed in allowed_origins:
-            # Exact match
+        # Exact match
             if origin == allowed:
                 return True
 

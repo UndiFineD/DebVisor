@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -147,7 +150,7 @@ class FailoverManager:
     async def monitor_loop(self) -> None:
         """Background loop to monitor peers."""
         while True:
-            # In a real implementation, this would ping peers via RPC
+        # In a real implementation, this would ping peers via RPC
             await asyncio.sleep(10)
             # Prune old states?
             pass

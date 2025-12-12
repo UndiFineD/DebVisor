@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -593,9 +596,9 @@ class NetworkConfigurationManager:
             return False
 
         try:
-            # Restore each interface configuration
+        # Restore each interface configuration
             for interface_name, config in backup.interface_configs.items():
-                # Apply configuration (placeholder)
+            # Apply configuration (placeholder)
                 pass
 
             self.change_log.append(

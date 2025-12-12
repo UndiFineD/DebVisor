@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -279,12 +282,12 @@ class PowerMonitor:
     async def _read_cpu_power(self) -> Optional[Dict[str, Any]]:
         """Read CPU power using Intel RAPL or similar."""
         try:
-            # Try Intel RAPL first
+        # Try Intel RAPL first
             rapl_path = Path("/sys/class/powercap/intel-rapl/intel-rapl:0")
             if rapl_path.exists():
                 energy_uj_file = rapl_path / "energy_uj"
                 if energy_uj_file.exists():
-                    # Read energy in microjoules and compute delta
+                # Read energy in microjoules and compute delta
                     if not hasattr(self, '_last_rapl_reading'):
                         self._last_rapl_reading = None
                         self._last_rapl_time = None
@@ -314,7 +317,7 @@ class PowerMonitor:
             # Fallback to estimation based on utilization
             utilization = await self._read_cpu_utilization()
             if utilization is not None:
-                # Estimate: 65W TDP * utilization
+            # Estimate: 65W TDP * utilization
                 estimated_power = 65.0 * (utilization / 100.0)
                 return {
                     "power": estimated_power,
@@ -329,7 +332,7 @@ class PowerMonitor:
     async def _read_cpu_temp(self) -> Optional[float]:
         """Read CPU temperature."""
         try:
-            # Try common temperature sensors
+        # Try common temperature sensors
             temp_paths = [
                 "/sys/class/thermal/thermal_zone0/temp",
                 "/sys/class/hwmon/hwmon0/temp1_input",
@@ -347,11 +350,11 @@ class PowerMonitor:
     async def _read_cpu_utilization(self) -> Optional[float]:
         """Read CPU utilization percentage."""
         try:
-            # Use psutil if available
+        # Use psutil if available
             import psutil
             return psutil.cpu_percent(interval=0.1)
         except ImportError:
-            # Fallback to /proc/stat parsing
+        # Fallback to /proc/stat parsing
             pass
         except Exception as e:
             logger.debug(f"Error reading CPU utilization: {e}")
@@ -383,7 +386,7 @@ class PowerMonitor:
             disk_metrics = {}
 
             for disk in psutil.disk_partitions():
-                # Estimate based on disk type (simplified)
+            # Estimate based on disk type (simplified)
                 if "ssd" in disk.device.lower() or "nvme" in disk.device.lower():
                     disk_metrics[disk.device] = 3.5  # SSD average
                 else:
@@ -400,7 +403,7 @@ class PowerMonitor:
         gpu_metrics = {}
 
         try:
-            # Try nvidia-smi
+        # Try nvidia-smi
             import subprocess
             result = subprocess.run(
                 [
@@ -435,7 +438,7 @@ class PowerMonitor:
         timestamp = datetime.now(timezone.utc)
 
         try:
-            # Read from hwmon
+        # Read from hwmon
             hwmon_path = Path("/sys/class/hwmon")
             if hwmon_path.exists():
                 for hwmon_dir in hwmon_path.iterdir():

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -461,7 +464,7 @@ class CardinalityController:
         series_hash = self._hash_labels(transformed)
 
         if series_hash in self.series_by_metric[metric_name]:
-            # Existing series - update stats
+        # Existing series - update stats
             stats = self.series_by_metric[metric_name][series_hash]
             stats.sample_count += 1
             stats.last_sample_time = timestamp
@@ -500,7 +503,7 @@ class CardinalityController:
         result = {}
 
         for label_name, label_value in labels.items():
-            # Check metric-specific policy first
+        # Check metric-specific policy first
             policy = self.metric_label_policies.get(metric_name, {}).get(label_name)
 
             # Fall back to global policy
@@ -545,7 +548,7 @@ class CardinalityController:
             return value
 
         elif policy.strategy == AggregationStrategy.TOP_K:
-            # This requires tracking - for now just return value
+        # This requires tracking - for now just return value
             # Real implementation would check if value is in top K
             return value
 
@@ -833,7 +836,7 @@ class AdaptiveSampler:
         decision = self._evaluate_rules(ctx)
 
         if decision == SamplingDecision.SAMPLED:
-            # Check rate limit
+        # Check rate limit
             if self._check_rate_limit(ctx.service_name):
                 self.sampled_traces += 1
                 return SamplingDecision.SAMPLED
@@ -885,7 +888,7 @@ class AdaptiveSampler:
                 continue
 
             try:
-                # Safe evaluation of condition
+            # Safe evaluation of condition
                 if self._evaluate_condition(rule.condition, eval_ctx):
                     rule.hit_count += 1
                     if random.random() < rule.sample_rate:
@@ -1232,7 +1235,7 @@ if __name__ == "__main__":
 
     # Generate metrics with varying cardinality
     for i in range(1000):
-        # Low cardinality metric
+    # Low cardinality metric
         labels, accepted = controller.process_metric(
             "http_requests_total",
             {

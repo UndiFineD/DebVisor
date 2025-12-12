@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -422,7 +425,7 @@ class PrioritySampler(Sampler):
     def should_sample(
         self, trace_id: str, name: str, kind: SpanKind, attributes: Dict[str, Any]
     ) -> SamplingDecision:
-        # Check for priority attribute
+    # Check for priority attribute
         if attributes.get("priority") == "high" or attributes.get("error") is True:
             return SamplingDecision.RECORD_AND_SAMPLE
 
@@ -645,7 +648,7 @@ class TailSamplingExporter(SpanExporter):
         works for single-process or when all spans for a trace are local.
         """
         async with self._lock:
-            # Group spans by trace_id
+        # Group spans by trace_id
             for span in spans:
                 if span.trace_id not in self._buffer:
                     self._buffer[span.trace_id] = []
@@ -681,7 +684,7 @@ class TailSamplingExporter(SpanExporter):
 
                 # Rule 4: Random sampling for the rest (if not error_only)
                 elif not self.error_only:
-                    # 10% sampling for normal traces
+                # 10% sampling for normal traces
                     if int(trace_id[-8:], 16) % 100 < 10:
                         should_keep = True
 

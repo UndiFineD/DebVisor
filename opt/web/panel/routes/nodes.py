@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -183,7 +186,7 @@ def register_node() -> Any:
             return redirect(url_for("nodes.register_node"))
 
         try:
-            # Register with RPC service
+        # Register with RPC service
             rpc_client = get_rpc_client()
             rpc_response = rpc_client.register_node(
                 hostname=hostname,
@@ -255,7 +258,7 @@ def send_heartbeat(node_id: int) -> Any:
         return jsonify({"error": "Node not found"}), 404
 
     try:
-        # Send heartbeat to RPC service
+    # Send heartbeat to RPC service
         rpc_client = get_rpc_client()
         rpc_client.heartbeat(node.node_id, {})
 

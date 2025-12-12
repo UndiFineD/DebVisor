@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -161,7 +164,7 @@ class TestCachingIntegration:
         try:
             await mock_redis.get("key")
         except ConnectionError:
-            # Fallback logic
+        # Fallback logic
             val = "fallback_value"
 
         assert val == "fallback_value"
@@ -616,7 +619,7 @@ class TestErrorHandling:
         try:
             raise Exception("Optimizer failed")
         except Exception:
-            # Return original
+        # Return original
             pass
 
         assert query == "SELECT *"

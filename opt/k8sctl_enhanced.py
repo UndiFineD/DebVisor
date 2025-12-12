@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -298,7 +301,7 @@ class KubernetesCLI:
             NodeDrainPlan with steps
         """
         try:
-            # Get pods on node
+        # Get pods on node
             cmd = [
                 "kubectl",
                 "get",
@@ -382,7 +385,7 @@ class KubernetesCLI:
             WorkloadMigrationPlan with steps
         """
         try:
-            # Get workload type and definition
+        # Get workload type and definition
             for resource_type in ["deployment", "statefulset", "daemonset", "job"]:
                 cmd = [
                     "kubectl",
@@ -516,7 +519,7 @@ class KubernetesCLI:
             ComplianceReport with findings
         """
         try:
-            # Simulate compliance scan results
+        # Simulate compliance scan results
             checks = {
                 "CIS": {
                     "passed": 42,

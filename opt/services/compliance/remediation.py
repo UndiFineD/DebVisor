@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -93,7 +96,7 @@ class RemediationManager:
         # In a real scenario, resource_id might be a host ID.
         # Here we assume local machine or use SSHHardeningManager's default target.
         try:
-            # We can reuse the apply_profile logic or call a specific method if available.
+        # We can reuse the apply_profile logic or call a specific method if available.
             # SSHHardeningManager doesn't have a granular 'disable_root' public method exposed directly
             # without applying a full profile, but let's assume applying 'cis_level_1' or similar includes it.
             # Or we can modify SSHHardeningManager to expose it.

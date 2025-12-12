@@ -330,7 +330,7 @@ class TestPackageInstallation:
             if len(pkg) == 0:
                 assert True
             else:
-                # Check for special characters
+            # Check for special characters
                 assert any(c in pkg for c in "@&")
 
     def test_package_upgrade_configuration(self) -> None:

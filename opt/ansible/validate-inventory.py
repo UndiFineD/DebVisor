@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -294,7 +297,7 @@ class InventoryValidator:
             extract_hosts_with_ips(group_data)
 
         for host_name, ip in hosts_to_check.items():
-            # Check DNS resolution
+        # Check DNS resolution
             try:
                 result = subprocess.run(
                     ["nslookup", host_name], capture_output=True, timeout=5

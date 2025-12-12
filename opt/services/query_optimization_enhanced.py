@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -489,7 +492,7 @@ class QueryOptimizationEngine:
         issues = []
 
         for signature, stats in self.statistics.items():
-            # High execution count with low efficiency indicates potential N+1
+        # High execution count with low efficiency indicates potential N+1
             if stats.total_executions > 100 and stats.average_row_efficiency() < 30:
                 issues.append(
                     {

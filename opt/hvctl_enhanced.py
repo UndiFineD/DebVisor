@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -268,7 +271,7 @@ class HypervisorCLI:
                 rc, info, _ = self.execute_command(["virsh", "dominfo", vm_name])
 
                 if rc == 0:
-                    # Parse dominfo output
+                # Parse dominfo output
                     info_dict = {}
                     for line in info.split("\n"):
                         if ":" in line:
@@ -384,7 +387,7 @@ class HypervisorCLI:
             MigrationPlan with detailed steps
         """
         try:
-            # Get current VM info
+        # Get current VM info
             rc, stdout, stderr = self.execute_command(["virsh", "dominfo", vm_name])
 
             if rc != 0:
@@ -413,7 +416,7 @@ class HypervisorCLI:
             selection_reason = ""
             if not target_host:
                 if not candidate_hosts:
-                    # Default candidates for demo
+                # Default candidates for demo
                     candidate_hosts = ["node2", "node3", "node4"]
 
                 target_host, selection_reason = self.select_optimal_host(
@@ -726,7 +729,7 @@ class HypervisorCLI:
         Uses a First-Fit-Decreasing (FFD) bin packing heuristic.
         """
         try:
-            # 1. Gather state
+        # 1. Gather state
             host_stats = {h: self.get_host_stats(h) for h in hosts}
 
             # Mock VM list for each host (since we can't query remote libvirt easily here)

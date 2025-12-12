@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -136,11 +139,11 @@ class NetworkSegment:
     tags: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        # Validate CIDR
+    # Validate CIDR
         try:
             network = ipaddress.ip_network(self.cidr, strict=False)
             if not self.gateway:
-                # Use first usable IP as gateway
+            # Use first usable IP as gateway
                 hosts = list(network.hosts())
                 if hosts:
                     self.gateway = str(hosts[0])
@@ -651,7 +654,7 @@ class SDNController:
     ) -> Dict[str, Any]:
         """Apply network topology intent."""
         with self._lock:
-            # Validate
+        # Validate
             validation = self.validate_intent(intent)
             if not validation["valid"]:
                 return {
@@ -805,7 +808,7 @@ if __name__ == "__main__":
         print(json.dumps(health, indent=2))
 
     elif args.action == "demo":
-        # Create demo topology
+    # Create demo topology
         intent = TopologyIntent(
             version=1,
             name="demo-topology",

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -203,7 +206,7 @@ class AuditLog(db.Model):
         # Compute signature and hash chaining if core audit is available
         if HAS_CORE_AUDIT:
             try:
-                # Get previous hash
+            # Get previous hash
                 last_entry = AuditLog.query.order_by(AuditLog.id.desc()).first()
                 previous_hash = last_entry.signature if last_entry else "0" * 64
                 entry.previous_hash = previous_hash
@@ -342,7 +345,7 @@ class AuditLog(db.Model):
 
         secret_key = os.getenv("SECRET_KEY")
         if not secret_key:
-            # Fallback for dev/test if not set, matching log_operation logic
+        # Fallback for dev/test if not set, matching log_operation logic
             if os.getenv("FLASK_ENV") != "production":
                 secret_key = "dev-key"
             else:
@@ -353,7 +356,7 @@ class AuditLog(db.Model):
         previous_hash = "0" * 64
 
         for log in logs:
-            # Reconstruct core entry
+        # Reconstruct core entry
             compliance_tags = json.loads(log.compliance_tags) if log.compliance_tags else []
             request_data = json.loads(log.request_data) if log.request_data else None
             response_data = json.loads(log.response_data) if log.response_data else None

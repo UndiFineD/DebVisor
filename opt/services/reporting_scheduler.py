@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -203,7 +206,7 @@ class EmailNotifier:
             True if successful, False otherwise
         """
         try:
-            # Create email
+        # Create email
             msg = MIMEMultipart()
             msg["From"] = self.from_address
             msg["To"] = ", ".join(recipients)
@@ -367,7 +370,7 @@ class ReportScheduler:
         )
 
         try:
-            # Get generation callback
+        # Get generation callback
             callback = self.generation_callbacks.get(scheduled_report.template_id)
             if not callback:
                 raise ValueError(
@@ -458,7 +461,7 @@ class ReportScheduler:
                 continue    # Not due yet
 
             try:
-                # Generate report
+            # Generate report
                 generated_report = self.generate_report(scheduled_report)
 
                 # Deliver report
@@ -506,7 +509,7 @@ class ReportScheduler:
         elif frequency == ReportFrequency.WEEKLY:
             return current_time + timedelta(weeks=1)
         elif frequency == ReportFrequency.MONTHLY:
-            # Simple: add ~30 days
+        # Simple: add ~30 days
             return current_time + timedelta(days=30)
         elif frequency == ReportFrequency.QUARTERLY:
             return current_time + timedelta(days=90)

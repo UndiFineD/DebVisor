@@ -32,7 +32,7 @@ def TestOneInput(data):
         # Run validation - this should not raise an exception
         validator.validate(input_data)
     except Exception:
-        # Catch all exceptions to allow fuzzer to continue exploring
+    # Catch all exceptions to allow fuzzer to continue exploring
         # In a real scenario, we would want to investigate these
         pass
 

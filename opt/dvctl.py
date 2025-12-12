@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -331,10 +334,10 @@ def main() -> None:
     elif args.command == "advertise":
         ctl.advertise(args.role)
     elif args.command == "k8s":
-        # Proxy to k8sctl
+    # Proxy to k8sctl
         logger.info(f"Proxying to k8sctl: {args.action}")
     elif args.command == "storage":
-        # Proxy to cephctl
+    # Proxy to cephctl
         logger.info(f"Proxying to cephctl: {args.action}")
     else:
         parser.print_help()

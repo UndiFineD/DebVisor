@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -145,7 +148,7 @@ class InMemoryMessageQueue(MessageQueue):
 
         if topic in self.subscribers:
             for callback in self.subscribers[topic]:
-                # Fire and forget in background task to simulate async decoupling
+            # Fire and forget in background task to simulate async decoupling
                 asyncio.create_task(self._handle_message(callback, message))
 
         return msg_id

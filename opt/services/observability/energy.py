@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -101,9 +104,9 @@ class EnergyMonitor:
         # Try Intel RAPL
         if os.path.exists(self.rapl_path):
             try:
-                # Iterate over packages
+            # Iterate over packages
                 for package in glob.glob(f"{self.rapl_path}/intel-rapl:*"):
-                    # We might need to read energy_uj and calculate delta,
+                # We might need to read energy_uj and calculate delta,
                     # but some drivers provide power_uw directly?
                     # Usually RAPL provides energy counters.
                     # For simplicity, we'll look for a power limit or assume
@@ -140,7 +143,7 @@ class EnergyMonitor:
                         # Filter for relevant zones (x86_pkg_temp, acpitz, etc)
                         if "pkg" in type_ or "x86" in type_ or "acpi" in type_:
                             with open(f"{zone}/temp", "r") as f:
-                                # Temp is usually in millidegrees Celsius
+                            # Temp is usually in millidegrees Celsius
                                 temp_milli = int(f.read().strip())
                                 temps.append(temp_milli / 1000.0)
                     except (IOError, ValueError):

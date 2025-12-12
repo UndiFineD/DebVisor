@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -478,7 +481,7 @@ def validate_json(schema_class: type) -> Any:
         @app.route('/api/nodes', methods=['POST'])
         @validate_json(NodeCreateSchema)
         def create_node(validated_data):
-            # validated_data is already cleaned and validated
+        # validated_data is already cleaned and validated
             pass
     """
 
@@ -522,7 +525,7 @@ def validate_query_params(schema_class: type) -> Any:
         @app.route('/api/nodes', methods=['GET'])
         @validate_query_params(PaginationSchema)
         def list_nodes(validated_params):
-            # validated_params contains cleaned query params
+        # validated_params contains cleaned query params
             pass
     """
 

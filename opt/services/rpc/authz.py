@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -136,10 +139,10 @@ class PermissionMatcher:
         # Check each part
         for i, pattern_part in enumerate(pattern_parts):
             if pattern_part == "*":
-                # Wildcard matches remaining parts
+            # Wildcard matches remaining parts
                 return True
             if pattern_part != required_parts[i]:
-                # Part mismatch
+            # Part mismatch
                 return False
 
         # All parts matched and pattern has same length as required
@@ -300,7 +303,7 @@ if __name__ == "__main__":
 
     # Test cases
     test_cases = [
-        # (required, caller_permissions, expected_result)
+    # (required, caller_permissions, expected_result)
         ("node:register", ["node:*"], True),
         ("node:register", ["node:register"], True),
         ("storage:snapshot:create", ["storage:*"], True),

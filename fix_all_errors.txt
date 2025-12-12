@@ -1,35 +1,74 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 7731
+Total Issues Found: 9643
 Summary by Type:
-  CRLF: 2749
-  End Of File: 4175
+  CRLF: 4270
+  E116: 553
+  End Of File: 3975
   Flake8 E265: 233
   License Header: 499
-  Lint Quality: 9
-  Markdown: 47
-  MyPy: 1
+  Lint Quality: 13
+  Markdown: 37
+  MyPy: 34
   NotificationsReport: 1
-  ShellCheck: 14
-  Syntax: 1
-  Trailing Whitespace: 1
+  ShellCheck: 4
+  Trailing Whitespace: 2
   Type Check: 1
+  Unit Tests: 21
 
 Details:
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:220 | 2086: Double quote to prevent globbing and word splitting.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:291 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:220 | 2086: Double quote to prevent globbing and word splitting.
-[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:291 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
-[OPEN] MyPy | opt\netcfg-tui\tests\test_netcfg.py:1 | Invalid syntax  [syntax]
-[OPEN] Type Check | mypy:0 | Type errors found: {'syntax': 1}
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:332 | Line too long (138 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1575 | Line too long (125 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1853 | Line too long (149 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1856 | Line too long (151 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1871 | Line too long (128 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:292 | Line too long (121 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:337 | Line too long (121 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:897 | Line too long (202 > 120 chars)
-[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:923 | Line too long (146 > 120 chars)
-[OPEN] Syntax | C:\Users\kdejo\DEV\DebVisor\opt\testing\mock_mode.py:810 | Syntax error: unmatched ']'
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:232 | 2086: Double quote to prevent globbing and word splitting.
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:303 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:232 | 2086: Double quote to prevent globbing and word splitting.
+[OPEN] ShellCheck | C:\Users\kdejo\DEV\DebVisor\usr\DebVisor\bin\debvisor-migrate.sh:303 | 2181: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+[OPEN] MyPy | opt\netcfg-tui\backends.py:286 | Item "None" of "list[IPAddress] | None" has no attribute "append"  [union-attr]
+[OPEN] MyPy | opt\netcfg-tui\backends.py:455 | Item "None" of "list[IPAddress] | None" has no attribute "append"  [union-attr]
+[OPEN] MyPy | opt\netcfg-tui\backends.py:461 | Item "None" of "list[str] | None" has no attribute "append"  [union-attr]
+[OPEN] MyPy | opt\services\virtualization\xen_manager.py:337 | Need type annotation for "vms" (hint: "vms: list[<type>] = ...")  [var-annotated]
+[OPEN] MyPy | scripts\fix_all_errors.py:1781 | Need type annotation for "error_codes" (hint: "error_codes: dict[<type>, <type>] = ...")  [var-annotated]
+[OPEN] MyPy | scripts\fix_all_errors.py:1923 | "RunStats" has no attribute "mark_fixed"  [attr-defined]
+[OPEN] MyPy | scripts\fix_all_errors.py:1987 | "RunStats" has no attribute "mark_fixed"  [attr-defined]
+[OPEN] MyPy | scripts\fix_all_errors.py:2046 | "RunStats" has no attribute "mark_fixed"  [attr-defined]
+[OPEN] MyPy | scripts\fix_all_errors.py:2096 | Need type annotation for "new_lines" (hint: "new_lines: list[<type>] = ...")  [var-annotated]
+[OPEN] MyPy | scripts\fix_all_errors.py:2123 | "RunStats" has no attribute "mark_fixed"  [attr-defined]
+[OPEN] MyPy | scripts\fix_all_errors.py:2683 | Unsupported operand types for >= ("int" and "object")  [operator]
+[OPEN] MyPy | scripts\fix_all_errors.py:2684 | Argument 3 to "add" of "RunStats" has incompatible type "object | Any"; expected "int"  [arg-type]
+[OPEN] MyPy | scripts\fix_all_errors.py:2732 | Name "CI_MarkdownLintFixer" already defined on line 1576  [no-redef]
+[OPEN] MyPy | opt\core\request_context.py:578 | Argument 2 of "process" is incompatible with supertype "logging.LoggerAdapter"; supertype defines the argument type as "MutableMapping[str, Any]"  [override]
+[OPEN] MyPy | opt\services\test_phase5_features.py:216 | Argument 3 to "_parse_ldap_entry" of "LDAPBackend" has incompatible type "dict[str, list[str]]"; expected "dict[str, list[bytes]]"  [arg-type]
+[OPEN] MyPy | opt\web\dashboard\app.py:204 | Incompatible types in assignment (expression has type "CompliancePolicy | None", variable has type "CompliancePolicy")  [assignment]
+[OPEN] MyPy | opt\web\dashboard\app.py:215 | Incompatible types in assignment (expression has type "float | int", target has type "int")  [assignment]
+[OPEN] Type Check | mypy:0 | Type errors found: {'attr-defined': 3, 'name-defined': 35, 'annotation-unchecked': 16}
+[OPEN] Unit Tests | pytest:0 | Test collection error: =================================== ERRORS ====================================
+[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_audit_chain.py __________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_compliance.py __________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: _____________ ERROR collecting tests/test_compliance_reporting.py _____________
+[OPEN] Unit Tests | pytest:0 | Test collection error: ______________ ERROR collecting tests/test_cost_optimization.py _______________
+[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_dashboard.py ___________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: ________________ ERROR collecting tests/test_feature_flags.py _________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_graphql_api.py __________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: __________________ ERROR collecting tests/test_migrations.py __________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: _________________ ERROR collecting tests/test_multiregion.py __________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: ________________ ERROR collecting tests/test_property_based.py ________________
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_audit_chain.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_compliance.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_compliance_reporting.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_cost_optimization.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_dashboard.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_feature_flags.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_graphql_api.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_migrations.py
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_multiregion.py - NameError: name 'datetime' is not defined
+[OPEN] Unit Tests | pytest:0 | Test collection error: ERROR tests/test_property_based.py
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:335 | Line too long (138 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1578 | Line too long (125 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1856 | Line too long (149 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1859 | Line too long (151 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:1874 | Line too long (128 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:2696 | Line too long (139 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3026 | Line too long (123 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\scripts\update_type_ignore.py:295 | Line too long (121 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\multiregion\cli.py:340 | Line too long (121 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:900 | Line too long (202 > 120 chars)
+[OPEN] Lint Quality | C:\Users\kdejo\DEV\DebVisor\opt\services\security\acme_certificates.py:926 | Line too long (146 > 120 chars)

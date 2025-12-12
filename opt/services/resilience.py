@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -228,7 +231,7 @@ class CircuitBreaker:
                 return True
 
             if self._state == CircuitState.OPEN:
-                # Check if timeout has elapsed
+            # Check if timeout has elapsed
                 if self._last_failure_time:
                     elapsed = (
                         datetime.now(timezone.utc) - self._last_failure_time
@@ -260,7 +263,7 @@ class CircuitBreaker:
     async def _record_failure(self, exception: Exception) -> None:
         """Record a failed call."""
         async with self._lock:
-            # Check if exception should be excluded
+        # Check if exception should be excluded
             if type(exception) in self.config.excluded_exceptions:
                 return
 
@@ -512,7 +515,7 @@ class Bulkhead:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
-                # Try to acquire with timeout
+            # Try to acquire with timeout
                 acquired = await asyncio.wait_for(
                     self._semaphore.acquire(), timeout=self.max_wait_seconds
                 )

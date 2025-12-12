@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -374,7 +377,7 @@ class MultiRegionManager:
     def _load_state(self) -> None:
         """Load state from database."""
         try:
-            # Load Regions
+        # Load Regions
             cursor = self.conn.execute("SELECT * FROM regions")
             for row in cursor:
                 region = Region(
@@ -701,7 +704,7 @@ class MultiRegionManager:
             return RegionStatus.UNKNOWN
 
         try:
-            # Simulate health check with latency measurement
+        # Simulate health check with latency measurement
             start_time = time.time()
 
             # Check K8s cluster health if applicable
@@ -791,7 +794,7 @@ class MultiRegionManager:
             return False
 
         try:
-            # Simulate resource sync
+        # Simulate resource sync
             resource.replication_status[target_region_id] = ReplicationStatus.SYNCING
 
             # Simulate network transfer

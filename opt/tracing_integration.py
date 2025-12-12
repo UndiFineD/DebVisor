@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -219,7 +222,7 @@ def inject_context(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     tracer = get_tracer()
 
     if not tracer:
-        # Generate request ID even without tracing
+    # Generate request ID even without tracing
         headers[X_REQUEST_ID_HEADER] = str(uuid.uuid4())
         return headers
 
@@ -233,7 +236,7 @@ def inject_context(headers: Optional[Dict[str, str]] = None) -> Dict[str, str]:
         )
         headers.update(trace_headers.to_headers())
     else:
-        # No active span, generate new trace ID
+    # No active span, generate new trace ID
         trace_id = str(uuid.uuid4())
         span_id = str(uuid.uuid4())[:16]
         headers[X_TRACE_ID_HEADER] = trace_id
@@ -268,7 +271,7 @@ def trace_context(
 
     Usage:
         with trace_context("process_request", headers=request.headers) as span:
-            # Your code here
+        # Your code here
             span.set_attribute("key", "value")
 
     Args:
@@ -283,7 +286,7 @@ def trace_context(
     tracer = get_tracer()
 
     if not tracer or not _TRACING_AVAILABLE:
-        # Yield a mock span that does nothing
+    # Yield a mock span that does nothing
         yield _MockSpan()
         return
 

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -232,7 +235,7 @@ def _save_persisted_state() -> None:
     if config and config.persist_state and config.state_file:
         try:
             with open(config.state_file, "w") as f:
-                # Serialize only JSON-compatible parts
+            # Serialize only JSON-compatible parts
                 serializable = {
                     k: v
                     for k, v in _mock_state.items()
@@ -702,7 +705,7 @@ def _get_mock_response(func_name: str, *args, **kwargs) -> Any:
         secret_id = kwargs.get("secret_id") or (args[0] if args else None)
         secret = _mock_state.get("secrets", {}).get(secret_id)
         if secret:
-            # Return with mock decrypted value
+        # Return with mock decrypted value
             return {
                 **secret,
                 "value": f"mock-secret-value-{secret_id}",

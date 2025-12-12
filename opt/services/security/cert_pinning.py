@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -314,7 +317,7 @@ class CertificatePinValidator:
             return True, "No pinning policy configured"
 
         try:
-            # Generate hash based on pin type
+        # Generate hash based on pin type
             if pin_type == PinType.PUBLIC_KEY:
                 cert_hash = CertificateHasher.get_public_key_hash(cert_data)
             elif pin_type == PinType.CERTIFICATE:
@@ -394,7 +397,7 @@ class CertificatePinValidator:
             return False
 
         try:
-            # Remove old pin from primary
+        # Remove old pin from primary
             if old_pin in policy.primary_pins:
                 policy.primary_pins.remove(old_pin)
                 old_pin.is_backup = True

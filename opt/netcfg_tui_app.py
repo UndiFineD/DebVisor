@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -73,7 +76,7 @@ logging.basicConfig(filename="netcfg_tui.log", level=logging.DEBUG)
 
 class NetCfgApp:
     def __init__(self) -> None:
-        # Initialize backend
+    # Initialize backend
         self.backend = Iproute2Backend()
         self.manager = NetworkConfigurationManager(backend=self.backend)
 
@@ -104,7 +107,7 @@ class NetCfgApp:
             body.append(urwid.Text("No interfaces found or backend error."))
 
         for iface in interfaces:
-            # Use Unicode symbols for state if available (kmscon supports this)
+        # Use Unicode symbols for state if available (kmscon supports this)
             state_symbol = "●" if iface.state.value == "up" else "○"
 
             label = f"{state_symbol} {iface.name:<10} | {iface.interface_type.value:<10} | {iface.state.value}"
@@ -226,7 +229,7 @@ class NetCfgApp:
         )
 
         try:
-            # Construct IPAddress objects
+        # Construct IPAddress objects
             from netcfg_tui_full import IPAddress, AddressFamily
 
             new_addresses = []
@@ -314,7 +317,7 @@ class NetCfgApp:
         if key in ("q", "Q"):
             raise urwid.ExitMainLoop()
         elif key in ("r", "R"):
-            # Refresh list
+        # Refresh list
             if self.main_loop:
                 self.main_loop.widget.body = urwid.AttrMap(
                     self.create_interface_list(), "body"

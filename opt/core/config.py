@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -78,7 +81,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
     Defaults to reading from 'secret/data/debvisor/config'.
     """
     def get_field_value(self, field: FieldInfo, field_name: str) -> Tuple[Any, str, bool]:
-        # Not used in __call__ based implementation but required by abstract base class in some versions
+    # Not used in __call__ based implementation but required by abstract base class in some versions
         return None, field_name, False
 
     def __call__(self) -> Dict[str, Any]:
@@ -107,7 +110,7 @@ class VaultSettingsSource(PydanticBaseSettingsSource):
                 return dict(response['data']['data'])
 
         except Exception as e:
-            # Log to stderr but don't crash application startup
+        # Log to stderr but don't crash application startup
             print(f"Warning: Failed to load secrets from Vault: {e}")
 
         return {}
@@ -240,7 +243,7 @@ except Exception as e:
     # For development convenience, we might want to allow partial loading or defaults,
     # but for now, let's be strict about validity.
     if os.getenv("FLASK_ENV") != "production":
-        # Fallback for dev/test if .env is missing
+    # Fallback for dev/test if .env is missing
         print("Warning: Failed to load settings, using defaults/mock for development.")
 
         class DevSettings(Settings):

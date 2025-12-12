@@ -20,12 +20,12 @@ class TestMarketplaceGovernance(unittest.TestCase):
         )
 
     def test_trust_score_perfect(self) -> None:
-        # Perfect score
+    # Perfect score
         score = self.scanner.calculate_trust_score(self.recipe)
         self.assertEqual(score, 100)
 
     def test_trust_score_vulnerabilities(self) -> None:
-        # Add vulnerabilities
+    # Add vulnerabilities
         self.recipe.security_scan = SecurityScanResult(
             passed=True,
             scanned_at=None,  # type: ignore[arg-type]

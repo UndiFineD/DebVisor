@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -155,7 +158,7 @@ class StructuredLogFormatter(logging.Formatter):
                     "asctime",
                 ):
                     try:
-                        # Ensure value is JSON serializable
+                    # Ensure value is JSON serializable
                         json.dumps(value)
                         extra_fields[key] = value
                     except (TypeError, ValueError):
@@ -1087,7 +1090,7 @@ if __name__ == "__main__":
         print(json.dumps(backend.get_stats(), indent=2))
 
     elif args.action == "demo":
-        # Create test context
+    # Create test context
         ctx = ActionContext(
             request_id=str(uuid4()), user_id="admin", user_role=Role.ADMIN, source="cli"
         )

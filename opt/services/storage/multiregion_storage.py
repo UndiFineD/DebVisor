@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -385,7 +388,7 @@ class RBDMirrorManager:
         # 3. rbd mirror image enable <pool>/<image>
 
         if config.mode == MirrorMode.JOURNAL:
-            # Enable journaling feature on image
+        # Enable journaling feature on image
             # rbd feature enable <pool>/<image> journaling
             pass
 
@@ -487,7 +490,7 @@ class RBDMirrorManager:
         logger.info(f"Starting failover: {key} -> {target_region}")
 
         try:
-            # Phase 1: Demote local image
+        # Phase 1: Demote local image
             record.state = FailoverState.DEMOTING
             await self._demote_image(pool, image, force)
 
@@ -624,7 +627,7 @@ class ConsistencyGroupManager:
         group.state = ConsistencyGroupState.SYNCING
 
         try:
-            # In production:
+        # In production:
             # 1. Quiesce all VMs using these images
             # 2. Flush I/O
             # 3. Create snapshots atomically
@@ -725,7 +728,7 @@ class OSDScrubScheduler:
         )
 
         for i, osd_id in enumerate(osd_ids):
-            # Calculate staggered window
+        # Calculate staggered window
             offset_minutes = (i * window_minutes) % (24 * 60)
             start_hour = (base_hour + offset_minutes // 60) % 24
             start_minute = offset_minutes % 60

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -832,7 +835,7 @@ class DedupBackupService:
 
         for digest, record in list(self.store.index.items()):
             if record.ref_count <= 0:
-                # Check grace period
+            # Check grace period
                 age = datetime.now(timezone.utc) - record.stored_at
                 if age.total_seconds() > self.config.gc_grace_period_hours * 3600:
                     orphans.append(digest)

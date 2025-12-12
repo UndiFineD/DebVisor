@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -314,7 +317,7 @@ class AuditLogger:
         sensitive_fields = ["password", "token", "key", "secret", "api_key"]
 
         for field in sensitive_fields:
-            # Match "fieldname": "value" and replace value with ***
+        # Match "fieldname": "value" and replace value with ***
             pattern = f'"{field}": "[^"]*"'
             json_str = re.sub(
                 pattern, f'"{field}": "***"', json_str, flags=re.IGNORECASE
@@ -389,7 +392,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
         # Wrap handler to log result
         def logged_handler(request: Any) -> Any:
             try:
-                # Execute handler
+            # Execute handler
                 response = continuation(handler_call_details)
 
                 # Log success
@@ -403,7 +406,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 return response
 
             except grpc.RpcError as e:
-                # Log gRPC error
+            # Log gRPC error
                 self.audit.log_event(
                     "rpc_error",
                     principal=principal,
@@ -415,7 +418,7 @@ class AuditInterceptor(grpc.ServerInterceptor):
                 raise
 
             except Exception as e:
-                # Log unexpected error
+            # Log unexpected error
                 self.audit.log_event(
                     "rpc_error",
                     principal=principal,
@@ -444,11 +447,11 @@ class AuditInterceptor(grpc.ServerInterceptor):
             Tuple of (service, method)
         """
         try:
-            # Get the full method path from handler_call_details
+        # Get the full method path from handler_call_details
             full_method = getattr(handler_call_details, "method", "")
 
             if full_method:
-                # Format: /package.Service/Method
+            # Format: /package.Service/Method
                 parts = full_method.split("/")
                 if len(parts) >= 2:
                     service = parts[-2].split(".")[-1]    # Last component of service path

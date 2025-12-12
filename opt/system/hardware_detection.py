@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -436,7 +439,7 @@ class HardwareDetector:
     def _check_iommu_enabled(self) -> bool:
         """Check if IOMMU is enabled in kernel."""
         try:
-            # Check cmdline for iommu params
+        # Check cmdline for iommu params
             cmdline_path = self._proc_path / "cmdline"
             if cmdline_path.exists():
                 cmdline = cmdline_path.read_text()
@@ -496,7 +499,7 @@ class HardwareDetector:
         """Detect GPU devices via sysfs and lspci."""
         gpus: Any = []
         try:
-            # Parse lspci for VGA/3D controllers
+        # Parse lspci for VGA/3D controllers
             result = subprocess.run(
                 ["/usr/bin/lspci", "-Dnn"],    # nosec B603
                 capture_output=True,
@@ -628,7 +631,7 @@ class HardwareDetector:
         """Detect storage controllers."""
         controllers = []
         try:
-            # Find NVMe controllers
+        # Find NVMe controllers
             nvme_path = self._sys_path / "class/nvme"
             if nvme_path.exists():
                 for ctrl in nvme_path.iterdir():
@@ -732,7 +735,7 @@ class HardwareDetector:
         """Detect TPM module."""
         tpm = TPMInfo()
         try:
-            # Check for TPM 2.0 device
+        # Check for TPM 2.0 device
             tpm0_path = Path("/dev/tpm0")
             tpmrm0_path = Path("/dev/tpmrm0")
 
@@ -786,7 +789,7 @@ class HardwareDetector:
     def _check_secure_boot(self) -> bool:
         """Check if Secure Boot is enabled."""
         try:
-            # Check EFI variables
+        # Check EFI variables
             sb_path = Path(
                 "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"
             )

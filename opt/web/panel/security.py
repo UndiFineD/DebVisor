@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -346,7 +349,7 @@ class CSRFProtectionMiddleware:
 
     @app.route('/form', methods=['POST'])
     def handle_form():
-        # Middleware automatically validates CSRF token
+    # Middleware automatically validates CSRF token
         return "Form submitted"
     ```
     """

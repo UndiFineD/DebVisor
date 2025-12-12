@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -182,7 +185,7 @@ def create_snapshot() -> Any:
             return redirect(url_for("storage.create_snapshot"))
 
         try:
-            # Create snapshot via RPC service
+        # Create snapshot via RPC service
             rpc_client = get_rpc_client()
             rpc_response = rpc_client.create_snapshot(
                 node_id=node.node_id,
@@ -254,7 +257,7 @@ def delete_snapshot(snapshot_id: int) -> Any:
         return redirect(url_for("storage.list_snapshots"))
 
     try:
-        # Delete snapshot via RPC service
+    # Delete snapshot via RPC service
         rpc_client = get_rpc_client()
         rpc_client.delete_snapshot(snapshot.snapshot_id)
 

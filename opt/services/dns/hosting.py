@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -258,7 +261,7 @@ class DNSHostingService:
 
         elif record.type == DNSRecordType.CNAME:
             if not self._is_valid_domain(record.value) and not record.value.endswith('.'):
-                # Allow FQDN with trailing dot, or simple hostname
+            # Allow FQDN with trailing dot, or simple hostname
                 pass
 
         elif record.type == DNSRecordType.MX:

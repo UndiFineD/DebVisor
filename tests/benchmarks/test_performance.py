@@ -626,7 +626,7 @@ class TestTracingOverheadPerformance(unittest.TestCase):
         }
 
         def extract_and_inject() -> None:
-            # Extract
+        # Extract
             trace_id = trace_context.get("X-Trace-ID")
             span_id = trace_context.get("X-Span-ID")
             # Inject (simulate creating new headers)
@@ -819,7 +819,7 @@ class BenchmarkSuite:
         print("=" * 70)
 
         if export_path:
-            # Collect results from all runners
+        # Collect results from all runners
             data = {
                 "benchmark_run": datetime.now(timezone.utc).isoformat(),
                 "python_version": sys.version,

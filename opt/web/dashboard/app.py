@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -201,7 +204,7 @@ def get_compliance_by_framework() -> None:
                     frameworks[tag]["total_policies"] += 1
 
         for violation in report_data.violations:
-            policy = engine.policies.get(violation.policy_id)
+            policy = engine.policies.get(violation.policy_id)  # type: ignore[assignment]
             if policy and policy.tags:
                 for tag in policy.tags:
                     if tag in frameworks:
@@ -212,7 +215,7 @@ def get_compliance_by_framework() -> None:
                 frameworks[tag]["total_policies"] - frameworks[tag]["violations"]
             )
             frameworks[tag]["compliance_rate"] = (
-                frameworks[tag]["compliant"] / frameworks[tag]["total_policies"] * 100
+                frameworks[tag]["compliant"] / frameworks[tag]["total_policies"] * 100  # type: ignore[assignment]
                 if frameworks[tag]["total_policies"] > 0 else 100
             )
 

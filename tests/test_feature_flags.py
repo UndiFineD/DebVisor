@@ -32,26 +32,26 @@ class TestFeatureFlagManager(unittest.TestCase):
             self.assertFalse(manager.enabled)
 
     def test_is_enabled_simple_true(self) -> None:
-        # Setup mock to return enabled flag
+    # Setup mock to return enabled flag
         self.redis_mock.get.return_value = json.dumps({"enabled": True})
 
         self.assertTrue(self.manager.is_enabled("test_flag"))
         self.redis_mock.get.assert_called_with("feature_flag:test_flag")
 
     def test_is_enabled_simple_false(self) -> None:
-        # Setup mock to return disabled flag
+    # Setup mock to return disabled flag
         self.redis_mock.get.return_value = json.dumps({"enabled": False})
 
         self.assertFalse(self.manager.is_enabled("test_flag"))
 
     def test_is_enabled_not_found(self) -> None:
-        # Setup mock to return None (flag not found)
+    # Setup mock to return None (flag not found)
         self.redis_mock.get.return_value = None
 
         self.assertFalse(self.manager.is_enabled("unknown_flag"))
 
     def test_rollout_percentage_pass(self) -> None:
-        # 50% rollout
+    # 50% rollout
         self.redis_mock.get.return_value = json.dumps({
             "enabled": True,
             "rollout_percentage": 50

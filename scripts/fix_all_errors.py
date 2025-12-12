@@ -10,33 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
 """
 Unified Error Fixer for DebVisor.
 
@@ -320,7 +293,11 @@ class MarkdownFixer(BaseFixer):
                 current_spaces = len(indent)
                 prev_line = lines[i - 1] if i > 0 else ""
                 prev_is_ordered = bool(re.match(r"^\d+\.\s+", prev_line))
-                if current_spaces == 2 and (prev_is_ordered or (re.match(r"^\s*[-*+]\s+", prev_line) and not prev_line.startswith("  "))):
+                if current_spaces == 2 
+                        and (prev_is_ordered 
+                        or (re.match(r"^\s*[-*+]\s+", prev_line) 
+                        and not prev_line.startswith("  "))):
+                            
                     new_line = f"{marker}{space_after}{content}"
                     result.append(new_line)
                     count += 1
@@ -648,7 +625,7 @@ class MarkdownFixer(BaseFixer):
 
 class LicenseFixer(BaseFixer):
     def run(self, stats: RunStats):
-        # Check Python and shell files for licenses
+    # Check Python and shell files for licenses
         extensions = {'.py', '.sh'}
         for path in self.root.rglob("*"):
             if path.is_file() and path.suffix in extensions and not self.should_skip(path):
@@ -740,22 +717,22 @@ class ShellCheckFixer(BaseFixer):
                         pass
 
                 if self.apply:
-                    # Apply diffs
+                # Apply diffs
                     diff_proc = subprocess.run(
                         ["shellcheck", "-f", "diff", str(sh_file)],
                         capture_output=True, text=True
                     )
                     if diff_proc.stdout:
-                        # Apply patch using git apply
+                    # Apply patch using git apply
                         try:
-                            # git apply expects input from stdin
+                        # git apply expects input from stdin
                             subprocess.run(
                                 ["git", "apply", "-"],
                                 input=diff_proc.stdout, text=True, check=True, cwd=self.root
                             )
                             stats.add(str(sh_file), "ShellCheck", 0, "Applied shellcheck auto-fixes", fixed=True)
                         except (subprocess.CalledProcessError, FileNotFoundError):
-                            # Fallback if git is not available or fails
+                        # Fallback if git is not available or fails
                             print(f"Failed to apply shellcheck patch for {sh_file}")
 
             except Exception as e:
@@ -787,7 +764,7 @@ class ShellCheckFixer(BaseFixer):
 
 class MyPyFixer(BaseFixer):
     def run(self, stats: RunStats):
-        # Only run if we have a mypy config
+    # Only run if we have a mypy config
         if not (self.root / "mypy.ini").exists():
             return
 
@@ -797,7 +774,7 @@ class MyPyFixer(BaseFixer):
 
         print("Running MyPy scan...")
         try:
-            # Run mypy
+        # Run mypy
             proc = subprocess.run(
                 [sys.executable, "-m", "mypy", "opt", "scripts", "--no-error-summary"],
                 capture_output=True, text=True
@@ -882,7 +859,7 @@ class MyPyFixer(BaseFixer):
             # Check if line already has type: ignore
             existing_codes: Set[str] = set()
             if "# type: ignore" in line:
-                # Extract existing codes from comment
+            # Extract existing codes from comment
                 ignore_match = re.search(r"#\s*type:\s*ignore\[([^\]]+)\]", line)
                 if ignore_match:
                     existing_str = ignore_match.group(1)
@@ -1437,7 +1414,7 @@ class JsonRepairFixer(BaseFixer):
             '.benchmarks', '.github', '.hypothesis', '.import_linter_cache',
             '.kube', '.mypy_cache', '.pytest_cache', '.ruff_cache', '.venv', '.vscode',
             'node_modules', '__pycache__', '.git', 'venv', 'env', 'dist',
-            'build', '.egg-info', 'instance', 'etc', 'usr', 'var', 'tools'
+            'build', '.egg-info', 'instance'
         }
         return any(part in SKIP_DIRS for part in path.parts)
 
@@ -1533,7 +1510,7 @@ class ConfigFixer(BaseFixer):
     """Fix configuration file issues (YAML, JSON, etc)."""
 
     def run(self, stats: RunStats):
-        # Validate JSON files
+    # Validate JSON files
         for path in self.root.rglob("*.json"):
             if not self.should_skip(path):
                 self.validate_json(path, stats)
@@ -1563,8 +1540,11 @@ class ConfigFixer(BaseFixer):
         try:
             content = path.read_text(encoding='utf-8')
             # Basic YAML validation - check for common issues
-            if content.strip() and not any(line.strip().startswith('#') or not line.strip() for line in content.split('\n')):
-                # Try to detect basic YAML structure
+            if content.strip() 
+                    and not any(line.strip().startswith('#') 
+                    or not line.strip() for line in content.split('\n')):
+                        
+            # Try to detect basic YAML structure
                 if ':' not in content and '-' not in content:
                     stats.add(str(path), "YAML", 0, "Potentially invalid YAML structure")
         except (KeyboardInterrupt, SystemExit):
@@ -1600,11 +1580,11 @@ class CI_MarkdownLintFixer(BaseFixer):
             lines = content.split('\n')
             fixed_lines = []
             for line in lines:
-                # Skip code blocks and links
+            # Skip code blocks and links
                 if line.strip().startswith('```') or line.strip().startswith('>'):
                     fixed_lines.append(line)
                 elif len(line) > 120 and not line.startswith('    ') and '[' not in line:
-                    # Try to wrap at word boundary
+                # Try to wrap at word boundary
                     words = line.split()
                     current_line = ''
                     for word in words:
@@ -1660,7 +1640,7 @@ class CI_LicenseHeaderFixer(BaseFixer):
             has_license = any(line in content.split('\n')[:15] for line in LICENSE_HEADER)
 
             if not has_license:
-                # Add license header
+            # Add license header
                 if path.suffix == '.py':
                     header = "#!/usr/bin/env python3\n# " + "\n# ".join(LICENSE_HEADER) + "\n\n"
                 elif path.suffix in {'.sh'}:
@@ -1776,9 +1756,9 @@ class CI_TypeCheckingFixer(BaseFixer):
             )
 
             if result.returncode != 0:
-                # Parse errors and categorize
+            # Parse errors and categorize
                 errors = result.stdout + result.stderr
-                error_codes = {}
+                error_codes = {}  # type: ignore[var-annotated]
 
                 for line in errors.split('\n'):
                     match = re.search(r'\[([^\]]+)\]', line)
@@ -1811,7 +1791,7 @@ class CI_UnitTestFixer(BaseFixer):
             return
 
         try:
-            # Run pytest with collection-only to detect syntax errors
+        # Run pytest with collection-only to detect syntax errors
             result = subprocess.run(
                 ["pytest", "--collect-only", "-q"],
                 cwd=str(self.root),
@@ -1821,7 +1801,7 @@ class CI_UnitTestFixer(BaseFixer):
             )
 
             if result.returncode != 0:
-                # Parse collection errors
+            # Parse collection errors
                 for line in result.stdout.split('\n') + result.stderr.split('\n'):
                     if 'ERROR' in line or 'FAILED' in line:
                         stats.add("pytest", "Unit Tests", 0, f"Test collection error: {line.strip()}")
@@ -1859,7 +1839,9 @@ class CI_UnitTestFixer(BaseFixer):
                         insert_idx += 1
                     if insert_idx < len(lines):
                         insert_idx += 1
-                while insert_idx < len(lines) and (not lines[insert_idx].strip() or lines[insert_idx].lstrip().startswith('#')):
+                while insert_idx < len(lines) 
+                        and (not lines[insert_idx].strip() 
+                        or lines[insert_idx].lstrip().startswith('#')):
                     insert_idx += 1
 
                 added = False
@@ -1908,7 +1890,7 @@ class CI_LintQualityFixer(BaseFixer):
                 for i, line in enumerate(lines):
                     if len(line) > 120 and not line.strip().startswith('#'):
                         stats.add(str(path), "Lint Quality", i+1,
-                                 f"Line too long ({len(line)} > 120 chars)")
+                        f"Line too long ({len(line)} > 120 chars)")
 
                         # For now, just report - actual fixing requires AST analysis
                         # to preserve syntax correctness
@@ -1920,7 +1902,7 @@ class CI_LintQualityFixer(BaseFixer):
 
                 if content != original and self.apply:
                     path.write_text(content, encoding="utf-8")
-                    stats.mark_fixed(str(path), "Lint Quality")
+                    stats.mark_fixed(str(path), "Lint Quality")  # type: ignore[attr-defined]
 
             except Exception as e:
                 logger.debug(f"Error checking lint quality in {path}: {e}")
@@ -1984,7 +1966,7 @@ class CI_DocumentationFixer(BaseFixer):
 
                     if modified and content != original:
                         path.write_text(content, encoding="utf-8")
-                        stats.mark_fixed(str(path), "Documentation")
+                        stats.mark_fixed(str(path), "Documentation")  # type: ignore[attr-defined]
 
                 except Exception as e:
                     logger.debug(f"Error checking documentation in {path}: {e}")
@@ -2013,7 +1995,7 @@ class CI_ReleasePleaseFixer(BaseFixer):
                 stats.add(str(release_config), "Release Please", 0,
                          "Missing required field: release-type")
                 if self.apply:
-                    # Detect project type from package.json or default to python
+                # Detect project type from package.json or default to python
                     package_json = self.root / "package.json"
                     if package_json.exists():
                         config["release-type"] = "node"
@@ -2031,19 +2013,19 @@ class CI_ReleasePleaseFixer(BaseFixer):
             # Check package configurations
             if "packages" in config:
                 for package_path, package_config in config["packages"].items():
-                    # Validate package directory exists
+                # Validate package directory exists
                     pkg_path = self.root / package_path.lstrip('.')
                     if not pkg_path.exists() and package_path != ".":
                         stats.add(str(release_config), "Release Please", 0,
                                  f"Package path does not exist: {package_path}")
 
             if modified:
-                # Write back with proper formatting
+            # Write back with proper formatting
                 release_config.write_text(
                     json.dumps(config, indent=2) + "\n",
                     encoding="utf-8"
                 )
-                stats.mark_fixed(str(release_config), "Release Please")
+                stats.mark_fixed(str(release_config), "Release Please")  # type: ignore[attr-defined]
 
         except json.JSONDecodeError as e:
             stats.add(str(release_config), "Release Please", 0, f"Invalid JSON: {e}")
@@ -2093,7 +2075,7 @@ class CI_SecretScanFixer(BaseFixer):
 
             # 2. Fix indentation issues in with: blocks
             lines = fixed_content.split('\n')
-            new_lines = []
+            new_lines = []  # type: ignore[var-annotated]
             in_with_block = False
             with_indent = 0
 
@@ -2103,7 +2085,7 @@ class CI_SecretScanFixer(BaseFixer):
                     with_indent = len(line) - len(line.lstrip())
                     new_lines.append(line)
                 elif in_with_block and line.strip() and not line.strip().startswith('-'):
-                    # Ensure proper indentation for with: block parameters
+                # Ensure proper indentation for with: block parameters
                     if ':' in line:
                         param_indent = with_indent + 2
                         new_lines.append(' ' * param_indent + line.strip())
@@ -2120,9 +2102,9 @@ class CI_SecretScanFixer(BaseFixer):
             if fixed_content != original:
                 if self.apply:
                     secret_scan.write_text(fixed_content, encoding="utf-8")
-                    stats.mark_fixed(str(secret_scan), "Secret Scan")
+                    stats.mark_fixed(str(secret_scan), "Secret Scan")  # type: ignore[attr-defined]
                 else:
-                    # Report only, no destructive change
+                # Report only, no destructive change
                     pass
 
         except Exception as e:
@@ -2175,19 +2157,19 @@ class CI_SyntaxConfigFixer(BaseFixer):
                 try:
                     yaml.safe_load(content)
                 except yaml.YAMLError as e:
-                    # Check if it's a multi-document file (Kubernetes manifests)
+                # Check if it's a multi-document file (Kubernetes manifests)
                     if '---' in content and 'apiVersion' in content:
-                        # Try loading as multi-document
+                    # Try loading as multi-document
                         try:
                             list(yaml.safe_load_all(content))
                             # Multi-doc file is valid, not an error
                             continue
                         except yaml.YAMLError:
-                            # Still an error even as multi-doc
+                        # Still an error even as multi-doc
                             stats.add(str(path), "Syntax", 0,
                                      f"YAML syntax error: {e}")
                     else:
-                        # Regular YAML error
+                    # Regular YAML error
                         stats.add(str(path), "Syntax", 0,
                                  f"YAML syntax error: {e}")
             except Exception as e:
@@ -2257,7 +2239,7 @@ class CI_RemainingTestImportFixer(BaseFixer):
 
             for imp in imports:
                 if imp not in content:
-                    # Insert after docstring and existing imports
+                # Insert after docstring and existing imports
                     lines = content.split('\n')
                     insert_idx = 0
 
@@ -2371,9 +2353,9 @@ class CI_LineLengthFixer(BaseFixer):
 
                 line = lines[line_num - 1]
                 if len(line) > 120:
-                    # Simple approach: try to break at logical points
+                # Simple approach: try to break at logical points
                     if ',' in line and '(' in line:
-                        # Break function calls at commas
+                    # Break function calls at commas
                         indent = len(line) - len(line.lstrip())
                         parts = line.split(',')
                         if len(parts) > 1:
@@ -2420,12 +2402,12 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
 
                 for i, line in enumerate(lines):
                     if len(line) > 120:
-                        # Try to intelligently break the line
+                    # Try to intelligently break the line
                         if 'http' in line and '](' in line:
-                            # Markdown link - break carefully
+                        # Markdown link - break carefully
                             new_lines.append(line)
                         elif 'assert' in line and '==' in line:
-                            # Test assertion - break at logical operators
+                        # Test assertion - break at logical operators
                             if ' and ' in line:
                                 parts = line.split(' and ')
                                 new_lines.append(parts[0] + ' and')
@@ -2434,10 +2416,10 @@ class CI_ComprehensiveLineLengthFixer(BaseFixer):
                             else:
                                 new_lines.append(line)
                         elif line.lstrip().startswith(('f"', "f'", '"', "'")):
-                            # String literal - don't break
+                        # String literal - don't break
                             new_lines.append(line)
                         else:
-                            # General case: break at comma if possible
+                        # General case: break at comma if possible
                             new_lines.append(line)
                     else:
                         new_lines.append(line)
@@ -2480,19 +2462,19 @@ class CI_TargetedLineLengthFixer(BaseFixer):
                     line = lines[line_num - 1]
 
                     if len(line) > 120:
-                        # Find a good breaking point
+                    # Find a good breaking point
                         indent = len(line) - len(line.lstrip())
                         indent_str = ' ' * indent
 
                         if '(' in line and ')' in line:
-                            # Break function call
+                        # Break function call
                             match_pos = line.rfind(',', 0, 120)
                             if match_pos > 0:
                                 lines[line_num - 1] = line[:match_pos + 1]
                                 lines.insert(line_num, indent_str + '    ' + line[match_pos + 1:].lstrip())
                                 modified = True
                         elif '=' in line:
-                            # Break assignment
+                        # Break assignment
                             match_pos = line.find('=')
                             if match_pos > 0 and match_pos < 100:
                                 lines[line_num - 1] = line[:match_pos] + '= \\'
@@ -2565,7 +2547,7 @@ class CI_EnhancedMarkdownFixer(BaseFixer):
                 new_lines = []
                 for line in lines:
                     if line.startswith('#') and not line.startswith('# '):
-                        # Add space after heading marker
+                    # Add space after heading marker
                         match = 0
                         while match < len(line) and line[match] == '#':
                             match += 1
@@ -2656,21 +2638,21 @@ class CI_RemainingLineLengthFixer(BaseFixer):
 
                         # Try different breaking strategies
                         if '(' in line and ',' in line:
-                            # Function call - break at last comma before col 120
+                        # Function call - break at last comma before col 120
                             match_pos = line.rfind(',', 0, 120)
                             if match_pos > indent + 20:
                                 lines[line_num - 1] = line[:match_pos + 1]
                                 lines.insert(line_num, indent_str + '    ' + line[match_pos + 1:].lstrip())
                                 modified = True
                         elif '=' in line and len(line) > 140:
-                            # Long assignment - split after =
+                        # Long assignment - split after =
                             eq_pos = line.find('=')
                             if eq_pos > 0:
                                 lines[line_num - 1] = line[:eq_pos] + '= \\'
                                 lines.insert(line_num, indent_str + '    ' + line[eq_pos + 1:].strip())
                                 modified = True
                         elif '[' in line and ']' in line:
-                            # Array/dict literal - break at bracket
+                        # Array/dict literal - break at bracket
                             bracket_pos = line.rfind('[')
                             if bracket_pos > 0 and bracket_pos < 100:
                                 lines[line_num - 1] = line[:bracket_pos + 1]
@@ -2680,8 +2662,9 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                 if modified and self.apply:
                     filepath.write_text('\n'.join(lines), encoding="utf-8")
                     for ln in line_nums:
-                        if ln <= len(lines):
-                            stats.add(str(filepath), "Lint Quality", ln, "Broke remaining long line", fixed=True)
+                        if ln <= len(lines):  # type: ignore[operator]
+                            stats.add(str(filepath), "Lint Quality", ln, "Broke remaining long line",
+                                fixed=True)  # type: ignore[arg-type]
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -2701,20 +2684,20 @@ class CI_SyntaxErrorFixer(BaseFixer):
 
             # Check for common syntax issues
             if content.count('"""') % 2 != 0:
-                # Unmatched triple quotes
+            # Unmatched triple quotes
                 lines = content.split('\n')
                 quote_count = 0
                 for i, line in enumerate(lines):
                     quote_count += line.count('"""')
                     if quote_count % 2 != 0 and i < len(lines) - 1:
-                        # Try to close it
+                    # Try to close it
                         if '"""' not in lines[-1]:
                             lines.append('"""')
                             content = '\n'.join(lines)
 
             # Fix incomplete strings
             if content.count("'") % 2 != 0:
-                # Odd number of single quotes - might be unmatched
+            # Odd number of single quotes - might be unmatched
                 if not content.endswith(("'", '"', "\n")):
                     content = content.rstrip() + "\n"
 
@@ -2729,7 +2712,7 @@ class CI_SyntaxErrorFixer(BaseFixer):
             logger.debug(f"Error fixing syntax: {e}")
 
 
-class CI_MarkdownLintFixer(BaseFixer):
+class CI_MarkdownLintFixer(BaseFixer):  # type: ignore[no-redef]
     """Fix markdown linting issues more comprehensively."""
 
     def run(self, stats: RunStats):
@@ -2751,7 +2734,7 @@ class CI_MarkdownLintFixer(BaseFixer):
                 new_lines = []
 
                 for i, line in enumerate(lines):
-                    # Fix heading spacing
+                # Fix heading spacing
                     if line.startswith('#') and len(line) > 1 and line[1] != ' ':
                         hashes = 0
                         while hashes < len(line) and line[hashes] == '#':
@@ -2820,7 +2803,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
 
                 # If we have more than one header block, remove duplicates
                 if len(header_blocks) > 1:
-                    # Keep only the first header block
+                # Keep only the first header block
                     first_block_end = header_blocks[0][1]
 
                     # Remove duplicate header blocks
@@ -2830,7 +2813,7 @@ class CI_DuplicateLicenseHeaderFixer(BaseFixer):
                     # Skip any subsequent headers
                     i = first_block_end
                     while i < len(lines):
-                        # Skip lines that are part of duplicate headers
+                    # Skip lines that are part of duplicate headers
                         is_duplicate_header = False
                         for start_idx, end_idx in header_blocks[1:]:
                             if i >= start_idx and i < end_idx:
@@ -2873,10 +2856,10 @@ class CI_Flake8E265Fixer(BaseFixer):
 
                 new_lines = []
                 for i, line in enumerate(lines):
-                    # Check if line is a block comment without space after #
+                # Check if line is a block comment without space after #
                     stripped = line.lstrip()
                     if stripped.startswith('#') and not stripped.startswith('# ') and not stripped.startswith('##'):
-                        # Count leading spaces
+                    # Count leading spaces
                         leading_spaces = len(line) - len(stripped)
                         # Fix the comment to have space after #
                         fixed_line = line[:leading_spaces] + '# ' + stripped[1:]
@@ -2914,7 +2897,7 @@ class CI_AggressiveCRLFFixer(BaseFixer):
             try:
                 content = filepath.read_bytes()
                 if b'\r\n' in content:
-                    # Convert CRLF to LF
+                # Convert CRLF to LF
                     new_content = content.replace(b'\r\n', b'\n')
                     if self.apply:
                         filepath.write_bytes(new_content)
@@ -2949,7 +2932,7 @@ class CI_AggressiveLongLineFixer(BaseFixer):
 
                         # Try breaking at logical points
                         if '(' in line and ')' in line:
-                            # Function call or definition
+                        # Function call or definition
                             open_paren = line.rfind('(')
                             close_paren = line.rfind(')')
 
@@ -2961,7 +2944,7 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                                 modified = True
                                 fixed_count += 1
                         elif ' and ' in line or ' or ' in line:
-                            # Logical expression
+                        # Logical expression
                             op = ' and ' if ' and ' in line else ' or '
                             parts = line.split(op)
                             if len(parts) > 1:
@@ -2974,6 +2957,49 @@ class CI_AggressiveLongLineFixer(BaseFixer):
                     filepath.write_text('\n'.join(lines), encoding="utf-8")
                     for _ in range(fixed_count):
                         stats.add(str(filepath), "Lint Quality", 0, "Broke long lines", fixed=True)
+            except Exception as e:
+                logger.debug(f"Error in {filepath}: {e}")
+
+
+class CI_E116UnexpectedIndentationFixer(BaseFixer):
+    """Fix E116 - unexpected indentation (comment) errors."""
+
+    def run(self, stats: RunStats):
+        """Fix incorrectly indented comment lines."""
+        for filepath in self.root.rglob("*.py"):
+            if any(skip in str(filepath) for skip in [".venv", "node_modules", "__pycache__"]):
+                continue
+
+            try:
+                content = filepath.read_text(encoding="utf-8")
+                original = content
+                lines = content.split('\n')
+                modified = False
+
+                for i in range(len(lines)):
+                    line = lines[i]
+                    stripped = line.lstrip()
+
+                    # Check if this is a comment that's indented incorrectly
+                    if stripped.startswith('#') and i > 0:
+                        prev_line = lines[i - 1].rstrip()
+
+                        # If previous line is not a comment and this is, check indentation
+                        if prev_line and not prev_line.lstrip().startswith('#'):
+                        # Get expected indentation from context
+                            prev_indent = len(lines[i - 1]) - len(lines[i - 1].lstrip())
+                            curr_indent = len(line) - len(stripped)
+
+                            # If comment is indented more than previous code, reduce it
+                            if curr_indent > prev_indent and prev_indent > 0:
+                                lines[i] = ' ' * prev_indent + stripped
+                                modified = True
+                                stats.add(str(filepath), "E116", i + 1, "Fixed unexpected comment indentation",
+                                    fixed=True)
+
+                if modified and self.apply:
+                    filepath.write_text('\n'.join(lines), encoding="utf-8")
+
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
@@ -3161,6 +3187,7 @@ def main():
         CI_EndOfFileFixer(root, args.apply),
         CI_AggressiveCRLFFixer(root, args.apply),
         CI_AggressiveLongLineFixer(root, args.apply),
+        CI_E116UnexpectedIndentationFixer(root, args.apply),
     ]
 
     for fixer in fixers:

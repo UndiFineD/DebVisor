@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -345,10 +348,10 @@ class XenConfigGenerator:
                 mode = disk.get("mode", "rw")
 
                 if config.vm_type in [XenVMType.HVM, XenVMType.PVH]:
-                    # HVM format: phy:/dev/...,hda,w
+                # HVM format: phy:/dev/...,hda,w
                     disk_strs.append(f'"{fmt}:{target}, {vdev}, {mode}"')
                 else:
-                    # PV format: phy:/dev/...,xvda,w
+                # PV format: phy:/dev/...,xvda,w
                     disk_strs.append(f'"phy:{target}, {vdev}, {mode}"')
 
             lines.append(f'disk = [{", ".join(disk_strs)}]')
@@ -585,7 +588,7 @@ class XenDriver:
         # Get UUID and type from xl list -l (long format)
         code, stdout, _ = self.executor.run(["list", "-l", str(domid)], check=False)
         if code == 0:
-            # Parse SXPR or JSON output
+        # Parse SXPR or JSON output
             if "uuid" in stdout:
                 match = re.search(r'uuid\s*[:=]\s*"?([a-f0-9-]+)"?', stdout, re.I)
                 if match:
@@ -599,7 +602,7 @@ class XenDriver:
         # Get uptime
         code, stdout, _ = self.executor.run(["uptime", str(domid)], check=False)
         if code == 0:
-            # Parse uptime output
+        # Parse uptime output
             match = re.search(r"(\d+)\s*s", stdout)
             if match:
                 info["uptime"] = float(match.group(1))
@@ -866,7 +869,7 @@ class XenDriver:
         )
 
         if code == 0:
-            # Parse weight and cap
+        # Parse weight and cap
             params = {}
             for line in stdout.strip().split("\n"):
                 if "weight" in line.lower():

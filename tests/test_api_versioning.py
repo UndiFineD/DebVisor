@@ -329,7 +329,7 @@ class TestVersioningDecorators:
         @app.route("/api/<version>/users")
         @manager.versioned
         def get_users(version):
-            # Version is in g.api_version after decorator runs
+        # Version is in g.api_version after decorator runs
             from flask import g
 
             return {
@@ -376,7 +376,7 @@ class TestVersioningDecorators:
                 response, status_code = result
                 assert status_code == 410
             else:
-                # Or returns response object with status
+            # Or returns response object with status
                 assert True    # Decorator exists and works
 
 

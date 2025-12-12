@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -182,7 +185,7 @@ class NetworkConfig:
     def load_current_config(self) -> None:
         """Load current network configuration from system."""
         try:
-            # Try Linux first
+        # Try Linux first
             if os.path.exists("/sys/class/net"):
                 self._load_linux_config()
             # Try Windows
@@ -650,7 +653,7 @@ def main() -> int:
             return 1
 
     if not args.apply and not args.save:
-        # Interactive mode
+    # Interactive mode
         tui = NetworkConfigTUI()
         tui.run_interactive()
 

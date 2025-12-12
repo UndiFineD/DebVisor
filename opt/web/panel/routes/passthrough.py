@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -277,7 +280,7 @@ def rate_limit(limit: int = 60, window: int = 60, key_func: Optional[Callable[..
     def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(f)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Generate key
+        # Generate key
             if key_func:
                 key = key_func()
             else:
@@ -471,7 +474,7 @@ def api_list_profiles() -> Any:
 
     profiles = []
     for profile_id, profile in manager.PROFILES.items():
-        # Find matching devices
+    # Find matching devices
         matching = []
         for dev in manager._device_cache:
             if any(

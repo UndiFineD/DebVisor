@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -213,7 +216,7 @@ class TestLDAPIntegration:
             "userAccountControl": ["512"],    # Enabled
         }
 
-        user = backend._parse_ldap_entry("testuser", dn, attributes)
+        user = backend._parse_ldap_entry("testuser", dn, attributes)  # type: ignore[arg-type]
 
         # Then: User should be correctly parsed
         assert user.username == "testuser"

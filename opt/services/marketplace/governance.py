@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -301,24 +304,24 @@ class VulnerabilityScanner:
         """Check if installed version is affected."""
         # Simplified version checking
         for pattern in affected_versions:
-            # Check two-character operators first to avoid mis-parsing
+        # Check two-character operators first to avoid mis-parsing
             if "<=" in pattern:
-                # e.g., "<=2.31.0"
+            # e.g., "<=2.31.0"
                 threshold = pattern.replace("<=", "").strip()
                 if self._version_less_or_equal(installed_version, threshold):
                     return True
             elif ">=" in pattern:
-                # e.g., ">=1.0.0"
+            # e.g., ">=1.0.0"
                 threshold = pattern.replace(">=", "").strip()
                 if self._version_greater_or_equal(installed_version, threshold):
                     return True
             elif "<" in pattern:
-                # e.g., "<2.31.0"
+            # e.g., "<2.31.0"
                 threshold = pattern.replace("<", "").strip()
                 if self._version_less_than(installed_version, threshold):
                     return True
             elif ">" in pattern:
-                # e.g., ">1.0.0"
+            # e.g., ">1.0.0"
                 threshold = pattern.replace(">", "").strip()
                 if self._version_greater_than(installed_version, threshold):
                     return True
@@ -598,7 +601,7 @@ class GovernanceEngine:
                 if app_trust_value < min_trust_value:
                     return policy.action
             except (AttributeError, ValueError):
-                # If comparison fails, treat as untrusted (lowest rank)
+            # If comparison fails, treat as untrusted (lowest rank)
                 logger.warning(f"Trust level comparison failed for {app.name}, treating as BLOCKED")
                 if TrustLevel.BLOCKED.value < min_trust.value:
                     return policy.action

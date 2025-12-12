@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -218,7 +221,7 @@ class ConfigurationMonitor:
     ) -> Optional[ConfigurationDrift]:
         """Check a single resource for drift."""
         try:
-            # Get current configuration
+        # Get current configuration
             current_config = await self._get_current_config(
                 baseline.resource_type,
                 baseline.resource_id
@@ -455,7 +458,7 @@ class AutoRemediationEngine:
         """Find a remediation rule matching the drift."""
         for rule in self.rules.values():
             if rule.resource_type == drift.resource_type:
-                # Check if any violated policies match rule
+            # Check if any violated policies match rule
                 if any(
                     policy_id in rule.compliance_policy_ids
                     for policy_id in drift.compliance_policies_violated
@@ -503,7 +506,7 @@ class AutoRemediationEngine:
 
         # Semi-auto mode
         if rule.require_approval_threshold:
-            # Require approval for high severity
+        # Require approval for high severity
             severity_values = {
                 DriftSeverity.LOW: 1,
                 DriftSeverity.MEDIUM: 2,
@@ -544,7 +547,7 @@ class AutoRemediationEngine:
         )
 
         try:
-            # Execute remediation based on action type
+        # Execute remediation based on action type
             if rule.action == RemediationAction.REVERT_CONFIG:
                 success = await self._revert_configuration(
                     drift,
@@ -713,7 +716,7 @@ class ContinuousComplianceService:
 
         while self._running:
             try:
-                # Scan for drift
+            # Scan for drift
                 drifts = await self.monitor.scan_for_drift()
 
                 # Process each drift

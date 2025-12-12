@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -296,7 +299,7 @@ class CostEngine:
     def _init_default_pricing(self) -> None:
         """Initialize default pricing tiers."""
         default_prices = [
-            # CPU pricing (per vCPU-hour)
+        # CPU pricing (per vCPU-hour)
             PricingTier(
                 ResourceType.CPU, PricingModel.ON_DEMAND, Decimal("0.0500"), "vcpu-hour"
             ),
@@ -478,7 +481,7 @@ class CostEngine:
     def _update_budgets(self, record: CostRecord) -> None:
         """Update budget spend and check alerts."""
         for budget in self._budgets.values():
-            # Check if record matches budget scope
+        # Check if record matches budget scope
             if budget.tenant_id and budget.tenant_id != record.tenant_id:
                 continue
             if budget.project_id and budget.project_id != record.project_id:
@@ -878,7 +881,7 @@ if __name__ == "__main__":
                 )
 
     elif args.action == "demo":
-        # Create sample usage data
+    # Create sample usage data
         now = datetime.now(timezone.utc)
 
         for i in range(24):

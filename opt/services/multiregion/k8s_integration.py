@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -134,7 +137,7 @@ class K8sClusterManager:
         start_time = datetime.now(timezone.utc)
 
         if not HAS_K8S:
-            # Mock response
+        # Mock response
             await asyncio.sleep(0.1)
             return K8sClusterStatus(
                 cluster_name=context_name,
@@ -147,7 +150,7 @@ class K8sClusterManager:
             )
 
         try:
-            # Create client for specific context
+        # Create client for specific context
             # Note: This is simplified. Real implementation needs context switching logic.
             api_client = config.new_client_from_config(context=context_name)
             v1 = client.CoreV1Api(api_client)
@@ -220,12 +223,12 @@ class K8sClusterManager:
             return True
 
         try:
-            # 1. Scale down in source (if reachable)
+        # 1. Scale down in source (if reachable)
             try:
                 source_client = config.new_client_from_config(context=source_context)
                 source_apps = client.AppsV1Api(source_client)
                 for workload in workloads:
-                    # Simplified: assuming default namespace
+                # Simplified: assuming default namespace
                     await asyncio.to_thread(
                         source_apps.patch_namespaced_deployment_scale,
                         name=workload,
@@ -240,7 +243,7 @@ class K8sClusterManager:
             target_apps = client.AppsV1Api(target_client)
 
             for workload in workloads:
-                # In real world, we'd need to ensure deployment exists in target first (CI/CD or GitOps)
+            # In real world, we'd need to ensure deployment exists in target first (CI/CD or GitOps)
                 # Here we assume it exists but is scaled to 0
                 await asyncio.to_thread(
                     target_apps.patch_namespaced_deployment_scale,

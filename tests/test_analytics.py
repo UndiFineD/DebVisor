@@ -211,7 +211,7 @@ class TestAnalyticsEngine(unittest.TestCase):
 
         key = (MetricType.CPU_USAGE, self.resource_id)
         if key in self.engine.data_points:
-            # Verify old data is removed
+        # Verify old data is removed
             for point in self.engine.data_points[key]:
                 self.assertGreater(point.timestamp, old_time + timedelta(days=35))
 

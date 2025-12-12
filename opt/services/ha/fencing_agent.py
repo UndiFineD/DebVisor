@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -225,7 +228,7 @@ class IPMIFenceDriver(FenceDriver):
         """Verify node power state is off."""
         result = self.execute(target, FenceAction.STATUS)
         if result == FenceResult.SUCCESS:
-            # Check stdout from last command for "off" state
+        # Check stdout from last command for "off" state
             return True    # Would need to capture and parse output
         return False
 
@@ -350,16 +353,16 @@ class WatchdogFenceDriver(FenceDriver):
         logger.warning(f"Watchdog: Triggering self-fence on {target.node_id}")
 
         try:
-            # Write 'V' to cleanly close, or just close to trigger reboot
+        # Write 'V' to cleanly close, or just close to trigger reboot
             watchdog_path = Path(self.device)
             if watchdog_path.exists():
-                # Opening and closing without magic close triggers reboot
+            # Opening and closing without magic close triggers reboot
                 with open(self.device, "w"):
-                    # Don't write magic close character - this triggers reset
+                # Don't write magic close character - this triggers reset
                     pass
                 return FenceResult.SUCCESS
             else:
-                # Try software watchdog via sysrq
+            # Try software watchdog via sysrq
                 sysrq = Path("/proc/sysrq-trigger")
                 if sysrq.exists():
                     with open(sysrq, "w") as f:
@@ -390,14 +393,14 @@ class CephStorageFenceDriver(FenceDriver):
         client_addr = params.get("client_addr")
 
         if not client_addr:
-            # Try to resolve from hostname
+        # Try to resolve from hostname
             client_addr = target.hostname
 
         if action == FenceAction.OFF:
-            # Add to blocklist
+        # Add to blocklist
             cmd = ["ceph", "osd", "blocklist", "add", client_addr]
         elif action == FenceAction.ON:
-            # Remove from blocklist
+        # Remove from blocklist
             cmd = ["ceph", "osd", "blocklist", "rm", client_addr]
         else:
             return FenceResult.SKIPPED
@@ -542,7 +545,7 @@ class FencingAgent:
             self._record_event(event)
 
             if result == FenceResult.SUCCESS:
-                # Optionally verify
+            # Optionally verify
                 if verify and action == FenceAction.OFF:
                     time.sleep(5)    # Wait for power state change
                     if not driver.verify(target):
@@ -716,7 +719,7 @@ if __name__ == "__main__":
         print(json.dumps(status, indent=2))
 
     elif args.action == "test":
-        # Register a test target
+    # Register a test target
         target = FenceTarget(
             node_id="test-node-01",
             hostname="test-node-01.local",

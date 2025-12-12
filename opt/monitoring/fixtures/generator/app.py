@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -102,7 +105,7 @@ class Series:
             mx = float(self.shape.get("max", 100))
             self.value = random.uniform(mn, mx)    # nosec B311
         else:
-            # default ramp
+        # default ramp
             self.value += float(self.shape.get("step", 1))
 
         if self.type == "counter":

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -101,7 +104,7 @@ class GraphQLAuthenticator:
                 exp_dt = expires_at
             elif isinstance(expires_at, str):
                 try:
-                    # Expect ISO 8601 string; parse deterministically
+                # Expect ISO 8601 string; parse deterministically
                     exp_dt = datetime.fromisoformat(expires_at)
                     # If naive, assume UTC
                     if exp_dt.tzinfo is None:

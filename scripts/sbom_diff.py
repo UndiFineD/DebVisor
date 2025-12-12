@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -172,7 +175,7 @@ class SBOMDiffer:
             print(f"[U+1F504] Updated Dependencies ({len(updated)}):")
             print("-" * 80)
             for name, old_ver, new_ver in updated:
-                # Simple version comparison to indicate upgrade/downgrade
+            # Simple version comparison to indicate upgrade/downgrade
                 symbol = "?" if self._is_version_increase(old_ver, new_ver) else "?"
                 print(f"  {symbol} {name}: {old_ver} -> {new_ver}")
             print()

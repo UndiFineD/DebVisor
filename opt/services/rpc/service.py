@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -106,7 +109,7 @@ class RPCService:
 
         # Make RPC call with automatic pooling and compression
         async with service.call("2.0", "list_nodes") as response:
-            # Use response
+        # Use response
             pass
 
         await service.shutdown()
@@ -187,7 +190,7 @@ class RPCService:
         start_time = time.time()
 
         try:
-            # Validate version
+        # Validate version
             if not self.version_negotiator.validate_version(version):
                 raise ValueError(f"Unsupported API version: {version}")
 
@@ -198,7 +201,7 @@ class RPCService:
 
             # Acquire connection from pool
             async with self.connection_pool.acquire() as pooled_conn:
-                # Compress request if appropriate
+            # Compress request if appropriate
                 compressed_request = request_data
                 request_algo = None
 
@@ -365,7 +368,7 @@ class HealthCheckService:
             Health status dictionary
         """
         try:
-            # Check if service is initialized
+        # Check if service is initialized
             if not self.rpc_service._initialized:
                 return {"status": "NOT_READY", "reason": "Service not initialized"}
 

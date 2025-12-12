@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -273,7 +276,7 @@ async def main_async() -> None:
             print(f"  {node}: {status}")
 
     elif args.command == "list":
-        # Simple listing
+    # Simple listing
         if not store.storage_dir.exists():
             print("No versions found.")
             return 0  # type: ignore[return-value]

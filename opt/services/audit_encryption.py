@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -389,7 +392,7 @@ class FieldEncryptor:
         import hmac
 
         if salt is None:
-            # Use key material as salt for deterministic hashing
+        # Use key material as salt for deterministic hashing
             key = self._keys.get(self._active_key_id) if self._active_key_id else None
             salt = key.key_material if key else b""
 

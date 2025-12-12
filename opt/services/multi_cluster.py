@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -380,7 +383,7 @@ class ServiceDiscovery:
         """
         for service in self.registry.services.values():
             if service.name == service_name:
-                # Filter by region if specified
+            # Filter by region if specified
                 if region:
                     clusters_in_region = []
                     for c_id in service.clusters.keys():
@@ -503,7 +506,7 @@ class StateSynchronizer:
                 continue
 
             try:
-                # Execute sync callbacks
+            # Execute sync callbacks
                 callbacks = self.sync_callbacks.get(sync_state.resource_type, [])
                 for callback in callbacks:
                     await callback(sync_state)
@@ -564,7 +567,7 @@ class LoadBalancer:
             )
 
         elif policy == "nearest":
-            # Find nearest cluster based on latency
+        # Find nearest cluster based on latency
             return min(
                 healthy_clusters,
                 key=lambda c: c.metrics.network_latency_ms if c.metrics else 1000,
@@ -598,7 +601,7 @@ class LoadBalancer:
         )
 
         if total_capacity <= 0:
-            # Even distribution if all saturated
+        # Even distribution if all saturated
             count_per_cluster = work_items // len(healthy_clusters)
             remainder = work_items % len(healthy_clusters)
             for i, cluster in enumerate(healthy_clusters):
@@ -606,7 +609,7 @@ class LoadBalancer:
                     1 if i < remainder else 0
                 )
         else:
-            # Capacity-weighted distribution
+        # Capacity-weighted distribution
             allocated = 0
             for i, cluster in enumerate(healthy_clusters):
                 capacity = 100 - (
@@ -614,7 +617,7 @@ class LoadBalancer:
                 )
                 proportion = capacity / total_capacity
                 if i == len(healthy_clusters) - 1:
-                    # Give remainder to last cluster to ensure sum equals work_items
+                # Give remainder to last cluster to ensure sum equals work_items
                     distribution[cluster.cluster_id] = work_items - allocated
                 else:
                     count = max(1, int(work_items * proportion))

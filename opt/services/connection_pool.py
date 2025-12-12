@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -480,10 +483,10 @@ class ConnectionPool(Generic[T]):
             raise ConnectionError(f"Pool '{self.name}' circuit breaker is open")
 
         async with self._lock:
-            # Try to find an idle connection
+        # Try to find an idle connection
             for conn in self._connections:
                 if conn.state == ConnectionState.IDLE:
-                    # Validate if required
+                # Validate if required
                     if self.config.validation_on_borrow:
                         if not await self._validate_connection(conn):
                             await self._recycle_connection(conn)
@@ -646,7 +649,7 @@ class ConnectionPool(Generic[T]):
                 await asyncio.sleep(60.0)    # Check every minute
 
                 async with self._lock:
-                    # Remove idle connections above minimum
+                # Remove idle connections above minimum
                     idle_to_remove: List[PooledConnection[T]] = []
 
                     for conn in self._connections:
@@ -682,7 +685,7 @@ class ConnectionPool(Generic[T]):
             if datetime.now(timezone.utc) < self._circuit_open_until:
                 return True
             else:
-                # Reset for half-open test
+            # Reset for half-open test
                 self._circuit_open_until = None
 
         return False
@@ -827,7 +830,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     async def main() -> None:
-        # Create pool
+    # Create pool
         pool = await create_redis_pool(
             url="redis://localhost:6379/0",
             name="test-redis",

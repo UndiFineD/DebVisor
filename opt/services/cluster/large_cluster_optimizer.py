@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -391,7 +394,7 @@ class DeltaStateSynchronizer:
             return None
 
         if since_version == 0 or since_version not in self._version_index:
-            # Full sync needed
+        # Full sync needed
             return StateDelta(  # type: ignore[call-arg]
                 version=self._current_version,
                 timestamp=time.time(),
@@ -485,21 +488,21 @@ class BinPackingScheduler:
 
         # Calculate score based on strategy
         if self.strategy == SchedulingStrategy.BINPACK:
-            # Prefer nodes with less available resources (pack tightly)
+        # Prefer nodes with less available resources (pack tightly)
             cpu_score = 1.0 - (cpu_available / max(node.cpu_allocatable, 1))
             memory_score = 1.0 - (memory_available / max(node.memory_allocatable, 1))
             score = (cpu_score + memory_score) / 2
             reasons.append("binpack: preferring fuller nodes")
 
         elif self.strategy == SchedulingStrategy.SPREAD:
-            # Prefer nodes with more available resources (spread out)
+        # Prefer nodes with more available resources (spread out)
             cpu_score = cpu_available / max(node.cpu_allocatable, 1)
             memory_score = memory_available / max(node.memory_allocatable, 1)
             score = (cpu_score + memory_score) / 2
             reasons.append("spread: preferring emptier nodes")
 
         elif self.strategy == SchedulingStrategy.BALANCED:
-            # Balance CPU and memory utilization
+        # Balance CPU and memory utilization
             cpu_util = node.cpu_used / max(node.cpu_allocatable, 1)
             memory_util = node.memory_used / max(node.memory_allocatable, 1)
             imbalance = abs(cpu_util - memory_util)
@@ -507,7 +510,7 @@ class BinPackingScheduler:
             reasons.append(f"balanced: imbalance={imbalance:.2f}")
 
         else:    # ZONE_AWARE
-            # Will be handled at higher level
+        # Will be handled at higher level
             score = 0.5
 
         # Bonus for node conditions
@@ -539,7 +542,7 @@ class BinPackingScheduler:
             candidates: List[Tuple[float, str, List[str]]] = []
 
             for node_id, node in self._nodes.items():
-                # Skip already used nodes for anti-affinity
+            # Skip already used nodes for anti-affinity
                 if anti_affinity_workloads and node_id in used_nodes:
                     continue
 
@@ -929,7 +932,7 @@ class EtcdOptimizer:
         results = {}
         for endpoint in self.endpoints:
             try:
-                # etcdctl defrag --endpoints=<endpoint>
+            # etcdctl defrag --endpoints=<endpoint>
                 logger.info(f"Defragmenting etcd: {endpoint}")
                 results[endpoint] = True
             except Exception as e:
@@ -940,7 +943,7 @@ class EtcdOptimizer:
     async def compact(self, revision: Optional[int] = None) -> bool:
         """Compact etcd history."""
         try:
-            # etcdctl compact <revision>
+        # etcdctl compact <revision>
             logger.info(f"Compacting etcd to revision {revision}")
             return True
         except Exception as e:

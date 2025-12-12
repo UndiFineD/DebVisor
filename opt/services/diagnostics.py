@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -172,7 +175,7 @@ class CPUDiagnostics(DiagnosticCheck):
         start = datetime.now(timezone.utc)
 
         try:
-            # Get CPU metrics
+        # Get CPU metrics
             cpu_percent = psutil.cpu_percent(interval=1)
             cpu_count = psutil.cpu_count()
             cpu_freq = psutil.cpu_freq()
@@ -225,7 +228,7 @@ class MemoryDiagnostics(DiagnosticCheck):
         start = datetime.now(timezone.utc)
 
         try:
-            # Get memory metrics
+        # Get memory metrics
             memory = psutil.virtual_memory()
             swap = psutil.swap_memory()
 
@@ -291,7 +294,7 @@ class DiskDiagnostics(DiagnosticCheck):
         start = datetime.now(timezone.utc)
 
         try:
-            # Get disk metrics
+        # Get disk metrics
             disk = psutil.disk_usage(self.mount_point)
             io = psutil.disk_io_counters()
 
@@ -357,13 +360,13 @@ class NetworkDiagnostics(DiagnosticCheck):
         start = datetime.now(timezone.utc)
 
         try:
-            # Get network metrics
+        # Get network metrics
             net_if = psutil.net_if_stats()
             net_io = psutil.net_io_counters()
 
             # Test connectivity
             try:
-                # nosec B603, B607 - ping is safe here, and we handle platform differences
+            # nosec B603, B607 - ping is safe here, and we handle platform differences
                 ping_cmd = (
                     "ping" if __import__("sys").platform == "win32" else "/usr/bin/ping"
                 )

@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -278,7 +281,7 @@ class APIKeyManager:
         # Find key by hash
         for key_obj in self.keys.values():
             if key_obj.key_hash == key_hash:
-                # Check status
+            # Check status
                 if key_obj.status in [KeyStatus.EXPIRED, KeyStatus.REVOKED]:
                     logger.warning(
                         f"Rejected {key_obj.status.value} key: "

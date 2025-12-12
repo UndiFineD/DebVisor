@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -258,7 +261,7 @@ class L1Cache(CacheProvider):
         async with self._lock:
             try:
                 if len(self.data) >= self.max_size:
-                    # Evict least recently used entry
+                # Evict least recently used entry
                     lru_key = min(
                         self.data.keys(), key=lambda k: self.data[k].accessed_at
                     )
@@ -489,7 +492,7 @@ class HybridCache(CacheProvider):
         if self.strategy != CacheStrategy.L1_ONLY:
             value = await self.l2.get(key)
             if value is not None:
-                # Populate L1 for next access
+            # Populate L1 for next access
                 if self.strategy != CacheStrategy.L2_ONLY:
                     await self.l1.set(key, value, 3600)
                 self.metrics.hits += 1
@@ -507,12 +510,12 @@ class HybridCache(CacheProvider):
         elif self.strategy == CacheStrategy.L2_ONLY:
             return await self.l2.set(key, value, ttl_seconds)
         elif self.strategy == CacheStrategy.L1_L2:
-            # Write-through: set both
+        # Write-through: set both
             l1_ok = await self.l1.set(key, value, ttl_seconds)
             l2_ok = await self.l2.set(key, value, ttl_seconds)
             return l1_ok and l2_ok
         else:    # L1_L2_WRITE_BACK
-            # Write L1 first, async write L2
+        # Write L1 first, async write L2
             l1_ok = await self.l1.set(key, value, ttl_seconds)
             if l1_ok:
                 asyncio.create_task(self.l2.set(key, value, ttl_seconds))
@@ -568,7 +571,7 @@ def cached(
     def decorator(func: CacheF) -> CacheF:
         @functools.wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Generate cache key from function name and arguments
+        # Generate cache key from function name and arguments
             key_data = f"{key_prefix}:{func.__name__}:{str(args)}:{str(kwargs)}"
             cache_key = f"{key_prefix}:{hashlib.sha256(key_data.encode()).hexdigest()}"
 

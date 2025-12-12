@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -569,7 +572,7 @@ class LicenseManager:
         # Check expiration
         if bundle.features.expires_at:
             if now > bundle.features.expires_at:
-                # Check grace period
+            # Check grace period
                 grace_until = bundle.features.grace_until
                 if grace_until and now <= grace_until:
                     logger.warning(
@@ -649,7 +652,7 @@ class LicenseManager:
             try:
                 feature = FeatureFlag(feature)
             except ValueError:
-                # Check custom features
+            # Check custom features
                 return bundle.features.custom_features.get(feature, False)  # type: ignore[arg-type]
 
         return feature in bundle.features.enabled_features
@@ -839,7 +842,7 @@ def require_feature(
 
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs):
-            # Get manager from args or global
+        # Get manager from args or global
             manager = kwargs.get("license_manager") or getattr(
                 args[0], "_license_manager", None
             )
@@ -886,7 +889,7 @@ if __name__ == "__main__":
         print(f"Hardware Fingerprint: {fp}")
 
     elif args.action == "status":
-        # Try to load from cache
+    # Try to load from cache
         manager.load_from_cache()
         status = manager.get_status()
         if args.json:

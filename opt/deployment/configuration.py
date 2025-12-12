@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -476,7 +479,7 @@ class DeploymentPlan:
         manifests = {}
 
         for name, config in self.components.items():
-            # Generate deployment
+        # Generate deployment
             manifest_name = f"{name}-deployment.yaml"
             manifests[manifest_name] = KubernetesManifestGenerator.generate_deployment(
                 config

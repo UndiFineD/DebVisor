@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -79,7 +82,7 @@ def liveness() -> Any:
     Used by Kubernetes liveness probes.
     """
     try:
-        # Basic health check - can the app respond?
+    # Basic health check - can the app respond?
         return (
             jsonify(
                 {

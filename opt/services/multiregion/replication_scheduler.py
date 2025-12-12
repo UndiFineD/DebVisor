@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -430,7 +433,7 @@ class JobQueue:
     def push(self, job: ReplicationJob) -> None:
         """Add job to queue."""
         with self._lock:
-            # Priority tuple: (priority_value, timestamp, job)
+        # Priority tuple: (priority_value, timestamp, job)
             priority_key = (job.priority.value, time.time())
             heapq.heappush(self._queue, (priority_key[0], priority_key[1], job))
             self._job_map[job.id] = job
@@ -707,11 +710,11 @@ class ReplicationScheduler:
         job.started_at = datetime.now(timezone.utc)
 
         try:
-            # Get changes to sync
+        # Get changes to sync
             if job.sync_type == SyncType.FULL:
                 since = datetime.min.replace(tzinfo=timezone.utc)
             else:
-                # Get last successful sync time
+            # Get last successful sync time
                 last_job = self._get_last_successful_job(
                     job.policy_id, job.target_region
                 )
@@ -965,11 +968,11 @@ class ReplicationScheduler:
                 job = self._job_queue.pop()
 
                 if job:
-                    # Check if scheduled time has passed
+                # Check if scheduled time has passed
                     if job.scheduled_at and job.scheduled_at > datetime.now(
                         timezone.utc
                     ):
-                        # Re-queue if not yet time
+                    # Re-queue if not yet time
                         self._job_queue.push(job)
                         await asyncio.sleep(1)
                         continue
@@ -997,7 +1000,7 @@ class ReplicationScheduler:
         while self._running:
             try:
                 for region in self._regions.values():
-                    # Simulate health check (in production, ping endpoint)
+                # Simulate health check (in production, ping endpoint)
                     region.last_health_check = datetime.now(timezone.utc)
 
                 await asyncio.sleep(self._health_check_interval)
@@ -1023,7 +1026,7 @@ class ReplicationScheduler:
                     last_run = policy_last_run.get(policy.id)
 
                     if last_run is None:
-                        # First run
+                    # First run
                         policy_last_run[policy.id] = now
                         continue
 

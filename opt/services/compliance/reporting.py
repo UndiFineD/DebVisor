@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -116,7 +119,7 @@ class ComplianceReporter:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
         if format.lower() == "pdf":
-            # PDF generation requires reportlab or similar.
+        # PDF generation requires reportlab or similar.
             # Fallback to HTML if not available, but try to simulate PDF path
             logger.warning("PDF generation not supported (missing libraries). Falling back to HTML.")
             content = self._generate_html(report_data)

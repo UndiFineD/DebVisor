@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -162,7 +165,7 @@ def get_local_ip() -> str:
     """Best effort to get the primary LAN IP."""
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # doesn't even have to be reachable
+    # doesn't even have to be reachable
         s.connect(("10.255.255.255", 1))
         IP = s.getsockname()[0]
     except Exception:

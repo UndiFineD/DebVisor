@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -156,7 +159,7 @@ def parse_mypy_errors(error_file: str) -> Dict[Tuple[str, int], List[str]]:
 
     with open(error_file, 'r') as f:
         for line in f:
-            # Skip note lines
+        # Skip note lines
             if " note: " in line:
                 continue
 
@@ -317,7 +320,7 @@ def apply_suggestions(
 
             # Check if line already has type: ignore
             if "# type: ignore" in line:
-                # Update existing comment
+            # Update existing comment
                 existing_match = re.search(r"# type: ignore(?:\[([^\]]*)\])?", line)
                 if existing_match:
                     existing_codes_str = existing_match.group(1) or ""
@@ -336,7 +339,7 @@ def apply_suggestions(
                     new_line = re.sub(r"# type: ignore(?:\[[^\]]*\])?.*$", comment, line)
                     lines[idx] = new_line
             else:
-                # Add new type: ignore comment
+            # Add new type: ignore comment
                 code_str = ", ".join(sorted(suggestion.codes))
                 comment = f"# type: ignore[{code_str}]"
                 if require_comment:

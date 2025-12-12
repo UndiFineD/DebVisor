@@ -19,6 +19,9 @@
 
 # !/usr/bin/env python3
 
+
+# !/usr/bin/env python3
+
 # !/usr/bin/env python3
 
 # !/usr/bin/env python3
@@ -175,7 +178,7 @@ class SchedulerAPI:
             return self._error_response("Invalid JSON", 400)
 
         try:
-            # Validate required fields
+        # Validate required fields
             required_fields = ["name", "cron_expression", "task_type", "task_config"]
             for field in required_fields:
                 if field not in data:
