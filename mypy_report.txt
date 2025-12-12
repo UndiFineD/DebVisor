@@ -1,3 +1,15 @@
-scripts\fix_all_errors.py:2100: error: Name "fixed_content" already defined on line 2070  [no-redef]
-scripts\fix_all_errors.py:2666: error: Argument 3 to "add" of "RunStats" has incompatible type "object | Any"; expected "int"  [arg-type]
-Found 2 errors in 1 file (checked 1 source file)
+opt\services\virtualization\xen_manager.py:208: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\virtualization\xen_manager.py:663: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\ops\ai_runbooks.py:220: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\ops\ai_runbooks.py:667: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\observability\carbon_telemetry.py:234: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\observability\carbon_telemetry.py:235: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\observability\carbon_telemetry.py:236: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\observability\carbon_telemetry.py:237: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\observability\carbon_telemetry.py:713: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\marketplace\governance.py:238: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\marketplace\governance.py:517: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\compliance\auto_remediation.py:210: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\compliance\auto_remediation.py:211: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+opt\services\compliance\auto_remediation.py:212: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Success: no issues found in 234 source files

@@ -637,7 +637,7 @@ class MarkdownFixer(BaseFixer):
             lines = filepath.read_text(encoding='utf-8').splitlines(keepends=True)
             output = []
             i = 0
-            fence_stack = []  # Track if we're inside a code block  # type: ignore[var-annotated]
+            fence_stack: List[bool] = []  # Track if we're inside a code block
 
             while i < len(lines):
                 line = lines[i]
@@ -2750,12 +2750,10 @@ class CI_RemainingLineLengthFixer(BaseFixer):
                 if modified and self.apply:
                     filepath.write_text('\n'.join(lines), encoding="utf-8")
                     for ln in line_nums:
-                        if ln <= len(lines):  # type: ignore[operator]
-                            stats.add(str(filepath), "Lint Quality", ln, "Broke remaining long line",
-                            # type: ignore[arg-type]
-                            # type: ignore[arg-type]
-                            # type: ignore[arg-type]
-                                fixed=True)  # type: ignore[arg-type]
+                        line_num_int: int = int(ln)  # type: ignore[arg-type]
+                        if line_num_int <= len(lines):
+                            stats.add(str(filepath), "Lint Quality", line_num_int, "Broke remaining long line",
+                                fixed=True)
             except Exception as e:
                 logger.debug(f"Error in {filepath}: {e}")
 
