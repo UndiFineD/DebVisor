@@ -1,12 +1,20 @@
 # Notification Report
 
 **Repository:** UndiFineD/DebVisor
-**Unread Notifications:** 98
+**Unread Notifications:** 106
 
 Generated via GitHub CLI.
 
 | ID | Type | Reason | Updated | Title | Link |
 |----|------|--------|---------|-------|------|
+| 21155062184 | CheckSuite | ci_activity | 2025-12-12 04:10:39 UTC | Commitlint workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions) |
+| 21155051673 | CheckSuite | ci_activity | 2025-12-12 04:09:53 UTC | Commitlint workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions) |
+| 21154997058 | CheckSuite | ci_activity | 2025-12-12 04:06:08 UTC | .github/workflows/architecture.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/architecture.yml) |
+| 21154997294 | CheckSuite | ci_activity | 2025-12-12 04:06:10 UTC | .github/workflows/validate-fixtures.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-fixtures.yml) |
+| 21154997161 | CheckSuite | ci_activity | 2025-12-12 04:06:09 UTC | .github/workflows/actions-diagnostics.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/actions-diagnostics.yml) |
+| 21154997002 | CheckSuite | ci_activity | 2025-12-12 04:06:08 UTC | .github/workflows/notifications.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/notifications.yml) |
+| 21154996891 | CheckSuite | ci_activity | 2025-12-12 04:06:08 UTC | .github/workflows/performance.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/performance.yml) |
+| 21154996671 | CheckSuite | ci_activity | 2025-12-12 04:06:07 UTC | .github/workflows/mutation-testing.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/mutation-testing.yml) |
 | 21154996718 | CheckSuite | ci_activity | 2025-12-12 04:06:07 UTC | .github/workflows/push-generator.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/push-generator.yml) |
 | 21154996495 | CheckSuite | ci_activity | 2025-12-12 04:06:06 UTC | .github/workflows/validate-configs.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/validate-configs.yml) |
 | 21154996505 | CheckSuite | ci_activity | 2025-12-12 04:06:06 UTC | .github/workflows/container-scan.yml workflow run failed for main branch | [View](https://github.com/UndiFineD/DebVisor/actions/workflows/container-scan.yml) |
