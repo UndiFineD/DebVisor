@@ -1,9 +1,8 @@
 Fix All Errors Report
 =====================
 
-Total Issues Found: 246
+Total Issues Found: 240
 Summary by Type:
-  E116: 6
   Flake8 E265: 234
   MyPy: 4
   NotificationsReport: 1
@@ -250,9 +249,3 @@ Details:
 [FIXED] Flake8 E265 | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\test_validate_blocklists.py:66 | Block comment should start with '# '
 [FIXED] Flake8 E265 | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\test_validate_blocklists.py:68 | Block comment should start with '# '
 [FIXED] Flake8 E265 | C:\Users\kdejo\DEV\DebVisor\etc\debvisor\test_validate_blocklists.py:73 | Block comment should start with '# '
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:181 | Fixed unexpected comment indentation
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3231 | Fixed unexpected comment indentation
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3341 | Fixed unexpected comment indentation
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3352 | Fixed unexpected comment indentation
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3395 | Fixed unexpected comment indentation
-[FIXED] E116 | C:\Users\kdejo\DEV\DebVisor\scripts\fix_all_errors.py:3513 | Fixed unexpected comment indentation
