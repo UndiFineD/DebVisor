@@ -86,8 +86,8 @@ Get-ChildItem -Recurse -Filter *.md | ForEach-Object {
 
 ## Issue Checklist
 
-- [ ] Integrate PyMarkdown and add a VS Code task
-- [ ] Add GitHub Action to run PyMarkdown and fixer tests on PRs
+- [x] Integrate PyMarkdown and add a VS Code task
+- [x] Add GitHub Action to run PyMarkdown and fixer tests on PRs
 - [ ] Audit code fences across docs and add language hints where clear
 - [ ] Document common developer tasks in [README.md](README.md)
 - [ ] Create a guide for optional tooling in [docs/OPTIONAL_TOOLS.md](docs/OPTIONAL_TOOLS.md)
