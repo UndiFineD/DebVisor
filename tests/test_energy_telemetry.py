@@ -1,7 +1,6 @@
 """
 Tests for Energy Telemetry.
 """
-import unittest
 import pytest
 from unittest.mock import patch, mock_open
 from opt.services.observability.energy import EnergyMonitor
