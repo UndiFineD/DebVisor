@@ -21,7 +21,7 @@ class TestSSHHardening(unittest.TestCase):
         self.assertIn("Ciphers chacha20-poly1305@openssh.com, aes256-gcm@openssh.com", config)
 
     def test_mfa_config_integration(self) -> None:
-    # Check if MFA settings are reflected in the config
+        # Check if MFA settings are reflected in the config
         self.manager.enable_mfa(True)
         config = self.manager.generate_sshd_config()
 

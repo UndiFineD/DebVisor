@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 
 from typing import Generator
 
+
 @pytest.fixture
 
 
@@ -286,7 +287,7 @@ class TestRollback:
 
         for attempt in range(max_verification_attempts):
             if attempt == max_verification_attempts - 1:
-            # Trigger rollback
+                # Trigger rollback
                 should_rollback = True
                 assert should_rollback
 

@@ -435,6 +435,7 @@ class TestSLOIntegration:
             )
 
         # Check compliance
+        pass  # Placeholder for compliance check logic
         _latency_compliance = tracker.check_compliance("latency-p99")
         _availability_compliance = tracker.check_compliance("availability")
 
