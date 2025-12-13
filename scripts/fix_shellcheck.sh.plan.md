@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_shellcheck.sh
 
-Generated: 2025-12-13T19:26:38.176120
+Generated: 2025-12-13T19:32:11.451127
 Status: INVALID
 
 ## File Structure Validation
