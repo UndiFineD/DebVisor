@@ -9,6 +9,7 @@ Tests for:
 """
 
 from datetime import datetime, timezone
+import unittest
 from unittest.mock import MagicMock, patch
 
 # Import CLI modules
@@ -26,13 +27,12 @@ class TestCephCLI(unittest.TestCase):
         self.cli = CephCLI(dry_run=False, verbose=False)
 
     @patch("subprocess.run")
-
     def test_get_cluster_metrics(self, mock_run):
         """Test getting cluster metrics."""
         mock_run.return_value = MagicMock(
-            _returncode = 0,
-            _stdout = '{"health": "HEALTH_OK", "pgmap": {"num_pgs": 100}, "osdmap": {"num_osds": 3}}',
-            _stderr = "",
+            returncode=0,
+            stdout='{"health": "HEALTH_OK", "pgmap": {"num_pgs": 100}, "osdmap": {"num_osds": 3}}',
+            stderr="",
         )
 
         result = self.cli.get_cluster_metrics()
@@ -41,17 +41,16 @@ class TestCephCLI(unittest.TestCase):
         self.assertEqual(result.health_status, "HEALTH_OK")
 
     @patch("subprocess.run")
-
     def test_analyze_pg_balance(self, mock_run):
         """Test PG balance analysis."""
         mock_run.return_value = MagicMock(
-            _returncode = 0,
-            _stdout = """{"pg_stat": [
+            returncode=0,
+            stdout="""{"pg_stat": [
                 {"pgs": [1], "osd": 0},
                 {"pgs": [2, 3], "osd": 1},
                 {"pgs": [], "osd": 2}
             ]}""",
-            _stderr = "",
+            stderr="",
         )
 
         result = self.cli.analyze_pg_balance()
@@ -60,7 +59,6 @@ class TestCephCLI(unittest.TestCase):
         self.assertIn("imbalance", str(result).lower())
 
     @patch("subprocess.run")
-
     def test_plan_osd_replacement(self, mock_run):
         """Test OSD replacement planning."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -72,7 +70,6 @@ class TestCephCLI(unittest.TestCase):
         self.assertGreater(len(result.replacement_steps), 0)
 
     @patch("subprocess.run")
-
     def test_optimize_pool(self, mock_run):
         """Test pool optimization."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -117,13 +114,12 @@ class TestHypervisorCLI(unittest.TestCase):
         self.cli = HypervisorCLI(dry_run=False, verbose=False)
 
     @patch("subprocess.run")
-
     def test_list_vms(self, mock_run):
         """Test listing VMs."""
         mock_run.return_value = MagicMock(
-            _returncode = 0,
-            _stdout = '[{"name": "vm1", "state": "running", "vcpus": 4, "memory": 8192}]',
-            _stderr = "",
+            returncode=0,
+            stdout='[{"name": "vm1", "state": "running", "vcpus": 4, "memory": 8192}]',
+            stderr="",
         )
 
         result = self.cli.list_vms()
@@ -132,7 +128,6 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertGreater(len(result), 0)
 
     @patch("subprocess.run")
-
     def test_plan_vm_migration_live(self, mock_run):
         """Test live VM migration planning."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -145,7 +140,6 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertGreater(len(result.pre_migration_steps), 0)
 
     @patch("subprocess.run")
-
     def test_plan_vm_migration_offline(self, mock_run):
         """Test offline VM migration planning."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -156,7 +150,6 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertGreater(result.estimated_duration_seconds, 100)
 
     @patch("subprocess.run")
-
     def test_manage_snapshot_create(self, mock_run):
         """Test snapshot creation."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -166,7 +159,6 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertIsNotNone(result)
 
     @patch("subprocess.run")
-
     def test_manage_snapshot_restore(self, mock_run):
         """Test snapshot restoration."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -176,11 +168,10 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertIsNotNone(result)
 
     @patch("subprocess.run")
-
     def test_plan_host_drain(self, mock_run):
         """Test host drain planning."""
         mock_run.return_value = MagicMock(
-            _returncode = 0, stdout='[{"name": "vm1", "state": "running"}]', stderr=""
+            returncode=0, stdout='[{"name": "vm1", "state": "running"}]', stderr=""
         )
 
         result = self.cli.plan_host_drain("host1")
@@ -189,7 +180,6 @@ class TestHypervisorCLI(unittest.TestCase):
         self.assertEqual(result.host_name, "host1")
 
     @patch("subprocess.run")
-
     def test_analyze_performance(self, mock_run):
         """Test hypervisor performance analysis."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -207,12 +197,11 @@ class TestKubernetesCLI(unittest.TestCase):
         self.cli = KubernetesCLI(cluster="test-cluster", dry_run=False, verbose=False)
 
     @patch("subprocess.run")
-
     def test_get_nodes(self, mock_run):
         """Test getting nodes."""
         mock_run.return_value = MagicMock(
-            _returncode = 0,
-            _stdout = """{
+            returncode=0,
+            stdout="""{{
                 "items": [{
                     "metadata": {"name": "node1"},
                     "spec": {"unschedulable": false},
@@ -222,7 +211,7 @@ class TestKubernetesCLI(unittest.TestCase):
                     }
                 }]
             }""",
-            _stderr = "",
+            stderr="",
         )
 
         result = self.cli.get_nodes()
@@ -231,11 +220,10 @@ class TestKubernetesCLI(unittest.TestCase):
         self.assertEqual(result[0].name, "node1")
 
     @patch("subprocess.run")
-
     def test_plan_node_drain(self, mock_run):
         """Test node drain planning."""
         mock_run.return_value = MagicMock(
-            _returncode = 0, stdout='{"items": []}', stderr=""
+            returncode=0, stdout='{"items": []}', stderr=""
         )
 
         result = self.cli.plan_node_drain("node1")
@@ -245,11 +233,10 @@ class TestKubernetesCLI(unittest.TestCase):
         self.assertGreater(len(result.drain_steps), 0)
 
     @patch("subprocess.run")
-
     def test_plan_workload_migration(self, mock_run):
         """Test workload migration planning."""
         mock_run.return_value = MagicMock(
-            _returncode = 0, stdout='{"kind": "Deployment"}', stderr=""
+            returncode=0, stdout='{"kind": "Deployment"}', stderr=""
         )
 
         result = self.cli.plan_workload_migration("app1", "default", "target-cluster")
@@ -259,11 +246,10 @@ class TestKubernetesCLI(unittest.TestCase):
             self.assertEqual(result.workload_name, "app1")
 
     @patch("subprocess.run")
-
     def test_monitor_performance(self, mock_run):
         """Test cluster performance monitoring."""
         mock_run.return_value = MagicMock(
-            _returncode = 0, stdout='{"items": []}', stderr=""
+            returncode=0, stdout='{"items": []}', stderr=""
         )
 
         result = self.cli.monitor_performance()
@@ -272,7 +258,6 @@ class TestKubernetesCLI(unittest.TestCase):
         self.assertGreaterEqual(result.cpu_utilization_percent, 0)
 
     @patch("subprocess.run")
-
     def test_scan_compliance(self, mock_run):
         """Test compliance scanning."""
         mock_run.return_value = MagicMock(returncode=0, stdout="{}", stderr="")
@@ -298,7 +283,6 @@ class TestKubernetesCLI(unittest.TestCase):
         self.assertEqual(rc, 0)
 
     @patch("subprocess.run")
-
     def test_command_timeout(self, mock_run):
         """Test command timeout handling."""
         import subprocess
@@ -371,17 +355,17 @@ class TestDataClasses(unittest.TestCase):
 
     def test_cluster_metrics_structure(self) -> None:
         """Test ClusterMetrics dataclass."""
-        _metrics = ClusterMetrics(
-            _health_status = "HEALTH_OK",
-            _total_capacity_bytes = 1000000,
-            _used_capacity_bytes = 500000,
-            _available_capacity_bytes = 500000,
-            _total_pgs = 100,
-            _active_pgs = 95,
-            _degraded_pgs = 5,
+        metrics = ClusterMetrics(
+            health_status="HEALTH_OK",
+            total_capacity_bytes=1000000,
+            used_capacity_bytes=500000,
+            available_capacity_bytes=500000,
+            total_pgs=100,
+            active_pgs=95,
+            degraded_pgs=5,
             osd_count=3,
-            _pool_count = 2,
-            _timestamp = datetime.now(timezone.utc).isoformat(),
+            pool_count=2,
+            timestamp=datetime.now(timezone.utc).isoformat(),
         )
 
         self.assertEqual(metrics.health_status, "HEALTH_OK")
@@ -389,15 +373,15 @@ class TestDataClasses(unittest.TestCase):
 
     def test_node_drain_plan_structure(self) -> None:
         """Test NodeDrainPlan dataclass."""
-        _plan = NodeDrainPlan(
-            _node_name = "node1",
-            _cluster = "default",
-            _total_pods = 10,
-            _evictable_pods = 8,
-            _critical_pods = ["ns/pod1"],
+        plan = NodeDrainPlan(
+            node_name="node1",
+            cluster="default",
+            total_pods=10,
+            evictable_pods=8,
+            critical_pods=["ns/pod1"],
             drain_steps=["step1", "step2"],
-            _estimated_duration_minutes = 5,
-            _risk_assessment = "Low",
+            estimated_duration_minutes=5,
+            risk_assessment="Low",
         )
 
         self.assertEqual(plan.node_name, "node1")

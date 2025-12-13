@@ -33,31 +33,31 @@ from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set
 
 logging.basicConfig(level=logging.INFO)
-_logger=logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class ResourceType(Enum):
     """Supported resource types."""
 
-    CLUSTER="cluster"
-    NODE="node"
-    POD="pod"
-    VOLUME="volume"
-    SERVICE="service"
-    INGRESS="ingress"
-    CONFIG="config"
-    VM="vm"
-    HOST="host"
+    CLUSTER = "cluster"
+    NODE = "node"
+    POD = "pod"
+    VOLUME = "volume"
+    SERVICE = "service"
+    INGRESS = "ingress"
+    CONFIG = "config"
+    VM = "vm"
+    HOST = "host"
 
 
 class OperationStatus(Enum):
     """Operation execution status."""
 
-    PENDING="pending"
-    RUNNING="running"
-    SUCCESS="success"
-    FAILED="failed"
-    CANCELLED="cancelled"
+    PENDING = "pending"
+    RUNNING = "running"
+    SUCCESS = "success"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
 
 
 @dataclass
@@ -85,8 +85,8 @@ class QueryContext:
     user_id: str
     cluster: str
     namespace: Optional[str] = None
-    timeout_seconds: int=30
-    enable_cache: bool=True
+    timeout_seconds: int = 30
+    enable_cache: bool = True
 
 
 @dataclass
@@ -95,7 +95,7 @@ class DataLoaderCache:
 
     cache: Dict[str, Any] = field(default_factory=dict)
     pending_keys: Set[str] = field(default_factory=set)
-    batch_size: int=100
+    batch_size: int = 100
 
 
 class DataLoader:
@@ -105,7 +105,7 @@ class DataLoader:
     Reduces N+1 query problems by batching multiple requests.
     """
 
-    def __init__(self, batchload_fn: Callable[..., Any], batchsize: int=100) -> None:
+    def __init__(self, batch_load_fn: Callable[..., Any], batch_size: int = 100) -> None:
         """
         Initialize DataLoader.
 
@@ -113,8 +113,8 @@ class DataLoader:
             batch_load_fn: Async function to batch load data
             batch_size: Maximum batch size
         """
-        self.batch_load_fn=batch_load_fn  # type: ignore[name-defined]
-        self.batch_size=batch_size  # type: ignore[name-defined]
+        self.batch_load_fn = batch_load_fn
+        self.batch_size = batch_size
         self.cache: Dict[str, Any] = {}
         self.queue: List[str] = []
 
@@ -155,10 +155,10 @@ class DataLoader:
         Returns:
             List of loaded items
         """
-        results=[]
+        results = []
         for key in keys:
-            _result=await self.load(key)
-            results.append(result)  # type: ignore[name-defined]
+            result = await self.load(key)
+            results.append(result)
 
         await self._flush()
         return results
@@ -168,21 +168,21 @@ class DataLoader:
         if not self.queue:
             return
 
-        keys=self.queue[: self.batch_size]
-        self.queue=self.queue[self.batch_size :]
+        keys = self.queue[: self.batch_size]
+        self.queue = self.queue[self.batch_size :]
 
         try:
-            _results=await self.batch_load_fn(keys)
+            results = await self.batch_load_fn(keys)
             # Handle both dict and list results
-            if isinstance(results, dict):  # type: ignore[name-defined]
+            if isinstance(results, dict):
                 for key in keys:
-                    if key in results:  # type: ignore[name-defined]
-                        self.cache[key] = results[key]  # type: ignore[name-defined]
+                    if key in results:
+                        self.cache[key] = results[key]
             else:
-                for key, result in zip(keys, results):  # type: ignore[name-defined]
+                for key, result in zip(keys, results):
                     self.cache[key] = result
         except Exception as e:
-            logger.error(f"Batch load error: {e}")  # type: ignore[name-defined]
+            logger.error(f"Batch load error: {e}")
 
 
 class GraphQLSchema:
@@ -456,7 +456,7 @@ class GraphQLSchema:
             },
         }
 
-    def get_type(self, typename: str) -> Optional[Dict[str, Any]]:
+    def get_type(self, type_name: str) -> Optional[Dict[str, Any]]:
         """
         Get type definition.
 
@@ -466,7 +466,7 @@ class GraphQLSchema:
         Returns:
             Type definition or None
         """
-        return self.types.get(type_name)  # type: ignore[name-defined]
+        return self.types.get(type_name)
 
     def get_query_fields(self) -> Dict[str, Any]:
         """
@@ -510,11 +510,11 @@ class GraphQLResolver:
         Args:
             schema: GraphQL schema
         """
-        self.schema=schema
+        self.schema = schema
         self.data_loaders: Dict[str, DataLoader] = {}
         self.contexts: Dict[str, QueryContext] = {}
 
-    def register_resolver(self, fieldname: str, resolverfn: Callable[..., Any]) -> None:
+    def register_resolver(self, field_name: str, resolver_fn: Callable[..., Any]) -> None:
         """
         Register field resolver.
 
@@ -522,7 +522,7 @@ class GraphQLResolver:
             field_name: Field name
             resolver_fn: Resolver function
         """
-        self.schema.resolvers[field_name] = resolver_fn  # type: ignore[name-defined]
+        self.schema.resolvers[field_name] = resolver_fn
 
     async def resolve_query(
         self,
@@ -543,26 +543,26 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                _context=QueryContext(user_id="anonymous", cluster="default")
+                context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate query
-            _query_obj=self._parse_query(query)
-            if not query_obj:  # type: ignore[name-defined]
-                return GraphQLResponse(  # type: ignore[call-arg]
-                    _errors=[
+            query_obj = self._parse_query(query)
+            if not query_obj:
+                return GraphQLResponse(
+                    errors=[
                         GraphQLError(message="Invalid query syntax", code="PARSE_ERROR")
                     ]
                 )
 
             # Execute query
-            _data=await self._execute_query(query_obj, variables, context)  # type: ignore[arg-type, name-defined]
+            data = await self._execute_query(query_obj, variables, context)
 
-            return GraphQLResponse(data=data)  # type: ignore[name-defined]
+            return GraphQLResponse(data=data)
 
         except Exception as e:
-            logger.error(f"Query resolution error: {e}", exc_info=True)  # type: ignore[name-defined]
-            return GraphQLResponse(  # type: ignore[call-arg]
-                _errors=[GraphQLError(message="Query execution failed", code="EXECUTION_ERROR")]
+            logger.error(f"Query resolution error: {e}", exc_info=True)
+            return GraphQLResponse(
+                errors=[GraphQLError(message="Query execution failed", code="EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -576,7 +576,7 @@ class GraphQLResolver:
             Parsed query object or None
         """
         try:
-        # Simple validation - in production would use graphql-core
+            # Simple validation - in production would use graphql-core
             if "query" not in query and "mutation" not in query:
                 return None
             return {"raw": query}
@@ -629,28 +629,28 @@ class GraphQLResolver:
         """
         try:
             if not context:
-                _context=QueryContext(user_id="anonymous", cluster="default")
+                context = QueryContext(user_id="anonymous", cluster="default")
 
             # Parse and validate mutation
-            _mutation_obj=self._parse_query(mutation)
-            if not mutation_obj:  # type: ignore[name-defined]
-                return GraphQLResponse(  # type: ignore[call-arg]
-                    _errors=[
-                        GraphQLError(  # type: ignore[call-arg]
-                            _message="Invalid mutation syntax", code="PARSE_ERROR"
+            mutation_obj = self._parse_query(mutation)
+            if not mutation_obj:
+                return GraphQLResponse(
+                    errors=[
+                        GraphQLError(
+                            message="Invalid mutation syntax", code="PARSE_ERROR"
                         )
                     ]
                 )
 
             # Execute mutation
-            _data=await self._execute_mutation(mutation_obj, variables, context)  # type: ignore[arg-type, name-defined]
+            data = await self._execute_mutation(mutation_obj, variables, context)
 
-            return GraphQLResponse(data=data)  # type: ignore[name-defined]
+            return GraphQLResponse(data=data)
 
         except Exception as e:
-            logger.error(f"Mutation resolution error: {e}", exc_info=True)  # type: ignore[name-defined]
-            return GraphQLResponse(  # type: ignore[call-arg]
-                _errors=[GraphQLError(message="Mutation execution failed", code="EXECUTION_ERROR")]
+            logger.error(f"Mutation resolution error: {e}", exc_info=True)
+            return GraphQLResponse(
+                errors=[GraphQLError(message="Mutation execution failed", code="EXECUTION_ERROR")]
             )
 
     async def _execute_mutation(
@@ -692,9 +692,9 @@ class GraphQLServer:
 
     def __init__(self) -> None:
         """Initialize GraphQL server."""
-        self.schema=GraphQLSchema()
-        self.resolver=GraphQLResolver(self.schema)
-        self.subscriptions=SubscriptionManager()
+        self.schema = GraphQLSchema()
+        self.resolver = GraphQLResolver(self.schema)
+        self.subscriptions = SubscriptionManager()
 
     async def handle_request(self, body: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -706,30 +706,30 @@ class GraphQLServer:
         Returns:
             Response data
         """
-        _query=body.get("query")
-        _mutation=body.get("mutation")
-        _variables=body.get("variables")
-        _context_data=body.get("context", {})
+        query = body.get("query")
+        mutation = body.get("mutation")
+        variables = body.get("variables")
+        context_data = body.get("context", {})
 
-        context=QueryContext(  # type: ignore[call-arg]
-            _user_id=context_data.get("user_id", "anonymous"),  # type: ignore[name-defined]
-            _cluster=context_data.get("cluster", "default"),  # type: ignore[name-defined]
-            _namespace=context_data.get("namespace"),  # type: ignore[name-defined]
-            _timeout_seconds=context_data.get("timeout_seconds", 30),  # type: ignore[name-defined]
-            _enable_cache=context_data.get("enable_cache", True),  # type: ignore[name-defined]
+        context = QueryContext(
+            user_id=context_data.get("user_id", "anonymous"),
+            cluster=context_data.get("cluster", "default"),
+            namespace=context_data.get("namespace"),
+            timeout_seconds=context_data.get("timeout_seconds", 30),
+            enable_cache=context_data.get("enable_cache", True),
         )
 
-        if query:  # type: ignore[name-defined]
-            _response=await self.resolver.resolve_query(query, variables, context)  # type: ignore[name-defined]
-        elif mutation:  # type: ignore[name-defined]
-            response=await self.resolver.resolve_mutation(
-                mutation, variables, context  # type: ignore[name-defined]
+        if query:
+            response = await self.resolver.resolve_query(query, variables, context)
+        elif mutation:
+            response = await self.resolver.resolve_mutation(
+                mutation, variables, context
             )
         else:
-            response=GraphQLResponse(  # type: ignore[call-arg]
-                _errors=[
-                    GraphQLError(  # type: ignore[call-arg]
-                        _message="No query or mutation provided", code="INVALID_REQUEST"
+            response = GraphQLResponse(
+                errors=[
+                    GraphQLError(
+                        message="No query or mutation provided", code="INVALID_REQUEST"
                     )
                 ]
             )
@@ -772,13 +772,13 @@ class GraphQLServer:
             Subscription ID
         """
         if not context:
-            _context=QueryContext(user_id="anonymous", cluster="default")
+            context = QueryContext(user_id="anonymous", cluster="default")
 
         return await self.subscriptions.subscribe(
-            subscription_name, variables or {}, context  # type: ignore[arg-type]
+            subscription_name, variables or {}, context
         )
 
-    async def unsubscribe(self, subscriptionid: str) -> bool:
+    async def unsubscribe(self, subscription_id: str) -> bool:
         """
         Unsubscribe from a subscription.
 
@@ -788,9 +788,9 @@ class GraphQLServer:
         Returns:
             True if successfully unsubscribed
         """
-        return await self.subscriptions.unsubscribe(subscription_id)  # type: ignore[name-defined]
+        return await self.subscriptions.unsubscribe(subscription_id)
 
-    def publish_event(self, subscriptionname: str, data: Dict[str, Any]) -> None:
+    def publish_event(self, subscription_name: str, data: Dict[str, Any]) -> None:
         """
         Publish event to subscription subscribers.
 
@@ -798,7 +798,7 @@ class GraphQLServer:
             subscription_name: Subscription field name
             data: Event data to publish
         """
-        self.subscriptions.publish(subscription_name, data)  # type: ignore[name-defined]
+        self.subscriptions.publish(subscription_name, data)
 
 
 # =============================================================================
@@ -832,7 +832,7 @@ class SubscriptionManager:
         """Initialize subscription manager."""
         self._subscriptions: Dict[str, Subscription] = {}
         self._topic_subscribers: Dict[str, Set[str]] = {}
-        self._lock=asyncio.Lock()
+        self._lock = asyncio.Lock()
         self._event_queues: Dict[str, asyncio.Queue[Any]] = {}
 
     async def subscribe(
@@ -851,34 +851,34 @@ class SubscriptionManager:
         """
         import uuid
 
-        _subscription_id=str(uuid.uuid4())
+        subscription_id = str(uuid.uuid4())
 
         async with self._lock:
-            subscription=Subscription(  # type: ignore[call-arg]
-                _id=subscription_id,  # type: ignore[name-defined]
-                _name=subscription_name,
-                _variables=variables,
-                _context=context,
-                _created_at=datetime.now(timezone.utc),
+            subscription = Subscription(
+                id=subscription_id,
+                name=subscription_name,
+                variables=variables,
+                context=context,
+                created_at=datetime.now(timezone.utc),
             )
 
-            self._subscriptions[subscription_id] = subscription  # type: ignore[name-defined]
+            self._subscriptions[subscription_id] = subscription
 
             # Track by topic
             if subscription_name not in self._topic_subscribers:
                 self._topic_subscribers[subscription_name] = set()
-            self._topic_subscribers[subscription_name].add(subscription_id)  # type: ignore[name-defined]
+            self._topic_subscribers[subscription_name].add(subscription_id)
 
             # Create event queue
-            self._event_queues[subscription_id] = asyncio.Queue(maxsize=100)  # type: ignore[name-defined]
+            self._event_queues[subscription_id] = asyncio.Queue(maxsize=100)
 
-            logger.info(  # type: ignore[name-defined]
-                f"Created subscription: {subscription_id} for {subscription_name}"  # type: ignore[name-defined]
+            logger.info(
+                f"Created subscription: {subscription_id} for {subscription_name}"
             )
 
-        return subscription_id  # type: ignore[name-defined]
+        return subscription_id
 
-    async def unsubscribe(self, subscriptionid: str) -> bool:
+    async def unsubscribe(self, subscription_id: str) -> bool:
         """
         Remove subscription.
 
@@ -889,26 +889,26 @@ class SubscriptionManager:
             True if removed
         """
         async with self._lock:
-            if subscription_id not in self._subscriptions:  # type: ignore[name-defined]
+            if subscription_id not in self._subscriptions:
                 return False
 
-            subscription=self._subscriptions[subscription_id]  # type: ignore[name-defined]
+            subscription = self._subscriptions[subscription_id]
 
             # Remove from topic tracking
             if subscription.name in self._topic_subscribers:
-                self._topic_subscribers[subscription.name].discard(subscription_id)  # type: ignore[name-defined]
+                self._topic_subscribers[subscription.name].discard(subscription_id)
 
             # Remove queue
-            self._event_queues.pop(subscription_id, None)  # type: ignore[name-defined]
+            self._event_queues.pop(subscription_id, None)
 
             # Remove subscription
-            del self._subscriptions[subscription_id]  # type: ignore[name-defined]
+            del self._subscriptions[subscription_id]
 
-            logger.info(f"Removed subscription: {subscription_id}")  # type: ignore[name-defined]
+            logger.info(f"Removed subscription: {subscription_id}")
 
         return True
 
-    def publish(self, subscriptionname: str, data: Dict[str, Any]) -> int:
+    def publish(self, subscription_name: str, data: Dict[str, Any]) -> int:
         """
         Publish event to all subscribers of a topic.
 
@@ -919,28 +919,28 @@ class SubscriptionManager:
         Returns:
             Number of subscribers notified
         """
-        _subscriber_ids=self._topic_subscribers.get(subscription_name, set())  # type: ignore[name-defined]
-        _count=0
+        subscriber_ids = self._topic_subscribers.get(subscription_name, set())
+        count = 0
 
-        event={
-            "subscription": subscription_name,  # type: ignore[name-defined]
+        event = {
+            "subscription": subscription_name,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "data": data,
         }
 
-        for sub_id in subscriber_ids:  # type: ignore[name-defined]
-            _queue=self._event_queues.get(sub_id)
-            if queue:  # type: ignore[name-defined]
+        for sub_id in subscriber_ids:
+            queue = self._event_queues.get(sub_id)
+            if queue:
                 try:
-                    queue.put_nowait(event)  # type: ignore[name-defined]
-                    count += 1  # type: ignore[name-defined]
+                    queue.put_nowait(event)
+                    count += 1
                 except asyncio.QueueFull:
-                    logger.warning(f"Event queue full for subscription {sub_id}")  # type: ignore[name-defined]
+                    logger.warning(f"Event queue full for subscription {sub_id}")
 
-        return count  # type: ignore[name-defined]
+        return count
 
     async def get_events(
-        self, subscription_id: str, timeout: float=30.0
+        self, subscription_id: str, timeout: float = 30.0
     ) -> Optional[Dict[str, Any]]:
         """
         Get next event for subscription (long-polling).
@@ -952,16 +952,16 @@ class SubscriptionManager:
         Returns:
             Event data or None if timeout
         """
-        _queue=self._event_queues.get(subscription_id)
-        if not queue:  # type: ignore[name-defined]
+        queue = self._event_queues.get(subscription_id)
+        if not queue:
             return None
 
         try:
-            return await asyncio.wait_for(queue.get(), timeout=timeout)  # type: ignore[name-defined]
+            return await asyncio.wait_for(queue.get(), timeout=timeout)
         except asyncio.TimeoutError:
             return None
 
-    async def stream_events(self, subscriptionid: str) -> Any:
+    async def stream_events(self, subscription_id: str) -> Any:
         """
         Async generator for streaming events.
 
@@ -971,16 +971,16 @@ class SubscriptionManager:
         Yields:
             Event data
         """
-        _queue=self._event_queues.get(subscription_id)  # type: ignore[name-defined]
-        if not queue:  # type: ignore[name-defined]
+        queue = self._event_queues.get(subscription_id)
+        if not queue:
             return
 
-        while subscription_id in self._subscriptions:  # type: ignore[name-defined]
+        while subscription_id in self._subscriptions:
             try:
-                _event=await asyncio.wait_for(queue.get(), timeout=60.0)  # type: ignore[name-defined]
-                yield event  # type: ignore[name-defined]
+                event = await asyncio.wait_for(queue.get(), timeout=60.0)
+                yield event
             except asyncio.TimeoutError:
-            # Send keepalive
+                # Send keepalive
                 yield {
                     "type": "keepalive",
                     "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -1013,24 +1013,24 @@ class SubscriptionManager:
 
 
 # Example usage
-if _name__== "__main__":  # type: ignore[name-defined]
+if __name__ == "__main__":
 
     async def example() -> None:
         """Example usage."""
-        _server=GraphQLServer()
+        server = GraphQLServer()
 
         # Example query
-        query_request={
+        query_request = {
             "query": 'query { cluster(name: "default") { name status } }',
             "context": {"cluster": "default"},
         }
 
-        _response=await server.handle_request(query_request)  # type: ignore[name-defined]
+        response = await server.handle_request(query_request)
         print("Query Response:")
-        print(json.dumps(response, indent=2))  # type: ignore[name-defined]
+        print(json.dumps(response, indent=2))
 
         # Example mutation
-        mutation_request={
+        mutation_request = {
             "mutation": (
                 'mutation { scaleDeployment(cluster: "default", '
                 'deployment: "app", namespace: "default", '
@@ -1039,13 +1039,13 @@ if _name__== "__main__":  # type: ignore[name-defined]
             "context": {"cluster": "default"},
         }
 
-        _response=await server.handle_request(mutation_request)  # type: ignore[name-defined]
+        response = await server.handle_request(mutation_request)
         print("\nMutation Response:")
-        print(json.dumps(response, indent=2))  # type: ignore[name-defined]
+        print(json.dumps(response, indent=2))
 
         # Schema introspection
-        _introspection=server.get_schema_introspection()  # type: ignore[name-defined]
+        introspection = server.get_schema_introspection()
         print("\nSchema Types:")
-        print(f"Total types: {len(introspection['types'])}")  # type: ignore[name-defined]
+        print(f"Total types: {len(introspection['types'])}")
 
     asyncio.run(example())

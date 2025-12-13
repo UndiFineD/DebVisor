@@ -34,6 +34,7 @@ F = TypeVar("F", bound=Callable[..., Any])
 # =============================================================================
 # Chaos Enums
 # =============================================================================
+
 class FailureMode(Enum):
     """Types of failures to inject."""
 
@@ -62,9 +63,8 @@ class TargetComponent(Enum):
 # =============================================================================
 
 
+
 @dataclass
-
-
 class ChaosConfig:
     """Configuration for chaos experiments."""
 
@@ -81,9 +81,8 @@ class ChaosConfig:
     cooldown_seconds: int = 60
 
 
+
 @dataclass
-
-
 class ChaosExperiment:
     """Represents a chaos experiment."""
 
@@ -100,6 +99,7 @@ class ChaosExperiment:
 # =============================================================================
 # Failure Injectors
 # =============================================================================
+
 class LatencyInjector:
     """Injects artificial latency."""
 
@@ -355,15 +355,15 @@ class ChaosMonkey:
         results: Dict[str, Any],
     ) -> ChaosExperiment:
         """Record a chaos experiment."""
-        _experiment = ChaosExperiment(
-            _name = name,
-            _description = description,
-            _failure_mode = failure_mode,
-            _target = target,
-            _config = self.config,
-            _started_at = datetime.now(timezone.utc),
-            _ended_at = datetime.now(timezone.utc),
-            _results = results,
+        experiment = ChaosExperiment(
+            name=name,
+            description=description,
+            failure_mode=failure_mode,
+            target=target,
+            config=self.config,
+            started_at=datetime.now(timezone.utc),
+            ended_at=datetime.now(timezone.utc),
+            results=results,
         )
         self.experiments.append(experiment)
         return experiment
@@ -375,40 +375,32 @@ class ChaosMonkey:
 
 
 @pytest.fixture
-
-
 def chaos_monkey() -> None:
     """Provide a chaos monkey instance for testing."""
     config = ChaosConfig(
-        _enabled = True,
-        _failure_probability = 1.0,    # Always inject in tests
-        _latency_min_ms = 10,
-        _latency_max_ms = 50,
-        _timeout_seconds = 1,
-        _max_concurrent_failures = 5,
+        enabled=True,
+        failure_probability=1.0,    # Always inject in tests
+        latency_min_ms=10,
+        latency_max_ms=50,
+        timeout_seconds=1,
+        max_concurrent_failures=5,
     )
     return ChaosMonkey(config)  # type: ignore[return-value]
 
 
 @pytest.fixture
-
-
 def mock_database() -> MagicMock:
     """Mock database connection."""
     return MagicMock()
 
 
 @pytest.fixture
-
-
 def mock_cache() -> MagicMock:
     """Mock cache client."""
     return MagicMock()
 
 
 @pytest.fixture
-
-
 def mock_message_queue() -> MagicMock:
     """Mock message queue."""
     return MagicMock()
@@ -433,17 +425,17 @@ class TestDatabaseResilience:
                     "db_query", TargetComponent.DATABASE, [FailureMode.ERROR]
                 ):
                     mock_database.query("SELECT 1")
-                    _success = True
+                    success = True
             except (ConnectionError, TimeoutError, Exception):
                 time.sleep(0.1)    # Backoff
 
         # Record experiment
         chaos_monkey.record_experiment(
-            _name = "database_connection_recovery",
-            _description = "Test database connection recovery after failures",
-            _failure_mode = FailureMode.ERROR,
-            _target = TargetComponent.DATABASE,
-            _results = {
+            name="database_connection_recovery",
+            description="Test database connection recovery after failures",
+            failure_mode=FailureMode.ERROR,
+            target=TargetComponent.DATABASE,
+            results={
                 "attempts": attempts,
                 "success": success,
                 "max_attempts": max_attempts,
@@ -457,7 +449,7 @@ class TestDatabaseResilience:
         """Test: System handles database latency gracefully."""
         chaos_monkey.config.failure_probability = 0.5
 
-        _latencies = []
+        latencies = []
         for _ in range(10):
             start = time.time()
             try:
@@ -470,11 +462,11 @@ class TestDatabaseResilience:
             latencies.append(time.time() - start)
 
         chaos_monkey.record_experiment(
-            _name = "database_latency_handling",
-            _description = "Test handling of database latency",
-            _failure_mode = FailureMode.LATENCY,
-            _target = TargetComponent.DATABASE,
-            _results = {
+            name="database_latency_handling",
+            description="Test handling of database latency",
+            failure_mode=FailureMode.LATENCY,
+            target=TargetComponent.DATABASE,
+            results={
                 "avg_latency": sum(latencies) / len(latencies),
                 "max_latency": max(latencies),
                 "min_latency": min(latencies),
@@ -491,7 +483,7 @@ class TestCacheResilience:
     def test_cache_fallback_to_database(self, chaos_monkey, mock_cache, mock_database):
         """Test: System falls back to database when cache fails."""
         cache_available = False
-        _data_retrieved = False
+        data_retrieved = False
 
         # Try cache first
         try:
@@ -499,18 +491,18 @@ class TestCacheResilience:
                 "cache_get", TargetComponent.CACHE, [FailureMode.ERROR]
             ):
                 mock_cache.get("key")
-                _cache_available = True
+                cache_available = True
         except Exception:
-        # Fallback to database
+            # Fallback to database
             mock_database.query("SELECT value FROM cache WHERE key = 'key'")
             data_retrieved = True
 
         chaos_monkey.record_experiment(
-            _name = "cache_fallback",
-            _description = "Test cache fallback to database",
-            _failure_mode = FailureMode.ERROR,
-            _target = TargetComponent.CACHE,
-            _results = {
+            name="cache_fallback",
+            description="Test cache fallback to database",
+            failure_mode=FailureMode.ERROR,
+            target=TargetComponent.CACHE,
+            results={
                 "cache_available": cache_available,
                 "fallback_used": data_retrieved,
             },
@@ -521,11 +513,11 @@ class TestCacheResilience:
     def test_cache_write_through_failure(self, chaos_monkey, mock_cache, mock_database):
         """Test: Database write succeeds even if cache update fails."""
         db_success = False
-        _cache_success = False
+        cache_success = False
 
         # Write to database first (should always succeed)
         mock_database.insert("data")
-        _db_success = True
+        db_success = True
 
         # Try to update cache
         try:
@@ -533,21 +525,22 @@ class TestCacheResilience:
                 "cache_set", TargetComponent.CACHE, [FailureMode.ERROR]
             ):
                 mock_cache.set("key", "data")
-                _cache_success = True
+                cache_success = True
         except Exception:
-        # Cache failure is acceptable
+            # Cache failure is acceptable
             pass
 
         chaos_monkey.record_experiment(
-            _name = "cache_write_through",
-            _description = "Test write-through cache failure handling",
-            _failure_mode = FailureMode.ERROR,
-            _target = TargetComponent.CACHE,
-            _results = {"db_success": db_success, "cache_success": cache_success},
+            name="cache_write_through",
+            description="Test write-through cache failure handling",
+            failure_mode=FailureMode.ERROR,
+            target=TargetComponent.CACHE,
+            results={"db_success": db_success, "cache_success": cache_success},
         )
 
         # Database write must succeed regardless of cache
         assert db_success
+
 
 
 class TestAPIResilience:
@@ -555,13 +548,13 @@ class TestAPIResilience:
 
     def test_api_circuit_breaker(self, chaos_monkey):
         """Test: Circuit breaker opens after consecutive failures."""
-        _failures = 0
-        _threshold = 5
+        failures = 0
+        threshold = 5
         circuit_open = False
 
-        for i in range(10):
+        for _ in range(10):
             if circuit_open:
-            # Skip call, circuit is open
+                # Skip call, circuit is open
                 continue
 
             try:
@@ -576,11 +569,11 @@ class TestAPIResilience:
                     circuit_open = True
 
         chaos_monkey.record_experiment(
-            _name = "api_circuit_breaker",
-            _description = "Test circuit breaker opens after failures",
-            _failure_mode = FailureMode.ERROR,
-            _target = TargetComponent.EXTERNAL_API,
-            _results = {
+            name="api_circuit_breaker",
+            description="Test circuit breaker opens after failures",
+            failure_mode=FailureMode.ERROR,
+            target=TargetComponent.EXTERNAL_API,
+            results={
                 "final_failures": failures,
                 "circuit_open": circuit_open,
                 "threshold": threshold,
@@ -592,8 +585,8 @@ class TestAPIResilience:
 
     def test_api_timeout_handling(self, chaos_monkey):
         """Test: API timeouts are handled with proper error responses."""
-        _timeout_handled = False
-        _error_message = None
+        timeout_handled = False
+        error_message = None
 
         try:
             chaos_monkey.config.timeout_seconds = 0    # Immediate timeout
@@ -606,15 +599,16 @@ class TestAPIResilience:
             error_message = str(e)
 
         chaos_monkey.record_experiment(
-            _name = "api_timeout_handling",
-            _description = "Test API timeout error handling",
-            _failure_mode = FailureMode.TIMEOUT,
-            _target = TargetComponent.EXTERNAL_API,
-            _results = {
+            name="api_timeout_handling",
+            description="Test API timeout error handling",
+            failure_mode=FailureMode.TIMEOUT,
+            target=TargetComponent.EXTERNAL_API,
+            results={
                 "timeout_handled": timeout_handled,
                 "error_message": error_message,
             },
         )
+
 
 
 class TestDataIntegrity:
@@ -628,7 +622,7 @@ class TestDataIntegrity:
         corrupted_data = chaos_monkey.data_corruptor.corrupt_dict(original_data)
 
         # Validate data
-        _is_valid = all(
+        is_valid = all(
             [
                 isinstance(corrupted_data.get("id"), str),
                 isinstance(corrupted_data.get("amount"), (int, float)),
@@ -638,11 +632,11 @@ class TestDataIntegrity:
         )
 
         chaos_monkey.record_experiment(
-            _name = "data_corruption_detection",
-            _description = "Test detection of corrupted data",
-            _failure_mode = FailureMode.CORRUPT_DATA,
-            _target = TargetComponent.DATABASE,
-            _results = {
+            name="data_corruption_detection",
+            description="Test detection of corrupted data",
+            failure_mode=FailureMode.CORRUPT_DATA,
+            target=TargetComponent.DATABASE,
+            results={
                 "original": original_data,
                 "corrupted": corrupted_data,
                 "detected_corruption": not is_valid,
@@ -686,11 +680,11 @@ class TestCascadingFailures:
         available_services = sum(services_available.values())
 
         chaos_monkey.record_experiment(
-            _name = "graceful_degradation",
-            _description = "Test graceful degradation under multiple failures",
-            _failure_mode = FailureMode.CASCADE,
-            _target = TargetComponent.NETWORK,
-            _results = {
+            name="graceful_degradation",
+            description="Test graceful degradation under multiple failures",
+            failure_mode=FailureMode.CASCADE,
+            target=TargetComponent.NETWORK,
+            results={
                 "services_status": services_available,
                 "available_count": available_services,
             },
@@ -698,6 +692,9 @@ class TestCascadingFailures:
 
         # At least some functionality should remain
         # (In production, you'd verify specific degraded behaviors)
+
+
+
 class TestResourceExhaustion:
     """Test resource exhaustion scenarios."""
 
@@ -710,18 +707,18 @@ class TestResourceExhaustion:
         oom_occurred = False
 
         try:
-        # Simulate checking memory before allocation
+            # Simulate checking memory before allocation
             if memory_usage_mb > 80:    # 80% threshold
                 raise MemoryError("Memory threshold exceeded")
         except MemoryError:
             oom_occurred = True
 
         chaos_monkey.record_experiment(
-            _name = "memory_pressure",
-            _description = "Test memory pressure handling",
-            _failure_mode = FailureMode.RESOURCE_EXHAUSTION,
-            _target = TargetComponent.DATABASE,
-            _results = {"memory_usage_mb": memory_usage_mb, "oom_occurred": oom_occurred},
+            name="memory_pressure",
+            description="Test memory pressure handling",
+            failure_mode=FailureMode.RESOURCE_EXHAUSTION,
+            target=TargetComponent.DATABASE,
+            results={"memory_usage_mb": memory_usage_mb, "oom_occurred": oom_occurred},
         )
 
 

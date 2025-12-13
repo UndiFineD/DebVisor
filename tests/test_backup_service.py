@@ -32,7 +32,6 @@ except ImportError:
 
     # Define mock classes for testing
     @dataclass
-
     class SnapshotMetadata:  # type: ignore[no-redef]
         """Mock snapshot metadata."""
 
@@ -51,8 +50,6 @@ except ImportError:
 
 
 @pytest.fixture
-
-
 def sample_data_blocks() -> List[bytes]:
     """Create sample data blocks for chunking tests."""
     return [
@@ -64,8 +61,6 @@ def sample_data_blocks() -> List[bytes]:
 
 
 @pytest.fixture
-
-
 def in_memory_chunk_store() -> Any:
     """Create an in-memory chunk store for testing."""
 
@@ -105,12 +100,10 @@ def in_memory_chunk_store() -> Any:
             return True
 
         @property
-
         def total_chunks(self) -> int:
             return len(self.chunks)
 
         @property
-
         def total_size(self) -> int:
             return sum(len(data) for data in self.chunks.values())
 
@@ -118,8 +111,6 @@ def in_memory_chunk_store() -> Any:
 
 
 @pytest.fixture
-
-
 def sample_snapshots() -> List[SnapshotMetadata]:
     """Create sample snapshot metadata."""
     now = datetime.now(timezone.utc)
@@ -143,20 +134,18 @@ def sample_snapshots() -> List[SnapshotMetadata]:
             tags={"vm": "web-server-01", "type": "weekly"},
         ),
         SnapshotMetadata(
-            _snapshot_id = "snap-003",
-            _source_path = "/var/lib/vm/disk2.qcow2",
-            _created_at = now - timedelta(days=1),
-            _size_bytes = 50 * 1024 * 1024 * 1024,    # 50 GB
-            _chunk_count = 5000,
-            _dedup_ratio = 2.5,
-            _tags = {"vm": "db-server-01", "type": "daily"},
+            snapshot_id="snap-003",
+            source_path="/var/lib/vm/disk2.qcow2",
+            created_at=now - timedelta(days=1),
+            size_bytes=50 * 1024 * 1024 * 1024,    # 50 GB
+            chunk_count=5000,
+            dedup_ratio=2.5,
+            tags={"vm": "db-server-01", "type": "daily"},
         ),
     ]
 
 
 @pytest.fixture
-
-
 def retention_policy() -> Dict[str, int]:
     """Create a sample retention policy."""
     return {
@@ -374,16 +363,16 @@ class TestRetentionPolicies:
     def test_retention_by_age(self, retention_policy):
         """Test retention based on snapshot age."""
         now = datetime.now(timezone.utc)
-        _max_daily_age = timedelta(days=retention_policy["daily"])
+        max_daily_age = timedelta(days=retention_policy["daily"])
 
         # Create snapshots of varying ages
-        _test_snaps = [
+        test_snaps = [
             SnapshotMetadata(
-                _snapshot_id = f"snap-{i}",
-                _source_path = "/test",
+                snapshot_id=f"snap-{i}",
+                source_path="/test",
                 created_at=now - timedelta(days=i),
-                _size_bytes = 1000,
-                _chunk_count = 10,
+                size_bytes=1000,
+                chunk_count=10,
             )
             for i in range(10)
         ]
@@ -413,7 +402,6 @@ class TestBackupOperations:
     """Integration tests for backup operations."""
 
     @pytest.fixture
-
     def temp_backup_dir(self, tmp_path):
         """Create temporary backup directory."""
         backup_dir = tmp_path / "backups"
@@ -440,10 +428,10 @@ class TestBackupOperations:
 
         # Create snapshot metadata
         snapshot = SnapshotMetadata(
-            _snapshot_id = "test-snap-001",
-            _source_path = str(test_file),
-            _created_at = datetime.now(timezone.utc),
-            _size_bytes = len(data),
+            snapshot_id="test-snap-001",
+            source_path=str(test_file),
+            created_at=datetime.now(timezone.utc),
+            size_bytes=len(data),
             chunk_count=len(chunks),
         )
 
@@ -521,7 +509,7 @@ class TestRestoreOperations:
         chunk2 = b"Second part of the data. "
         chunk3 = b"Third part of the data."
 
-        _original = chunk1 + chunk2 + chunk3
+        original = chunk1 + chunk2 + chunk3
 
         # Store chunks
         chunk_hashes = []
@@ -594,7 +582,7 @@ class TestStorageBackends:
         mock_s3 = AsyncMock()
         mock_s3.put_object = AsyncMock(return_value={"ETag": "abc123"})
         mock_s3.get_object = AsyncMock(
-            _return_value = {"Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))}
+            return_value={"Body": AsyncMock(read=AsyncMock(return_value=b"chunk data"))}
         )
 
         # Simulate S3 operations

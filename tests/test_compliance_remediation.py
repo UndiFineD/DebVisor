@@ -33,18 +33,16 @@ def test_remediate_ssh_root_login(mock_ssh_manager_cls):
 
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
-
-
 def test_compliance_engine_integration(mock_ssh_manager_cls, compliance_engine):
     # Setup a policy with remediation
     policy = CompliancePolicy(
-        _id = "TEST-REM-001",
-        _name = "Test Remediation",
-        _description = "Test",
-        _severity = "high",
-        _check_function = "check_something",
-        _remediation_function = "disable_ssh_root_login",
-        _tags = ["TEST"]
+        _id="TEST-REM-001",
+        _name="Test Remediation",
+        _description="Test",
+        _severity="high",
+        _check_function="check_something",
+        _remediation_function="disable_ssh_root_login",
+        _tags=["TEST"]
     )
     compliance_engine.register_policy(policy)
 
