@@ -53,12 +53,12 @@ Total: 44 issues found
 | 691 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**44 issues to fix:**
+### 44 issues to fix:
 
 
 ### Issue at Line 173
@@ -1169,3 +1169,4 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
 ---
 *Updated: (auto-populated by coding expert)*
+
