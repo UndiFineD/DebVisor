@@ -1,7 +1,6 @@
 from flask import Flask
 from sqlalchemy import inspect
 from unittest.mock import patch, MagicMock
-from datetime import datetime
 import unittest
 from flask_migrate import Migrate, upgrade, downgrade
 from opt.web.panel.extensions import db

@@ -26,7 +26,7 @@ class TestAuditChain(unittest.TestCase):
 
     def test_audit_chain_integrity(self) -> None:
         # 1. Create some logs
-        _log1 = AuditLog.log_operation(
+        log1 = AuditLog.log_operation(
             user_id=1,
             operation="create",
             resource_type="node",
@@ -34,12 +34,12 @@ class TestAuditChain(unittest.TestCase):
             compliance_tags=["GDPR"]
         )
 
-        _log2 = AuditLog.log_operation(
-            _user_id = 1,
-            _operation = "update",
-            _resource_type = "node",
-            _action = "Updated node 1",
-            _compliance_tags = ["HIPAA"]
+        log2 = AuditLog.log_operation(
+            user_id=1,
+            operation="update",
+            resource_type="node",
+            action="Updated node 1",
+            compliance_tags=["HIPAA"]
         )
 
         # 2. Verify chain
@@ -58,7 +58,7 @@ class TestAuditChain(unittest.TestCase):
 
     def test_audit_chain_broken_link(self) -> None:
         # 1. Create logs
-        _log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
+        log1 = AuditLog.log_operation(user_id=1, operation="op1", resource_type="res", action="act1")
         log2 = AuditLog.log_operation(user_id=1, operation="op2", resource_type="res", action="act2")
 
         # 2. Tamper with previous_hash of log2

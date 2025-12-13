@@ -21,8 +21,8 @@ class PCIDevice:
     product_id: str
     iommu_group: int
     driver_in_use: Optional[str] = None
-    device_class: str=""
-    device_name: str=""
+    device_class: str = ""
+    device_name: str = ""
 
 
 @dataclass
