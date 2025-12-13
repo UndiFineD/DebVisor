@@ -1,4 +1,3 @@
-import unittest
 import pytest
 from flask import Flask
 from opt.web.dashboard.app import dashboard_bp

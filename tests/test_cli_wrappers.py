@@ -1,6 +1,4 @@
 # !/usr/bin/env python3
-
-from unittest.mock import patch
 """
 Unit tests for CLI wrapper enhancements.
 
@@ -11,7 +9,6 @@ Tests for:
 """
 
 from datetime import datetime, timezone
-import unittest
 from unittest.mock import MagicMock, patch
 
 # Import CLI modules

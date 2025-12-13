@@ -322,7 +322,7 @@ class TestVersioningDecorators:
         @manager.versioned
 
         def get_users(version):
-        # Version is in g.api_version after decorator runs
+            # Version is in g.api_version after decorator runs
             from flask import g
 
             return {
