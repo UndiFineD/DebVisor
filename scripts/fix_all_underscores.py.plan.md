@@ -13,7 +13,7 @@ Status: INVALID
 | incorrect_header | 3 | Header line incorrect: got '', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 4 | Header line incorrect: got 'import re', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 5 | Header line incorrect: got '', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 6 | Header line incorrect: got 'with open('opt/services/backup/backup_intelligence.py', 'r') as f:', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)') |
+| incorrect_header | 6 | Header line incorrect: got 'with open('opt/services/backup/backup_intelligence.py', 'r') as f:', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)') |
 | incorrect_header | 7 | Header line incorrect: got '    content = f.read()', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 8 | Header line incorrect: got '', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 9 | Header line incorrect: got '# Replace all instances of _variablename= with variablename =', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
@@ -187,7 +187,7 @@ Please provide:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

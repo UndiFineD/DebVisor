@@ -14,7 +14,11 @@ Total: 2 issues found
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
 | 46 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 576 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 575 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+
+## Implementation Status
+
+Items marked below as fixed:
 
 ## Implementation Status
 
