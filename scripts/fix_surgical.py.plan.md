@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_surgical.py
 
-Generated: 2025-12-13T19:05:46.826945
+Generated: 2025-12-13T19:10:01.790185
 Status: INVALID
 
 ## File Structure Validation

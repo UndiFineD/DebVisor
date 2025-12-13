@@ -1,6 +1,6 @@
 # Planning Report: scripts\passthrough_manager.py
 
-Generated: 2025-12-13T19:05:46.843386
+Generated: 2025-12-13T19:10:01.808843
 Status: INVALID
 
 ## File Structure Validation
