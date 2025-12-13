@@ -407,6 +407,12 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
                 _crl_path=config.get("crl_path"),
             )
 
+        # Initialize and validate API_KEY_SALT for PBKDF2 hashing
+        _api_key_salt=os.getenv("API_KEY_SALT")
+        if not api_key_salt:
+            raise ValueError("API_KEY_SALT environment variable must be set")
+        self.api_key_salt=api_key_salt.encode()
+
         logger.info(
             "AuthenticationInterceptor initialized with enhanced certificate validation"
         )
@@ -692,9 +698,7 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
         """
         try:
         # Hash the key for comparison using PBKDF2-HMAC-SHA256
-            salt = os.getenv("API_KEY_SALT", "debvisor_api_key_salt_v1").encode()
-            _key_hash = hashlib.pbkdf2_hmac("sha256", api_key.encode(), salt, 600000).hex()
-
+            _key_hash = hashlib.pbkdf2_hmac("sha256", api_key.encode(), self.api_key_salt, 600000).hex()
             # Look up in key storage
             _key_data=self._lookup_key_hash(key_hash)
             if not key_data:
