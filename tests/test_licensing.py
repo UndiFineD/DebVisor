@@ -1,7 +1,5 @@
 # !/usr/bin/env python3
 """
-from unittest.mock import patch, MagicMock
-import pytest
 Unit tests for Licensing Server.
 
 Tests for:
@@ -12,19 +10,17 @@ Tests for:
 - License validation logic
 """
 
-from unittest.mock import patch
-import datetime
+from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, patch, mock_open
 import unittest
-# from datetime import datetime, timedelta, timezone
-# from unittest.mock import MagicMock, patch, mock_open
-# from opt.services.licensing.licensing_server import (
-#     LicenseTier,
-#     FeatureFlag,
-#     LicenseFeatures,
-#     LicenseBundle,
-#     ECDSAVerifier,
-#     HardwareFingerprint,
-# )
+from opt.services.licensing.licensing_server import (
+    LicenseTier,
+    FeatureFlag,
+    LicenseFeatures,
+    LicenseBundle,
+    ECDSAVerifier,
+    HardwareFingerprint,
+)
 class TestLicenseFeatures(unittest.TestCase):
     """Tests for LicenseFeatures logic."""
 

@@ -1,16 +1,10 @@
+from flask import Flask
 from sqlalchemy import inspect
-# from flask import Flask
-import unittest
-    # from flask import Flask
-from flask_migrate import Migrate, upgrade, downgrade
-    # from sqlalchemy import inspect
-# Import the db object from extensions
-from opt.web.panel.extensions import db
-
-
 from unittest.mock import patch, MagicMock
-import pytest
 from datetime import datetime
+import unittest
+from flask_migrate import Migrate, upgrade, downgrade
+from opt.web.panel.extensions import db
 
 
 class TestMigrations(unittest.TestCase):
