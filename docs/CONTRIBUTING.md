@@ -25,34 +25,34 @@ Docker and
 Docker Compose (for testing)\n\n- Linux environment (native or WSL2 for Windows)\n\n###
 Quick
 Start\n\n```bash\n# Clone the repository\ngit clone
-<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi](https://github.com/your-org/debvisor.gi)t)>)\)n)c)d)
+<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)>)\)n)c)d)
 debvisor\n# Create virtual environment\npython -m venv .venv\nsource .venv/bin/activate #
 Linux/Mac\n# or\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n# Install
 dependencies\npip
 install -r requirements.txt\npip install -r requirements-dev.txt\n# Run tests\npytest
 tests/\n```text\ngit clone
-<<[https://github.com/your-org/debvisor.git>>\ncd]([https://github.com/your-org/debvisor.git>>\nc]([https://github.com/your-org/debvisor.git>>\n]([https://github.com/your-org/debvisor.git>>\]([https://github.com/your-org/debvisor.git>>]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git](https://github.com/your-org/debvisor.git)>)>)\)n)c)d)
+<<[https://github.com/your-org/debvisor.git>>\ncd]([https://github.com/your-org/debvisor.git>>\nc]([https://github.com/your-org/debvisor.git>>\n]([https://github.com/your-org/debvisor.git>>\]([https://github.com/your-org/debvisor.git>>]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi](https://github.com/your-org/debvisor.gi)t)>)>)\)n)c)d)
 debvisor\n\n## Create virtual environment\n\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n\n## or\n\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n\n## Install
 dependencies\n\npip install -r requirements.txt\npip install -r requirements-dev.txt\n\n##
 Run
 tests\n\npytest tests/\n```text\n## Clone the repository\n\ngit clone
-[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)\)n)c)d)
+[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.](https://github.com/your-org/debvisor.)g)i)t)\)n)c)d)
 debvisor\n\n## Create virtual environment (2)\n\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n\n## or (2)\n\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n\n## Install
 dependencies (2)\n\npip install -r requirements.txt\npip install -r
 requirements-dev.txt\n\n## Run
 tests (2)\n\npytest tests/\n```text\n\ngit clone
-<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi](https://github.com/your-org/debvisor.gi)t)>)\)n)c)d)
+<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)>)\)n)c)d)
 debvisor\n\n## Create virtual environment (3)\n\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n\n## or (3)\n\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n\n## Install
 dependencies (3)\n\npip install -r requirements.txt\npip install -r
 requirements-dev.txt\n\n## Run
 tests (3)\n\npytest tests/\n```text\n## Clone the repository (2)\ngit clone
-[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)\)n)c)d)
+[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.](https://github.com/your-org/debvisor.)g)i)t)\)n)c)d)
 debvisor\n## Create virtual environment (4)\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n## or (4)\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n## Install
@@ -60,14 +60,14 @@ dependencies
 (4)\npip install -r requirements.txt\npip install -r requirements-dev.txt\n## Run tests
 (4)\npytest
 tests/\n```text\n\ngit clone
-<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi](https://github.com/your-org/debvisor.gi)t)>)\)n)c)d)
+<[https://github.com/your-org/debvisor.git>\ncd]([https://github.com/your-org/debvisor.git>\nc]([https://github.com/your-org/debvisor.git>\n]([https://github.com/your-org/debvisor.git>\]([https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)>)\)n)c)d)
 debvisor\n\n## Create virtual environment (5)\n\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n\n## or (5)\n\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n\n## Install
 dependencies (5)\n\npip install -r requirements.txt\npip install -r
 requirements-dev.txt\n\n## Run
 tests (5)\n\npytest tests/\n```text\ngit clone
-[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g](https://github.com/your-org/debvisor.g)i)t)\)n)c)d)
+[https://github.com/your-org/debvisor.git\ncd]([https://github.com/your-org/debvisor.git\nc]([https://github.com/your-org/debvisor.git\n]([https://github.com/your-org/debvisor.git\]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.](https://github.com/your-org/debvisor.)g)i)t)\)n)c)d)
 debvisor\n\n## Create virtual environment (6)\n\npython -m venv .venv\nsource
 .venv/bin/activate #
 Linux/Mac\n\n## or (6)\n\n.\.venv\Scripts\Activate.ps1 # Windows PowerShell\n\n## Install
@@ -161,7 +161,7 @@ for local development:\n\n```bash\n\n```bash\n#
 .env
 (2)\nFLASK_ENV=development\nFLASK_DEBUG=1\nDATABASE_URL=sqlite:///dev.db\nSECRET_KEY=dev-secret-key-change-in-production\nDEBVISOR_SIGNING_KEY=test-signing-key\nLOG_LEVEL=DEBUG\n```text\n\nFLASK_ENV=development\nFLASK_DEBUG=1\nDATABASE_URL=sqlite:///dev.db\nSECRET_KEY=dev-secret-key-change-in-production\nDEBVISOR_SIGNING_KEY=test-signing-key\nLOG_LEVEL=DEBUG\n```text\nFLASK_ENV=development\nFLASK_DEBUG=1\nDATABASE_URL=sqlite:///dev.db\nSECRET_KEY=dev-secret-key-change-in-production\nDEBVISOR_SIGNING_KEY=test-signing-key\nLOG_LEVEL=DEBUG\n```text\nFLASK_DEBUG=1\nDATABASE_URL=sqlite:///dev.db\nSECRET_KEY=dev-secret-key-change-in-production\nDEBVISOR_SIGNING_KEY=test-signing-key\nLOG_LEVEL=DEBUG\n```text\n\n-
 --\n## Code Style Guidelines\n### Python Code Style\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1.**Formatter**: Black with line length 120\n\n1.**Import
 sorting**:
@@ -170,7 +170,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (2)\n\n### Python Code Style (2)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -179,7 +179,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (3)\n\n### Python Code Style (3)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -188,7 +188,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (4)\n\n### Python Code Style (4)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -197,7 +197,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n- --\n##
 Code Style Guidelines (5)\n### Python Code Style (5)\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -206,7 +206,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (6)\n\n### Python Code Style (6)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -215,7 +215,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (7)\n\n### Python Code Style (7)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -224,7 +224,7 @@ public
 functions\n\n1. **Docstrings**: Google-style docstrings for all public
 APIs\n\n```python\n\n-
 --\n\n## Code Style Guidelines (8)\n\n### Python Code Style (8)\n\nWe follow [PEP
-8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe](https://pe)p)8).)o)r)g)/)
+8]([https://pep8.org]([https://pep8.or]([https://pep8.o]([https://pep8.]([https://pep8]([https://pep]([https://pe]([https://p](https://p)e)p)8).)o)r)g)/)
 with
 the following specifics:\n\n1. **Formatter**: Black with line length 120\n\n1. **Import
 sorting**:
@@ -476,7 +476,7 @@ manager(self):\n """Create BackupManager instance."""\n return
 BackupManager(config=test_config)\n
 def test_create_backup_success(self, manager):\n """Test successful backup creation."""\n
 
-#
+## 
 
 Arrange\n mock_storage = Mock()\n # Act\n result = manager.create_backup("test-vm",
 storage=mock_storage)\n # Assert\n assert result.success is True\n assert result.backup_id
@@ -756,19 +756,19 @@ during the
 review.\n\n### Branch Naming
 (8)\n\n```text\nfeature/add-backup-encryption\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\n\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\nfeature/add-backup-encryption\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\n\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\nfeature/add-backup-encryption\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\n\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\nbugfix/fix-cache-invalidation\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\ndocs/update-api-documentation\nrefactor/improve-error-handling\n```text\n###
 Commit Messages\nFollow [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\nFollow
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\nFollow
 [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\n###
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\n###
 Commit Messages (2)\n\nFollow [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\n\nFollow
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\n\nFollow
 [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\n###
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\n###
 Commit Messages (3)\nFollow [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\n\nFollow
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\n\nFollow
 [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\nFollow
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\nFollow
 [Conventional
-Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi](https://www.conventionalcommi)t)s).)o)r)g)/):\n```text\n```text\nfeat(backup):
+Commits]([https://www.conventionalcommits.org]([https://www.conventionalcommits.or]([https://www.conventionalcommits.o]([https://www.conventionalcommits.]([https://www.conventionalcommits]([https://www.conventionalcommit]([https://www.conventionalcommi]([https://www.conventionalcomm](https://www.conventionalcomm)i)t)s).)o)r)g)/):\n```text\n```text\nfeat(backup):
 add AES-256 encryption support\n\n- Add encryption option to BackupConfig\n\n- Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption roundtrip\nCloses
 
@@ -778,7 +778,7 @@ and
 
 decrypt_stream()\n\n- Add tests for encryption roundtrip\n\nCloses
 
-#123\n```text\nfeat(backup): add
+## 123\n```text\nfeat(backup): add
 
 AES-256 encryption support\n\n- Add encryption option to BackupConfig\n\n- Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption roundtrip\nCloses
@@ -789,7 +789,7 @@ and
 
 decrypt_stream()\n\n- Add tests for encryption roundtrip\n\nCloses
 
-#123\n```text\nfeat(backup): add
+## 123\n```text\nfeat(backup): add
 
 AES-256 encryption support\n\n- Add encryption option to BackupConfig\n\n- Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption roundtrip\nCloses
@@ -806,7 +806,9 @@ encryption roundtrip\nCloses #123\n```text\n\n- Add encryption option to BackupC
 Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption roundtrip\n\nCloses
 
-## 123\n```text\nTypes: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`\n### PR
+## 123\n```text\nTypes: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`\n###
+
+PR
 
 Template\n```markdown\n\n### PR Template (2)\n\n```markdown\nTypes: `feat`, `fix`, `docs`,
 `style`,

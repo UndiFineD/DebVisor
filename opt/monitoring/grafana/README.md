@@ -33,15 +33,15 @@ instance.\n\n## Datasource names and UIDs\n\nTo make dashboards portable between
 deployments, we recommend\nrecreating datasources with the following identifiers:\n\n-
 Prometheus:\n\n- Name:`Prometheus`\n\n- Suggested UID: `prometheus-debvisor`\n\n- Type:
 `prometheus`\n\n- URL examples:\n\n- Single-node:
-[http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost]([http://localhos]([http://localho](http://localho)s)t):)9)0)9)0)\n\n-
+[http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh](http://localh)o)s)t):)9)0)9)0)\n\n-
 Clustered:
-[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s](http://prometheus.debvisor-monitoring.s)v)c):)9)0)9)0)\n\n-
+[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s]([http://prometheus.debvisor-monitoring.](http://prometheus.debvisor-monitoring.)s)v)c):)9)0)9)0)\n\n-
 Loki (optional, if you deploy it):\n\n- Name: `Loki`\n\n- Suggested UID:
 `loki-debvisor`\n\n- Type:
 `loki`\n\n- URL examples:\n\n- Single-node:
-[http://localhost:3100]([http://localhost:310]([http://localhost:31]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho](http://localho)s)t):)3)1)0)0)\n\n-
+[http://localhost:3100]([http://localhost:310]([http://localhost:31]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh](http://localh)o)s)t):)3)1)0)0)\n\n-
 Clustered:
-[http://loki.debvisor-monitoring.svc:3100]([http://loki.debvisor-monitoring.svc:310]([http://loki.debvisor-monitoring.svc:31]([http://loki.debvisor-monitoring.svc:3]([http://loki.debvisor-monitoring.svc:]([http://loki.debvisor-monitoring.svc]([http://loki.debvisor-monitoring.sv]([http://loki.debvisor-monitoring.s](http://loki.debvisor-monitoring.s)v)c):)3)1)0)0)\n\nDashboards
+[http://loki.debvisor-monitoring.svc:3100]([http://loki.debvisor-monitoring.svc:310]([http://loki.debvisor-monitoring.svc:31]([http://loki.debvisor-monitoring.svc:3]([http://loki.debvisor-monitoring.svc:]([http://loki.debvisor-monitoring.svc]([http://loki.debvisor-monitoring.sv]([http://loki.debvisor-monitoring.s]([http://loki.debvisor-monitoring.](http://loki.debvisor-monitoring.)s)v)c):)3)1)0)0)\n\nDashboards
 under `monitoring/grafana/dashboards/`should use these\nnames or UIDs so that operators
 can:\n\n-
 Import them into an existing Grafana.\n\n- Create matching datasources once per

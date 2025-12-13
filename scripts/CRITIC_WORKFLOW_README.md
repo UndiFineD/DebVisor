@@ -66,18 +66,18 @@ Progress**:
 Checklist of fixed items\n\n## Issue Codes\n\n### Flake8 (Python)\n\n-`E501`: Line too
 long\n-
 `E302`: Expected 2 blank lines\n- `W291`: Trailing whitespace\n- [Full
-list]([https://www.flake8.org]([https://www.flake8.or]([https://www.flake8.o]([https://www.flake8.]([https://www.flake8]([https://www.flake]([https://www.flak](https://www.flak)e)8).)o)r)g)/)\n\n###
+list]([https://www.flake8.org]([https://www.flake8.or]([https://www.flake8.o]([https://www.flake8.]([https://www.flake8]([https://www.flake]([https://www.flak]([https://www.fla](https://www.fla)k)e)8).)o)r)g)/)\n\n###
 Mypy (Python Type Checking)\n\n- `name-defined`: Name is not defined\n- `type-error`: Type
 mismatch\n- `return-value`: Return type mismatch\n- [Full
-list]([https://mypy.readthedocs.io]([https://mypy.readthedocs.i]([https://mypy.readthedocs.]([https://mypy.readthedocs]([https://mypy.readthedoc]([https://mypy.readthedo]([https://mypy.readthed](https://mypy.readthed)o)c)s).)i)o)/)\n\n###
+list]([https://mypy.readthedocs.io]([https://mypy.readthedocs.i]([https://mypy.readthedocs.]([https://mypy.readthedocs]([https://mypy.readthedoc]([https://mypy.readthedo]([https://mypy.readthed]([https://mypy.readthe](https://mypy.readthe)d)o)c)s).)i)o)/)\n\n###
 Shellcheck (Shell)\n\n- `SC2086`: Double quote to prevent globbing\n- `SC2181`: Check exit
 code of
 command\n- `SC1091`: Not following source\n- [Full
-list]([https://www.shellcheck.net]([https://www.shellcheck.ne]([https://www.shellcheck.n]([https://www.shellcheck.]([https://www.shellcheck]([https://www.shellchec]([https://www.shellche](https://www.shellche)c)k).)n)e)t)/)\n\n###
+list]([https://www.shellcheck.net]([https://www.shellcheck.ne]([https://www.shellcheck.n]([https://www.shellcheck.]([https://www.shellcheck]([https://www.shellchec]([https://www.shellche]([https://www.shellch](https://www.shellch)e)c)k).)n)e)t)/)\n\n###
 ESLint (JavaScript)\n\n- `no-unused-vars`: Variable declared but never used\n- `no-undef`:
 Variable
 not defined\n- `semi`: Missing semicolon\n- [Full
-list]([https://eslint.org]([https://eslint.or]([https://eslint.o]([https://eslint.]([https://eslint]([https://eslin]([https://esli](https://esli)n)t).)o)r)g)/)\n\n##
+list]([https://eslint.org]([https://eslint.or]([https://eslint.o]([https://eslint.]([https://eslint]([https://eslin]([https://esli]([https://esl](https://esl)i)n)t).)o)r)g)/)\n\n##
 Integration with context.md & changelog.md\n\nWhen implementing fixes:\n\n1. Update
 [context.md](../context.md) with any architectural changes\n1. Log implementation progress
 in

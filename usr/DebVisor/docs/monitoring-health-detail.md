@@ -20,52 +20,52 @@ job:\n\n```yaml\n\n```yaml\nPrometheus
 job:\n\n```yaml\n\n```yaml\n\n```yaml\n\n```yaml\nscrape_configs:\n\n- job_name:
 debvisor-health\n
 metrics_path: /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-<[https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det](https://debvisor.example.com/health/det)a)i)l)>)\)n)
+<[https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de](https://debvisor.example.com/health/de)t)a)i)l)>)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n target_label: instance\n\n - target_label: **address**\n
 replacement: blackbox-exporter:9115\n```text\n\n- job_name: debvisor-health\n\n
 metrics_path:
 /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-<<[https://debvisor.example.com/health/detail>>\n\n]([https://debvisor.example.com/health/detail>>\n\]([https://debvisor.example.com/health/detail>>\n]([https://debvisor.example.com/health/detail>>\]([https://debvisor.example.com/health/detail>>]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail](https://debvisor.example.com/health/detail)>)>)\)n)\)n)
+<<[https://debvisor.example.com/health/detail>>\n\n]([https://debvisor.example.com/health/detail>>\n\]([https://debvisor.example.com/health/detail>>\n]([https://debvisor.example.com/health/detail>>\]([https://debvisor.example.com/health/detail>>]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai](https://debvisor.example.com/health/detai)l)>)>)\)n)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n\n target_label: instance\n\n - target_label:
 **address**\n\n
 replacement: blackbox-exporter:9115\n```text\nscrape_configs:\n\n- job_name:
 debvisor-health\n
 metrics_path: /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de](https://debvisor.example.com/health/de)t)a)i)l)\)n)
+[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d](https://debvisor.example.com/health/d)e)t)a)i)l)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n target_label: instance\n\n - target_label: **address**\n
 replacement: blackbox-exporter:9115\n```text\n\n- job_name: debvisor-health\n\n
 metrics_path:
 /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai](https://debvisor.example.com/health/detai)l)>)\)n)\)n)
+<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta](https://debvisor.example.com/health/deta)i)l)>)\)n)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n\n target_label: instance\n\n - target_label:
 **address**\n\n
 replacement: blackbox-exporter:9115\n```text\nscrape_configs:\n\n- job_name:
 debvisor-health\n
 metrics_path: /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de](https://debvisor.example.com/health/de)t)a)i)l)\)n)
+[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d](https://debvisor.example.com/health/d)e)t)a)i)l)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n target_label: instance\n\n - target_label: **address**\n
 replacement: blackbox-exporter:9115\n```text\n\n- job_name: debvisor-health\n\n
 metrics_path:
 /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai](https://debvisor.example.com/health/detai)l)>)\)n)\)n)
+<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta](https://debvisor.example.com/health/deta)i)l)>)\)n)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n\n target_label: instance\n\n - target_label:
 **address**\n\n
 replacement: blackbox-exporter:9115\n```text\n\n- job_name: debvisor-health\n
 metrics_path: /probe\n
 params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de](https://debvisor.example.com/health/de)t)a)i)l)\)n)
+[https://debvisor.example.com/health/detail\n]([https://debvisor.example.com/health/detail\]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d](https://debvisor.example.com/health/d)e)t)a)i)l)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n target_label: instance\n\n - target_label: **address**\n
 replacement: blackbox-exporter:9115\n```text\n\n- job_name: debvisor-health\n\n
 metrics_path:
 /probe\n params:\n module: [http_2xx]\n static_configs:\n\n - targets:\n\n -
-<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai](https://debvisor.example.com/health/detai)l)>)\)n)\)n)
+<[https://debvisor.example.com/health/detail>\n\n]([https://debvisor.example.com/health/detail>\n\]([https://debvisor.example.com/health/detail>\n]([https://debvisor.example.com/health/detail>\]([https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta](https://debvisor.example.com/health/deta)i)l)>)\)n)\)n)
 relabel_configs:\n\n - source_labels: [**address**]\n\n target*label: *_param_target\n\n -
 source*labels: [*_param_target]\n\n target_label: instance\n\n - target_label:
 **address**\n\n
@@ -76,7 +76,7 @@ with native`/metrics`for application metrics.\n## Grafana JSON Datasource
 JSON endpoints. Add a JSON API datasource and create a panel to fetch`GET
 /health/detail`.\nExample
 panel query URL:
-`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\](https://debvisor.example.com/health/detail`\)n)P)a)n)e)l)
+`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\]([https://debvisor.example.com/health/detail`](https://debvisor.example.com/health/detail`)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n## Grafana
@@ -91,7 +91,7 @@ JSON
 Datasource (direct) (2)\n\nGrafana can read JSON endpoints. Add a JSON API datasource and
 create a
 panel to fetch`GET /health/detail`.\nExample panel query URL:
-`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\](https://debvisor.example.com/health/detail`>\)n)P)a)n)e)l)
+`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\]([https://debvisor.example.com/health/detail`>](https://debvisor.example.com/health/detail`>)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -109,7 +109,7 @@ metrics.\n\n## Grafana
 JSON Datasource (direct) (3)\n\nGrafana can read JSON endpoints. Add a JSON API datasource
 and
 create a panel to fetch`GET /health/detail`.\nExample panel query URL:
-`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\](https://debvisor.example.com/health/detail`\)n)P)a)n)e)l)
+`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\]([https://debvisor.example.com/health/detail`](https://debvisor.example.com/health/detail`)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -125,7 +125,7 @@ Grafana
 JSON Datasource (direct) (4)\n\nGrafana can read JSON endpoints. Add a JSON API datasource
 and
 create a panel to fetch`GET /health/detail`.\nExample panel query URL:
-`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\](https://debvisor.example.com/health/detail`>\)n)P)a)n)e)l)
+`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\]([https://debvisor.example.com/health/detail`>](https://debvisor.example.com/health/detail`>)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -143,7 +143,7 @@ Grafana
 JSON Datasource (direct) (5)\nGrafana can read JSON endpoints. Add a JSON API datasource
 and create
 a panel to fetch`GET /health/detail`.\nExample panel query URL:
-`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\](https://debvisor.example.com/health/detail`\)n)P)a)n)e)l)
+`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\]([https://debvisor.example.com/health/detail`](https://debvisor.example.com/health/detail`)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n## Grafana
@@ -158,7 +158,7 @@ JSON
 Datasource (direct) (6)\n\nGrafana can read JSON endpoints. Add a JSON API datasource and
 create a
 panel to fetch`GET /health/detail`.\nExample panel query URL:
-`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\](https://debvisor.example.com/health/detail`>\)n)P)a)n)e)l)
+`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\]([https://debvisor.example.com/health/detail`>](https://debvisor.example.com/health/detail`>)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -174,7 +174,7 @@ Grafana
 JSON Datasource (direct) (7)\n\nGrafana can read JSON endpoints. Add a JSON API datasource
 and
 create a panel to fetch`GET /health/detail`.\nExample panel query URL:
-`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\](https://debvisor.example.com/health/detail`\)n)P)a)n)e)l)
+`[https://debvisor.example.com/health/detail`\nPanel]([https://debvisor.example.com/health/detail`\nPane]([https://debvisor.example.com/health/detail`\nPan]([https://debvisor.example.com/health/detail`\nPa]([https://debvisor.example.com/health/detail`\nP]([https://debvisor.example.com/health/detail`\n]([https://debvisor.example.com/health/detail`\]([https://debvisor.example.com/health/detail`](https://debvisor.example.com/health/detail`)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -189,7 +189,7 @@ counts), use`/metrics`which exposes Prometheus format.\nQuick
 validation:\n\n```bash\n\nGrafana can
 read JSON endpoints. Add a JSON API datasource and create a panel to fetch`GET
 /health/detail`.\nExample panel query URL:
-`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\](https://debvisor.example.com/health/detail`>\)n)P)a)n)e)l)
+`<[https://debvisor.example.com/health/detail`>\nPanel]([https://debvisor.example.com/health/detail`>\nPane]([https://debvisor.example.com/health/detail`>\nPan]([https://debvisor.example.com/health/detail`>\nPa]([https://debvisor.example.com/health/detail`>\nP]([https://debvisor.example.com/health/detail`>\n]([https://debvisor.example.com/health/detail`>\]([https://debvisor.example.com/health/detail`>](https://debvisor.example.com/health/detail`>)\)n)P)a)n)e)l)
 transformation:\n\n- Extract fields: `status`, `build.version`, `checks.database`,
 `checks.redis`,
 `checks.smtp`\n\n- Map `status: ok -> 1`, `degraded -> 0`for alert thresholds.\n\n##
@@ -202,23 +202,23 @@ is configured)\n\n## Native Prometheus Metrics (8)\n\nFor application metrics (l
 request
 counts), use`/metrics` which exposes Prometheus format.\nQuick
 validation:\n\n```bash\ncurl -s
-<[https://debvisor.example.com/metrics>]([https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me](https://debvisor.example.com/me)t)r)i)c)s)>)
+<[https://debvisor.example.com/metrics>]([https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me]([https://debvisor.example.com/m](https://debvisor.example.com/m)e)t)r)i)c)s)>)
 | head\ncurl -s
-<[https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d](https://debvisor.example.com/health/d)e)t)a)i)l)>)
+<[https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)>)
 | jq\n```text\n\ncurl -s
-<[https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d](https://debvisor.example.com/health/d)e)t)a)i)l)>)
+<[https://debvisor.example.com/health/detail>]([https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)>)
 | jq\n```text\ncurl -s
-[https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me]([https://debvisor.example.com/m](https://debvisor.example.com/m)e)t)r)i)c)s)
+[https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me]([https://debvisor.example.com/m]([https://debvisor.example.com/](https://debvisor.example.com/)m)e)t)r)i)c)s)
 | head\ncurl -s
-[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)
+[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/]([https://debvisor.example.com/health](https://debvisor.example.com/health)/)d)e)t)a)i)l)
 | jq\n```text\n\ncurl -s
-[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)
+[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/]([https://debvisor.example.com/health](https://debvisor.example.com/health)/)d)e)t)a)i)l)
 | jq\n```text\ncurl -s
-[https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me]([https://debvisor.example.com/m](https://debvisor.example.com/m)e)t)r)i)c)s)
+[https://debvisor.example.com/metrics]([https://debvisor.example.com/metric]([https://debvisor.example.com/metri]([https://debvisor.example.com/metr]([https://debvisor.example.com/met]([https://debvisor.example.com/me]([https://debvisor.example.com/m]([https://debvisor.example.com/](https://debvisor.example.com/)m)e)t)r)i)c)s)
 | head\ncurl -s
-[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)
+[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/]([https://debvisor.example.com/health](https://debvisor.example.com/health)/)d)e)t)a)i)l)
 | jq\n```text\n\ncurl -s
-[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)
+[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/]([https://debvisor.example.com/health](https://debvisor.example.com/health)/)d)e)t)a)i)l)
 | jq\n```text\ncurl -s
-[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/](https://debvisor.example.com/health/)d)e)t)a)i)l)
+[https://debvisor.example.com/health/detail]([https://debvisor.example.com/health/detai]([https://debvisor.example.com/health/deta]([https://debvisor.example.com/health/det]([https://debvisor.example.com/health/de]([https://debvisor.example.com/health/d]([https://debvisor.example.com/health/]([https://debvisor.example.com/health](https://debvisor.example.com/health)/)d)e)t)a)i)l)
 | jq\n```text\n```text\n\n

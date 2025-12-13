@@ -32,7 +32,7 @@ Insertion**:\n\n - Avoids duplicate blank lines\n\n - Respects intentional forma
 Distinguishes between different block types (headings vs fences vs lists)\n\n1. **HTML
 Handling**:\n\n - Escapes problematic tokens\n\n - Converts angle-bracket-wrapped
 URLs:`<[https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://u)r)l)`)>)
-→`<[https://url`>\n\n]([https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url](https://url)`)>)\)n)\)n)
+→`<[https://url`>\n\n]([https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur](https://ur)l)`)>)\)n)\)n)
 -
 Preserves valid markdown links\n\n1. **Robust Regex Patterns**:\n\n - Anchored patterns
 prevent

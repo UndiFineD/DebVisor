@@ -30,9 +30,9 @@ module.
 ### Context
 
 ```python
-# import hashlib
+## import hashlib
 import base64
-# import platform
+## import platform
 import subprocess
 from typing import Dict, Optional, Any, List, Set, Callable
 from datetime import datetime, timezone, timedelta

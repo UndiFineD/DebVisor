@@ -10,7 +10,7 @@ Configuration](#path-configuration)\n\n-
 Dependencies](#tool-dependencies)\n\n## Prerequisites\n\n### Required Software\n\n1. **Git
 for
 Windows**(required for bash, curl, sha256sum, gpg)\n\n - Download:
-<[https://git-scm.com/download/win>\n\n]([https://git-scm.com/download/win>\n\]([https://git-scm.com/download/win>\n]([https://git-scm.com/download/win>\]([https://git-scm.com/download/win>]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)>)\)n)\)n)
+<[https://git-scm.com/download/win>\n\n]([https://git-scm.com/download/win>\n\]([https://git-scm.com/download/win>\n]([https://git-scm.com/download/win>\]([https://git-scm.com/download/win>]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)>)\)n)\)n)
 
 - During installation, ensure "Git from the command line and also from 3rd-party software"
 is
@@ -22,48 +22,48 @@ where bash\n # Should show: C:\Program Files\Git\bin\bash.exe\n```text\n # Shoul
 C:\Program
 Files\Git\bin\bash.exe\n```text\n\n1.**GitHub Actions Runner**(already downloaded to
 `C:\actions-runner`)\n\n - Latest release:
-[https://github.com/actions/runner/releases\n###]([https://github.com/actions/runner/releases\n##]([https://github.com/actions/runner/releases\n#]([https://github.com/actions/runner/releases\n]([https://github.com/actions/runner/releases\]([https://github.com/actions/runner/releases]([https://github.com/actions/runner/release](https://github.com/actions/runner/release)s)\)n)#)#)#)
+[https://github.com/actions/runner/releases\n###]([https://github.com/actions/runner/releases\n##]([https://github.com/actions/runner/releases\n#]([https://github.com/actions/runner/releases\n]([https://github.com/actions/runner/releases\]([https://github.com/actions/runner/releases]([https://github.com/actions/runner/release]([https://github.com/actions/runner/releas](https://github.com/actions/runner/releas)e)s)\)n)#)#)#)
 Recommended Software\n-**PowerShell 7+**:
-[https://github.com/PowerShell/PowerShell/releases\n\n-]([https://github.com/PowerShell/PowerShell/releases\n\n]([https://github.com/PowerShell/PowerShell/releases\n\]([https://github.com/PowerShell/PowerShell/releases\n]([https://github.com/PowerShell/PowerShell/releases\]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release](https://github.com/PowerShell/PowerShell/release)s)\)n)\)n)-)
+[https://github.com/PowerShell/PowerShell/releases\n\n-]([https://github.com/PowerShell/PowerShell/releases\n\n]([https://github.com/PowerShell/PowerShell/releases\n\]([https://github.com/PowerShell/PowerShell/releases\n]([https://github.com/PowerShell/PowerShell/releases\]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release]([https://github.com/PowerShell/PowerShell/releas](https://github.com/PowerShell/PowerShell/releas)e)s)\)n)\)n)-)
 **Windows Terminal**:
-[https://aka.ms/terminal\n##]([https://aka.ms/terminal\n#]([https://aka.ms/terminal\n]([https://aka.ms/terminal\]([https://aka.ms/terminal]([https://aka.ms/termina]([https://aka.ms/termin](https://aka.ms/termin)a)l)\)n)#)#)
+[https://aka.ms/terminal\n##]([https://aka.ms/terminal\n#]([https://aka.ms/terminal\n]([https://aka.ms/terminal\]([https://aka.ms/terminal]([https://aka.ms/termina]([https://aka.ms/termin]([https://aka.ms/termi](https://aka.ms/termi)n)a)l)\)n)#)#)
 Service Installation\n### Step 1: Obtain Registration Token\n1. Navigate to:
-`[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>)\)n)\)n)1).)
+`[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)1).)
 Copy the registration token (valid for 1 hour)\n### Step 2: Remove Existing Configuration
 (if
 needed)\nOpen **PowerShell as Administrator**:\n\n```powershell\n\n1. **GitHub Actions
 Runner**(already downloaded to `C:\actions-runner`)\n\n - Latest release:
-<[https://github.com/actions/runner/releases>\n\n###]([https://github.com/actions/runner/releases>\n\n##]([https://github.com/actions/runner/releases>\n\n#]([https://github.com/actions/runner/releases>\n\n]([https://github.com/actions/runner/releases>\n\]([https://github.com/actions/runner/releases>\n]([https://github.com/actions/runner/releases>\](https://github.com/actions/runner/releases>\)n)\)n)#)#)#)
+<[https://github.com/actions/runner/releases>\n\n###]([https://github.com/actions/runner/releases>\n\n##]([https://github.com/actions/runner/releases>\n\n#]([https://github.com/actions/runner/releases>\n\n]([https://github.com/actions/runner/releases>\n\]([https://github.com/actions/runner/releases>\n]([https://github.com/actions/runner/releases>\]([https://github.com/actions/runner/releases>](https://github.com/actions/runner/releases>)\)n)\)n)#)#)#)
 Recommended Software (2)\n\n-**PowerShell 7+**:
-<[https://github.com/PowerShell/PowerShell/releases>\n\n-]([https://github.com/PowerShell/PowerShell/releases>\n\n]([https://github.com/PowerShell/PowerShell/releases>\n\]([https://github.com/PowerShell/PowerShell/releases>\n]([https://github.com/PowerShell/PowerShell/releases>\]([https://github.com/PowerShell/PowerShell/releases>]([https://github.com/PowerShell/PowerShell/releases](https://github.com/PowerShell/PowerShell/releases)>)\)n)\)n)-)
+<[https://github.com/PowerShell/PowerShell/releases>\n\n-]([https://github.com/PowerShell/PowerShell/releases>\n\n]([https://github.com/PowerShell/PowerShell/releases>\n\]([https://github.com/PowerShell/PowerShell/releases>\n]([https://github.com/PowerShell/PowerShell/releases>\]([https://github.com/PowerShell/PowerShell/releases>]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release](https://github.com/PowerShell/PowerShell/release)s)>)\)n)\)n)-)
 **Windows Terminal**:
-<[https://aka.ms/terminal>\n\n##]([https://aka.ms/terminal>\n\n#]([https://aka.ms/terminal>\n\n]([https://aka.ms/terminal>\n\]([https://aka.ms/terminal>\n]([https://aka.ms/terminal>\]([https://aka.ms/terminal>](https://aka.ms/terminal>)\)n)\)n)#)#)
+<[https://aka.ms/terminal>\n\n##]([https://aka.ms/terminal>\n\n#]([https://aka.ms/terminal>\n\n]([https://aka.ms/terminal>\n\]([https://aka.ms/terminal>\n]([https://aka.ms/terminal>\]([https://aka.ms/terminal>]([https://aka.ms/terminal](https://aka.ms/terminal)>)\)n)\)n)#)#)
 Service Installation (2)\n\n### Step 1: Obtain Registration Token (2)\n\n1. Navigate to:
-`<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>)\)n)\)n)1).)
+`<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)1).)
 Copy the registration token (valid for 1 hour)\n\n### Step 2: Remove Existing
 Configuration (if
 needed) (2)\n\nOpen **PowerShell as Administrator**:\n\n```powershell\n\n1. **GitHub
 Actions
 Runner**(already downloaded to `C:\actions-runner`)\n\n - Latest release:
-[https://github.com/actions/runner/releases\n\n###]([https://github.com/actions/runner/releases\n\n##]([https://github.com/actions/runner/releases\n\n#]([https://github.com/actions/runner/releases\n\n]([https://github.com/actions/runner/releases\n\]([https://github.com/actions/runner/releases\n]([https://github.com/actions/runner/releases\](https://github.com/actions/runner/releases\)n)\)n)#)#)#)
+[https://github.com/actions/runner/releases\n\n###]([https://github.com/actions/runner/releases\n\n##]([https://github.com/actions/runner/releases\n\n#]([https://github.com/actions/runner/releases\n\n]([https://github.com/actions/runner/releases\n\]([https://github.com/actions/runner/releases\n]([https://github.com/actions/runner/releases\]([https://github.com/actions/runner/releases](https://github.com/actions/runner/releases)\)n)\)n)#)#)#)
 Recommended Software (3)\n\n-**PowerShell 7+**:
-[https://github.com/PowerShell/PowerShell/releases\n\n-]([https://github.com/PowerShell/PowerShell/releases\n\n]([https://github.com/PowerShell/PowerShell/releases\n\]([https://github.com/PowerShell/PowerShell/releases\n]([https://github.com/PowerShell/PowerShell/releases\]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release](https://github.com/PowerShell/PowerShell/release)s)\)n)\)n)-)
+[https://github.com/PowerShell/PowerShell/releases\n\n-]([https://github.com/PowerShell/PowerShell/releases\n\n]([https://github.com/PowerShell/PowerShell/releases\n\]([https://github.com/PowerShell/PowerShell/releases\n]([https://github.com/PowerShell/PowerShell/releases\]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release]([https://github.com/PowerShell/PowerShell/releas](https://github.com/PowerShell/PowerShell/releas)e)s)\)n)\)n)-)
 **Windows Terminal**:
-[https://aka.ms/terminal\n\n##]([https://aka.ms/terminal\n\n#]([https://aka.ms/terminal\n\n]([https://aka.ms/terminal\n\]([https://aka.ms/terminal\n]([https://aka.ms/terminal\]([https://aka.ms/terminal](https://aka.ms/terminal)\)n)\)n)#)#)
+[https://aka.ms/terminal\n\n##]([https://aka.ms/terminal\n\n#]([https://aka.ms/terminal\n\n]([https://aka.ms/terminal\n\]([https://aka.ms/terminal\n]([https://aka.ms/terminal\]([https://aka.ms/terminal]([https://aka.ms/termina](https://aka.ms/termina)l)\)n)\)n)#)#)
 Service Installation (3)\n\n### Step 1: Obtain Registration Token (3)\n\n1. Navigate to:
-`[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>)\)n)\)n)1).)
+`[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)1).)
 Copy the registration token (valid for 1 hour)\n\n### Step 2: Remove Existing
 Configuration (if
 needed) (3)\n\nOpen **PowerShell as Administrator**:\n\n```powershell\n\n1. **GitHub
 Actions
 Runner**(already downloaded to `C:\actions-runner`)\n\n - Latest release:
-<[https://github.com/actions/runner/releases>\n\n###]([https://github.com/actions/runner/releases>\n\n##]([https://github.com/actions/runner/releases>\n\n#]([https://github.com/actions/runner/releases>\n\n]([https://github.com/actions/runner/releases>\n\]([https://github.com/actions/runner/releases>\n]([https://github.com/actions/runner/releases>\](https://github.com/actions/runner/releases>\)n)\)n)#)#)#)
+<[https://github.com/actions/runner/releases>\n\n###]([https://github.com/actions/runner/releases>\n\n##]([https://github.com/actions/runner/releases>\n\n#]([https://github.com/actions/runner/releases>\n\n]([https://github.com/actions/runner/releases>\n\]([https://github.com/actions/runner/releases>\n]([https://github.com/actions/runner/releases>\]([https://github.com/actions/runner/releases>](https://github.com/actions/runner/releases>)\)n)\)n)#)#)#)
 Recommended Software (4)\n\n-**PowerShell 7+**:
-<[https://github.com/PowerShell/PowerShell/releases>\n\n-]([https://github.com/PowerShell/PowerShell/releases>\n\n]([https://github.com/PowerShell/PowerShell/releases>\n\]([https://github.com/PowerShell/PowerShell/releases>\n]([https://github.com/PowerShell/PowerShell/releases>\]([https://github.com/PowerShell/PowerShell/releases>]([https://github.com/PowerShell/PowerShell/releases](https://github.com/PowerShell/PowerShell/releases)>)\)n)\)n)-)
+<[https://github.com/PowerShell/PowerShell/releases>\n\n-]([https://github.com/PowerShell/PowerShell/releases>\n\n]([https://github.com/PowerShell/PowerShell/releases>\n\]([https://github.com/PowerShell/PowerShell/releases>\n]([https://github.com/PowerShell/PowerShell/releases>\]([https://github.com/PowerShell/PowerShell/releases>]([https://github.com/PowerShell/PowerShell/releases]([https://github.com/PowerShell/PowerShell/release](https://github.com/PowerShell/PowerShell/release)s)>)\)n)\)n)-)
 **Windows Terminal**:
-<[https://aka.ms/terminal>\n\n##]([https://aka.ms/terminal>\n\n#]([https://aka.ms/terminal>\n\n]([https://aka.ms/terminal>\n\]([https://aka.ms/terminal>\n]([https://aka.ms/terminal>\]([https://aka.ms/terminal>](https://aka.ms/terminal>)\)n)\)n)#)#)
+<[https://aka.ms/terminal>\n\n##]([https://aka.ms/terminal>\n\n#]([https://aka.ms/terminal>\n\n]([https://aka.ms/terminal>\n\]([https://aka.ms/terminal>\n]([https://aka.ms/terminal>\]([https://aka.ms/terminal>]([https://aka.ms/terminal](https://aka.ms/terminal)>)\)n)\)n)#)#)
 Service Installation (4)\n\n### Step 1: Obtain Registration Token (4)\n\n1. Navigate to:
-`<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>)\)n)\)n)1).)
+`<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1.]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n1]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new`>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)1).)
 Copy the registration token (valid for 1 hour)\n\n### Step 2: Remove Existing
 Configuration (if
 needed) (4)\n\nOpen **PowerShell as Administrator**:\n\n```powershell\ncd
@@ -83,22 +83,22 @@ PowerShell**:\n\n```powershell\n\nIn the
 same **Administrator PowerShell**:\n\n```powershell\ncd C:\actions-runner\n# Configure
 with service
 options\n.\config.cmd `\n\n- -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 `\n\n- -token <YOUR_NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n# Verify service was created\n```powershell\n\n## Configure with
 service
 options\n\n.\config.cmd `\n\n- -url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 `\n\n- -token <YOUR_NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Verify service was created\n\n```powershell\ncd
 C:\actions-runner\n\n##
 Configure with service options (2)\n\n.\config.cmd `\n\n- -url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 `\n\n- -token <YOUR_NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Verify service was created (2)\n```powershell\n\n## Configure with
 service
 options (3)\n\n.\config.cmd `\n\n- -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 `\n\n- -token <YOUR_NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Verify service was created (3)\n\n```powershell\nGet-Service |
 Where-Object
@@ -452,7 +452,7 @@ scripts/setup-runner-tools.sh\ngit
 commit -m "feat: add runner smoke test"\ngit push\n```text\n\ngit commit -m "feat: add
 runner smoke
 test"\ngit push\n```text\nCheck workflow run at:
-`<<<<<<<<<<<<<<<<<<<<<<<<<<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n###]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)#)#)#)
+`<<<<<<<<<<<<<<<<<<<<<<<<<<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n###]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>`>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)#)#)#)
 Manual Verification\nTest key components directly:\n\n```powershell\n\n### Manual
 Verification
 (2)\n\nTest key components directly:\n\n```powershell\n### Manual Verification (3)\n\nTest
@@ -495,11 +495,11 @@ Shell interpreter\n\n- **curl**: HTTP client\n\n- **sha256sum**: Checksum utilit
 GPG/PGP signing (in `C:\Program Files\Git\usr\bin`)\n\n- **git**: Version control\n###
 Optional
 (install manually if needed)\n- **gh CLI**: GitHub command-line tool\n\n- Download:
-<<<<<<<<<<<<<<<<<<<<<<<<<<[https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>](https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<[https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>](https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 Install via `winget install GitHub.cli`\n\n- **Docker Desktop**: For container
 workflows\n\n-
 Download:
-<<<<<<<<<<<<<<<<<<<<<<<<<<[https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n##]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n#]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>](https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)#)#)
+<<<<<<<<<<<<<<<<<<<<<<<<<<[https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n##]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n#]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>](https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>)>)>)>)\)n)#)#)
 Next Steps\n1. ✅ Install runner as service (follow [Service
 Installation](#service-installation))\n\n1. ✅ Fix PATH to prioritize Git Bash (follow
 [PATH
@@ -508,9 +508,9 @@ Configuration](#path-configuration))\n\n1. ✅ Run smoke test workflow (see
 commands)\n\n1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`\n## Support\n-
 **Runner
 Documentation**:
-<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 **Actions Troubleshooting**:
-<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 **Runner Logs**: `C:\actions-runner\_diag\`(when running interactively)\n\n- **Service
 Logs**: Event
 Viewer → Windows Logs → Application → Source: actions.runner.*\n## Quick Reference
@@ -524,11 +524,11 @@ client\n\n-
 Files\Git\usr\bin`)\n\n- **git**: Version control\n\n### Optional (install manually if
 needed)
 (2)\n\n- **gh CLI**: GitHub command-line tool\n\n- Download:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>](https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>](https://cli.github.com/>>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 Install via `winget install GitHub.cli`\n\n- **Docker Desktop**: For container
 workflows\n\n-
 Download:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n##]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n#]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>](https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>)\)n)\)n)#)#)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n##]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n#]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>](https://www.docker.com/products/docker-desktop>>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)#)#)
 Next Steps (2)\n\n1. ✅ Install runner as service (follow [Service
 Installation](#service-installation))\n\n1. ✅ Fix PATH to prioritize Git Bash (follow
 [PATH
@@ -537,9 +537,9 @@ Configuration](#path-configuration))\n\n1. ✅ Run smoke test workflow (see
 commands)\n\n1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`\n\n## Support
 (2)\n\n-
 **Runner Documentation**:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/hosting-your-own-runners>>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 **Actions Troubleshooting**:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>)>)\)n)\)n)-)
+<<<<<<<<<<<<<<<<<<<<<<<<<<<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>>>>>>>>>>>>>>>>>>>>>>>>>)>)>)\)n)\)n)-)
 **Runner Logs**: `C:\actions-runner\_diag\`(when running interactively)\n\n- **Service
 Logs**: Event
 Viewer → Windows Logs → Application → Source: actions.runner.*\n\n## Quick Reference
@@ -554,11 +554,11 @@ client\n\n-
 Files\Git\usr\bin`)\n\n- **git**: Version control\n\n### Optional (install manually if
 needed)
 (3)\n\n- **gh CLI**: GitHub command-line tool\n\n- Download:
-[https://cli.github.com/\n\n-]([https://cli.github.com/\n\n]([https://cli.github.com/\n\]([https://cli.github.com/\n]([https://cli.github.com/\]([https://cli.github.com/]([https://cli.github.com](https://cli.github.com)/)\)n)\)n)-)
+[https://cli.github.com/\n\n-]([https://cli.github.com/\n\n]([https://cli.github.com/\n\]([https://cli.github.com/\n]([https://cli.github.com/\]([https://cli.github.com/]([https://cli.github.com]([https://cli.github.co](https://cli.github.co)m)/)\)n)\)n)-)
 Install via `winget install GitHub.cli`\n\n- **Docker Desktop**: For container
 workflows\n\n-
 Download:
-[https://www.docker.com/products/docker-desktop\n\n##]([https://www.docker.com/products/docker-desktop\n\n#]([https://www.docker.com/products/docker-desktop\n\n]([https://www.docker.com/products/docker-desktop\n\]([https://www.docker.com/products/docker-desktop\n]([https://www.docker.com/products/docker-desktop\]([https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)\)n)\)n)#)#)
+[https://www.docker.com/products/docker-desktop\n\n##]([https://www.docker.com/products/docker-desktop\n\n#]([https://www.docker.com/products/docker-desktop\n\n]([https://www.docker.com/products/docker-desktop\n\]([https://www.docker.com/products/docker-desktop\n]([https://www.docker.com/products/docker-desktop\]([https://www.docker.com/products/docker-desktop]([https://www.docker.com/products/docker-deskto](https://www.docker.com/products/docker-deskto)p)\)n)\)n)#)#)
 Next Steps (3)\n\n1. ✅ Install runner as service (follow [Service
 Installation](#service-installation))\n\n1. ✅ Fix PATH to prioritize Git Bash (follow
 [PATH
@@ -567,9 +567,9 @@ Configuration](#path-configuration))\n\n1. ✅ Run smoke test workflow (see
 commands)\n\n1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`\n\n## Support
 (3)\n\n-
 **Runner Documentation**:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner](https://docs.github.com/en/actions/hosting-your-own-runner)s)\)n)\)n)-)
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne](https://docs.github.com/en/actions/hosting-your-own-runne)r)s)\)n)\)n)-)
 **Actions Troubleshooting**:
-[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-action](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-action)s)\)n)\)n)-)
+[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-action]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actio](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actio)n)s)\)n)\)n)-)
 **Runner Logs**: `C:\actions-runner\_diag\`(when running interactively)\n\n- **Service
 Logs**: Event
 Viewer → Windows Logs → Application → Source: actions.runner.*\n\n## Quick Reference
@@ -583,11 +583,11 @@ GPG/PGP
 signing (in`C:\Program Files\Git\usr\bin`)\n\n- **git**: Version control\n\n### Optional
 (install
 manually if needed) (4)\n\n- **gh CLI**: GitHub command-line tool\n\n- Download:
-<[https://cli.github.com/>\n\n-]([https://cli.github.com/>\n\n]([https://cli.github.com/>\n\]([https://cli.github.com/>\n]([https://cli.github.com/>\]([https://cli.github.com/>]([https://cli.github.com/](https://cli.github.com/)>)\)n)\)n)-)
+<[https://cli.github.com/>\n\n-]([https://cli.github.com/>\n\n]([https://cli.github.com/>\n\]([https://cli.github.com/>\n]([https://cli.github.com/>\]([https://cli.github.com/>]([https://cli.github.com/]([https://cli.github.com](https://cli.github.com)/)>)\)n)\)n)-)
 Install via `winget install GitHub.cli`\n\n- **Docker Desktop**: For container
 workflows\n\n-
 Download:
-<[https://www.docker.com/products/docker-desktop>\n\n##]([https://www.docker.com/products/docker-desktop>\n\n#]([https://www.docker.com/products/docker-desktop>\n\n]([https://www.docker.com/products/docker-desktop>\n\]([https://www.docker.com/products/docker-desktop>\n]([https://www.docker.com/products/docker-desktop>\]([https://www.docker.com/products/docker-desktop>](https://www.docker.com/products/docker-desktop>)\)n)\)n)#)#)
+<[https://www.docker.com/products/docker-desktop>\n\n##]([https://www.docker.com/products/docker-desktop>\n\n#]([https://www.docker.com/products/docker-desktop>\n\n]([https://www.docker.com/products/docker-desktop>\n\]([https://www.docker.com/products/docker-desktop>\n]([https://www.docker.com/products/docker-desktop>\]([https://www.docker.com/products/docker-desktop>]([https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)>)\)n)\)n)#)#)
 Next Steps (4)\n\n1. ✅ Install runner as service (follow [Service
 Installation](#service-installation))\n\n1. ✅ Fix PATH to prioritize Git Bash (follow
 [PATH
@@ -596,9 +596,9 @@ Configuration](#path-configuration))\n\n1. ✅ Run smoke test workflow (see
 commands)\n\n1. ✅ Update workflows to use `scripts/setup-runner-tools.sh`\n\n## Support
 (4)\n\n-
 **Runner Documentation**:
-<[https://docs.github.com/en/actions/hosting-your-own-runners>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>\]([https://docs.github.com/en/actions/hosting-your-own-runners>]([https://docs.github.com/en/actions/hosting-your-own-runners](https://docs.github.com/en/actions/hosting-your-own-runners)>)\)n)\)n)-)
+<[https://docs.github.com/en/actions/hosting-your-own-runners>\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners>\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners>\n\]([https://docs.github.com/en/actions/hosting-your-own-runners>\n]([https://docs.github.com/en/actions/hosting-your-own-runners>\]([https://docs.github.com/en/actions/hosting-your-own-runners>]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner](https://docs.github.com/en/actions/hosting-your-own-runner)s)>)\)n)\)n)-)
 **Actions Troubleshooting**:
-<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions)>)\)n)\)n)-)
+<[https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\n-]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\n]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>\]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions>]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-actions]([https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-action](https://docs.github.com/en/actions/learn-github-actions/troubleshooting-github-action)s)>)\)n)\)n)-)
 **Runner Logs**: `C:\actions-runner\_diag\` (when running interactively)\n\n- **Service
 Logs**:
 Event Viewer → Windows Logs → Application → Source: actions.runner.*\n\n## Quick Reference
@@ -612,7 +612,7 @@ Interactive Mode
 (for debugging)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info\nGet-Content C:\actions-runner\.runner
 -Raw |
 ConvertFrom-Json | Format-List\n```text\nGet-Service actions.runner.*|
@@ -624,7 +624,7 @@ Interactive
 Mode (for debugging)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner\n\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info\n\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n## Service Management\n\nGet-Service actions.runner.* |
@@ -635,7 +635,7 @@ actions.runner.*\n\n## Check Runner Status (2)\n\nGet-EventLog -LogName Applicat
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (2)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (2)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (2)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-Service actions.runner.* |
@@ -646,7 +646,7 @@ actions.runner.*\n\n## Check Runner Status (3)\n\nGet-EventLog -LogName Applicat
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (3)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (3)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (3)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nr.*\n# Check Runner Status
@@ -656,7 +656,7 @@ debugging)
 (2)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner (2)\n.\config.cmd remove
 --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (2)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (4)\n\nGet-EventLog
@@ -665,7 +665,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (4)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (4)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (4)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n## Check Runner Status (5)\n\nGet-EventLog
@@ -674,7 +674,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (5)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (5)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (5)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-EventLog -LogName Application
@@ -682,7 +682,7 @@ C:\actions-runner\.runner
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (6)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (6)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (6)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nner.*\n# Check Runner Status
@@ -692,7 +692,7 @@ debugging)
 (3)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner (3)\n.\config.cmd remove
 --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (3)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (6)\n\nGet-EventLog
@@ -701,7 +701,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (7)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (7)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (7)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n## Check Runner Status (7)\n\nGet-EventLog
@@ -710,7 +710,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (8)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (8)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (8)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-EventLog -LogName Application
@@ -718,7 +718,7 @@ C:\actions-runner\.runner
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (9)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (9)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (9)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nner.*\n# Check Runner Status
@@ -728,7 +728,7 @@ debugging)
 (4)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner (4)\n.\config.cmd remove
 --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (4)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (8)\n\nGet-EventLog
@@ -737,7 +737,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (10)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (10)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (10)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n## Check Runner Status (9)\n\nGet-EventLog
@@ -746,7 +746,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (11)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (11)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (11)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-EventLog -LogName Application
@@ -754,7 +754,7 @@ C:\actions-runner\.runner
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (12)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (12)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (12)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nner.*\n# Check Runner Status
@@ -764,7 +764,7 @@ debugging)
 (5)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner (5)\n.\config.cmd remove
 --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (5)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (10)\n\nGet-EventLog
@@ -773,7 +773,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (13)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (13)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (13)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n## Check Runner Status
@@ -782,7 +782,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (14)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (14)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (14)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-EventLog -LogName Application
@@ -790,7 +790,7 @@ C:\actions-runner\.runner
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (15)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (15)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (15)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nunner\_diag\` (when running
@@ -811,7 +811,7 @@ actions.runner.*\n# Check Runner Status (6)\nGet-EventLog -LogName Application -
 "actions.runner.*" -Newest 5\n# Interactive Mode (for debugging) (6)\ncd
 C:\actions-runner\n.\run.cmd\n# Reconfigure Runner (6)\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (6)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\nGet-Service actions.runner.* |
@@ -823,7 +823,7 @@ Status (12)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (16)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (16)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (16)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n## Service Management (2)\n\nGet-Service
@@ -835,7 +835,7 @@ debugging)
 (17)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (17)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (17)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\nGet-Service actions.runner.* |
@@ -846,7 +846,7 @@ actions.runner.*\n\n## Check Runner Status (14)\n\nGet-EventLog -LogName Applica
 "actions.runner.*" -Newest 5\n\n## Interactive Mode (for debugging) (18)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (18)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (18)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -856,7 +856,7 @@ Interactive
 Mode (for debugging) (7)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (7)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (7)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (15)\n\nGet-EventLog
@@ -865,7 +865,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (19)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (19)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (19)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -875,7 +875,7 @@ Status (16)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (20)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (20)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (20)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -885,7 +885,7 @@ debugging)
 (21)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (21)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (21)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -895,7 +895,7 @@ Interactive
 Mode (for debugging) (8)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (8)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (8)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (18)\n\nGet-EventLog
@@ -904,7 +904,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (22)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (22)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (22)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -914,7 +914,7 @@ Status (19)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (23)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (23)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (23)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -924,7 +924,7 @@ debugging)
 (24)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (24)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (24)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -934,7 +934,7 @@ Interactive
 Mode (for debugging) (9)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (9)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (9)\nGet-Content
 C:\actions-runner\.runner -Raw |
 ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (21)\n\nGet-EventLog
@@ -943,7 +943,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (25)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (25)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (25)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -953,7 +953,7 @@ Status (22)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (26)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (26)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (26)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -963,7 +963,7 @@ debugging)
 (27)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (27)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (27)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -973,7 +973,7 @@ Interactive
 Mode (for debugging) (10)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (10)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (10)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (24)\n\nGet-EventLog -LogName
@@ -981,7 +981,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (28)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (28)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (28)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -991,7 +991,7 @@ Status (25)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (29)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (29)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (29)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1001,7 +1001,7 @@ debugging)
 (30)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (30)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (30)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1011,7 +1011,7 @@ Interactive
 Mode (for debugging) (11)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (11)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (11)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (27)\n\nGet-EventLog -LogName
@@ -1019,7 +1019,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (31)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (31)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (31)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1029,7 +1029,7 @@ Status (28)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (32)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (32)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (32)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1039,7 +1039,7 @@ debugging)
 (33)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (33)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (33)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1049,7 +1049,7 @@ Interactive
 Mode (for debugging) (12)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (12)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (12)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (30)\n\nGet-EventLog -LogName
@@ -1057,7 +1057,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (34)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (34)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (34)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1067,7 +1067,7 @@ Status (31)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (35)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (35)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (35)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1077,7 +1077,7 @@ debugging)
 (36)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (36)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (36)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1087,7 +1087,7 @@ Interactive
 Mode (for debugging) (13)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (13)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (13)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (33)\n\nGet-EventLog -LogName
@@ -1095,7 +1095,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (37)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (37)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (37)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1105,7 +1105,7 @@ Status (34)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (38)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (38)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (38)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1115,7 +1115,7 @@ debugging)
 (39)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (39)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (39)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1125,7 +1125,7 @@ Interactive
 Mode (for debugging) (14)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (14)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (14)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (36)\n\nGet-EventLog -LogName
@@ -1133,7 +1133,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (40)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (40)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (40)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1143,7 +1143,7 @@ Status (37)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (41)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (41)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (41)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1153,7 +1153,7 @@ debugging)
 (42)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (42)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (42)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1163,7 +1163,7 @@ Interactive
 Mode (for debugging) (15)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (15)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (15)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (39)\n\nGet-EventLog -LogName
@@ -1171,7 +1171,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (43)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (43)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (43)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1181,7 +1181,7 @@ Status (40)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (44)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (44)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (44)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1191,7 +1191,7 @@ debugging)
 (45)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (45)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (45)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1201,7 +1201,7 @@ Interactive
 Mode (for debugging) (16)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (16)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n# View Runner Info (16)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (42)\n\nGet-EventLog -LogName
@@ -1209,7 +1209,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (46)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (46)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (46)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1219,7 +1219,7 @@ Status (43)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (47)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (47)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (47)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1229,7 +1229,7 @@ debugging)
 (48)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (48)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (48)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n# Check
@@ -1239,7 +1239,7 @@ Interactive
 Mode (for debugging) (17)\ncd C:\actions-runner\n.\run.cmd\n# Reconfigure Runner
 (17)\n.\config.cmd
 remove --token [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n# View Runner Info (17)\nGet-Content
 C:\actions-runner\.runner -Raw
 | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status (45)\n\nGet-EventLog -LogName
@@ -1247,7 +1247,7 @@ Application -Source "actions.runner.*" -Newest 5\n\n## Interactive Mode (for deb
 (49)\n\ncd
 C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (49)\n\n.\config.cmd remove --token
 [TOKEN]\n.\config.cmd --url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV](https://github.com/UndiFineD/DebV)i)s)o)r)>)>)
+<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (49)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\nRestart-Service actions.runner.*\n\n##
@@ -1257,7 +1257,7 @@ Status (46)\n\nGet-EventLog -LogName Application -Source "actions.runner.*" -New
 Interactive Mode (for debugging) (50)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure
 Runner
 (50)\n\n.\config.cmd remove --token [TOKEN]\n.\config.cmd --url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
 --token [TOKEN] --runasservice\n\n## View Runner Info (50)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n## Check Runner Status
@@ -1267,7 +1267,7 @@ debugging)
 (51)\n\ncd C:\actions-runner\n.\run.cmd\n\n## Reconfigure Runner (51)\n\n.\config.cmd
 remove --token
 [TOKEN]\n.\config.cmd --url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)
+<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
 --token [TOKEN] --runasservice\n\n## View Runner Info (51)\n\nGet-Content
 C:\actions-runner\.runner
 -Raw | ConvertFrom-Json | Format-List\n```text\n\n

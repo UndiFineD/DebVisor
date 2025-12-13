@@ -13,7 +13,7 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got '"""Simple global E251 fix"""', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got '', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got 'import re', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got '', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC](http://www.apache.org/licenses/LIC)E)N)S)E)-)2).)0)') |
+| incorrect_header | 5 | Header line incorrect: got '', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L](http://www.apache.org/licenses/L)I)C)E)N)S)E)-)2).)0)') |
 | incorrect_header | 6 | Header line incorrect: got 'with open('opt/services/backup/backup_intelligence.py', 'r') as f:', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got '    content = f.read()', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got '', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
@@ -57,8 +57,8 @@ Status: INVALID
 Each code file should have the following structure:
 
 ```python
-# !/usr/bin/env python3  (shebang for .py files)
-# [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
+## !/usr/bin/env python3  (shebang for .py files)
+## [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
 
 """
 Module description and purpose.
@@ -79,9 +79,9 @@ Detailed description of what this file does.
 - Enhancement 2
 """
 
-# =====================================================
-# [Actual code starts here]
-# =====================================================
+## =====================================================
+## [Actual code starts here]
+## =====================================================
 ```python
 
 ## Fix Proposals
@@ -117,17 +117,17 @@ Detailed description of what this file does.
 ### Example Template
 
 ```python
-# !/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L](http://www.apache.org/licenses/L)I)C)E)N)S)E)-)2).)0)
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+## !/usr/bin/env python3
+## Copyright (c) 2025 DebVisor contributors
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses](http://www.apache.org/licenses)/)L)I)C)E)N)S)E)-)2).)0)
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
 
 """
 Brief description of module.
@@ -145,11 +145,11 @@ Longer description of what this module does.
 - Future enhancements
 """
 
-# =====================================================
-# Implementation
-# =====================================================
+## =====================================================
+## Implementation
+## =====================================================
 
-# Your code here...
+## Your code here...
 ```python
 
 ## Implementation Status

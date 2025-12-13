@@ -96,7 +96,7 @@ playbook aligned with the repository version\nwithout requiring manual copies.\n
 Flow (VM
 or Bare Metal)\n\n1. Boot ISO\n\n1. Follow minimal installer prompts (locale, passwords,
 profile)\n\n1. Reboot -> first boot provisioning executes\n\n1. Validate:\n\n- Cockpit:
-<[https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>](https://host:9090->>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)>)`ceph
+<[https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>>]([https://host:9090->>>>>>>>>>>>>>>>>>>](https://host:9090->>>>>>>>>>>>>>>>>>>)>)>)>)>)>)>)>)`ceph
 -s`healthy (ceph/mixed)\n\n-`zpool status`(zfs/mixed)\n\n-`kubectl get nodes`Ready\n\n##
 Extending\n\n- Add Helm charts under`docker\addons\`\n\n- Add cluster join script
 under`scripts/`\n\n- Pin versions via custom APT repo file under

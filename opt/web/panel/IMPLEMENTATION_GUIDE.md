@@ -18,7 +18,7 @@ point
 INPUT_VALIDATION.md #
 Input validation guide\n +-- IMPLEMENTATION_GUIDE.md # This file\n |\n +-- debvisor_pb2.py
 
-#
+## 
 
 Generated RPC protocol buffers\n +-- debvisor_pb2_grpc.py # Generated RPC service stubs\n
 |\n +--
@@ -47,7 +47,7 @@ app.css\n | +-- js/\n | | +-- jquery.min.js\n | | +-- bootstrap.min.js\n | | +--
 | +--
 images/\n |\n +-- tests/ # Unit and integration tests\n +--**init**.py\n +-- test_auth.py
 
-#
+## 
 
 Authentication tests\n +-- test_nodes.py # Node endpoint tests\n +-- test_validators.py #
 Validator
@@ -463,7 +463,7 @@ X-Frame-Options
 "DENY" always;\n add_header X-Content-Type-Options "nosniff" always;\n add_header
 X-XSS-Protection
 "1; mode=block" always;\n\n## Proxy settings\n\n proxy_pass
-[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor_pa]([http://debvisor*p]([http://debvisor*]([http://debvisor](http://debvisor)_)p)a)n)e)l);)\n
+[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor*pa]([http://debvisor*p]([http://debvisor*]([http://debvisor]([http://debviso](http://debviso)r)*)p)a)n)e)l);)\n
 proxy_set_header Host $host;\n proxy_set_header X-Real-IP $remote_addr;\n proxy_set_header
 X-Forwarded-For $proxy_add_x_forwarded_for;\n proxy_set_header X-Forwarded-Proto
 $scheme;\n\n##
@@ -474,7 +474,7 @@ proxy_set_header
 Connection "upgrade";\n }\n\n## Redirect HTTP to HTTPS\n\n server {\n listen 80;\n
 server_name
 cluster.example.com;\n return 301
-[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque](https://$server*name$reque)s)t)*)u)r)i);)\n
+[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque]([https://$server*name$requ](https://$server*name$requ)e)s)t)*)u)r)i);)\n
 }\n\n## Testing\n\n### Test Structure (tests/test_nodes.py)\n\n """\n Tests for node
 management
 endpoints\n """\n import pytest\n from flask_login import FlaskLoginClient\n

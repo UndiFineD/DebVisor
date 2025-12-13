@@ -35,17 +35,17 @@ named`debvisor-0.2.0-amd64.hybrid.iso`(or`debvisor-0.2.0-.hybrid.iso`if you also
 set`DEBVISOR_ARCH`).\n\n### Mirror and firmware options\n\nThese toggle where packages
 come from and
 whether firmware is included:\n\n- `DEBVISOR_MIRROR_BOOTSTRAP`- Bootstrap mirror URL
-(default:`[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/](http://deb.debian.org/)d)e)b)i)a)n)/)`).\n\n-
+(default:`[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org](http://deb.debian.org)/)d)e)b)i)a)n)/)`).\n\n-
 `DEBVISOR_MIRROR_BINARY`- Binary mirror URL
-(default:`[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/](http://deb.debian.org/)d)e)b)i)a)n)/)`).\n\n-
+(default:`[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org](http://deb.debian.org)/)d)e)b)i)a)n)/)`).\n\n-
 `DEBVISOR_FIRMWARE_CHROOT`-`true`/`false`, include firmware in chroot
 (default:`true`).\n\n-
 `DEBVISOR_FIRMWARE_BINARY`-`true`/`false`, include firmware in binary
 (default:`true`).\n\nExample
 overriding mirrors only:\n
-DEBVISOR_MIRROR_BOOTSTRAP=[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/](http://deb.debian.org/)d)e)b)i)a)n)/)
+DEBVISOR_MIRROR_BOOTSTRAP=[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org](http://deb.debian.org)/)d)e)b)i)a)n)/)
 \\n
-DEBVISOR_MIRROR_BINARY=[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/](http://deb.debian.org/)d)e)b)i)a)n)/)
+DEBVISOR_MIRROR_BINARY=[http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org](http://deb.debian.org)/)d)e)b)i)a)n)/)
 \\n ./build/build-debvisor.sh\n\n### `DEBVISOR_SELFTEST`\n\nEnable a quick self-test mode
 that runs
 configuration and preflight checks but skips the expensive ISO build.\n\n- `0`(default):

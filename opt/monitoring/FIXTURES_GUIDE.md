@@ -38,7 +38,7 @@ Configurable via environment variables\n\n- More realistic time-series generatio
 Usage
 [2]\n\n kubectl apply -f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Prometheus
 scrapes:
-[http://synthetic-metrics:8080/metrics]([http://synthetic-metrics:8080/metric]([http://synthetic-metrics:8080/metri]([http://synthetic-metrics:8080/metr]([http://synthetic-metrics:8080/met]([http://synthetic-metrics:8080/me]([http://synthetic-metrics:8080/m]([http://synthetic-metrics:8080/](http://synthetic-metrics:8080/)m)e)t)r)i)c)s)\n\n##
+[http://synthetic-metrics:8080/metrics]([http://synthetic-metrics:8080/metric]([http://synthetic-metrics:8080/metri]([http://synthetic-metrics:8080/metr]([http://synthetic-metrics:8080/met]([http://synthetic-metrics:8080/me]([http://synthetic-metrics:8080/m]([http://synthetic-metrics:8080/]([http://synthetic-metrics:8080](http://synthetic-metrics:8080)/)m)e)t)r)i)c)s)\n\n##
 Environment Classifications\n\n### Lab Environment\n\n- *When:**Local development,
 learning, small
 test clusters\n\n### Characteristics [3]\n\n- Single-node or 2-3 node clusters\n\n-
@@ -222,20 +222,20 @@ deployment/synthetic-metrics
 -n monitoring`\n\n1. Verify endpoint: `kubectl port-forward svc/synthetic-metrics
 8080:8080`\n\n1.
 Test endpoint: `curl
-[http://localhost:8080/metrics]([http://localhost:8080/metric]([http://localhost:8080/metri]([http://localhost:8080/metr]([http://localhost:8080/met]([http://localhost:8080/me]([http://localhost:8080/m]([http://localhost:8080/](http://localhost:8080/)m)e)t)r)i)c)s)\n\n###
+[http://localhost:8080/metrics]([http://localhost:8080/metric]([http://localhost:8080/metri]([http://localhost:8080/metr]([http://localhost:8080/met]([http://localhost:8080/me]([http://localhost:8080/m]([http://localhost:8080/]([http://localhost:8080](http://localhost:8080)/)m)e)t)r)i)c)s)\n\n###
 Prometheus Not Scraping\n\n1. Verify ServiceMonitor or scrape config exists\n\n1. Check
 Prometheus
 targets:
-[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/](http://prometheus:9090/)t)a)r)g)e)t)s)\n\n1.
+[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/]([http://prometheus:9090](http://prometheus:9090)/)t)a)r)g)e)t)s)\n\n1.
 Look for scrape errors in Prometheus logs\n\n### Dashboards Showing No Data\n\n1. Confirm
 metrics
 are arriving:
-[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909](http://prometheus:909)0)/)g)r)a)p)h)\n\n1.
+[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)g)r)a)p)h)\n\n1.
 Check query syntax in dashboard JSON\n\n1. Verify metric names match generator
 output\n\n### Alert
 Not Triggering\n\n1. Confirm metric value exceeds threshold\n\n1. Check Prometheus rule
 evaluation:
-[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909](http://prometheus:909)0)/)r)u)l)e)s)\n\n1.
+[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)r)u)l)e)s)\n\n1.
 Verify Alertmanager is running: `kubectl get pods -n monitoring`\n\n1. Check notification
 channel
 configuration\n\n## Reference\n\n### Files in this directory\n\n- `README.md`- Quick start

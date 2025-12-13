@@ -246,11 +246,11 @@ proper
 Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n##
 References\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd](https://github.com/DavidAnson/markd)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma](https://spec.commonma)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c](https://github.github.c)o)m)/)g)f)m)/)\n##
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n##
 Fallback Behavior (2)\nIf a markdown file cannot be processed:\n\n- The script logs a
 debug message
 but continues\n\n- The file remains unchanged\n\n- Processing continues with the next
@@ -275,11 +275,11 @@ proper
 Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n## References
 (2)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd](https://github.com/DavidAnson/markd)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma](https://spec.commonma)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c](https://github.github.c)o)m)/)g)f)m)/)\n\nIf
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n\nIf
 a markdown file cannot be processed:\n\n- The script logs a debug message but
 continues\n\n- The
 file remains unchanged\n\n- Processing continues with the next file\n\n- No errors are
@@ -303,11 +303,11 @@ proper
 Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n## References
 (3)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd](https://github.com/DavidAnson/markd)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma](https://spec.commonma)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c](https://github.github.c)o)m)/)g)f)m)/)\n##
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n##
 Fallback Behavior (3)\nIf a markdown file cannot be processed:\n\n- The script logs a
 debug message
 but continues\n\n- The file remains unchanged\n\n- Processing continues with the next
@@ -332,8 +332,8 @@ proper
 Python 3.8+ environment\n\n4. Run with`--dry-run` first to preview changes\n## References
 (4)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd](https://github.com/DavidAnson/markd)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma](https://spec.commonma)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c](https://github.github.c)o)m)/)g)f)m)/)\n\n
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n\n

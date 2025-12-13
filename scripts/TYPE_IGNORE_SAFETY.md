@@ -26,7 +26,9 @@ undefined
 attribute\n}\n```text\n\n "assignment", # Type mismatch in assignment (real bugs)\n
 "return-value",
 
-## Return type mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n
+## Return type mismatch (real bugs)\n "func-returns-value", # Function returns wrong
+
+type\n
 
 "arg-type", # Function argument type mismatch\n "union-attr", # Accessing attribute that
 doesn't

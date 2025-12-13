@@ -94,7 +94,7 @@ Alertmanager Configuration\n\nConfigure Alertmanager to route security/remediati
 to
 the\nworkflow webhook:\n receivers:\n\n- name: 'debvisor-automation'\n\n
 webhook_configs:\n\n- url:
-'[http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert']([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/aler]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/ale]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/al]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/a]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080](http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080)/)a)l)e)r)t)')\n\n
+'[http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert']([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/aler]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/ale]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/al]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/a]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:808](http://debvisor-webhook-receiver.debvisor-monitoring.svc:808)0)/)a)l)e)r)t)')\n\n
 send*resolved: false\n route:\n receiver: 'default'\n routes:\n\n- match:\n\n alertname:
 'MFAComplianceViolation|HostCompromised|MaliciousIPDetected'\n receiver:
 'debvisor-automation'\n\n#### Success Metric Naming Convention\n\nThe workflow constructs
@@ -125,12 +125,12 @@ min | 2x
 Parameterizing endpoints and tokens\n\nThe workflow accepts the following parameters
 (overridable
 per invocation):\n| Parameter | Default | Usage
-|\n|---|---|---|\n|`awx-base-url`|[https://awx.debvisor.local]([https://awx.debvisor.loca]([https://awx.debvisor.loc]([https://awx.debvisor.lo]([https://awx.debvisor.l]([https://awx.debvisor.]([https://awx.debvisor]([https://awx.debviso](https://awx.debviso)r).)l)o)c)a)l)
+|\n|---|---|---|\n|`awx-base-url`|[https://awx.debvisor.local]([https://awx.debvisor.loca]([https://awx.debvisor.loc]([https://awx.debvisor.lo]([https://awx.debvisor.l]([https://awx.debvisor.]([https://awx.debvisor]([https://awx.debviso]([https://awx.debvis](https://awx.debvis)o)r).)l)o)c)a)l)
 | Base URL of the AWX API. |\n|
-`prometheus-base-url`|[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s](http://prometheus.debvisor-monitoring.s)v)c):)9)0)9)0)
+`prometheus-base-url`|[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s]([http://prometheus.debvisor-monitoring.](http://prometheus.debvisor-monitoring.)s)v)c):)9)0)9)0)
 | Base URL of the Prometheus API. |\n| `awx-token`| (empty) | Bearer token for AWX authentication
 (required). |\n|`dry-run`|`"false"`| Set to`"true"`to test playbooks without executing.
-|\n|`alert-sink`|[http://alert-sink.debvisor-monitoring.svc:8080/failed]([http://alert-sink.debvisor-monitoring.svc:8080/faile]([http://alert-sink.debvisor-monitoring.svc:8080/fail]([http://alert-sink.debvisor-monitoring.svc:8080/fai]([http://alert-sink.debvisor-monitoring.svc:8080/fa]([http://alert-sink.debvisor-monitoring.svc:8080/f]([http://alert-sink.debvisor-monitoring.svc:8080/]([http://alert-sink.debvisor-monitoring.svc:8080](http://alert-sink.debvisor-monitoring.svc:8080)/)f)a)i)l)e)d)
+|\n|`alert-sink`|[http://alert-sink.debvisor-monitoring.svc:8080/failed]([http://alert-sink.debvisor-monitoring.svc:8080/faile]([http://alert-sink.debvisor-monitoring.svc:8080/fail]([http://alert-sink.debvisor-monitoring.svc:8080/fai]([http://alert-sink.debvisor-monitoring.svc:8080/fa]([http://alert-sink.debvisor-monitoring.svc:8080/f]([http://alert-sink.debvisor-monitoring.svc:8080/]([http://alert-sink.debvisor-monitoring.svc:8080]([http://alert-sink.debvisor-monitoring.svc:808](http://alert-sink.debvisor-monitoring.svc:808)0)/)f)a)i)l)e)d)
 | Endpoint for dead-letter queue (failed remediations). |\nThese can be overridden:\n\n- **Per
 workflow invocation**: Pass as arguments when launching.\n\n- **Via WorkflowTemplate**:
 Define
@@ -138,7 +138,7 @@ defaults in a reusable template.\n\n- **Via ConfigMap**: Reference a ConfigMap f
 environment-specific values\n\n (lab, staging, production).\nExample via Argo Workflows
 CLI:\n argo
 submit -f security-remediation-workflow.yaml \\n\n - p
-awx-base-url=[https://awx.prod.example.com]([https://awx.prod.example.co]([https://awx.prod.example.c]([https://awx.prod.example.]([https://awx.prod.example]([https://awx.prod.exampl]([https://awx.prod.examp]([https://awx.prod.exam](https://awx.prod.exam)p)l)e).)c)o)m)
+awx-base-url=[https://awx.prod.example.com]([https://awx.prod.example.co]([https://awx.prod.example.c]([https://awx.prod.example.]([https://awx.prod.example]([https://awx.prod.exampl]([https://awx.prod.examp]([https://awx.prod.exam]([https://awx.prod.exa](https://awx.prod.exa)m)p)l)e).)c)o)m)
 \\n\n - p awx-token=$AWX_TOKEN \\n\n - p dry-run=false\n\n### Dry-run / Simulation
 mode\n\nFor
 safely testing new alert routes or playbook mappings:\n\n1. Set the `dry-run`parameter

@@ -5,7 +5,7 @@ the
 Apache License, Version 2.0 (the "License");\n\n## you may not use this file except in
 compliance
 with the License.\n\n## You may obtain a copy of the License at\n\n##
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>](http://www.apache.org/licenses/LICENSE-2.0>)\)n)\)n)#)#)
+<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)>)\)n)\)n)#)#)
 Unless required by applicable law or agreed to in writing, software\n\n## distributed
 under the
 License is distributed on an "AS IS" BASIS,\n\n## WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -70,7 +70,7 @@ contributors (2)\n\n## # Licensed under the Apache License, Version 2.0 (the "Li
 you may not use this file except in compliance with the License.\n\n## # You may obtain a
 copy of
 the License at\n\n## #
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>](http://www.apache.org/licenses/LICENSE-2.0>)\)n)\)n)#)#)
+<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)>)\)n)\)n)#)#)
 
 ## Unless required by applicable law or agreed to in writing, software\n\n## # distributed
 
@@ -115,7 +115,7 @@ Detailed description...\n\n#\n\n## ## Changelog (2)\n\n## - 1.0.0: Initial versi
 Suggested Fixes (2)\n\n## - Add error handling\n\n#\n\n## ## Improvements (2)\n\n## - Add
 logging\n\n## EOF\n\n## # ===================================================== (3)\n\n##
 
-#
+## 
 
 Implementation (2)\n\n## # ===================================================== (4)\n\n##
 set -euo

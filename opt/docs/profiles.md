@@ -53,7 +53,7 @@ under`tank/docker`/`k8s`|\n| ceph | Multi-node clusters, shared workloads | Ceph
 ZFS
 datasets under`tank/vm`| ZFS datasets under`tank/docker`/`k8s` |\n| mixed | Hybrid: shared
 
-+ local
+- local
 performance | Ceph RBD for highly-available VMs | CephFS for shared, ZFS for local caches
 |\nFor
 day-2 operational guidance on these profiles, see

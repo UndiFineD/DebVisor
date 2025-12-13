@@ -174,7 +174,7 @@ systemctl is-active --quiet "$service"; then\n echo "? $service is running"\n el
 $service failed to start"\n systemctl status "$service" -l\n journalctl -u "$service" -n
 20
 --no-pager\n fi\n done\n\n## Verify RPC service responds to requests\n\n if curl -s
-[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/]([http://localhost:5000/api](http://localhost:5000/api)/)h)e)a)l)t)h)
+[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/]([http://localhost:5000/api]([http://localhost:5000/ap](http://localhost:5000/ap)i)/)h)e)a)l)t)h)
 
 >/dev/null; then\n echo "? RPC service responding to requests"\n else\n echo "? RPC
 service not
@@ -205,7 +205,9 @@ configuration files are accessible\n\n for conf in /etc/debvisor/*.conf; do\n if
 then\n echo "? $conf is readable"\n else\n echo "? $conf is not readable"\n fi\n done\n
 echo
 "Pre-reboot checks complete. Safe to reboot."\n\n## Post-Reboot Validation\n\n
-#!/bin/bash\n\n##
+
+## !/bin/bash\n\n##
+
 post-reboot-check.sh - Verify system recovered correctly after reboot\n\n echo "Running
 post-reboot
 checks (run 2-3 minutes after boot)..."\n\n## 1. Verify all services started\n\n systemctl
@@ -213,7 +215,7 @@ status
 debvisor-*.service debvisor-*.timer\n\n## 2. Check service response times (should be
 fast)\n\n curl
 -w "@curl-format.txt" -o /dev/null -s
-[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/]([http://localhost:5000/api](http://localhost:5000/api)/)h)e)a)l)t)h)\n\n##
+[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/]([http://localhost:5000/api]([http://localhost:5000/ap](http://localhost:5000/ap)i)/)h)e)a)l)t)h)\n\n##
 
 3. Verify no error floods in logs\n\n error_count=$(journalctl --since "5 minutes ago" \\n
 | grep -i
@@ -224,8 +226,8 @@ $error_count"\n\n## 4. Check persistent state was preserved\n\n if [-f
 /var/lib/debvisor/state.json 2>/dev/null | head -20\n fi\n echo "Post-reboot checks
 complete."\n\n##
 References\n\n- Systemd documentation:
-[https://www.freedesktop.org/software/systemd/man/]([https://www.freedesktop.org/software/systemd/man]([https://www.freedesktop.org/software/systemd/ma]([https://www.freedesktop.org/software/systemd/m]([https://www.freedesktop.org/software/systemd/]([https://www.freedesktop.org/software/systemd]([https://www.freedesktop.org/software/system]([https://www.freedesktop.org/software/syste](https://www.freedesktop.org/software/syste)m)d)/)m)a)n)/)\n\n-
+[https://www.freedesktop.org/software/systemd/man/]([https://www.freedesktop.org/software/systemd/man]([https://www.freedesktop.org/software/systemd/ma]([https://www.freedesktop.org/software/systemd/m]([https://www.freedesktop.org/software/systemd/]([https://www.freedesktop.org/software/systemd]([https://www.freedesktop.org/software/system]([https://www.freedesktop.org/software/syste]([https://www.freedesktop.org/software/syst](https://www.freedesktop.org/software/syst)e)m)d)/)m)a)n)/)\n\n-
 Service file format: `man 5 systemd.service`\n\n- Timer format: `man 5 systemd.timer`\n\n-
 Drop-in
 files: `man 5 systemd.unit`\n\n- Security directives:
-[https://www.freedesktop.org/software/systemd/man/systemd.exec.html]([https://www.freedesktop.org/software/systemd/man/systemd.exec.htm]([https://www.freedesktop.org/software/systemd/man/systemd.exec.ht]([https://www.freedesktop.org/software/systemd/man/systemd.exec.h]([https://www.freedesktop.org/software/systemd/man/systemd.exec.]([https://www.freedesktop.org/software/systemd/man/systemd.exec]([https://www.freedesktop.org/software/systemd/man/systemd.exe]([https://www.freedesktop.org/software/systemd/man/systemd.ex](https://www.freedesktop.org/software/systemd/man/systemd.ex)e)c).)h)t)m)l)\n\n
+[https://www.freedesktop.org/software/systemd/man/systemd.exec.html]([https://www.freedesktop.org/software/systemd/man/systemd.exec.htm]([https://www.freedesktop.org/software/systemd/man/systemd.exec.ht]([https://www.freedesktop.org/software/systemd/man/systemd.exec.h]([https://www.freedesktop.org/software/systemd/man/systemd.exec.]([https://www.freedesktop.org/software/systemd/man/systemd.exec]([https://www.freedesktop.org/software/systemd/man/systemd.exe]([https://www.freedesktop.org/software/systemd/man/systemd.ex]([https://www.freedesktop.org/software/systemd/man/systemd.e](https://www.freedesktop.org/software/systemd/man/systemd.e)x)e)c).)h)t)m)l)\n\n

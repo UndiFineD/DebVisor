@@ -67,7 +67,7 @@ before deployment\n\n- script: validate-prereqs.sh\n\n post_deploy: # Run after
 deployment\n\n-
 script: configure-monitoring.sh\n\n pre_remove: # Run before removal\n\n- script:
 backup-data.sh\n\n## Health checks\n\n healthcheck:\n type: http\n endpoint:
-"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he]([http://localhost:9090/-/h](http://localhost:9090/-/h)e)a)l)t)h)y)")\n
+"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he]([http://localhost:9090/-/h]([http://localhost:9090/-/](http://localhost:9090/-/)h)e)a)l)t)h)y)")\n
 interval: 30s\n timeout: 5s\n\n## Configuration schema (for validation)\n\n config:\n
 properties:\n
 prometheus_retention_days:\n type: integer\n default: 30\n description: "Prometheus data
@@ -90,7 +90,7 @@ volumes: `kubectl delete pvc --all -n monitoring`\n\n## Post-install validation\
 validation:\n
 checks:\n\n- name: "Prometheus running"\n\n command: "kubectl get deployment prometheus -n
 monitoring"\n\n- name: "Grafana accessible"\n\n command: "curl -f
-[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho](http://localho)s)t):)3)0)0)0)
+[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh](http://localh)o)s)t):)3)0)0)0)
 || exit 1"\n\n### Addon Metadata Schema Fields\n\n| Field | Required | Type | Description
 |\n|-------|----------|------|-------------|\n| `metadata.name`| Yes | string | Unique addon
 identifier (alphanumeric + dash) |\n|`metadata.description`| Yes | string | Human-readable

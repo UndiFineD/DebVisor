@@ -93,7 +93,7 @@ import hashlib
 ```python
 
         try:
-            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/]([https://{host}/redfish/v1/Systems](https://{host}/redfish/v1/Systems)/)1)")
+            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/]([https://{host}/redfish/v1/Systems]([https://{host}/redfish/v1/System](https://{host}/redfish/v1/System)s)/)1)")
             response=requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),

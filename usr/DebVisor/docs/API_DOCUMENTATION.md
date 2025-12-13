@@ -840,21 +840,21 @@ Callable`-
 Async callback function\n\n- *Callback Signature:**\n\n```python\nasync def
 generate_report(scheduled_report: ScheduledReport) -> str:\n # Generate report content\n
 
-## Return:
+## Return
 
 Report content as string\n return report_content\n\n```python\n\n # Generate report
 content\n ##
 Return: Report content as string\n return report_content\n\n```python\nasync def
 generate_report(scheduled_report: ScheduledReport) -> str:\n # Generate report content\n
 
-## Return:
+## Return
 
 Report content as string\n return report_content\n\n```python\n\n # Generate report
 content\n ##
 Return: Report content as string\n return report_content\n\n```python\nasync def
 generate_report(scheduled_report: ScheduledReport) -> str:\n # Generate report content\n
 
-## Return:
+## Return
 
 Report content as string\n return report_content\n\n```python\n\n # Generate report
 content\n ##
@@ -1985,34 +1985,34 @@ version\n\n-
 opt.services.multi_cluster import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<<[https://k8s-west.example.com:6443",>>\n]([https://k8s-west.example.com:6443",>>\]([https://k8s-west.example.com:6443",>>]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)>)>)\)n)
+endpoint="<<[https://k8s-west.example.com:6443",>>\n]([https://k8s-west.example.com:6443",>>\]([https://k8s-west.example.com:6443",>>]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)>)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nfrom opt.services.multi_cluster
 import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64]([https://k8s-west.example.com:6](https://k8s-west.example.com:6)4)4)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nfrom opt.services.multi_cluster
 import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64]([https://k8s-west.example.com:6](https://k8s-west.example.com:6)4)4)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nmanager =
 MultiClusterManager()\ncluster_id
 = manager.add_cluster(\n name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64]([https://k8s-west.example.com:6](https://k8s-west.example.com:6)4)4)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\ncluster_id =
 manager.add_cluster(\n
 name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644]([https://k8s-west.example.com:64](https://k8s-west.example.com:64)4)3)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\n-
 --\n#####`get_federation_status() ->
 Dict[str, Any]`\nGet overall federation status.\n\n-

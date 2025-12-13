@@ -45,7 +45,7 @@ purposes.
 ### Context
 
 ```python
-# =============================================================================
+## =============================================================================
 def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
     """Create a mock VM object for testing."""
     vm_id = vm_id or f"vm-{random.randint(1000, 9999)}"

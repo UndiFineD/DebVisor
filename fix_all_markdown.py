@@ -93,6 +93,17 @@ def fix_markdown_file(file_path):
     # Fix MD021: Multiple spaces inside hashes on closed atx style heading
     content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
 
+    # Additional MD001 guard: demote extra H1 headings to H2
+    lines = content.split('\n')
+    h1_seen = False
+    for idx, line in enumerate(lines):
+        if line.startswith('# '):
+            if h1_seen:
+                lines[idx] = '#' + line
+            else:
+                h1_seen = True
+    content = '\n'.join(lines)
+
     # Fix MD033: Remove or replace inline HTML
     content = re.sub(r'<br\s*/?>', '\n', content, flags=re.IGNORECASE)
     content = re.sub(r'<hr\s*/?>', '\n---\n', content, flags=re.IGNORECASE)

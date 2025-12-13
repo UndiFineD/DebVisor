@@ -35,13 +35,15 @@ services\n\n- Systemd service lifecycle management\n\n## Directory Structure\n\n
 README.md # This file\n +-- debvisor/ # Blocklist and validation tools\n | +--
 blocklist-example.txt
 
-## Sample network blocklist\n | +-- blocklist-whitelist-example.txt # Whitelist overrides\n
+## Sample network blocklist\n | +-- blocklist-whitelist-example.txt # Whitelist
+
+overrides\n
 
 | +--
 
 blocklist-metadata.json # Blocklist metadata and provenance\n | +-- validate-blocklists.sh
 
-#
+## 
 
 Validation script (CIDR syntax, overlaps)\n | +-- verify-blocklist-integrity.sh #
 Integrity checks
@@ -291,19 +293,19 @@ usage\n\n
 sudo journalctl --disk-usage\n\n## View journal info\n\n sudo journalctl
 --unit=ceph-health.service
 --follow --all\n\n## References\n\n-
-[systemd.service(5)]([https://www.freedesktop.org/software/systemd/man/systemd.service.htm]([https://www.freedesktop.org/software/systemd/man/systemd.service.ht]([https://www.freedesktop.org/software/systemd/man/systemd.service.h]([https://www.freedesktop.org/software/systemd/man/systemd.service.]([https://www.freedesktop.org/software/systemd/man/systemd.service]([https://www.freedesktop.org/software/systemd/man/systemd.servic]([https://www.freedesktop.org/software/systemd/man/systemd.servi](https://www.freedesktop.org/software/systemd/man/systemd.servi)c)e).)h)t)m)l)
+[systemd.service(5)]([https://www.freedesktop.org/software/systemd/man/systemd.service.htm]([https://www.freedesktop.org/software/systemd/man/systemd.service.ht]([https://www.freedesktop.org/software/systemd/man/systemd.service.h]([https://www.freedesktop.org/software/systemd/man/systemd.service.]([https://www.freedesktop.org/software/systemd/man/systemd.service]([https://www.freedesktop.org/software/systemd/man/systemd.servic]([https://www.freedesktop.org/software/systemd/man/systemd.servi]([https://www.freedesktop.org/software/systemd/man/systemd.serv](https://www.freedesktop.org/software/systemd/man/systemd.serv)i)c)e).)h)t)m)l)
 
 - Service unit documentation\n\n-
-[systemd.timer(5)]([https://www.freedesktop.org/software/systemd/man/systemd.timer.htm]([https://www.freedesktop.org/software/systemd/man/systemd.timer.ht]([https://www.freedesktop.org/software/systemd/man/systemd.timer.h]([https://www.freedesktop.org/software/systemd/man/systemd.timer.]([https://www.freedesktop.org/software/systemd/man/systemd.timer]([https://www.freedesktop.org/software/systemd/man/systemd.time]([https://www.freedesktop.org/software/systemd/man/systemd.tim](https://www.freedesktop.org/software/systemd/man/systemd.tim)e)r).)h)t)m)l)
+[systemd.timer(5)]([https://www.freedesktop.org/software/systemd/man/systemd.timer.htm]([https://www.freedesktop.org/software/systemd/man/systemd.timer.ht]([https://www.freedesktop.org/software/systemd/man/systemd.timer.h]([https://www.freedesktop.org/software/systemd/man/systemd.timer.]([https://www.freedesktop.org/software/systemd/man/systemd.timer]([https://www.freedesktop.org/software/systemd/man/systemd.time]([https://www.freedesktop.org/software/systemd/man/systemd.tim]([https://www.freedesktop.org/software/systemd/man/systemd.ti](https://www.freedesktop.org/software/systemd/man/systemd.ti)m)e)r).)h)t)m)l)
 
 - Timer unit documentation\n\n-
-[ceph(1)]([https://docs.ceph.com/en/latest/man/8/ceph]([https://docs.ceph.com/en/latest/man/8/cep]([https://docs.ceph.com/en/latest/man/8/ce]([https://docs.ceph.com/en/latest/man/8/c]([https://docs.ceph.com/en/latest/man/8/]([https://docs.ceph.com/en/latest/man/8]([https://docs.ceph.com/en/latest/man/](https://docs.ceph.com/en/latest/man/)8)/)c)e)p)h)/)
+[ceph(1)]([https://docs.ceph.com/en/latest/man/8/ceph]([https://docs.ceph.com/en/latest/man/8/cep]([https://docs.ceph.com/en/latest/man/8/ce]([https://docs.ceph.com/en/latest/man/8/c]([https://docs.ceph.com/en/latest/man/8/]([https://docs.ceph.com/en/latest/man/8]([https://docs.ceph.com/en/latest/man/]([https://docs.ceph.com/en/latest/man](https://docs.ceph.com/en/latest/man)/)8)/)c)e)p)h)/)
 
 - Ceph cluster command reference\n\n-
-[zpool-scrub(8)]([https://linux.die.net/man/8/zpoo]([https://linux.die.net/man/8/zpo]([https://linux.die.net/man/8/zp]([https://linux.die.net/man/8/z]([https://linux.die.net/man/8/]([https://linux.die.net/man/8]([https://linux.die.net/man/](https://linux.die.net/man/)8)/)z)p)o)o)l)
+[zpool-scrub(8)]([https://linux.die.net/man/8/zpoo]([https://linux.die.net/man/8/zpo]([https://linux.die.net/man/8/zp]([https://linux.die.net/man/8/z]([https://linux.die.net/man/8/]([https://linux.die.net/man/8]([https://linux.die.net/man/]([https://linux.die.net/man](https://linux.die.net/man)/)8)/)z)p)o)o)l)
 
 - ZFS pool scrub documentation\n\n-
-[systemd.time(7)]([https://www.freedesktop.org/software/systemd/man/systemd.time.htm]([https://www.freedesktop.org/software/systemd/man/systemd.time.ht]([https://www.freedesktop.org/software/systemd/man/systemd.time.h]([https://www.freedesktop.org/software/systemd/man/systemd.time.]([https://www.freedesktop.org/software/systemd/man/systemd.time]([https://www.freedesktop.org/software/systemd/man/systemd.tim]([https://www.freedesktop.org/software/systemd/man/systemd.ti](https://www.freedesktop.org/software/systemd/man/systemd.ti)m)e).)h)t)m)l)
+[systemd.time(7)]([https://www.freedesktop.org/software/systemd/man/systemd.time.htm]([https://www.freedesktop.org/software/systemd/man/systemd.time.ht]([https://www.freedesktop.org/software/systemd/man/systemd.time.h]([https://www.freedesktop.org/software/systemd/man/systemd.time.]([https://www.freedesktop.org/software/systemd/man/systemd.time]([https://www.freedesktop.org/software/systemd/man/systemd.tim]([https://www.freedesktop.org/software/systemd/man/systemd.ti]([https://www.freedesktop.org/software/systemd/man/systemd.t](https://www.freedesktop.org/software/systemd/man/systemd.t)i)m)e).)h)t)m)l)
 
 - Time specification format\n\n## See Also\n\n- [../opt/README.md](../opt/README.md) -
 Operational

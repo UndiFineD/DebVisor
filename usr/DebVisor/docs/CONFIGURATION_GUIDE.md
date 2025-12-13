@@ -98,8 +98,8 @@ configuration
 changes logged\n\n- **Dependencies**: Clear service dependency graph\n\n## References\n\n-
 systemd
 documentation:
-[https://systemd.io/]([https://systemd.io]([https://systemd.i]([https://systemd.]([https://systemd]([https://system]([https://syste]([https://syst](https://syst)e)m)d).)i)o)/)\n\n-
+[https://systemd.io/]([https://systemd.io]([https://systemd.i]([https://systemd.]([https://systemd]([https://system]([https://syste]([https://syst]([https://sys](https://sys)t)e)m)d).)i)o)/)\n\n-
 Service file format: `man 5 systemd.service`\n\n- Timer format: `man 5 systemd.timer`\n\n-
 Best
 practices:
-[https://www.freedesktop.org/wiki/Software/systemd/]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy]([https://www.freedesktop.org/wiki/Software/s](https://www.freedesktop.org/wiki/Software/s)y)s)t)e)m)d)/)\n\n
+[https://www.freedesktop.org/wiki/Software/systemd/]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy]([https://www.freedesktop.org/wiki/Software/s]([https://www.freedesktop.org/wiki/Software/](https://www.freedesktop.org/wiki/Software/)s)y)s)t)e)m)d)/)\n\n

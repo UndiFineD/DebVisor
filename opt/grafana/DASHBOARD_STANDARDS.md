@@ -219,7 +219,7 @@ indicates network problem or resolver down\n\n### Tuning\n\n- High-latency netwo
 Adjust to 200ms warning / 1000ms critical\n\n- Local labs: Can tighten to 50ms warning /
 200ms
 critical\n\n- *Runbook:**[DNS Query Latency
-Troubleshooting]([https://docs.example.com/runbooks/dns-latenc]([https://docs.example.com/runbooks/dns-laten]([https://docs.example.com/runbooks/dns-late]([https://docs.example.com/runbooks/dns-lat]([https://docs.example.com/runbooks/dns-la]([https://docs.example.com/runbooks/dns-l]([https://docs.example.com/runbooks/dns-](https://docs.example.com/runbooks/dns-)l)a)t)e)n)c)y)\n\n##
+Troubleshooting]([https://docs.example.com/runbooks/dns-latenc]([https://docs.example.com/runbooks/dns-laten]([https://docs.example.com/runbooks/dns-late]([https://docs.example.com/runbooks/dns-lat]([https://docs.example.com/runbooks/dns-la]([https://docs.example.com/runbooks/dns-l]([https://docs.example.com/runbooks/dns-]([https://docs.example.com/runbooks/dns](https://docs.example.com/runbooks/dns)-)l)a)t)e)n)c)y)\n\n##
 Query Standards\n\n### Query Naming & Documentation\n\n### All queries MUST
 have\n\n1.**Legend
 format**indicating what's being shown\n1.**Comment**explaining the query\n1.**Aggregation
@@ -337,12 +337,12 @@ v1.0.1):
 Threshold adjustments, cosmetic fixes\n\n### Dashboard Migration\n\n When migrating
 between
 environments:\n\n## Export from staging\n\ncurl -s
-[http://grafana-staging:3000/api/dashboards/uid/overview]([http://grafana-staging:3000/api/dashboards/uid/overvie]([http://grafana-staging:3000/api/dashboards/uid/overvi]([http://grafana-staging:3000/api/dashboards/uid/overv]([http://grafana-staging:3000/api/dashboards/uid/over]([http://grafana-staging:3000/api/dashboards/uid/ove]([http://grafana-staging:3000/api/dashboards/uid/ov]([http://grafana-staging:3000/api/dashboards/uid/o](http://grafana-staging:3000/api/dashboards/uid/o)v)e)r)v)i)e)w)
+[http://grafana-staging:3000/api/dashboards/uid/overview]([http://grafana-staging:3000/api/dashboards/uid/overvie]([http://grafana-staging:3000/api/dashboards/uid/overvi]([http://grafana-staging:3000/api/dashboards/uid/overv]([http://grafana-staging:3000/api/dashboards/uid/over]([http://grafana-staging:3000/api/dashboards/uid/ove]([http://grafana-staging:3000/api/dashboards/uid/ov]([http://grafana-staging:3000/api/dashboards/uid/o]([http://grafana-staging:3000/api/dashboards/uid/](http://grafana-staging:3000/api/dashboards/uid/)o)v)e)r)v)i)e)w)
 \\n\n- H "Authorization: Bearer $TOKEN" > overview.json\n\n## Adjust environment-specific
 values\n\njq '.dashboard.panels[].targets[].expr |= gsub("staging"; "prod")'
 overview.json\n\n##
 Import to production\n\ncurl -X POST
-[http://grafana-prod:3000/api/dashboards/db]([http://grafana-prod:3000/api/dashboards/d]([http://grafana-prod:3000/api/dashboards/]([http://grafana-prod:3000/api/dashboards]([http://grafana-prod:3000/api/dashboard]([http://grafana-prod:3000/api/dashboar]([http://grafana-prod:3000/api/dashboa]([http://grafana-prod:3000/api/dashbo](http://grafana-prod:3000/api/dashbo)a)r)d)s)/)d)b)
+[http://grafana-prod:3000/api/dashboards/db]([http://grafana-prod:3000/api/dashboards/d]([http://grafana-prod:3000/api/dashboards/]([http://grafana-prod:3000/api/dashboards]([http://grafana-prod:3000/api/dashboard]([http://grafana-prod:3000/api/dashboar]([http://grafana-prod:3000/api/dashboa]([http://grafana-prod:3000/api/dashbo]([http://grafana-prod:3000/api/dashb](http://grafana-prod:3000/api/dashb)o)a)r)d)s)/)d)b)
 \\n\n- H "Authorization: Bearer $TOKEN" \\n\n- d @overview.json\n\n## Governance &
 Maintenance\n\n### Dashboard Lifecycle\n\nNew Dashboard (Community Contribution)\n v\nCode
 Review
