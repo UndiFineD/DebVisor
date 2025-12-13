@@ -162,6 +162,15 @@ class FailoverState(Enum):
     ERROR="error"
 
 
+class FailoverErrorCategory(Enum):
+    """Categorization for failover errors to aid callers."""
+
+    NETWORK="network"
+    AUTH="auth"
+    TIMEOUT="timeout"
+    UNKNOWN="unknown"
+
+
 class ConsistencyGroupState(Enum):
     """Consistency group state."""
 
@@ -261,6 +270,7 @@ class FailoverRecord:
     started_at: datetime=field(default_factory=lambda: datetime.now(timezone.utc))
     completed_at: Optional[datetime] = None
     error_message: Optional[str] = None
+    error_category: Optional[str] = None
 
 
 @dataclass
@@ -501,6 +511,56 @@ class RBDMirrorManager:
         logger.info(f"Starting sync for {key}")
         return True
 
+    @staticmethod
+    def _categorize_error(exc: Exception) -> str:
+        """Map common exception types to a failover error category."""
+        if isinstance(exc, (asyncio.TimeoutError, TimeoutError)):
+            return FailoverErrorCategory.TIMEOUT.value
+        if isinstance(exc, (ConnectionError, OSError)):
+            return FailoverErrorCategory.NETWORK.value
+        if isinstance(exc, PermissionError):
+            return FailoverErrorCategory.AUTH.value
+        if isinstance(exc, ssl.SSLError):
+            # Inspect SSL exception details to categorize more accurately
+            reason = getattr(exc, "reason", "").lower()
+            verify_msg = getattr(exc, "verify_message", "").lower()
+            args_str = " ".join(str(arg).lower() for arg in getattr(exc, "args", []))
+            
+            # Certificate validation/verification failures → AUTH
+            auth_keywords = {
+                "certificate verify failed",
+                "certificate expired",
+                "unknown ca",
+                "hostname mismatch",
+                "ssl: certificate_verify_failed",
+                "self-signed certificate",
+                "untrusted certificate",
+            }
+            if any(keyword in reason for keyword in auth_keywords) or \
+               any(keyword in verify_msg for keyword in auth_keywords) or \
+               any(keyword in args_str for keyword in auth_keywords):
+                return FailoverErrorCategory.AUTH.value
+            
+            # Handshake/protocol/connection/cipher problems → NETWORK
+            network_keywords = {
+                "handshake failure",
+                "protocol error",
+                "connection reset",
+                "connection refused",
+                "cipher",
+                "no supported cipher",
+                "sslv3 alert",
+                "econnreset",
+            }
+            if any(keyword in reason for keyword in network_keywords) or \
+               any(keyword in verify_msg for keyword in network_keywords) or \
+               any(keyword in args_str for keyword in network_keywords):
+                return FailoverErrorCategory.NETWORK.value
+            
+            # Ambiguous or unrecognized SSL error → UNKNOWN
+            return FailoverErrorCategory.UNKNOWN.value
+        return FailoverErrorCategory.UNKNOWN.value
+
     async def failover(
         self,
         pool: str,
@@ -552,8 +612,8 @@ class RBDMirrorManager:
 
         except Exception as e:
             record.state=FailoverState.ERROR
-            record.error_message="Failover failed; check logs for details"
-            record.completed_at=datetime.now(timezone.utc)
+            record.error_category=self._categorize_error(e)
+            record.error_message=f"Failover failed ({e.__class__.__name__}): {str(e)}"            record.completed_at=datetime.now(timezone.utc)
             logger.error(f"Failover failed: {e}", exc_info=True)
 
         return record
