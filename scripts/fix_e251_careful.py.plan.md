@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_e251_careful.py
 
-Generated: 2025-12-13T20:01:15.168541
+Generated: 2025-12-13T20:08:24.146370
 Status: INVALID
 
 ## File Structure Validation

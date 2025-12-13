@@ -50,8 +50,20 @@ class CodingExpertAgent:
                 code=match.group(4),
                 severity=match.group(5).lower(),
                 message=match.group(6).replace('\\|', '|'),
-                implemented='✅' in content and str(match.group(4)) in content
+                implemented=False  # Will be determined below
             )
+            
+            # Check if this specific issue is marked as implemented
+            # Look for checkmark near the issue code in the content
+            issue_code = match.group(4)
+            # Check if there's a checkmark within a few lines of this issue's table row
+            start_pos = match.start()
+            end_pos = match.end()
+            context_start = max(0, start_pos - 200)  # Look 200 chars before
+            context_end = min(len(content), end_pos + 200)  # Look 200 chars after
+            context = content[context_start:context_end]
+            issue.implemented = f'✅ {issue_code}' in context or f'✅ `{issue_code}`' in context
+            
             issues.append(issue)
 
         return source_path, issues, content
@@ -179,35 +191,41 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
             unimplemented = [i for i in issues if not i.implemented]
 
+            # Always update the plan.md file to mark fixed issues
+            plan_md_path = source_path.with_suffix('.plan.md')
+            if plan_md_path.exists():
+                try:
+                    content = plan_md_path.read_text(encoding='utf-8', errors='replace')
+                    # Mark implemented issues as [Fixed] in the table rows
+                    lines = content.split('\n')
+                    updated_lines = []
+                    for line in lines:
+                        # Check if this is an issue table row (contains | and looks like a data row)
+                        if '|' in line and line.count('|') >= 5 and not line.startswith('| ---'):
+                            parts = line.split('|')
+                            if len(parts) >= 6:
+                                # Extract the issue code from the 4th column (Code column)
+                                code_part = parts[3].strip()
+                                if code_part.startswith('`') and code_part.endswith('`'):
+                                    issue_code = code_part[1:-1]  # Remove backticks
+                                    # Check if this issue is implemented
+                                    if any(issue.code == issue_code and issue.implemented for issue in issues):
+                                        # Add [Fixed] to the message part (last column before closing |)
+                                        message_part = parts[-2].strip()
+                                        if not message_part.startswith('[Fixed]'):
+                                            parts[-2] = f' [Fixed] {message_part}'
+                                            line = '|'.join(parts)
+                        updated_lines.append(line)
+
+                    updated_content = '\n'.join(updated_lines)
+                    plan_md_path.write_text(updated_content, encoding='utf-8')
+                    print("  -> Updated plan file with fixed issue markers: " +
+                          str(plan_md_path.relative_to(self.repo_root)))
+                except Exception as e:
+                    print(f"  -> Failed to update plan file: {e}")
+
             if not unimplemented:
                 print("  -> All " + str(len(issues)) + " issues already implemented ✅")
-                # Mark all issues as [Fixed] in the corresponding .plan.md file if it exists
-                plan_md_path = source_path.with_suffix('.plan.md')
-                if plan_md_path.exists():
-                    try:
-                        content = plan_md_path.read_text(encoding='utf-8', errors='replace')
-                        # Mark issues as [Fixed] in the table rows
-                        lines = content.split('\n')
-                        updated_lines = []
-                        for line in lines:
-                            # Check if this is an issue table row (contains | type | line | message |)
-                            if '|' in line and 'incorrect_header' in line or 'missing_section' in line:
-                                # Add [Fixed] to the message part
-                                parts = line.split('|')
-                                if len(parts) >= 4:
-                                    # The message is in the last part before the closing |
-                                    message_part = parts[-2].strip()
-                                    if not message_part.startswith('[Fixed]'):
-                                        parts[-2] = f' [Fixed] {message_part}'
-                                        line = '|'.join(parts)
-                            updated_lines.append(line)
-
-                        updated_content = '\n'.join(updated_lines)
-                        plan_md_path.write_text(updated_content, encoding='utf-8')
-                        print("  -> Marked all issues as [Fixed] in plan file: " +
-                              str(plan_md_path.relative_to(self.repo_root)))
-                    except Exception as e:
-                        print(f"  -> Failed to update plan file: {e}")
                 continue
 
             # Generate detailed proposal report

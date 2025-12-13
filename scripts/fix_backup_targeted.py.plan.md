@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_backup_targeted.py
 
-Generated: 2025-12-13T20:01:15.165063
+Generated: 2025-12-13T20:08:24.141464
 Status: INVALID
 
 ## File Structure Validation

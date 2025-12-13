@@ -1,6 +1,6 @@
 # Planning Report: scripts\critic_workflow.py
 
-Generated: 2025-12-13T20:01:15.134746
+Generated: 2025-12-13T20:08:24.112508
 Status: INVALID
 
 ## File Structure Validation

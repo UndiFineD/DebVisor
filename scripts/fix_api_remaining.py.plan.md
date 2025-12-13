@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_api_remaining.py
 
-Generated: 2025-12-13T20:01:15.153494
+Generated: 2025-12-13T20:08:24.130304
 Status: INVALID
 
 ## File Structure Validation
