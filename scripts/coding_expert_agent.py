@@ -17,8 +17,8 @@ from pathlib import Path
 from typing import List, Tuple
 from dataclasses import dataclass
 import argparse
-import os
 import subprocess
+
 
 def runSubagent(description: str, prompt: str) -> str:
     """
