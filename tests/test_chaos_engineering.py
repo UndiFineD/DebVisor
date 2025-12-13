@@ -1,6 +1,4 @@
 # !/usr/bin/env python3
-
-import unittest
 """
 Chaos Engineering Test Suite for DebVisor.
 
@@ -336,7 +334,7 @@ class ChaosMonkey:
                 raise TimeoutError(f"Operation {operation} timed out")
 
             elif failure_mode == FailureMode.PARTIAL_FAILURE:
-            # 50% chance of success after partial work
+                # 50% chance of success after partial work
                 if random.random() > 0.5:
                     yield
                 else:
