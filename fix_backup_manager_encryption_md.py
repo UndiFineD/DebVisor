@@ -23,7 +23,7 @@ i = 0
 
 while i < len(lines):
     line = lines[i]
-    
+
     # Check for code block opening
     if line.startswith('```python'):
         # Add blank line before if needed
@@ -41,7 +41,7 @@ while i < len(lines):
             # Add blank line after if next line exists and is not blank
             if i + 1 < len(lines) and lines[i + 1].strip() != '':
                 fixed_lines.append('')
-    
+
     # Check for heading
     elif line.startswith('#') and not line.startswith('#!/'):
         # Add blank line before if needed
@@ -51,17 +51,17 @@ while i < len(lines):
         # Add blank line after if needed
         if i + 1 < len(lines) and lines[i + 1].strip() != '':
             fixed_lines.append('')
-    
+
     # Check for list items
     elif re.match(r'^\s*[-*+]\s', line):
         # Add blank line before if needed
         if fixed_lines and fixed_lines[-1].strip() != '':
             fixed_lines.append('')
         fixed_lines.append(line)
-    
+
     else:
         fixed_lines.append(line)
-    
+
     i += 1
 
 content = '\n'.join(fixed_lines)
