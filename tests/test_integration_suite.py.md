@@ -72,7 +72,7 @@ Items marked below as fixed:
 async def vault_client() -> None:  # type: ignore[misc]
     """Initialize Vault client for testing."""
     config = VaultConfig(
-        _url = "[http://127.0.0.1:8200",](http://127.0.0.1:8200",)
+        _url = "[http://127.0.0.1:8200",]([http://127.0.0.1:8200"](http://127.0.0.1:8200"),)
         _auth_method = AuthMethod.TOKEN,
         _token = "dev-only-token",
 ```python
@@ -93,7 +93,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -123,7 +124,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -153,7 +155,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -183,7 +186,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -213,7 +217,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -243,7 +248,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -273,7 +279,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -303,7 +310,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -333,7 +341,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -362,7 +371,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -391,7 +401,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -421,7 +432,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -451,7 +463,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -481,7 +494,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -511,7 +525,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -541,7 +556,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -571,7 +587,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -600,7 +617,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -629,7 +647,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -659,7 +678,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -689,7 +709,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -719,7 +740,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -749,7 +771,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -779,7 +802,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -809,7 +833,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -839,7 +864,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -869,7 +895,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -899,7 +926,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -928,7 +956,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -957,7 +986,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -987,7 +1017,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1017,7 +1048,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1047,7 +1079,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1077,7 +1110,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1107,7 +1141,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1137,7 +1172,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1167,7 +1203,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1197,7 +1234,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1227,7 +1265,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -1256,7 +1295,8 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 

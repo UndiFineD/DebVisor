@@ -2,14 +2,18 @@
 """
 Comprehensive markdown linting fixer for all documents.
 Fixes common markdown issues like:
+- MD001: Multiple top-level headings
 - MD003: Consistent heading style
 - MD004: Consistent list marker style (dashes)
 - MD005: Consistent list indentation
+- MD006: Start of unordered list not at beginning
 - MD007: Unordered list indentation (2 spaces)
+- MD008: Unordered list markers inconsistent
 - MD009: Trailing spaces
 - MD010: Hard tabs
 - MD011: Reversed link syntax
 - MD012: Multiple consecutive blank lines
+- MD013: Line too long
 - MD014: Dollar signs used before commands without showing output
 - MD018: No space after hash on atx style heading
 - MD019: Multiple spaces after hash on atx style heading
@@ -26,6 +30,7 @@ Fixes common markdown issues like:
 - MD030: Spaces after list markers
 - MD031: Blank lines around code blocks
 - MD032: Blank lines around lists
+- MD033: Inline HTML
 - MD034: Bare URLs (wrap in markdown links)
 - MD036: Emphasis as heading (convert to proper heading)
 - MD037: Spaces inside emphasis markers
@@ -78,11 +83,18 @@ def fix_markdown_file(file_path):
     # Fix MD019: Remove multiple spaces after hash on atx style heading
     content = re.sub(r'^(#+) {2,}', r'\1 ', content, flags=re.MULTILINE)
 
-    # Fix MD020: No space inside hashes on closed atx style heading (e.g., ##heading## -> ## heading ##)
+    # Fix MD020: No space inside hashes on closed atx style heading
     content = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
 
     # Fix MD021: Multiple spaces inside hashes on closed atx style heading
     content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+
+    # Fix MD033: Remove or replace inline HTML
+    content = re.sub(r'<br\s*/?>', '\n', content, flags=re.IGNORECASE)
+    content = re.sub(r'<hr\s*/?>', '\n---\n', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?p>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?div[^>]*>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?span[^>]*>', '', content, flags=re.IGNORECASE)
 
     # Fix MD036: Convert emphasis as heading to proper heading
     content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
@@ -99,6 +111,60 @@ def fix_markdown_file(file_path):
     # Fix MD030: Spaces after list markers (should be exactly 1)
     content = re.sub(r'^(\s*)[-*+] {2,}', r'\1- ', content, flags=re.MULTILINE)
     content = re.sub(r'^(\s*)[0-9]+\. {2,}', r'\1. ', content, flags=re.MULTILINE)
+
+    # Fix MD005, MD006, MD007, MD008: Normalize list indentation and markers
+    lines = content.split('\n')
+    fixed_lines = []
+    for line in lines:
+        # Check if it's a list item
+        match = re.match(r'^(\s*)([*\-+]|\d+\.)\s+(.*)', line)
+        if match:
+            indent, marker, text = match.groups()
+            # Normalize indent to multiples of 2 spaces
+            indent_level = len(indent) // 2
+            if len(indent) % 2 != 0 and len(indent) > 0:
+                indent_level += 1
+            normalized_indent = '  ' * indent_level
+            if marker.isdigit() or marker.endswith('.'):
+                # Ordered list
+                fixed_lines.append(f'{normalized_indent}{marker} {text}')
+            else:
+                # Unordered list - ensure dash marker
+                fixed_lines.append(f'{normalized_indent}- {text}')
+        else:
+            fixed_lines.append(line)
+    content = '\n'.join(fixed_lines)
+
+    # Fix MD013: Wrap long lines (split at word boundaries, max ~100 chars)
+    lines = content.split('\n')
+    fixed_lines = []
+    in_code_block = False
+    for line in lines:
+        if line.startswith('```'):
+            in_code_block = not in_code_block
+            fixed_lines.append(line)
+        elif in_code_block or line.startswith('    ') or line.startswith('|') or len(line) <= 100:
+            # Don't wrap code blocks, indented code, tables, or short lines
+            fixed_lines.append(line)
+        elif line.strip() and not line.strip().startswith('http'):
+            # Try to wrap at word boundaries
+            words = line.split()
+            current_line = ''
+            indent_match = re.match(r'^(\s*)', line)
+            indent = indent_match.group(1) if indent_match else ''
+            for word in words:
+                test_line = current_line + (' ' if current_line else '') + word
+                if len(test_line) <= 100:
+                    current_line = test_line
+                else:
+                    if current_line:
+                        fixed_lines.append(indent + current_line)
+                    current_line = word
+            if current_line:
+                fixed_lines.append(indent + current_line)
+        else:
+            fixed_lines.append(line)
+    content = '\n'.join(fixed_lines)
 
     # Fix MD037: Remove spaces inside emphasis markers
     content = re.sub(r'\*\* +(.+?) +\*\*', r'**\1**', content)
@@ -191,32 +257,41 @@ def fix_markdown_file(file_path):
     return False
 
 def main():
-    """Main function to find and fix all markdown files."""
-    repo_root = Path('.')
-    excluded_dirs = {'.venv', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github'}
+    """Find and fix all markdown files in the repository."""
+    workspace_root = Path(__file__).parent
 
-    # Find all .md and .plan.md files
+    # Directories to exclude
+    excluded_dirs = {'.venv', '.venv-1', '.venv-2', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
+
+    # Find all markdown files
     markdown_files = []
-    for md_file in repo_root.rglob('*.md'):
-        # Skip files in excluded directories
-        if any(excluded in md_file.parts for excluded in excluded_dirs):
-            continue
-        markdown_files.append(md_file)
+    for pattern in ['**/*.md', '**/*.plan.md']:
+        for md_file in workspace_root.glob(pattern):
+            # Check if file is in excluded directory
+            if not any(excluded in md_file.parts for excluded in excluded_dirs):
+                markdown_files.append(md_file)
 
-    if not markdown_files:
-        print("No markdown files found.")
-        return
+    total_files = len(markdown_files)
+    fixed_files = 0
+    failed_files = 0
 
-    print(f"Found {len(markdown_files)} markdown files to check...")
-    fixed_count = 0
+    print(f"Found {total_files} markdown files to process")
+    print("-" * 60)
 
     for md_file in sorted(markdown_files):
-        relative_path = md_file.relative_to(repo_root)
-        if fix_markdown_file(str(md_file)):
-            print(f"  [FIXED] {relative_path}")
-            fixed_count += 1
+        relative_path = md_file.relative_to(workspace_root)
+        if fix_markdown_file(md_file):
+            print(f"[FIXED] {relative_path}")
+            fixed_files += 1
+        else:
+            failed_files += 1
 
-    print(f"\n[COMPLETE] Fixed {fixed_count}/{len(markdown_files)} markdown files")
+    print("-" * 60)
+    print(f"\nSummary:")
+    print(f"  Total files:   {total_files}")
+    print(f"  Fixed:         {fixed_files}")
+    print(f"  Failed:        {failed_files}")
+    print(f"  Unchanged:     {total_files - fixed_files - failed_files}")
 
 if __name__ == '__main__':
     main()

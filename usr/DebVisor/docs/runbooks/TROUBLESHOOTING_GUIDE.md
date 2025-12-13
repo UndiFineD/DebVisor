@@ -1,1 +1,170 @@
-# DebVisor Troubleshooting Guide\n\n## Overview\n\nThis guide provides step-by-step resolution procedures for common failure scenarios in the DebVisor platform.\n\n## Table of Contents\n\n1. [Service Startup Failures](#service-startup-failures)\n\n1. [Database Connection Issues](#database-connection-issues)\n\n1. [WebSocket/Real-time Updates Failing](#websocketreal-time-updates-failing)\n\n1. [Performance Degradation](#performance-degradation)\n\n1. [Escalation Paths](#escalation-paths)\n\n- --\n\n## Service Startup Failures\n\n### Symptoms\n\n- Service fails to start via systemd\n\n- `systemctl status debvisor`shows`failed`\n\n- Error logs in `/var/log/debvisor/error.log`\n\n### Diagnosis Steps\n\n1. Check systemd logs:\n\n   ```bash\n   journalctl -u debvisor -n 50 --no-pager\n```text\n```text\n   journalctl -u debvisor -n 50 --no-pager\n```text\n```text\n   journalctl -u debvisor -n 50 --no-pager\n```text\n```text\n```text\n```text\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n\n1. Verify configuration validity:\n\n   ```bash\n   debvisor-cli config validate\n```text\n```text\n   debvisor-cli config validate\n```text\n```text\n   debvisor-cli config validate\n```text\n```text\n```text\n```text\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n\n1. Check port availability (default 8080):\n\n   ```bash\n   netstat -tulpn | grep 8080\n```text\n```text\n   netstat -tulpn | grep 8080\n```text\n```text\n   netstat -tulpn | grep 8080\n```text\n```text\n```text\n```text\n### Resolution\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n## Database Connection Issues\n### Symptoms (DB)\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n### Diagnosis Steps (DB)\n1. Verify PostgreSQL status:\n\n   ```bash\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (2)\n\n### Symptoms (DB) (2)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (2)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n\n### Resolution (2)\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (3)\n\n### Symptoms (DB) (3)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (3)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n\n### Resolution (3)\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (4)\n\n### Symptoms (DB) (4)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (4)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n### Resolution (4)\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n## Database Connection Issues (5)\n### Symptoms (DB) (5)\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n### Diagnosis Steps (DB) (5)\n1. Verify PostgreSQL status:\n\n   ```bash\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (6)\n\n### Symptoms (DB) (6)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (6)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n\n### Resolution (5)\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (7)\n\n### Symptoms (DB) (7)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (7)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n\n### Resolution (6)\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (8)\n\n### Symptoms (DB) (8)\n\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (8)\n\n1. Verify PostgreSQL status:\n\n   ```bash\n   systemctl status postgresql\n```text\n```text\n   systemctl status postgresql\n```text\n```text\n   systemctl status postgresql\n```text\n```text\n```text\n```text\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n\n1. Test connection manually:\n\n   ```bash\n   pg_isready -h localhost -p 5432\n```text\n```text\n   pg_isready -h localhost -p 5432\n```text\n```text\n   pg_isready -h localhost -p 5432\n```text\n```text\n```text\n```text\n\n1. Check connection pool metrics (if enabled).\n### Resolution (DB)\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n## WebSocket/Real-time Updates Failing\n### Symptoms (WS)\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n### Diagnosis Steps (WS)\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (2)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (2)\n\n### Symptoms (WS) (2)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (2)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (3)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (3)\n\n### Symptoms (WS) (3)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (3)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (4)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (4)\n\n### Symptoms (WS) (4)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (4)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n### Resolution (DB) (5)\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n## WebSocket/Real-time Updates Failing (5)\n### Symptoms (WS) (5)\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n### Diagnosis Steps (WS) (5)\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (6)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (6)\n\n### Symptoms (WS) (6)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (6)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (7)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (7)\n\n### Symptoms (WS) (7)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (7)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB) (8)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in `.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n## WebSocket/Real-time Updates Failing (8)\n\n### Symptoms (WS) (8)\n\n- Dashboard metrics are stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors (400/1006)\n\n### Diagnosis Steps (WS) (8)\n\n1. Check Nginx proxy configuration for WebSocket upgrade headers:\n\n   ```nginx\n   proxy_set_header Upgrade $http_upgrade;\n   proxy_set_header Connection "upgrade";\n```text\n\n   proxy_set_header Connection "upgrade";\n```text\n   proxy_set_header Upgrade $http_upgrade;\n   proxy_set_header Connection "upgrade";\n```text\n\n   proxy_set_header Connection "upgrade";\n```text\n   proxy_set_header Upgrade $http_upgrade;\n   proxy_set_header Connection "upgrade";\n```text\n\n   proxy_set_header Connection "upgrade";\n```text\n   proxy_set_header Connection "upgrade";\n```text\n```text\n\n1. Verify Socket.IO server logs.\n### Resolution (WS)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (2)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (2)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (3)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (3)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (4)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (4)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (5)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (5)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (6)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (6)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (7)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (7)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (8)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (8)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n
+# DebVisor Troubleshooting Guide\n\n## Overview\n\nThis guide provides step-by-step resolution
+
+procedures for common failure scenarios in the DebVisor platform.\n\n## Table of Contents\n\n1.
+[Service Startup Failures](#service-startup-failures)\n\n1. [Database Connection
+Issues](#database-connection-issues)\n\n1. [WebSocket/Real-time Updates
+Failing](#websocketreal-time-updates-failing)\n\n1. [Performance
+Degradation](#performance-degradation)\n\n1. [Escalation Paths](#escalation-paths)\n\n- --\n\n##
+Service Startup Failures\n\n### Symptoms\n\n- Service fails to start via systemd\n\n- `systemctl
+status debvisor`shows`failed`\n\n- Error logs in `/var/log/debvisor/error.log`\n\n### Diagnosis
+Steps\n\n1. Check systemd logs:\n\n ```bash\n journalctl -u debvisor -n 50
+--no-pager\n```text\n```text\n journalctl -u debvisor -n 50 --no-pager\n```text\n```text\n
+journalctl -u debvisor -n 50 --no-pager\n```text\n```text\n```text\n```text\n\n1. Verify
+configuration validity:\n\n ```bash\n\n1. Verify configuration validity:\n\n ```bash\n\n1. Verify
+configuration validity:\n\n ```bash\n\n1. Verify configuration validity:\n\n ```bash\n\n1. Verify
+configuration validity:\n\n ```bash\n\n1. Verify configuration validity:\n\n ```bash\n\n1. Verify
+configuration validity:\n\n ```bash\n\n1. Verify configuration validity:\n\n ```bash\n debvisor-cli
+config validate\n```text\n```text\n debvisor-cli config validate\n```text\n```text\n debvisor-cli
+config validate\n```text\n```text\n```text\n```text\n\n1. Check port availability (default
+8080):\n\n ```bash\n\n1. Check port availability (default 8080):\n\n ```bash\n\n1. Check port
+availability (default 8080):\n\n ```bash\n\n1. Check port availability (default 8080):\n\n
+
+```bash\n\n1. Check port availability (default 8080):\n\n ```bash\n\n1. Check port availability
+(default 8080):\n\n ```bash\n\n1. Check port availability (default 8080):\n\n ```bash\n\n1. Check
+port availability (default 8080):\n\n ```bash\n netstat -tulpn | grep 8080\n```text\n```text\n
+netstat -tulpn | grep 8080\n```text\n```text\n netstat -tulpn | grep
+8080\n```text\n```text\n```text\n```text\n### Resolution\n- **Config Error**: Fix syntax errors in
+`/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n## Database Connection Issues\n### Symptoms
+(DB)\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL: password
+authentication failed`\n### Diagnosis Steps (DB)\n1. Verify PostgreSQL status:\n\n ```bash\n\n-
+**Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change
+port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (2)\n\n###
+Symptoms (DB) (2)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (2)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n\n### Resolution (2)\n\n- **Config Error**: Fix syntax errors
+in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (3)\n\n###
+Symptoms (DB) (3)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (3)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n\n### Resolution (3)\n\n- **Config Error**: Fix syntax errors
+in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (4)\n\n###
+Symptoms (DB) (4)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (4)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n### Resolution (4)\n- **Config Error**: Fix syntax errors in
+`/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n## Database Connection Issues (5)\n### Symptoms
+(DB) (5)\n- "Internal Server Error" on API requests\n\n- Logs show `OperationalError`or`FATAL:
+password authentication failed`\n### Diagnosis Steps (DB) (5)\n1. Verify PostgreSQL status:\n\n
+```bash\n\n- **Config Error**: Fix syntax errors in `/etc/debvisor/config.yaml`.\n\n- **Port
+
+Conflict**: Change port in config or stop conflicting service.\n\n- **Permission Denied**: Ensure
+`debvisor`user owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues
+(6)\n\n### Symptoms (DB) (6)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (6)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n\n### Resolution (5)\n\n- **Config Error**: Fix syntax errors
+in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (7)\n\n###
+Symptoms (DB) (7)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (7)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n\n### Resolution (6)\n\n- **Config Error**: Fix syntax errors
+in `/etc/debvisor/config.yaml`.\n\n- **Port Conflict**: Change port in config or stop conflicting
+service.\n\n- **Permission Denied**: Ensure `debvisor`user
+owns`/opt/debvisor`and`/var/lib/debvisor`.\n\n- --\n\n## Database Connection Issues (8)\n\n###
+Symptoms (DB) (8)\n\n- "Internal Server Error" on API requests\n\n- Logs show
+`OperationalError`or`FATAL: password authentication failed`\n\n### Diagnosis Steps (DB) (8)\n\n1.
+Verify PostgreSQL status:\n\n ```bash\n systemctl status postgresql\n```text\n```text\n systemctl
+status postgresql\n```text\n```text\n systemctl status
+postgresql\n```text\n```text\n```text\n```text\n\n1. Test connection manually:\n\n ```bash\n\n1.
+Test connection manually:\n\n ```bash\n\n1. Test connection manually:\n\n ```bash\n\n1. Test
+connection manually:\n\n ```bash\n\n1. Test connection manually:\n\n ```bash\n\n1. Test connection
+manually:\n\n ```bash\n\n1. Test connection manually:\n\n ```bash\n\n1. Test connection
+manually:\n\n ```bash\n pg_isready -h localhost -p 5432\n```text\n```text\n pg_isready -h localhost
+-p 5432\n```text\n```text\n pg_isready -h localhost -p
+5432\n```text\n```text\n```text\n```text\n\n1. Check connection pool metrics (if enabled).\n###
+Resolution (DB)\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n##
+WebSocket/Real-time Updates Failing\n### Symptoms (WS)\n- Dashboard metrics are stale\n\n-
+"Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n### Diagnosis Steps (WS)\n1. Check Nginx proxy configuration for WebSocket upgrade
+headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB)
+(2)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (2)\n\n### Symptoms (WS) (2)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (2)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution
+(DB) (3)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (3)\n\n### Symptoms (WS) (3)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (3)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution
+(DB) (4)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (4)\n\n### Symptoms (WS) (4)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (4)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n### Resolution (DB)
+(5)\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n##
+WebSocket/Real-time Updates Failing (5)\n### Symptoms (WS) (5)\n- Dashboard metrics are stale\n\n-
+"Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n### Diagnosis Steps (WS) (5)\n1. Check Nginx proxy configuration for WebSocket upgrade
+headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution (DB)
+(6)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (6)\n\n### Symptoms (WS) (6)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (6)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution
+(DB) (7)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (7)\n\n### Symptoms (WS) (7)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (7)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n\n1. Check connection pool metrics (if enabled).\n\n### Resolution
+(DB) (8)\n\n- Restart PostgreSQL: `systemctl restart postgresql`\n\n- Verify credentials in
+`.env`or`config.yaml`.\n\n- Check firewall rules allowing localhost traffic.\n\n- --\n\n##
+WebSocket/Real-time Updates Failing (8)\n\n### Symptoms (WS) (8)\n\n- Dashboard metrics are
+stale\n\n- "Connection lost" banner in UI\n\n- Browser console shows WebSocket connection errors
+(400/1006)\n\n### Diagnosis Steps (WS) (8)\n\n1. Check Nginx proxy configuration for WebSocket
+upgrade headers:\n\n ```nginx\n proxy_set_header Upgrade $http_upgrade;\n proxy_set_header
+Connection "upgrade";\n```text\n\n proxy_set_header Connection "upgrade";\n```text\n
+proxy_set_header Upgrade $http_upgrade;\n proxy_set_header Connection "upgrade";\n```text\n\n
+proxy_set_header Connection "upgrade";\n```text\n proxy_set_header Upgrade $http_upgrade;\n
+proxy_set_header Connection "upgrade";\n```text\n\n proxy_set_header Connection
+"upgrade";\n```text\n proxy_set_header Connection "upgrade";\n```text\n```text\n\n1. Verify
+Socket.IO server logs.\n### Resolution (WS)\n- Fix Nginx config.\n\n- Ensure client and server
+Socket.IO versions match.\n\n- --\n## Escalation Paths\nIf the issue persists after following these
+steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction steps.\n\n1. **Level
+2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty
+for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS) (2)\n- Fix Nginx
+config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n## Escalation Paths (2)\nIf
+the issue persists after following these steps:\n\n1. **Level 1**: Create an internal ticket with
+logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead
+(<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1.
+Verify Socket.IO server logs.\n### Resolution (WS) (3)\n- Fix Nginx config.\n\n- Ensure client and
+server Socket.IO versions match.\n\n- --\n## Escalation Paths (3)\nIf the issue persists after
+following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction
+steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**:
+Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS)
+(4)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n##
+Escalation Paths (4)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create
+an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead
+(<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1.
+Verify Socket.IO server logs.\n### Resolution (WS) (5)\n- Fix Nginx config.\n\n- Ensure client and
+server Socket.IO versions match.\n\n- --\n## Escalation Paths (5)\nIf the issue persists after
+following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction
+steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**:
+Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS)
+(6)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n##
+Escalation Paths (6)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create
+an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead
+(<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n1.
+Verify Socket.IO server logs.\n### Resolution (WS) (7)\n- Fix Nginx config.\n\n- Ensure client and
+server Socket.IO versions match.\n\n- --\n## Escalation Paths (7)\nIf the issue persists after
+following these steps:\n\n1. **Level 1**: Create an internal ticket with logs and reproduction
+steps.\n\n1. **Level 2**: Contact the DevOps Lead (<devops@debvisor.internal>).\n\n1. **Level 3**:
+Emergency PagerDuty for production outages.\n\n1. Verify Socket.IO server logs.\n### Resolution (WS)
+(8)\n- Fix Nginx config.\n\n- Ensure client and server Socket.IO versions match.\n\n- --\n##
+Escalation Paths (8)\nIf the issue persists after following these steps:\n\n1. **Level 1**: Create
+an internal ticket with logs and reproduction steps.\n\n1. **Level 2**: Contact the DevOps Lead
+(<devops@debvisor.internal>).\n\n1. **Level 3**: Emergency PagerDuty for production outages.\n\n

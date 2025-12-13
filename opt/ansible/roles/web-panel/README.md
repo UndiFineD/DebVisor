@@ -1,1 +1,9 @@
-# `web-panel`role\n\nPurpose:\n\n- Placeholder role for the future DebVisor web UI ("web panel").\n\n- Creates a marker directory on nodes where the web panel addon is\n\n  conceptually enabled.\nStatus:\n\n- Stub / non-operational.\n\n- Does**not**deploy Flask, gunicorn, nginx, or any systemd units.\n\n  The real web panel implementation will live under`services/web-panel`\n  and be integrated later.\nKey variables:\n\n- None at present. Future versions of this role are expected to\n\n  consume variables for bind addresses, TLS certificates, and\n  authentication settings.\nControl paths:\n\n- Until the web panel is implemented, management of DebVisor nodes\n\n  is done via Cockpit, CLI tools, and Ansible playbooks documented\n  under `docs/`.\n\n
+# `web-panel`role\n\nPurpose:\n\n- Placeholder role for the future DebVisor web UI ("web
+
+panel").\n\n- Creates a marker directory on nodes where the web panel addon is\n\n conceptually
+enabled.\nStatus:\n\n- Stub / non-operational.\n\n- Does**not**deploy Flask, gunicorn, nginx, or any
+systemd units.\n\n The real web panel implementation will live under`services/web-panel`\n and be
+integrated later.\nKey variables:\n\n- None at present. Future versions of this role are expected
+to\n\n consume variables for bind addresses, TLS certificates, and\n authentication
+settings.\nControl paths:\n\n- Until the web panel is implemented, management of DebVisor nodes\n\n
+is done via Cockpit, CLI tools, and Ansible playbooks documented\n under `docs/`.\n\n

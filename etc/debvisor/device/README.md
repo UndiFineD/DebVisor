@@ -1,1 +1,6 @@
-# Device Specific Overrides\n\nThis directory is reserved for future hardware-specific overrides and configurations.\n\n## Purpose\n\n- Store device-specific kernel parameters\n\n- Custom firmware or driver configurations\n\n- Hardware-specific boot options\n\n## Structure (Planned)\n\n    device/\n    +-- raspberry-pi-4/\n    |   +-- cmdline.txt\n    |   +-- config.txt\n    +-- intel-nuc/\n    |   +-- bios-settings.txt\n    +-- generic-x86/\n        +-- grub-defaults\n\n
+# Device Specific Overrides\n\nThis directory is reserved for future hardware-specific overrides and
+
+configurations.\n\n## Purpose\n\n- Store device-specific kernel parameters\n\n- Custom firmware or
+driver configurations\n\n- Hardware-specific boot options\n\n## Structure (Planned)\n\n device/\n
++-- raspberry-pi-4/\n | +-- cmdline.txt\n | +-- config.txt\n +-- intel-nuc/\n | +--
+bios-settings.txt\n +-- generic-x86/\n +-- grub-defaults\n\n

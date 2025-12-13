@@ -1,1 +1,116 @@
-# DebVisor Architecture Overview\n\n## System Design\n\n### High-Level Architecture\n\n    +--------------------------------------------------+\n    |  User Layer                                       |\n    |  +--------------------------------------------+  |\n    |  |  Web UI (React)                            |  |\n    |  |  Admin Dashboard *Cluster Management      |  |\n    |  |  Real-time Notifications*Reports         |  |\n    |  +--------------------------------------------+  |\n    +--------------+-----------------------------------+\n                   | HTTPS / WebSocket\n    +--------------?-----------------------------------+\n    |  API Layer                                        |\n    |  +--------------------------------------------+  |\n    |  |  REST API (Flask)                          |  |\n    |  |*Input validation & sanitization         |  |\n    |  |*RBAC & authentication                   |  |\n    |  |*Rate limiting & caching                 |  |\n    |  |*Audit logging                           |  |\n    |  +--------------------------------------------+  |\n    +--------------+-----------------------------------+\n                   | gRPC / mTLS\n    +--------------?-----------------------------------+\n    |  Service Layer                                    |\n    |  +--------------------------------------------+  |\n    |  |  RPC Service (gRPC)                        |  |\n    |  |*Connection pooling                      |  |\n    |  |*Request compression                     |  |\n    |  |*API versioning                          |  |\n    |  |*Health checks                           |  |\n    |  |*Monitoring integration                  |  |\n    |  +--------------------------------------------+  |\n    +--------------+-----------------------------------+\n                   | Native APIs\n    +--------------?-----------------------------------+\n    |  Infrastructure Layer                             |\n    |  +--------------+ +--------------+ +---------+  |\n    |  |    Ceph      | | Kubernetes   | | libvirt |  |\n    |  |  (Storage)   | | (Orchestr.)  | | (VM)    |  |\n    |  +--------------+ +--------------+ +---------+  |\n    +----------------------------------------------------+\n\n### Data Flow\n\n### Example: Node Registration\n\n    1. User clicks "Register Node" in Web Panel\n\n       v\n\n    1. Panel validates input\n\n       v\n\n    1. Panel sends REST request to API\n\n       v\n\n    1. API validates, audits, and calls RPC service\n\n       v\n\n    1. RPC service contacts Ceph, K8s, libvirt APIs\n\n       v\n\n    1. Results aggregated and returned via API\n\n       v\n\n    1. Web Panel updates UI with results\n\n## Component Details\n\n### 1. Web Panel (Frontend & API)\n\n### Technology Stack\n\n- Frontend: React, TypeScript\n\n- Backend: Flask, SQLAlchemy\n\n- Database: PostgreSQL / SQLite\n\n- Cache: Redis\n\n- Auth: OAuth2, LDAP/AD, local accounts\n\n### Capabilities\n\n- Cluster overview dashboard\n\n- Node management (register, drain, reboot)\n\n- Storage pool management (Ceph)\n\n- VM management (libvirt)\n\n- Kubernetes workload management\n\n- User and RBAC management\n\n- Audit log viewing\n\n- Reports and exports (PDF, CSV)\n\n### Security\n\n- HTTPS with TLS 1.2+\n\n- Input validation on all endpoints\n\n- RBAC (admin, operator, viewer roles)\n\n- CSRF protection\n\n- Rate limiting (10 req/s per user)\n\n- Session timeout (15 min idle)\n\n- Audit logging of all operations\n\n### 2. RPC Service\n\n### Technology Stack [2]\n\n- Framework: gRPC\n\n- Language: Python\n\n- Serialization: Protocol Buffers\n\n- Transport: HTTP/2 with TLS\n\n### Capabilities [2]\n\n- Node management operations\n\n- Status queries\n\n- Configuration updates\n\n- Batch operations\n\n- Health monitoring\n\n- Metrics export (Prometheus)\n\n### Features\n\n- mTLS authentication (node certs)\n\n- Connection pooling (50 max)\n\n- Request compression (GZIP/Brotli)\n\n- API versioning (V1, V2, V3)\n\n- Rate limiting per client\n\n- Distributed tracing (OpenTelemetry)\n\n### Monitoring\n\n- Request latency metrics\n\n- Error rate tracking\n\n- Connection pool stats\n\n- Compression ratios\n\n### 3. Health Check Service\n\n### Technology Stack [3]\n\n- Language: Python\n\n- Schedule: Systemd timer\n\n### Monitors\n\n- Service availability (RPC, Panel, cluster services)\n\n- Network connectivity\n\n- Storage health\n\n- System resources\n\n- DNS resolution\n\n- Certificate expiration\n\n### Actions\n\n- Emit alerts to monitoring\n\n- Log to audit trail\n\n- Auto-remediation (restart services)\n\n### 4. Storage Backend\n\n### Supported Options\n\n### Ceph (Recommended)\n\n- Object storage (RBD)\n\n- Filesystem (CephFS)\n\n- Object Gateway (S3-compatible)\n\n- Replication factor: 3 (configurable)\n\n- Erasure coding support\n\n### ZFS (Alternative)\n\n- Local storage\n\n- Copy-on-write semantics\n\n- Snapshots and cloning\n\n- RAID-Z (distributed parity)\n\n- Single-node or HA configurations\n\n### Hybrid\n\n- Ceph for cluster-wide storage\n\n- ZFS for local caching/performance\n\n### 5. Orchestration (Kubernetes)\n\n### Components\n\n- Control plane: etcd, API server, scheduler, controller\n\n- Worker nodes: kubelet, container runtime\n\n- Networking: Calico, Flannel, or Weave\n\n- Storage: Ceph RBD, CephFS, or local storage\n\n- Ingress: nginx-ingress or HAProxy\n\n### Workloads\n\n- Stateless applications (deployments)\n\n- Stateful applications (StatefulSets)\n\n- Batch jobs (Jobs, CronJobs)\n\n- Daemon workloads (DaemonSets)\n\n### 6. Virtualization (libvirt)\n\n### Hypervisor Options\n\n- QEMU/KVM (Linux)\n\n- Xen (alternative)\n\n### Management\n\n- Domain (VM) lifecycle\n\n- Network bridge management\n\n- Storage volume management\n\n- Snapshot and cloning\n\n- Live migration\n\n### 7. Networking\n\n### Network Architecture\n\n    External Network (Internet)\n        v VPN/Direct\n    Public Zone (Firewall)\n        +- Web Panel (HTTPS)\n        +- SSH\n        +- Ingress Controllers\n        v Internal Network\n    Internal Zone (OpenFlow)\n        +- RPC Service (gRPC)\n        +- Kubernetes API\n        +- Ceph Network\n        +- libvirt Network\n\n### Features [2]\n\n- VLANs for tenant isolation\n\n- Bonding for HA\n\n- VXLAN overlay networks\n\n- IPv6 support\n\n- DNS resolution (Bind9 HA)\n\n- DHCP with PXE boot\n\n### 8. Monitoring & Observability\n\n### Metrics Collection\n\n- Prometheus: Time-series metrics\n\n- Node Exporter: System metrics\n\n- Custom exporters: Application-specific\n\n### Dashboards\n\n- Grafana: Visualization and alerting\n\n- Custom dashboards for each component\n\n### Logging\n\n- Systemd journal (local)\n\n- Centralized log aggregation (optional)\n\n- Audit trail for compliance\n\n### Tracing\n\n- OpenTelemetry instrumentation\n\n- Jaeger or Zipkin for visualization\n\n## Deployment Models\n\n### Single-Node (Lab)\n\n    Node: All-in-One\n    +- Web Panel\n    +- RPC Service\n    +- Ceph MON + OSD\n    +- Kubernetes (single node)\n    +- libvirt (VMs)\n\n-*Use Case:**Development, testing, small deployments\n\n- *Limitations:**No HA, no geographic distribution\n\n### Multi-Node Cluster (Standard)\n\n    Control Nodes (3):         Worker Nodes (N):\n    +- Web Panel               +- RPC Service\n    +- RPC Service             +- Kubernetes\n    +- Ceph MON                +- libvirt\n    +- K8s Control Plane       +- Storage (Ceph OSD)\n    +- DNS (Primary)\n    Storage Nodes (optional):\n    +- Ceph OSD (dedicated)\n\n- *Use Case:**Production clusters, HA setup\n\n- *Features:**Redundancy, load balancing, geographic expansion\n\n### Multi-Site (Advanced)\n\n    DC1:                       DC2:\n    +- Control + Storage       +- Control + Storage\n    +- Kubernetes              +- Kubernetes\n    +- VMs                     +- VMs\n        v Replication (Ceph)\n        v Federation (K8s)\n\n- *Use Case:**DR, geo-distribution, failover\n\n- *Features:**Cross-site replication, automated failover\n\n## Security Architecture\n\n### Layers\n\n    +-------------------------------------+\n    | Application Layer                    |\n    | *Input validation                   |\n    |*RBAC enforcement                   |\n    |*Audit logging                      |\n    +-------------------------------------+\n            v TLS/mTLS\n    +-------------------------------------+\n    | Transport Layer                      |\n    |*Encryption (TLS 1.2+)             |\n    |*Certificate validation             |\n    |*Perfect forward secrecy           |\n    +-------------------------------------+\n            v Firewall rules\n    +-------------------------------------+\n    | Network Layer                        |\n    |*Segmentation (VLANs)              |\n    |*Access control lists              |\n    |*DDoS protection                   |\n    +-------------------------------------+\n\n### Authentication & Authorization\n\n### Authentication Methods\n\n- Local accounts (username/password)\n\n- OAuth2 (Google, GitHub, custom)\n\n- LDAP/AD (enterprise)\n\n- API keys (service accounts)\n\n### Authorization (RBAC)\n\n| Role | Permissions |\n|------|-----------|\n|**Admin**| All operations, user management |\n|**Operator**| Cluster operations, no user/RBAC changes |\n|**Viewer**| Read-only access to dashboards |\n|**Developer**| Kubernetes workload deployment |\n\n### Audit Trail\n\n- All operations logged (user, timestamp, action)\n\n- Immutable log storage\n\n- Compliance-ready exports\n\n## Performance Characteristics\n\n### Scalability\n\n| Metric | Value | Notes |\n|--------|-------|-------|\n| Max nodes | 1000+ | With large cluster optimization |\n| Node registration rate | 100/sec | Batched operations |\n| Status query rate | 1000 qps | Cached, <100ms latency |\n| Config update rate | 50/sec | Per-node |\n| Concurrent users | 100+ | Depends on cluster size |\n\n### Latency (p99)\n\n| Operation | Latency |\n|-----------|---------|\n| Web login | <200ms |\n| Dashboard load | <1s |\n| Node status | <100ms |\n| Configuration apply | <500ms |\n| Cluster query | <200ms |\n\n### Resource Usage\n\n### Per Node\n\n- CPU: 1-2 cores (RPC service)\n\n- RAM: 2-4 GB (Panel + RPC)\n\n- Storage: 50 GB (logs, database, cache)\n\n### Total HA Pair\n\n- CPU: 4 cores\n\n- RAM: 8 GB\n\n- Storage: 200 GB\n\n## High Availability\n\n### Components [2]\n\n### Stateless\n\n- Web Panel (multiple instances, load balanced)\n\n- RPC Service (multiple instances, gRPC LB)\n\n- Health Check (distributed)\n\n### Stateful\n\n- Database (PostgreSQL HA with replication)\n\n- Cache (Redis with Sentinel)\n\n- Ceph (distributed, self-healing)\n\n### Failover\n\n### Automatic (< 1 second)\n\n- Node health check failure\n\n- Service unresponsive\n\n- Network partition recovery\n\n### Manual (< 5 minutes)\n\n- Complete node failure\n\n- Data center failure\n\n- Planned maintenance\n\n### Recovery\n\n- Lost node: Rejoin with Ceph rebalancing\n\n- Lost pod: Kubernetes reschedules\n\n- Lost database: Restore from replicas\n\n- Lost VM: Snapshot/clone recovery\n\n## Integration Points\n\n### External Systems\n\n-**LDAP/AD**: User authentication\n\n- **Webhook receivers**: Event notifications\n\n- **Syslog servers**: Log forwarding\n\n- **SNMP traps**: Legacy monitoring\n\n- **S3 storage**: Backup destinations\n\n- **Email/Slack**: Alerting\n\n### APIs\n\n- **gRPC**: Service-to-service communication\n\n- **REST**: Client applications\n\n- **Kubernetes API**: K8s workload management\n\n- **Ceph API**: Storage operations\n\n- **libvirt URI**: VM management\n\n- **systemd D-Bus**: Service management\n\n## References\n\n- Component details: `opt/services/rpc/ADVANCED_FEATURES.md`\n\n- Deployment: `opt/DEPLOYMENT_MATRIX.md`\n\n- Networking: `opt/docs/networking.md`\n\n- Security: Configuration audit guide\n\n
+# DebVisor Architecture Overview\n\n## System Design\n\n### High-Level Architecture\n\n
+
++--------------------------------------------------+\n | User Layer |\n |
++--------------------------------------------+ |\n | | Web UI (React) | |\n | | Admin Dashboard
+*Cluster Management | |\n | | Real-time Notifications*Reports | |\n |
++--------------------------------------------+ |\n
++--------------+-----------------------------------+\n | HTTPS / WebSocket\n
++--------------?-----------------------------------+\n | API Layer |\n |
++--------------------------------------------+ |\n | | REST API (Flask) | |\n | |*Input validation &
+sanitization | |\n | |*RBAC & authentication | |\n | |*Rate limiting & caching | |\n | |*Audit
+logging | |\n | +--------------------------------------------+ |\n
++--------------+-----------------------------------+\n | gRPC / mTLS\n
++--------------?-----------------------------------+\n | Service Layer |\n |
++--------------------------------------------+ |\n | | RPC Service (gRPC) | |\n | |*Connection
+pooling | |\n | |*Request compression | |\n | |*API versioning | |\n | |*Health checks | |\n |
+|*Monitoring integration | |\n | +--------------------------------------------+ |\n
++--------------+-----------------------------------+\n | Native APIs\n
++--------------?-----------------------------------+\n | Infrastructure Layer |\n | +--------------+
++--------------+ +---------+ |\n | | Ceph | | Kubernetes | | libvirt | |\n | | (Storage) | |
+(Orchestr.) | | (VM) | |\n | +--------------+ +--------------+ +---------+ |\n
++----------------------------------------------------+\n\n### Data Flow\n\n### Example: Node
+Registration\n\n 1. User clicks "Register Node" in Web Panel\n\n v\n\n 1. Panel validates input\n\n
+v\n\n 1. Panel sends REST request to API\n\n v\n\n 1. API validates, audits, and calls RPC
+service\n\n v\n\n 1. RPC service contacts Ceph, K8s, libvirt APIs\n\n v\n\n 1. Results aggregated
+and returned via API\n\n v\n\n 1. Web Panel updates UI with results\n\n## Component Details\n\n###
+
+1. Web Panel (Frontend & API)\n\n### Technology Stack\n\n- Frontend: React, TypeScript\n\n- Backend:
+Flask, SQLAlchemy\n\n- Database: PostgreSQL / SQLite\n\n- Cache: Redis\n\n- Auth: OAuth2, LDAP/AD,
+local accounts\n\n### Capabilities\n\n- Cluster overview dashboard\n\n- Node management (register,
+drain, reboot)\n\n- Storage pool management (Ceph)\n\n- VM management (libvirt)\n\n- Kubernetes
+workload management\n\n- User and RBAC management\n\n- Audit log viewing\n\n- Reports and exports
+(PDF, CSV)\n\n### Security\n\n- HTTPS with TLS 1.2+\n\n- Input validation on all endpoints\n\n- RBAC
+(admin, operator, viewer roles)\n\n- CSRF protection\n\n- Rate limiting (10 req/s per user)\n\n-
+Session timeout (15 min idle)\n\n- Audit logging of all operations\n\n### 2. RPC Service\n\n###
+Technology Stack [2]\n\n- Framework: gRPC\n\n- Language: Python\n\n- Serialization: Protocol
+Buffers\n\n- Transport: HTTP/2 with TLS\n\n### Capabilities [2]\n\n- Node management operations\n\n-
+Status queries\n\n- Configuration updates\n\n- Batch operations\n\n- Health monitoring\n\n- Metrics
+export (Prometheus)\n\n### Features\n\n- mTLS authentication (node certs)\n\n- Connection pooling
+(50 max)\n\n- Request compression (GZIP/Brotli)\n\n- API versioning (V1, V2, V3)\n\n- Rate limiting
+per client\n\n- Distributed tracing (OpenTelemetry)\n\n### Monitoring\n\n- Request latency
+metrics\n\n- Error rate tracking\n\n- Connection pool stats\n\n- Compression ratios\n\n### 3. Health
+Check Service\n\n### Technology Stack [3]\n\n- Language: Python\n\n- Schedule: Systemd timer\n\n###
+Monitors\n\n- Service availability (RPC, Panel, cluster services)\n\n- Network connectivity\n\n-
+Storage health\n\n- System resources\n\n- DNS resolution\n\n- Certificate expiration\n\n###
+Actions\n\n- Emit alerts to monitoring\n\n- Log to audit trail\n\n- Auto-remediation (restart
+services)\n\n### 4. Storage Backend\n\n### Supported Options\n\n### Ceph (Recommended)\n\n- Object
+storage (RBD)\n\n- Filesystem (CephFS)\n\n- Object Gateway (S3-compatible)\n\n- Replication factor:
+3 (configurable)\n\n- Erasure coding support\n\n### ZFS (Alternative)\n\n- Local storage\n\n-
+Copy-on-write semantics\n\n- Snapshots and cloning\n\n- RAID-Z (distributed parity)\n\n- Single-node
+or HA configurations\n\n### Hybrid\n\n- Ceph for cluster-wide storage\n\n- ZFS for local
+caching/performance\n\n### 5. Orchestration (Kubernetes)\n\n### Components\n\n- Control plane: etcd,
+API server, scheduler, controller\n\n- Worker nodes: kubelet, container runtime\n\n- Networking:
+Calico, Flannel, or Weave\n\n- Storage: Ceph RBD, CephFS, or local storage\n\n- Ingress:
+nginx-ingress or HAProxy\n\n### Workloads\n\n- Stateless applications (deployments)\n\n- Stateful
+applications (StatefulSets)\n\n- Batch jobs (Jobs, CronJobs)\n\n- Daemon workloads
+(DaemonSets)\n\n### 6. Virtualization (libvirt)\n\n### Hypervisor Options\n\n- QEMU/KVM (Linux)\n\n-
+Xen (alternative)\n\n### Management\n\n- Domain (VM) lifecycle\n\n- Network bridge management\n\n-
+Storage volume management\n\n- Snapshot and cloning\n\n- Live migration\n\n### 7. Networking\n\n###
+Network Architecture\n\n External Network (Internet)\n v VPN/Direct\n Public Zone (Firewall)\n +-
+Web Panel (HTTPS)\n +- SSH\n +- Ingress Controllers\n v Internal Network\n Internal Zone
+(OpenFlow)\n +- RPC Service (gRPC)\n +- Kubernetes API\n +- Ceph Network\n +- libvirt Network\n\n###
+Features [2]\n\n- VLANs for tenant isolation\n\n- Bonding for HA\n\n- VXLAN overlay networks\n\n-
+IPv6 support\n\n- DNS resolution (Bind9 HA)\n\n- DHCP with PXE boot\n\n### 8. Monitoring &
+Observability\n\n### Metrics Collection\n\n- Prometheus: Time-series metrics\n\n- Node Exporter:
+System metrics\n\n- Custom exporters: Application-specific\n\n### Dashboards\n\n- Grafana:
+Visualization and alerting\n\n- Custom dashboards for each component\n\n### Logging\n\n- Systemd
+journal (local)\n\n- Centralized log aggregation (optional)\n\n- Audit trail for compliance\n\n###
+Tracing\n\n- OpenTelemetry instrumentation\n\n- Jaeger or Zipkin for visualization\n\n## Deployment
+Models\n\n### Single-Node (Lab)\n\n Node: All-in-One\n +- Web Panel\n +- RPC Service\n +- Ceph MON +
+OSD\n +- Kubernetes (single node)\n +- libvirt (VMs)\n\n-*Use Case:**Development, testing, small
+deployments\n\n- *Limitations:**No HA, no geographic distribution\n\n### Multi-Node Cluster
+(Standard)\n\n Control Nodes (3): Worker Nodes (N):\n +- Web Panel +- RPC Service\n +- RPC Service
++- Kubernetes\n +- Ceph MON +- libvirt\n +- K8s Control Plane +- Storage (Ceph OSD)\n +- DNS
+(Primary)\n Storage Nodes (optional):\n +- Ceph OSD (dedicated)\n\n- *Use Case:**Production
+clusters, HA setup\n\n- *Features:**Redundancy, load balancing, geographic expansion\n\n###
+Multi-Site (Advanced)\n\n DC1: DC2:\n +- Control + Storage +- Control + Storage\n +- Kubernetes +-
+Kubernetes\n +- VMs +- VMs\n v Replication (Ceph)\n v Federation (K8s)\n\n- *Use Case:**DR,
+geo-distribution, failover\n\n- *Features:**Cross-site replication, automated failover\n\n##
+Security Architecture\n\n### Layers\n\n +-------------------------------------+\n | Application
+Layer |\n | *Input validation |\n |*RBAC enforcement |\n |*Audit logging |\n
++-------------------------------------+\n v TLS/mTLS\n +-------------------------------------+\n |
+Transport Layer |\n |*Encryption (TLS 1.2+) |\n |*Certificate validation |\n |*Perfect forward
+secrecy |\n +-------------------------------------+\n v Firewall rules\n
++-------------------------------------+\n | Network Layer |\n |*Segmentation (VLANs) |\n |*Access
+control lists |\n |*DDoS protection |\n +-------------------------------------+\n\n###
+Authentication & Authorization\n\n### Authentication Methods\n\n- Local accounts
+(username/password)\n\n- OAuth2 (Google, GitHub, custom)\n\n- LDAP/AD (enterprise)\n\n- API keys
+(service accounts)\n\n### Authorization (RBAC)\n\n| Role | Permissions
+|\n|------|-----------|\n|**Admin**| All operations, user management |\n|**Operator**| Cluster
+operations, no user/RBAC changes |\n|**Viewer**| Read-only access to dashboards |\n|**Developer**|
+Kubernetes workload deployment |\n\n### Audit Trail\n\n- All operations logged (user, timestamp,
+action)\n\n- Immutable log storage\n\n- Compliance-ready exports\n\n## Performance
+Characteristics\n\n### Scalability\n\n| Metric | Value | Notes |\n|--------|-------|-------|\n| Max
+nodes | 1000+ | With large cluster optimization |\n| Node registration rate | 100/sec | Batched
+operations |\n| Status query rate | 1000 qps | Cached, <100ms latency |\n| Config update rate |
+50/sec | Per-node |\n| Concurrent users | 100+ | Depends on cluster size |\n\n### Latency (p99)\n\n|
+Operation | Latency |\n|-----------|---------|\n| Web login | <200ms |\n| Dashboard load | <1s |\n|
+Node status | <100ms |\n| Configuration apply | <500ms |\n| Cluster query | <200ms |\n\n### Resource
+Usage\n\n### Per Node\n\n- CPU: 1-2 cores (RPC service)\n\n- RAM: 2-4 GB (Panel + RPC)\n\n- Storage:
+50 GB (logs, database, cache)\n\n### Total HA Pair\n\n- CPU: 4 cores\n\n- RAM: 8 GB\n\n- Storage:
+200 GB\n\n## High Availability\n\n### Components [2]\n\n### Stateless\n\n- Web Panel (multiple
+instances, load balanced)\n\n- RPC Service (multiple instances, gRPC LB)\n\n- Health Check
+(distributed)\n\n### Stateful\n\n- Database (PostgreSQL HA with replication)\n\n- Cache (Redis with
+Sentinel)\n\n- Ceph (distributed, self-healing)\n\n### Failover\n\n### Automatic (< 1 second)\n\n-
+Node health check failure\n\n- Service unresponsive\n\n- Network partition recovery\n\n### Manual (<
+5 minutes)\n\n- Complete node failure\n\n- Data center failure\n\n- Planned maintenance\n\n###
+Recovery\n\n- Lost node: Rejoin with Ceph rebalancing\n\n- Lost pod: Kubernetes reschedules\n\n-
+Lost database: Restore from replicas\n\n- Lost VM: Snapshot/clone recovery\n\n## Integration
+Points\n\n### External Systems\n\n-**LDAP/AD**: User authentication\n\n- **Webhook receivers**:
+Event notifications\n\n- **Syslog servers**: Log forwarding\n\n- **SNMP traps**: Legacy
+monitoring\n\n- **S3 storage**: Backup destinations\n\n- **Email/Slack**: Alerting\n\n### APIs\n\n-
+**gRPC**: Service-to-service communication\n\n- **REST**: Client applications\n\n- **Kubernetes
+API**: K8s workload management\n\n- **Ceph API**: Storage operations\n\n- **libvirt URI**: VM
+management\n\n- **systemd D-Bus**: Service management\n\n## References\n\n- Component details:
+`opt/services/rpc/ADVANCED_FEATURES.md`\n\n- Deployment: `opt/DEPLOYMENT_MATRIX.md`\n\n- Networking:
+`opt/docs/networking.md`\n\n- Security: Configuration audit guide\n\n

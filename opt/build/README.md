@@ -94,7 +94,8 @@ DebVisor uses Debian live-build hooks and staged includes to prepare the image.
 
 - `/usr/local/sbin/debvisor-firstboot.sh` - main first-boot provisioning script.
 
-- `/usr/local/sbin/debvisor-profile-summary.sh`- writes`/var/log/debvisor/profile-summary.{txt,json}`.
+- `/usr/local/sbin/debvisor-profile-summary.sh`-
+writes`/var/log/debvisor/profile-summary.{txt,json}`.
 
 - `/opt/debvisor/systemd/debvisor-firstboot.service` - staged unit installed by the enable hook.
 

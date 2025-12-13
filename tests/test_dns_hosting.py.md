@@ -36,7 +36,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -66,7 +67,8 @@ def test_create_zone(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -96,7 +98,8 @@ def test_create_zone(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -125,7 +128,8 @@ def test_create_zone(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -154,7 +158,8 @@ def test_create_duplicate_zone(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -183,7 +188,8 @@ def test_create_duplicate_zone(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -212,7 +218,8 @@ def test_add_record_invalid_a(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -241,7 +248,8 @@ def test_add_record_invalid_a(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -270,7 +278,8 @@ def test_remove_record(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -299,7 +308,8 @@ def test_generate_bind_config(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -329,7 +339,8 @@ def test_generate_bind_config(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -359,7 +370,8 @@ def test_generate_bind_config(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -388,7 +400,8 @@ def test_generate_bind_config(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -417,7 +430,8 @@ def test_serial_increment(dns_service):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 

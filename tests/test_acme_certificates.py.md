@@ -126,7 +126,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -156,7 +157,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -186,7 +188,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -215,7 +218,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -244,7 +248,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -273,7 +278,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -302,7 +308,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -332,7 +339,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -362,7 +370,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -391,7 +400,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -419,7 +429,8 @@ def acme_manager() -> None:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 

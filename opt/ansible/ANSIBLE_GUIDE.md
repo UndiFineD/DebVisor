@@ -1,1 +1,44 @@
-# opt/ansible/ - Ansible Automation Framework\n\n## Overview\n\nThe `opt/ansible/`directory contains Ansible playbooks, roles, and inventory for DebVisor infrastructure deployment and configuration management.\n\n## Quick Start\n\n## Validate inventory syntax\n\n    python3 opt/ansible/validate-inventory.py -i inventory.yaml\n\n## Lint playbooks for best practices\n\n    ansible-lint opt/ansible/playbooks/\n\n## Run playbook in check mode (dry-run)\n\n    ansible-playbook playbooks/site.yml --check --diff\n\n## Execute playbook\n\n    ansible-playbook playbooks/site.yml\n\n## Directory Structure\n\n- **inventory.yaml**- Main inventory file with all hosts and groups\n\n- **inventory.example**- Template for new deployments\n\n- **inventory.lab**- Pre-configured for lab environments\n\n- **inventory.prod**- Pre-configured for production\n\n- **playbooks/**- Main automation playbooks\n\n- **roles/**- Reusable role modules\n\n- **ansible.cfg**- Ansible configuration\n\n- **.ansible-lint**- Code quality rules (NEW)\n\n- **molecule.yml**- Role testing framework (NEW)\n\n- **validate-inventory.py**- Inventory validation script (NEW)\n\n## Inventory Templates\n\n### Grouping Strategy\n\nAll hosts are organized by functional role:\n    all:\n      children:\n        dns_servers:\n          children:\n            dns_primaries: [dns1]\n            dns_secondaries: [dns2, dns3]\n        ceph_cluster:\n          children:\n            ceph_mons: [ceph1, ceph2, ceph3]\n            ceph_osds: [osd1, osd2, osd3]\n        kubernetes:\n          children:\n            k8s_controlplane: [k8s-master1]\n            k8s_workers: [k8s-worker1, k8s-worker2]\n        hypervisors: [hvr1, hvr2]\n\n### Host Variables Requirements\n\n- *DNS Servers**require:\n\n-`dns_zone`- Primary zone for server\n\n-`dns_mode`- primary or secondary\n\n- *Ceph Monitors**require:\n\n-`ceph_mon_ip`- Monitor IP address\n\n-`ceph_fsid`- Cluster FSID\n\n- *Kubernetes**require:\n\n-`k8s_role`- controlplane or worker\n\n-`pod_network_cidr`- Network CIDR for pods\n\n## Playbook Execution\n\n### Dependency Order\n\n1.**bootstrap.yml**- Initial node setup (ALL nodes)\n1.**dns-setup.yml**- DNS/DHCP configuration\n1.**ceph.yml**- Ceph cluster deployment\n1.**kubernetes.yml**- Kubernetes setup\n1.**monitoring.yml**- Prometheus/Grafana\n\n### Common Commands\n\n## Full deployment\n\n    ansible-playbook playbooks/site.yml\n\n## Lab environment\n\n    ansible-playbook -i inventory.lab playbooks/site.yml\n\n## Specific playbook\n\n    ansible-playbook playbooks/dns-setup.yml\n\n## Dry-run\n\n    ansible-playbook playbooks/site.yml --check --diff\n\n## Specific hosts/groups\n\n    ansible-playbook playbooks/site.yml -l dns_servers\n\n## By tags\n\n    ansible-playbook playbooks/site.yml --tags dns,ceph\n\n## Testing & Validation\n\n### Ansible Linting\n\n## Check all playbooks\n\n    ansible-lint opt/ansible/playbooks/\n\n## Check specific playbook\n\n    ansible-lint opt/ansible/playbooks/site.yml\n\n## Molecule Role Testing\n\n## Test role in isolation\n\n    cd opt/ansible/roles/debvisor-common\n    molecule test\n\n## Run specific scenario\n\n    molecule test -s default\n\n## Debug failed test\n\n    molecule converge && molecule login\n\n## Best Practices\n\n- **Always use --check first**:`ansible-playbook --check --diff`\n\n- **Use inventory templates**: Start with inventory.lab or inventory.prod\n\n- **Validate before running**: `validate-inventory.py`and`ansible-lint`\n\n- **Test in non-prod**: Always test changes on lab environment first\n\n- **Document custom variables**: Add comments in group_vars/ files\n\n- **Use version control**: Track all changes in Git\n\n## Troubleshooting\n\n## Test connectivity\n\n    ansible all -m ping\n\n## Check inventory\n\n    ansible-inventory -i inventory.yaml --list\n\n## Verbose output\n\n    ansible-playbook playbooks/site.yml -vvv\n\n## Start from specific task\n\n    ansible-playbook playbooks/site.yml --start-at-task "Task Name"\n\n## Related Documentation\n\n- Deployment guide: `opt/docs/install/`\n\n- Architecture: `opt/docs/architecture.md`\n\n- Operations: `opt/docs/operations.md`\n\n
+# opt/ansible/ - Ansible Automation Framework\n\n## Overview\n\nThe `opt/ansible/`directory contains
+
+Ansible playbooks, roles, and inventory for DebVisor infrastructure deployment and configuration
+management.\n\n## Quick Start\n\n## Validate inventory syntax\n\n python3
+opt/ansible/validate-inventory.py -i inventory.yaml\n\n## Lint playbooks for best practices\n\n
+ansible-lint opt/ansible/playbooks/\n\n## Run playbook in check mode (dry-run)\n\n ansible-playbook
+playbooks/site.yml --check --diff\n\n## Execute playbook\n\n ansible-playbook
+playbooks/site.yml\n\n## Directory Structure\n\n- **inventory.yaml**- Main inventory file with all
+hosts and groups\n\n- **inventory.example**- Template for new deployments\n\n- **inventory.lab**-
+Pre-configured for lab environments\n\n- **inventory.prod**- Pre-configured for production\n\n-
+**playbooks/**- Main automation playbooks\n\n- **roles/**- Reusable role modules\n\n-
+**ansible.cfg**- Ansible configuration\n\n- **.ansible-lint**- Code quality rules (NEW)\n\n-
+**molecule.yml**- Role testing framework (NEW)\n\n- **validate-inventory.py**- Inventory validation
+script (NEW)\n\n## Inventory Templates\n\n### Grouping Strategy\n\nAll hosts are organized by
+functional role:\n all:\n children:\n dns_servers:\n children:\n dns_primaries: [dns1]\n
+dns_secondaries: [dns2, dns3]\n ceph_cluster:\n children:\n ceph_mons: [ceph1, ceph2, ceph3]\n
+ceph_osds: [osd1, osd2, osd3]\n kubernetes:\n children:\n k8s_controlplane: [k8s-master1]\n
+k8s_workers: [k8s-worker1, k8s-worker2]\n hypervisors: [hvr1, hvr2]\n\n### Host Variables
+Requirements\n\n- *DNS Servers**require:\n\n-`dns_zone`- Primary zone for server\n\n-`dns_mode`-
+primary or secondary\n\n- *Ceph Monitors**require:\n\n-`ceph_mon_ip`- Monitor IP
+address\n\n-`ceph_fsid`- Cluster FSID\n\n- *Kubernetes**require:\n\n-`k8s_role`- controlplane or
+worker\n\n-`pod_network_cidr`- Network CIDR for pods\n\n## Playbook Execution\n\n### Dependency
+Order\n\n1.**bootstrap.yml**- Initial node setup (ALL nodes)\n1.**dns-setup.yml**- DNS/DHCP
+configuration\n1.**ceph.yml**- Ceph cluster deployment\n1.**kubernetes.yml**- Kubernetes
+setup\n1.**monitoring.yml**- Prometheus/Grafana\n\n### Common Commands\n\n## Full deployment\n\n
+ansible-playbook playbooks/site.yml\n\n## Lab environment\n\n ansible-playbook -i inventory.lab
+playbooks/site.yml\n\n## Specific playbook\n\n ansible-playbook playbooks/dns-setup.yml\n\n##
+Dry-run\n\n ansible-playbook playbooks/site.yml --check --diff\n\n## Specific hosts/groups\n\n
+ansible-playbook playbooks/site.yml -l dns_servers\n\n## By tags\n\n ansible-playbook
+playbooks/site.yml --tags dns,ceph\n\n## Testing & Validation\n\n### Ansible Linting\n\n## Check all
+playbooks\n\n ansible-lint opt/ansible/playbooks/\n\n## Check specific playbook\n\n ansible-lint
+opt/ansible/playbooks/site.yml\n\n## Molecule Role Testing\n\n## Test role in isolation\n\n cd
+opt/ansible/roles/debvisor-common\n molecule test\n\n## Run specific scenario\n\n molecule test -s
+default\n\n## Debug failed test\n\n molecule converge && molecule login\n\n## Best Practices\n\n-
+**Always use --check first**:`ansible-playbook --check --diff`\n\n- **Use inventory templates**:
+Start with inventory.lab or inventory.prod\n\n- **Validate before running**:
+`validate-inventory.py`and`ansible-lint`\n\n- **Test in non-prod**: Always test changes on lab
+environment first\n\n- **Document custom variables**: Add comments in group_vars/ files\n\n- **Use
+version control**: Track all changes in Git\n\n## Troubleshooting\n\n## Test connectivity\n\n
+ansible all -m ping\n\n## Check inventory\n\n ansible-inventory -i inventory.yaml --list\n\n##
+Verbose output\n\n ansible-playbook playbooks/site.yml -vvv\n\n## Start from specific task\n\n
+ansible-playbook playbooks/site.yml --start-at-task "Task Name"\n\n## Related Documentation\n\n-
+Deployment guide: `opt/docs/install/`\n\n- Architecture: `opt/docs/architecture.md`\n\n- Operations:
+`opt/docs/operations.md`\n\n

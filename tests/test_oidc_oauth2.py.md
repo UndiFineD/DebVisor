@@ -9,9 +9,9 @@ Total: 3 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
-| 244 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
-| 298 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
-| 355 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
+| 244 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)') |
+| 298 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)') |
+| 355 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)') |
 
 ## Implementation Status
 
@@ -25,7 +25,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
+**Message:** Possible hardcoded password:
+'[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)')
 
 ### Context
 
@@ -35,8 +36,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",](https://example.com",)
-            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
+            _issuer = "[https://example.com",]([https://example.com"](https://example.com"),)
+            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"](https://example.com/authorize"),)
 ```python
 
 ### Proposal
@@ -55,7 +56,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
+**Message:** Possible hardcoded password:
+'[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)')
 
 ### Context
 
@@ -65,8 +67,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",](https://example.com",)
-            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
+            _issuer = "[https://example.com",]([https://example.com"](https://example.com"),)
+            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"](https://example.com/authorize"),)
 ```python
 
 ### Proposal
@@ -85,7 +87,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
+**Message:** Possible hardcoded password:
+'[https://example.com/token']([https://example.com/token]([https://example.com/toke](https://example.com/toke)n)')
 
 ### Context
 
@@ -95,8 +98,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",](https://example.com",)
-            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
+            _issuer = "[https://example.com",]([https://example.com"](https://example.com"),)
+            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"](https://example.com/authorize"),)
 ```python
 
 ### Proposal

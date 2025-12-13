@@ -36,7 +36,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -66,7 +67,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -96,7 +98,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -126,7 +129,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -155,7 +159,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -184,7 +189,8 @@ def test_generate_runbook_disk_space(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -214,7 +220,8 @@ def test_generate_runbook_disk_space(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -243,7 +250,8 @@ def test_generate_runbook_disk_space(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -272,7 +280,8 @@ def test_generate_runbook_missing_context(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -301,7 +310,8 @@ def test_generate_runbook_unknown_type(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -330,7 +340,8 @@ def test_suggest_runbooks(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -360,7 +371,8 @@ def test_suggest_runbooks(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -389,7 +401,8 @@ def test_suggest_runbooks(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 
@@ -418,7 +431,8 @@ def test_suggest_runbooks_service(generator):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+byte code.
 
 ### Context
 

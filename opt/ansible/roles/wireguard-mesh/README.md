@@ -1,1 +1,14 @@
-# `wireguard-mesh`role\n\nPurpose:\n\n- Configure a simple WireGuard-based mesh interface (`wg0`) for\n\n  DebVisor nodes.\n\n- Generate and store a node-local WireGuard keypair under\n\n`/etc/debvisor/wireguard/`.\n\n- Render `/etc/wireguard/wg0.conf`from`wg0.conf.j2`and enable the\n\n`wg-quick@wg0`systemd unit.\nStatus:\n\n- Usable, but intentionally minimal - it does not implement a\n\n  full mesh controller. It expects per-node configuration\n  (IPs/peers) to be provided via inventory/`group_vars`.\nKey variables (typically in`host_vars`or`group_vars`):\n\n- `mesh_vpn_ip`(required):\n\n- The VPN address for this node, for example`"10.200.1.10/32"`.\n\n- `mesh_listen_port`(optional):\n\n- UDP port WireGuard listens on. Defaults to`51820`.\n\n- `mesh_peers`(optional but recommended):\n\n- List of peer definitions, for example:\n\n    mesh_peers:\n\n- name: "debvisor-2"\n\n        public_key: "PUBKEY2..."\n        endpoint: "debvisor-2.example.com:51820"\n        allowed_ips: "10.200.1.11/32"\nInteractions:\n\n- This role is a building block for the secure DebVisor mesh\n\n  described in`docs/operations.md`; higher-level automation is\n  expected to distribute keys and peer definitions.\n\n
+# `wireguard-mesh`role\n\nPurpose:\n\n- Configure a simple WireGuard-based mesh interface (`wg0`)
+
+for\n\n DebVisor nodes.\n\n- Generate and store a node-local WireGuard keypair
+under\n\n`/etc/debvisor/wireguard/`.\n\n- Render `/etc/wireguard/wg0.conf`from`wg0.conf.j2`and
+enable the\n\n`wg-quick@wg0`systemd unit.\nStatus:\n\n- Usable, but intentionally minimal - it does
+not implement a\n\n full mesh controller. It expects per-node configuration\n (IPs/peers) to be
+provided via inventory/`group_vars`.\nKey variables (typically in`host_vars`or`group_vars`):\n\n-
+`mesh_vpn_ip`(required):\n\n- The VPN address for this node, for example`"10.200.1.10/32"`.\n\n-
+`mesh_listen_port`(optional):\n\n- UDP port WireGuard listens on. Defaults to`51820`.\n\n-
+`mesh_peers`(optional but recommended):\n\n- List of peer definitions, for example:\n\n
+mesh_peers:\n\n- name: "debvisor-2"\n\n public_key: "PUBKEY2..."\n endpoint:
+"debvisor-2.example.com:51820"\n allowed_ips: "10.200.1.11/32"\nInteractions:\n\n- This role is a
+building block for the secure DebVisor mesh\n\n described in`docs/operations.md`; higher-level
+automation is\n expected to distribute keys and peer definitions.\n\n

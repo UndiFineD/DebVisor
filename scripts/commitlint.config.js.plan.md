@@ -84,25 +84,25 @@ Detailed description of what this file does.
 
 3. Add module docstring with required sections:
 
-   - Description
+    - Description
 
-   - Changelog
+    - Changelog
 
-   - Suggested Fixes
+    - Suggested Fixes
 
-   - Improvements
+    - Improvements
 
 4. Separate docstring from code with blank line and comment divider
 
 5. Ensure generated .md reports comply with markdown linting rules:
 
-   - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+    - **MD034**: Wrap bare URLs in links: `[URL](URL)`
 
-   - **MD047**: Add trailing newline at end of file
+    - **MD047**: Add trailing newline at end of file
 
-   - **MD022**: Add blank lines around headings
+    - **MD022**: Add blank lines around headings
 
-   - **MD038**: Remove spaces in code spans: ```code```not```code```
+    - **MD038**: Remove spaces in code spans: ```code```not```code```
 
 ### Example Template
 
@@ -112,7 +112,7 @@ Detailed description of what this file does.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN](http://www.apache.org/licenses/LICEN)S)E)-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

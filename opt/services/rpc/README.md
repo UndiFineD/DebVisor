@@ -1,1 +1,22 @@
-# DebVisor RPC service (`debvisor.v1`)\n\nThis directory contains the DebVisor RPC API definition and service implementation.\n\n## API surface\n\n- The gRPC API is described in `proto/debvisor.proto`, currently versioned as `debvisor.v1`.\n\n- It exposes cluster, tenant, VM, and storage operations over a stable machine interface.\n\n- The API is designed to be consumed by the web panel, CLI tooling, and external automation.\n\n## Intended clients\n\n- **Web panel**: a thin UI that calls the RPC service to list and manage projects, workloads, and tenants.\n\n- **CLI tooling**: on-box commands under `usr/local/bin/`(and future off-box CLIs) that talk to`debvisor.v1`.\n\n- **Automation**: CI/CD systems or operators can use the RPC service as a single, audited entrypoint.\n\n## Service Architecture\n\nThe RPC daemon (`server.py`) is a production-ready implementation featuring:\n\n- **Security**: mTLS authentication, RBAC authorization, and input validation.\n\n- **Observability**: Structured audit logging and health monitoring.\n\n- **Reliability**: Rate limiting and graceful shutdown.\n\n## Generating Python stubs\n\nPython stubs for the `debvisor.v1`API are generated into`rpc/gen/`using`grpcio-tools`:\n    cd rpc\n    make python\nThis runs `python -m grpc_tools.protoc`against`proto/debvisor.proto`.\n\n## Packaging and deployment model\n\n- `debvisor-rpcd`runs as a systemd service (`debvisor-rpcd.service`).\n\n- It uses a dedicated virtual environment at`/var/lib/debvisor-rpc/venv`.\n\n- Configuration is loaded from `/etc/debvisor/rpc/config.json`.\n\n## Security\n\n- **TLS/mTLS**: Enabled by default. Requires valid certificates in `/etc/debvisor/rpc/tls/`.\n\n- **RBAC**: Permissions are checked for every RPC call.\n\n- **Audit**: All operations are logged to `/var/log/debvisor/rpc-audit.log`.\n\nSee [SECURITY_IMPLEMENTATION.md](SECURITY_IMPLEMENTATION.md) for details.\n\n
+# DebVisor RPC service (`debvisor.v1`)\n\nThis directory contains the DebVisor RPC API definition
+
+and service implementation.\n\n## API surface\n\n- The gRPC API is described in
+`proto/debvisor.proto`, currently versioned as `debvisor.v1`.\n\n- It exposes cluster, tenant, VM,
+and storage operations over a stable machine interface.\n\n- The API is designed to be consumed by
+the web panel, CLI tooling, and external automation.\n\n## Intended clients\n\n- **Web panel**: a
+thin UI that calls the RPC service to list and manage projects, workloads, and tenants.\n\n- **CLI
+tooling**: on-box commands under `usr/local/bin/`(and future off-box CLIs) that talk
+to`debvisor.v1`.\n\n- **Automation**: CI/CD systems or operators can use the RPC service as a
+single, audited entrypoint.\n\n## Service Architecture\n\nThe RPC daemon (`server.py`) is a
+production-ready implementation featuring:\n\n- **Security**: mTLS authentication, RBAC
+authorization, and input validation.\n\n- **Observability**: Structured audit logging and health
+monitoring.\n\n- **Reliability**: Rate limiting and graceful shutdown.\n\n## Generating Python
+stubs\n\nPython stubs for the `debvisor.v1`API are generated into`rpc/gen/`using`grpcio-tools`:\n cd
+rpc\n make python\nThis runs `python -m grpc_tools.protoc`against`proto/debvisor.proto`.\n\n##
+Packaging and deployment model\n\n- `debvisor-rpcd`runs as a systemd service
+(`debvisor-rpcd.service`).\n\n- It uses a dedicated virtual environment
+at`/var/lib/debvisor-rpc/venv`.\n\n- Configuration is loaded from
+`/etc/debvisor/rpc/config.json`.\n\n## Security\n\n- **TLS/mTLS**: Enabled by default. Requires
+valid certificates in `/etc/debvisor/rpc/tls/`.\n\n- **RBAC**: Permissions are checked for every RPC
+call.\n\n- **Audit**: All operations are logged to `/var/log/debvisor/rpc-audit.log`.\n\nSee
+[SECURITY_IMPLEMENTATION.md](SECURITY_IMPLEMENTATION.md) for details.\n\n

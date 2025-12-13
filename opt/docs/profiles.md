@@ -1,1 +1,34 @@
-# Profiles\n\n## usb-zfs (default)\n\nZFS pool across removable USB sticks for fast, simple lab setups.\n\n- Detects removable disks via `/sys/block/*/removable == 1`, excluding the OS disk.\n\n- Requires at least 3 empty USB sticks; creates `tank`as`raidz1`across them.\n\n- Datasets:`tank/vm`,`tank/docker`,`tank/k8s`mounted under`/srv/*`.\n\n- Compression `lz4`enabled by default.\n\n- Skips any USB device that appears to contain existing data (conservative by default).\n\n## ceph\n\nShared-first hyper?converged mode on non?USB disks.\n\n- Non?OS, non-removable disks become Ceph OSDs.\n\n- Pools: rbd (VM disks), cephfs.data/meta (CephFS).\n\n- MDS enabled; CephFS mounted at`/srv/cephfs`.\n\n- Libvirt prefers RBD; shared workloads use CephFS RWX.\n\n## zfs\n\nLocal performance & simplicity on non?USB disks.\n\n- Non?OS, non-removable disks form ZFS pool `tank`.\n\n- Datasets: `tank/vm`,`tank/docker`,`tank/k8s`.\n\n- Compression `lz4`; snapshots enabled for vm & docker.\n\n## mixed\n\nCombines shared Ceph with local ZFS datasets on non?USB disks.\n\n- CephFS for RWX, RBD for VM disks needing network mobility.\n\n- ZFS for fast local container/VM ephemeral datasets.\n\n## Selection Mechanism\n\n- Installer (curses) writes `/etc/debvisor-profile`.\n\n- First?boot systemd unit exports PROFILE for provisioning script.\n\n- Profiles:\n\n- `usb-zfs`- default; ZFS across USB sticks.\n\n-`ceph`- CephFS/RBD on non?USB storage.\n\n-`zfs`- ZFS on non?USB storage.\n\n-`mixed`- Ceph + ZFS combo on non?USB storage.\n\n- Override: kernel cmdline or manually editing profile file before first boot.\n\n## Observability\n\nTo make the selected storage profile easy to consume by automation without shell access:\n\n- Summary files are written under`/var/log/debvisor/`on first boot:\n\n-`/var/log/debvisor/profile-summary.txt`(human-readable)\n\n-`/var/log/debvisor/profile-summary.json`(machine-readable)\n\n- Source: Profile is read from`/etc/debvisor-profile`and captured with a timestamp.\n\n- Regeneration: Re-run`debvisor-profile-summary.sh`if the profile changes.\n\nExample JSON:\n    {\n      "profile": "ceph",\n      "source": "/etc/debvisor-profile",\n      "generated_at": "2025-11-25T12:00:00Z"\n    }\n\n## Profiles and Workloads Matrix\n\nThe table below summarizes how each profile is typically used and\nwhere data is stored. This is a guideline; advanced deployments may\ncustomize further.\n| Profile  | Typical Use Cases                          | VM Storage                          | Container / App Storage                  |\n|----------|--------------------------------------------|-------------------------------------|------------------------------------------|\n| usb-zfs  | Single-node labs, experimentation, demos   | ZFS datasets under`tank/vm`| ZFS datasets under`tank/docker`/`k8s`|\n| ceph     | Multi-node clusters, shared workloads      | Ceph RBD pool (e.g.`rbd`)          | CephFS at`/srv/cephfs`|\n| zfs      | Single-node or small clusters, simplicity  | ZFS datasets under`tank/vm`| ZFS datasets under`tank/docker`/`k8s` |\n| mixed    | Hybrid: shared + local performance         | Ceph RBD for highly-available VMs   | CephFS for shared, ZFS for local caches  |\nFor day-2 operational guidance on these profiles, see also\n`operations.md`and`workloads.md`.\n\n
+# Profiles\n\n## usb-zfs (default)\n\nZFS pool across removable USB sticks for fast, simple lab
+
+setups.\n\n- Detects removable disks via `/sys/block/*/removable == 1`, excluding the OS disk.\n\n-
+Requires at least 3 empty USB sticks; creates `tank`as`raidz1`across them.\n\n-
+Datasets:`tank/vm`,`tank/docker`,`tank/k8s`mounted under`/srv/*`.\n\n- Compression `lz4`enabled by
+default.\n\n- Skips any USB device that appears to contain existing data (conservative by
+default).\n\n## ceph\n\nShared-first hyper?converged mode on non?USB disks.\n\n- Non?OS,
+non-removable disks become Ceph OSDs.\n\n- Pools: rbd (VM disks), cephfs.data/meta (CephFS).\n\n-
+MDS enabled; CephFS mounted at`/srv/cephfs`.\n\n- Libvirt prefers RBD; shared workloads use CephFS
+RWX.\n\n## zfs\n\nLocal performance & simplicity on non?USB disks.\n\n- Non?OS, non-removable disks
+form ZFS pool `tank`.\n\n- Datasets: `tank/vm`,`tank/docker`,`tank/k8s`.\n\n- Compression `lz4`;
+snapshots enabled for vm & docker.\n\n## mixed\n\nCombines shared Ceph with local ZFS datasets on
+non?USB disks.\n\n- CephFS for RWX, RBD for VM disks needing network mobility.\n\n- ZFS for fast
+local container/VM ephemeral datasets.\n\n## Selection Mechanism\n\n- Installer (curses) writes
+`/etc/debvisor-profile`.\n\n- First?boot systemd unit exports PROFILE for provisioning script.\n\n-
+Profiles:\n\n- `usb-zfs`- default; ZFS across USB sticks.\n\n-`ceph`- CephFS/RBD on non?USB
+storage.\n\n-`zfs`- ZFS on non?USB storage.\n\n-`mixed`- Ceph + ZFS combo on non?USB storage.\n\n-
+Override: kernel cmdline or manually editing profile file before first boot.\n\n##
+Observability\n\nTo make the selected storage profile easy to consume by automation without shell
+access:\n\n- Summary files are written under`/var/log/debvisor/`on first
+boot:\n\n-`/var/log/debvisor/profile-summary.txt`(human-readable)\n\n-`/var/log/debvisor/profile-summary.json`(machine-readable)\n\n-
+Source: Profile is read from`/etc/debvisor-profile`and captured with a timestamp.\n\n- Regeneration:
+Re-run`debvisor-profile-summary.sh`if the profile changes.\n\nExample JSON:\n {\n "profile":
+"ceph",\n "source": "/etc/debvisor-profile",\n "generated_at": "2025-11-25T12:00:00Z"\n }\n\n##
+Profiles and Workloads Matrix\n\nThe table below summarizes how each profile is typically used
+and\nwhere data is stored. This is a guideline; advanced deployments may\ncustomize further.\n|
+Profile | Typical Use Cases | VM Storage | Container / App Storage
+|\n|----------|--------------------------------------------|-------------------------------------|------------------------------------------|\n|
+usb-zfs | Single-node labs, experimentation, demos | ZFS datasets under`tank/vm`| ZFS datasets
+under`tank/docker`/`k8s`|\n| ceph | Multi-node clusters, shared workloads | Ceph RBD pool
+(e.g.`rbd`) | CephFS at`/srv/cephfs`|\n| zfs | Single-node or small clusters, simplicity | ZFS
+datasets under`tank/vm`| ZFS datasets under`tank/docker`/`k8s` |\n| mixed | Hybrid: shared + local
+performance | Ceph RBD for highly-available VMs | CephFS for shared, ZFS for local caches |\nFor
+day-2 operational guidance on these profiles, see also\n`operations.md`and`workloads.md`.\n\n

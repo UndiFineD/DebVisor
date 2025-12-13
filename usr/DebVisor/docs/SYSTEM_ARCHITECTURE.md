@@ -1,1 +1,47 @@
-# DebVisor System Architecture: Tools & Services\n\nThis document outlines the core custom tooling and systemd services that make up the DebVisor operating system. Unlike standard Debian, DebVisor comes with a "Batteries Included" control plane designed for hyper-converged infrastructure.\n\n## 1. Core Tooling (`/opt`)\n\nThe `/opt`directory contains the Python-based control plane that differentiates DebVisor from a generic Linux distribution.\n\n###`dvctl`(Unified Control Plane)\n\n- *Location:**`/opt/dvctl.py`\n\n- *Purpose:**The primary CLI for administrators, designed to rival`talosctl`. It unifies management of:\n\n-**Kubernetes**: Wraps `k8sctl`for cluster operations.\n\n-**Storage**: Wraps`cephctl`and ZFS management.\n\n- **Hypervisor**: Wraps`hvctl`for KVM/Libvirt VM management.\n\n- **OS Lifecycle**: Manages A/B partition upgrades and drift detection.\n\n###`netcfg-tui`(Day 0 Networking)\n\n- *Location:**`/opt/netcfg_tui_app.py`\n\n- *Purpose:**A text-based user interface (TUI) that launches automatically on the physical console if no network is detected.\n\n-**Features:**Bond creation, VLAN tagging, Static IP/DHCP configuration.\n\n-**Tech Stack:**Python`urwid`+`iproute2`.\n\n-**Console:**Runs on `kmscon`(GPU-accelerated terminal) with UTF-8 support.\n\n###`upgrade_manager`(A/B Updates)\n\n-*Location:**`/opt/system/upgrade_manager.py`\n\n-*Purpose:**Implements "Soft Immutability" by managing dual boot partitions (Slot A / Slot B).\n\n-**Function:**Downloads new OS images, writes them to the inactive slot, and updates the GRUB bootloader.\n\n-**Rollback:**Automatically reverts to the previous slot if the new version fails to boot/health-check.\n\n###`zerotouch`(Discovery)\n\n-*Location:**`/opt/discovery/zerotouch.py`\n\n-*Purpose:** Enables automatic cluster formation without manual IP entry.\n\n-**Tech Stack:**mDNS / Avahi (`zeroconf`).\n\n-**Function:**Broadcasts node presence and listens for other DebVisor nodes to form a mesh.\n\n- --\n\n## 2. Systemd Services\n\nDebVisor uses`systemd`for service orchestration. Custom units are located in`/etc/systemd/system/`.\n\n### `debvisor-firstboot.service`\n\n-**Type:**`oneshot`\n\n-**Exec:**`/usr/local/sbin/debvisor-firstboot.sh`\n\n-**Purpose:**Runs exactly once on the very first boot of a new installation.\n\n- Generates unique SSH host keys.\n\n- Resizes the root filesystem to fill the disk.\n\n- Triggers the `netcfg-tui`if network is down.\n\n- Initializes the Kubernetes/Ceph cluster if configured via Preseed.\n\n###`debvisor-rpcd.service`\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**The RPC daemon that`dvctl`talks to remotely.\n\n-**Function:**Exposes a secure gRPC/REST API for remote management of the node.\n\n###`debvisor-panel.service`\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**Serves the web-based management UI (Cockpit plugin backend).\n\n-**Function:**Provides a lightweight web server for the "Day 0" landing page and status dashboard.\n\n###`debvisor-backup.service`&`.timer`\n\n-**Type:**`oneshot`(Timer triggered)\n\n-**Purpose:**Automated configuration backup.\n\n-**Function:**Snapshots`/etc`and critical data to a backup location (local or S3) based on schedule.\n\n###`tsig-rotate.service`&`.timer`\n\n-**Type:**`oneshot`(Timer triggered)\n\n-**Purpose:**Security rotation for DNS TSIG keys.\n\n-**Function:**Rotates the shared secrets used for secure DNS updates in the cluster.\n\n###`kmscon`(Console Service)\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**Replaces the standard`getty`(text login) on the physical screen.\n\n-**Function:** Provides a high-resolution, GPU-accelerated terminal with full UTF-8 support, essential for the`netcfg-tui`.\n\n- --\n\n## 3. Helper Scripts\n\nLocated in`/usr/local/bin`and`/usr/local/sbin`, these scripts glue the system together.\n\n- `debvisor-firstboot.sh`: The heavy lifter for initialization logic.\n\n- `validate-components.sh`: A health-check script used by the watchdog.\n\n- `fix-runner-path.ps1`: (Dev) Fixes paths for GitHub Actions runners.\n\n
+# DebVisor System Architecture: Tools & Services\n\nThis document outlines the core custom tooling
+
+and systemd services that make up the DebVisor operating system. Unlike standard Debian, DebVisor
+comes with a "Batteries Included" control plane designed for hyper-converged infrastructure.\n\n##
+
+1. Core Tooling (`/opt`)\n\nThe `/opt`directory contains the Python-based control plane that
+differentiates DebVisor from a generic Linux distribution.\n\n###`dvctl`(Unified Control Plane)\n\n-
+*Location:**`/opt/dvctl.py`\n\n- *Purpose:**The primary CLI for administrators, designed to
+rival`talosctl`. It unifies management of:\n\n-**Kubernetes**: Wraps `k8sctl`for cluster
+operations.\n\n-**Storage**: Wraps`cephctl`and ZFS management.\n\n- **Hypervisor**: Wraps`hvctl`for
+KVM/Libvirt VM management.\n\n- **OS Lifecycle**: Manages A/B partition upgrades and drift
+detection.\n\n###`netcfg-tui`(Day 0 Networking)\n\n- *Location:**`/opt/netcfg_tui_app.py`\n\n-
+*Purpose:**A text-based user interface (TUI) that launches automatically on the physical console if
+no network is detected.\n\n-**Features:**Bond creation, VLAN tagging, Static IP/DHCP
+configuration.\n\n-**Tech Stack:**Python`urwid`+`iproute2`.\n\n-**Console:**Runs on
+`kmscon`(GPU-accelerated terminal) with UTF-8 support.\n\n###`upgrade_manager`(A/B
+Updates)\n\n-*Location:**`/opt/system/upgrade_manager.py`\n\n-*Purpose:**Implements "Soft
+Immutability" by managing dual boot partitions (Slot A / Slot B).\n\n-**Function:**Downloads new OS
+images, writes them to the inactive slot, and updates the GRUB
+bootloader.\n\n-**Rollback:**Automatically reverts to the previous slot if the new version fails to
+boot/health-check.\n\n###`zerotouch`(Discovery)\n\n-*Location:**`/opt/discovery/zerotouch.py`\n\n-*Purpose:**
+Enables automatic cluster formation without manual IP entry.\n\n-**Tech Stack:**mDNS / Avahi
+(`zeroconf`).\n\n-**Function:**Broadcasts node presence and listens for other DebVisor nodes to form
+a mesh.\n\n- --\n\n## 2. Systemd Services\n\nDebVisor uses`systemd`for service orchestration. Custom
+units are located in`/etc/systemd/system/`.\n\n###
+`debvisor-firstboot.service`\n\n-**Type:**`oneshot`\n\n-**Exec:**`/usr/local/sbin/debvisor-firstboot.sh`\n\n-**Purpose:**Runs
+exactly once on the very first boot of a new installation.\n\n- Generates unique SSH host keys.\n\n-
+Resizes the root filesystem to fill the disk.\n\n- Triggers the `netcfg-tui`if network is down.\n\n-
+Initializes the Kubernetes/Ceph cluster if configured via
+Preseed.\n\n###`debvisor-rpcd.service`\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**The RPC daemon
+that`dvctl`talks to remotely.\n\n-**Function:**Exposes a secure gRPC/REST API for remote management
+of the node.\n\n###`debvisor-panel.service`\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**Serves the
+web-based management UI (Cockpit plugin backend).\n\n-**Function:**Provides a lightweight web server
+for the "Day 0" landing page and status
+dashboard.\n\n###`debvisor-backup.service`&`.timer`\n\n-**Type:**`oneshot`(Timer
+triggered)\n\n-**Purpose:**Automated configuration backup.\n\n-**Function:**Snapshots`/etc`and
+critical data to a backup location (local or S3) based on
+schedule.\n\n###`tsig-rotate.service`&`.timer`\n\n-**Type:**`oneshot`(Timer
+triggered)\n\n-**Purpose:**Security rotation for DNS TSIG keys.\n\n-**Function:**Rotates the shared
+secrets used for secure DNS updates in the cluster.\n\n###`kmscon`(Console
+Service)\n\n-**Type:**`simple`(Daemon)\n\n-**Purpose:**Replaces the standard`getty`(text login) on
+the physical screen.\n\n-**Function:** Provides a high-resolution, GPU-accelerated terminal with
+full UTF-8 support, essential for the`netcfg-tui`.\n\n- --\n\n## 3. Helper Scripts\n\nLocated
+in`/usr/local/bin`and`/usr/local/sbin`, these scripts glue the system together.\n\n-
+`debvisor-firstboot.sh`: The heavy lifter for initialization logic.\n\n- `validate-components.sh`: A
+health-check script used by the watchdog.\n\n- `fix-runner-path.ps1`: (Dev) Fixes paths for GitHub
+Actions runners.\n\n

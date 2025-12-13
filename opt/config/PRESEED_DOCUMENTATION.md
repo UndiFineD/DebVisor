@@ -1,1 +1,27 @@
-# Preseed Configuration & Build Customization\n\n## Preseed File Overview\n\nThe `preseed.cfg`automates Debian installer decisions during first-boot:\n\n### Key Configuration Areas\n\n### Localization\n\n    d-i debian-installer/language string en\n    d-i debian-installer/country string US\n    d-i debian-installer/locale string en_US.UTF-8\n\n### Networking\n\n- DHCP:`d-i netcfg/choose_interface select auto`\n\n- Static: Configure IP, netmask, gateway, nameservers\n\n### Storage\n\n- Method: LVM recommended for flexibility\n\n- Partitioning: `/boot`(1GB),`/`(50GB),`/var` (50GB), remainder for data\n\n### Root/User\n\n    d-i passwd/root-password password PASSWORD\n    d-i passwd/user-fullname string Admin\n    d-i passwd/username string admin\n\n### Packages\n\n    tasksel tasksel/first multiselect standard\n    d-i pkgsel/include string openssh-server ceph kubernetes curl\n\n## Variable Substitution\n\nSupport environment-specific customization:\n    DEBVISOR_HOSTNAME=node-1 \\n    DEBVISOR_IP=192.168.1.100 \\n    ./opt/build/build-debvisor.sh\nPreseed template:\n    d-i netcfg/get_hostname string {{HOSTNAME}}\n    d-i netcfg/get_ipaddress string {{IP}}\n\n## Package Lists\n\n- *base.list**- Core system packages\n\n- *storage.list**- Ceph and ZFS\n\n- *network.list**- Networking (Calico, etc)\n\n- *optional.list**- Optional components\n\n## Build Hooks\n\n- *00-preseed**- Validate preseed syntax\n\n- *10-packages**- Validate package availability\n\n- *20-chroot**- Apply filesystem customizations\n\n## Security Hardening\n\n- Store passwords securely (use variables, not plaintext)\n\n- Configure SSH hardening via hooks\n\n- Enable firewall (ufw) automatically\n\n- Configure automatic security updates\n\n- Use strong passwords or disable root login\n\n## Validation\n\n## Check preseed syntax\n\n    python3 opt/config/validate-packages.py --list opt/config/package-lists/base.list\n\n## Verify build\n\n    ./opt/build/build-debvisor.sh\n\n## Architecture Support\n\n## Build for ARM64\n\n    LIVE_BUILD_ARCH=arm64 ./opt/build/build-debvisor.sh\n\n## Build for AMD64 (default)\n\n    LIVE_BUILD_ARCH=amd64 ./opt/build/build-debvisor.sh\n\n## Post-Installation\n\nPreseed can execute commands after install:\n    d-i preseed/late_command string \\n      in-target apt-get update; \\n      in-target apt-get install -y additional-packages; \\n      in-target systemctl enable ceph-health.timer\n\n
+# Preseed Configuration & Build Customization\n\n## Preseed File Overview\n\nThe
+
+`preseed.cfg`automates Debian installer decisions during first-boot:\n\n### Key Configuration
+Areas\n\n### Localization\n\n d-i debian-installer/language string en\n d-i debian-installer/country
+string US\n d-i debian-installer/locale string en_US.UTF-8\n\n### Networking\n\n- DHCP:`d-i
+netcfg/choose_interface select auto`\n\n- Static: Configure IP, netmask, gateway, nameservers\n\n###
+Storage\n\n- Method: LVM recommended for flexibility\n\n- Partitioning:
+`/boot`(1GB),`/`(50GB),`/var` (50GB), remainder for data\n\n### Root/User\n\n d-i
+passwd/root-password password PASSWORD\n d-i passwd/user-fullname string Admin\n d-i passwd/username
+string admin\n\n### Packages\n\n tasksel tasksel/first multiselect standard\n d-i pkgsel/include
+string openssh-server ceph kubernetes curl\n\n## Variable Substitution\n\nSupport
+environment-specific customization:\n DEBVISOR_HOSTNAME=node-1 \\n DEBVISOR_IP=192.168.1.100 \\n
+./opt/build/build-debvisor.sh\nPreseed template:\n d-i netcfg/get_hostname string {{HOSTNAME}}\n d-i
+netcfg/get_ipaddress string {{IP}}\n\n## Package Lists\n\n- *base.list**- Core system packages\n\n-
+*storage.list**- Ceph and ZFS\n\n- *network.list**- Networking (Calico, etc)\n\n- *optional.list**-
+Optional components\n\n## Build Hooks\n\n- *00-preseed**- Validate preseed syntax\n\n-
+*10-packages**- Validate package availability\n\n- *20-chroot**- Apply filesystem
+customizations\n\n## Security Hardening\n\n- Store passwords securely (use variables, not
+plaintext)\n\n- Configure SSH hardening via hooks\n\n- Enable firewall (ufw) automatically\n\n-
+Configure automatic security updates\n\n- Use strong passwords or disable root login\n\n##
+Validation\n\n## Check preseed syntax\n\n python3 opt/config/validate-packages.py --list
+opt/config/package-lists/base.list\n\n## Verify build\n\n ./opt/build/build-debvisor.sh\n\n##
+Architecture Support\n\n## Build for ARM64\n\n LIVE_BUILD_ARCH=arm64
+./opt/build/build-debvisor.sh\n\n## Build for AMD64 (default)\n\n LIVE_BUILD_ARCH=amd64
+./opt/build/build-debvisor.sh\n\n## Post-Installation\n\nPreseed can execute commands after
+install:\n d-i preseed/late_command string \\n in-target apt-get update; \\n in-target apt-get
+install -y additional-packages; \\n in-target systemctl enable ceph-health.timer\n\n

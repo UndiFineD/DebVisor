@@ -1,1 +1,39 @@
-# Project Improvements\n\nThis document tracks near-term improvements to DebVisor to enhance reliability,\nmaintainability, and developer experience. It prioritizes items, outlines\nimplementation steps, and defines measurable success criteria.\n\n## Overview\n\n- Focus: documentation quality, automation, CI reliability, and tooling consistency.\n\n## Priority Areas\n\n### High Priority\n\n- Markdown quality: ensure consistent formatting and enforce checks.\n- CI stability: add lint/test gates and visible reporting.\n- Developer tasks: provide convenient VS Code tasks for common actions.\n\n### Medium Priority\n\n- Code fences: add language hints where identifiable for readability.\n- Docs structure: unify headings, lists, and section patterns across docs.\n- Release notes: standardize change logging and verification.\n\n### Low Priority\n\n- Line length guidance: recommend wrapping for readability without breaking URLs.\n- Optional tooling: document opt-in enhancements and performance tips.\n\n## Implementation Plan\n\n1. Markdown fixer improvements\n\n   - Refine numbered list detection to avoid version/decimal mangling.\n   - Normalize headings and list markers; enforce final newline.\n   - Add unit tests for fixer behaviors and a task to run them.\n\n1. Markdown lint integration (Python)\n\n   - Use PyMarkdown for linting; add a VS Code task to run checks.\n   - Integrate a CI job to run PyMarkdown on PRs and pushes.\n\n1. Developer ergonomics\n\n   - Provide tasks for venv activation, fixer run, and tests.\n   - Document quick commands in README for consistency.\n\n## Metrics\n\n- Lint warnings: reduce to zero for all tracked rules.\n- Test coverage: unit tests for fixer logic pass and remain green.\n- CI health: pipelines succeed consistently with clear failures if rules break.\n\n## Timeline\n\n- Week 1: Finalize fixer logic and add tests/tasks.\n- Week 2: Introduce markdownlint, fix flagged items, wire CI.\n- Week 3: Audit docs for consistent structure and code fence languages.\n\n## Risks & Mitigations\n\n- Over-fixing content: limit fixer scope to formatting-safe changes; use tests.\n- CI noise: start with advisory checks, then enforce once passing.\n- Edge cases: expand tests when new patterns are discovered.\n\n## Quick Commands\n\n```powershell\n# Run fixer for a file\n& .\.venv\Scripts\python.exe .\fix_markdown_lint.py .\docs\CONTRIBUTING.md\n\n# Run fixer for all Markdown files\nGet-ChildItem -Recurse -Filter *.md | ForEach-Object {\n    & .\.venv\Scripts\python.exe .\fix_markdown_lint.py $_.FullName\n}\n\n# Run fixer unit tests\n& .\.venv\Scripts\python.exe .\scripts\test_fix_markdown_lint.py\n\n```text\n\n## Cross-References\n\n- Fixer script: [fix_markdown_lint.py](fix_markdown_lint.py)\n- Fixer tests: [scripts/test_fix_markdown_lint.py](scripts/test_fix_markdown_lint.py)\n- VS Code tasks: [.vscode/tasks.json](.vscode/tasks.json)\n- PyMarkdown config: [pymarkdown.json](pymarkdown.json)\n- CI workflow: [.github/workflows/markdownlint.yml](.github/workflows/markdownlint.yml)\n- Contributing guide: [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)\n\n## Issue Checklist\n\n- [x] Integrate PyMarkdown and add a VS Code task\n- [x] Add GitHub Action to run PyMarkdown and fixer tests on PRs\n- [] Audit code fences across docs and add language hints where clear\n- [] Document common developer tasks in [README.md](README.md)\n- [] Create a guide for optional tooling in [docs/OPTIONAL_TOOLS.md](docs/OPTIONAL_TOOLS.md)\n- [] Ensure consistent headings and lists across [docs/](docs/) and [opt/docs/](opt/docs/)\n
+# Project Improvements\n\nThis document tracks near-term improvements to DebVisor to enhance
+
+reliability,\nmaintainability, and developer experience. It prioritizes items,
+outlines\nimplementation steps, and defines measurable success criteria.\n\n## Overview\n\n- Focus:
+documentation quality, automation, CI reliability, and tooling consistency.\n\n## Priority
+Areas\n\n### High Priority\n\n- Markdown quality: ensure consistent formatting and enforce
+checks.\n- CI stability: add lint/test gates and visible reporting.\n- Developer tasks: provide
+convenient VS Code tasks for common actions.\n\n### Medium Priority\n\n- Code fences: add language
+hints where identifiable for readability.\n- Docs structure: unify headings, lists, and section
+patterns across docs.\n- Release notes: standardize change logging and verification.\n\n### Low
+Priority\n\n- Line length guidance: recommend wrapping for readability without breaking URLs.\n-
+Optional tooling: document opt-in enhancements and performance tips.\n\n## Implementation Plan\n\n1.
+Markdown fixer improvements\n\n - Refine numbered list detection to avoid version/decimal
+mangling.\n - Normalize headings and list markers; enforce final newline.\n - Add unit tests for
+fixer behaviors and a task to run them.\n\n1. Markdown lint integration (Python)\n\n - Use
+PyMarkdown for linting; add a VS Code task to run checks.\n - Integrate a CI job to run PyMarkdown
+on PRs and pushes.\n\n1. Developer ergonomics\n\n - Provide tasks for venv activation, fixer run,
+and tests.\n - Document quick commands in README for consistency.\n\n## Metrics\n\n- Lint warnings:
+reduce to zero for all tracked rules.\n- Test coverage: unit tests for fixer logic pass and remain
+green.\n- CI health: pipelines succeed consistently with clear failures if rules break.\n\n##
+Timeline\n\n- Week 1: Finalize fixer logic and add tests/tasks.\n- Week 2: Introduce markdownlint,
+fix flagged items, wire CI.\n- Week 3: Audit docs for consistent structure and code fence
+languages.\n\n## Risks & Mitigations\n\n- Over-fixing content: limit fixer scope to formatting-safe
+changes; use tests.\n- CI noise: start with advisory checks, then enforce once passing.\n- Edge
+cases: expand tests when new patterns are discovered.\n\n## Quick Commands\n\n```powershell\n# Run
+fixer for a file\n& .\.venv\Scripts\python.exe .\fix_markdown_lint.py .\docs\CONTRIBUTING.md\n\n#
+Run fixer for all Markdown files\nGet-ChildItem -Recurse -Filter *.md | ForEach-Object {\n &
+.\.venv\Scripts\python.exe .\fix_markdown_lint.py $_.FullName\n}\n\n# Run fixer unit tests\n&
+.\.venv\Scripts\python.exe .\scripts\test_fix_markdown_lint.py\n\n```text\n\n##
+Cross-References\n\n- Fixer script: [fix_markdown_lint.py](fix_markdown_lint.py)\n- Fixer tests:
+[scripts/test_fix_markdown_lint.py](scripts/test_fix_markdown_lint.py)\n- VS Code tasks:
+[.vscode/tasks.json](.vscode/tasks.json)\n- PyMarkdown config: [pymarkdown.json](pymarkdown.json)\n-
+CI workflow: [.github/workflows/markdownlint.yml](.github/workflows/markdownlint.yml)\n-
+Contributing guide: [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)\n\n## Issue Checklist\n\n- [x]
+Integrate PyMarkdown and add a VS Code task\n- [x] Add GitHub Action to run PyMarkdown and fixer
+tests on PRs\n- [] Audit code fences across docs and add language hints where clear\n- [] Document
+common developer tasks in [README.md](README.md)\n- [] Create a guide for optional tooling in
+[docs/OPTIONAL_TOOLS.md](docs/OPTIONAL_TOOLS.md)\n- [] Ensure consistent headings and lists across
+[docs/](docs/) and [opt/docs/](opt/docs/)\n
