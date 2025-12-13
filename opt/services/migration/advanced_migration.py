@@ -723,9 +723,9 @@ class MigrationExecutor:
 
         except Exception as e:
             progress.state=MigrationState.FAILED
-            progress.error_message=str(e)
+            progress.error_message="Migration failed; check logs for details"
             progress.completed_at=datetime.now(timezone.utc)
-            logger.error(f"Migration {plan.id} failed: {e}")
+            logger.error(f"Migration {plan.id} failed: {e}", exc_info=True)
 
         finally:
             self.completed_migrations[plan.id] = progress

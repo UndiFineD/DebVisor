@@ -380,7 +380,7 @@ class OIDCProvider:
             Token response or None
         """
         # In production, would make HTTP request to token_endpoint
-        logger.info(f"Exchanging code for token: {code}")  # type: ignore[name-defined]
+        logger.info("Exchanging authorization code for token")  # type: ignore[name-defined]
 
         # Simulate token generation
         _access_token=self.jwt_manager.create_token(

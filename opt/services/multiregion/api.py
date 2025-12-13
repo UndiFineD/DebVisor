@@ -215,8 +215,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error registering region: {e}")
-            return self._error_response(str(e), "registration_error", 500)
+            self.logger.error(f"Error registering region: {e}", exc_info=True)
+            return self._error_response("Failed to register region", "registration_error", 500)
 
     def list_regions(self, status: Optional[str] = None) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/regions - List regions.
@@ -244,8 +244,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing regions: {e}")
-            return self._error_response(str(e), "list_error", 500)
+            self.logger.error(f"Error listing regions: {e}", exc_info=True)
+            return self._error_response("Failed to list regions", "list_error", 500)
 
     def get_region(self, regionid: str) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/regions/:region_id - Get region details.
@@ -266,8 +266,8 @@ class MultiRegionAPI:
             return self._json_response(data=region.to_dict())
 
         except Exception as e:
-            self.logger.error(f"Error getting region: {e}")
-            return self._error_response(str(e), "get_error", 500)
+            self.logger.error(f"Error getting region: {e}", exc_info=True)
+            return self._error_response("Failed to get region details", "get_error", 500)
 
     def check_region_health(self, regionid: str) -> Tuple[Dict[str, Any], int]:
         """POST /api/v1/regions/:region_id/health - Check region health.
@@ -306,8 +306,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error checking health: {e}")
-            return self._error_response(str(e), "health_check_error", 500)
+            self.logger.error(f"Error checking health: {e}", exc_info=True)
+            return self._error_response("Failed to check region health", "health_check_error", 500)
 
     def get_region_stats(self, regionid: str) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/regions/:region_id/stats - Get region statistics.
@@ -328,8 +328,8 @@ class MultiRegionAPI:
             return self._json_response(data=stats)
 
         except Exception as e:
-            self.logger.error(f"Error getting stats: {e}")
-            return self._error_response(str(e), "stats_error", 500)
+            self.logger.error(f"Error getting stats: {e}", exc_info=True)
+            return self._error_response("Failed to get region statistics", "stats_error", 500)
 
     # ========================================================================
     # Replication Endpoints
@@ -378,8 +378,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error setting up replication: {e}")
-            return self._error_response(str(e), "setup_error", 500)
+            self.logger.error(f"Error setting up replication: {e}", exc_info=True)
+            return self._error_response("Failed to setup replication", "setup_error", 500)
 
     def sync_resource(self, requestdata: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
         """POST /api/v1/replication/sync - Sync a resource.
@@ -421,8 +421,8 @@ class MultiRegionAPI:
                 return self._error_response("Sync failed", "sync_error", 500)
 
         except Exception as e:
-            self.logger.error(f"Error syncing resource: {e}")
-            return self._error_response(str(e), "sync_error", 500)
+            self.logger.error(f"Error syncing resource: {e}", exc_info=True)
+            return self._error_response("Failed to sync resource", "sync_error", 500)
 
     def get_replication_status(self, resourceid: str) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/replication/:resource_id/status - Get replication status.
@@ -443,8 +443,8 @@ class MultiRegionAPI:
             return self._json_response(data=status)
 
         except Exception as e:
-            self.logger.error(f"Error getting replication status: {e}")
-            return self._error_response(str(e), "status_error", 500)
+            self.logger.error(f"Error getting replication status: {e}", exc_info=True)
+            return self._error_response("Failed to get replication status", "status_error", 500)
 
     # ========================================================================
     # Failover Endpoints
@@ -497,8 +497,8 @@ class MultiRegionAPI:
                 )
 
         except Exception as e:
-            self.logger.error(f"Error executing failover: {e}")
-            return self._error_response(str(e), "failover_error", 500)
+            self.logger.error(f"Error executing failover: {e}", exc_info=True)
+            return self._error_response("Failed to execute failover", "failover_error", 500)
 
     def get_failover_history(
         self, region_id: Optional[str] = None, limit: int=50
@@ -521,8 +521,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting failover history: {e}")
-            return self._error_response(str(e), "history_error", 500)
+            self.logger.error(f"Error getting failover history: {e}", exc_info=True)
+            return self._error_response("Failed to get failover history", "history_error", 500)
 
     # ========================================================================
     # VM Replication Endpoints
@@ -558,8 +558,8 @@ class MultiRegionAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error registering VM: {e}")
-            return self._error_response(str(e), "registration_error", 500)
+            self.logger.error(f"Error registering VM: {e}", exc_info=True)
+            return self._error_response("Failed to register VM", "registration_error", 500)
 
     # ========================================================================
     # Global Endpoints
@@ -576,8 +576,8 @@ class MultiRegionAPI:
             return self._json_response(data=stats)
 
         except Exception as e:
-            self.logger.error(f"Error getting global stats: {e}")
-            return self._error_response(str(e), "stats_error", 500)
+            self.logger.error(f"Error getting global stats: {e}", exc_info=True)
+            return self._error_response("Failed to get global statistics", "stats_error", 500)
 
     def get_health(self) -> Tuple[Dict[str, Any], int]:
         """GET /api/v1/health - Health check endpoint.

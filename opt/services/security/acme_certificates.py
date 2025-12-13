@@ -559,8 +559,8 @@ class ACMECertificateManager:
 
         except Exception as e:
             cert.status=CertificateStatus.ERROR
-            cert.last_error=str(e)
-            logger.error(f"Certificate request failed for {common_name}: {e}")
+            cert.last_error="Certificate request failed; check logs for details"
+            logger.error(f"Certificate request failed for {common_name}: {e}", exc_info=True)
             return False, cert
 
     async def _issue_certificate(self, cert: Certificate) -> bool:
@@ -642,7 +642,8 @@ class ACMECertificateManager:
             logger.warning("Certbot not found, using fallback")
             return await self._issue_certificate_fallback(cert)
         except Exception as e:
-            cert.last_error=str(e)
+            cert.last_error="Certificate request failed; check logs for details"
+            logger.error(f"Certificate issuance failed: {e}", exc_info=True)
             return False
 
     async def _issue_certificate_fallback(self, cert: Certificate) -> bool:
@@ -778,8 +779,9 @@ class ACMECertificateManager:
             success, _=await self.request_certificate(cert.domains, force=True)
             return success, "Renewed via re-issuance"
         except Exception as e:
-            cert.last_error=str(e)
-            return False, str(e)
+            cert.last_error="Certificate renewal failed; check logs for details"
+            logger.error(f"Certificate renewal failed: {e}", exc_info=True)
+            return False, "Certificate renewal failed"
 
     async def revoke_certificate(
         self, cert_id: str, reason: str=""

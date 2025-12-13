@@ -272,14 +272,15 @@ def create_snapshot() -> Any:
             return redirect(url_for("storage.view_snapshot", snapshot_id=snapshot.id))
 
         except RPCClientError as e:
-            flash(f"Failed to create snapshot: {str(e)}", "error")
+            current_app.logger.error(f"Failed to create snapshot {name}: {e}", exc_info=True)
+            flash("Failed to create snapshot", "error")
             AuditLog.log_operation(
                 _user_id=current_user.id,
                 _operation="create",
                 _resource_type="snapshot",
                 _action=f"Failed to create snapshot: {name}",
                 _status="failure",
-                _error_message=str(e),
+                _error_message="Snapshot creation RPC failed",
                 _rpc_method="CreateSnapshot",
                 _ip_address=request.remote_addr,
             )
@@ -326,14 +327,15 @@ def delete_snapshot(snapshotid: int) -> Any:
         return redirect(url_for("storage.list_snapshots"))
 
     except RPCClientError as e:
-        flash(f"Failed to delete snapshot: {str(e)}", "error")
+        current_app.logger.error(f"Failed to delete snapshot {snapshot.name}: {e}", exc_info=True)
+        flash("Failed to delete snapshot", "error")
         AuditLog.log_operation(
             _user_id=current_user.id,
             _operation="delete",
             _resource_type="snapshot",
             _action=f"Failed to delete snapshot: {snapshot.name}",
             _status="failure",
-            _error_message=str(e),
+            _error_message="Snapshot deletion RPC failed",
             _rpc_method="DeleteSnapshot",
             _ip_address=request.remote_addr,
         )

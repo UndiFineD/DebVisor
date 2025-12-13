@@ -10,41 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
 """
 Generate a report of unread GitHub notifications for UndiFineD/DebVisor.
 
@@ -62,15 +27,15 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
+import sys
 
-
-OWNER="UndiFineD"
-REPO="DebVisor"
-OUTPUT=Path("notifications-report.md")
+OWNER = "UndiFineD"
+REPO = "DebVisor"
+OUTPUT = Path("notifications-report.md")
 
 
 def _ensure_gh() -> Optional[str]:
-    _gh_path=shutil.which("gh")
+    gh_path = shutil.which("gh")
     if not gh_path:
         print("Error: 'gh' executable not found in PATH.")
     return gh_path
@@ -78,12 +43,12 @@ def _ensure_gh() -> Optional[str]:
 
 def _fetch_notifications() -> List[Dict[str, str]]:
     """Fetch unread notifications for the repository using gh api."""
-    _jq_filter=(
+    jq_filter = (
         "map({id, unread, reason, updated_at, repository: .repository.full_name, "
         "subject_title: .subject.title, subject_type: .subject.type, subject_url: .subject.url})"
     )
 
-    cmd=[
+    cmd = [
         "gh",
         "api",
         "notifications",
@@ -92,15 +57,15 @@ def _fetch_notifications() -> List[Dict[str, str]]:
         jq_filter,
     ]
 
-    _result=subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print("Error fetching notifications:")
         print(result.stderr)
         return []
 
     try:
-        _json_str=re.sub(r"\]\s*\[", ",", result.stdout)
-        _data=json.loads(json_str)
+        json_str = re.sub(r']\s*\[', ',', result.stdout)
+        data = json.loads(json_str)
     except json.JSONDecodeError as exc:
         print(f"Failed to decode JSON: {exc}")
         return []
@@ -108,15 +73,14 @@ def _fetch_notifications() -> List[Dict[str, str]]:
     return [n for n in data if n.get("unread") and REPO in n.get("repository", "")]
 
 
-def _api_url_to_html(apiurl: str, subjecttype: str, repository: str, title: str) -> str:
+def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: str) -> str:
     """Convert an API URL to a human-friendly HTML URL, or construct one for CheckSuite notifications."""
     # For CheckSuite (workflow failures), construct link to specific workflow
     if subject_type == "CheckSuite" and repository:
-    # Extract workflow name from title (e.g., ".github/workflows/test.yml workflow run failed...")
-        import re as regex_module
-        _match=regex_module.search(r'\.github/workflows/([^/\s]+)', title)
+        # Extract workflow name from title (e.g., ".github/workflows/test.yml workflow run failed...")
+        match = re.search(r"\.github/workflows/([^/\s]+)", title)
         if match:
-            _workflow_name=match.group(1)
+            workflow_name = match.group(1)
             return f"https://github.com/{repository}/actions/workflows/{workflow_name}"
         # Fallback to general actions page
         return f"https://github.com/{repository}/actions"
@@ -124,7 +88,7 @@ def _api_url_to_html(apiurl: str, subjecttype: str, repository: str, title: str)
     if not api_url:
         return ""
 
-    _html=api_url.replace("api.github.com/repos/", "github.com/")
+    html = api_url.replace("api.github.com/repos/", "github.com/")
 
     if "pulls/" in html:
         return html.replace("pulls/", "pull/")
@@ -139,7 +103,7 @@ def _api_url_to_html(apiurl: str, subjecttype: str, repository: str, title: str)
 
 def _format_timestamp(ts: str) -> str:
     try:
-        _dt=datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(timezone.utc)
+        dt = datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(timezone.utc)
         return dt.strftime("%Y-%m-%d %H:%M:%S UTC")
     except ValueError:
         return ts
@@ -167,34 +131,35 @@ def _write_report(notifications: List[Dict[str, str]]) -> None:
         lines.append("| ID | Type | Reason | Updated | Title | Link |")
         lines.append("|----|------|--------|---------|-------|------|")
         for n in notifications:
-            _link=_api_url_to_html(
+            link = _api_url_to_html(
                 n.get("subject_url", ""),
                 n.get("subject_type", ""),
                 n.get("repository", ""),
                 n.get("subject_title", "")
             )
-            _title=_escape_md(n.get("subject_title", "")) or "(no title)"
-            _reason=n.get("reason", "")
-            _updated=_format_timestamp(n.get("updated_at", ""))
-            _subject_type=n.get("subject_type", "")
-            _link_md=f"[View]({link})" if link else ""
+            title = _escape_md(n.get("subject_title", "")) or "(no title)"
+            reason = n.get("reason", "")
+            updated = _format_timestamp(n.get("updated_at", ""))
+            subject_type = n.get("subject_type", "")
+            link_md = f"[View]({link})" if link else ""
             lines.append(
-                f"| {n.get('id','')} | {subject_type} | {reason} | {updated} | {title} | {link_md} |"
+                f"| {n.get('id', '')} | {subject_type} | {reason} | {updated} | {title} | {link_md} |"
             )
 
     OUTPUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Report generated: {OUTPUT}")
 
 
-def main() -> None:
+def main() -> int:
     if not _ensure_gh():
-        return
+        return 1
 
     print("Fetching unread notifications...")
-    _notifications=_fetch_notifications()
+    notifications = _fetch_notifications()
     print(f"Found {len(notifications)} unread notifications.")
     _write_report(notifications)
+    return 0
 
 
-if _name__== "__main__":
-    main()
+if __name__ == "__main__":
+    sys.exit(main())

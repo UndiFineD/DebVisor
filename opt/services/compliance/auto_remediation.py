@@ -628,7 +628,7 @@ class AutoRemediationEngine:
             return record
 
         except Exception as e:
-            logger.error(f"Error executing remediation {record_id}: {e}")  # type: ignore[name-defined]
+            logger.error(f"Error executing remediation {record_id}: {e}", exc_info=True)  # type: ignore[name-defined]
 
             record=RemediationRecord(  # type: ignore[call-arg]
                 _record_id=record_id,
@@ -640,7 +640,7 @@ class AutoRemediationEngine:
                 _success=False,
                 _changes_made={},
                 _rollback_data=current_config,  # type: ignore[name-defined]
-                _error_message=str(e),
+                _error_message="Remediation failed; check logs for details",
             )
 
             self.remediation_history.append(record)

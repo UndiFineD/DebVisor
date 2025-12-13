@@ -594,9 +594,9 @@ class GraphQLResolver:
             return GraphQLResponse(data=data)  # type: ignore[name-defined]
 
         except Exception as e:
-            logger.error(f"Query resolution error: {e}")  # type: ignore[name-defined]
+            logger.error(f"Query resolution error: {e}", exc_info=True)  # type: ignore[name-defined]
             return GraphQLResponse(  # type: ignore[call-arg]
-                _errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors=[GraphQLError(message="Query execution failed", code="EXECUTION_ERROR")]
             )
 
     def _parse_query(self, query: str) -> Optional[Dict[str, Any]]:
@@ -682,9 +682,9 @@ class GraphQLResolver:
             return GraphQLResponse(data=data)  # type: ignore[name-defined]
 
         except Exception as e:
-            logger.error(f"Mutation resolution error: {e}")  # type: ignore[name-defined]
+            logger.error(f"Mutation resolution error: {e}", exc_info=True)  # type: ignore[name-defined]
             return GraphQLResponse(  # type: ignore[call-arg]
-                _errors=[GraphQLError(message=str(e), code="EXECUTION_ERROR")]
+                _errors=[GraphQLError(message="Mutation execution failed", code="EXECUTION_ERROR")]
             )
 
     async def _execute_mutation(

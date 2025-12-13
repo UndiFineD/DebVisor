@@ -274,14 +274,16 @@ def register_node() -> Any:
             return redirect(url_for("nodes.view_node", node_id=node.id))
 
         except RPCClientError as e:
-            flash(f"Failed to register node with RPC service: {str(e)}", "error")
+                current_app.logger.error(f"Failed to send heartbeat to node {node.hostname}: {e}", exc_info=True)
+            current_app.logger.error(f"Failed to register node with RPC service: {e}", exc_info=True)
+            flash("Failed to register node with RPC service", "error")
             AuditLog.log_operation(
                 _user_id=current_user.id,
                 _operation="create",
                 _resource_type="node",
                 _action=f"Failed to register node: {hostname}",
                 _status="failure",
-                _error_message=str(e),
+                _error_message="RPC registration failed",
                 _rpc_method="RegisterNode",
                 _ip_address=request.remote_addr,
             )
@@ -332,7 +334,7 @@ def send_heartbeat(nodeid: int) -> Any:
             _resource_type="node",
             _action=f"Failed to send heartbeat to node: {node.hostname}",
             _status="failure",
-            _error_message=str(e),
+            _error_message="Heartbeat RPC failed",
             _rpc_method="Heartbeat",
             _ip_address=request.remote_addr,
         )

@@ -387,9 +387,10 @@ class PluginLoader:
                     _description="",
                 ),
                 _status=PluginStatus.ERROR,
-                _error_message=str(e),
+                _error_message="Plugin load failed; check logs for details",
             )
             self.plugins[module_path] = plugin_info  # type: ignore[name-defined]
+            logger.error(f"Plugin load failed for {module_path}: {e}", exc_info=True)
             return plugin_info
 
     def unload_plugin(self, pluginname: str) -> bool:

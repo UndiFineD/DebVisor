@@ -118,6 +118,7 @@ import secrets
 import hashlib
 import logging
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional, Tuple
@@ -253,8 +254,12 @@ class APIKeyManager:
         return f"dv_{secrets.token_hex(32)}"
 
     def _hash_key(self, key: str) -> str:
-        """Hash API key for secure storage."""
-        return hashlib.sha256(key.encode()).hexdigest()
+        """Hash API key for secure storage using PBKDF2-HMAC-SHA256."""
+        # Use a static salt for deterministic hashing (required for O(1) lookup)
+        # In production, this salt should be loaded from a secure environment variable
+        salt = os.getenv("API_KEY_SALT", "debvisor_api_key_salt_v1").encode()
+        # Use 600,000 iterations as recommended by OWASP for PBKDF2-HMAC-SHA256
+        return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
 
     def create_key(
         self,

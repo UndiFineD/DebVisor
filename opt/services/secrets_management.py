@@ -338,9 +338,9 @@ class VaultSecretsManager:
                 _action="store_secret",
                 _resource=name,
                 _result="failed",
-                _error=str(e),
+                _error="Store secret failed",
             )
-            logger.error(f"Failed to store secret {name}: {str(e)}")
+            logger.error(f"Failed to store secret {name}: {e}", exc_info=True)
             raise
 
     def retrieve_secret(
@@ -404,9 +404,9 @@ class VaultSecretsManager:
                 _action="retrieve_secret",
                 _resource=name,
                 _result="failed",
-                _error=str(e),
+                _error="Retrieve secret failed",
             )
-            logger.error(f"Failed to retrieve secret {name}: {str(e)}")
+            logger.error(f"Failed to retrieve secret {name}: {e}", exc_info=True)
             raise
 
     def rotate_secret(

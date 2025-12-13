@@ -174,7 +174,8 @@ def get_compliance_overview() -> None:
             }
         )
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
+        current_app.logger.error(f"Compliance overview error: {str(e)}", exc_info=True)
+        return jsonify({"error": "Failed to fetch compliance overview"}), 500  # type: ignore[return-value]
 
 
 @dashboard_bp.route("/api/compliance/violations")  # type: ignore[type-var]
@@ -201,7 +202,8 @@ def get_compliance_violations() -> None:
 
         return jsonify(violations)  # type: ignore[return-value]
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
+        current_app.logger.error(f"Compliance violations error: {str(e)}", exc_info=True)
+        return jsonify({"error": "Failed to fetch compliance violations"}), 500  # type: ignore[return-value]
 
 
 @dashboard_bp.route("/api/compliance/policies")  # type: ignore[type-var]
@@ -224,7 +226,8 @@ def get_compliance_policies() -> None:
 
         return jsonify(policies)  # type: ignore[return-value]
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
+        current_app.logger.error(f"Compliance policies error: {str(e)}", exc_info=True)
+        return jsonify({"error": "Failed to fetch compliance policies"}), 500  # type: ignore[return-value]
 
 
 @dashboard_bp.route("/api/compliance/by-framework")  # type: ignore[type-var]
@@ -266,4 +269,5 @@ def get_compliance_by_framework() -> None:
 
         return jsonify(frameworks)  # type: ignore[return-value]
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  # type: ignore[return-value]
+        current_app.logger.error(f"Compliance by framework error: {str(e)}", exc_info=True)
+        return jsonify({"error": "Failed to fetch compliance by framework"}), 500  # type: ignore[return-value]

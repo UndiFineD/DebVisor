@@ -293,8 +293,8 @@ class EmailDeliveryProvider(DeliveryProvider):
             )
             return True, "Code sent to email"
         except Exception as e:
-            logger.error(f"Email delivery failed: {e}")
-            return False, f"Email delivery failed: {str(e)}"
+            logger.error(f"Email delivery failed: {e}", exc_info=True)
+            return False, "Email delivery failed"
 
     @staticmethod
     def _validate_email(email: str) -> bool:

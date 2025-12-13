@@ -499,10 +499,11 @@ class SchedulerAPI:
             return self._json_response(result.to_dict())
 
         except ValueError as e:
-            return self._error_response(str(e), 404)
+            self.logger.error(f\"Job not found: {e}\", exc_info=True)
+            return self._error_response(\"Job or execution not found\", 404)
         except Exception as e:
-            self.logger.error(f"Error retrying job: {e}")
-            return self._error_response(f"Failed to retry job: {e}", 500)
+            self.logger.error(f\"Error retrying job: {e}\", exc_info=True)
+            return self._error_response(\"Failed to retry job\", 500)
 
     # ========================================================================
     # Configuration Endpoints

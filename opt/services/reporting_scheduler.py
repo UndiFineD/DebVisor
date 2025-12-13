@@ -432,8 +432,8 @@ class ReportScheduler:
 
         except Exception as e:
             report_instance.status=ReportStatus.FAILED
-            report_instance.error_message=str(e)
-            logger.error(f"Failed to generate report {scheduled_report.name}: {e}")
+            report_instance.error_message="Report generation failed; check logs for details"
+            logger.error(f"Failed to generate report {scheduled_report.name}: {e}", exc_info=True)
 
         self.generated_reports.append(report_instance)
         return report_instance

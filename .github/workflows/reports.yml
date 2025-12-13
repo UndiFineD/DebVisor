@@ -1,0 +1,139 @@
+name: Generate Security and Notifications Reports
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  generate-reports:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymarkdownlnt
+
+      - name: Generate Security Report
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y gh
+          gh auth setup-git
+          python scripts/generate_security_report_v2.py
+
+      - name: Generate Notifications Report
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/generate_notifications_report.py
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            security-scan.md
+            security-scan-summary.json
+            notifications-report.md
+          retention-days: 14
+
+      - name: Post summary comment on PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > pr_comment.py <<'PYSCRIPT'
+          import json, os
+          total=open_cnt=0
+          sev={'critical':0,'high':0,'medium':0,'low':0}
+          try:
+            with open('security-scan-summary.json','r',encoding='utf-8') as f:
+              d=json.load(f)
+              total=d.get('total_alerts',0)
+              open_cnt=d.get('open_alerts',0)
+              s=d.get('by_severity',{})
+              for k in sev:
+                sev[k]=int(s.get(k,0))
+          except Exception:
+            pass
+          unread=0
+          try:
+            with open('notifications-report.md','r',encoding='utf-8') as f:
+              for line in f:
+                if line.strip().startswith('**Unread Notifications:**'):
+                  try:
+                    unread=int(''.join([c for c in line if c.isdigit()]))
+                  except Exception:
+                    pass
+                  break
+          except Exception:
+            pass
+          server=os.environ.get('GITHUB_SERVER_URL','https://github.com')
+          repo=os.environ.get('GITHUB_REPOSITORY','')
+          run_id=os.environ.get('GITHUB_RUN_ID','')
+          artifacts_url=f"{server}/{repo}/actions/runs/{run_id}"
+          print(f"### Reports Summary\n- Security Alerts: {total} (open: {open_cnt})\n- Severity — critical: {sev['critical']}, high: {sev['high']}, medium: {sev['medium']}, low: {sev['low']}\n- Unread Notifications: {unread}\n\nArtifacts: [View run artifacts]({artifacts_url})")
+          PYSCRIPT
+          BODY=$(python pr_comment.py)
+          gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
+
+      - name: Add job summary
+        run: |
+          python - <<'PY'
+          import json, os
+          total=open_cnt=0
+          sev={'critical':0,'high':0,'medium':0,'low':0}
+          try:
+            with open('security-scan-summary.json','r',encoding='utf-8') as f:
+              d=json.load(f)
+              total=d.get('total_alerts',0)
+              open_cnt=d.get('open_alerts',0)
+              s=d.get('by_severity',{})
+              for k in sev:
+                sev[k]=int(s.get(k,0))
+          except Exception:
+            pass
+          content=f"""### Reports Summary
+          - Security Alerts: {total} (open: {open_cnt})
+          - Severity — critical: {sev['critical']}, high: {sev['high']}, medium: {sev['medium']}, low: {sev['low']}
+          
+          Artifacts: security-scan.md, security-scan-summary.json, notifications-report.md
+          """
+          with open(os.environ.get('GITHUB_STEP_SUMMARY','/tmp/summary.md'),'a',encoding='utf-8') as fh:
+            fh.write(content)
+          PY
+
+      - name: Enforce policy thresholds
+        run: |
+          python - <<'PY'
+          import json, sys
+          # Default thresholds (can be parameterized later)
+          MAX_CRITICAL=0
+          MAX_HIGH=0
+          try:
+            with open('security-scan-summary.json','r',encoding='utf-8') as f:
+              d=json.load(f)
+              sev=d.get('by_severity',{})
+              crit=int(sev.get('critical',0))
+              high=int(sev.get('high',0))
+          except Exception as e:
+            print(f"Warning: cannot read summary JSON: {e}")
+            crit=high=0
+          if crit>MAX_CRITICAL or high>MAX_HIGH:
+            print(f"Policy violation: critical={crit} (max {MAX_CRITICAL}), high={high} (max {MAX_HIGH})")
+            sys.exit(1)
+          else:
+            print(f"Policy OK: critical={crit} <= {MAX_CRITICAL}, high={high} <= {MAX_HIGH}")
+          PY

@@ -1184,11 +1184,11 @@ class ImportWizard:
 
         except Exception as e:
             job.status=ImportStatus.FAILED
-            job.error=str(e)
-            job.error_details=repr(e)
-            job.logs.append(f"ERROR: {e}")
+            job.error="Import job failed; check logs for details"
+            job.error_details=None
+            job.logs.append("ERROR: Import job failed; check logs for details")
             self._notify(job)
-            logger.error(f"Import job {job.id} failed: {e}")
+            logger.error(f"Import job {job.id} failed: {e}", exc_info=True)
 
     def _generate_vm_config(
         self, job: ImportJob, disk_paths: List[str]

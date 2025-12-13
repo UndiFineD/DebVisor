@@ -149,9 +149,11 @@ def export_user_data(userid: int) -> Tuple[Response, int]:
         _data=gdpr_manager.export_user_data(user_id)  # type: ignore[name-defined]
         return jsonify(data), 200  # type: ignore[name-defined]
     except ValueError as e:
-        return jsonify({"error": str(e)}), 404
+        current_app.logger.error(f\"User data export failed: {e}\", exc_info=True)
+        return jsonify({\"error\": \"User not found\"}), 404
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        current_app.logger.error(f\"Error exporting user data: {e}\", exc_info=True)
+        return jsonify({\"error\": \"Failed to export user data\"}), 500
 
 
 @compliance_bp.route("/gdpr/forget/<int:user_id>", methods=["POST"])  # type: ignore[name-defined]

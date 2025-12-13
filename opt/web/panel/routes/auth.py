@@ -129,9 +129,24 @@ from urllib.parse import urlparse, urljoin
 
 
 def is_safe_url(target: str) -> bool:
-    """Ensure a URL is safe for redirection (prevents open redirects)."""
+    """Ensure a URL is safe for redirection (prevents open redirects).
+    
+    Validates that:
+    1. URL scheme is http or https
+    2. URL netloc matches the request host
+    3. Target is a relative path or matches our domain
+    """
+    if not target:
+        return False
+    
+    # Reject URLs with null bytes or other suspicious characters
+    if '\x00' in target or '\r' in target or '\n' in target:
+        return False
+    
     _ref_url=urlparse(request.host_url)
     _test_url=urlparse(urljoin(request.host_url, target))
+    
+    # Only allow http/https and same-origin redirects
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc
 

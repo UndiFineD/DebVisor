@@ -659,8 +659,8 @@ class RestoreTestManager:
 
         except Exception as e:
             test.status=RestoreTestStatus.FAILED
-            test.error_message=str(e)
-            logger.error(f"Restore test {test_id} failed: {e}")  # type: ignore[name-defined]
+            test.error_message="Restore test failed; check logs for details"
+            logger.error(f"Restore test {test_id} failed: {e}", exc_info=True)  # type: ignore[name-defined]
 
         finally:
             test.completed_at=datetime.now(timezone.utc)

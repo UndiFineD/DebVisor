@@ -122,6 +122,7 @@ from datetime import datetime, timezone
 import grpc
 import jwt
 import hashlib
+import os
 import base64
 import logging
 from typing import Optional, List, Dict, Any, Callable
@@ -690,8 +691,9 @@ class AuthenticationInterceptor(grpc.ServerInterceptor):
             Identity if valid API key, None otherwise
         """
         try:
-        # Hash the key for comparison
-            _key_hash=hashlib.sha256(api_key.encode()).hexdigest()
+        # Hash the key for comparison using PBKDF2-HMAC-SHA256
+            salt = os.getenv("API_KEY_SALT", "debvisor_api_key_salt_v1").encode()
+            _key_hash = hashlib.pbkdf2_hmac("sha256", api_key.encode(), salt, 600000).hex()
 
             # Look up in key storage
             _key_data=self._lookup_key_hash(key_hash)

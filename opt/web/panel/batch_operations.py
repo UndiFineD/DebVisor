@@ -303,9 +303,9 @@ class OperationExecutor:
             result.result_data=result_data or {}
 
         except Exception as e:
-            logger.error(f"Operation failed: {e}")
+            logger.error(f"Operation failed: {e}", exc_info=True)
             result.status=OperationStatus.FAILED
-            result.error=str(e)
+            result.error="Operation failed; check logs for details"
 
         finally:
             result.end_time=datetime.now(timezone.utc)
@@ -490,9 +490,9 @@ class BatchOperationManager:
             )
 
         except Exception as e:
-            logger.error(f"Operation {operation.id} failed: {e}")
+            logger.error(f"Operation {operation.id} failed: {e}", exc_info=True)
             operation.status=OperationStatus.FAILED
-            operation.error=str(e)
+            operation.error="Batch operation failed; check logs for details"
             operation.completed_at=datetime.now(timezone.utc)
 
         finally:

@@ -1282,18 +1282,18 @@ class MarketplaceInstaller:
 
         except Exception as e:
             record.status=DeploymentStatus.FAILED
-            record.error=str(e)
+            record.error="Deployment failed; check logs for details"
             record.steps.append(
                 DeploymentStep(  # type: ignore[call-arg]
                     _name="error",
                     _resource_name=None,
                     _status="failed",
-                    _error=str(e),
+                    _error="Deployment failed; check logs for details",
                     _started_at=datetime.now(timezone.utc),
                 )
             )
             self._notify(record)
-            logger.error(f"Deployment {record.id} failed: {e}")
+            logger.error(f"Deployment {record.id} failed: {e}", exc_info=True)
 
     def _sort_resources(self, resources: List[RecipeResource]) -> List[RecipeResource]:  # type: ignore[name-defined]
         """Topological sort resources by dependencies."""

@@ -552,9 +552,9 @@ class RBDMirrorManager:
 
         except Exception as e:
             record.state=FailoverState.ERROR
-            record.error_message=str(e)
+            record.error_message="Failover failed; check logs for details"
             record.completed_at=datetime.now(timezone.utc)
-            logger.error(f"Failover failed: {e}")
+            logger.error(f"Failover failed: {e}", exc_info=True)
 
         return record
 

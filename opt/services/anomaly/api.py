@@ -240,8 +240,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error adding metric: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error adding metric: {e}", exc_info=True)
+            return self._error_response("Failed to add metric", 500)
 
     def list_metrics(self) -> Tuple[str, int]:
         """GET /metrics - List metrics.
@@ -284,8 +284,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing metrics: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error listing metrics: {e}", exc_info=True)
+            return self._error_response("Failed to list metrics", 500)
 
     def get_metric_history(
         self, resource_id: str, metric_type_str: str
@@ -331,8 +331,8 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid limit parameter", 400)
         except Exception as e:
-            self.logger.error(f"Error getting history: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting history: {e}", exc_info=True)
+            return self._error_response("Failed to get metric history", 500)
 
     # ========================================================================
     # Baseline Endpoints
@@ -386,8 +386,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error establishing baseline: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error establishing baseline: {e}", exc_info=True)
+            return self._error_response("Failed to establish baseline", 500)
 
     def list_baselines(self) -> Tuple[str, int]:
         """GET /baselines - List baselines.
@@ -416,8 +416,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing baselines: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error listing baselines: {e}", exc_info=True)
+            return self._error_response("Failed to list baselines", 500)
 
     def get_baseline(self, resourceid: str, metrictype_str: str) -> Tuple[str, int]:
         """GET /baselines/{resource_id}/{metric_type} - Get baseline details."""
@@ -443,8 +443,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting baseline: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting baseline: {e}", exc_info=True)
+            return self._error_response("Failed to get baseline", 500)
 
     # ========================================================================
     # Detection Endpoints
@@ -512,8 +512,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error detecting anomalies: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error detecting anomalies: {e}", exc_info=True)
+            return self._error_response("Failed to detect anomalies", 500)
 
     def get_recent_detections(self) -> Tuple[str, int]:
         """GET /detect/recent - Get recent detections.
@@ -544,8 +544,8 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
         except Exception as e:
-            self.logger.error(f"Error getting detections: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting detections: {e}", exc_info=True)
+            return self._error_response("Failed to get detections", 500)
 
     # ========================================================================
     # Alert Endpoints
@@ -585,8 +585,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing alerts: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error listing alerts: {e}", exc_info=True)
+            return self._error_response("Failed to list alerts", 500)
 
     def get_alert_history(self) -> Tuple[str, int]:
         """GET /alerts/history - Get alert history.
@@ -617,8 +617,8 @@ class AnomalyAPI:
         except ValueError:
             return self._error_response("Invalid query parameters", 400)
         except Exception as e:
-            self.logger.error(f"Error getting alert history: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting alert history: {e}", exc_info=True)
+            return self._error_response("Failed to get alert history", 500)
 
     def acknowledge_alert(self) -> Tuple[str, int]:
         """POST /alerts/{alert_id}/acknowledge - Acknowledge alert.
@@ -665,8 +665,8 @@ class AnomalyAPI:
                 return self._error_response(f"Alert not found: {alert_id}", 404)  # type: ignore[name-defined]
 
         except Exception as e:
-            self.logger.error(f"Error acknowledging alert: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error acknowledging alert: {e}", exc_info=True)
+            return self._error_response("Failed to acknowledge alert", 500)
 
     def get_alert(self, alertid: str) -> Tuple[str, int]:
         """GET /alerts/{alert_id} - Get alert details."""
@@ -680,8 +680,8 @@ class AnomalyAPI:
             return self._error_response(f"Alert not found: {alert_id}", 404)  # type: ignore[name-defined]
 
         except Exception as e:
-            self.logger.error(f"Error getting alert: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting alert: {e}", exc_info=True)
+            return self._error_response("Failed to get alert", 500)
 
     # ========================================================================
     # Trend Endpoints
@@ -731,8 +731,8 @@ class AnomalyAPI:
                 return self._error_response("Insufficient data for trend analysis", 400)
 
         except Exception as e:
-            self.logger.error(f"Error analyzing trend: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error analyzing trend: {e}", exc_info=True)
+            return self._error_response("Failed to analyze trend", 500)
 
     def list_trends(self) -> Tuple[str, int]:
         """GET /trends - List trends.
@@ -757,8 +757,8 @@ class AnomalyAPI:
             )
 
         except Exception as e:
-            self.logger.error(f"Error listing trends: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error listing trends: {e}", exc_info=True)
+            return self._error_response("Failed to list trends", 500)
 
     # ========================================================================
     # System Endpoints
@@ -772,8 +772,8 @@ class AnomalyAPI:
             return self._json_response({"status": "success", "statistics": stats}, 200)  # type: ignore[name-defined]
 
         except Exception as e:
-            self.logger.error(f"Error getting statistics: {e}")
-            return self._error_response(str(e), 500)
+            self.logger.error(f"Error getting statistics: {e}", exc_info=True)
+            return self._error_response("Failed to get statistics", 500)
 
     def get_health(self) -> Tuple[str, int]:
         """GET /health - Health check."""
