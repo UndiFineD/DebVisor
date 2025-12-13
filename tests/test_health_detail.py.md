@@ -38,7 +38,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc](https://loc)a)l)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc]([https://lo](https://lo)c)a)l)h)o)s)t)")
     if resp.status_code == 301:
         print(f"Redirecting to: {resp.headers.get('Location')}")
     assert resp.status_code in (200, 503)
@@ -248,7 +248,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 ```python
     monkeypatch.setenv("SMTP_STARTTLS", "true")
 
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc](https://loc)a)l)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc]([https://lo](https://lo)c)a)l)h)o)s)t)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data
@@ -276,7 +276,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc](https://loc)a)l)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc]([https://lo](https://lo)c)a)l)h)o)s)t)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data
