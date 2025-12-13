@@ -228,7 +228,7 @@ class ChangeRateEstimator:
     - Resource requirements for backup operations
     """
 
-    def __init__(self, max_samples: int = 1000, prediction_horizon_hours: int = 24) -> None:
+    def __init__(self, max_samples: int=1000, prediction_horizon_hours: int=24) -> None:
         self.max_samples = max_samples  # type: ignore[name-defined]
         self.prediction_horizon_hours = prediction_horizon_hours  # type: ignore[name-defined]
         self.metrics: Dict[str, ChangeRateMetrics] = {}
@@ -244,7 +244,7 @@ class ChangeRateEstimator:
         timestamp = timestamp or datetime.now(timezone.utc)
 
         if vm_id not in self.metrics:
-            self.metrics[vm_id] = ChangeRateMetrics(vm_id = vm_id)  # type: ignore[call-arg]
+            self.metrics[vm_id] = ChangeRateMetrics(vm_id=vm_id)  # type: ignore[call-arg]
 
         m = self.metrics[vm_id]
 
@@ -410,7 +410,7 @@ class ChangeRateEstimator:
             return self._next_window_start(windows)
 
         # Return highest scoring time
-        candidates.sort(key = lambda x: x[1], reverse = True)
+        candidates.sort(key=lambda x: x[1], reverse=True)
         return candidates[0][0]
 
     def _in_window(self, dt: datetime, windows: List[BackupWindow]) -> bool:
@@ -442,7 +442,7 @@ class ChangeRateEstimator:
         # Check next 7 days
         for days in range(8):
             _check_date=now + timedelta(days=days)  # type: ignore[name-defined]
-            for window in sorted(windows, key = lambda w: -w.priority):
+            for window in sorted(windows, key=lambda w: -w.priority):
                 if check_date.weekday() in window.days_of_week:  # type: ignore[name-defined]
                     start=check_date.replace(  # type: ignore[name-defined]
                         hour = window.start_hour, minute = 0, second = 0, microsecond = 0
@@ -529,7 +529,7 @@ class RestoreTestManager:
         logger.info(f"Scheduled restore test {test_id} for backup {backup_id}")  # type: ignore[name-defined]
         return test
 
-    async def run_test(self, test_id: str, profile: str = "default") -> RestoreTest:
+    async def run_test(self, test_id: str, profile: str="default") -> RestoreTest:
         """Execute a restore test."""
         if test_id not in self.tests:  # type: ignore[name-defined]
             raise ValueError(f"Unknown test: {test_id}")  # type: ignore[name-defined]
@@ -704,7 +704,7 @@ class RestoreTestManager:
             tests = [t for t in tests if t.vm_id == vm_id]  # type: ignore[has-type]
 
         # Sort by created_at descending
-        tests.sort(key = lambda t: t.created_at, reverse = True)
+        tests.sort(key=lambda t: t.created_at, reverse=True)
 
         return tests[:limit]
 
@@ -866,7 +866,7 @@ class SLAComplianceTracker:
         for vm_id in self.vm_policies:
             reports.append(self.check_compliance(vm_id))
 
-        return sorted(reports, key = lambda r: r.status.value)
+        return sorted(reports, key=lambda r: r.status.value)
 
     def register_alert_handler(self, handler: Callable[[str, str, str], None]) -> None:
         """Register a handler for compliance alerts."""
@@ -984,8 +984,8 @@ class BackupIntelligence:
 
         # Default backup windows
         self.backup_windows = default_windows or [
-            BackupWindow(name = "overnight", start_hour = 0, end_hour = 6, priority = 10),
-            BackupWindow(name = "business_low", start_hour = 12, end_hour = 14, priority = 5),
+            BackupWindow(name="overnight", start_hour=0, end_hour=6, priority=10),
+            BackupWindow(name="business_low", start_hour=12, end_hour=14, priority=5),
             BackupWindow(  # type: ignore[call-arg]
                 name = "weekend",
                 start_hour = 0,
