@@ -1,39 +1,45 @@
 name: Markdown Lint (Python)
-
 on:
   pull_request:
     branches:
-      - main
+    - main
     paths:
-      - '**/*.md'
-      - '.github/workflows/markdownlint.yml'
+    - '**/*.md'
+    - .github/workflows/markdownlint.yml
   push:
     branches:
-      - main
+    - main
     paths:
-      - '**/*.md'
-      - '.github/workflows/markdownlint.yml'
-
+    - '**/*.md'
+    - .github/workflows/markdownlint.yml
 jobs:
   markdownlint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install PyMarkdown
+      run: 'python -m pip install --upgrade pip
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+        pip install PyMarkdown
 
-      - name: Install PyMarkdown
-        run: |
-          python -m pip install --upgrade pip
-          pip install PyMarkdown
+        '
+    - name: Run PyMarkdown scan
+      run: 'pymarkdown --version
 
-      - name: Run PyMarkdown scan
-        run: |
-          pymarkdown --version
-          # Scan all Markdown files; exclude common virtual env and node folders
-          pymarkdown scan --config "pymarkdown.json" . || true
+        # Scan all Markdown files; exclude common virtual env and node folders
 
+        pymarkdown scan --config "pymarkdown.json" . || true
+
+        '
+'on':
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main

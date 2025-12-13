@@ -6,6 +6,8 @@ from flask_migrate import Migrate, upgrade, downgrade
 from opt.web.panel.extensions import db
 
 
+import pytest
+from datetime import datetime
 class TestMigrations(unittest.TestCase):
 
     def setUp(self) -> None:

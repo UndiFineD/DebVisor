@@ -1,0 +1,53 @@
+# Code Issues Report: opt\services\diagnostics.py
+Generated: 2025-12-13T14:33:45.933305
+Source: opt\services\diagnostics.py
+
+## Issues Summary
+Total: 1 issues found
+
+| Line | Column | Tool | Code | Severity | Message |
+|------|--------|------|------|----------|---------|
+| 125 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+
+## Implementation Status
+Items marked below as fixed:
+
+
+## Fix Proposals
+
+**1 issues to fix:**
+
+
+### Issue at Line 125
+
+**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+
+**Message:** Consider possible security implications associated with the subprocess module.
+
+**Context:**
+```
+import logging
+from datetime import timezone, datetime
+import psutil
+import subprocess
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Any
+from enum import Enum
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

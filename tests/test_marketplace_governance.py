@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from datetime import datetime
 from opt.services.marketplace.marketplace_service import (
+import pytest
     SecurityScanner, Recipe, SecurityScanResult
 )
 

@@ -10,93 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
-# !/usr/bin/env python3
-
 
 """
 Enhanced Monitoring & Metrics Configuration
@@ -112,7 +25,7 @@ from enum import Enum
 from typing import Dict, List, Optional, Any
 from datetime import timedelta
 
-_logger=logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 ###############################################################################
@@ -121,18 +34,18 @@ _logger=logging.getLogger(__name__)
 class AlertSeverity(Enum):
     """Alert severity levels"""
 
-    CRITICAL="critical"
-    WARNING="warning"
-    INFO="info"
+    CRITICAL = "critical"
+    WARNING = "warning"
+    INFO = "info"
 
 
 class MetricType(Enum):
     """Prometheus metric types"""
 
-    COUNTER="counter"
-    GAUGE="gauge"
-    HISTOGRAM="histogram"
-    SUMMARY="summary"
+    COUNTER = "counter"
+    GAUGE = "gauge"
+    HISTOGRAM = "histogram"
+    SUMMARY = "summary"
 
 
 ###############################################################################
@@ -161,7 +74,7 @@ class MetricDefinition:
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str="""    # {self.help_text}
+        yaml_str = """    # {self.help_text}
 - metric_name: {self.name}
 metric_type: {self.type.value}
 help: {self.help_text}
@@ -186,9 +99,9 @@ class AlertRule:
 
     name: str
     expr: str
-    for_duration: timedelta=field(default_factory=lambda: timedelta(minutes=5))
-    severity: AlertSeverity=AlertSeverity.WARNING
-    description: str=""
+    for_duration: timedelta = field(default_factory=lambda: timedelta(minutes=5))
+    severity: AlertSeverity = AlertSeverity.WARNING
+    description: str = ""
     runbook_url: Optional[str] = None
 
     def to_yaml(self) -> str:
@@ -210,8 +123,8 @@ class RecordingRule:
 
     name: str
     expr: str
-    interval: timedelta=field(default_factory=lambda: timedelta(minutes=1))
-    description: str=""
+    interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
+    description: str = ""
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
@@ -227,16 +140,16 @@ class ScrapeConfig:
     """Prometheus scrape configuration"""
 
     job_name: str
-    metrics_path: str="/metrics"
-    scheme: str="http"
-    scrape_interval: timedelta=field(default_factory=lambda: timedelta(minutes=1))
-    scrape_timeout: timedelta=field(default_factory=lambda: timedelta(seconds=10))
+    metrics_path: str = "/metrics"
+    scheme: str = "http"
+    scrape_interval: timedelta = field(default_factory=lambda: timedelta(minutes=1))
+    scrape_timeout: timedelta = field(default_factory=lambda: timedelta(seconds=10))
     static_configs: List[Dict[str, Any]] = field(default_factory=list)
     relabel_configs: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_yaml(self) -> str:
         """Convert to YAML representation"""
-        yaml_str="""- job_name: {self.job_name}
+        yaml_str = """- job_name: {self.job_name}
 metrics_path: {self.metrics_path}
 scheme: {self.scheme}
 scrape_interval: {int(self.scrape_interval.total_seconds())}s
@@ -276,144 +189,144 @@ class MonitoringConfigManager:
         self.scrape_configs: Dict[str, ScrapeConfig] = {}
         self._initialize_default_metrics()
         self._initialize_default_alerts()
-        logger.info("MonitoringConfigManager initialized")  # type: ignore[name-defined]
+        logger.info("MonitoringConfigManager initialized")
 
     def _initialize_default_metrics(self) -> None:
         """Initialize default metrics"""
-        _default_metrics=[
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_cluster_nodes_total",
-                _type=MetricType.GAUGE,
-                _help_text="Total number of nodes in cluster",
-                _labels=["cluster"],
+        default_metrics = [
+            MetricDefinition(
+                name="debvisor_cluster_nodes_total",
+                type=MetricType.GAUGE,
+                help_text="Total number of nodes in cluster",
+                labels=["cluster"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_cluster_pods_total",
-                _type=MetricType.GAUGE,
-                _help_text="Total number of pods in cluster",
-                _labels=["cluster", "namespace"],
+            MetricDefinition(
+                name="debvisor_cluster_pods_total",
+                type=MetricType.GAUGE,
+                help_text="Total number of pods in cluster",
+                labels=["cluster", "namespace"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_node_cpu_usage_percent",
-                _type=MetricType.GAUGE,
-                _help_text="CPU usage percentage per node",
-                _labels=["node"],
+            MetricDefinition(
+                name="debvisor_node_cpu_usage_percent",
+                type=MetricType.GAUGE,
+                help_text="CPU usage percentage per node",
+                labels=["node"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_node_memory_usage_bytes",
-                _type=MetricType.GAUGE,
-                _help_text="Memory usage in bytes per node",
-                _labels=["node"],
+            MetricDefinition(
+                name="debvisor_node_memory_usage_bytes",
+                type=MetricType.GAUGE,
+                help_text="Memory usage in bytes per node",
+                labels=["node"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_disk_used_bytes",
-                _type=MetricType.GAUGE,
-                _help_text="Disk usage in bytes",
-                _labels=["node", "mount_point"],
+            MetricDefinition(
+                name="debvisor_disk_used_bytes",
+                type=MetricType.GAUGE,
+                help_text="Disk usage in bytes",
+                labels=["node", "mount_point"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_network_bytes_in_total",
-                _type=MetricType.COUNTER,
-                _help_text="Total bytes received",
-                _labels=["interface"],
+            MetricDefinition(
+                name="debvisor_network_bytes_in_total",
+                type=MetricType.COUNTER,
+                help_text="Total bytes received",
+                labels=["interface"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_network_bytes_out_total",
-                _type=MetricType.COUNTER,
-                _help_text="Total bytes transmitted",
-                _labels=["interface"],
+            MetricDefinition(
+                name="debvisor_network_bytes_out_total",
+                type=MetricType.COUNTER,
+                help_text="Total bytes transmitted",
+                labels=["interface"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_rpc_requests_total",
-                _type=MetricType.COUNTER,
-                _help_text="Total RPC requests",
-                _labels=["method", "status"],
+            MetricDefinition(
+                name="debvisor_rpc_requests_total",
+                type=MetricType.COUNTER,
+                help_text="Total RPC requests",
+                labels=["method", "status"],
             ),
-            MetricDefinition(  # type: ignore[call-arg]
-                _name="debvisor_rpc_request_duration_seconds",
-                _type=MetricType.HISTOGRAM,
-                _help_text="RPC request duration in seconds",
-                _labels=["method"],
-                _buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
+            MetricDefinition(
+                name="debvisor_rpc_request_duration_seconds",
+                type=MetricType.HISTOGRAM,
+                help_text="RPC request duration in seconds",
+                labels=["method"],
+                buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0],
             ),
         ]
 
-        for metric in default_metrics:  # type: ignore[name-defined]
+        for metric in default_metrics:
             self.register_metric(metric)
 
     def _initialize_default_alerts(self) -> None:
         """Initialize default alert rules"""
-        _default_alerts=[
-            AlertRule(  # type: ignore[call-arg]
-                _name="HighCPUUsage",
-                _expr="debvisor_node_cpu_usage_percent > 80",
-                _severity=AlertSeverity.WARNING,
-                _description="Node CPU usage is above 80%",
-                _runbook_url="/docs/runbooks/high-cpu",
+        default_alerts = [
+            AlertRule(
+                name="HighCPUUsage",
+                expr="debvisor_node_cpu_usage_percent > 80",
+                severity=AlertSeverity.WARNING,
+                description="Node CPU usage is above 80%",
+                runbook_url="/docs/runbooks/high-cpu",
             ),
-            AlertRule(  # type: ignore[call-arg]
-                _name="HighMemoryUsage",
-                _expr=(
+            AlertRule(
+                name="HighMemoryUsage",
+                expr=(
                     "(debvisor_node_memory_usage_bytes / "
                     "debvisor_node_memory_available_bytes) > 0.9"
                 ),
-                _severity=AlertSeverity.WARNING,
-                _description="Node memory usage is above 90%",
-                _runbook_url="/docs/runbooks/high-memory",
+                severity=AlertSeverity.WARNING,
+                description="Node memory usage is above 90%",
+                runbook_url="/docs/runbooks/high-memory",
             ),
-            AlertRule(  # type: ignore[call-arg]
-                _name="DiskSpaceCritical",
-                _expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
-                _severity=AlertSeverity.CRITICAL,
-                _description="Disk usage is above 95%",
-                _runbook_url="/docs/runbooks/disk-space",
+            AlertRule(
+                name="DiskSpaceCritical",
+                expr="(debvisor_disk_used_bytes / debvisor_disk_total_bytes) > 0.95",
+                severity=AlertSeverity.CRITICAL,
+                description="Disk usage is above 95%",
+                runbook_url="/docs/runbooks/disk-space",
             ),
-            AlertRule(  # type: ignore[call-arg]
-                _name="NodeNotReady",
+            AlertRule(
+                name="NodeNotReady",
                 expr="debvisor_node_status == 0",
-                _for_duration=timedelta(minutes=5),
-                _severity=AlertSeverity.CRITICAL,
-                _description="Node is not ready",
-                _runbook_url="/docs/runbooks/node-not-ready",
+                for_duration=timedelta(minutes=5),
+                severity=AlertSeverity.CRITICAL,
+                description="Node is not ready",
+                runbook_url="/docs/runbooks/node-not-ready",
             ),
-            AlertRule(  # type: ignore[call-arg]
-                _name="HighRPCErrorRate",
-                _expr=(
+            AlertRule(
+                name="HighRPCErrorRate",
+                expr=(
                     "(debvisor_rpc_requests_total{status='error'} / "
                     "debvisor_rpc_requests_total) > 0.05"
                 ),
-                _severity=AlertSeverity.WARNING,
-                _description="RPC error rate is above 5%",
-                _runbook_url="/docs/runbooks/rpc-errors",
+                severity=AlertSeverity.WARNING,
+                description="RPC error rate is above 5%",
+                runbook_url="/docs/runbooks/rpc-errors",
             ),
         ]
 
-        for alert in default_alerts:  # type: ignore[name-defined]
+        for alert in default_alerts:
             self.register_alert_rule(alert)
 
     def register_metric(self, metric: MetricDefinition) -> None:
         """Register a metric definition"""
         self.metrics[metric.name] = metric
-        logger.info(f"Metric registered: {metric.name}")  # type: ignore[name-defined]
+        logger.info(f"Metric registered: {metric.name}")
 
     def register_alert_rule(self, rule: AlertRule) -> None:
         """Register an alert rule"""
         self.alert_rules[rule.name] = rule
-        logger.info(f"Alert rule registered: {rule.name}")  # type: ignore[name-defined]
+        logger.info(f"Alert rule registered: {rule.name}")
 
     def register_recording_rule(self, rule: RecordingRule) -> None:
         """Register a recording rule"""
         self.recording_rules[rule.name] = rule
-        logger.info(f"Recording rule registered: {rule.name}")  # type: ignore[name-defined]
+        logger.info(f"Recording rule registered: {rule.name}")
 
     def register_scrape_config(self, config: ScrapeConfig) -> None:
         """Register a scrape configuration"""
         self.scrape_configs[config.job_name] = config
-        logger.info(f"Scrape config registered: {config.job_name}")  # type: ignore[name-defined]
+        logger.info(f"Scrape config registered: {config.job_name}")
 
     def get_metrics_yaml(self) -> str:
         """Get all metrics as YAML"""
-        yaml_output="    # Prometheus Metric Definitions\n"
+        yaml_output = "    # Prometheus Metric Definitions\n"
         yaml_output += f"    # Total metrics: {len(self.metrics)}\n\n"
 
         for metric in self.metrics.values():
@@ -424,7 +337,7 @@ class MonitoringConfigManager:
 
     def get_alerts_yaml(self) -> str:
         """Get all alert rules as YAML"""
-        yaml_output="    # Prometheus Alert Rules\n"
+        yaml_output = "    # Prometheus Alert Rules\n"
         yaml_output += f"    # Total alerts: {len(self.alert_rules)}\n"
         yaml_output += "groups:\n"
         yaml_output += "  - name: debvisor_alerts\n"
@@ -432,7 +345,7 @@ class MonitoringConfigManager:
         yaml_output += "    rules:\n"
 
         for alert in self.alert_rules.values():
-        # Indent for group structure
+            # Indent for group structure
             for line in alert.to_yaml().split("\n"):
                 if line:
                     yaml_output += f"      {line}\n"
@@ -441,7 +354,7 @@ class MonitoringConfigManager:
 
     def get_scrape_config_yaml(self) -> str:
         """Get all scrape configurations as YAML"""
-        yaml_output="    # Prometheus Scrape Configurations\n"
+        yaml_output = "    # Prometheus Scrape Configurations\n"
         yaml_output += "scrape_configs:\n"
 
         for config in self.scrape_configs.values():
@@ -476,107 +389,107 @@ class MonitoringTemplates:
     @staticmethod
     def get_kubernetes_monitoring() -> MonitoringConfigManager:
         """Get Kubernetes monitoring template"""
-        _mgr=MonitoringConfigManager()
+        mgr = MonitoringConfigManager()
 
         # Add K8s-specific scrape config
-        _k8s_config=ScrapeConfig(  # type: ignore[call-arg]
-            _job_name="kubernetes-apiserver",
-            _metrics_path="/metrics",
-            _scheme="https",
-            _static_configs=[
+        k8s_config = ScrapeConfig(
+            job_name="kubernetes-apiserver",
+            metrics_path="/metrics",
+            scheme="https",
+            static_configs=[
                 {
                     "targets": ["kubernetes.default.svc.cluster.local:443"],
                 }
             ],
         )
-        mgr.register_scrape_config(k8s_config)  # type: ignore[name-defined]
+        mgr.register_scrape_config(k8s_config)
 
         # Add K8s-specific recording rule
-        k8s_recording=RecordingRule(  # type: ignore[call-arg]
-            _name="kubernetes:pod_memory_usage_mb",
-            _expr="kubernetes_pod_memory_rss_bytes / 1024 / 1024",
-            _description="Pod memory usage in MB",
+        k8s_recording = RecordingRule(
+            name="kubernetes:pod_memory_usage_mb",
+            expr="kubernetes_pod_memory_rss_bytes / 1024 / 1024",
+            description="Pod memory usage in MB",
         )
-        mgr.register_recording_rule(k8s_recording)  # type: ignore[name-defined]
+        mgr.register_recording_rule(k8s_recording)
 
-        return mgr  # type: ignore[name-defined]
+        return mgr
 
     @staticmethod
     def get_infra_monitoring() -> MonitoringConfigManager:
         """Get infrastructure monitoring template"""
-        _mgr=MonitoringConfigManager()
+        mgr = MonitoringConfigManager()
 
         # Add node scrape config
-        node_config=ScrapeConfig(  # type: ignore[call-arg]
-            _job_name="node-exporter",
-            _static_configs=[
+        node_config = ScrapeConfig(
+            job_name="node-exporter",
+            static_configs=[
                 {"targets": ["localhost:9100"], "labels": {"instance": "infra-node"}}
             ],
         )
-        mgr.register_scrape_config(node_config)  # type: ignore[name-defined]
+        mgr.register_scrape_config(node_config)
 
         # Add node recording rules
-        node_recording=RecordingRule(  # type: ignore[call-arg]
-            _name="node:cpu_usage_percent",
-            _expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
-            _description="CPU usage percentage",
+        node_recording = RecordingRule(
+            name="node:cpu_usage_percent",
+            expr="100 - (avg(rate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)",
+            description="CPU usage percentage",
         )
-        mgr.register_recording_rule(node_recording)  # type: ignore[name-defined]
+        mgr.register_recording_rule(node_recording)
 
-        return mgr  # type: ignore[name-defined]
+        return mgr
 
     @staticmethod
     def get_storage_monitoring() -> MonitoringConfigManager:
         """Get storage monitoring template"""
-        _mgr=MonitoringConfigManager()
+        mgr = MonitoringConfigManager()
 
         # Add storage scrape config
-        storage_config=ScrapeConfig(  # type: ignore[call-arg]
-            _job_name="ceph-exporter",
-            _static_configs=[
+        storage_config = ScrapeConfig(
+            job_name="ceph-exporter",
+            static_configs=[
                 {
                     "targets": ["localhost:9283"],
                 }
             ],
         )
-        mgr.register_scrape_config(storage_config)  # type: ignore[name-defined]
+        mgr.register_scrape_config(storage_config)
 
-        return mgr  # type: ignore[name-defined]
+        return mgr
 
 
 ###############################################################################
 # Example Usage
 ###############################################################################
 
-if _name__== "__main__":  # type: ignore[name-defined]
+if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     # Create manager
-    _mgr=MonitoringConfigManager()
+    mgr = MonitoringConfigManager()
 
     # Add custom metric
-    custom_metric=MetricDefinition(  # type: ignore[call-arg]
-        _name="debvisor_custom_metric",
-        _type=MetricType.GAUGE,
-        _help_text="Custom application metric",
-        _labels=["app", "instance"],
+    custom_metric = MetricDefinition(
+        name="debvisor_custom_metric",
+        type=MetricType.GAUGE,
+        help_text="Custom application metric",
+        labels=["app", "instance"],
     )
-    mgr.register_metric(custom_metric)  # type: ignore[name-defined]
+    mgr.register_metric(custom_metric)
 
     # Add custom alert
-    custom_alert=AlertRule(  # type: ignore[call-arg]
-        _name="CustomAlertExample",
-        _expr="debvisor_custom_metric > 100",
-        _severity=AlertSeverity.WARNING,
-        _description="Custom metric exceeded threshold",
+    custom_alert = AlertRule(
+        name="CustomAlertExample",
+        expr="debvisor_custom_metric > 100",
+        severity=AlertSeverity.WARNING,
+        description="Custom metric exceeded threshold",
     )
-    mgr.register_alert_rule(custom_alert)  # type: ignore[name-defined]
+    mgr.register_alert_rule(custom_alert)
 
     # Export configuration
-    _config=mgr.export_configuration()  # type: ignore[name-defined]
-    print(f"Total metrics: {len(config['metrics'])}")  # type: ignore[name-defined]
-    print(f"Total alerts: {len(config['alert_rules'])}")  # type: ignore[name-defined]
+    config = mgr.export_configuration()
+    print(f"Total metrics: {len(config['metrics'])}")
+    print(f"Total alerts: {len(config['alert_rules'])}")
 
     # Get Kubernetes template
-    _k8s_mgr=MonitoringTemplates.get_kubernetes_monitoring()
-    print(f"K8s template scrape configs: {len(k8s_mgr.scrape_configs)}")  # type: ignore[name-defined]
+    k8s_mgr = MonitoringTemplates.get_kubernetes_monitoring()
+    print(f"K8s template scrape configs: {len(k8s_mgr.scrape_configs)}")

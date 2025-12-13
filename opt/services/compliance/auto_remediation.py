@@ -539,7 +539,7 @@ class AutoRemediationEngine:
 
         except Exception as e:
             _logger.error(f"Error executing remediation {record_id}: {e}", exc_info=True)  # type: ignore[name-defined]            record=RemediationRecord(  # type: ignore[call-arg]
-                _record_id=record_id,
+                _record_id=record_id,  # type: ignore[syntax]
                 _drift_id=drift.drift_id,
                 _rule_id=rule.rule_id,
                 _action=rule.action,

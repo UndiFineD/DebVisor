@@ -1,0 +1,802 @@
+{
+  "stats": {
+    "total_actions": 225,
+    "pinned": 212,
+    "unpinned": 0,
+    "deprecated": 0
+  },
+  "issues": [
+    {
+      "file": "ansible-inventory-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "ansible-inventory-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "ansible-inventory-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "ansible-inventory-validation.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "ansible-syntax-check.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "ansible-syntax-check.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "architecture.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "architecture.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "blocklist-integration-tests.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "blocklist-integration-tests.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "blocklist-integration-tests.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "blocklist-integration-tests.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "blocklist-validate.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "blocklist-validate.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "build-generator.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "build-generator.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "build-generator.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "chaos-testing.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "chaos-testing.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "codacy.yml",
+      "action": "actions/checkout",
+      "version": "v4",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "codacy.yml",
+      "action": "github/codeql-action/upload-sarif",
+      "version": "v3",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "codacy.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "codeql.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "commitlint.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "compliance.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "compliance.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "container-scan.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "container-scan.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "container-scan.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "container-scan.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "conventional-commits.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "dependency-review.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "deploy.yml",
+      "action": "workflow",
+      "severity": "MEDIUM",
+      "issue": "Workflow grants contents: write",
+      "recommendation": "Reduce to read or set at job level with least privilege"
+    },
+    {
+      "file": "deploy.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "doc-integrity.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "doc-integrity.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "doc-integrity.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "firstboot-smoke-test.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "firstboot-smoke-test.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "fuzz-testing.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "fuzz-testing.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "fuzzing.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "labeler.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "license-header-check.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "lint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "lint.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "manifest-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "manifest-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "manifest-validation.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "markdown-lint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "markdown-lint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "markdown-lint.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "actions/checkout",
+      "version": "v4",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "actions/setup-python",
+      "version": "v5",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "markdownlint.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "merge-guard.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "mutation-testing.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "mutation-testing.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "performance.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "push-generator.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "push-generator.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "release-please.yml",
+      "action": "workflow",
+      "severity": "MEDIUM",
+      "issue": "Workflow grants contents: write",
+      "recommendation": "Reduce to read or set at job level with least privilege"
+    },
+    {
+      "file": "release-reverify.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "release.yml",
+      "action": "workflow",
+      "severity": "MEDIUM",
+      "issue": "Workflow grants contents: write",
+      "recommendation": "Reduce to read or set at job level with least privilege"
+    },
+    {
+      "file": "release.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "reports.yml",
+      "action": "actions/checkout",
+      "version": "v4",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "reports.yml",
+      "action": "actions/setup-python",
+      "version": "v5",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "reports.yml",
+      "action": "actions/upload-artifact",
+      "version": "v4",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "reports.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "runner-smoke-test.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "runner-smoke.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "sbom-policy.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "sbom-policy.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "sbom.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "sbom.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "scorecard.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "secret-scan.yml",
+      "action": "github/codeql-action/upload-sarif",
+      "version": "v4",
+      "severity": "HIGH",
+      "issue": "Version not pinned to commit SHA",
+      "recommendation": "Use exact commit SHA for critical actions"
+    },
+    {
+      "file": "security.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "security.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "test-grafana.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "test-grafana.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "test-profile-summary.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "test-profile-summary.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "test.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "type-check.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "type-check.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "type-check.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "type-check.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "validate-blocklists.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-blocklists.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-blocklists.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "validate-configs.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "validate-dashboards.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-dashboards.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-dashboards.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "validate-fixtures.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-fixtures.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-fixtures.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "validate-grafana.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-grafana.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-grafana.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "validate-kustomize.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-kustomize.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "Workflow triggers include wildcard paths",
+      "recommendation": "Constrain paths to reduce unintended triggers"
+    },
+    {
+      "file": "validate-kustomize.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "validate-syntax.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "validate-syntax.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "vex-generate.yml",
+      "action": "workflow",
+      "severity": "LOW",
+      "issue": "No explicit permissions block at workflow top-level",
+      "recommendation": "Define minimal top-level permissions to avoid defaults"
+    },
+    {
+      "file": "vex-generate.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    },
+    {
+      "file": "_common.yml",
+      "action": "actions/checkout",
+      "severity": "LOW",
+      "issue": "Checkout missing fetch-depth: 0",
+      "recommendation": "Add fetch-depth: 0 when full history is required"
+    }
+  ]
+}

@@ -13,6 +13,7 @@ Author: DebVisor Team
 Date: November 28, 2025
 """
 
+import unittest
 import json
 from decimal import Decimal
 from typing import Any, Dict, List
