@@ -1,6 +1,6 @@
 # Planning Report: scripts\setup-runner-tools.sh
 
-Generated: 2025-12-13T19:19:52.788511
+Generated: 2025-12-13T19:26:38.202269
 Status: INVALID
 
 ## File Structure Validation

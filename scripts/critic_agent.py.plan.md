@@ -1,6 +1,6 @@
 # Planning Report: scripts\critic_agent.py
 
-Generated: 2025-12-13T19:19:52.703641
+Generated: 2025-12-13T19:26:38.102407
 Status: INVALID
 
 ## File Structure Validation

@@ -1,6 +1,6 @@
 # Planning Report: scripts\actions_inspector.py
 
-Generated: 2025-12-13T19:19:52.693944
+Generated: 2025-12-13T19:26:38.091824
 Status: INVALID
 
 ## File Structure Validation

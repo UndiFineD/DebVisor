@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_api_key_manager.py
 
-Generated: 2025-12-13T19:19:52.718445
+Generated: 2025-12-13T19:26:38.120823
 Status: INVALID
 
 ## File Structure Validation

@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_undefined_names.py
 
-Generated: 2025-12-13T19:19:52.766061
+Generated: 2025-12-13T19:26:38.181329
 Status: INVALID
 
 ## File Structure Validation
