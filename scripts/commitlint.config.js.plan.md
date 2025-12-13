@@ -1,1 +1,100 @@
-# Planning Report: scripts\commitlint.config.js\n\nGenerated: 2025-12-13T14:28:51.768326\nStatus: INVALID\n\n## File Structure Validation\n\n### Issues Found\n\n| Type | Line | Message |\n|------|------|---------|\n| missing_section | - | Missing 'Description' section. Should be in docstring after license header. |\n| missing_section | - | Missing 'Changelog' section. Should be in docstring after license header. |\n| missing_section | - | Missing 'Suggested Fixes' section. Should be in docstring after license header. |\n| missing_section | - | Missing 'Improvements' section. Should be in docstring after license header. |\n\n## Required Structure\n\nEach code file should have the following structure:\n\n```text\n#!/usr/bin/env python3  (shebang for .py files)\n# [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]\n\n"""\nModule description and purpose.\n\n## Description\nDetailed description of what this file does.\n\n## Changelog\n- Version X.X.X: Description of changes\n- Version X.X.Y: Description of changes\n\n## Suggested Fixes\n- Improvement 1\n- Improvement 2\n\n## Improvements\n- Enhancement 1\n- Enhancement 2\n"""\n\n# =====================================================\n# [Actual code starts here]\n# ===================================================== (2)\n```text\n\n## Fix Proposals\n\n### To Fix This File:\n\n1. Add shebang at line 1: `#!/usr/bin/env python3`\n1. Add license header (lines 2-11)\n1. Add module docstring with required sections:\n\n   - Description\n   - Changelog\n   - Suggested Fixes\n   - Improvements\n\n1. Separate docstring from code with blank line and comment divider\n\n### Example Template:\n\n```python\n#!/usr/bin/env python3\n# Copyright (c) 2025 DebVisor contributors\n# Licensed under the Apache License, Version 2.0 (the "License");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#     http://www.apache.org/licenses/LICENSE-2.0\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an "AS IS" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n\n"""\nBrief description of module.\n\n## Description (2)\nLonger description of what this module does.\n\n## Changelog (2)\n- 1.0.0: Initial version\n\n## Suggested Fixes (2)\n- None currently identified\n\n## Improvements (2)\n- Future enhancements\n"""\n\n# ===================================================== (3)\n# Implementation\n# ===================================================== (4)\n\n# Your code here...\n```text\n\n## Implementation Status\n\nMark items as complete with ✅ emoji:\n
+# Planning Report: scripts\commitlint.config.js
+Generated: 2025-12-13T14:56:11.294598
+Status: INVALID
+
+## File Structure Validation
+
+### Issues Found
+
+| Type | Line | Message |
+|------|------|---------|
+| missing_section | - | Missing 'Description' section. Should be in docstring after license header. |
+| missing_section | - | Missing 'Changelog' section. Should be in docstring after license header. |
+| missing_section | - | Missing 'Suggested Fixes' section. Should be in docstring after license header. |
+| missing_section | - | Missing 'Improvements' section. Should be in docstring after license header. |
+
+## Required Structure
+
+Each code file should have the following structure:
+
+```
+#!/usr/bin/env python3  (shebang for .py files)
+# [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
+
+"""
+Module description and purpose.
+
+## Description
+Detailed description of what this file does.
+
+## Changelog
+- Version X.X.X: Description of changes
+- Version X.X.Y: Description of changes
+
+## Suggested Fixes
+- Improvement 1
+- Improvement 2
+
+## Improvements
+- Enhancement 1
+- Enhancement 2
+"""
+
+# =====================================================
+# [Actual code starts here]
+# =====================================================
+```
+
+## Fix Proposals
+
+### To Fix This File:
+
+1. Add shebang at line 1: `#!/usr/bin/env python3`
+2. Add license header (lines 2-11)
+3. Add module docstring with required sections:
+   - Description
+   - Changelog
+   - Suggested Fixes
+   - Improvements
+4. Separate docstring from code with blank line and comment divider
+
+### Example Template:
+
+```python
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Brief description of module.
+
+## Description
+Longer description of what this module does.
+
+## Changelog
+- 1.0.0: Initial version
+
+## Suggested Fixes
+- None currently identified
+
+## Improvements
+- Future enhancements
+"""
+
+# =====================================================
+# Implementation
+# =====================================================
+
+# Your code here...
+```
+
+## Implementation Status
+Mark items as complete with ✅ emoji:
