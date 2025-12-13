@@ -15,7 +15,7 @@ from unittest.mock import patch, Mock
 import pytest
 import re
 from dataclasses import dataclass, field
-from typing import List, Optional, Any
+from typing import Dict, List, Optional, Any
 
 # Add the system path for imports
 try:
@@ -69,9 +69,9 @@ except ImportError:
 @pytest.fixture
 
 
-def mock_pci_devices() -> None:
+def mock_pci_devices() -> List[PCIDevice]:
     """Create mock PCI device data."""
-    return [  # type: ignore[return-value]
+    return [
         PCIDevice(
             address="0000:01:00.0",
             vendor_id="10de",
@@ -128,9 +128,9 @@ def mock_iommu_groups(mock_pci_devices):
 @pytest.fixture
 
 
-def mock_sysfs() -> None:
+def mock_sysfs() -> Dict[str, str]:
     """Mock sysfs filesystem structure."""
-    return {  # type: ignore[return-value]
+    return {
         "/sys/bus/pci/devices/0000:01:00.0/vendor": "0x10de\n",
         "/sys/bus/pci/devices/0000:01:00.0/device": "0x2484\n",
         "/sys/bus/pci/devices/0000:01:00.0/class": "0x030000\n",
@@ -145,12 +145,12 @@ def mock_sysfs() -> None:
 @pytest.fixture
 
 
-def passthrough_manager() -> None:
+def passthrough_manager() -> PassthroughManager:
     """Create PassthroughManager instance with mocked methods."""
     if HAS_PASSTHROUGH:
         manager = PassthroughManager()
     else:
-    # Create mock manager
+        # Create mock manager
         manager = Mock()
         manager.PROFILES = {
             "gaming": (
@@ -165,7 +165,7 @@ def passthrough_manager() -> None:
         manager._device_cache = []
         manager._iommu_groups = {}
 
-    return manager  # type: ignore[return-value]
+    return manager
 
 
 # =============================================================================
@@ -343,7 +343,7 @@ class TestErrorHandling:
     def test_permission_denied_simulation(self) -> None:
         """Test handling of permission denied errors."""
         with patch("builtins.open", side_effect=PermissionError("Access denied")):
-        # Simulate permission error when reading sysfs
+            # Simulate permission error when reading sysfs
             with pytest.raises(PermissionError):
                 open("/sys/bus/pci/devices/0000:01:00.0/driver_override", "w")
 
