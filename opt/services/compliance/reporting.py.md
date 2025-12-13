@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 174
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 
-**Context:**
-```
+### Context
+
+```python
             _content=self._generate_html(report_data)  # type: ignore[name-defined]
             # In a real scenario, we would write to a PDF file here.
             # For now, we'll save as .html but pretend it's what was asked
@@ -38,24 +37,29 @@ Items marked below as fixed:
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 183
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 
-**Context:**
-```
+### Context
+
+```python
 
         elif format.lower() == "html":
             _content=self._generate_html(report_data)  # type: ignore[name-defined]
@@ -63,24 +67,29 @@ Items marked below as fixed:
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 192
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 
-**Context:**
-```
+### Context
+
+```python
 
         elif format.lower() == "markdown":
             _content=self._generate_markdown(report_data)  # type: ignore[name-defined]
@@ -88,12 +97,16 @@ Items marked below as fixed:
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

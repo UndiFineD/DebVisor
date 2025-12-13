@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 153
 
-**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
                     if lines:
                         _last_entry=json.loads(lines[-1])
                         self.last_hash=last_entry.get("signature")
@@ -38,24 +37,29 @@ Items marked below as fixed:
             pass
 
     def log_rpc_call(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 188
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'dev-key'
 
-**Context:**
-```
+### Context
+
+```python
         if not secret_key:
             if os.getenv("FLASK_ENV") == "production":
                 raise ValueError("SECRET_KEY not set in production environment")
@@ -63,24 +67,29 @@ Items marked below as fixed:
 
         _signer=AuditSigner(secret_key=secret_key)
         _persistence=FileAuditPersistence(log_file)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 222
 
-**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
                     _principal=identity.principal_id
             except ImportError:
                 pass
@@ -88,12 +97,16 @@ Items marked below as fixed:
                 pass
 
             status="success"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -27,20 +27,19 @@ Total: 13 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**13 issues to fix:**
-
+### 13 issues to fix
 
 ### Issue at Line 8
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.
 """
 
@@ -48,24 +47,29 @@ import subprocess
 import json
 from pathlib import Path
 from typing import List, Dict, Any
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 71
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         # Flake8
         try:
@@ -73,24 +77,29 @@ from typing import List, Dict, Any
                 ['flake8', str(file_path), '--format=json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 71
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Flake8
         try:
@@ -98,24 +107,29 @@ from typing import List, Dict, Any
                 ['flake8', str(file_path), '--format=json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 90
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         # Mypy
         try:
@@ -123,24 +137,29 @@ from typing import List, Dict, Any
                 ['mypy', str(file_path), '--json'],
                 capture_output=True, text=True, timeout=15
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 90
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Mypy
         try:
@@ -148,24 +167,29 @@ from typing import List, Dict, Any
                 ['mypy', str(file_path), '--json'],
                 capture_output=True, text=True, timeout=15
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 109
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         # Bandit
         try:
@@ -173,24 +197,29 @@ from typing import List, Dict, Any
                 ['bandit', str(file_path), '-f', 'json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 109
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Bandit
         try:
@@ -198,24 +227,29 @@ from typing import List, Dict, Any
                 ['bandit', str(file_path), '-f', 'json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 140
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         # Shellcheck
         try:
@@ -223,24 +257,29 @@ from typing import List, Dict, Any
                 ['shellcheck', str(file_path), '-f', 'json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 140
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Shellcheck
         try:
@@ -248,24 +287,29 @@ from typing import List, Dict, Any
                 ['shellcheck', str(file_path), '-f', 'json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 164
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
         issues = []
 
         try:
@@ -273,24 +317,29 @@ from typing import List, Dict, Any
                 ['eslint', str(file_path), '--format=json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 164
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         issues = []
 
         try:
@@ -298,24 +347,29 @@ from typing import List, Dict, Any
                 ['eslint', str(file_path), '--format=json'],
                 capture_output=True, text=True, timeout=10
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 195
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
         issues = []
 
         try:
@@ -323,24 +377,29 @@ from typing import List, Dict, Any
                 ['golangci-lint', 'run', str(file_path), '--out-format=json'],
                 capture_output=True, text=True, timeout=20
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 195
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         issues = []
 
         try:
@@ -348,12 +407,16 @@ from typing import List, Dict, Any
                 ['golangci-lint', 'run', str(file_path), '--out-format=json'],
                 capture_output=True, text=True, timeout=20
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

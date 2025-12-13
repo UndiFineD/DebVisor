@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 237
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'dev-key-change-in-production'
 
-**Context:**
-```
+### Context
+
+```python
     # Note: In production, SECRET_KEY is enforced by opt.core.config.Settings
     SECRET_KEY=os.getenv("SECRET_KEY")
     if not SECRET_KEY and os.getenv("FLASK_ENV") != "production":
@@ -36,12 +35,16 @@ Items marked below as fixed:
 
     DEBUG=False
     TESTING=False
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

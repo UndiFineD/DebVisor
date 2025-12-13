@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 30
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import argparse
 import json
 import re
@@ -38,24 +37,29 @@ import subprocess
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List, Set, Tuple, Optional
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 358
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
     # Run mypy if requested
     if args.run_mypy:
         print("Running mypy...")
@@ -63,24 +67,29 @@ from typing import Dict, List, Set, Tuple, Optional
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
             _capture_output=True,
             _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 358
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
     # Run mypy if requested
     if args.run_mypy:
         print("Running mypy...")
@@ -88,12 +97,16 @@ from typing import Dict, List, Set, Tuple, Optional
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
             _capture_output=True,
             _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

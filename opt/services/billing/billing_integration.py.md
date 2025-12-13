@@ -20,20 +20,19 @@ Total: 6 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**6 issues to fix:**
-
+### 6 issues to fix
 
 ### Issue at Line 958
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> str:
         """Create customer in billing system."""
         self.initialize()
@@ -41,24 +40,29 @@ Items marked below as fixed:
         return await self._provider.create_customer(
             tenant_id, email, name, metadata or {}
         )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 972
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> Subscription:
         """Create subscription for tenant."""
         self.initialize()
@@ -66,24 +70,29 @@ Items marked below as fixed:
 
         subscription=await self._provider.create_subscription(
             customer_id, plan_id, trial_days
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 990
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> bool:
         """Cancel tenant subscription."""
         self.initialize()
@@ -91,24 +100,29 @@ Items marked below as fixed:
 
         _subscription=self._subscriptions.get(tenant_id)
         if not subscription:  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 1024
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> Invoice:
         """Create invoice for tenant."""
         self.initialize()
@@ -116,24 +130,29 @@ Items marked below as fixed:
 
         _invoice=await self._provider.create_invoice(customer_id, line_items)
         invoice.tenant_id=tenant_id  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 1065
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> Payment:
         """Process payment for invoice."""
         self.initialize()
@@ -141,24 +160,29 @@ Items marked below as fixed:
 
         _payment=await self._provider.process_payment(invoice_id, payment_method_id)
         payment.tenant_id=tenant_id  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 1099
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     ) -> bool:
         """Handle incoming webhook."""
         self.initialize()
@@ -166,12 +190,16 @@ Items marked below as fixed:
 
         # Verify signature
         _payload_bytes=json.dumps(payload, separators=(", ", ":")).encode()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

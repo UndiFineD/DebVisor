@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 107
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import os
 import platform
 import shutil
@@ -38,24 +37,29 @@ import subprocess
 import sys
 import tarfile
 import tempfile
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 1120
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
             # But old configs might conflict.
             # Strategy: Move old configs to a backup folder inside /etc/systemd/network/backup?
             # For now, let's just copy over.
@@ -63,24 +67,29 @@ import tempfile
                 f"cp -v {outdir}/*.network /etc/systemd/network/",
                 _shell=True,
                 _check=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 1125
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
                 _shell=True,
                 _check=True,
             )    # nosec B602, B607
@@ -88,12 +97,16 @@ import tempfile
                 f"cp -v {outdir}/*.netdev /etc/systemd/network/ 2>/dev/null || true",
                 _shell=True,
                 _check=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

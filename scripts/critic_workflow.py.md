@@ -16,45 +16,48 @@ Total: 2 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 10
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 """
 
 import sys
 import subprocess
 from pathlib import Path
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 48
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
     print(f"{'='*70}\n")
 
     try:
@@ -62,12 +65,16 @@ from pathlib import Path
             [sys.executable, str(script_path)],
             cwd=script_path.parent.parent,
             check=False
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

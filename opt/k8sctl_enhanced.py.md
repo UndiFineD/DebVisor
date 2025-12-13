@@ -16,20 +16,19 @@ Total: 2 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 30
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import argparse
 import json
 import logging
@@ -37,24 +36,29 @@ import subprocess
 import sys
 from dataclasses import asdict, dataclass
 from enum import Enum
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 408
 
-**Tool:** bandit | **Code:** `B608` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B608` |**Severity:** MEDIUM
 
 **Message:** Possible SQL injection vector through string-based query construction.
 
-**Context:**
-```
+### Context
+
+```python
                         "Run smoke tests",
                         "Monitor metrics on target cluster",
                         (
@@ -62,12 +66,16 @@ from enum import Enum
                             f"kubectl delete {resource_type} {workload_name} "
                             f"-n {namespace}"
                         ),
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

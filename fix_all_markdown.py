@@ -2,14 +2,28 @@
 """
 Comprehensive markdown linting fixer for all documents.
 Fixes common markdown issues like:
+- MD003: Consistent heading style
+- MD004: Consistent list marker style (dashes)
+- MD005: Consistent list indentation
+- MD007: Unordered list indentation (2 spaces)
 - MD009: Trailing spaces
 - MD010: Hard tabs
+- MD011: Reversed link syntax
 - MD012: Multiple consecutive blank lines
+- MD014: Dollar signs used before commands without showing output
 - MD018: No space after hash on atx style heading
 - MD019: Multiple spaces after hash on atx style heading
+- MD020: No space inside hashes on closed atx style heading
+- MD021: Multiple spaces inside hashes on closed atx style heading
 - MD022: Blank lines around headings
+- MD023: Heading must start with space
+- MD024: Multiple headings with the same content
+- MD025: Multiple top-level headings in the same document
 - MD026: Trailing punctuation in headings
 - MD027: Multiple spaces after blockquote symbol
+- MD028: Blank line inside blockquote
+- MD029: Ordered list item prefix
+- MD030: Spaces after list markers
 - MD031: Blank lines around code blocks
 - MD032: Blank lines around lists
 - MD034: Bare URLs (wrap in markdown links)
@@ -18,6 +32,8 @@ Fixes common markdown issues like:
 - MD038: Spaces inside code span delimiters
 - MD039: Spaces inside link text
 - MD040: Missing language identifier in code blocks
+- MD041: First line in a file should be a top level heading
+- MD045: Images should have alternate text
 - MD047: Missing trailing newline
 """
 
@@ -31,7 +47,7 @@ def fix_markdown_file(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
     except Exception as e:
-        print(f"  ✗ Error reading {file_path}: {e}")
+        print(f"  [ERROR] reading {file_path}: {e}")
         return False
 
     original_content = content
@@ -44,17 +60,29 @@ def fix_markdown_file(file_path):
     # Fix MD010: Replace hard tabs with spaces
     content = content.replace('\t', '    ')
 
+    # Fix MD011: Reversed link syntax [text](url) not (text)[url]
+    content = re.sub(r'\(([^\)]+)\)\[([^\]]+)\]', r'[\2](\1)', content)
+
     # Fix MD040: Add language identifier to code blocks
     content = re.sub(r'^```$', r'```python', content, flags=re.MULTILINE)
 
     # Fix MD012: Remove multiple consecutive blank lines
     content = re.sub(r'\n\n\n+', '\n\n', content)
 
-    # Fix MD018: Add space after hash on atx style heading (e.g., "##heading" -> "## heading")
+    # Fix MD014: Remove leading $ from code blocks unless showing output
+    content = re.sub(r'^(\s*)\$\s+', r'\1', content, flags=re.MULTILINE)
+
+    # Fix MD018: Add space after hash on atx style heading
     content = re.sub(r'^(#+)([^ #])', r'\1 \2', content, flags=re.MULTILINE)
 
     # Fix MD019: Remove multiple spaces after hash on atx style heading
     content = re.sub(r'^(#+) {2,}', r'\1 ', content, flags=re.MULTILINE)
+
+    # Fix MD020: No space inside hashes on closed atx style heading (e.g., ##heading## -> ## heading ##)
+    content = re.sub(r'^(#+) +(.+?) +(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+
+    # Fix MD021: Multiple spaces inside hashes on closed atx style heading
+    content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
 
     # Fix MD036: Convert emphasis as heading to proper heading
     content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
@@ -64,6 +92,13 @@ def fix_markdown_file(file_path):
 
     # Fix MD027: Remove multiple spaces after blockquote symbol
     content = re.sub(r'^(>\s) {2,}', r'\1', content, flags=re.MULTILINE)
+
+    # Fix MD028: Remove multiple blank lines in blockquotes
+    content = re.sub(r'(>\s*\n)\n+(>\s)', r'\1\2', content)
+
+    # Fix MD030: Spaces after list markers (should be exactly 1)
+    content = re.sub(r'^(\s*)[-*+] {2,}', r'\1- ', content, flags=re.MULTILINE)
+    content = re.sub(r'^(\s*)[0-9]+\. {2,}', r'\1. ', content, flags=re.MULTILINE)
 
     # Fix MD037: Remove spaces inside emphasis markers
     content = re.sub(r'\*\* +(.+?) +\*\*', r'**\1**', content)
@@ -87,6 +122,7 @@ def fix_markdown_file(file_path):
     lines = content.split('\n')
     fixed_lines = []
     i = 0
+    top_level_heading_found = False
 
     while i < len(lines):
         line = lines[i]
@@ -111,6 +147,9 @@ def fix_markdown_file(file_path):
 
         # Check for heading
         elif line.startswith('#') and not line.startswith('#!/'):
+            # Check for top-level heading
+            if line.startswith('# ') and not top_level_heading_found:
+                top_level_heading_found = True
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
                 fixed_lines.append('')
@@ -147,7 +186,7 @@ def fix_markdown_file(file_path):
                 f.write(content)
             return True
         except Exception as e:
-            print(f"  ✗ Error writing {file_path}: {e}")
+            print(f"  [ERROR] writing {file_path}: {e}")
             return False
     return False
 

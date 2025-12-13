@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 41
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -36,12 +35,16 @@ import subprocess
 
 _logger=logging.getLogger(__name__)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

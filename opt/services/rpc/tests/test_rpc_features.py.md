@@ -65,20 +65,19 @@ Total: 51 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**51 issues to fix:**
-
+### 51 issues to fix
 
 ### Issue at Line 57
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     async def test_pool_initialization(self, pool_config: PoolConfig) -> None:
         """Test pool initializes with minimum connections."""
         pool = ConnectionPool("localhost:50051", pool_config)
@@ -86,24 +85,29 @@ Items marked below as fixed:
 
         await pool.initialize()
         assert pool._initialized is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 60
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert pool._initialized is False
 
         await pool.initialize()
@@ -111,24 +115,29 @@ Items marked below as fixed:
         assert len(pool.available_connections) >= pool_config.min_connections    # type: ignore
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 61
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         await pool.initialize()
         assert pool._initialized is True
@@ -136,24 +145,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_pool_acquire_release(self, pool: ConnectionPool) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 69
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         initial_available = len(pool.available_connections)
 
         async with pool.acquire() as conn:
@@ -161,24 +175,29 @@ Items marked below as fixed:
             assert len(pool.available_connections) < initial_available
             assert conn in pool.in_use_connections
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 70
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         async with pool.acquire() as conn:
             assert conn is not None
@@ -186,24 +205,29 @@ Items marked below as fixed:
             assert conn in pool.in_use_connections
 
         # After release, connection should be back in available pool
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 71
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         async with pool.acquire() as conn:
             assert conn is not None
             assert len(pool.available_connections) < initial_available
@@ -211,24 +235,29 @@ Items marked below as fixed:
 
         # After release, connection should be back in available pool
         assert len(pool.available_connections) == initial_available
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 74
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             assert conn in pool.in_use_connections
 
         # After release, connection should be back in available pool
@@ -236,24 +265,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_pool_max_connections_limit(self, pool: ConnectionPool) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 86
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             ctx = pool.acquire()
             conn = await ctx.__aenter__()
             connections.append(ctx)
@@ -261,24 +295,29 @@ Items marked below as fixed:
 
         # Fourth acquire should timeout
         with pytest.raises(TimeoutError):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 105
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             conn2_id = id(conn2)
 
         # Same connection object should be reused
@@ -286,24 +325,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_pool_metrics(self, pool: ConnectionPool) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 114
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             pass
 
         metrics = pool.get_metrics()
@@ -311,24 +355,29 @@ Items marked below as fixed:
         assert metrics["available"] >= 0
         assert metrics["in_use"] == 0
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 115
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         metrics = pool.get_metrics()
         assert metrics["reused"] > 0
@@ -336,24 +385,29 @@ Items marked below as fixed:
         assert metrics["in_use"] == 0
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 116
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         metrics = pool.get_metrics()
         assert metrics["reused"] > 0
         assert metrics["available"] >= 0
@@ -361,24 +415,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_pool_close(self, pool: ConnectionPool) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 139
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         pool.config.connection_ttl_seconds = 1
 
         conn = PooledConnection(mock_channel, pool)
@@ -386,24 +445,29 @@ Items marked below as fixed:
 
         # Simulate age
         conn.created_at -= 2    # 2 seconds ago
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 143
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Simulate age
         conn.created_at -= 2    # 2 seconds ago
@@ -411,74 +475,87 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_connection_health_check(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 160
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with patch("grpc.health.v1.health_pb2_grpc.HealthStub") as mock_health:  # type: ignore[name-defined]
             mock_health.return_value.Check.return_value = mock_response
             result = await conn.health_check()
             assert result is True
             assert conn.healthy is True
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 161
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             mock_health.return_value.Check.return_value = mock_response
             result = await conn.health_check()
             assert result is True
             assert conn.healthy is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 192
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Small payload should not compress
         algo = manager.select_algorithm(small_payload_size)
@@ -486,24 +563,29 @@ Items marked below as fixed:
 
         # Large payload should compress
         large_payload_size = 5000
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 197
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Large payload should compress
         large_payload_size = 5000
         algo = manager.select_algorithm(large_payload_size)
@@ -511,24 +593,29 @@ Items marked below as fixed:
 
     def test_gzip_compression(self, manager: CompressionManager) -> None:
         """Test GZIP compression."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 205
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         compressed, algo = manager.compress(data, CompressionAlgorithm.GZIP)
 
@@ -536,24 +623,29 @@ Items marked below as fixed:
         assert len(compressed) < len(data)
         assert compressed.startswith(b"\x1f\x8b")    # GZIP magic number
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 206
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         compressed, algo = manager.compress(data, CompressionAlgorithm.GZIP)
 
         assert algo == CompressionAlgorithm.GZIP
@@ -561,24 +653,29 @@ Items marked below as fixed:
         assert compressed.startswith(b"\x1f\x8b")    # GZIP magic number
 
     def test_gzip_decompression(self, manager: CompressionManager) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 207
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert algo == CompressionAlgorithm.GZIP
         assert len(compressed) < len(data)
@@ -586,24 +683,29 @@ Items marked below as fixed:
 
     def test_gzip_decompression(self, manager: CompressionManager) -> None:
         """Test GZIP decompression."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 216
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         compressed, algo = manager.compress(original_data, CompressionAlgorithm.GZIP)
         decompressed = manager.decompress(compressed, algo)
 
@@ -611,24 +713,29 @@ Items marked below as fixed:
 
     def test_compression_no_benefit(self, manager: CompressionManager) -> None:
         """Test that compression is skipped if it doesn't reduce size."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 227
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # If compression increases size, should return NONE
         if len(compressed) >= len(data):
@@ -636,24 +743,29 @@ Items marked below as fixed:
 
     def test_compression_metrics(self, manager: CompressionManager) -> None:
         """Test compression metrics tracking."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 237
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         manager.compress(data, CompressionAlgorithm.GZIP)
 
         metrics = manager.get_metrics()
@@ -661,24 +773,29 @@ Items marked below as fixed:
         assert metrics["compressed_requests"] > 0
         assert 0 < metrics["compression_ratio"] < 1
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 238
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         metrics = manager.get_metrics()
         assert metrics["total_requests"] > 0
@@ -686,24 +803,29 @@ Items marked below as fixed:
         assert 0 < metrics["compression_ratio"] < 1
 
     def test_compression_error_handling(self, manager: CompressionManager) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 239
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         metrics = manager.get_metrics()
         assert metrics["total_requests"] > 0
         assert metrics["compressed_requests"] > 0
@@ -711,49 +833,58 @@ Items marked below as fixed:
 
     def test_compression_error_handling(self, manager: CompressionManager) -> None:
         """Test error handling in compression."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 251
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Metrics should record error
         metrics = manager.get_metrics()
         assert metrics["errors"] > 0
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 269
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_supported_versions(self, negotiator: VersionNegotiator) -> None:
         """Test listing supported versions."""
         supported = negotiator.get_supported_versions()
@@ -761,24 +892,29 @@ Items marked below as fixed:
         assert "2.0" in supported
 
     def test_version_negotiation_client_preference(self, negotiator: VersionNegotiator) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 270
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test listing supported versions."""
         supported = negotiator.get_supported_versions()
         assert "1.0" in supported
@@ -786,24 +922,29 @@ Items marked below as fixed:
 
     def test_version_negotiation_client_preference(self, negotiator: VersionNegotiator) -> None:
         """Test version negotiation respects client preference."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 277
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         client_versions = ["2.0", "1.0"]
         negotiated = negotiator.negotiate_version(client_versions)
 
@@ -811,24 +952,29 @@ Items marked below as fixed:
 
     def test_version_negotiation_fallback(self, negotiator: VersionNegotiator) -> None:
         """Test version negotiation fallback to server version."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 288
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_version_validation(self, negotiator: VersionNegotiator) -> None:
         """Test version validation."""
@@ -836,24 +982,29 @@ Items marked below as fixed:
         assert negotiator.validate_version("2.0") is True
         assert negotiator.validate_version("99.0") is False
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 289
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_version_validation(self, negotiator: VersionNegotiator) -> None:
         """Test version validation."""
         assert negotiator.validate_version("1.0") is True
@@ -861,24 +1012,29 @@ Items marked below as fixed:
         assert negotiator.validate_version("99.0") is False
 
     def test_deprecation_warnings(self, negotiator: VersionNegotiator) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 290
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test version validation."""
         assert negotiator.validate_version("1.0") is True
         assert negotiator.validate_version("2.0") is True
@@ -886,74 +1042,87 @@ Items marked below as fixed:
 
     def test_deprecation_warnings(self, negotiator: VersionNegotiator) -> None:
         """Test deprecation warnings."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 308
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         negotiator.negotiate_version(["2.0"])
 
         metrics = negotiator.get_adoption_metrics()
         assert metrics["1.0"] == 1
         assert metrics["2.0"] == 2
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 309
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         metrics = negotiator.get_adoption_metrics()
         assert metrics["1.0"] == 1
         assert metrics["2.0"] == 2
 
-
 class TestVersionedRouter:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 328
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         router.register_handler(APIVersion.V1_0, "list_nodes", mock_handler)
 
@@ -961,24 +1130,29 @@ class TestVersionedRouter:
 
     def test_request_routing(self, router: VersionedRequestRouter) -> None:
         """Test routing requests to appropriate handlers."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 339
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         router.register_handler(APIVersion.V2_0, "list_nodes", mock_handler_v2)
 
         result = router.route("1.0", "list_nodes", arg1="value1")
@@ -986,24 +1160,29 @@ class TestVersionedRouter:
         mock_handler_v1.assert_called_once_with(arg1="value1")
 
         result = router.route("2.0", "list_nodes", arg1="value2")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 343
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         mock_handler_v1.assert_called_once_with(arg1="value1")
 
         result = router.route("2.0", "list_nodes", arg1="value2")
@@ -1011,24 +1190,29 @@ class TestVersionedRouter:
         mock_handler_v2.assert_called_once_with(arg1="value2")
 
     def test_operation_not_found(self, router: VersionedRequestRouter) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         router.register_handler(APIVersion.V2_0, "list_nodes", Mock())  # type: ignore[name-defined]
 
         matrix = router.get_compatibility_matrix()
@@ -1036,74 +1220,87 @@ class TestVersionedRouter:
         assert "get_node" in matrix["1.0"]
         assert "list_nodes" in matrix["2.0"]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 361
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         matrix = router.get_compatibility_matrix()
         assert "list_nodes" in matrix["1.0"]
         assert "get_node" in matrix["1.0"]
         assert "list_nodes" in matrix["2.0"]
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 362
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         matrix = router.get_compatibility_matrix()
         assert "list_nodes" in matrix["1.0"]
         assert "get_node" in matrix["1.0"]
         assert "list_nodes" in matrix["2.0"]
 
-
 class TestBackwardCompatibility:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 377
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         v2_response = BackwardCompatibilityLayer.convert_v1_response_to_v2(v1_response)
 
@@ -1111,24 +1308,29 @@ class TestBackwardCompatibility:
         assert "status_code" in v2_response
         assert v2_response["status_code"] == 200
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 378
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         v2_response = BackwardCompatibilityLayer.convert_v1_response_to_v2(v1_response)
 
         assert "nodes_list" in v2_response
@@ -1136,24 +1338,29 @@ class TestBackwardCompatibility:
         assert v2_response["status_code"] == 200
 
     def test_v2_to_v1_request_conversion(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 379
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert "nodes_list" in v2_response
         assert "status_code" in v2_response
@@ -1161,74 +1368,87 @@ class TestBackwardCompatibility:
 
     def test_v2_to_v1_request_conversion(self) -> None:
         """Test converting V2 request to V1 format."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 390
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         v1_request = BackwardCompatibilityLayer.convert_v2_request_to_v1(v2_request)
 
         assert "pool_id" not in v1_request
         assert "filter" in v1_request
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 391
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         v1_request = BackwardCompatibilityLayer.convert_v2_request_to_v1(v2_request)
 
         assert "pool_id" not in v1_request
         assert "filter" in v1_request
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 413
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Test acquiring connection and compressing data
         async with pool.acquire() as conn:
@@ -1236,24 +1456,29 @@ class TestBackwardCompatibility:
 
             # Test compression
             data = b"Test data " * 100
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 420
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             compressed, algo = compression_manager.compress(data)
             decompressed = compression_manager.decompress(compressed, algo)
 
@@ -1261,24 +1486,29 @@ class TestBackwardCompatibility:
 
         await pool.close()
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 436
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Negotiate version
         negotiated_version = negotiator.negotiate_version(["2.0", "1.0"])
@@ -1286,24 +1516,29 @@ class TestBackwardCompatibility:
 
         # Acquire connection
         async with pool.acquire() as conn:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 440
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Acquire connection
         async with pool.acquire() as conn:
@@ -1311,24 +1546,29 @@ class TestBackwardCompatibility:
 
             # Compress data
             data = b"Integration test data " * 50
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 445
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             # Compress data
             data = b"Integration test data " * 50
             compressed, algo = compression_manager.compress(data)
@@ -1336,12 +1576,16 @@ class TestBackwardCompatibility:
 
         await pool.close()
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

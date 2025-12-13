@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_property_based.py
+
 Generated: 2025-12-13T15:24:59.869534
 Source: tests\test_property_based.py
 
 ## Issues Summary
+
 Total: 39 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -48,22 +50,22 @@ Total: 39 issues found
 | 482 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**39 issues to fix:**
-
+### 39 issues to fix
 
 ### Issue at Line 146
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "original_amount",
             "status",
         }
@@ -71,24 +73,29 @@ Items marked below as fixed:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 153
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_debt_amounts_are_positive(self, debt: Dict[str, Any]) -> None:
         """Property: Debt amounts must be positive."""
@@ -96,24 +103,29 @@ Items marked below as fixed:
         assert debt["current_balance"] >= 0
 
     @given(debt=debt_record())
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 154
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_debt_amounts_are_positive(self, debt: Dict[str, Any]) -> None:
         """Property: Debt amounts must be positive."""
         assert debt["original_amount"] > 0
@@ -121,24 +133,29 @@ Items marked below as fixed:
 
     @given(debt=debt_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 169
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "disputed",
             "cancelled",
         }
@@ -146,74 +163,87 @@ Items marked below as fixed:
 
     @given(original=money_strategy, payments=st.lists(money_strategy, max_size=10))
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 181
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         total_payments = sum(payments, Decimal("0"))
         balance = max(Decimal("0"), original - total_payments)
 
         assert balance >= 0
         assert balance <= original
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 182
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         balance = max(Decimal("0"), original - total_payments)
 
         assert balance >= 0
         assert balance <= original
 
-
 class TestPaymentValidationProperties:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 194
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_payment_has_required_fields(self, payment: Dict[str, Any]) -> None:
         """Property: All payments must have required fields."""
         required_fields = {"id", "debt_id", "amount", "method", "status"}
@@ -221,24 +251,29 @@ class TestPaymentValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 201
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_payment_amount_is_positive(self, payment: Dict[str, Any]) -> None:
         """Property: Payment amounts must be positive."""
@@ -246,124 +281,147 @@ class TestPaymentValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 209
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_payment_method_is_valid(self, payment: Dict[str, Any]) -> None:
         """Property: Payment method must be from allowed set."""
         valid_methods = {"ach", "card", "check", "wire", "cash"}
         assert payment["method"] in valid_methods
 
-
 class TestUserValidationProperties:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 221
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_user_email_format(self, user: Dict[str, Any]) -> None:
         """Property: User email must be valid format."""
         email = user["email"]
         assert "@" in email
-        assert "." in email.split("@")[1]
+        assert "." in email.split[1]("@")
 
     @given(user=user_record())
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 222
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: User email must be valid format."""
         email = user["email"]
         assert "@" in email
-        assert "." in email.split("@")[1]
+        assert "." in email.split[1]("@")
 
     @given(user=user_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 230
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_user_role_is_valid(self, user: Dict[str, Any]) -> None:
         """Property: User role must be from allowed set."""
         valid_roles = {"consumer", "agent", "admin"}
         assert user["role"] in valid_roles
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 246
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(debt)
         deserialized = json.loads(serialized)
@@ -371,24 +429,29 @@ class TestUserValidationProperties:
 
     @given(payment=payment_record())
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 255
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: JSON serialization roundtrip preserves data."""
         serialized = json.dumps(payment)
         deserialized = json.loads(serialized)
@@ -396,49 +459,58 @@ class TestUserValidationProperties:
 
     @given(
         _data = st.dictionaries(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 278
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: Arbitrary dictionaries survive JSON roundtrip."""
         serialized = json.dumps(data)
         deserialized = json.loads(serialized)
         assert data == deserialized
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 308
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -446,24 +518,29 @@ class TestUserValidationProperties:
         assert "success" in response
         assert isinstance(response["success"], bool)
         assert response["success"] == (200 <= status_code < 300)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 309
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         }
 
         assert "status" in response
@@ -471,24 +548,29 @@ class TestUserValidationProperties:
         assert isinstance(response["success"], bool)
         assert response["success"] == (200 <= status_code < 300)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 310
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert "status" in response
         assert "success" in response
@@ -496,24 +578,29 @@ class TestUserValidationProperties:
         assert response["success"] == (200 <= status_code < 300)
 
     @given(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 311
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert "status" in response
         assert "success" in response
         assert isinstance(response["success"], bool)
@@ -521,24 +608,29 @@ class TestUserValidationProperties:
 
     @given(
         items=st.lists(debt_record(), max_size=50),
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 333
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         page_items = items[start_idx:end_idx] if start_idx < total else []
 
         # Invariants
@@ -546,99 +638,117 @@ class TestUserValidationProperties:
         if page <= total_pages and total > 0:
             if page < total_pages:
                 assert len(page_items) == per_page
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 336
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(page_items) <= per_page
         if page <= total_pages and total > 0:
             if page < total_pages:
                 assert len(page_items) == per_page
         assert start_idx >= 0
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 337
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if page <= total_pages and total > 0:
             if page < total_pages:
                 assert len(page_items) == per_page
         assert start_idx >= 0
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         daily_rate = rate / Decimal("365")
-        interest = principal * daily_rate * days
+        interest = principal *daily_rate* days
 
         assert interest >= 0
 
     @given(
         debt_amount=money_strategy,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 376
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: Fees are bounded correctly."""
         fee = debt_amount * fee_percent
 
@@ -646,24 +756,29 @@ class TestUserValidationProperties:
         assert fee <= debt_amount * Decimal("0.50")    # Max 50% fee
 
     @given(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 377
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         fee = debt_amount * fee_percent
 
         assert fee >= 0
@@ -671,49 +786,58 @@ class TestUserValidationProperties:
 
     @given(
         payments=st.lists(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 394
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify sorted
         for i in range(len(sorted_payments) - 1):
             assert sorted_payments[i][0] <= sorted_payments[i + 1][0]
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 417
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         is_limited = requests > limit
         remaining = max(0, limit - requests)
 
@@ -721,24 +845,29 @@ class TestUserValidationProperties:
         assert remaining <= limit
         assert is_limited == (requests > limit)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 418
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         remaining = max(0, limit - requests)
 
         assert remaining >= 0
@@ -746,24 +875,29 @@ class TestUserValidationProperties:
         assert is_limited == (requests > limit)
 
     @given(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 419
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert remaining >= 0
         assert remaining <= limit
@@ -771,74 +905,87 @@ class TestUserValidationProperties:
 
     @given(
         burst_limit=st.integers(min_value=1, max_value=100),
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 436
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Token bucket state
         current_tokens = burst_limit    # Start full
 
         assert current_tokens >= 0
         assert current_tokens <= burst_limit
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 437
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         current_tokens = burst_limit    # Start full
 
         assert current_tokens >= 0
         assert current_tokens <= burst_limit
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 454
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Simple masking: show last 4
         masked = "***-**-" + ssn[-4:]
 
@@ -846,24 +993,29 @@ class TestUserValidationProperties:
         assert masked[-4:] == ssn[-4:]
         assert "*" in masked
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 455
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         masked = "***-**-" + ssn[-4:]
 
         assert len(masked) == len(ssn)
@@ -871,24 +1023,29 @@ class TestUserValidationProperties:
         assert "*" in masked
 
     @given(card=st.from_regex(r"[0-9]{16}", fullmatch=True))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 456
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert len(masked) == len(ssn)
         assert masked[-4:] == ssn[-4:]
@@ -896,24 +1053,29 @@ class TestUserValidationProperties:
 
     @given(card=st.from_regex(r"[0-9]{16}", fullmatch=True))
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 465
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Property: Credit card masking preserves last 4 digits."""
         masked = "*" * 12 + card[-4:]
 
@@ -921,24 +1083,29 @@ class TestUserValidationProperties:
         assert masked[-4:] == card[-4:]
         assert masked[:12] == "*" * 12
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 466
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         masked = "*" * 12 + card[-4:]
 
         assert len(masked) == 16
@@ -946,24 +1113,29 @@ class TestUserValidationProperties:
         assert masked[:12] == "*" * 12
 
     @given(email=email_strategy)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 467
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert len(masked) == 16
         assert masked[-4:] == card[-4:]
@@ -971,62 +1143,74 @@ class TestUserValidationProperties:
 
     @given(email=email_strategy)
     @settings(max_examples=100)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 481
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             masked_local = "*" * len(local)
         masked = f"{masked_local}@{domain}"
 
         assert "@" in masked
         assert domain in masked
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 482
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         masked = f"{masked_local}@{domain}"
 
         assert "@" in masked
         assert domain in masked
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -19,20 +19,19 @@ Total: 5 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**5 issues to fix:**
-
+### 5 issues to fix
 
 ### Issue at Line 113
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 
 import os
 import shutil
@@ -40,24 +39,29 @@ import subprocess
 import logging
 import sys
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 191
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 def validate_and_restart() -> None:
     """Validates config syntax and restarts service."""
     try:
@@ -65,24 +69,29 @@ def validate_and_restart() -> None:
         logger.info("SSHD configuration syntax is valid.")  # type: ignore[name-defined]
     except subprocess.CalledProcessError:
         logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 191
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 def validate_and_restart() -> None:
     """Validates config syntax and restarts service."""
     try:
@@ -90,24 +99,29 @@ def validate_and_restart() -> None:
         logger.info("SSHD configuration syntax is valid.")  # type: ignore[name-defined]
     except subprocess.CalledProcessError:
         logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 199
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
         sys.exit(1)
 
     try:
@@ -115,24 +129,29 @@ def validate_and_restart() -> None:
         logger.info("SSHD service restarted successfully.")  # type: ignore[name-defined]
     except subprocess.CalledProcessError:
         logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 199
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         sys.exit(1)
 
     try:
@@ -140,12 +159,16 @@ def validate_and_restart() -> None:
         logger.info("SSHD service restarted successfully.")  # type: ignore[name-defined]
     except subprocess.CalledProcessError:
         logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

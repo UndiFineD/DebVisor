@@ -16,20 +16,19 @@ Total: 2 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 287
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'dev-key'
 
-**Context:**
-```
+### Context
+
+```python
                 if not secret_key:
                     if os.getenv("FLASK_ENV") == "production":
                         raise ValueError("SECRET_KEY not set in production environment")
@@ -37,24 +36,29 @@ Items marked below as fixed:
 
                 _signer=AuditSigner(secret_key=secret_key)
                 entry.signature=signer.sign(core_entry)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 395
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'dev-key'
 
-**Context:**
-```
+### Context
+
+```python
         if not secret_key:
         # Fallback for dev/test if not set, matching log_operation logic
             if os.getenv("FLASK_ENV") != "production":
@@ -62,12 +66,16 @@ Items marked below as fixed:
             else:
                 return {"valid": False, "error": "SECRET_KEY not set"}
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

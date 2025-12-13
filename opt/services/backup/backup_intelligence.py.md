@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 1230
 
-**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         now = datetime.now(timezone.utc)
         for days_ago in range(7):
             backup_time=now - timedelta(  # type: ignore[call-arg, name-defined]
@@ -36,12 +35,16 @@ Items marked below as fixed:
             )    # nosec B311
             bi.sla_tracker.record_backup(vm_id, backup_time)  # type: ignore[name-defined]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

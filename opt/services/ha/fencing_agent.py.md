@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 117
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 from __future__ import annotations
 from datetime import datetime, timezone
 import logging
@@ -38,24 +37,29 @@ import subprocess
 import json
 import time
 import hashlib
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 324
 
-**Tool:** bandit | **Code:** `B113` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B113` |**Severity:** MEDIUM
 
 **Message:** Call to requests without timeout
 
-**Context:**
-```
+### Context
+
+```python
         try:
             logger.info(f"Redfish: Executing {action.value} on {target.node_id}")
 
@@ -63,37 +67,46 @@ import hashlib
                 url,
                 _json={"ResetType": reset_type},
                 _auth=(user, password),
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 373
 
-**Tool:** bandit | **Code:** `B113` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B113` |**Severity:** MEDIUM
 
 **Message:** Call to requests without timeout
 
-**Context:**
-```
+### Context
+
+```python
 
         try:
-            url=f"https://{host}/redfish/v1/Systems/1"
+            url=f"[https://{host}/redfish/v1/Systems/1"](https://{host}/redfish/v1/Systems/1")
             response=requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),
                 _verify=self.verify_ssl,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

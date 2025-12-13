@@ -17,20 +17,19 @@ Total: 3 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 902
 
-**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         # Check service-specific rules
         for rule in self.rules:
             if self._match_rule(rule, trace_context):
@@ -38,24 +37,29 @@ Items marked below as fixed:
 
         return random.random() < self.base_sample_rate
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 904
 
-**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             if self._match_rule(rule, trace_context):
                 return random.random() < rule.sample_rate
 
@@ -63,24 +67,29 @@ Items marked below as fixed:
 
     def _evaluate_rules(self, ctx: TraceContext) -> SamplingDecision:
         """Evaluate sampling rules against trace context."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 929
 
-**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             # Safe evaluation of condition
                 if self._evaluate_condition(rule.condition, eval_ctx):
                     rule.hit_count += 1
@@ -88,12 +97,16 @@ Items marked below as fixed:
                         return SamplingDecision.SAMPLED
                     else:
                         return SamplingDecision.DROPPED
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

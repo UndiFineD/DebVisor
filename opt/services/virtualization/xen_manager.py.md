@@ -28,20 +28,19 @@ Total: 14 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**14 issues to fix:**
-
+### 14 issues to fix
 
 ### Issue at Line 127
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import logging
 import os
 import re
@@ -49,24 +48,29 @@ import subprocess
 import tempfile
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 241
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
         """Check if Xen is available on the system."""
         try:
         # Check for xl command
@@ -74,24 +78,29 @@ from datetime import datetime, timezone
                 ["xl", "info"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 241
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         """Check if Xen is available on the system."""
         try:
         # Check for xl command
@@ -99,24 +108,29 @@ from datetime import datetime, timezone
                 ["xl", "info"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 266
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         try:
         # Get Xen info
@@ -124,24 +138,29 @@ from datetime import datetime, timezone
                 ["xl", "info"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 266
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         try:
         # Get Xen info
@@ -149,24 +168,29 @@ from datetime import datetime, timezone
                 ["xl", "info"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
             return []
 
         try:
@@ -174,24 +198,29 @@ from datetime import datetime, timezone
                 ["xl", "list"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
             return []
 
         try:
@@ -199,24 +228,29 @@ from datetime import datetime, timezone
                 ["xl", "list"],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 489
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
                 _temp_config_fd=None  # Mark as closed
 
             # Create VM using temporary config
@@ -224,24 +258,29 @@ from datetime import datetime, timezone
                 ["xl", "create", temp_config_path],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 489
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
                 _temp_config_fd=None  # Mark as closed
 
             # Create VM using temporary config
@@ -249,24 +288,29 @@ from datetime import datetime, timezone
                 ["xl", "create", temp_config_path],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 519
 
-**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
             if temp_config_fd is not None:
                 try:
                     os.close(temp_config_fd)
@@ -274,24 +318,29 @@ from datetime import datetime, timezone
                     pass
 
             if temp_config_path and os.path.exists(temp_config_path):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 605
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
     async def start_vm(self, vmid: str) -> bool:
         """Start a Xen VM."""
         try:
@@ -299,24 +348,29 @@ from datetime import datetime, timezone
                 ["xl", "unpause", vm_id],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 605
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
     async def start_vm(self, vmid: str) -> bool:
         """Start a Xen VM."""
         try:
@@ -324,24 +378,29 @@ from datetime import datetime, timezone
                 ["xl", "unpause", vm_id],
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 627
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         try:
             command=["xl", "destroy" if force else "shutdown", vm_id]
 
@@ -349,24 +408,29 @@ from datetime import datetime, timezone
                 command,
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 657
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
                 command.append("--live")
             command.extend([vm_id, target_host])
 
@@ -374,12 +438,16 @@ from datetime import datetime, timezone
                 command,
                 _capture_output=True,
                 _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 125
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import logging
 from datetime import timezone, datetime
 import psutil
@@ -36,12 +35,16 @@ import subprocess
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any
 from enum import Enum
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

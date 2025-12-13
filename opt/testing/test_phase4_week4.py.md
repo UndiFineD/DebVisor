@@ -74,20 +74,19 @@ Total: 60 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**60 issues to fix:**
-
+### 60 issues to fix
 
 ### Issue at Line 132
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Set
         l1_cache["key"] = "value"
@@ -95,24 +94,29 @@ Items marked below as fixed:
 
         # Get
         assert l1_cache.get("key") == "value"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 135
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert l1_cache["key"] == "value"
 
         # Get
@@ -120,24 +124,29 @@ Items marked below as fixed:
         assert l1_cache.get("missing") is None
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 136
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Get
         assert l1_cache.get("key") == "value"
@@ -145,24 +154,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_redis_cache_operations(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 148
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         await mock_redis.set("key", "value")
         _val=await mock_redis.get("key")
 
@@ -170,24 +184,29 @@ Items marked below as fixed:
         mock_redis.set.assert_called_with("key", "value")
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 160
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Read from L1 (miss)
         _val=l1_cache.get("key")
@@ -195,24 +214,29 @@ Items marked below as fixed:
 
         # Fallback to L2
         _val=await mock_l2.get("key")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 164
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Fallback to L2
         _val=await mock_l2.get("key")
@@ -220,24 +244,29 @@ Items marked below as fixed:
 
         # Populate L1
         l1_cache["key"] = val
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 168
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Populate L1
         l1_cache["key"] = val
@@ -245,24 +274,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_cache_decorator(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 181
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # First call (miss)
         _res=await cached_func("test")
@@ -270,24 +304,29 @@ Items marked below as fixed:
 
         # Simulate cache hit logic
         mock_cache.get.return_value="cached_result"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 188
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if await mock_cache.get("test"):
             res="cached_result"
 
@@ -295,24 +334,29 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_cache_invalidation_patterns(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 201
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         for key in keys:
             await mock_redis.delete(key)
 
@@ -320,49 +364,58 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_cache_failure_fallback(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 215
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Fallback logic
             val="fallback_value"
 
         assert val == "fallback_value"
 
-
 class TestQueryOptimization:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 231
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if query["select"] == "*":
             query=optimized  # type: ignore[assignment]
 
@@ -370,24 +423,29 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_pagination_optimizer(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 242
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         query["limit"] = query.get("limit", 20)
         query["offset"] = query.get("offset", 0)
 
@@ -395,24 +453,29 @@ class TestQueryOptimization:
         assert query["offset"] == 0
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 243
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         query["offset"] = query.get("offset", 0)
 
         assert query["limit"] == 20
@@ -420,24 +483,29 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_filter_pushdown(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 253
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Reorder filters (id first)
         optimized=sorted(filters, key=lambda x: 0 if x["col"] == "id" else 1)
 
@@ -445,24 +513,29 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_lazy_loading_optimizer(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 264
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Access relationship
         relationship_loaded=True
 
@@ -470,24 +543,29 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_query_profiling(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 274
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         time.sleep(0.001)
         _duration=time.time() - start
 
@@ -495,24 +573,29 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_n_plus_one_detection(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 284
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Detect N+1
         is_n_plus_one=len(queries) > 3 and len(set(queries)) == 1
 
@@ -520,74 +603,87 @@ class TestQueryOptimization:
 
     @pytest.mark.asyncio
     async def test_optimization_report_generation(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 295
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "recommendations": ["Add index on user_id"],
         }
 
         assert report["total_queries"] == 10
         assert len(report["recommendations"]) > 0  # type: ignore[arg-type]
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 296
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         }
 
         assert report["total_queries"] == 10
         assert len(report["recommendations"]) > 0  # type: ignore[arg-type]
 
-
 class TestPerformanceProfiling:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 313
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         await profiled_func()
         _duration=time.time() - start
 
@@ -595,24 +691,29 @@ class TestPerformanceProfiling:
 
     @pytest.mark.asyncio
     async def test_sync_function_profiling(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 327
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         profiled_func()
         _duration=time.time() - start
 
@@ -620,24 +721,29 @@ class TestPerformanceProfiling:
 
     def test_monitoring_context_manager(self) -> None:
         """Test monitoring context manager"""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 347
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with Monitor():
             pass
 
@@ -645,24 +751,29 @@ class TestPerformanceProfiling:
         assert exited
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 348
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             pass
 
         assert entered
@@ -670,24 +781,29 @@ class TestPerformanceProfiling:
 
     @pytest.mark.asyncio
     async def test_resource_snapshot_capture(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 355
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test resource snapshot collection"""
         snapshot={"cpu": 10.5, "memory": 512, "disk": 1024}
 
@@ -695,24 +811,29 @@ class TestPerformanceProfiling:
         assert snapshot["memory"] > 0
 
     def test_slow_function_detection(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 356
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         snapshot={"cpu": 10.5, "memory": 512, "disk": 1024}
 
         assert snapshot["cpu"] > 0
@@ -720,24 +841,29 @@ class TestPerformanceProfiling:
 
     def test_slow_function_detection(self) -> None:
         """Test slow function detection"""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 367
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         slow_funcs=[f for f in functions if f["duration"] > 1.0]  # type: ignore[operator]
 
@@ -745,24 +871,29 @@ class TestPerformanceProfiling:
         assert slow_funcs[0]["name"] == "slow"
 
     def test_memory_heavy_function_detection(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 368
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         slow_funcs=[f for f in functions if f["duration"] > 1.0]  # type: ignore[operator]
 
         assert len(slow_funcs) == 1
@@ -770,24 +901,29 @@ class TestPerformanceProfiling:
 
     def test_memory_heavy_function_detection(self) -> None:
         """Test memory-heavy function detection"""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 376
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         heavy_funcs=[f for f in functions if f["memory"] > 100]  # type: ignore[operator]
 
@@ -795,24 +931,29 @@ class TestPerformanceProfiling:
         assert heavy_funcs[0]["name"] == "heavy"
 
     def test_flame_graph_data_generation(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 377
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         heavy_funcs=[f for f in functions if f["memory"] > 100]  # type: ignore[operator]
 
         assert len(heavy_funcs) == 1
@@ -820,24 +961,29 @@ class TestPerformanceProfiling:
 
     def test_flame_graph_data_generation(self) -> None:
         """Test flame graph data generation"""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 384
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         stack=["root", "func1", "func2"]
         _flame_data=";".join(stack) + " 1"
 
@@ -845,49 +991,58 @@ class TestPerformanceProfiling:
 
     def test_resource_monitoring(self) -> None:
         """Test resource constraint monitoring"""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 395
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if cpu_usage > threshold:
             alert=True
 
         assert alert
 
-
 class TestAdvancedAuthentication:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 430
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         input_otp="123456"
 
         is_valid=stored_otp == input_otp
@@ -895,24 +1050,29 @@ class TestAdvancedAuthentication:
 
         input_otp="000000"
         is_valid=stored_otp == input_otp
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 434
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         input_otp="000000"
         is_valid=stored_otp == input_otp
@@ -920,24 +1080,29 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_risk_assessment(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 445
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if factors["new_device"]:
             risk_score += 50
 
@@ -945,24 +1110,29 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_risk_based_methods(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 456
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if risk_score > 70:
             method="totp"
 
@@ -970,24 +1140,29 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_impossible_travel_detection(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 470
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         speed=distance / time_diff_hours
 
         impossible=speed > 100    # Arbitrary threshold
@@ -995,24 +1170,29 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_velocity_checking(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 481
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         _recent=[t for t in logins if time.time() - t < window]
         _velocity_high=len(recent) > 5
 
@@ -1020,24 +1200,29 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_device_fingerprinting(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 490
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         ip="127.0.0.1"
         fingerprint=f"{ua}|{ip}"
 
@@ -1045,49 +1230,58 @@ class TestAdvancedAuthentication:
 
     @pytest.mark.asyncio
     async def test_authentication_context(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 497
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test authentication context tracking"""
         context={"ip": "127.0.0.1", "device": "desktop"}
 
         assert context["ip"] == "127.0.0.1"
 
-
 class TestPerformanceOptimizationEnd2End:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 516
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         time.sleep(0.0001)
         _cached_time=time.time() - start
 
@@ -1095,24 +1289,29 @@ class TestPerformanceOptimizationEnd2End:
 
     @pytest.mark.asyncio
     async def test_optimized_vs_unoptimized_query(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 524
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         unoptimized_rows=1000
         optimized_rows=100
 
@@ -1120,24 +1319,29 @@ class TestPerformanceOptimizationEnd2End:
 
     @pytest.mark.asyncio
     async def test_full_profile_collection(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 535
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         profile["cpu"].append(10)
         profile["memory"].append(100)
 
@@ -1145,49 +1349,58 @@ class TestPerformanceOptimizationEnd2End:
 
     @pytest.mark.asyncio
     async def test_risk_based_auth_workflow(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 546
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if risk == "HIGH":
             auth_methods.append("TOTP")
 
         assert "TOTP" in auth_methods
 
-
 class TestPerformanceMetrics:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 560
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         total=hits + misses
         rate=hits / total
 
@@ -1195,24 +1408,29 @@ class TestPerformanceMetrics:
 
     @pytest.mark.asyncio
     async def test_query_efficiency_ratio(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 569
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         examined=500
         ratio=fetched / examined
 
@@ -1220,24 +1438,29 @@ class TestPerformanceMetrics:
 
     @pytest.mark.asyncio
     async def test_function_performance_ranking(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 577
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         funcs=[{"name": "a", "time": 10}, {"name": "b", "time": 20}]
         _ranked=sorted(funcs, key=lambda x: x["time"], reverse=True)  # type: ignore[arg-type, return-value]
 
@@ -1245,49 +1468,58 @@ class TestPerformanceMetrics:
 
     @pytest.mark.asyncio
     async def test_resource_utilization_metrics(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 584
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test resource utilization tracking"""
         metrics={"cpu": 50, "memory": 60}
 
         assert metrics["cpu"] == 50
 
-
 class TestCacheStrategies:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 594
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     async def test_l1_only_strategy(self) -> None:
         """Test L1-only caching"""
         strategy="L1"
@@ -1295,24 +1527,29 @@ class TestCacheStrategies:
 
     @pytest.mark.asyncio
     async def test_l2_only_strategy(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 600
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     async def test_l2_only_strategy(self) -> None:
         """Test L2-only (Redis) caching"""
         strategy="L2"
@@ -1320,24 +1557,29 @@ class TestCacheStrategies:
 
     @pytest.mark.asyncio
     async def test_write_through_strategy(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 612
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         l1[key] = val
         l2[key] = val
 
@@ -1345,49 +1587,58 @@ class TestCacheStrategies:
 
     @pytest.mark.asyncio
     async def test_write_back_strategy(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 620
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         _dirty_keys=set()
         dirty_keys.add("k")
 
         assert "k" in dirty_keys
 
-
 class TestErrorHandling:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 637
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         except ConnectionError:
             fallback=True
 
@@ -1395,24 +1646,29 @@ class TestErrorHandling:
 
     @pytest.mark.asyncio
     async def test_email_delivery_failure(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 648
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         try:
             await mock_email.send("u", "msg")
         except Exception as e:
@@ -1420,24 +1676,29 @@ class TestErrorHandling:
 
     @pytest.mark.asyncio
     async def test_invalid_otp_code(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 659
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         while attempts < max_attempts:
             attempts += 1
 
@@ -1445,24 +1706,29 @@ class TestErrorHandling:
 
     @pytest.mark.asyncio
     async def test_query_optimization_failure(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 667
 
-**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
         query="SELECT *"
         try:
             raise Exception("Optimizer failed")
@@ -1470,49 +1736,58 @@ class TestErrorHandling:
         # Return original
             pass
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 671
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Return original
             pass
 
         assert query == "SELECT *"
 
-
 class TestLoadTesting:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 683
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         requests=1000
         hits=900
 
@@ -1520,24 +1795,29 @@ class TestLoadTesting:
 
     @pytest.mark.asyncio
     async def test_query_optimization_under_load(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 690
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test query optimization with many queries"""
         optimized=True
 
@@ -1545,37 +1825,45 @@ class TestLoadTesting:
 
     @pytest.mark.asyncio
     async def test_authentication_scaling(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 697
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test 2FA system scaling"""
         failures=0
 
         assert failures == 0
 
-
 # Helper fixtures for tests
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

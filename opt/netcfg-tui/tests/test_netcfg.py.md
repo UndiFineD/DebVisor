@@ -16,20 +16,19 @@ Total: 2 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 70
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 
-**Context:**
-```
+### Context
+
+```python
         cfg.method = "static"
         cfg.address = "10.0.0.1"
 
@@ -37,24 +36,29 @@ Items marked below as fixed:
 
         # Check if files were written
         # We expect 10-eth0.network
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 83
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_write_netplan(self, mock_makedirs, mock_file):
         cfg = InterfaceConfig("eth0", "wired")
@@ -62,12 +66,16 @@ Items marked below as fixed:
 
         mock_file.assert_called()
         handle = mock_file()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

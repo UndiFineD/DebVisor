@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 1296
 
-**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             _hostname=node_id,
             _ip_address=f"10.0.{i // 256}.{i % 256}",
             _state=(
@@ -36,12 +35,16 @@ Items marked below as fixed:
             ),    # nosec B311
             _zone=f"zone-{i % 3}",
             _cpu_capacity=32000,    # 32 cores
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

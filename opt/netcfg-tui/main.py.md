@@ -16,20 +16,19 @@ Total: 2 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 124
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import os
 import sys
 import json
@@ -37,24 +36,29 @@ import subprocess
 import argparse
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any, Tuple
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 286
 
-**Tool:** bandit | **Code:** `B104` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B104` |**Severity:** MEDIUM
 
 **Message:** Possible binding to all interfaces.
 
-**Context:**
-```
+### Context
+
+```python
                         route=RouteEntry(  # type: ignore[call-arg]
                             _destination=parts[0],  # type: ignore[name-defined]
                             _gateway=(
@@ -62,12 +66,16 @@ from typing import Dict, List, Optional, Any, Tuple
                             ),    # nosec B104
                         )
                         self.routes.append(route)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

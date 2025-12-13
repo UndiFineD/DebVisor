@@ -24,70 +24,77 @@ Total: 10 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**10 issues to fix:**
-
+### 10 issues to fix
 
 ### Issue at Line 21
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
 def test_dashboard_index(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b"DebVisor Operations Dashboard" in response.data
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 22
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 def test_dashboard_index(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b"DebVisor Operations Dashboard" in response.data
 
-
 def test_api_stats(client):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 27
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
 def test_api_stats(client):
     response = client.get("/api/stats")
@@ -95,24 +102,29 @@ def test_api_stats(client):
     data = response.get_json()
     assert "cpu_percent" in data
     assert "memory" in data
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 29
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     response = client.get("/api/stats")
     assert response.status_code == 200
     data = response.get_json()
@@ -120,74 +132,87 @@ def test_api_stats(client):
     assert "memory" in data
     assert "disk" in data
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 30
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     assert response.status_code == 200
     data = response.get_json()
     assert "cpu_percent" in data
     assert "memory" in data
     assert "disk" in data
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 31
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     data = response.get_json()
     assert "cpu_percent" in data
     assert "memory" in data
     assert "disk" in data
 
-
 def test_api_alerts(client):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 36
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
 def test_api_alerts(client):
     response = client.get("/api/alerts")
@@ -195,81 +220,100 @@ def test_api_alerts(client):
     data = response.get_json()
     assert isinstance(data, list)
     assert len(data) > 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 38
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     response = client.get("/api/alerts")
     assert response.status_code == 200
     data = response.get_json()
     assert isinstance(data, list)
     assert len(data) > 0
     assert "message" in data[0]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 39
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     assert response.status_code == 200
     data = response.get_json()
     assert isinstance(data, list)
     assert len(data) > 0
     assert "message" in data[0]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 40
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     data = response.get_json()
     assert isinstance(data, list)
     assert len(data) > 0
     assert "message" in data[0]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

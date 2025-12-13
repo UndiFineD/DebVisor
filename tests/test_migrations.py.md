@@ -15,20 +15,19 @@ Total: 1 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 18
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'test-key'
 
-**Context:**
-```
+### Context
+
+```python
         # Use in-memory SQLite for speed and isolation
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,12 +35,16 @@ Items marked below as fixed:
 
         # Initialize extensions with test app
         db.init_app(self.app)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

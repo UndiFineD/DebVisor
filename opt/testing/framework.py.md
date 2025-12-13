@@ -21,45 +21,48 @@ Total: 7 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**7 issues to fix:**
-
+### 7 issues to fix
 
 ### Issue at Line 146
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'test-secret-key'
 
-**Context:**
-```
+### Context
+
+```python
     DEBUG=True
     SQLALCHEMY_DATABASE_URI="sqlite:///:memory:"
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SECRET_KEY="test-secret-key"
     PRESERVE_CONTEXT_ON_EXCEPTION=False
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 165
 
-**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
         json_data=None
         try:
             _json_data=response.get_json()
@@ -67,24 +70,29 @@ Items marked below as fixed:
             pass
 
         return cls(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 177
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def assert_status(self, expected: int) -> None:
         """Assert status code."""
@@ -92,24 +100,29 @@ Items marked below as fixed:
             self.status_code == expected
         ), f"Expected {expected}, got {self.status_code}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 207
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def assert_json_key(self, key: str) -> Any:
         """Assert JSON key exists and return value."""
@@ -117,49 +130,58 @@ Items marked below as fixed:
         assert key in self.json_data, f"Key '{key}' not found in response"
         return self.json_data[key]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 208
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def assert_json_key(self, key: str) -> Any:
         """Assert JSON key exists and return value."""
         assert self.json_data is not None, "Response is not JSON"
         assert key in self.json_data, f"Key '{key}' not found in response"
         return self.json_data[key]
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 599
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         required_keys: List[str],
     ) -> None:
         """Assert response has required keys."""
@@ -167,24 +189,29 @@ Items marked below as fixed:
         for key in required_keys:
             assert (
                 key in response.json_data
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 601
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Assert response has required keys."""
         assert response.json_data is not None
         for key in required_keys:
@@ -192,12 +219,16 @@ Items marked below as fixed:
                 key in response.json_data
             ), f"Required key '{key}' not found in response"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

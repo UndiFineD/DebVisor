@@ -21,20 +21,19 @@ Total: 7 issues found
 
 Items marked below as fixed:
 
-
 ## Fix Proposals
 
-**7 issues to fix:**
-
+### 7 issues to fix
 
 ### Issue at Line 60
 
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import json
 import logging
 import os
@@ -42,24 +41,29 @@ import subprocess
 import sys
 from typing import Any, Dict
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 200
 
-**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
     def _check_service(self, service_name: str) -> str:
         """Check systemd service status."""
         try:
@@ -67,24 +71,29 @@ from typing import Any, Dict
             return "Active"
         except (subprocess.CalledProcessError, FileNotFoundError):
             return "Inactive/Missing"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 200
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
     def _check_service(self, service_name: str) -> str:
         """Check systemd service status."""
         try:
@@ -92,24 +101,29 @@ from typing import Any, Dict
             return "Active"
         except (subprocess.CalledProcessError, FileNotFoundError):
             return "Inactive/Missing"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 245
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         if os.path.exists(tui_path):
             logger.info("Launching TUI...")
             try:
@@ -117,24 +131,29 @@ from typing import Any, Dict
             except KeyboardInterrupt:
                 pass
         else:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 258
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         )
         if os.path.exists(script_path):
             logger.info("Applying SSH hardening...")
@@ -142,24 +161,29 @@ from typing import Any, Dict
         else:
             logger.error(f"Hardening script not found at {script_path}")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 268
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
             os.path.dirname(__file__), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
@@ -167,24 +191,29 @@ from typing import Any, Dict
                 [sys.executable, script_path, "scan", "--timeout", str(timeout)]
             )
         else:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 280
 
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
             os.path.dirname(__file__), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
@@ -192,12 +221,16 @@ from typing import Any, Dict
         else:
             logger.error(f"Discovery script not found at {script_path}")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

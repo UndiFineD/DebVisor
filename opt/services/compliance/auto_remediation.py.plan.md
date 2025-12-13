@@ -36,7 +36,7 @@ Status: INVALID
 
 - **Issue**: Spaces inside code span delimiters
 
-- **Fix**: Remove spaces: change `code` to `code`
+- **Fix**: Remove spaces: change `code`to`code`
 
 ### MD047: single-trailing-newline
 
@@ -104,7 +104,7 @@ Detailed description of what this file does.
 
    - **MD022**: Add blank lines around headings
 
-   - **MD038**: Remove spaces in code spans: ```code```not``` code` ``
+   - **MD038**: Remove spaces in code spans: ```code```not```code```
 
 ### Example Template
 
@@ -114,7 +114,7 @@ Detailed description of what this file does.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
