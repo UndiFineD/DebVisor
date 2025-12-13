@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_workflows.py
 
-Generated: 2025-12-13T19:56:31.727503
+Generated: 2025-12-13T20:01:15.195654
 Status: INVALID
 
 ## File Structure Validation

@@ -1,6 +1,6 @@
 # Planning Report: scripts\update_type_ignore.py
 
-Generated: 2025-12-13T19:56:31.756709
+Generated: 2025-12-13T20:01:15.216913
 Status: INVALID
 
 ## File Structure Validation
