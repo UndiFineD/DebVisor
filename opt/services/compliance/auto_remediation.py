@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Copyright (c) 2025 DebVisor contributors# Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #     http://www.apache.org/licenses/LICENSE-2.0
@@ -628,9 +627,7 @@ class AutoRemediationEngine:
             return record
 
         except Exception as e:
-            logger.error(f"Error executing remediation {record_id}: {e}", exc_info=True)  # type: ignore[name-defined]
-
-            record=RemediationRecord(  # type: ignore[call-arg]
+            _logger.error(f"Error executing remediation {record_id}: {e}", exc_info=True)  # type: ignore[name-defined]            record=RemediationRecord(  # type: ignore[call-arg]
                 _record_id=record_id,
                 _drift_id=drift.drift_id,
                 _rule_id=rule.rule_id,

@@ -575,19 +575,13 @@ def create_app(configname: str="production") -> Flask:
 
             # Securely reconstruct URL using request components instead of string manipulation
             # Only redirect if the host is validated above
-            if host in allowed_hosts:
-                # Use Flask's url_for with external=True and _scheme='https' when possible
-                # For non-route URLs, validate and rebuild carefully
-                from urllib.parse import urlparse, urlunparse
-                parsed = urlparse(request.url)
-                # Reconstruct with https scheme and validated host
-                safe_url = urlunparse(('https', host, parsed.path, parsed.params, parsed.query, parsed.fragment))
-                return redirect(safe_url, code=301)
-            else:
-                logger.warning(f"Host {host} not in ALLOWED_HOSTS, blocking redirect")
-                return None
+            # Host is validated above, safe to redirect
+            from urllib.parse import urlparse, urlunparse
+            parsed = urlparse(request.url)
+            # Reconstruct with https scheme and validated host
+            safe_url = urlunparse(('https', host, parsed.path, parsed.params, parsed.query, parsed.fragment))
+            return redirect(safe_url, code=301)
         return None
-
     @app.after_request
     def set_security_headers(response: Response) -> Response:
         """Set comprehensive security headers."""

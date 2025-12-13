@@ -143,17 +143,15 @@ def is_safe_url(target: str) -> bool:
     if '\x00' in target or '\r' in target or '\n' in target:
         return False
     
-    _ref_url=urlparse(request.host_url)
-    _test_url=urlparse(urljoin(request.host_url, target))
+    ref_url=urlparse(request.host_url)
+    test_url=urlparse(urljoin(request.host_url, target))
     
     # Only allow http/https and same-origin redirects
     return test_url.scheme in ('http', 'https') and \
         ref_url.netloc == test_url.netloc
 
-
 # Create blueprint
-_auth_bp=Blueprint("auth", __name__, url_prefix="/auth")
-
+auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 @limiter.limit("10 per minute", methods=["POST"], key_func=lambda: request.remote_addr)    # type: ignore

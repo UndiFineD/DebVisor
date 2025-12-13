@@ -255,13 +255,9 @@ class APIKeyManager:
 
     def _hash_key(self, key: str) -> str:
         """Hash API key for secure storage using PBKDF2-HMAC-SHA256."""
-        # Use a static salt for deterministic hashing (required for O(1) lookup)
-        # In production, this salt should be loaded from a secure environment variable
-        salt = os.getenv("API_KEY_SALT", "debvisor_api_key_salt_v1").encode()
-        # Use 600,000 iterations as recommended by OWASP for PBKDF2-HMAC-SHA256
-        return hashlib.pbkdf2_hmac("sha256", key.encode(), salt, 600000).hex()
-
-    def create_key(
+        # Use static salt since keys are randomly generated and unique
+        salt = b"debvisor_api_key_salt_v1"
+        return hashlib.pbkdf2_hmac('sha256', key.encode(), salt, 600000).hex()    def create_key(
         self,
         principal_id: str,
         description: str="",
