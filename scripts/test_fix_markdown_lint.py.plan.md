@@ -1,6 +1,6 @@
 # Planning Report: scripts\test_fix_markdown_lint.py
 
-Generated: 2025-12-13T19:14:32.567016
+Generated: 2025-12-13T19:19:52.792160
 Status: INVALID
 
 ## File Structure Validation
@@ -13,7 +13,7 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got 'from pathlib import Path', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got 'import importlib.util', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got '', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got '# Dynamically import fix_markdown_lint from repository root without modifying sys.path', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)') |
+| incorrect_header | 5 | Header line incorrect: got '# Dynamically import fix_markdown_lint from repository root without modifying sys.path', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)') |
 | incorrect_header | 6 | Header line incorrect: got 'ROOT = Path(**file**).resolve().parents[1]', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got 'FIXER_PATH = ROOT / "fix_markdown_lint.py"', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got 'spec = importlib.util.spec_from_file_location("fix_markdown_lint", str(FIXER_PATH))', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
@@ -188,7 +188,7 @@ Please provide:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

@@ -169,9 +169,6 @@ def main():
     if all_passed:
         print("✅ ALL AGENTS COMPLETED SUCCESSFULLY")
 
-        # Run automated git workflow
-        git_success = run_git_workflow()
-
         print("\nNext Steps:")
         print("1. Review generated .plan.md reports (file structure issues)")
         print("2. Review generated .md reports (code quality issues)")
@@ -179,12 +176,21 @@ def main():
         print("4. Implement fixes in source files")
         print("5. Mark fixed issues with ✅ emoji in reports")
         print("6. Re-run this workflow to detect new issues")
-
-        if git_success:
-            print("7. Changes have been automatically committed and pushed")
     else:
         print("❌ SOME AGENTS FAILED")
         print("\nCheck error messages above and fix issues before re-running.")
+
+    # Run automated git workflow regardless of agent success/failure
+    print(f"\n{'=' * 70}")
+    print("[GIT] Running automated git workflow (regardless of agent status)")
+    print(f"{'=' * 70}\n")
+
+    git_success = run_git_workflow()
+
+    if git_success:
+        print("✅ Changes have been automatically committed and pushed")
+    else:
+        print("⚠️  Git operations completed with issues - check above for details")
 
     print("=" * 70 + "\n")
 

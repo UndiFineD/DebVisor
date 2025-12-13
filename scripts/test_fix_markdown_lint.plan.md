@@ -7,7 +7,6 @@ Status: CODE_ISSUES_ONLY
 
 ⚠️ **Structure validation not performed**
 
-
 ## Code Quality Issues
 
 Total: 1 issues found
@@ -17,7 +16,13 @@ Total: 1 issues found
 | 10 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
+
 Items marked below as fixed:
+
+## Implementation Status
+
+Items marked below as fixed:
+
 ## Implementation Status
 
 Items marked below as fixed:

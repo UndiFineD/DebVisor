@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_all_underscores.py
 
-Generated: 2025-12-13T19:14:32.487028
+Generated: 2025-12-13T19:19:52.714651
 Status: INVALID
 
 ## File Structure Validation
