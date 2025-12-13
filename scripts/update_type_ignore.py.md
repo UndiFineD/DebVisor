@@ -1,5 +1,5 @@
 # Code Issues Report: scripts\update_type_ignore.py
-Generated: 2025-12-13T14:41:22.707160
+Generated: 2025-12-13T15:07:28.467595
 Source: scripts\update_type_ignore.py
 
 ## Issues Summary

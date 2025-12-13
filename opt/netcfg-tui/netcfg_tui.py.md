@@ -1,1 +1,15 @@
-# Code Issues Report: opt\netcfg-tui\netcfg_tui.py\n\nGenerated: 2025-12-13T14:31:20.808044\nSource: opt\netcfg-tui\netcfg_tui.py\n\n## Issues Summary\n\nTotal: 3 issues found\n\n| Line | Column | Tool | Code | Severity | Message |\n|------|--------|------|------|----------|---------|\n| 107 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |\n| 1120 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |\n| 1125 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |\n\n## Implementation Status\n\nItems marked below as fixed:\n
+# Code Issues Report: opt\netcfg-tui\netcfg_tui.py
+Generated: 2025-12-13T15:13:04.619701
+Source: opt\netcfg-tui\netcfg_tui.py
+
+## Issues Summary
+Total: 3 issues found
+
+| Line | Column | Tool | Code | Severity | Message |
+|------|--------|------|------|----------|---------|
+| 107 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+| 1120 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 1125 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+
+## Implementation Status
+Items marked below as fixed:

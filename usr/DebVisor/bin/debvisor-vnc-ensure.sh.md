@@ -1,5 +1,5 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-vnc-ensure.sh
-Generated: 2025-12-13T14:44:27.172515
+Generated: 2025-12-13T15:10:18.651177
 Source: usr\DebVisor\bin\debvisor-vnc-ensure.sh
 
 ## Issues Summary

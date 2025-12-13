@@ -1,5 +1,5 @@
 # Code Issues Report: opt\services\containers\container_integration.py
-Generated: 2025-12-13T14:33:23.319989
+Generated: 2025-12-13T15:14:55.368242
 Source: opt\services\containers\container_integration.py
 
 ## Issues Summary
@@ -11,43 +11,3 @@ Total: 1 issues found
 
 ## Implementation Status
 Items marked below as fixed:
-
-
-## Fix Proposals
-
-**1 issues to fix:**
-
-
-### Issue at Line 119
-
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
-
-**Message:** Consider possible security implications associated with the subprocess module.
-
-**Context:**
-```
-from enum import Enum
-from pathlib import Path
-import logging
-import subprocess
-import json
-import asyncio
-import time
-```
-
-**Proposal:**
-- Review the issue message above
-- Consider the context code
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-## Implementation Progress
-
-To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
-
-**Fixed Issues:** (none yet)
-
----
-*Updated: (auto-populated by coding expert)*

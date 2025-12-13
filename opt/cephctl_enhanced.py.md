@@ -1,1 +1,13 @@
-# Code Issues Report: opt\cephctl_enhanced.py\n\nGenerated: 2025-12-13T14:29:19.614197\nSource: opt\cephctl_enhanced.py\n\n## Issues Summary\n\nTotal: 1 issues found\n\n| Line | Column | Tool | Code | Severity | Message |\n|------|--------|------|------|----------|---------|\n| 69 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |\n\n## Implementation Status\n\nItems marked below as fixed:\n
+# Code Issues Report: opt\cephctl_enhanced.py
+Generated: 2025-12-13T15:11:09.713243
+Source: opt\cephctl_enhanced.py
+
+## Issues Summary
+Total: 1 issues found
+
+| Line | Column | Tool | Code | Severity | Message |
+|------|--------|------|------|----------|---------|
+| 69 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+
+## Implementation Status
+Items marked below as fixed:

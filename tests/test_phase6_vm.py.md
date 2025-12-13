@@ -1,5 +1,5 @@
 # Code Issues Report: tests\test_phase6_vm.py
-Generated: 2025-12-13T14:43:46.054355
+Generated: 2025-12-13T15:09:40.268662
 Source: tests\test_phase6_vm.py
 
 ## Issues Summary

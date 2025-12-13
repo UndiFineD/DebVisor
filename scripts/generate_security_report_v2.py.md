@@ -1,5 +1,5 @@
 # Code Issues Report: scripts\generate_security_report_v2.py
-Generated: 2025-12-13T14:40:57.918685
+Generated: 2025-12-13T15:07:05.153985
 Source: scripts\generate_security_report_v2.py
 
 ## Issues Summary

@@ -1,5 +1,5 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-vm-register.sh
-Generated: 2025-12-13T14:44:26.040471
+Generated: 2025-12-13T15:10:17.809557
 Source: usr\DebVisor\bin\debvisor-vm-register.sh
 
 ## Issues Summary

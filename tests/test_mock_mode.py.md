@@ -1,5 +1,5 @@
 # Code Issues Report: tests\test_mock_mode.py
-Generated: 2025-12-13T14:43:07.918570
+Generated: 2025-12-13T15:09:03.685147
 Source: tests\test_mock_mode.py
 
 ## Issues Summary

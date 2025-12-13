@@ -1,5 +1,5 @@
 # Planning Report: scripts\test_fix_markdown_lint.py
-Generated: 2025-12-13T14:56:11.377816
+Generated: 2025-12-13T15:10:42.995608
 Status: INVALID
 
 ## File Structure Validation
@@ -24,6 +24,26 @@ Status: INVALID
 | missing_section | - | Missing 'Improvements' section. Should be in docstring after license header. |
 | missing_shebang | 1 | Python files should start with shebang: #!/usr/bin/env python3 |
 | missing_docstring | - | Missing module docstring after license header |
+
+## Markdown Linting Awareness
+
+⚠️ **Generated .md files should comply with these rules:**
+
+### MD022: blanks-around-headings
+- **Issue**: Headings should be surrounded by blank lines
+- **Fix**: Add blank lines before and after headings
+
+### MD034: no-bare-urls
+- **Issue**: Bare URL used
+- **Fix**: Wrap URLs in markdown link format: [URL](URL)
+
+### MD038: no-space-in-code
+- **Issue**: Spaces inside code span delimiters
+- **Fix**: Remove spaces: change ` code ` to `code`
+
+### MD047: single-trailing-newline
+- **Issue**: Files should end with a single newline character
+- **Fix**: Add a single newline (\n) at the end of the file
 
 ## Required Structure
 
@@ -69,6 +89,11 @@ Detailed description of what this file does.
    - Suggested Fixes
    - Improvements
 4. Separate docstring from code with blank line and comment divider
+5. Ensure generated .md reports comply with markdown linting rules:
+   - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+   - **MD047**: Add trailing newline at end of file
+   - **MD022**: Add blank lines around headings
+   - **MD038**: Remove spaces in code spans: `` `code` `` not `` ` code ` ``
 
 ### Example Template:
 
@@ -78,7 +103,7 @@ Detailed description of what this file does.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

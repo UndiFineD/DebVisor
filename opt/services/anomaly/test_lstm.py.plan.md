@@ -1,5 +1,5 @@
 # Planning Report: opt\services\anomaly\test_lstm.py
-Generated: 2025-12-13T14:56:10.958515
+Generated: 2025-12-13T15:10:42.582132
 Status: INVALID
 
 ## File Structure Validation
@@ -12,8 +12,8 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got '# Copyright (c) 2025 DebVisor contributors', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got '# Licensed under the Apache License, Version 2.0 (the "License");', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got '# you may not use this file except in compliance with the License.', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got '# You may obtain a copy of the License at', expected '#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)' |
-| incorrect_header | 6 | Header line incorrect: got '#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)', expected '# Unless required by applicable law or agreed to in writing, software' |
+| incorrect_header | 5 | Header line incorrect: got '# You may obtain a copy of the License at', expected '#     http://www.apache.org/licenses/LICENSE-2.0' |
+| incorrect_header | 6 | Header line incorrect: got '#     http://www.apache.org/licenses/LICENSE-2.0', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got '# Unless required by applicable law or agreed to in writing, software', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got '# distributed under the License is distributed on an "AS IS" BASIS,', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
 | incorrect_header | 9 | Header line incorrect: got '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.', expected '# See the License for the specific language governing permissions and' |
@@ -23,6 +23,26 @@ Status: INVALID
 | missing_section | - | Missing 'Suggested Fixes' section. Should be in docstring after license header. |
 | missing_section | - | Missing 'Improvements' section. Should be in docstring after license header. |
 | missing_docstring | - | Missing module docstring after license header |
+
+## Markdown Linting Awareness
+
+⚠️ **Generated .md files should comply with these rules:**
+
+### MD022: blanks-around-headings
+- **Issue**: Headings should be surrounded by blank lines
+- **Fix**: Add blank lines before and after headings
+
+### MD034: no-bare-urls
+- **Issue**: Bare URL used
+- **Fix**: Wrap URLs in markdown link format: [URL](URL)
+
+### MD038: no-space-in-code
+- **Issue**: Spaces inside code span delimiters
+- **Fix**: Remove spaces: change ` code ` to `code`
+
+### MD047: single-trailing-newline
+- **Issue**: Files should end with a single newline character
+- **Fix**: Add a single newline (\n) at the end of the file
 
 ## Required Structure
 
@@ -68,6 +88,11 @@ Detailed description of what this file does.
    - Suggested Fixes
    - Improvements
 4. Separate docstring from code with blank line and comment divider
+5. Ensure generated .md reports comply with markdown linting rules:
+   - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+   - **MD047**: Add trailing newline at end of file
+   - **MD022**: Add blank lines around headings
+   - **MD038**: Remove spaces in code spans: `` `code` `` not `` ` code ` ``
 
 ### Example Template:
 

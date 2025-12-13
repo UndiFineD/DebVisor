@@ -1,1 +1,14 @@
-# Code Issues Report: opt\netcfg-tui\main.py\n\nGenerated: 2025-12-13T14:31:14.224244\nSource: opt\netcfg-tui\main.py\n\n## Issues Summary\n\nTotal: 2 issues found\n\n| Line | Column | Tool | Code | Severity | Message |\n|------|--------|------|------|----------|---------|\n| 124 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |\n| 286 | 0 | bandit | `B104` | MEDIUM | Possible binding to all interfaces. |\n\n## Implementation Status\n\nItems marked below as fixed:\n
+# Code Issues Report: opt\netcfg-tui\main.py
+Generated: 2025-12-13T15:12:58.439953
+Source: opt\netcfg-tui\main.py
+
+## Issues Summary
+Total: 2 issues found
+
+| Line | Column | Tool | Code | Severity | Message |
+|------|--------|------|------|----------|---------|
+| 124 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+| 286 | 0 | bandit | `B104` | MEDIUM | Possible binding to all interfaces. |
+
+## Implementation Status
+Items marked below as fixed:

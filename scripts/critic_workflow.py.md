@@ -1,5 +1,5 @@
 # Code Issues Report: scripts\critic_workflow.py
-Generated: 2025-12-13T14:39:27.703191
+Generated: 2025-12-13T15:05:44.254917
 Source: scripts\critic_workflow.py
 
 ## Issues Summary
@@ -7,8 +7,8 @@ Total: 2 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
-| 9 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 20 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 10 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+| 48 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
 Items marked below as fixed:
@@ -19,7 +19,7 @@ Items marked below as fixed:
 **2 issues to fix:**
 
 
-### Issue at Line 9
+### Issue at Line 10
 
 **Tool:** bandit | **Code:** `B404` | **Severity:** LOW
 
@@ -44,7 +44,7 @@ from pathlib import Path
 
 ---
 
-### Issue at Line 20
+### Issue at Line 48
 
 **Tool:** bandit | **Code:** `B603` | **Severity:** LOW
 

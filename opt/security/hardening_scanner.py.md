@@ -1,1 +1,13 @@
-# Code Issues Report: opt\security\hardening_scanner.py\n\nGenerated: 2025-12-13T14:31:50.944706\nSource: opt\security\hardening_scanner.py\n\n## Issues Summary\n\nTotal: 1 issues found\n\n| Line | Column | Tool | Code | Severity | Message |\n|------|--------|------|------|----------|---------|\n| 119 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |\n\n## Implementation Status\n\nItems marked below as fixed:\n
+# Code Issues Report: opt\security\hardening_scanner.py
+Generated: 2025-12-13T15:13:26.699090
+Source: opt\security\hardening_scanner.py
+
+## Issues Summary
+Total: 1 issues found
+
+| Line | Column | Tool | Code | Severity | Message |
+|------|--------|------|------|----------|---------|
+| 119 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+
+## Implementation Status
+Items marked below as fixed:

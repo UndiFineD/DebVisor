@@ -1,5 +1,5 @@
 # Code Issues Report: opt\services\secrets\vault_manager.py
-Generated: 2025-12-13T14:36:26.681411
+Generated: 2025-12-13T15:02:47.691637
 Source: opt\services\secrets\vault_manager.py
 
 ## Issues Summary
