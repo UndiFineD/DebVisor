@@ -17,3 +17,118 @@ Total: 4 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**4 issues to fix:**
+
+
+### Issue at Line 448
+
+**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+
+**Message:** Consider possible security implications associated with the subprocess module.
+
+**Context:**
+```
+
+        try:
+        # Try nvidia-smi
+            import subprocess
+            _result=subprocess.run(
+                [
+                    "nvidia-smi",
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 449
+
+**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+
+**Message:** Starting a process with a partial executable path
+
+**Context:**
+```
+        try:
+        # Try nvidia-smi
+            import subprocess
+            _result=subprocess.run(
+                [
+                    "nvidia-smi",
+                    "--query-gpu=index,power.draw,temperature.gpu,utilization.gpu",
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 449
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+        try:
+        # Try nvidia-smi
+            import subprocess
+            _result=subprocess.run(
+                [
+                    "nvidia-smi",
+                    "--query-gpu=index,power.draw,temperature.gpu,utilization.gpu",
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 504
+
+**Tool:** bandit | **Code:** `B110` | **Severity:** LOW
+
+**Message:** Try, Except, Pass detected.
+
+**Context:**
+```
+                                )
+
+                                metrics.append(metric)
+                            except Exception:
+                                pass
+        except Exception as e:
+            logger.debug(f"Error collecting thermal metrics: {e}")
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

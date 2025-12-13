@@ -1,10 +1,8 @@
 # Code Issues Report: tests\test_rpc_security.py
-
-Generated: 2025-12-13T15:09:56.028083
+Generated: 2025-12-13T15:25:04.993758
 Source: tests\test_rpc_security.py
 
 ## Issues Summary
-
 Total: 59 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -70,22 +68,22 @@ Total: 59 issues found
 | 725 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-
 Items marked below as fixed:
+
 
 ## Fix Proposals
 
-### 59 issues to fix
+**59 issues to fix:**
+
 
 ### Issue at Line 95
 
-**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
 
 **Message:** Possible hardcoded password: 'token-abc123'
 
-### Context
-
-```python
+**Context:**
+```
 
 def rpc_credential() -> None:
     """Create RPC credential"""
@@ -93,29 +91,24 @@ def rpc_credential() -> None:
         _credential_id = "cred-001",
         _auth_method = AuthMethod.BEARER,
         _username = "testuser",
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 160
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.authenticate_basic("user", "password")
 
@@ -123,29 +116,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_bearer_token_auth(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 169
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.authenticate_bearer("token-abc123")
 
@@ -153,29 +141,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_invalid_bearer_token(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 178
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.authenticate_bearer("invalid-token")
 
@@ -183,29 +166,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_expired_token(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 187
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_token_expiry("expired-token")
 
@@ -213,29 +191,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_mtls_authentication(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 198
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _client_cert = "mock_cert", server_cert="server_cert"
         )
 
@@ -243,29 +216,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_api_key_authentication(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 205
 
-**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
 
 **Message:** Possible hardcoded password: 'secret-abc'
 
-### Context
-
-```python
+**Context:**
+```
         """Test API key authentication"""
         mock_rpc_security.authenticate_api_key = AsyncMock(return_value=True)
 
@@ -273,29 +241,24 @@ def rpc_credential() -> None:
             _api_key = "key-12345", api_secret="secret-abc"
         )
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 209
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _api_key = "key-12345", api_secret="secret-abc"
         )
 
@@ -303,29 +266,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_oauth2_authentication(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 216
 
-**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
 
 **Message:** Possible hardcoded password: 'oauth-token'
 
-### Context
-
-```python
+**Context:**
+```
         """Test OAuth2 authentication"""
         mock_rpc_security.authenticate_oauth2 = AsyncMock(return_value=True)
 
@@ -333,29 +291,24 @@ def rpc_credential() -> None:
 
         assert result is True
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 218
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.authenticate_oauth2(access_token="oauth-token")
 
@@ -363,58 +316,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_create_credential(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 229
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _auth_method = AuthMethod.BEARER, username="testuser"
         )
 
         assert cred_id == "cred-001"
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 245
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_permission("testuser", "vm.create")
 
@@ -422,29 +366,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_permission_denied(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 254
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_permission("testuser", "admin.delete")
 
@@ -452,29 +391,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_check_resource_permission(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 265
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             "testuser", "vm-001", "write"
         )
 
@@ -482,29 +416,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_rbac_role_assignment(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 274
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.assign_role("testuser", "admin")
 
@@ -512,29 +441,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_rbac_role_revocation(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 283
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.revoke_role("testuser", "admin")
 
@@ -542,29 +466,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_check_admin_role(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 292
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.is_admin("testuser")
 
@@ -572,29 +491,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_scope_based_access(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 301
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_scope("token-abc123", "vm:read")
 
@@ -602,58 +516,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_delegation_of_authority(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 312
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _delegator = "admin-user", delegatee="regular-user", permission="vm.create"
         )
 
         assert result is True
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 328
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.enable_tls(version="1.2")
 
@@ -661,29 +566,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_tls_1_3_support(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 337
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.enable_tls(version="1.3")
 
@@ -691,29 +591,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_certificate_validation(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 346
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.validate_certificate("mock_cert")
 
@@ -721,29 +616,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_certificate_expiry_check(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 355
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_cert_expiry("expired_cert")
 
@@ -751,29 +641,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_cipher_suite_configuration(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 366
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _suites = ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"]
         )
 
@@ -781,29 +666,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_end_to_end_encryption(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 375
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.enable_e2e_encryption()
 
@@ -811,29 +691,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_payload_encryption(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 384
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.encrypt_payload({"key": "value"})
 
@@ -841,58 +716,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_payload_decryption(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 393
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.decrypt_payload("encrypted_data")
 
         assert result == {"key": "value"}
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 409
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.sanitize_input("name'; DROP TABLE users; --")
 
@@ -900,29 +766,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_command_injection_prevention(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 420
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             "vm.create", {"name": "test-vm"}
         )
 
@@ -930,29 +791,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_xss_prevention(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 429
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.sanitize_html("<script>alert('xss')</script>")
 
@@ -960,29 +816,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_csrf_protection(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 438
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.generate_csrf_token()
 
@@ -990,29 +841,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_replay_attack_prevention(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 447
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_nonce("req-001", "nonce-123")
 
@@ -1020,29 +866,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_request_signature_verification(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 456
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.verify_signature("request_data", "signature")
 
@@ -1050,29 +891,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_ddos_protection(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 465
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_ddos_threshold("192.168.1.100")
 
@@ -1080,58 +916,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_brute_force_protection(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 474
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_login_attempts("testuser")
 
         assert result is True
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 490
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_rate_limit("testuser", limit=100)
 
@@ -1139,29 +966,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_rate_limit_exceeded(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 499
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.check_rate_limit("testuser", limit=1)
 
@@ -1169,29 +991,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_per_endpoint_rate_limiting(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 510
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _endpoint = "vm.create", user="testuser", limit=10
         )
 
@@ -1199,29 +1016,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_ip_based_rate_limiting(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 521
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _ip = "192.168.1.100", limit=1000
         )
 
@@ -1229,29 +1041,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_adaptive_rate_limiting(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 532
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             "testuser", base_limit=100
         )
 
@@ -1259,29 +1066,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_get_rate_limit_status(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 543
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         status = await mock_rpc_security.get_rate_limit_status("testuser")
 
@@ -1289,58 +1091,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_priority_queueing(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 554
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _request_id = "req-001", priority="high"
         )
 
         assert result == "queued"
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 572
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _user = "testuser", event_type="login", result="success"
         )
 
@@ -1348,29 +1141,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_log_authorization_event(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 583
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _user = "testuser", resource="vm-001", action="create", result="allowed"
         )
 
@@ -1378,29 +1166,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_log_api_call(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 594
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _method = "vm.create", user="testuser", params={"name": "test-vm"}
         )
 
@@ -1408,29 +1191,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_log_security_event(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 607
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _details = "Multiple failed auth attempts",
         )
 
@@ -1438,29 +1216,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_retrieve_audit_log(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 618
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         logs = await mock_rpc_security.get_audit_logs(user="testuser", days=7)
 
@@ -1468,58 +1241,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_audit_log_integrity(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 627
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.verify_audit_integrity()
 
         assert result is True
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 645
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _name = "strict", max_requests_per_minute=50, encryption_required=True
         )
 
@@ -1527,29 +1291,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_apply_policy_to_user(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 654
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.apply_policy_to_user("testuser", "policy-001")
 
@@ -1557,29 +1316,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_enforce_policy(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 665
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             _user = "testuser", request={"method": "vm.create"}
         )
 
@@ -1587,58 +1341,49 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_list_policies(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 675
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await mock_rpc_security.list_policies()
 
         assert len(result) == 2
 
+
 # ============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 694
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Authenticate
         auth = await mock_rpc_security.authenticate_bearer("token-123")
@@ -1646,29 +1391,24 @@ def rpc_credential() -> None:
 
         # Authorize
         perm = await mock_rpc_security.check_permission("testuser", "vm.create")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 698
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Authorize
         perm = await mock_rpc_security.check_permission("testuser", "vm.create")
@@ -1676,29 +1416,24 @@ def rpc_credential() -> None:
 
         # Check rate limit
         rate = await mock_rpc_security.check_rate_limit("testuser")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 702
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Check rate limit
         rate = await mock_rpc_security.check_rate_limit("testuser")
@@ -1706,29 +1441,24 @@ def rpc_credential() -> None:
 
         # Log
         log = await mock_rpc_security.log_api_call("vm.create", "testuser", {})
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 706
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Log
         log = await mock_rpc_security.log_api_call("vm.create", "testuser", {})
@@ -1736,29 +1466,24 @@ def rpc_credential() -> None:
 
     @pytest.mark.asyncio
     async def test_attack_prevention_workflow(self, mock_rpc_security):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 717
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Sanitize
         clean = await mock_rpc_security.sanitize_input("user_input")
@@ -1766,29 +1491,24 @@ def rpc_credential() -> None:
 
         # Verify signature
         sig = await mock_rpc_security.verify_signature("data", "sig")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 721
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Verify signature
         sig = await mock_rpc_security.verify_signature("data", "sig")
@@ -1796,45 +1516,37 @@ def rpc_credential() -> None:
 
         # DDoS check
         ddos = await mock_rpc_security.check_ddos_threshold("192.168.1.100")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 725
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # DDoS check
         ddos = await mock_rpc_security.check_ddos_threshold("192.168.1.100")
         assert ddos is True
 
+
 if __name__ == "__main__":
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

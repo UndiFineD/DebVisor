@@ -53,3 +53,1015 @@ Total: 40 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**40 issues to fix:**
+
+
+### Issue at Line 143
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Initiate enrollment
+        _enrollment_data=twofa_manager.initiate_enrollment(user_id)
+
+        assert enrollment_data is not None
+        assert "enrollment_id" in enrollment_data
+        assert "totp_uri" in enrollment_data
+        assert "qr_code_base64" in enrollment_data
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 144
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _enrollment_data=twofa_manager.initiate_enrollment(user_id)
+
+        assert enrollment_data is not None
+        assert "enrollment_id" in enrollment_data
+        assert "totp_uri" in enrollment_data
+        assert "qr_code_base64" in enrollment_data
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 145
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        assert enrollment_data is not None
+        assert "enrollment_id" in enrollment_data
+        assert "totp_uri" in enrollment_data
+        assert "qr_code_base64" in enrollment_data
+
+    def test_totp_token_verification(self, twofamanager) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 146
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        assert enrollment_data is not None
+        assert "enrollment_id" in enrollment_data
+        assert "totp_uri" in enrollment_data
+        assert "qr_code_base64" in enrollment_data
+
+    def test_totp_token_verification(self, twofamanager) -> None:
+        """Test TOTP token verification."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 164
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Verify token
+        _is_valid=totp_mgr.verify_token(token, secret)
+        assert is_valid
+
+    def test_backup_code_generation(self, twofamanager) -> None:
+        """Test backup code generation."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 173
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Generate codes
+        _codes=backup_mgr.generate_codes()
+
+        assert len(codes) == 9
+        # Check format XXXX-XXXX
+        for code in codes:
+            assert len(code) == 9
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 176
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        assert len(codes) == 9
+        # Check format XXXX-XXXX
+        for code in codes:
+            assert len(code) == 9
+            assert code[4] == "-"
+
+    def test_invalid_token_verification(self, twofamanager) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 177
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Check format XXXX-XXXX
+        for code in codes:
+            assert len(code) == 9
+            assert code[4] == "-"
+
+    def test_invalid_token_verification(self, twofamanager) -> None:
+        """Test invalid token verification."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 186
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Invalid token
+        _is_valid=totp_mgr.verify_token("000000", secret)
+        assert not is_valid
+
+    @pytest.mark.asyncio
+    async def test_totp_performance(self) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 200
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        )
+
+        # Should be fast (< 10ms per operation)
+        assert metrics.duration_ms < 10
+
+
+class TestWebSocketIntegration:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 228
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Receive message
+        _message=await event_bus.get_message("client1", timeout=1)
+        assert message is not None
+        assert message.event_type == "node_status"
+
+    @pytest.mark.asyncio
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 229
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Receive message
+        _message=await event_bus.get_message("client1", timeout=1)
+        assert message is not None
+        assert message.event_type == "node_status"
+
+    @pytest.mark.asyncio
+    async def test_rbac_filtering(self, eventbus):
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 248
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Client should not receive (no permission)
+        _message=await event_bus.get_message("client1", timeout=0.5)
+        assert message is None
+
+    @pytest.mark.asyncio
+    async def test_multiple_subscribers(self, eventbus):
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 269
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Both clients should receive
+        for i in range(1, 3):
+            _message=await event_bus.get_message(f"client{i}", timeout=1)
+            assert message is not None
+            assert message.event_type == "alert"
+
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 270
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        for i in range(1, 3):
+            _message=await event_bus.get_message(f"client{i}", timeout=1)
+            assert message is not None
+            assert message.event_type == "alert"
+
+
+class TestReportingIntegration:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 297
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Generate HTML
+        _html=report.generate_html()
+
+        assert "CPU" in html
+        assert "node1" in html
+        assert "online" in html
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 298
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _html=report.generate_html()
+
+        assert "CPU" in html
+        assert "node1" in html
+        assert "online" in html
+
+    def test_capacity_planning_forecast(self) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 299
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        assert "CPU" in html
+        assert "node1" in html
+        assert "online" in html
+
+    def test_capacity_planning_forecast(self) -> None:
+        """Test capacity planning forecasting."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 318
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Get summary
+        _summary=report.get_summary()
+
+        assert summary["total_capacity_gb"] == 10.0
+        assert summary["total_used_gb"] == 5.0
+
+    def test_recommendations_generation(self) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 319
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _summary=report.get_summary()
+
+        assert summary["total_capacity_gb"] == 10.0
+        assert summary["total_used_gb"] == 5.0
+
+    def test_recommendations_generation(self) -> None:
+        """Test recommendation generation."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 339
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Get recommendations
+        _recommendations=report.get_recommendations()
+
+        assert len(recommendations) > 0
+        assert any("Memory" in rec for rec in recommendations)
+
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 340
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _recommendations=report.get_recommendations()
+
+        assert len(recommendations) > 0
+        assert any("Memory" in rec for rec in recommendations)
+
+
+class TestThemeIntegration:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 355
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        """Test that default themes are registered."""
+        _themes=theme_manager.list_themes()
+
+        assert "light" in themes
+        assert "dark" in themes
+
+    def test_theme_switching(self, thememanager) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 356
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _themes=theme_manager.list_themes()
+
+        assert "light" in themes
+        assert "dark" in themes
+
+    def test_theme_switching(self, thememanager) -> None:
+        """Test switching between themes."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 362
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        """Test switching between themes."""
+        # Switch to dark
+        _result=theme_manager.set_theme("dark")
+        assert result
+
+        # Verify current theme
+        _css=theme_manager.get_theme_css()
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 366
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Verify current theme
+        _css=theme_manager.get_theme_css()
+        assert "dark" in css.lower() or "121212" in css    # Dark background color
+
+    def test_css_generation(self, thememanager) -> None:
+        """Test CSS variable generation."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 373
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _css=theme_manager.get_theme_css()
+
+        # Check for CSS variables
+        assert "--color-primary" in css
+        assert "--color-background" in css
+        assert "--font-family" in css
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 374
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Check for CSS variables
+        assert "--color-primary" in css
+        assert "--color-background" in css
+        assert "--font-family" in css
+
+    def test_custom_theme_creation(self, thememanager) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 375
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Check for CSS variables
+        assert "--color-primary" in css
+        assert "--color-background" in css
+        assert "--font-family" in css
+
+    def test_custom_theme_creation(self, thememanager) -> None:
+        """Test creating custom theme."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 390
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+            _colors_dict=custom_colors,
+        )
+
+        assert custom_theme is not None
+        assert custom_theme.name == "custom"
+
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 391
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        )
+
+        assert custom_theme is not None
+        assert custom_theme.name == "custom"
+
+
+class TestBatchOperationsIntegration:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 412
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+            _resources=["resource1", "resource2"],
+        )
+
+        assert operation.id is not None
+        assert operation.type == OperationType.CONFIG_UPDATE
+
+    @pytest.mark.asyncio
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 413
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        )
+
+        assert operation.id is not None
+        assert operation.type == OperationType.CONFIG_UPDATE
+
+    @pytest.mark.asyncio
+    async def test_dry_run_preview(self, batchmanager):
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 427
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        _preview=await batch_manager.preview_dry_run(operation)
+
+        assert preview["resource_count"] == 3
+        assert preview["rollback_supported"] is not None
+
+    @pytest.mark.asyncio
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 428
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        _preview=await batch_manager.preview_dry_run(operation)
+
+        assert preview["resource_count"] == 3
+        assert preview["rollback_supported"] is not None
+
+    @pytest.mark.asyncio
+    async def test_operation_history(self, batchmanager):
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 445
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+        # Get history
+        _history=batch_manager.get_history(limit=10)
+
+        assert len(history) > 0
+
+
+class TestEndToEndWorkflow:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 459
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Step 1: Initiate enrollment
+        _enrollment_data=twofa_manager.initiate_enrollment(user_id)
+        assert enrollment_data is not None
+
+        # Step 2: Get QR code
+        _qr_code=enrollment_data.get("qr_code_base64")
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 463
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Step 2: Get QR code
+        _qr_code=enrollment_data.get("qr_code_base64")
+        assert qr_code is not None
+
+        # Step 3: Get backup codes
+        _backup_codes=twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 467
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Step 3: Get backup codes
+        _backup_codes=twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
+        assert len(backup_codes) == 9
+
+    @pytest.mark.asyncio
+    async def test_monitoring_workflow(self) -> None:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 504
+
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+
+**Context:**
+```
+
+        # Verify alert received
+        _message=await event_bus.get_message("monitor1", timeout=1)
+        assert message is not None
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

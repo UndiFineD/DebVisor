@@ -20,3 +20,193 @@ Total: 7 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**7 issues to fix:**
+
+
+### Issue at Line 60
+
+**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+
+**Message:** Consider possible security implications associated with the subprocess module.
+
+**Context:**
+```
+import json
+import logging
+import os
+import subprocess
+import sys
+from typing import Any, Dict
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 200
+
+**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+
+**Message:** Starting a process with a partial executable path
+
+**Context:**
+```
+    def _check_service(self, service_name: str) -> str:
+        """Check systemd service status."""
+        try:
+            subprocess.check_call(["systemctl", "is-active", "--quiet", service_name])
+            return "Active"
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return "Inactive/Missing"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 200
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+    def _check_service(self, service_name: str) -> str:
+        """Check systemd service status."""
+        try:
+            subprocess.check_call(["systemctl", "is-active", "--quiet", service_name])
+            return "Active"
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return "Inactive/Missing"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 245
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+        if os.path.exists(tui_path):
+            logger.info("Launching TUI...")
+            try:
+                subprocess.run([sys.executable, tui_path])
+            except KeyboardInterrupt:
+                pass
+        else:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 258
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+        )
+        if os.path.exists(script_path):
+            logger.info("Applying SSH hardening...")
+            subprocess.run([sys.executable, script_path])
+        else:
+            logger.error(f"Hardening script not found at {script_path}")
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 268
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+            os.path.dirname(__file__), "discovery", "zerotouch.py"
+        )
+        if os.path.exists(script_path):
+            subprocess.run(
+                [sys.executable, script_path, "scan", "--timeout", str(timeout)]
+            )
+        else:
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 280
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+            os.path.dirname(__file__), "discovery", "zerotouch.py"
+        )
+        if os.path.exists(script_path):
+            subprocess.run([sys.executable, script_path, "advertise", "--role", role])
+        else:
+            logger.error(f"Discovery script not found at {script_path}")
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

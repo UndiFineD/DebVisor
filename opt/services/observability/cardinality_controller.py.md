@@ -16,3 +16,93 @@ Total: 3 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**3 issues to fix:**
+
+
+### Issue at Line 902
+
+**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+
+**Context:**
+```
+        # Check service-specific rules
+        for rule in self.rules:
+            if self._match_rule(rule, trace_context):
+                return random.random() < rule.sample_rate
+
+        return random.random() < self.base_sample_rate
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 904
+
+**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+
+**Context:**
+```
+            if self._match_rule(rule, trace_context):
+                return random.random() < rule.sample_rate
+
+        return random.random() < self.base_sample_rate
+
+    def _evaluate_rules(self, ctx: TraceContext) -> SamplingDecision:
+        """Evaluate sampling rules against trace context."""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 929
+
+**Tool:** bandit | **Code:** `B311` | **Severity:** LOW
+
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+
+**Context:**
+```
+            # Safe evaluation of condition
+                if self._evaluate_condition(rule.condition, eval_ctx):
+                    rule.hit_count += 1
+                    if random.random() < rule.sample_rate:
+                        return SamplingDecision.SAMPLED
+                    else:
+                        return SamplingDecision.DROPPED
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

@@ -312,3 +312,7481 @@ Total: 299 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**299 issues to fix:**
+
+
+### Issue at Line 1
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 2
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 3
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 4
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 5
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 6
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 7
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 8
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 9
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 10
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 11
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 12
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 13
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 14
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 15
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 16
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 17
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 18
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 19
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 20
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 21
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 22
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 23
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 24
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 25
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 26
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 27
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 28
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 29
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 30
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 31
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 32
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 33
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 34
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 35
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 36
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 37
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 38
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 39
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 40
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 41
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 42
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 43
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 44
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 45
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 46
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 47
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 48
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 49
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 50
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 51
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 52
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 53
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 54
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 55
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 56
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 57
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 58
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 59
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 60
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 61
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 62
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 63
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 64
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 65
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 66
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 67
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 68
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 69
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 70
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 71
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 72
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 73
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 74
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 75
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 76
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 77
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 78
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 79
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 80
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 81
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 82
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 83
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 84
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 85
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 86
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 87
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 88
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 89
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 90
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 91
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 92
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 93
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 94
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 95
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 96
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 97
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 98
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 99
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 100
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 101
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 102
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 103
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 104
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 105
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 106
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 107
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 108
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 109
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 110
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 111
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 112
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 113
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 114
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 115
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 116
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 117
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 118
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 119
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 120
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 121
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 122
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 123
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 124
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 125
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 126
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 127
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 128
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 129
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 130
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 131
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 132
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 133
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 134
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 135
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 136
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 137
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 138
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 139
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 140
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 141
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 142
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 143
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 144
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 145
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 146
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 147
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 148
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 149
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 150
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 151
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 152
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 153
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 154
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 155
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 156
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 157
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 158
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 159
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 160
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 161
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 162
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 163
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 164
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 165
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 166
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 167
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 168
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 169
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 170
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 171
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 172
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 173
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 174
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 175
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 176
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 177
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 178
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 179
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 180
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 181
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 182
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 183
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 184
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 185
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 186
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 187
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 188
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 189
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 190
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 191
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 192
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 193
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 194
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 195
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 196
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 197
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 198
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 199
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 200
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 201
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 202
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 203
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 204
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 205
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 206
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 207
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 208
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 209
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 210
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 211
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 212
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 213
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 214
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 215
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 216
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 217
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 218
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 219
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 220
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/bash
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 221
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 222
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 223
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 224
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 225
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 226
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/sh
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 227
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 228
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 229
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 230
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 231
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 232
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#!/bin/sh
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 233
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 234
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 235
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 236
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 237
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 238
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 239
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 240
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+
+LOG=/target/var/log/debvisor/installer.log
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 241
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -eu
+
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 242
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# limitations under the License.
+
+set -eu
+
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 243
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+set -eu
+
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 244
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+set -eu
+
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 245
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 246
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+LOG=/target/var/log/debvisor/installer.log
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+# Minimum RAM in kB (e.g. 2 GiB)
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 247
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+exec >>"$LOG" 2>&1
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 248
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+exec >>"$LOG" 2>&1
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 249
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 250
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+echo "[debvisor-hwcheck] Starting hardware sanity checks"
+
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+# Check CPU virtualization flags
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 251
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+# Check CPU virtualization flags
+CPU_OK=0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 252
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Minimum RAM in kB (e.g. 2 GiB)
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+# Check CPU virtualization flags
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 253
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+MIN_RAM_KB=$((2*1024*1024))
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+# Check CPU virtualization flags
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 254
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
+
+# Check CPU virtualization flags
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 255
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+# Check CPU virtualization flags
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+fi
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 256
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Check CPU virtualization flags
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+fi
+
+# Check at least one non-loopback NIC
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 257
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+CPU_OK=0
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+fi
+
+# Check at least one non-loopback NIC
+NIC_OK=0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 258
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
+  CPU_OK=1
+fi
+
+# Check at least one non-loopback NIC
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 259
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  CPU_OK=1
+fi
+
+# Check at least one non-loopback NIC
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 260
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+
+# Check at least one non-loopback NIC
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 261
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+# Check at least one non-loopback NIC
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+fi
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 262
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Check at least one non-loopback NIC
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+fi
+
+# Check at least one disk
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 263
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+NIC_OK=0
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+fi
+
+# Check at least one disk
+DISK_OK=0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 264
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
+  NIC_OK=1
+fi
+
+# Check at least one disk
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 265
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  NIC_OK=1
+fi
+
+# Check at least one disk
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 266
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+
+# Check at least one disk
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 267
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+# Check at least one disk
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+fi
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 268
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+# Check at least one disk
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+fi
+
+ARCH_EXPECTED="$(uname -m)"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 269
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+DISK_OK=0
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+fi
+
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 270
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
+  DISK_OK=1
+fi
+
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 271
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  DISK_OK=1
+fi
+
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+
+PROBLEMS=""
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 272
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+
+PROBLEMS=""
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 273
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+
+PROBLEMS=""
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 274
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+ARCH_EXPECTED="$(uname -m)"
+ARCH_ACTUAL="$(uname -m)"
+
+PROBLEMS=""
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 275
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+ARCH_ACTUAL="$(uname -m)"
+
+PROBLEMS=""
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 276
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+PROBLEMS=""
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 277
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+PROBLEMS=""
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 278
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 279
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if [ "$TOTAL_RAM_KB" -lt "$MIN_RAM_KB" ]; then
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 280
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 281
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 282
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if [ "$CPU_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 283
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 284
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 285
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if [ "$NIC_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 286
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+
+if [ -n "$PROBLEMS" ]; then
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 287
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 288
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if [ "$DISK_OK" -ne 1 ]; then
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 289
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  PROBLEMS="$PROBLEMS\n- No disk device detected."
+fi
+
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 290
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 291
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 292
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+if [ -n "$PROBLEMS" ]; then
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 293
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+fi
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 294
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  # Show a clear message on the console and drop to shell
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+fi
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 295
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+fi
+
+echo "[debvisor-hwcheck] Hardware checks passed"
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 296
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+fi
+
+echo "[debvisor-hwcheck] Hardware checks passed"
+exit 0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 297
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  read -r _junk </dev/tty1 2>/dev/null || true
+  exec /bin/sh
+fi
+
+echo "[debvisor-hwcheck] Hardware checks passed"
+exit 0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 298
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+  exec /bin/sh
+fi
+
+echo "[debvisor-hwcheck] Hardware checks passed"
+exit 0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 299
+
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+**Context:**
+```
+fi
+
+echo "[debvisor-hwcheck] Hardware checks passed"
+exit 0
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*

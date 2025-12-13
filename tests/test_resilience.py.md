@@ -1,10 +1,8 @@
 # Code Issues Report: tests\test_resilience.py
-
-Generated: 2025-12-13T15:09:53.100068
+Generated: 2025-12-13T15:25:02.617665
 Source: tests\test_resilience.py
 
 ## Issues Summary
-
 Total: 30 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -41,22 +39,22 @@ Total: 30 issues found
 | 424 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-
 Items marked below as fixed:
+
 
 ## Fix Proposals
 
-### 30 issues to fix
+**30 issues to fix:**
+
 
 ### Issue at Line 51
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
     @pytest.mark.asyncio
     async def test_initial_state_closed(self, breaker):
         """Circuit should start in closed state."""
@@ -64,29 +62,24 @@ Items marked below as fixed:
         assert breaker.is_closed
 
     @pytest.mark.asyncio
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 52
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
     async def test_initial_state_closed(self, breaker):
         """Circuit should start in closed state."""
         assert breaker.state == CircuitState.CLOSED
@@ -94,29 +87,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_success_keeps_circuit_closed(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 64
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await success_func()
 
@@ -124,29 +112,24 @@ Items marked below as fixed:
         assert breaker.state == CircuitState.CLOSED
         assert breaker.metrics.successful_calls == 1
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 65
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         result = await success_func()
 
         assert result == "success"
@@ -154,29 +137,24 @@ Items marked below as fixed:
         assert breaker.metrics.successful_calls == 1
 
     @pytest.mark.asyncio
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 66
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         assert result == "success"
         assert breaker.state == CircuitState.CLOSED
@@ -184,29 +162,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_failures_open_circuit(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 81
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             with pytest.raises(ValueError):
                 await failing_func()
 
@@ -214,29 +187,24 @@ Items marked below as fixed:
         assert breaker.metrics.failed_calls == 3
 
     @pytest.mark.asyncio
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 82
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
                 await failing_func()
 
         assert breaker.state == CircuitState.OPEN
@@ -244,29 +212,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_open_circuit_rejects_calls(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 97
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             with pytest.raises(ValueError):
                 await failing_func()
 
@@ -274,29 +237,24 @@ Items marked below as fixed:
 
         # New calls should be rejected
         @breaker
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 107
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         with pytest.raises(CircuitOpenError):
             await normal_func()
 
@@ -304,29 +262,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_half_open_after_timeout(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 121
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             with pytest.raises(ValueError):
                 await failing_func()
 
@@ -334,29 +287,24 @@ Items marked below as fixed:
 
         # Wait for timeout
         await asyncio.sleep(1.1)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 132
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             return "success"
 
         result = await success_func()
@@ -364,29 +312,24 @@ Items marked below as fixed:
         # State should have transitioned
         assert breaker.state in (CircuitState.HALF_OPEN, CircuitState.CLOSED)
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 134
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         result = await success_func()
         assert result == "success"
         # State should have transitioned
@@ -394,29 +337,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_manual_reset(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 148
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             with pytest.raises(ValueError):
                 await failing_func()
 
@@ -424,29 +362,24 @@ Items marked below as fixed:
 
         await breaker.reset()
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 152
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         await breaker.reset()
 
@@ -454,29 +387,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_metrics_tracking(self, breaker):
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 169
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         with pytest.raises(ValueError):
             await mixed_func(False)
 
@@ -484,87 +412,74 @@ Items marked below as fixed:
         assert breaker.metrics.successful_calls == 2
         assert breaker.metrics.failed_calls == 1
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 170
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             await mixed_func(False)
 
         assert breaker.metrics.total_calls == 3
         assert breaker.metrics.successful_calls == 2
         assert breaker.metrics.failed_calls == 1
 
-```python
 
-### Proposal
+```
 
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 171
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         assert breaker.metrics.total_calls == 3
         assert breaker.metrics.successful_calls == 2
         assert breaker.metrics.failed_calls == 1
 
+
 # =============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 193
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await success_func()
 
@@ -572,29 +487,24 @@ Items marked below as fixed:
         assert call_count == 1
 
     @pytest.mark.asyncio
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 194
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         result = await success_func()
 
         assert result == "success"
@@ -602,29 +512,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_retry_on_failure(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 211
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         result = await flaky_func()
 
@@ -632,29 +537,24 @@ Items marked below as fixed:
         assert call_count == 3
 
     @pytest.mark.asyncio
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 212
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         result = await flaky_func()
 
         assert result == "success"
@@ -662,29 +562,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_max_attempts_exhausted(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 228
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         with pytest.raises(ValueError, match="always fails"):
             await always_fail()
 
@@ -692,58 +587,49 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_non_retryable_exception(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 250
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         with pytest.raises(TypeError):
             await type_error_func()
 
         assert call_count == 1    # No retry
 
+
 # =============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 275
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         # Start 2 concurrent calls (should succeed)
         await asyncio.gather(slow_func(1), slow_func(2))
 
@@ -751,29 +637,24 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_rejects_over_capacity(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 316
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         # Should allow 10 calls
         for _ in range(10):
             result = await limited_func()
@@ -781,58 +662,49 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_rejects_over_limit(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 353
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
 
         # Should work again
         result = await limited_func()
         assert result == "success"
 
+
 # =============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 372
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             return "success"
 
         result = await fast_func()
@@ -840,58 +712,49 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_timeout_raises(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 396
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             return "never"
 
         result = await slow_func()
         assert result == "fallback"
 
+
 # =============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 416
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
             return "success"
 
         result = await resilient_func()
@@ -899,45 +762,37 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_global_registry(self) -> None:
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 424
 
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
+**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
-
-```python
+**Context:**
+```
         breaker1 = get_or_create_circuit_breaker("test-global")
         breaker2 = get_or_create_circuit_breaker("test-global")
 
         assert breaker1 is breaker2
 
+
 # =============================================================================
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

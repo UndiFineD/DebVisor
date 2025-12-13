@@ -1,10 +1,8 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-dns-update-enhanced.sh
-
-Generated: 2025-12-13T15:10:14.948098
+Generated: 2025-12-13T15:25:22.437339
 Source: usr\DebVisor\bin\debvisor-dns-update-enhanced.sh
 
 ## Issues Summary
-
 Total: 736 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -747,5296 +745,4416 @@ Total: 736 issues found
 | 789 | 3 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
-
 Items marked below as fixed:
+
 
 ## Fix Proposals
 
-### 736 issues to fix
+**736 issues to fix:**
+
 
 ### Issue at Line 1
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 2
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 3
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 4
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 5
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 6
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 7
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 8
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 9
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 10
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 11
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 12
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 13
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 14
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 15
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 16
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 17
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 18
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 19
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 20
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 21
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 22
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 23
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 24
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 25
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 26
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 27
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 28
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 29
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 30
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 31
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 32
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 33
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 34
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 35
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 36
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 37
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 38
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 39
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 40
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 41
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 42
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 43
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 44
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 45
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 46
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 47
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 48
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 49
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 50
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 51
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 52
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 53
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 54
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 55
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 56
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 57
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 58
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 59
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 60
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 61
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 62
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 63
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 64
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 65
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 66
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 67
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 68
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 69
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 70
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 71
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 72
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 73
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 74
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 75
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 76
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 77
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 78
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 79
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 80
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 81
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 82
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 83
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 84
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 85
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 86
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 87
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 88
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 89
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 90
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 91
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 92
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 93
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 94
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 95
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 96
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 97
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 98
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 99
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 100
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 101
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 102
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 103
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 104
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 105
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 106
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 107
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 108
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 109
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 110
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 111
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 112
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 113
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 114
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 115
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 116
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 117
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 118
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 119
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 120
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 121
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 122
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 123
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 124
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 125
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 126
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 127
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 128
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 129
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 130
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 131
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 132
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 133
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 134
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 135
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 136
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 137
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 138
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 139
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 140
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 141
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 142
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 143
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 144
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 145
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 146
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 147
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 148
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 149
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 150
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 151
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 152
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 153
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 154
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
-```python
+#!/bin/bash
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 155
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 156
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 157
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 158
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 159
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-# !/bin/bash
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
-```python
+#     http://www.apache.org/licenses/LICENSE-2.0
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 160
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# !/bin/bash
+**Context:**
+```
+#!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 161
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 162
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 163
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 164
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 165
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+**Context:**
+```
+#     http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 166
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 167
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-############################################################################### 
+###############################################################################
 # debvisor-dns-update-enhanced.sh
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 168
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-############################################################################### 
+###############################################################################
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 169
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-############################################################################### 
+###############################################################################
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 170
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # limitations under the License.
 
-############################################################################### 
+###############################################################################
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 171
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 172
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-############################################################################### 
+###############################################################################
 
 set -eEuo pipefail
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 173
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # debvisor-dns-update-enhanced.sh
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-############################################################################### 
+###############################################################################
 
 set -eEuo pipefail
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 174
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Enhanced DNS record updates with TSIG, propagation verification, TTL,
 # rollback, and DNSSEC support
-############################################################################### 
+###############################################################################
 
 set -eEuo pipefail
 
 # Script metadata
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 175
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # rollback, and DNSSEC support
-############################################################################### 
+###############################################################################
 
 set -eEuo pipefail
 
 # Script metadata
 SCRIPT_VERSION="1.0.0"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 176
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 set -eEuo pipefail
 
 # Script metadata
 SCRIPT_VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 177
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 set -eEuo pipefail
 
@@ -6044,29 +5162,24 @@ set -eEuo pipefail
 SCRIPT_VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
 LOG_FILE="/var/log/debvisor-dns-update.log"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 178
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 set -eEuo pipefail
 
 # Script metadata
@@ -6074,29 +5187,24 @@ SCRIPT_VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
 LOG_FILE="/var/log/debvisor-dns-update.log"
 STATE_DIR="/var/lib/debvisor/dns-state"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 179
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 # Script metadata
 SCRIPT_VERSION="1.0.0"
@@ -6104,29 +5212,24 @@ SCRIPT_NAME="$(basename "$0")"
 LOG_FILE="/var/log/debvisor-dns-update.log"
 STATE_DIR="/var/lib/debvisor/dns-state"
 CONFIG_DIR="/etc/debvisor/dns"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 180
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Script metadata
 SCRIPT_VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
@@ -6134,29 +5237,24 @@ LOG_FILE="/var/log/debvisor-dns-update.log"
 STATE_DIR="/var/lib/debvisor/dns-state"
 CONFIG_DIR="/etc/debvisor/dns"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 181
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 SCRIPT_VERSION="1.0.0"
 SCRIPT_NAME="$(basename "$0")"
 LOG_FILE="/var/log/debvisor-dns-update.log"
@@ -6164,29 +5262,24 @@ STATE_DIR="/var/lib/debvisor/dns-state"
 CONFIG_DIR="/etc/debvisor/dns"
 
 # Configuration
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 182
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 SCRIPT_NAME="$(basename "$0")"
 LOG_FILE="/var/log/debvisor-dns-update.log"
 STATE_DIR="/var/lib/debvisor/dns-state"
@@ -6194,29 +5287,24 @@ CONFIG_DIR="/etc/debvisor/dns"
 
 # Configuration
 DNS_SERVERS=()
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 183
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 LOG_FILE="/var/log/debvisor-dns-update.log"
 STATE_DIR="/var/lib/debvisor/dns-state"
 CONFIG_DIR="/etc/debvisor/dns"
@@ -6224,29 +5312,24 @@ CONFIG_DIR="/etc/debvisor/dns"
 # Configuration
 DNS_SERVERS=()
 TSIG_KEY_FILE=""
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 184
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 STATE_DIR="/var/lib/debvisor/dns-state"
 CONFIG_DIR="/etc/debvisor/dns"
 
@@ -6254,29 +5337,24 @@ CONFIG_DIR="/etc/debvisor/dns"
 DNS_SERVERS=()
 TSIG_KEY_FILE=""
 TSIG_ALGORITHM="hmac-sha256"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 185
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 CONFIG_DIR="/etc/debvisor/dns"
 
 # Configuration
@@ -6284,29 +5362,24 @@ DNS_SERVERS=()
 TSIG_KEY_FILE=""
 TSIG_ALGORITHM="hmac-sha256"
 TTL_DEFAULT=3600
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 186
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 # Configuration
 DNS_SERVERS=()
@@ -6314,29 +5387,24 @@ TSIG_KEY_FILE=""
 TSIG_ALGORITHM="hmac-sha256"
 TTL_DEFAULT=3600
 TTL_UPDATE=300
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 187
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Configuration
 DNS_SERVERS=()
 TSIG_KEY_FILE=""
@@ -6344,29 +5412,24 @@ TSIG_ALGORITHM="hmac-sha256"
 TTL_DEFAULT=3600
 TTL_UPDATE=300
 PROPAGATION_CHECK_TIMEOUT=300
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 188
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 DNS_SERVERS=()
 TSIG_KEY_FILE=""
 TSIG_ALGORITHM="hmac-sha256"
@@ -6374,29 +5437,24 @@ TTL_DEFAULT=3600
 TTL_UPDATE=300
 PROPAGATION_CHECK_TIMEOUT=300
 PROPAGATION_CHECK_INTERVAL=10
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 189
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 TSIG_KEY_FILE=""
 TSIG_ALGORITHM="hmac-sha256"
 TTL_DEFAULT=3600
@@ -6404,29 +5462,24 @@ TTL_UPDATE=300
 PROPAGATION_CHECK_TIMEOUT=300
 PROPAGATION_CHECK_INTERVAL=10
 MAX_RETRIES=3
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 190
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 TSIG_ALGORITHM="hmac-sha256"
 TTL_DEFAULT=3600
 TTL_UPDATE=300
@@ -6434,29 +5487,24 @@ PROPAGATION_CHECK_TIMEOUT=300
 PROPAGATION_CHECK_INTERVAL=10
 MAX_RETRIES=3
 ROLLBACK_ENABLED=true
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 191
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 TTL_DEFAULT=3600
 TTL_UPDATE=300
 PROPAGATION_CHECK_TIMEOUT=300
@@ -6464,29 +5512,24 @@ PROPAGATION_CHECK_INTERVAL=10
 MAX_RETRIES=3
 ROLLBACK_ENABLED=true
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 192
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 TTL_UPDATE=300
 PROPAGATION_CHECK_TIMEOUT=300
 PROPAGATION_CHECK_INTERVAL=10
@@ -6494,29 +5537,24 @@ MAX_RETRIES=3
 ROLLBACK_ENABLED=true
 
 # Colors for output
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 193
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 PROPAGATION_CHECK_TIMEOUT=300
 PROPAGATION_CHECK_INTERVAL=10
 MAX_RETRIES=3
@@ -6524,29 +5562,24 @@ ROLLBACK_ENABLED=true
 
 # Colors for output
 RED='\033[0;31m'
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 194
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 PROPAGATION_CHECK_INTERVAL=10
 MAX_RETRIES=3
 ROLLBACK_ENABLED=true
@@ -6554,29 +5587,24 @@ ROLLBACK_ENABLED=true
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 195
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 MAX_RETRIES=3
 ROLLBACK_ENABLED=true
 
@@ -6584,29 +5612,24 @@ ROLLBACK_ENABLED=true
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 196
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 ROLLBACK_ENABLED=true
 
 # Colors for output
@@ -6614,29 +5637,24 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 197
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 # Colors for output
 RED='\033[0;31m'
@@ -6644,29 +5662,24 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 198
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -6674,29 +5687,24 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 199
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -6704,29 +5712,24 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Error handling
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 200
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
@@ -6734,29 +5737,24 @@ NC='\033[0m' # No Color
 
 # Error handling
 trap 'error_handler $? $LINENO' ERR
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 201
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
@@ -6764,29 +5762,24 @@ NC='\033[0m' # No Color
 # Error handling
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 202
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
@@ -6794,299 +5787,249 @@ NC='\033[0m' # No Color
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 203
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 NC='\033[0m' # No Color
 
 # Error handling
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 204
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 # Error handling
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-############################################################################### 
+###############################################################################
 # Logging & Output Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 205
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Error handling
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-############################################################################### 
+###############################################################################
 # Logging & Output Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 206
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-############################################################################### 
+###############################################################################
 # Logging & Output Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 207
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 trap 'cleanup' EXIT
 
-############################################################################### 
+###############################################################################
 # Logging & Output Functions
-############################################################################### 
+###############################################################################
 
 log_info() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 208
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # Logging & Output Functions
-############################################################################### 
+###############################################################################
 
 log_info() {
     local msg="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 209
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # Logging & Output Functions
-############################################################################### 
+###############################################################################
 
 log_info() {
     local msg="$1"
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 210
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Logging & Output Functions
-############################################################################### 
+###############################################################################
 
 log_info() {
     local msg="$1"
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 211
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 log_info() {
     local msg="$1"
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 212
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 log_info() {
     local msg="$1"
@@ -7094,29 +6037,24 @@ log_info() {
 }
 
 log_success() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 213
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 log_info() {
     local msg="$1"
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
@@ -7124,29 +6062,24 @@ log_info() {
 
 log_success() {
     local msg="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 214
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local msg="$1"
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
 }
@@ -7154,29 +6087,24 @@ log_success() {
 log_success() {
     local msg="$1"
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 215
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo -e "${BLUE}[INFO]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
@@ -7184,29 +6112,24 @@ log_success() {
     local msg="$1"
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 216
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 log_success() {
@@ -7214,29 +6137,24 @@ log_success() {
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 217
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 log_success() {
     local msg="$1"
@@ -7244,29 +6162,24 @@ log_success() {
 }
 
 log_warn() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 218
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 log_success() {
     local msg="$1"
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
@@ -7274,29 +6187,24 @@ log_success() {
 
 log_warn() {
     local msg="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 219
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local msg="$1"
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
 }
@@ -7304,29 +6212,24 @@ log_warn() {
 log_warn() {
     local msg="$1"
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 220
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo -e "${GREEN}[SUCCESS]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
@@ -7334,29 +6237,24 @@ log_warn() {
     local msg="$1"
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 221
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 log_warn() {
@@ -7364,29 +6262,24 @@ log_warn() {
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 222
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 log_warn() {
     local msg="$1"
@@ -7394,29 +6287,24 @@ log_warn() {
 }
 
 log_error() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 223
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 log_warn() {
     local msg="$1"
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
@@ -7424,29 +6312,24 @@ log_warn() {
 
 log_error() {
     local msg="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 224
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local msg="$1"
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
 }
@@ -7454,29 +6337,24 @@ log_error() {
 log_error() {
     local msg="$1"
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 225
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo -e "${YELLOW}[WARN]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
@@ -7484,29 +6362,24 @@ log_error() {
     local msg="$1"
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 226
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 log_error() {
@@ -7514,29 +6387,24 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 227
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 log_error() {
     local msg="$1"
@@ -7544,239 +6412,199 @@ log_error() {
 }
 
 debug_log() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 228
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 log_error() {
     local msg="$1"
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
-```python
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 229
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local msg="$1"
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 230
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo -e "${RED}[ERROR]${NC} $msg" | tee -a "$LOG_FILE"
 }
 
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 231
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 232
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 233
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 debug_log() {
-    if [["${VERBOSE:-false}" == "true"]]; then
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
 
 error_handler() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 234
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["${VERBOSE:-false}" == "true"]]; then
+**Context:**
+```
+    if [[ "${VERBOSE:-false}" == "true" ]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
 
 error_handler() {
     local exit_code=$1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 235
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
@@ -7784,29 +6612,24 @@ error_handler() {
 error_handler() {
     local exit_code=$1
     local line_number=$2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 236
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 }
 
@@ -7814,239 +6637,199 @@ error_handler() {
     local exit_code=$1
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 237
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 error_handler() {
     local exit_code=$1
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
-```python
+    if [[ "$DRY_RUN" != "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 238
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 error_handler() {
     local exit_code=$1
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 239
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 error_handler() {
     local exit_code=$1
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
         perform_rollback || true
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 240
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local exit_code=$1
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
         perform_rollback || true
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 241
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local line_number=$2
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
         perform_rollback || true
     fi
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 242
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_error "Script failed at line $line_number with exit code $exit_code"
-    if [["$DRY_RUN" != "true"]]; then
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
         perform_rollback || true
     fi
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 243
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$DRY_RUN" != "true"]]; then
+**Context:**
+```
+    if [[ "$DRY_RUN" != "true" ]]; then
         log_warn "Attempting rollback..."
         perform_rollback || true
     fi
 }
 
 cleanup() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 244
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_warn "Attempting rollback..."
         perform_rollback || true
     fi
@@ -8054,29 +6837,24 @@ cleanup() {
 
 cleanup() {
     debug_log "Cleanup function called"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 245
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         perform_rollback || true
     fi
 }
@@ -8084,29 +6862,24 @@ cleanup() {
 cleanup() {
     debug_log "Cleanup function called"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 246
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 }
 
@@ -8114,299 +6887,249 @@ cleanup() {
     debug_log "Cleanup function called"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 247
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 cleanup() {
     debug_log "Cleanup function called"
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 248
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 cleanup() {
     debug_log "Cleanup function called"
 }
 
-############################################################################### 
+###############################################################################
 # Utility Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 249
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 cleanup() {
     debug_log "Cleanup function called"
 }
 
-############################################################################### 
+###############################################################################
 # Utility Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 250
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "Cleanup function called"
 }
 
-############################################################################### 
+###############################################################################
 # Utility Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 251
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # Utility Functions
-############################################################################### 
+###############################################################################
 
 print_usage() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 252
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # Utility Functions
-############################################################################### 
+###############################################################################
 
 print_usage() {
     cat << EOF
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 253
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # Utility Functions
-############################################################################### 
+###############################################################################
 
 print_usage() {
     cat << EOF
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 254
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Utility Functions
-############################################################################### 
+###############################################################################
 
 print_usage() {
     cat << EOF
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 255
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 print_usage() {
     cat << EOF
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
 
 ${BLUE}Description:${NC}
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 298
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
   # With DNSSEC validation
   $SCRIPT_NAME --dnssec-validate vm.example.com 192.168.1.100
 EOF
@@ -8414,29 +7137,24 @@ EOF
 
 print_version() {
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 299
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
   $SCRIPT_NAME --dnssec-validate vm.example.com 192.168.1.100
 EOF
 }
@@ -8444,29 +7162,24 @@ EOF
 print_version() {
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 300
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 EOF
 }
 
@@ -8474,29 +7187,24 @@ print_version() {
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 301
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 print_version() {
@@ -8504,29 +7212,24 @@ print_version() {
 }
 
 validate_hostname() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 302
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 print_version() {
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
@@ -8534,239 +7237,199 @@ print_version() {
 
 validate_hostname() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 303
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 print_version() {
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 }
 
 validate_hostname() {
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-```python
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 304
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 }
 
 validate_hostname() {
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 305
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 validate_hostname() {
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 306
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 validate_hostname() {
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 307
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 validate_hostname() {
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
         return 1
     fi
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 308
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
         return 1
     fi
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 309
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
+**Context:**
+```
+    if ! [[ "$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]]; then
         log_error "Invalid hostname: $hostname"
         return 1
     fi
 }
 
 validate_ip_address() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 310
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Invalid hostname: $hostname"
         return 1
     fi
@@ -8774,29 +7437,24 @@ validate_ip_address() {
 
 validate_ip_address() {
     local ip="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 311
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 }
@@ -8804,239 +7462,199 @@ validate_ip_address() {
 validate_ip_address() {
     local ip="$1"
     # IPv4 validation
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 312
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 }
 
 validate_ip_address() {
     local ip="$1"
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-```python
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 313
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 validate_ip_address() {
     local ip="$1"
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 314
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 validate_ip_address() {
     local ip="$1"
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
         # shellcheck disable=SC2206
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 315
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 validate_ip_address() {
     local ip="$1"
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 316
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local ip="$1"
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 317
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
         IFS='.' read -r -a octets <<< "$ip"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 318
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
+**Context:**
+```
+    if [[ "$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
         local IFS='.'
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
         IFS='.' read -r -a octets <<< "$ip"
         for octet in "${octets[@]}"; do
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 319
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         local IFS='.'
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
@@ -9044,29 +7662,24 @@ validate_ip_address() {
         IFS='.' read -r -a octets <<< "$ip"
         for octet in "${octets[@]}"; do
             if ((octet > 255)); then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 320
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
@@ -9074,29 +7687,24 @@ validate_ip_address() {
         for octet in "${octets[@]}"; do
             if ((octet > 255)); then
                 log_error "Invalid IPv4 address: $ip"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 321
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
         IFS='.' read -r -a octets <<< "$ip"
@@ -9104,29 +7712,24 @@ validate_ip_address() {
             if ((octet > 255)); then
                 log_error "Invalid IPv4 address: $ip"
                 return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 322
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         local -a octets
         IFS='.' read -r -a octets <<< "$ip"
         for octet in "${octets[@]}"; do
@@ -9134,29 +7737,24 @@ validate_ip_address() {
                 log_error "Invalid IPv4 address: $ip"
                 return 1
             fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 323
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         IFS='.' read -r -a octets <<< "$ip"
         for octet in "${octets[@]}"; do
             if ((octet > 255)); then
@@ -9164,29 +7762,24 @@ validate_ip_address() {
                 return 1
             fi
         done
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 324
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         for octet in "${octets[@]}"; do
             if ((octet > 255)); then
                 log_error "Invalid IPv4 address: $ip"
@@ -9194,29 +7787,24 @@ validate_ip_address() {
             fi
         done
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 325
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             if ((octet > 255)); then
                 log_error "Invalid IPv4 address: $ip"
                 return 1
@@ -9224,29 +7812,24 @@ validate_ip_address() {
         done
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 326
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 log_error "Invalid IPv4 address: $ip"
                 return 1
             fi
@@ -9254,29 +7837,24 @@ validate_ip_address() {
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 327
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 return 1
             fi
         done
@@ -9284,239 +7862,199 @@ validate_ip_address() {
     fi
 
     # IPv6 validation (basic)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 328
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             fi
         done
         return 0
     fi
 
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
-```python
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 329
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         done
         return 0
     fi
 
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 330
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 331
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 332
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
     fi
 
     log_error "Invalid IP address: $ip"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 333
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # IPv6 validation (basic)
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
     fi
 
     log_error "Invalid IP address: $ip"
     return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 334
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$]]; then
+**Context:**
+```
+    if [[ "$ip" =~ ^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$ ]]; then
         return 0
     fi
 
     log_error "Invalid IP address: $ip"
     return 1
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 335
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -9524,29 +8062,24 @@ validate_ip_address() {
     return 1
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 336
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     log_error "Invalid IP address: $ip"
@@ -9554,29 +8087,24 @@ validate_ip_address() {
 }
 
 validate_tsig_key() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 337
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_error "Invalid IP address: $ip"
     return 1
@@ -9584,539 +8112,449 @@ validate_tsig_key() {
 
 validate_tsig_key() {
     local key_file="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 338
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_error "Invalid IP address: $ip"
     return 1
 }
 
 validate_tsig_key() {
     local key_file="$1"
-    if [[-z "$key_file"]]; then
-```python
+    if [[ -z "$key_file" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 339
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     return 1
 }
 
 validate_tsig_key() {
     local key_file="$1"
-    if [[-z "$key_file"]]; then
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 340
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 validate_tsig_key() {
     local key_file="$1"
-    if [[-z "$key_file"]]; then
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 341
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 validate_tsig_key() {
     local key_file="$1"
-    if [[-z "$key_file"]]; then
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 342
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 validate_tsig_key() {
     local key_file="$1"
-    if [[-z "$key_file"]]; then
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 343
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local key_file="$1"
-    if [[-z "$key_file"]]; then
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
     fi
 
-    if [[! -f "$key_file"]]; then
-```python
+    if [[ ! -f "$key_file" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 344
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[-z "$key_file"]]; then
+**Context:**
+```
+    if [[ -z "$key_file" ]]; then
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
     fi
 
-    if [[! -f "$key_file"]]; then
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 345
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_warn "No TSIG key specified, proceeding without authentication"
         return 0
     fi
 
-    if [[! -f "$key_file"]]; then
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 346
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
-    if [[! -f "$key_file"]]; then
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 347
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
-    if [[! -f "$key_file"]]; then
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
         return 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 348
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [[! -f "$key_file"]]; then
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
         return 1
     fi
 
-    if [[! -r "$key_file"]]; then
-```python
+    if [[ ! -r "$key_file" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 349
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[! -f "$key_file"]]; then
+**Context:**
+```
+    if [[ ! -f "$key_file" ]]; then
         log_error "TSIG key file not found: $key_file"
         return 1
     fi
 
-    if [[! -r "$key_file"]]; then
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 350
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "TSIG key file not found: $key_file"
         return 1
     fi
 
-    if [[! -r "$key_file"]]; then
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 351
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 
-    if [[! -r "$key_file"]]; then
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 352
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
-    if [[! -r "$key_file"]]; then
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 353
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [[! -r "$key_file"]]; then
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
     fi
 
     log_info "TSIG key validated: $key_file"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 354
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[! -r "$key_file"]]; then
+**Context:**
+```
+    if [[ ! -r "$key_file" ]]; then
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
     fi
 
     log_info "TSIG key validated: $key_file"
     return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 355
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Cannot read TSIG key file: $key_file (permissions denied)"
         return 1
     fi
@@ -10124,29 +8562,24 @@ validate_tsig_key() {
     log_info "TSIG key validated: $key_file"
     return 0
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 356
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 
@@ -10154,29 +8587,24 @@ validate_tsig_key() {
     return 0
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 357
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     log_info "TSIG key validated: $key_file"
@@ -10184,29 +8612,24 @@ validate_tsig_key() {
 }
 
 validate_dns_server() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 358
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "TSIG key validated: $key_file"
     return 0
@@ -10214,29 +8637,24 @@ validate_dns_server() {
 
 validate_dns_server() {
     local server="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 359
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "TSIG key validated: $key_file"
     return 0
 }
@@ -10244,29 +8662,24 @@ validate_dns_server() {
 validate_dns_server() {
     local server="$1"
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 360
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     return 0
 }
 
@@ -10274,29 +8687,24 @@ validate_dns_server() {
     local server="$1"
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
         log_error "Neither 'host' nor 'dig' command found"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 361
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 validate_dns_server() {
@@ -10304,29 +8712,24 @@ validate_dns_server() {
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
         log_error "Neither 'host' nor 'dig' command found"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 362
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 validate_dns_server() {
     local server="$1"
@@ -10334,29 +8737,24 @@ validate_dns_server() {
         log_error "Neither 'host' nor 'dig' command found"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 363
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 validate_dns_server() {
     local server="$1"
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
@@ -10364,29 +8762,24 @@ validate_dns_server() {
         return 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 364
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local server="$1"
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
         log_error "Neither 'host' nor 'dig' command found"
@@ -10394,29 +8787,24 @@ validate_dns_server() {
     fi
 
     if ! host "$server" &>/dev/null; then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 365
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ! command -v host &>/dev/null && ! command -v dig &>/dev/null; then
         log_error "Neither 'host' nor 'dig' command found"
         return 1
@@ -10424,29 +8812,24 @@ validate_dns_server() {
 
     if ! host "$server" &>/dev/null; then
         log_error "Cannot resolve DNS server: $server"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 366
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Neither 'host' nor 'dig' command found"
         return 1
     fi
@@ -10454,29 +8837,24 @@ validate_dns_server() {
     if ! host "$server" &>/dev/null; then
         log_error "Cannot resolve DNS server: $server"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 367
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 
@@ -10484,29 +8862,24 @@ validate_dns_server() {
         log_error "Cannot resolve DNS server: $server"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 368
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     if ! host "$server" &>/dev/null; then
@@ -10514,29 +8887,24 @@ validate_dns_server() {
         return 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 369
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if ! host "$server" &>/dev/null; then
         log_error "Cannot resolve DNS server: $server"
@@ -10544,29 +8912,24 @@ validate_dns_server() {
     fi
 
     debug_log "DNS server validated: $server"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 370
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ! host "$server" &>/dev/null; then
         log_error "Cannot resolve DNS server: $server"
         return 1
@@ -10574,29 +8937,24 @@ validate_dns_server() {
 
     debug_log "DNS server validated: $server"
     return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 371
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Cannot resolve DNS server: $server"
         return 1
     fi
@@ -10604,29 +8962,24 @@ validate_dns_server() {
     debug_log "DNS server validated: $server"
     return 0
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 372
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 
@@ -10634,299 +8987,249 @@ validate_dns_server() {
     return 0
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 373
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     debug_log "DNS server validated: $server"
     return 0
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 374
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     debug_log "DNS server validated: $server"
     return 0
 }
 
-############################################################################### 
+###############################################################################
 # DNS Update Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 375
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "DNS server validated: $server"
     return 0
 }
 
-############################################################################### 
+###############################################################################
 # DNS Update Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 376
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     return 0
 }
 
-############################################################################### 
+###############################################################################
 # DNS Update Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 377
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # DNS Update Functions
-############################################################################### 
+###############################################################################
 
 lower_ttl() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 378
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # DNS Update Functions
-############################################################################### 
+###############################################################################
 
 lower_ttl() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 379
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # DNS Update Functions
-############################################################################### 
+###############################################################################
 
 lower_ttl() {
     local hostname="$1"
     local server="${2:-}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 380
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # DNS Update Functions
-############################################################################### 
+###############################################################################
 
 lower_ttl() {
     local hostname="$1"
     local server="${2:-}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 381
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 lower_ttl() {
     local hostname="$1"
     local server="${2:-}"
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 382
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 lower_ttl() {
     local hostname="$1"
@@ -10934,239 +9237,199 @@ lower_ttl() {
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 383
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 lower_ttl() {
     local hostname="$1"
     local server="${2:-}"
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-    if [["$DRY_RUN" == "true"]]; then
-```python
+    if [[ "$DRY_RUN" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 384
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
     local server="${2:-}"
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 385
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local server="${2:-}"
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 386
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 387
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Lowering TTL to $TTL_UPDATE for faster propagation..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 388
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
     fi
 
     # Store current TTL for rollback
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 389
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$DRY_RUN" == "true"]]; then
+**Context:**
+```
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
     fi
 
     # Store current TTL for rollback
     save_dns_state "ttl_lowered" "true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 390
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] Would lower TTL of $hostname to $TTL_UPDATE"
         return 0
     fi
@@ -11174,29 +9437,24 @@ lower_ttl() {
     # Store current TTL for rollback
     save_dns_state "ttl_lowered" "true"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 391
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -11204,29 +9462,24 @@ lower_ttl() {
     save_dns_state "ttl_lowered" "true"
 
     # In production, this would use nsupdate with TSIG
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 392
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Store current TTL for rollback
@@ -11234,29 +9487,24 @@ lower_ttl() {
 
     # In production, this would use nsupdate with TSIG
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 393
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Store current TTL for rollback
     save_dns_state "ttl_lowered" "true"
@@ -11264,29 +9512,24 @@ lower_ttl() {
     # In production, this would use nsupdate with TSIG
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 394
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Store current TTL for rollback
     save_dns_state "ttl_lowered" "true"
 
@@ -11294,29 +9537,24 @@ lower_ttl() {
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
     log_success "TTL lowered successfully"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 395
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     save_dns_state "ttl_lowered" "true"
 
     # In production, this would use nsupdate with TSIG
@@ -11324,29 +9562,24 @@ lower_ttl() {
 
     log_success "TTL lowered successfully"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 396
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # In production, this would use nsupdate with TSIG
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
@@ -11354,29 +9587,24 @@ lower_ttl() {
     log_success "TTL lowered successfully"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 397
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # In production, this would use nsupdate with TSIG
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
@@ -11384,29 +9612,24 @@ lower_ttl() {
 }
 
 update_dns_record() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 398
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "TTL lowering would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
     log_success "TTL lowered successfully"
@@ -11414,29 +9637,24 @@ update_dns_record() {
 
 update_dns_record() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 399
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_success "TTL lowered successfully"
 }
@@ -11444,29 +9662,24 @@ update_dns_record() {
 update_dns_record() {
     local hostname="$1"
     local ip_address="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 400
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_success "TTL lowered successfully"
 }
 
@@ -11474,29 +9687,24 @@ update_dns_record() {
     local hostname="$1"
     local ip_address="$2"
     local server="${3:-}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 401
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 update_dns_record() {
@@ -11504,29 +9712,24 @@ update_dns_record() {
     local ip_address="$2"
     local server="${3:-}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 402
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 update_dns_record() {
     local hostname="$1"
@@ -11534,29 +9737,24 @@ update_dns_record() {
     local server="${3:-}"
 
     log_info "Updating DNS record: $hostname -> $ip_address"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 403
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 update_dns_record() {
     local hostname="$1"
     local ip_address="$2"
@@ -11564,239 +9762,199 @@ update_dns_record() {
 
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 404
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
     local ip_address="$2"
     local server="${3:-}"
 
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-    if [["$DRY_RUN" == "true"]]; then
-```python
+    if [[ "$DRY_RUN" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 405
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local ip_address="$2"
     local server="${3:-}"
 
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 406
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local server="${3:-}"
 
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 407
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 408
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Updating DNS record: $hostname -> $ip_address"
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 409
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 410
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$DRY_RUN" == "true"]]; then
+**Context:**
+```
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 411
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] Would update DNS record via nsupdate"
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
@@ -11804,29 +9962,24 @@ update_dns_record() {
     fi
 
     # Save current state for potential rollback
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 412
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] Server: ${server:-default}"
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
         return 0
@@ -11834,29 +9987,24 @@ update_dns_record() {
 
     # Save current state for potential rollback
     save_dns_state "hostname" "$hostname"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 413
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] TSIG: ${TSIG_KEY_FILE:-none}"
         return 0
     fi
@@ -11864,29 +10012,24 @@ update_dns_record() {
     # Save current state for potential rollback
     save_dns_state "hostname" "$hostname"
     save_dns_state "new_ip" "$ip_address"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 414
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -11894,29 +10037,24 @@ update_dns_record() {
     save_dns_state "hostname" "$hostname"
     save_dns_state "new_ip" "$ip_address"
     save_dns_state "timestamp" "$(date -Iseconds)"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 415
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Save current state for potential rollback
@@ -11924,29 +10062,24 @@ update_dns_record() {
     save_dns_state "new_ip" "$ip_address"
     save_dns_state "timestamp" "$(date -Iseconds)"
     save_dns_state "operator" "${USER:-system}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 416
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Save current state for potential rollback
     save_dns_state "hostname" "$hostname"
@@ -11954,29 +10087,24 @@ update_dns_record() {
     save_dns_state "timestamp" "$(date -Iseconds)"
     save_dns_state "operator" "${USER:-system}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 417
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Save current state for potential rollback
     save_dns_state "hostname" "$hostname"
     save_dns_state "new_ip" "$ip_address"
@@ -11984,29 +10112,24 @@ update_dns_record() {
     save_dns_state "operator" "${USER:-system}"
 
     # Build nsupdate command
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 418
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     save_dns_state "hostname" "$hostname"
     save_dns_state "new_ip" "$ip_address"
     save_dns_state "timestamp" "$(date -Iseconds)"
@@ -12014,239 +10137,199 @@ update_dns_record() {
 
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 419
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     save_dns_state "new_ip" "$ip_address"
     save_dns_state "timestamp" "$(date -Iseconds)"
     save_dns_state "operator" "${USER:-system}"
 
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
-```python
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 420
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     save_dns_state "timestamp" "$(date -Iseconds)"
     save_dns_state "operator" "${USER:-system}"
 
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 421
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     save_dns_state "operator" "${USER:-system}"
 
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 422
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 423
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Build nsupdate command
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
 
     debug_log "Executing: $nsupdate_cmd"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 424
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local nsupdate_cmd="nsupdate"
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
 
     debug_log "Executing: $nsupdate_cmd"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 425
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[-n "$TSIG_KEY_FILE"]]; then
+**Context:**
+```
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
 
     debug_log "Executing: $nsupdate_cmd"
 
     # Execute update (example for demonstration)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 426
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         nsupdate_cmd="$nsupdate_cmd -k $TSIG_KEY_FILE"
     fi
 
@@ -12254,29 +10337,24 @@ update_dns_record() {
 
     # Execute update (example for demonstration)
     {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 427
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     debug_log "Executing: $nsupdate_cmd"
@@ -12284,29 +10362,24 @@ update_dns_record() {
     # Execute update (example for demonstration)
     {
         echo "server ${server:-}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 428
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     debug_log "Executing: $nsupdate_cmd"
 
@@ -12314,29 +10387,24 @@ update_dns_record() {
     {
         echo "server ${server:-}"
         echo "zone example.com"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 429
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "Executing: $nsupdate_cmd"
 
     # Execute update (example for demonstration)
@@ -12344,29 +10412,24 @@ update_dns_record() {
         echo "server ${server:-}"
         echo "zone example.com"
         echo "update delete $hostname A"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 430
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Execute update (example for demonstration)
     {
@@ -12374,29 +10437,24 @@ update_dns_record() {
         echo "zone example.com"
         echo "update delete $hostname A"
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 431
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Execute update (example for demonstration)
     {
         echo "server ${server:-}"
@@ -12404,29 +10462,24 @@ update_dns_record() {
         echo "update delete $hostname A"
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
         echo "send"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 432
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     {
         echo "server ${server:-}"
         echo "zone example.com"
@@ -12434,29 +10487,24 @@ update_dns_record() {
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
         echo "send"
     } | $nsupdate_cmd || {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 433
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "server ${server:-}"
         echo "zone example.com"
         echo "update delete $hostname A"
@@ -12464,29 +10512,24 @@ update_dns_record() {
         echo "send"
     } | $nsupdate_cmd || {
         log_error "Failed to update DNS record"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 434
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "zone example.com"
         echo "update delete $hostname A"
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
@@ -12494,29 +10537,24 @@ update_dns_record() {
     } | $nsupdate_cmd || {
         log_error "Failed to update DNS record"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 435
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "update delete $hostname A"
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
         echo "send"
@@ -12524,29 +10562,24 @@ update_dns_record() {
         log_error "Failed to update DNS record"
         return 1
     }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 436
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "update add $hostname $TTL_DEFAULT A $ip_address"
         echo "send"
     } | $nsupdate_cmd || {
@@ -12554,29 +10587,24 @@ update_dns_record() {
         return 1
     }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 437
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         echo "send"
     } | $nsupdate_cmd || {
         log_error "Failed to update DNS record"
@@ -12584,29 +10612,24 @@ update_dns_record() {
     }
 
     log_success "DNS record updated: $hostname -> $ip_address"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 438
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     } | $nsupdate_cmd || {
         log_error "Failed to update DNS record"
         return 1
@@ -12614,29 +10637,24 @@ update_dns_record() {
 
     log_success "DNS record updated: $hostname -> $ip_address"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 439
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Failed to update DNS record"
         return 1
     }
@@ -12644,29 +10662,24 @@ update_dns_record() {
     log_success "DNS record updated: $hostname -> $ip_address"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 440
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     }
 
@@ -12674,29 +10687,24 @@ update_dns_record() {
 }
 
 restore_ttl() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 441
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     }
 
     log_success "DNS record updated: $hostname -> $ip_address"
@@ -12704,29 +10712,24 @@ restore_ttl() {
 
 restore_ttl() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 442
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_success "DNS record updated: $hostname -> $ip_address"
 }
@@ -12734,29 +10737,24 @@ restore_ttl() {
 restore_ttl() {
     local hostname="$1"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 443
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_success "DNS record updated: $hostname -> $ip_address"
 }
 
@@ -12764,29 +10762,24 @@ restore_ttl() {
     local hostname="$1"
 
     log_info "Restoring original TTL..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 444
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 restore_ttl() {
@@ -12794,239 +10787,199 @@ restore_ttl() {
 
     log_info "Restoring original TTL..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 445
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 restore_ttl() {
     local hostname="$1"
 
     log_info "Restoring original TTL..."
 
-    if [["$DRY_RUN" == "true"]]; then
-```python
+    if [[ "$DRY_RUN" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 446
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 restore_ttl() {
     local hostname="$1"
 
     log_info "Restoring original TTL..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 447
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
 
     log_info "Restoring original TTL..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 448
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "Restoring original TTL..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 449
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Restoring original TTL..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 450
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
     fi
 
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 451
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$DRY_RUN" == "true"]]; then
+**Context:**
+```
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
     fi
 
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 452
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] Would restore TTL to $TTL_DEFAULT"
         return 0
     fi
@@ -13034,29 +10987,24 @@ restore_ttl() {
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
     log_success "TTL restored to original value"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 453
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -13064,29 +11012,24 @@ restore_ttl() {
 
     log_success "TTL restored to original value"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 454
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
@@ -13094,299 +11037,249 @@ restore_ttl() {
     log_success "TTL restored to original value"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 455
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
     log_success "TTL restored to original value"
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 456
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "TTL restoration would be executed with: nsupdate -k $TSIG_KEY_FILE"
 
     log_success "TTL restored to original value"
 }
 
-############################################################################### 
+###############################################################################
 # Propagation Verification Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 457
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_success "TTL restored to original value"
 }
 
-############################################################################### 
+###############################################################################
 # Propagation Verification Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 458
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_success "TTL restored to original value"
 }
 
-############################################################################### 
+###############################################################################
 # Propagation Verification Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 459
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # Propagation Verification Functions
-############################################################################### 
+###############################################################################
 
 check_propagation() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 460
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # Propagation Verification Functions
-############################################################################### 
+###############################################################################
 
 check_propagation() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 461
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # Propagation Verification Functions
-############################################################################### 
+###############################################################################
 
 check_propagation() {
     local hostname="$1"
     local expected_ip="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 462
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Propagation Verification Functions
-############################################################################### 
+###############################################################################
 
 check_propagation() {
     local hostname="$1"
     local expected_ip="$2"
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 463
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 check_propagation() {
     local hostname="$1"
     local expected_ip="$2"
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 464
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 check_propagation() {
     local hostname="$1"
@@ -13394,29 +11287,24 @@ check_propagation() {
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
 
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 465
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 check_propagation() {
     local hostname="$1"
     local expected_ip="$2"
@@ -13424,29 +11312,24 @@ check_propagation() {
 
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 466
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
     local expected_ip="$2"
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
@@ -13454,29 +11337,24 @@ check_propagation() {
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
 
     local elapsed=0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 467
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local expected_ip="$2"
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
 
@@ -13484,29 +11362,24 @@ check_propagation() {
 
     local elapsed=0
     local propagated_servers=0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 468
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local timeout="${3:-$PROPAGATION_CHECK_TIMEOUT}"
 
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
@@ -13514,29 +11387,24 @@ check_propagation() {
     local elapsed=0
     local propagated_servers=0
     local total_servers=${#DNS_SERVERS[@]}
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 469
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
 
@@ -13544,29 +11412,24 @@ check_propagation() {
     local propagated_servers=0
     local total_servers=${#DNS_SERVERS[@]}
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 470
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Checking DNS propagation for $hostname (timeout: ${timeout}s)..."
 
     local elapsed=0
@@ -13574,29 +11437,24 @@ check_propagation() {
     local total_servers=${#DNS_SERVERS[@]}
 
     if ((total_servers == 0)); then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 471
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     local elapsed=0
     local propagated_servers=0
@@ -13604,29 +11462,24 @@ check_propagation() {
 
     if ((total_servers == 0)); then
         total_servers=1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 472
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local elapsed=0
     local propagated_servers=0
     local total_servers=${#DNS_SERVERS[@]}
@@ -13634,29 +11487,24 @@ check_propagation() {
     if ((total_servers == 0)); then
         total_servers=1
         DNS_SERVERS=("8.8.8.8")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 473
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local propagated_servers=0
     local total_servers=${#DNS_SERVERS[@]}
 
@@ -13664,29 +11512,24 @@ check_propagation() {
         total_servers=1
         DNS_SERVERS=("8.8.8.8")
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 474
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local total_servers=${#DNS_SERVERS[@]}
 
     if ((total_servers == 0)); then
@@ -13694,29 +11537,24 @@ check_propagation() {
         DNS_SERVERS=("8.8.8.8")
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 475
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if ((total_servers == 0)); then
         total_servers=1
@@ -13724,29 +11562,24 @@ check_propagation() {
     fi
 
     while ((elapsed < timeout)); do
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 476
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ((total_servers == 0)); then
         total_servers=1
         DNS_SERVERS=("8.8.8.8")
@@ -13754,29 +11587,24 @@ check_propagation() {
 
     while ((elapsed < timeout)); do
         propagated_servers=0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 477
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         total_servers=1
         DNS_SERVERS=("8.8.8.8")
     fi
@@ -13784,29 +11612,24 @@ check_propagation() {
     while ((elapsed < timeout)); do
         propagated_servers=0
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 478
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         DNS_SERVERS=("8.8.8.8")
     fi
 
@@ -13814,29 +11637,24 @@ check_propagation() {
         propagated_servers=0
 
         for server in "${DNS_SERVERS[@]}"; do
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 479
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     while ((elapsed < timeout)); do
@@ -13844,29 +11662,24 @@ check_propagation() {
 
         for server in "${DNS_SERVERS[@]}"; do
             local resolved_ip
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 480
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     while ((elapsed < timeout)); do
         propagated_servers=0
@@ -13874,29 +11687,24 @@ check_propagation() {
         for server in "${DNS_SERVERS[@]}"; do
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 481
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     while ((elapsed < timeout)); do
         propagated_servers=0
 
@@ -13904,239 +11712,199 @@ check_propagation() {
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 482
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         propagated_servers=0
 
         for server in "${DNS_SERVERS[@]}"; do
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-            if [["$resolved_ip" == "$expected_ip"]]; then
-```python
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 483
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
         for server in "${DNS_SERVERS[@]}"; do
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-            if [["$resolved_ip" == "$expected_ip"]]; then
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 484
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         for server in "${DNS_SERVERS[@]}"; do
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-            if [["$resolved_ip" == "$expected_ip"]]; then
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 485
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             local resolved_ip
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-            if [["$resolved_ip" == "$expected_ip"]]; then
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 486
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
-            if [["$resolved_ip" == "$expected_ip"]]; then
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 487
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-            if [["$resolved_ip" == "$expected_ip"]]; then
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
             fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 488
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-            if [["$resolved_ip" == "$expected_ip"]]; then
+**Context:**
+```
+            if [[ "$resolved_ip" == "$expected_ip" ]]; then
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
             fi
         done
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 489
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ((propagated_servers++))
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
@@ -14144,29 +11912,24 @@ check_propagation() {
             fi
         done
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 490
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 log_success "[$server] Propagated: $hostname -> $resolved_ip"
             else
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
@@ -14174,29 +11937,24 @@ check_propagation() {
         done
 
         if ((propagated_servers == total_servers)); then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 491
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             else
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
             fi
@@ -14204,29 +11962,24 @@ check_propagation() {
 
         if ((propagated_servers == total_servers)); then
             log_success "DNS propagation complete on all servers"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 492
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 log_warn "[$server] Not yet propagated (got: ${resolved_ip:-NXDOMAIN})"
             fi
         done
@@ -14234,29 +11987,24 @@ check_propagation() {
         if ((propagated_servers == total_servers)); then
             log_success "DNS propagation complete on all servers"
             return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 493
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             fi
         done
 
@@ -14264,29 +12012,24 @@ check_propagation() {
             log_success "DNS propagation complete on all servers"
             return 0
         fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 494
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         done
 
         if ((propagated_servers == total_servers)); then
@@ -14294,29 +12037,24 @@ check_propagation() {
             return 0
         fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 495
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
         if ((propagated_servers == total_servers)); then
             log_success "DNS propagation complete on all servers"
@@ -14324,29 +12062,24 @@ check_propagation() {
         fi
 
         sleep "$PROPAGATION_CHECK_INTERVAL"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 496
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         if ((propagated_servers == total_servers)); then
             log_success "DNS propagation complete on all servers"
             return 0
@@ -14354,29 +12087,24 @@ check_propagation() {
 
         sleep "$PROPAGATION_CHECK_INTERVAL"
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 497
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             log_success "DNS propagation complete on all servers"
             return 0
         fi
@@ -14384,29 +12112,24 @@ check_propagation() {
         sleep "$PROPAGATION_CHECK_INTERVAL"
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
     done
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 498
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             return 0
         fi
 
@@ -14414,29 +12137,24 @@ check_propagation() {
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
     done
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 499
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         fi
 
         sleep "$PROPAGATION_CHECK_INTERVAL"
@@ -14444,29 +12162,24 @@ check_propagation() {
     done
 
     if ((propagated_servers > 0)); then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 500
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
         sleep "$PROPAGATION_CHECK_INTERVAL"
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
@@ -14474,29 +12187,24 @@ check_propagation() {
 
     if ((propagated_servers > 0)); then
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 501
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         sleep "$PROPAGATION_CHECK_INTERVAL"
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
     done
@@ -14504,29 +12212,24 @@ check_propagation() {
     if ((propagated_servers > 0)); then
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 502
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         ((elapsed += PROPAGATION_CHECK_INTERVAL))
     done
 
@@ -14534,29 +12237,24 @@ check_propagation() {
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 503
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     done
 
     if ((propagated_servers > 0)); then
@@ -14564,29 +12262,24 @@ check_propagation() {
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 504
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if ((propagated_servers > 0)); then
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
@@ -14594,29 +12287,24 @@ check_propagation() {
     fi
 
     log_error "DNS propagation failed after ${timeout}s"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 505
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ((propagated_servers > 0)); then
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
         return 0
@@ -14624,29 +12312,24 @@ check_propagation() {
 
     log_error "DNS propagation failed after ${timeout}s"
     return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 506
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_warn "Partial propagation: $propagated_servers/$total_servers servers"
         return 0
     fi
@@ -14654,29 +12337,24 @@ check_propagation() {
     log_error "DNS propagation failed after ${timeout}s"
     return 1
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 507
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -14684,299 +12362,249 @@ check_propagation() {
     return 1
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 508
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     log_error "DNS propagation failed after ${timeout}s"
     return 1
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 509
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_error "DNS propagation failed after ${timeout}s"
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # DNSSEC Validation Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 510
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_error "DNS propagation failed after ${timeout}s"
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # DNSSEC Validation Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 511
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # DNSSEC Validation Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 512
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # DNSSEC Validation Functions
-############################################################################### 
+###############################################################################
 
 validate_dnssec() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 513
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # DNSSEC Validation Functions
-############################################################################### 
+###############################################################################
 
 validate_dnssec() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 514
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # DNSSEC Validation Functions
-############################################################################### 
+###############################################################################
 
 validate_dnssec() {
     local hostname="$1"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 515
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # DNSSEC Validation Functions
-############################################################################### 
+###############################################################################
 
 validate_dnssec() {
     local hostname="$1"
 
     log_info "Validating DNSSEC for $hostname..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 516
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 validate_dnssec() {
     local hostname="$1"
 
     log_info "Validating DNSSEC for $hostname..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 517
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 validate_dnssec() {
     local hostname="$1"
@@ -14984,29 +12612,24 @@ validate_dnssec() {
     log_info "Validating DNSSEC for $hostname..."
 
     if ! command -v delv &>/dev/null; then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 518
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 validate_dnssec() {
     local hostname="$1"
 
@@ -15014,29 +12637,24 @@ validate_dnssec() {
 
     if ! command -v delv &>/dev/null; then
         log_warn "delv not found, skipping DNSSEC validation"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 519
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
 
     log_info "Validating DNSSEC for $hostname..."
@@ -15044,29 +12662,24 @@ validate_dnssec() {
     if ! command -v delv &>/dev/null; then
         log_warn "delv not found, skipping DNSSEC validation"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 520
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "Validating DNSSEC for $hostname..."
 
@@ -15074,29 +12687,24 @@ validate_dnssec() {
         log_warn "delv not found, skipping DNSSEC validation"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 521
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Validating DNSSEC for $hostname..."
 
     if ! command -v delv &>/dev/null; then
@@ -15104,29 +12712,24 @@ validate_dnssec() {
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 522
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if ! command -v delv &>/dev/null; then
         log_warn "delv not found, skipping DNSSEC validation"
@@ -15134,29 +12737,24 @@ validate_dnssec() {
     fi
 
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 523
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ! command -v delv &>/dev/null; then
         log_warn "delv not found, skipping DNSSEC validation"
         return 0
@@ -15164,29 +12762,24 @@ validate_dnssec() {
 
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
         log_success "DNSSEC validation successful"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 524
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_warn "delv not found, skipping DNSSEC validation"
         return 0
     fi
@@ -15194,29 +12787,24 @@ validate_dnssec() {
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
         log_success "DNSSEC validation successful"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 525
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -15224,29 +12812,24 @@ validate_dnssec() {
         log_success "DNSSEC validation successful"
         return 0
     else
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 526
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
@@ -15254,29 +12837,24 @@ validate_dnssec() {
         return 0
     else
         log_error "DNSSEC validation failed"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 527
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
         log_success "DNSSEC validation successful"
@@ -15284,29 +12862,24 @@ validate_dnssec() {
     else
         log_error "DNSSEC validation failed"
         return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 528
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if delv "@${DNS_SERVERS[0]:-}" "$hostname" &>/dev/null; then
         log_success "DNSSEC validation successful"
         return 0
@@ -15314,29 +12887,24 @@ validate_dnssec() {
         log_error "DNSSEC validation failed"
         return 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 529
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_success "DNSSEC validation successful"
         return 0
     else
@@ -15344,29 +12912,24 @@ validate_dnssec() {
         return 1
     fi
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 530
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     else
         log_error "DNSSEC validation failed"
@@ -15374,299 +12937,249 @@ validate_dnssec() {
     fi
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 531
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     else
         log_error "DNSSEC validation failed"
         return 1
     fi
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 532
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "DNSSEC validation failed"
         return 1
     fi
 }
 
-############################################################################### 
+###############################################################################
 # State Management & Rollback Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 533
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 1
     fi
 }
 
-############################################################################### 
+###############################################################################
 # State Management & Rollback Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 534
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 }
 
-############################################################################### 
+###############################################################################
 # State Management & Rollback Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 535
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # State Management & Rollback Functions
-############################################################################### 
+###############################################################################
 
 save_dns_state() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 536
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # State Management & Rollback Functions
-############################################################################### 
+###############################################################################
 
 save_dns_state() {
     local key="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 537
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # State Management & Rollback Functions
-############################################################################### 
+###############################################################################
 
 save_dns_state() {
     local key="$1"
     local value="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 538
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # State Management & Rollback Functions
-############################################################################### 
+###############################################################################
 
 save_dns_state() {
     local key="$1"
     local value="$2"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 539
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 save_dns_state() {
     local key="$1"
     local value="$2"
 
     mkdir -p "$STATE_DIR"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 540
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 save_dns_state() {
     local key="$1"
@@ -15674,29 +13187,24 @@ save_dns_state() {
 
     mkdir -p "$STATE_DIR"
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 541
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 save_dns_state() {
     local key="$1"
     local value="$2"
@@ -15704,29 +13212,24 @@ save_dns_state() {
     mkdir -p "$STATE_DIR"
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
     echo "$key=$value" >> "$state_file"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 542
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local key="$1"
     local value="$2"
 
@@ -15734,29 +13237,24 @@ save_dns_state() {
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
     echo "$key=$value" >> "$state_file"
     debug_log "State saved: $key=$value"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 543
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local value="$2"
 
     mkdir -p "$STATE_DIR"
@@ -15764,29 +13262,24 @@ save_dns_state() {
     echo "$key=$value" >> "$state_file"
     debug_log "State saved: $key=$value"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 544
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     mkdir -p "$STATE_DIR"
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
@@ -15794,29 +13287,24 @@ save_dns_state() {
     debug_log "State saved: $key=$value"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 545
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     mkdir -p "$STATE_DIR"
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
     echo "$key=$value" >> "$state_file"
@@ -15824,29 +13312,24 @@ save_dns_state() {
 }
 
 perform_rollback() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 546
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local state_file="$STATE_DIR/dns-update-$(date +%s).state"
     echo "$key=$value" >> "$state_file"
     debug_log "State saved: $key=$value"
@@ -15854,29 +13337,24 @@ perform_rollback() {
 
 perform_rollback() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 547
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo "$key=$value" >> "$state_file"
     debug_log "State saved: $key=$value"
 }
@@ -15884,449 +13362,374 @@ perform_rollback() {
 perform_rollback() {
     local hostname="$1"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 548
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     debug_log "State saved: $key=$value"
 }
 
 perform_rollback() {
     local hostname="$1"
 
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
-```python
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 549
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 perform_rollback() {
     local hostname="$1"
 
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 550
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 perform_rollback() {
     local hostname="$1"
 
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 551
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 perform_rollback() {
     local hostname="$1"
 
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 552
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
 
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 553
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
         return 0
     fi
 
     log_warn "Performing DNS rollback for $hostname..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 554
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$ROLLBACK_ENABLED" != "true"]]; then
+**Context:**
+```
+    if [[ "$ROLLBACK_ENABLED" != "true" ]]; then
         log_warn "Rollback disabled, skipping"
         return 0
     fi
 
     log_warn "Performing DNS rollback for $hostname..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 555
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_warn "Rollback disabled, skipping"
         return 0
     fi
 
     log_warn "Performing DNS rollback for $hostname..."
 
-    if [["$DRY_RUN" == "true"]]; then
-```python
+    if [[ "$DRY_RUN" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 556
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
     log_warn "Performing DNS rollback for $hostname..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 557
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     log_warn "Performing DNS rollback for $hostname..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 558
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_warn "Performing DNS rollback for $hostname..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 559
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_warn "Performing DNS rollback for $hostname..."
 
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 560
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [["$DRY_RUN" == "true"]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
     fi
 
     # Restore previous DNS record from state
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 561
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$DRY_RUN" == "true"]]; then
+**Context:**
+```
+    if [[ "$DRY_RUN" == "true" ]]; then
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
     fi
 
     # Restore previous DNS record from state
     local state_file
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 562
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "[DRY-RUN] Would rollback DNS changes"
         return 0
     fi
@@ -16334,29 +13737,24 @@ perform_rollback() {
     # Restore previous DNS record from state
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 563
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -16364,239 +13762,199 @@ perform_rollback() {
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 564
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Restore previous DNS record from state
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-    if [[-f "$state_file"]]; then
-```python
+    if [[ -f "$state_file" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 565
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Restore previous DNS record from state
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-    if [[-f "$state_file"]]; then
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 566
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Restore previous DNS record from state
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-    if [[-f "$state_file"]]; then
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 567
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local state_file
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-    if [[-f "$state_file"]]; then
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
         log_success "Rollback completed"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 568
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     state_file=$(find "$STATE_DIR" -name "*.state" -type f -printf '%T@ %p\n' | sort -rn | head -1 | cut -d' ' -f2-)
 
-    if [[-f "$state_file"]]; then
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
         log_success "Rollback completed"
         return 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 569
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [[-f "$state_file"]]; then
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
         log_success "Rollback completed"
         return 0
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 570
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[-f "$state_file"]]; then
+**Context:**
+```
+    if [[ -f "$state_file" ]]; then
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
         log_success "Rollback completed"
         return 0
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 571
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_info "Restoring from state file: $state_file"
         restore_ttl "$hostname"
         log_success "Rollback completed"
@@ -16604,29 +13962,24 @@ perform_rollback() {
     fi
 
     log_error "No state file found for rollback"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 572
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         restore_ttl "$hostname"
         log_success "Rollback completed"
         return 0
@@ -16634,29 +13987,24 @@ perform_rollback() {
 
     log_error "No state file found for rollback"
     return 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 573
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_success "Rollback completed"
         return 0
     fi
@@ -16664,29 +14012,24 @@ perform_rollback() {
     log_error "No state file found for rollback"
     return 1
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 574
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         return 0
     fi
 
@@ -16694,299 +14037,249 @@ perform_rollback() {
     return 1
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 575
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     log_error "No state file found for rollback"
     return 1
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 576
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_error "No state file found for rollback"
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # Audit Logging Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 577
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_error "No state file found for rollback"
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # Audit Logging Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 578
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     return 1
 }
 
-############################################################################### 
+###############################################################################
 # Audit Logging Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 579
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # Audit Logging Functions
-############################################################################### 
+###############################################################################
 
 audit_log() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 580
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # Audit Logging Functions
-############################################################################### 
+###############################################################################
 
 audit_log() {
     local action="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 581
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # Audit Logging Functions
-############################################################################### 
+###############################################################################
 
 audit_log() {
     local action="$1"
     local hostname="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 582
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Audit Logging Functions
-############################################################################### 
+###############################################################################
 
 audit_log() {
     local action="$1"
     local hostname="$2"
     local ip="$3"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 583
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 audit_log() {
     local action="$1"
     local hostname="$2"
     local ip="$3"
     local status="${4:-success}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 584
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 audit_log() {
     local action="$1"
@@ -16994,29 +14287,24 @@ audit_log() {
     local ip="$3"
     local status="${4:-success}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 585
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 audit_log() {
     local action="$1"
     local hostname="$2"
@@ -17024,29 +14312,24 @@ audit_log() {
     local status="${4:-success}"
 
     local audit_file="/var/log/debvisor-dns-audit.log"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 586
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local action="$1"
     local hostname="$2"
     local ip="$3"
@@ -17054,29 +14337,24 @@ audit_log() {
 
     local audit_file="/var/log/debvisor-dns-audit.log"
     local timestamp=$(date -Iseconds)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 587
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$2"
     local ip="$3"
     local status="${4:-success}"
@@ -17084,29 +14362,24 @@ audit_log() {
     local audit_file="/var/log/debvisor-dns-audit.log"
     local timestamp=$(date -Iseconds)
     local operator="${USER:-system}"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 588
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local ip="$3"
     local status="${4:-success}"
 
@@ -17114,29 +14387,24 @@ audit_log() {
     local timestamp=$(date -Iseconds)
     local operator="${USER:-system}"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 589
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local status="${4:-success}"
 
     local audit_file="/var/log/debvisor-dns-audit.log"
@@ -17144,29 +14412,24 @@ audit_log() {
     local operator="${USER:-system}"
 
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 590
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     local audit_file="/var/log/debvisor-dns-audit.log"
     local timestamp=$(date -Iseconds)
@@ -17174,29 +14437,24 @@ audit_log() {
 
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 591
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local audit_file="/var/log/debvisor-dns-audit.log"
     local timestamp=$(date -Iseconds)
     local operator="${USER:-system}"
@@ -17204,299 +14462,249 @@ audit_log() {
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 592
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local timestamp=$(date -Iseconds)
     local operator="${USER:-system}"
 
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
 
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 593
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local operator="${USER:-system}"
 
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
 
-############################################################################### 
+###############################################################################
 # JSON Output Functions
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 594
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
 
-############################################################################### 
+###############################################################################
 # JSON Output Functions
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 595
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     echo "$timestamp | $operator | $action | $hostname | $ip | $status" >> "$audit_file"
 }
 
-############################################################################### 
+###############################################################################
 # JSON Output Functions
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 596
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # JSON Output Functions
-############################################################################### 
+###############################################################################
 
 output_json() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 597
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # JSON Output Functions
-############################################################################### 
+###############################################################################
 
 output_json() {
     local hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 598
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # JSON Output Functions
-############################################################################### 
+###############################################################################
 
 output_json() {
     local hostname="$1"
     local ip="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 599
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # JSON Output Functions
-############################################################################### 
+###############################################################################
 
 output_json() {
     local hostname="$1"
     local ip="$2"
     local status="$3"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 600
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 output_json() {
     local hostname="$1"
     local ip="$2"
     local status="$3"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 601
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 output_json() {
     local hostname="$1"
@@ -17504,29 +14712,24 @@ output_json() {
     local status="$3"
 
     cat << EOF
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 602
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 output_json() {
     local hostname="$1"
     local ip="$2"
@@ -17534,29 +14737,24 @@ output_json() {
 
     cat << EOF
 {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 603
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname="$1"
     local ip="$2"
     local status="$3"
@@ -17564,29 +14762,24 @@ output_json() {
     cat << EOF
 {
   "hostname": "$hostname",
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 604
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local ip="$2"
     local status="$3"
 
@@ -17594,269 +14787,224 @@ output_json() {
 {
   "hostname": "$hostname",
   "ip_address": "$ip",
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 616
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-  "dry_run": $(["$DRY_RUN" == "true"] && echo "true" || echo "false")
+**Context:**
+```
+  "dry_run": $([ "$DRY_RUN" == "true" ] && echo "true" || echo "false")
 }
 EOF
 }
 
-############################################################################### 
+###############################################################################
 # Main Function
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 617
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 EOF
 }
 
-############################################################################### 
+###############################################################################
 # Main Function
-############################################################################### 
-```python
+###############################################################################
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 618
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 EOF
 }
 
-############################################################################### 
+###############################################################################
 # Main Function
-############################################################################### 
+###############################################################################
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 619
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
-############################################################################### 
+###############################################################################
 # Main Function
-############################################################################### 
+###############################################################################
 
 main() {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 620
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-############################################################################### 
+###############################################################################
 # Main Function
-############################################################################### 
+###############################################################################
 
 main() {
     # Parse arguments
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 621
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 # Main Function
-############################################################################### 
+###############################################################################
 
 main() {
     # Parse arguments
     local hostname=""
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 622
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Main Function
-############################################################################### 
+###############################################################################
 
 main() {
     # Parse arguments
     local hostname=""
     local ip_address=""
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 623
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-############################################################################### 
+**Context:**
+```
+###############################################################################
 
 main() {
     # Parse arguments
     local hostname=""
     local ip_address=""
     local output_format="text"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 624
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 main() {
     # Parse arguments
@@ -17864,239 +15012,199 @@ main() {
     local ip_address=""
     local output_format="text"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 625
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 main() {
     # Parse arguments
     local hostname=""
     local ip_address=""
     local output_format="text"
 
-    while [[$# -gt 0]]; do
-```python
+    while [[ $# -gt 0 ]]; do
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 626
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Parse arguments
     local hostname=""
     local ip_address=""
     local output_format="text"
 
-    while [[$# -gt 0]]; do
+    while [[ $# -gt 0 ]]; do
         case "$1" in
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 627
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local hostname=""
     local ip_address=""
     local output_format="text"
 
-    while [[$# -gt 0]]; do
+    while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 628
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local ip_address=""
     local output_format="text"
 
-    while [[$# -gt 0]]; do
+    while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
                 print_usage
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 629
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     local output_format="text"
 
-    while [[$# -gt 0]]; do
+    while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
                 print_usage
                 exit 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 630
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    while [[$# -gt 0]]; do
+    while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
                 print_usage
                 exit 0
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 631
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    while [[$# -gt 0]]; do
+**Context:**
+```
+    while [[ $# -gt 0 ]]; do
         case "$1" in
             --help|-h)
                 print_usage
                 exit 0
                 ;;
             --version)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 632
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         case "$1" in
             --help|-h)
                 print_usage
@@ -18104,29 +15212,24 @@ main() {
                 ;;
             --version)
                 print_version
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 633
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --help|-h)
                 print_usage
                 exit 0
@@ -18134,29 +15237,24 @@ main() {
             --version)
                 print_version
                 exit 0
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 634
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 print_usage
                 exit 0
                 ;;
@@ -18164,29 +15262,24 @@ main() {
                 print_version
                 exit 0
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 635
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 exit 0
                 ;;
             --version)
@@ -18194,29 +15287,24 @@ main() {
                 exit 0
                 ;;
             --server|-s)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 636
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --version)
                 print_version
@@ -18224,29 +15312,24 @@ main() {
                 ;;
             --server|-s)
                 DNS_SERVERS+=("$2")
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 637
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --version)
                 print_version
                 exit 0
@@ -18254,29 +15337,24 @@ main() {
             --server|-s)
                 DNS_SERVERS+=("$2")
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 638
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 print_version
                 exit 0
                 ;;
@@ -18284,29 +15362,24 @@ main() {
                 DNS_SERVERS+=("$2")
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 639
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 exit 0
                 ;;
             --server|-s)
@@ -18314,29 +15387,24 @@ main() {
                 shift 2
                 ;;
             --tsig-key|-k)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 640
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --server|-s)
                 DNS_SERVERS+=("$2")
@@ -18344,29 +15412,24 @@ main() {
                 ;;
             --tsig-key|-k)
                 TSIG_KEY_FILE="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 641
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --server|-s)
                 DNS_SERVERS+=("$2")
                 shift 2
@@ -18374,29 +15437,24 @@ main() {
             --tsig-key|-k)
                 TSIG_KEY_FILE="$2"
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 642
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 DNS_SERVERS+=("$2")
                 shift 2
                 ;;
@@ -18404,29 +15462,24 @@ main() {
                 TSIG_KEY_FILE="$2"
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 643
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --tsig-key|-k)
@@ -18434,29 +15487,24 @@ main() {
                 shift 2
                 ;;
             --tsig-algo|-a)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 644
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --tsig-key|-k)
                 TSIG_KEY_FILE="$2"
@@ -18464,29 +15512,24 @@ main() {
                 ;;
             --tsig-algo|-a)
                 TSIG_ALGORITHM="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 645
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --tsig-key|-k)
                 TSIG_KEY_FILE="$2"
                 shift 2
@@ -18494,29 +15537,24 @@ main() {
             --tsig-algo|-a)
                 TSIG_ALGORITHM="$2"
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 646
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 TSIG_KEY_FILE="$2"
                 shift 2
                 ;;
@@ -18524,29 +15562,24 @@ main() {
                 TSIG_ALGORITHM="$2"
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 647
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --tsig-algo|-a)
@@ -18554,29 +15587,24 @@ main() {
                 shift 2
                 ;;
             --ttl)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 648
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --tsig-algo|-a)
                 TSIG_ALGORITHM="$2"
@@ -18584,29 +15612,24 @@ main() {
                 ;;
             --ttl)
                 TTL_DEFAULT="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 649
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --tsig-algo|-a)
                 TSIG_ALGORITHM="$2"
                 shift 2
@@ -18614,29 +15637,24 @@ main() {
             --ttl)
                 TTL_DEFAULT="$2"
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 650
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 TSIG_ALGORITHM="$2"
                 shift 2
                 ;;
@@ -18644,29 +15662,24 @@ main() {
                 TTL_DEFAULT="$2"
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 651
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --ttl)
@@ -18674,29 +15687,24 @@ main() {
                 shift 2
                 ;;
             --update-ttl)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 652
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --ttl)
                 TTL_DEFAULT="$2"
@@ -18704,29 +15712,24 @@ main() {
                 ;;
             --update-ttl)
                 TTL_UPDATE="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 653
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --ttl)
                 TTL_DEFAULT="$2"
                 shift 2
@@ -18734,29 +15737,24 @@ main() {
             --update-ttl)
                 TTL_UPDATE="$2"
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 654
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 TTL_DEFAULT="$2"
                 shift 2
                 ;;
@@ -18764,29 +15762,24 @@ main() {
                 TTL_UPDATE="$2"
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 655
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --update-ttl)
@@ -18794,29 +15787,24 @@ main() {
                 shift 2
                 ;;
             --dry-run)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 656
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --update-ttl)
                 TTL_UPDATE="$2"
@@ -18824,29 +15812,24 @@ main() {
                 ;;
             --dry-run)
                 DRY_RUN="true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 657
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --update-ttl)
                 TTL_UPDATE="$2"
                 shift 2
@@ -18854,29 +15837,24 @@ main() {
             --dry-run)
                 DRY_RUN="true"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 658
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 TTL_UPDATE="$2"
                 shift 2
                 ;;
@@ -18884,29 +15862,24 @@ main() {
                 DRY_RUN="true"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 659
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --dry-run)
@@ -18914,29 +15887,24 @@ main() {
                 shift
                 ;;
             --verbose)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 660
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --dry-run)
                 DRY_RUN="true"
@@ -18944,29 +15912,24 @@ main() {
                 ;;
             --verbose)
                 VERBOSE="true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 661
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --dry-run)
                 DRY_RUN="true"
                 shift
@@ -18974,29 +15937,24 @@ main() {
             --verbose)
                 VERBOSE="true"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 662
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 DRY_RUN="true"
                 shift
                 ;;
@@ -19004,29 +15962,24 @@ main() {
                 VERBOSE="true"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 663
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --verbose)
@@ -19034,29 +15987,24 @@ main() {
                 shift
                 ;;
             --rollback)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 664
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --verbose)
                 VERBOSE="true"
@@ -19064,29 +16012,24 @@ main() {
                 ;;
             --rollback)
                 ROLLBACK_ENABLED="true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 665
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --verbose)
                 VERBOSE="true"
                 shift
@@ -19094,29 +16037,24 @@ main() {
             --rollback)
                 ROLLBACK_ENABLED="true"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 666
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 VERBOSE="true"
                 shift
                 ;;
@@ -19124,29 +16062,24 @@ main() {
                 ROLLBACK_ENABLED="true"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 667
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --rollback)
@@ -19154,29 +16087,24 @@ main() {
                 shift
                 ;;
             --no-rollback)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 668
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --rollback)
                 ROLLBACK_ENABLED="true"
@@ -19184,29 +16112,24 @@ main() {
                 ;;
             --no-rollback)
                 ROLLBACK_ENABLED="false"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 669
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --rollback)
                 ROLLBACK_ENABLED="true"
                 shift
@@ -19214,29 +16137,24 @@ main() {
             --no-rollback)
                 ROLLBACK_ENABLED="false"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 670
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ROLLBACK_ENABLED="true"
                 shift
                 ;;
@@ -19244,29 +16162,24 @@ main() {
                 ROLLBACK_ENABLED="false"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 671
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --no-rollback)
@@ -19274,29 +16187,24 @@ main() {
                 shift
                 ;;
             --check-propagation)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 672
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --no-rollback)
                 ROLLBACK_ENABLED="false"
@@ -19304,29 +16212,24 @@ main() {
                 ;;
             --check-propagation)
                 CHECK_PROPAGATION="true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 673
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --no-rollback)
                 ROLLBACK_ENABLED="false"
                 shift
@@ -19334,29 +16237,24 @@ main() {
             --check-propagation)
                 CHECK_PROPAGATION="true"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 674
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ROLLBACK_ENABLED="false"
                 shift
                 ;;
@@ -19364,29 +16262,24 @@ main() {
                 CHECK_PROPAGATION="true"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 675
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --check-propagation)
@@ -19394,29 +16287,24 @@ main() {
                 shift
                 ;;
             --timeout)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 676
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --check-propagation)
                 CHECK_PROPAGATION="true"
@@ -19424,29 +16312,24 @@ main() {
                 ;;
             --timeout)
                 PROPAGATION_CHECK_TIMEOUT="$2"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 677
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --check-propagation)
                 CHECK_PROPAGATION="true"
                 shift
@@ -19454,29 +16337,24 @@ main() {
             --timeout)
                 PROPAGATION_CHECK_TIMEOUT="$2"
                 shift 2
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 678
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 CHECK_PROPAGATION="true"
                 shift
                 ;;
@@ -19484,29 +16362,24 @@ main() {
                 PROPAGATION_CHECK_TIMEOUT="$2"
                 shift 2
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 679
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --timeout)
@@ -19514,29 +16387,24 @@ main() {
                 shift 2
                 ;;
             --dnssec-validate)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 680
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --timeout)
                 PROPAGATION_CHECK_TIMEOUT="$2"
@@ -19544,29 +16412,24 @@ main() {
                 ;;
             --dnssec-validate)
                 DNSSEC_VALIDATE="true"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 681
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --timeout)
                 PROPAGATION_CHECK_TIMEOUT="$2"
                 shift 2
@@ -19574,29 +16437,24 @@ main() {
             --dnssec-validate)
                 DNSSEC_VALIDATE="true"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 682
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 PROPAGATION_CHECK_TIMEOUT="$2"
                 shift 2
                 ;;
@@ -19604,29 +16462,24 @@ main() {
                 DNSSEC_VALIDATE="true"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 683
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift 2
                 ;;
             --dnssec-validate)
@@ -19634,29 +16487,24 @@ main() {
                 shift
                 ;;
             --no-dnssec)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 684
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --dnssec-validate)
                 DNSSEC_VALIDATE="true"
@@ -19664,29 +16512,24 @@ main() {
                 ;;
             --no-dnssec)
                 DNSSEC_VALIDATE="false"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 685
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --dnssec-validate)
                 DNSSEC_VALIDATE="true"
                 shift
@@ -19694,29 +16537,24 @@ main() {
             --no-dnssec)
                 DNSSEC_VALIDATE="false"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 686
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 DNSSEC_VALIDATE="true"
                 shift
                 ;;
@@ -19724,29 +16562,24 @@ main() {
                 DNSSEC_VALIDATE="false"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 687
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --no-dnssec)
@@ -19754,29 +16587,24 @@ main() {
                 shift
                 ;;
             --json)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 688
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --no-dnssec)
                 DNSSEC_VALIDATE="false"
@@ -19784,29 +16612,24 @@ main() {
                 ;;
             --json)
                 output_format="json"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 689
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --no-dnssec)
                 DNSSEC_VALIDATE="false"
                 shift
@@ -19814,29 +16637,24 @@ main() {
             --json)
                 output_format="json"
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 690
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 DNSSEC_VALIDATE="false"
                 shift
                 ;;
@@ -19844,29 +16662,24 @@ main() {
                 output_format="json"
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 691
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             --json)
@@ -19874,29 +16687,24 @@ main() {
                 shift
                 ;;
             -*)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 692
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             --json)
                 output_format="json"
@@ -19904,29 +16712,24 @@ main() {
                 ;;
             -*)
                 log_error "Unknown option: $1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 693
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             --json)
                 output_format="json"
                 shift
@@ -19934,29 +16737,24 @@ main() {
             -*)
                 log_error "Unknown option: $1"
                 print_usage
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 694
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 output_format="json"
                 shift
                 ;;
@@ -19964,29 +16762,24 @@ main() {
                 log_error "Unknown option: $1"
                 print_usage
                 exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 695
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
             -*)
@@ -19994,29 +16787,24 @@ main() {
                 print_usage
                 exit 1
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 696
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             -*)
                 log_error "Unknown option: $1"
@@ -20024,299 +16812,249 @@ main() {
                 exit 1
                 ;;
             *)
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 697
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             -*)
                 log_error "Unknown option: $1"
                 print_usage
                 exit 1
                 ;;
             *)
-                if [[-z "$hostname"]]; then
-```python
+                if [[ -z "$hostname" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 698
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 log_error "Unknown option: $1"
                 print_usage
                 exit 1
                 ;;
             *)
-                if [[-z "$hostname"]]; then
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 699
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 print_usage
                 exit 1
                 ;;
             *)
-                if [[-z "$hostname"]]; then
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
-```python
+                elif [[ -z "$ip_address" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 700
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 exit 1
                 ;;
             *)
-                if [[-z "$hostname"]]; then
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 701
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
             *)
-                if [[-z "$hostname"]]; then
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
                 else
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 702
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             *)
-                if [[-z "$hostname"]]; then
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
                 else
                     log_error "Too many arguments"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 703
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-                if [[-z "$hostname"]]; then
+**Context:**
+```
+                if [[ -z "$hostname" ]]; then
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
                 else
                     log_error "Too many arguments"
                     print_usage
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 704
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                     hostname="$1"
-                elif [[-z "$ip_address"]]; then
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
                 else
                     log_error "Too many arguments"
                     print_usage
                     exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 705
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-                elif [[-z "$ip_address"]]; then
+**Context:**
+```
+                elif [[ -z "$ip_address" ]]; then
                     ip_address="$1"
                 else
                     log_error "Too many arguments"
                     print_usage
                     exit 1
                 fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 706
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                     ip_address="$1"
                 else
                     log_error "Too many arguments"
@@ -20324,29 +17062,24 @@ main() {
                     exit 1
                 fi
                 shift
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 707
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 else
                     log_error "Too many arguments"
                     print_usage
@@ -20354,29 +17087,24 @@ main() {
                 fi
                 shift
                 ;;
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 708
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                     log_error "Too many arguments"
                     print_usage
                     exit 1
@@ -20384,29 +17112,24 @@ main() {
                 shift
                 ;;
         esac
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 709
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                     print_usage
                     exit 1
                 fi
@@ -20414,29 +17137,24 @@ main() {
                 ;;
         esac
     done
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 710
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                     exit 1
                 fi
                 shift
@@ -20444,29 +17162,24 @@ main() {
         esac
     done
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 711
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 fi
                 shift
                 ;;
@@ -20474,239 +17187,199 @@ main() {
     done
 
     # Validate required arguments
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 712
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 shift
                 ;;
         esac
     done
 
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-```python
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 713
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
                 ;;
         esac
     done
 
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 714
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         esac
     done
 
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 715
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     done
 
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
         exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 716
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
         exit 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 717
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
         exit 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 718
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
+**Context:**
+```
+    if [[ -z "$hostname" ]] || [[ -z "$ip_address" ]]; then
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
         exit 1
     fi
 
     # Initialize log file
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 719
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
         print_usage
         exit 1
@@ -20714,29 +17387,24 @@ main() {
 
     # Initialize log file
     mkdir -p "$(dirname "$LOG_FILE")"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 720
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         print_usage
         exit 1
     fi
@@ -20744,29 +17412,24 @@ main() {
     # Initialize log file
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 721
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         exit 1
     fi
 
@@ -20774,29 +17437,24 @@ main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 722
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Initialize log file
@@ -20804,29 +17462,24 @@ main() {
     touch "$LOG_FILE"
 
     log_info "DNS Update Script v$SCRIPT_VERSION started"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 723
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Initialize log file
     mkdir -p "$(dirname "$LOG_FILE")"
@@ -20834,29 +17487,24 @@ main() {
 
     log_info "DNS Update Script v$SCRIPT_VERSION started"
     log_info "Hostname: $hostname, IP: $ip_address"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 724
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Initialize log file
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
@@ -20864,29 +17512,24 @@ main() {
     log_info "DNS Update Script v$SCRIPT_VERSION started"
     log_info "Hostname: $hostname, IP: $ip_address"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 725
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
@@ -20894,29 +17537,24 @@ main() {
     log_info "Hostname: $hostname, IP: $ip_address"
 
     # Perform validation
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 726
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     touch "$LOG_FILE"
 
     log_info "DNS Update Script v$SCRIPT_VERSION started"
@@ -20924,29 +17562,24 @@ main() {
 
     # Perform validation
     log_info "Validating inputs..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 727
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     log_info "DNS Update Script v$SCRIPT_VERSION started"
     log_info "Hostname: $hostname, IP: $ip_address"
@@ -20954,29 +17587,24 @@ main() {
     # Perform validation
     log_info "Validating inputs..."
     validate_hostname "$hostname" || exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 728
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "DNS Update Script v$SCRIPT_VERSION started"
     log_info "Hostname: $hostname, IP: $ip_address"
 
@@ -20984,29 +17612,24 @@ main() {
     log_info "Validating inputs..."
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 729
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Hostname: $hostname, IP: $ip_address"
 
     # Perform validation
@@ -21014,239 +17637,199 @@ main() {
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 730
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Perform validation
     log_info "Validating inputs..."
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
 
-    if [[-n "$TSIG_KEY_FILE"]]; then
-```python
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 731
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Perform validation
     log_info "Validating inputs..."
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
 
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 732
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Validating inputs..."
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
 
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 733
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     validate_hostname "$hostname" || exit 1
     validate_ip_address "$ip_address" || exit 1
 
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 734
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     validate_ip_address "$ip_address" || exit 1
 
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
 
     if ((${#DNS_SERVERS[@]} > 0)); then
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 735
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+**Context:**
+```
 
-```python
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
 
     if ((${#DNS_SERVERS[@]} > 0)); then
         for server in "${DNS_SERVERS[@]}"; do
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 736
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [[-n "$TSIG_KEY_FILE"]]; then
+**Context:**
+```
+    if [[ -n "$TSIG_KEY_FILE" ]]; then
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
 
     if ((${#DNS_SERVERS[@]} > 0)); then
         for server in "${DNS_SERVERS[@]}"; do
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 737
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         validate_tsig_key "$TSIG_KEY_FILE" || exit 1
     fi
 
@@ -21254,29 +17837,24 @@ main() {
         for server in "${DNS_SERVERS[@]}"; do
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
         done
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 738
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     if ((${#DNS_SERVERS[@]} > 0)); then
@@ -21284,29 +17862,24 @@ main() {
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
         done
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 739
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     if ((${#DNS_SERVERS[@]} > 0)); then
         for server in "${DNS_SERVERS[@]}"; do
@@ -21314,29 +17887,24 @@ main() {
         done
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 740
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     if ((${#DNS_SERVERS[@]} > 0)); then
         for server in "${DNS_SERVERS[@]}"; do
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
@@ -21344,29 +17912,24 @@ main() {
     fi
 
     # Execute update sequence
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 741
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         for server in "${DNS_SERVERS[@]}"; do
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
         done
@@ -21374,29 +17937,24 @@ main() {
 
     # Execute update sequence
     log_info "Starting DNS update sequence..."
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 742
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             validate_dns_server "$server" || log_warn "Could not validate server: $server"
         done
     fi
@@ -21404,29 +17962,24 @@ main() {
     # Execute update sequence
     log_info "Starting DNS update sequence..."
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 743
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         done
     fi
 
@@ -21434,29 +17987,24 @@ main() {
     log_info "Starting DNS update sequence..."
 
     # Lower TTL for faster propagation
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 744
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Execute update sequence
@@ -21464,29 +18012,24 @@ main() {
 
     # Lower TTL for faster propagation
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 745
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Execute update sequence
     log_info "Starting DNS update sequence..."
@@ -21494,29 +18037,24 @@ main() {
     # Lower TTL for faster propagation
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 746
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Execute update sequence
     log_info "Starting DNS update sequence..."
 
@@ -21524,29 +18062,24 @@ main() {
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
 
     # Wait a bit for TTL change to propagate
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 747
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     log_info "Starting DNS update sequence..."
 
     # Lower TTL for faster propagation
@@ -21554,29 +18087,24 @@ main() {
 
     # Wait a bit for TTL change to propagate
     sleep 5
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 748
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Lower TTL for faster propagation
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
@@ -21584,29 +18112,24 @@ main() {
     # Wait a bit for TTL change to propagate
     sleep 5
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 749
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Lower TTL for faster propagation
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
 
@@ -21614,29 +18137,24 @@ main() {
     sleep 5
 
     # Perform the actual update
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 750
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     lower_ttl "$hostname" "${DNS_SERVERS[0]:-}" || exit 1
 
     # Wait a bit for TTL change to propagate
@@ -21644,29 +18162,24 @@ main() {
 
     # Perform the actual update
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 751
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Wait a bit for TTL change to propagate
     sleep 5
@@ -21674,29 +18187,24 @@ main() {
     # Perform the actual update
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 752
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Wait a bit for TTL change to propagate
     sleep 5
 
@@ -21704,599 +18212,499 @@ main() {
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 753
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     sleep 5
 
     # Perform the actual update
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
-```python
+        if [[ "$output_format" == "json" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 754
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Perform the actual update
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 755
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Perform the actual update
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
         fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 756
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     update_dns_record "$hostname" "$ip_address" "${DNS_SERVERS[0]:-}" || {
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
         fi
         exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 757
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_error "DNS update failed"
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
         fi
         exit 1
     }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 758
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         audit_log "update" "$hostname" "$ip_address" "failed"
-        if [["$output_format" == "json"]]; then
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
         fi
         exit 1
     }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 759
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-        if [["$output_format" == "json"]]; then
+**Context:**
+```
+        if [[ "$output_format" == "json" ]]; then
             output_json "$hostname" "$ip_address" "failed"
         fi
         exit 1
     }
 
     # Verify DNSSEC if requested
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 760
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
             output_json "$hostname" "$ip_address" "failed"
         fi
         exit 1
     }
 
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
-```python
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 761
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         fi
         exit 1
     }
 
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 762
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         exit 1
     }
 
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 763
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     }
 
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 764
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
 
     # Check propagation if requested
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 765
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Verify DNSSEC if requested
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
 
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
-```python
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 766
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["${DNSSEC_VALIDATE:-false}" == "true"]]; then
+**Context:**
+```
+    if [[ "${DNSSEC_VALIDATE:-false}" == "true" ]]; then
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
 
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 767
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         validate_dnssec "$hostname" || log_warn "DNSSEC validation failed (continuing)"
     fi
 
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 768
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 769
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
 
     # Restore TTL
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 770
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Check propagation if requested
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
 
     # Restore TTL
     restore_ttl "$hostname" || exit 1
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 771
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["${CHECK_PROPAGATION:-false}" == "true"]]; then
+**Context:**
+```
+    if [[ "${CHECK_PROPAGATION:-false}" == "true" ]]; then
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
 
     # Restore TTL
     restore_ttl "$hostname" || exit 1
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 772
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         check_propagation "$hostname" "$ip_address" || log_warn "Propagation check failed (continuing)"
     fi
 
@@ -22304,29 +18712,24 @@ main() {
     restore_ttl "$hostname" || exit 1
 
     # Log audit trail
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 773
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 
     # Restore TTL
@@ -22334,29 +18737,24 @@ main() {
 
     # Log audit trail
     audit_log "update" "$hostname" "$ip_address" "success"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 774
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Restore TTL
     restore_ttl "$hostname" || exit 1
@@ -22364,29 +18762,24 @@ main() {
     # Log audit trail
     audit_log "update" "$hostname" "$ip_address" "success"
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 775
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Restore TTL
     restore_ttl "$hostname" || exit 1
 
@@ -22394,239 +18787,199 @@ main() {
     audit_log "update" "$hostname" "$ip_address" "success"
 
     # Output results
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 776
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     restore_ttl "$hostname" || exit 1
 
     # Log audit trail
     audit_log "update" "$hostname" "$ip_address" "success"
 
     # Output results
-    if [["$output_format" == "json"]]; then
-```python
+    if [[ "$output_format" == "json" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 777
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Log audit trail
     audit_log "update" "$hostname" "$ip_address" "success"
 
     # Output results
-    if [["$output_format" == "json"]]; then
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 778
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Log audit trail
     audit_log "update" "$hostname" "$ip_address" "success"
 
     # Output results
-    if [["$output_format" == "json"]]; then
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
     else
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 779
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     audit_log "update" "$hostname" "$ip_address" "success"
 
     # Output results
-    if [["$output_format" == "json"]]; then
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
     else
         log_success "DNS update completed successfully"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 780
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
     # Output results
-    if [["$output_format" == "json"]]; then
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
     else
         log_success "DNS update completed successfully"
     fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 781
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     # Output results
-    if [["$output_format" == "json"]]; then
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
     else
         log_success "DNS update completed successfully"
     fi
 }
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 782
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
-    if [["$output_format" == "json"]]; then
+**Context:**
+```
+    if [[ "$output_format" == "json" ]]; then
         output_json "$hostname" "$ip_address" "success"
     else
         log_success "DNS update completed successfully"
     fi
 }
 
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 783
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         output_json "$hostname" "$ip_address" "success"
     else
         log_success "DNS update completed successfully"
@@ -22634,190 +18987,156 @@ main() {
 }
 
 # Run main if not sourced
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 784
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     else
         log_success "DNS update completed successfully"
     fi
 }
 
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
-```python
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 785
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
         log_success "DNS update completed successfully"
     fi
 }
 
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 786
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
     fi
 }
 
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
 fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 787
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 }
 
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
 fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 788
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
 fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
 
 ### Issue at Line 789
 
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
-
-```python
+**Context:**
+```
 # Run main if not sourced
-if [["${BASH_SOURCE[0]}" == "${0}"]]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     main "$@"
 fi
-```python
+```
 
-### Proposal
-
+**Proposal:**
 - Review the issue message above
-
 - Consider the context code
-
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

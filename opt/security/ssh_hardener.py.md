@@ -18,3 +18,143 @@ Total: 5 issues found
 ## Implementation Status
 
 Items marked below as fixed:
+
+
+## Fix Proposals
+
+**5 issues to fix:**
+
+
+### Issue at Line 113
+
+**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
+
+**Message:** Consider possible security implications associated with the subprocess module.
+
+**Context:**
+```
+
+import os
+import shutil
+import subprocess
+import logging
+import sys
+
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 191
+
+**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+
+**Message:** Starting a process with a partial executable path
+
+**Context:**
+```
+def validate_and_restart() -> None:
+    """Validates config syntax and restarts service."""
+    try:
+        subprocess.check_call(["sshd", "-t"])
+        logger.info("SSHD configuration syntax is valid.")  # type: ignore[name-defined]
+    except subprocess.CalledProcessError:
+        logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 191
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+def validate_and_restart() -> None:
+    """Validates config syntax and restarts service."""
+    try:
+        subprocess.check_call(["sshd", "-t"])
+        logger.info("SSHD configuration syntax is valid.")  # type: ignore[name-defined]
+    except subprocess.CalledProcessError:
+        logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 199
+
+**Tool:** bandit | **Code:** `B607` | **Severity:** LOW
+
+**Message:** Starting a process with a partial executable path
+
+**Context:**
+```
+        sys.exit(1)
+
+    try:
+        subprocess.check_call(["systemctl", "restart", "ssh"])
+        logger.info("SSHD service restarted successfully.")  # type: ignore[name-defined]
+    except subprocess.CalledProcessError:
+        logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 199
+
+**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+**Context:**
+```
+        sys.exit(1)
+
+    try:
+        subprocess.check_call(["systemctl", "restart", "ssh"])
+        logger.info("SSHD service restarted successfully.")  # type: ignore[name-defined]
+    except subprocess.CalledProcessError:
+        logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
+```
+
+**Proposal:**
+- Review the issue message above
+- Consider the context code
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+## Implementation Progress
+
+To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
+
+**Fixed Issues:** (none yet)
+
+---
+*Updated: (auto-populated by coding expert)*
