@@ -23,8 +23,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-
-
 class VNCSession:
     """VNC session representation"""
 
@@ -40,8 +38,6 @@ class VNCSession:
 
 
 @dataclass
-
-
 class VNCServer:
     """VNC server configuration"""
 
@@ -59,41 +55,35 @@ class VNCServer:
 
 
 @pytest.fixture
-
-
 def vnc_server() -> None:
     """Create a mock VNC server configuration"""
     return VNCServer(  # type: ignore[return-value]
-        _host = "127.0.0.1",
-        _port = 5900,
-        _enabled = True,
-        _max_connections = 10,
-        _timeout = 300,
-        _authentication_type = "password",
+        _host="127.0.0.1",
+        _port=5900,
+        _enabled=True,
+        _max_connections=10,
+        _timeout=300,
+        _authentication_type="password",
     )
 
 
 @pytest.fixture
-
-
 def vnc_session() -> None:
     """Create a mock VNC session"""
     return VNCSession(  # type: ignore[return-value]
-        _session_id = "session-vnc-001",
-        _vm_id = "vm-test-001",
-        _user = "testuser",
-        _protocol_version = "3.8",
-        _encryption = "TLS",
-        _authenticated = True,
-        _created_at = time.time(),
-        _last_activity = time.time(),
-        _connection_quality = "high",
+        _session_id="session-vnc-001",
+        _vm_id="vm-test-001",
+        _user="testuser",
+        _protocol_version="3.8",
+        _encryption="TLS",
+        _authenticated=True,
+        _created_at=time.time(),
+        _last_activity=time.time(),
+        _connection_quality="high",
     )
 
 
 @pytest.fixture
-
-
 def mock_vnc_manager() -> None:
     """Create a mock VNC manager"""
     manager = AsyncMock()
@@ -104,8 +94,6 @@ def mock_vnc_manager() -> None:
 
 
 @pytest.fixture
-
-
 def mock_socket() -> None:
     """Create a mock socket for VNC connection"""
     sock = Mock(spec=socket.socket)
@@ -129,7 +117,7 @@ class TestVNCSessionManagement:
         mock_vnc_manager.create_session = AsyncMock(return_value="session-vnc-001")
 
         session_id = await mock_vnc_manager.create_session(
-            _vm_id = "vm-001", user="testuser", server_config=vnc_server
+            _vm_id="vm-001", user="testuser", server_config=vnc_server
         )
 
         assert session_id == "session-vnc-001"
@@ -163,7 +151,7 @@ class TestVNCSessionManagement:
             )
             for i in range(3)
         ]
-        mock_vnc_manager.list_sessions = AsyncMock(return_value=sessions)
+        mock_vnc_manager.list_sessions = AsyncMock(return_value=_sessions)
 
         result = await mock_vnc_manager.list_sessions()
 
@@ -356,7 +344,7 @@ class TestVNCConsoleInputOutput:
     async def test_get_clipboard_text(self, mock_vnc_manager):
         """Test retrieving clipboard text"""
         mock_vnc_manager.get_clipboard_text = AsyncMock(
-            _return_value = "clipboard content"
+            return_value="clipboard content"
         )
 
         result = await mock_vnc_manager.get_clipboard_text("session-vnc-001")
@@ -445,7 +433,7 @@ class TestVNCPerformanceCompression:
     async def test_connection_pool_management(self, mock_vnc_manager):
         """Test connection pool management"""
         mock_vnc_manager.get_connection_pool_stats = AsyncMock(
-            _return_value = {"active": 5, "idle": 3, "max": 10}
+            return_value={"active": 5, "idle": 3, "max": 10}
         )
 
         result = await mock_vnc_manager.get_connection_pool_stats()
@@ -457,7 +445,7 @@ class TestVNCPerformanceCompression:
     async def test_performance_profiling(self, mock_vnc_manager):
         """Test performance profiling"""
         mock_vnc_manager.profile_session = AsyncMock(
-            _return_value = {"fps": 30, "latency_ms": 45, "bandwidth_mbps": 2.3}
+            return_value={"fps": 30, "latency_ms": 45, "bandwidth_mbps": 2.3}
         )
 
         result = await mock_vnc_manager.profile_session("session-vnc-001")
