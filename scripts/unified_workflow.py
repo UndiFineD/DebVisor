@@ -121,7 +121,7 @@ def main():
     """Execute the unified workflow."""
     parser = argparse.ArgumentParser(description='DebVisor Unified Quality Workflow')
     parser.add_argument('--agents-only', action='store_true',
-                       help='Only process files in the scripts/ directory (agents focus on themselves)')
+                        help='Only process files in the scripts/ directory (agents focus on themselves)')
     args = parser.parse_args()
 
     print("\n" + "=" * 70)

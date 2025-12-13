@@ -124,12 +124,12 @@ class PlanningAgent:
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
-        
+
         # Filter to scripts directory if agents_only is True
         if self.agents_only:
             scripts_dir = self.repo_root / 'scripts'
             code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
-        
+
         return sorted([f for f in code_files if not self._is_ignored(f)])
 
     def _is_ignored(self, path: Path) -> bool:
@@ -220,7 +220,6 @@ class PlanningAgent:
 
     def _extract_docstring(self, lines: List[str]) -> str:
         """Extract the module docstring from Python file lines."""
-        content = '\n'.join(lines)
         # Find the first docstring after license header (assume header is ~10 lines)
         start_idx = 0
         for i, line in enumerate(lines):
@@ -228,10 +227,10 @@ class PlanningAgent:
                 if '"""' in line or "'''" in line:
                     start_idx = i
                     break
-        
+
         if start_idx == 0:
             return ""
-        
+
         # Find the quote type
         start_line = lines[start_idx]
         if '"""' in start_line:
@@ -240,21 +239,21 @@ class PlanningAgent:
             quote = "'''"
         else:
             return ""
-        
+
         # Find the end
         docstring_lines = []
         for i in range(start_idx, len(lines)):
             docstring_lines.append(lines[i])
             if i > start_idx and quote in lines[i]:
                 break
-        
+
         return '\n'.join(docstring_lines)
 
     def _check_required_sections(self, file_path: Path, lines: List[str]) -> List[Dict[str, str]]:
         """Check for required documentation sections."""
         issues = []
         ext = file_path.suffix.lower()
-        
+
         if ext == '.py':
             # For Python files, check sections within the docstring
             docstring = self._extract_docstring(lines)
@@ -264,7 +263,7 @@ class PlanningAgent:
                     'message': "Missing module docstring after license header."
                 })
                 return issues
-            
+
             # Check each section exists in docstring
             for section in REQUIRED_SECTIONS:
                 if f"## {section}" not in docstring:
@@ -275,7 +274,7 @@ class PlanningAgent:
                             "Should be in module docstring after license header."
                         )
                     })
-            
+
             # Check section order if all exist
             if not issues:
                 positions = {}
@@ -283,7 +282,7 @@ class PlanningAgent:
                     pos = docstring.find(f"## {section}")
                     if pos != -1:
                         positions[section] = pos
-                
+
                 if len(positions) == len(REQUIRED_SECTIONS):
                     sorted_sections = sorted(positions.items(), key=lambda x: x[1])
                     expected_order = REQUIRED_SECTIONS
@@ -409,64 +408,64 @@ class PlanningAgent:
             "Use these prompts with GitHub Copilot to enhance the docstring sections:",
             "",
             "### 1. Improve Description Section",
-            f"```",
-            f"Review this Python module's current description and suggest improvements:",
-            f"",
+            "```",
+            "Review this Python module's current description and suggest improvements:",
+            "",
             f"File: {relative_path}",
-            f"Current Description:",
-            f"[Insert current ## Description content here]",
-            f"",
-            f"Please provide:",
-            f"1. A more comprehensive and clear description",
-            f"2. Better organization of information",
-            f"3. More specific technical details",
-            f"4. Clear explanation of the module's purpose and scope",
-            f"```",
+            "Current Description:",
+            "[Insert current ## Description content here]",
+            "",
+            "Please provide:",
+            "1. A more comprehensive and clear description",
+            "2. Better organization of information",
+            "3. More specific technical details",
+            "4. Clear explanation of the module's purpose and scope",
+            "```",
             "",
             "### 2. Improve Changelog Section",
-            f"```",
-            f"Analyze this Python module's changelog and suggest enhancements:",
-            f"",
+            "```",
+            "Analyze this Python module's changelog and suggest enhancements:",
+            "",
             f"File: {relative_path}",
-            f"Current Changelog:",
-            f"[Insert current ## Changelog content here]",
-            f"",
-            f"Please provide:",
-            f"1. More detailed version entries",
-            f"2. Better categorization of changes (features, fixes, breaking changes)",
-            f"3. Consistent formatting and style",
-            f"4. Addition of missing version entries if applicable",
-            f"```",
+            "Current Changelog:",
+            "[Insert current ## Changelog content here]",
+            "",
+            "Please provide:",
+            "1. More detailed version entries",
+            "2. Better categorization of changes (features, fixes, breaking changes)",
+            "3. Consistent formatting and style",
+            "4. Addition of missing version entries if applicable",
+            "```",
             "",
             "### 3. Improve Suggested Fixes Section",
-            f"```",
-            f"Review this Python module's suggested fixes and provide better recommendations:",
-            f"",
+            "```",
+            "Review this Python module's suggested fixes and provide better recommendations:",
+            "",
             f"File: {relative_path}",
-            f"Current Suggested Fixes:",
-            f"[Insert current ## Suggested Fixes content here]",
-            f"",
-            f"Please provide:",
-            f"1. More specific and actionable fix suggestions",
-            f"2. Prioritized list of improvements",
-            f"3. Technical details for implementation",
-            f"4. Potential impact assessment for each fix",
-            f"```",
+            "Current Suggested Fixes:",
+            "[Insert current ## Suggested Fixes content here]",
+            "",
+            "Please provide:",
+            "1. More specific and actionable fix suggestions",
+            "2. Prioritized list of improvements",
+            "3. Technical details for implementation",
+            "4. Potential impact assessment for each fix",
+            "```",
             "",
             "### 4. Improve Improvements Section",
-            f"```",
-            f"Enhance this Python module's improvements section with better future plans:",
-            f"",
+            "```",
+            "Enhance this Python module's improvements section with better future plans:",
+            "",
             f"File: {relative_path}",
-            f"Current Improvements:",
-            f"[Insert current ## Improvements content here]",
-            f"",
-            f"Please provide:",
-            f"1. More ambitious and innovative improvement ideas",
-            f"2. Roadmap-style organization",
-            f"3. Technical feasibility assessment",
-            f"4. Potential benefits and impact of each improvement",
-            f"```",
+            "Current Improvements:",
+            "[Insert current ## Improvements content here]",
+            "",
+            "Please provide:",
+            "1. More ambitious and innovative improvement ideas",
+            "2. Roadmap-style organization",
+            "3. Technical feasibility assessment",
+            "4. Potential benefits and impact of each improvement",
+            "```",
             "",
         ])
 
@@ -583,8 +582,8 @@ class PlanningAgent:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Planning Agent: Validates code file structure')
     parser.add_argument('--agents-only', action='store_true',
-                       help='Only process files in the scripts/ directory')
+                        help='Only process files in the scripts/ directory')
     args = parser.parse_args()
-    
+
     agent = PlanningAgent(agents_only=args.agents_only)
     agent.run()

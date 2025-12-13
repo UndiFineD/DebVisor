@@ -55,12 +55,12 @@ class CriticAgent:
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
-        
+
         # Filter to scripts directory if agents_only is True
         if self.agents_only:
             scripts_dir = self.repo_root / 'scripts'
             code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
-        
+
         return sorted([f for f in code_files if not self._is_ignored(f)])
 
     def _is_ignored(self, path: Path) -> bool:
@@ -308,9 +308,10 @@ class CriticAgent:
                         else:
                             # Append new section
                             updated_content = existing_content + code_issues_section
-                        
+
                         plan_md_path.write_text(updated_content, encoding='utf-8')
-                        print(f"  -> {len(issues)} issues found, appended to {plan_md_path.relative_to(self.repo_root)}")
+                        print(f"  -> {len(issues)} issues found, appended to "
+                              f"{plan_md_path.relative_to(self.repo_root)}")
                     except Exception as e:
                         print(f"  -> Failed to update plan file: {e}")
                         continue
@@ -320,7 +321,7 @@ class CriticAgent:
                     new_content = [
                         f"# Planning Report: {relative_path}",
                         f"Generated: {datetime.now().isoformat()}",
-                        f"Status: CODE_ISSUES_ONLY",
+                        "Status: CODE_ISSUES_ONLY",
                         "",
                         "## File Structure Validation",
                         "",
@@ -330,7 +331,7 @@ class CriticAgent:
                     new_content.append(code_issues_section)
                     plan_md_path.write_text('\n'.join(new_content), encoding='utf-8')
                     print(f"  -> {len(issues)} issues found, created {plan_md_path.relative_to(self.repo_root)}")
-                
+
                 wrote_markdown = True
 
         print("[Critic] Analysis complete!")
@@ -349,9 +350,14 @@ class CriticAgent:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Critic Agent: Detects code issues and appends them to *.plan.md files.')
-    parser.add_argument('--agents-only', action='store_true', help='Focus only on scripts/ directory for agent development/testing')
+    parser = argparse.ArgumentParser(
+        description='Critic Agent: Detects code issues and appends them to *.plan.md files.'
+    )
+    parser.add_argument(
+        '--agents-only', action='store_true',
+        help='Focus only on scripts/ directory for agent development/testing'
+    )
     args = parser.parse_args()
-    
+
     agent = CriticAgent(agents_only=args.agents_only)
     agent.run()

@@ -60,7 +60,7 @@ class CodingExpertAgent:
         """Find all .md issue report files."""
         reports = []
         patterns = ['**/*.py.md', '**/*.sh.md', '**/*.js.md', '**/*.go.md', '**/*.html.md', '**/*.css.md']
-        
+
         if self.agents_only:
             # Focus only on scripts/ directory for agent development/testing
             scripts_dir = self.repo_root / 'scripts'
@@ -69,7 +69,7 @@ class CodingExpertAgent:
         else:
             for pattern in patterns:
                 reports.extend(self.repo_root.glob(pattern))
-        
+
         return sorted(reports)
 
     def get_source_context(self, source_path: Path, line: int, context_lines: int = 3) -> Tuple[int, str]:
@@ -221,9 +221,14 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Coding Expert Agent: Reads issue reports from .md files and proposes fixes.')
-    parser.add_argument('--agents-only', action='store_true', help='Focus only on scripts/ directory for agent development/testing')
+    parser = argparse.ArgumentParser(
+        description='Coding Expert Agent: Reads issue reports from .md files and proposes fixes.'
+    )
+    parser.add_argument(
+        '--agents-only', action='store_true',
+        help='Focus only on scripts/ directory for agent development/testing'
+    )
     args = parser.parse_args()
-    
+
     agent = CodingExpertAgent(agents_only=args.agents_only)
     agent.run()
