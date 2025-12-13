@@ -13,7 +13,6 @@ fixed_lines = []
 i = 0
 while i < len(lines):
     line = lines[i]
-
     # Check if this is a heading (starts with #)
     if line.startswith('#') and not line.startswith('#!/'):
         # Add blank line before if needed
@@ -47,7 +46,6 @@ fixed_lines = []
 i = 0
 while i < len(lines):
     line = lines[i]
-
     # Check if this is a list item (starts with -, *, +, or 1.)
     if re.match(r'^\s*[-*+1]\s', line):
         # Add blank line before if needed
