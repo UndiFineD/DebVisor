@@ -79,7 +79,7 @@ Items marked below as fixed:
 
 ### Issue at Line 95
 
-**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'token-abc123'
 
@@ -109,7 +109,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 160
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -139,7 +139,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 169
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -169,7 +169,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 178
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -199,7 +199,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 187
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -229,7 +229,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 198
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -259,7 +259,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 205
 
-**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'secret-abc'
 
@@ -289,7 +289,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 209
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -319,7 +319,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 216
 
-**Tool:** bandit | **Code:** `B106` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'oauth-token'
 
@@ -349,7 +349,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 218
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -379,7 +379,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 229
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -408,7 +408,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 245
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -438,7 +438,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 254
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -468,7 +468,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 265
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -498,7 +498,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 274
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -528,7 +528,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 283
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -558,7 +558,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 292
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -588,7 +588,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 301
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -618,7 +618,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 312
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -647,7 +647,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 328
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -677,7 +677,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 337
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -707,7 +707,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 346
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -737,7 +737,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 355
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -767,7 +767,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 366
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -797,7 +797,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 375
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -827,7 +827,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 384
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -857,7 +857,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 393
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -886,7 +886,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 409
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -916,7 +916,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 420
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -946,7 +946,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 429
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -976,7 +976,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 438
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1006,7 +1006,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 447
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1036,7 +1036,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 456
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1066,7 +1066,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 465
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1096,7 +1096,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 474
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1125,7 +1125,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 490
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1155,7 +1155,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 499
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1185,7 +1185,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 510
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1215,7 +1215,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 521
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1245,7 +1245,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 532
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1275,7 +1275,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 543
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1305,7 +1305,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 554
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1334,7 +1334,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 572
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1364,7 +1364,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 583
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1394,7 +1394,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 594
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1424,7 +1424,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 607
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1454,7 +1454,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 618
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1484,7 +1484,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 627
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1513,7 +1513,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 645
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1543,7 +1543,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 654
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1573,7 +1573,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 665
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1603,7 +1603,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 675
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1632,7 +1632,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 694
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1662,7 +1662,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 698
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1692,7 +1692,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 702
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1722,7 +1722,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 706
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1752,7 +1752,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 717
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1782,7 +1782,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 721
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1812,7 +1812,7 @@ def rpc_credential() -> None:
 
 ### Issue at Line 725
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 

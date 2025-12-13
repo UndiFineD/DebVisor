@@ -664,7 +664,7 @@ Total: 658 issues found
 | 661 | 35 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 662 | 3 | shellcheck | `1009` | INFO | The mentioned syntax error was in this simple command. |
 | 662 | 32 | shellcheck | `1073` | ERROR | Couldn't parse this here document. Fix to allow more checks. |
-| 662 | 34 | shellcheck | `1044` | ERROR | Couldn't find end token `'JSON'\r' in the here document. |
+| 662 | 34 | shellcheck | `1044`| ERROR | Couldn't find end token`'JSON'\r' in the here document. |
 | 662 | 40 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 809 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 

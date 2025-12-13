@@ -253,11 +253,11 @@ Total: 255 issues found
 | 242 | 1 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 243 | 39 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 244 | 55 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
-| 246 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [ .. ]? |
-| 247 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [ .. ]? |
-| 248 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [ .. ]? |
-| 249 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [ .. ]? |
-| 250 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [ .. ]? |
+| 246 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [..]? |
+| 247 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [..]? |
+| 248 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [..]? |
+| 249 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [..]? |
+| 250 | 9 | shellcheck | `2215` | WARNING | This flag is used as a command name. Bad line break or missing [..]? |
 | 251 | 41 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 252 | 3 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 253 | 1 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |

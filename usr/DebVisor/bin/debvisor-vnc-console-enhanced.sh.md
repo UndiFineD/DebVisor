@@ -710,14 +710,14 @@ Items marked below as fixed:
 
 ### Issue at Line 1
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -737,14 +737,14 @@ Items marked below as fixed:
 
 ### Issue at Line 2
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -765,19 +765,19 @@ Items marked below as fixed:
 
 ### Issue at Line 3
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -794,19 +794,19 @@ Items marked below as fixed:
 
 ### Issue at Line 4
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -824,7 +824,7 @@ Items marked below as fixed:
 
 ### Issue at Line 5
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -835,7 +835,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -854,7 +854,7 @@ Items marked below as fixed:
 
 ### Issue at Line 6
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -864,7 +864,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -884,7 +884,7 @@ Items marked below as fixed:
 
 ### Issue at Line 7
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -893,7 +893,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -914,7 +914,7 @@ Items marked below as fixed:
 
 ### Issue at Line 8
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -922,7 +922,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -944,14 +944,14 @@ Items marked below as fixed:
 
 ### Issue at Line 9
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -974,7 +974,7 @@ Items marked below as fixed:
 
 ### Issue at Line 10
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -987,7 +987,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -1004,7 +1004,7 @@ Items marked below as fixed:
 
 ### Issue at Line 11
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1016,7 +1016,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -1034,7 +1034,7 @@ Items marked below as fixed:
 
 ### Issue at Line 12
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1045,7 +1045,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -1064,7 +1064,7 @@ Items marked below as fixed:
 
 ### Issue at Line 13
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1074,7 +1074,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1094,7 +1094,7 @@ Items marked below as fixed:
 
 ### Issue at Line 14
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1103,7 +1103,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1124,7 +1124,7 @@ Items marked below as fixed:
 
 ### Issue at Line 15
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1132,12 +1132,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -1154,19 +1154,19 @@ Items marked below as fixed:
 
 ### Issue at Line 16
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1184,7 +1184,7 @@ Items marked below as fixed:
 
 ### Issue at Line 17
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1195,7 +1195,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1214,7 +1214,7 @@ Items marked below as fixed:
 
 ### Issue at Line 18
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1224,7 +1224,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1244,7 +1244,7 @@ Items marked below as fixed:
 
 ### Issue at Line 19
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1253,7 +1253,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1274,7 +1274,7 @@ Items marked below as fixed:
 
 ### Issue at Line 20
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1282,7 +1282,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1304,14 +1304,14 @@ Items marked below as fixed:
 
 ### Issue at Line 21
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1334,7 +1334,7 @@ Items marked below as fixed:
 
 ### Issue at Line 22
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1347,7 +1347,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -1364,7 +1364,7 @@ Items marked below as fixed:
 
 ### Issue at Line 23
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1376,7 +1376,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -1394,7 +1394,7 @@ Items marked below as fixed:
 
 ### Issue at Line 24
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1405,7 +1405,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -1424,7 +1424,7 @@ Items marked below as fixed:
 
 ### Issue at Line 25
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1434,7 +1434,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1454,7 +1454,7 @@ Items marked below as fixed:
 
 ### Issue at Line 26
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1463,7 +1463,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1484,7 +1484,7 @@ Items marked below as fixed:
 
 ### Issue at Line 27
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1492,12 +1492,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -1514,19 +1514,19 @@ Items marked below as fixed:
 
 ### Issue at Line 28
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1544,7 +1544,7 @@ Items marked below as fixed:
 
 ### Issue at Line 29
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1555,7 +1555,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1574,7 +1574,7 @@ Items marked below as fixed:
 
 ### Issue at Line 30
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1584,7 +1584,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1604,7 +1604,7 @@ Items marked below as fixed:
 
 ### Issue at Line 31
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1613,7 +1613,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1634,7 +1634,7 @@ Items marked below as fixed:
 
 ### Issue at Line 32
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1642,7 +1642,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1664,14 +1664,14 @@ Items marked below as fixed:
 
 ### Issue at Line 33
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1694,7 +1694,7 @@ Items marked below as fixed:
 
 ### Issue at Line 34
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1707,7 +1707,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -1724,7 +1724,7 @@ Items marked below as fixed:
 
 ### Issue at Line 35
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1736,7 +1736,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -1754,7 +1754,7 @@ Items marked below as fixed:
 
 ### Issue at Line 36
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1765,7 +1765,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -1784,7 +1784,7 @@ Items marked below as fixed:
 
 ### Issue at Line 37
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1794,7 +1794,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1814,7 +1814,7 @@ Items marked below as fixed:
 
 ### Issue at Line 38
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1823,7 +1823,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1844,7 +1844,7 @@ Items marked below as fixed:
 
 ### Issue at Line 39
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1852,12 +1852,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -1874,19 +1874,19 @@ Items marked below as fixed:
 
 ### Issue at Line 40
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1904,7 +1904,7 @@ Items marked below as fixed:
 
 ### Issue at Line 41
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1915,7 +1915,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1934,7 +1934,7 @@ Items marked below as fixed:
 
 ### Issue at Line 42
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1944,7 +1944,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1964,7 +1964,7 @@ Items marked below as fixed:
 
 ### Issue at Line 43
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -1973,7 +1973,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1994,7 +1994,7 @@ Items marked below as fixed:
 
 ### Issue at Line 44
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2002,7 +2002,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2024,14 +2024,14 @@ Items marked below as fixed:
 
 ### Issue at Line 45
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2054,7 +2054,7 @@ Items marked below as fixed:
 
 ### Issue at Line 46
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2067,7 +2067,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -2084,7 +2084,7 @@ Items marked below as fixed:
 
 ### Issue at Line 47
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2096,7 +2096,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -2114,7 +2114,7 @@ Items marked below as fixed:
 
 ### Issue at Line 48
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2125,7 +2125,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -2144,7 +2144,7 @@ Items marked below as fixed:
 
 ### Issue at Line 49
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2154,7 +2154,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2174,7 +2174,7 @@ Items marked below as fixed:
 
 ### Issue at Line 50
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2183,7 +2183,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2204,7 +2204,7 @@ Items marked below as fixed:
 
 ### Issue at Line 51
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2212,12 +2212,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -2234,19 +2234,19 @@ Items marked below as fixed:
 
 ### Issue at Line 52
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2264,7 +2264,7 @@ Items marked below as fixed:
 
 ### Issue at Line 53
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2275,7 +2275,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2294,7 +2294,7 @@ Items marked below as fixed:
 
 ### Issue at Line 54
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2304,7 +2304,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2324,7 +2324,7 @@ Items marked below as fixed:
 
 ### Issue at Line 55
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2333,7 +2333,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2354,7 +2354,7 @@ Items marked below as fixed:
 
 ### Issue at Line 56
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2362,7 +2362,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2384,14 +2384,14 @@ Items marked below as fixed:
 
 ### Issue at Line 57
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2414,7 +2414,7 @@ Items marked below as fixed:
 
 ### Issue at Line 58
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2427,7 +2427,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -2444,7 +2444,7 @@ Items marked below as fixed:
 
 ### Issue at Line 59
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2456,7 +2456,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -2474,7 +2474,7 @@ Items marked below as fixed:
 
 ### Issue at Line 60
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2485,7 +2485,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -2504,7 +2504,7 @@ Items marked below as fixed:
 
 ### Issue at Line 61
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2514,7 +2514,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2534,7 +2534,7 @@ Items marked below as fixed:
 
 ### Issue at Line 62
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2543,7 +2543,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2564,7 +2564,7 @@ Items marked below as fixed:
 
 ### Issue at Line 63
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2572,12 +2572,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -2594,19 +2594,19 @@ Items marked below as fixed:
 
 ### Issue at Line 64
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2624,7 +2624,7 @@ Items marked below as fixed:
 
 ### Issue at Line 65
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2635,7 +2635,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2654,7 +2654,7 @@ Items marked below as fixed:
 
 ### Issue at Line 66
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2664,7 +2664,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2684,7 +2684,7 @@ Items marked below as fixed:
 
 ### Issue at Line 67
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2693,7 +2693,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2714,7 +2714,7 @@ Items marked below as fixed:
 
 ### Issue at Line 68
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2722,7 +2722,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2744,14 +2744,14 @@ Items marked below as fixed:
 
 ### Issue at Line 69
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2774,7 +2774,7 @@ Items marked below as fixed:
 
 ### Issue at Line 70
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2787,7 +2787,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -2804,7 +2804,7 @@ Items marked below as fixed:
 
 ### Issue at Line 71
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2816,7 +2816,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -2834,7 +2834,7 @@ Items marked below as fixed:
 
 ### Issue at Line 72
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2845,7 +2845,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -2864,7 +2864,7 @@ Items marked below as fixed:
 
 ### Issue at Line 73
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2874,7 +2874,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2894,7 +2894,7 @@ Items marked below as fixed:
 
 ### Issue at Line 74
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2903,7 +2903,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2924,7 +2924,7 @@ Items marked below as fixed:
 
 ### Issue at Line 75
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2932,12 +2932,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -2954,19 +2954,19 @@ Items marked below as fixed:
 
 ### Issue at Line 76
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2984,7 +2984,7 @@ Items marked below as fixed:
 
 ### Issue at Line 77
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -2995,7 +2995,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3014,7 +3014,7 @@ Items marked below as fixed:
 
 ### Issue at Line 78
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3024,7 +3024,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3044,7 +3044,7 @@ Items marked below as fixed:
 
 ### Issue at Line 79
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3053,7 +3053,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3074,7 +3074,7 @@ Items marked below as fixed:
 
 ### Issue at Line 80
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3082,7 +3082,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3104,14 +3104,14 @@ Items marked below as fixed:
 
 ### Issue at Line 81
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3134,7 +3134,7 @@ Items marked below as fixed:
 
 ### Issue at Line 82
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3147,7 +3147,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -3164,7 +3164,7 @@ Items marked below as fixed:
 
 ### Issue at Line 83
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3176,7 +3176,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -3194,7 +3194,7 @@ Items marked below as fixed:
 
 ### Issue at Line 84
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3205,7 +3205,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -3224,7 +3224,7 @@ Items marked below as fixed:
 
 ### Issue at Line 85
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3234,7 +3234,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -3254,7 +3254,7 @@ Items marked below as fixed:
 
 ### Issue at Line 86
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3263,7 +3263,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -3284,7 +3284,7 @@ Items marked below as fixed:
 
 ### Issue at Line 87
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3292,12 +3292,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -3314,19 +3314,19 @@ Items marked below as fixed:
 
 ### Issue at Line 88
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3344,7 +3344,7 @@ Items marked below as fixed:
 
 ### Issue at Line 89
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3355,7 +3355,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3374,7 +3374,7 @@ Items marked below as fixed:
 
 ### Issue at Line 90
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3384,7 +3384,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3404,7 +3404,7 @@ Items marked below as fixed:
 
 ### Issue at Line 91
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3413,7 +3413,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3434,7 +3434,7 @@ Items marked below as fixed:
 
 ### Issue at Line 92
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3442,7 +3442,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3464,14 +3464,14 @@ Items marked below as fixed:
 
 ### Issue at Line 93
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3494,7 +3494,7 @@ Items marked below as fixed:
 
 ### Issue at Line 94
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3507,7 +3507,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -3524,7 +3524,7 @@ Items marked below as fixed:
 
 ### Issue at Line 95
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3536,7 +3536,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -3554,7 +3554,7 @@ Items marked below as fixed:
 
 ### Issue at Line 96
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3565,7 +3565,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -3584,7 +3584,7 @@ Items marked below as fixed:
 
 ### Issue at Line 97
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3594,7 +3594,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -3614,7 +3614,7 @@ Items marked below as fixed:
 
 ### Issue at Line 98
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3623,7 +3623,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -3644,7 +3644,7 @@ Items marked below as fixed:
 
 ### Issue at Line 99
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3652,12 +3652,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -3674,19 +3674,19 @@ Items marked below as fixed:
 
 ### Issue at Line 100
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3704,7 +3704,7 @@ Items marked below as fixed:
 
 ### Issue at Line 101
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3715,7 +3715,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3734,7 +3734,7 @@ Items marked below as fixed:
 
 ### Issue at Line 102
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3744,7 +3744,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3764,7 +3764,7 @@ Items marked below as fixed:
 
 ### Issue at Line 103
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3773,7 +3773,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3794,7 +3794,7 @@ Items marked below as fixed:
 
 ### Issue at Line 104
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3802,7 +3802,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3824,14 +3824,14 @@ Items marked below as fixed:
 
 ### Issue at Line 105
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3854,7 +3854,7 @@ Items marked below as fixed:
 
 ### Issue at Line 106
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3867,7 +3867,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -3884,7 +3884,7 @@ Items marked below as fixed:
 
 ### Issue at Line 107
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3896,7 +3896,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -3914,7 +3914,7 @@ Items marked below as fixed:
 
 ### Issue at Line 108
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3925,7 +3925,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -3944,7 +3944,7 @@ Items marked below as fixed:
 
 ### Issue at Line 109
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3954,7 +3954,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -3974,7 +3974,7 @@ Items marked below as fixed:
 
 ### Issue at Line 110
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -3983,7 +3983,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -4004,7 +4004,7 @@ Items marked below as fixed:
 
 ### Issue at Line 111
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4012,12 +4012,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -4034,19 +4034,19 @@ Items marked below as fixed:
 
 ### Issue at Line 112
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4064,7 +4064,7 @@ Items marked below as fixed:
 
 ### Issue at Line 113
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4075,7 +4075,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4094,7 +4094,7 @@ Items marked below as fixed:
 
 ### Issue at Line 114
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4104,7 +4104,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4124,7 +4124,7 @@ Items marked below as fixed:
 
 ### Issue at Line 115
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4133,7 +4133,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4154,7 +4154,7 @@ Items marked below as fixed:
 
 ### Issue at Line 116
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4162,7 +4162,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4184,14 +4184,14 @@ Items marked below as fixed:
 
 ### Issue at Line 117
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4214,7 +4214,7 @@ Items marked below as fixed:
 
 ### Issue at Line 118
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4227,7 +4227,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -4244,7 +4244,7 @@ Items marked below as fixed:
 
 ### Issue at Line 119
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4256,7 +4256,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -4274,7 +4274,7 @@ Items marked below as fixed:
 
 ### Issue at Line 120
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4285,7 +4285,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -4304,7 +4304,7 @@ Items marked below as fixed:
 
 ### Issue at Line 121
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4314,7 +4314,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -4334,7 +4334,7 @@ Items marked below as fixed:
 
 ### Issue at Line 122
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4343,7 +4343,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -4364,7 +4364,7 @@ Items marked below as fixed:
 
 ### Issue at Line 123
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4372,12 +4372,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -4394,19 +4394,19 @@ Items marked below as fixed:
 
 ### Issue at Line 124
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4424,7 +4424,7 @@ Items marked below as fixed:
 
 ### Issue at Line 125
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4435,7 +4435,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4454,7 +4454,7 @@ Items marked below as fixed:
 
 ### Issue at Line 126
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4464,7 +4464,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4484,7 +4484,7 @@ Items marked below as fixed:
 
 ### Issue at Line 127
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4493,7 +4493,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4514,7 +4514,7 @@ Items marked below as fixed:
 
 ### Issue at Line 128
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4522,7 +4522,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4544,14 +4544,14 @@ Items marked below as fixed:
 
 ### Issue at Line 129
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4574,7 +4574,7 @@ Items marked below as fixed:
 
 ### Issue at Line 130
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4587,7 +4587,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -4604,7 +4604,7 @@ Items marked below as fixed:
 
 ### Issue at Line 131
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4616,7 +4616,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -4634,7 +4634,7 @@ Items marked below as fixed:
 
 ### Issue at Line 132
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4645,7 +4645,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -4664,7 +4664,7 @@ Items marked below as fixed:
 
 ### Issue at Line 133
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4674,7 +4674,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -4694,7 +4694,7 @@ Items marked below as fixed:
 
 ### Issue at Line 134
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4703,7 +4703,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -4724,7 +4724,7 @@ Items marked below as fixed:
 
 ### Issue at Line 135
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4732,12 +4732,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -4754,19 +4754,19 @@ Items marked below as fixed:
 
 ### Issue at Line 136
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4784,7 +4784,7 @@ Items marked below as fixed:
 
 ### Issue at Line 137
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4795,7 +4795,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4814,7 +4814,7 @@ Items marked below as fixed:
 
 ### Issue at Line 138
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4824,7 +4824,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4844,7 +4844,7 @@ Items marked below as fixed:
 
 ### Issue at Line 139
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4853,7 +4853,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4874,7 +4874,7 @@ Items marked below as fixed:
 
 ### Issue at Line 140
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4882,7 +4882,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4904,14 +4904,14 @@ Items marked below as fixed:
 
 ### Issue at Line 141
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4934,7 +4934,7 @@ Items marked below as fixed:
 
 ### Issue at Line 142
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4947,7 +4947,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -4964,7 +4964,7 @@ Items marked below as fixed:
 
 ### Issue at Line 143
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -4976,7 +4976,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -4994,7 +4994,7 @@ Items marked below as fixed:
 
 ### Issue at Line 144
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5005,7 +5005,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -5024,7 +5024,7 @@ Items marked below as fixed:
 
 ### Issue at Line 145
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5034,7 +5034,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -5054,7 +5054,7 @@ Items marked below as fixed:
 
 ### Issue at Line 146
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5063,7 +5063,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -5084,7 +5084,7 @@ Items marked below as fixed:
 
 ### Issue at Line 147
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5092,12 +5092,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -5114,19 +5114,19 @@ Items marked below as fixed:
 
 ### Issue at Line 148
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5144,7 +5144,7 @@ Items marked below as fixed:
 
 ### Issue at Line 149
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5155,7 +5155,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5174,7 +5174,7 @@ Items marked below as fixed:
 
 ### Issue at Line 150
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5184,7 +5184,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5204,7 +5204,7 @@ Items marked below as fixed:
 
 ### Issue at Line 151
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5213,7 +5213,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5234,7 +5234,7 @@ Items marked below as fixed:
 
 ### Issue at Line 152
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5242,7 +5242,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5264,14 +5264,14 @@ Items marked below as fixed:
 
 ### Issue at Line 153
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5294,7 +5294,7 @@ Items marked below as fixed:
 
 ### Issue at Line 154
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5307,7 +5307,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 ```python
 
 ### Proposal
@@ -5324,7 +5324,7 @@ Items marked below as fixed:
 
 ### Issue at Line 155
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5336,7 +5336,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 ```python
 
@@ -5354,7 +5354,7 @@ Items marked below as fixed:
 
 ### Issue at Line 156
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5365,7 +5365,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 ```python
@@ -5384,7 +5384,7 @@ Items marked below as fixed:
 
 ### Issue at Line 157
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5394,7 +5394,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -5414,7 +5414,7 @@ Items marked below as fixed:
 
 ### Issue at Line 158
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5423,7 +5423,7 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -5444,7 +5444,7 @@ Items marked below as fixed:
 
 ### Issue at Line 159
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5452,12 +5452,12 @@ Items marked below as fixed:
 
 ```python
 
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ```python
 
 ### Proposal
@@ -5474,19 +5474,19 @@ Items marked below as fixed:
 
 ### Issue at Line 160
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#!/bin/bash
+# !/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5504,7 +5504,7 @@ Items marked below as fixed:
 
 ### Issue at Line 161
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5515,7 +5515,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5534,7 +5534,7 @@ Items marked below as fixed:
 
 ### Issue at Line 162
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5544,7 +5544,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5564,7 +5564,7 @@ Items marked below as fixed:
 
 ### Issue at Line 163
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5573,7 +5573,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5594,7 +5594,7 @@ Items marked below as fixed:
 
 ### Issue at Line 164
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5602,7 +5602,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5624,14 +5624,14 @@ Items marked below as fixed:
 
 ### Issue at Line 165
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5654,7 +5654,7 @@ Items marked below as fixed:
 
 ### Issue at Line 166
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5667,7 +5667,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -5684,7 +5684,7 @@ Items marked below as fixed:
 
 ### Issue at Line 167
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5696,7 +5696,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 ```python
 
@@ -5714,7 +5714,7 @@ Items marked below as fixed:
 
 ### Issue at Line 168
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5725,7 +5725,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 ```python
@@ -5744,7 +5744,7 @@ Items marked below as fixed:
 
 ### Issue at Line 169
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5754,7 +5754,7 @@ Items marked below as fixed:
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
@@ -5774,7 +5774,7 @@ Items marked below as fixed:
 
 ### Issue at Line 170
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5783,11 +5783,11 @@ Items marked below as fixed:
 ```python
 # limitations under the License.
 
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -5804,7 +5804,7 @@ Items marked below as fixed:
 
 ### Issue at Line 171
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5812,11 +5812,11 @@ Items marked below as fixed:
 
 ```python
 
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -5834,18 +5834,18 @@ Items marked below as fixed:
 
 ### Issue at Line 172
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
-###############################################################################
+############################################################################### 
 
 set -eEuo pipefail
 ```python
@@ -5864,7 +5864,7 @@ set -eEuo pipefail
 
 ### Issue at Line 173
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5874,7 +5874,7 @@ set -eEuo pipefail
 # debvisor-vnc-console-enhanced.sh
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
-###############################################################################
+############################################################################### 
 
 set -eEuo pipefail
 
@@ -5894,7 +5894,7 @@ set -eEuo pipefail
 
 ### Issue at Line 174
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5903,7 +5903,7 @@ set -eEuo pipefail
 ```python
 # Enhanced VNC and console tools with validation, security hardening,
 # and audit logging
-###############################################################################
+############################################################################### 
 
 set -eEuo pipefail
 
@@ -5924,7 +5924,7 @@ set -eEuo pipefail
 
 ### Issue at Line 175
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -5932,7 +5932,7 @@ set -eEuo pipefail
 
 ```python
 # and audit logging
-###############################################################################
+############################################################################### 
 
 set -eEuo pipefail
 
@@ -5954,14 +5954,14 @@ SCRIPT_VERSION="1.0.0"
 
 ### Issue at Line 176
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 set -eEuo pipefail
 
@@ -5984,7 +5984,7 @@ SCRIPT_NAME="$(basename "$0")"
 
 ### Issue at Line 177
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6014,7 +6014,7 @@ LOG_FILE="/var/log/debvisor-vnc-console.log"
 
 ### Issue at Line 178
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6044,7 +6044,7 @@ AUDIT_LOG="/var/log/debvisor-console-audit.log"
 
 ### Issue at Line 179
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6074,7 +6074,7 @@ CONFIG_DIR="/etc/debvisor/vnc"
 
 ### Issue at Line 180
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6104,7 +6104,7 @@ STATE_DIR="/var/lib/debvisor/vnc-state"
 
 ### Issue at Line 181
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6134,7 +6134,7 @@ STATE_DIR="/var/lib/debvisor/vnc-state"
 
 ### Issue at Line 182
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6164,7 +6164,7 @@ STATE_DIR="/var/lib/debvisor/vnc-state"
 
 ### Issue at Line 183
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6194,7 +6194,7 @@ CONSOLE_TOKEN_TTL=3600  # 1 hour
 
 ### Issue at Line 184
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6224,7 +6224,7 @@ CONSOLE_TOKEN_LENGTH=32
 
 ### Issue at Line 185
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6254,7 +6254,7 @@ MAX_CONSOLE_SESSIONS=10
 
 ### Issue at Line 186
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6284,7 +6284,7 @@ ALLOWED_PORTS=(5900-5999 6000-6099)
 
 ### Issue at Line 187
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6314,7 +6314,7 @@ MIN_VNC_PORT=5900
 
 ### Issue at Line 188
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6344,7 +6344,7 @@ MAX_VNC_PORT=5999
 
 ### Issue at Line 189
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6374,7 +6374,7 @@ MAX_VNC_PORT=5999
 
 ### Issue at Line 190
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6404,7 +6404,7 @@ MAX_VNC_PORT=5999
 
 ### Issue at Line 191
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6434,7 +6434,7 @@ RED='\033[0;31m'
 
 ### Issue at Line 192
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6464,7 +6464,7 @@ GREEN='\033[0;32m'
 
 ### Issue at Line 193
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6494,7 +6494,7 @@ YELLOW='\033[1;33m'
 
 ### Issue at Line 194
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6524,7 +6524,7 @@ BLUE='\033[0;34m'
 
 ### Issue at Line 195
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6554,7 +6554,7 @@ NC='\033[0m'
 
 ### Issue at Line 196
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6584,7 +6584,7 @@ NC='\033[0m'
 
 ### Issue at Line 197
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6614,7 +6614,7 @@ NC='\033[0m'
 
 ### Issue at Line 198
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6644,7 +6644,7 @@ trap 'error_handler $? $LINENO' ERR
 
 ### Issue at Line 199
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6674,7 +6674,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 200
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6704,7 +6704,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 201
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6717,7 +6717,7 @@ NC='\033[0m'
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -6734,7 +6734,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 202
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6746,7 +6746,7 @@ trap 'cleanup' EXIT
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
 ```python
 
@@ -6764,7 +6764,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 203
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6775,9 +6775,9 @@ trap 'cleanup' EXIT
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -6794,7 +6794,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 204
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6804,9 +6804,9 @@ trap 'cleanup' EXIT
 trap 'error_handler $? $LINENO' ERR
 trap 'cleanup' EXIT
 
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -6824,7 +6824,7 @@ trap 'cleanup' EXIT
 
 ### Issue at Line 205
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6833,9 +6833,9 @@ trap 'cleanup' EXIT
 ```python
 trap 'cleanup' EXIT
 
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 
 log_info() {
 ```python
@@ -6854,7 +6854,7 @@ log_info() {
 
 ### Issue at Line 206
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6862,9 +6862,9 @@ log_info() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1" | tee -a "$LOG_FILE"
@@ -6884,16 +6884,16 @@ log_info() {
 
 ### Issue at Line 207
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1" | tee -a "$LOG_FILE"
@@ -6914,7 +6914,7 @@ log_info() {
 
 ### Issue at Line 208
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -6922,7 +6922,7 @@ log_info() {
 
 ```python
 # Logging & Audit Functions
-###############################################################################
+############################################################################### 
 
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1" | tee -a "$LOG_FILE"
@@ -6944,14 +6944,14 @@ log_info() {
 
 ### Issue at Line 209
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1" | tee -a "$LOG_FILE"
@@ -6974,7 +6974,7 @@ log_success() {
 
 ### Issue at Line 210
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7004,7 +7004,7 @@ log_success() {
 
 ### Issue at Line 211
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7034,7 +7034,7 @@ log_success() {
 
 ### Issue at Line 212
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7064,7 +7064,7 @@ log_success() {
 
 ### Issue at Line 213
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7094,7 +7094,7 @@ log_warn() {
 
 ### Issue at Line 214
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7124,7 +7124,7 @@ log_warn() {
 
 ### Issue at Line 215
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7154,7 +7154,7 @@ log_warn() {
 
 ### Issue at Line 216
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7184,7 +7184,7 @@ log_warn() {
 
 ### Issue at Line 217
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7214,7 +7214,7 @@ log_error() {
 
 ### Issue at Line 218
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7244,7 +7244,7 @@ log_error() {
 
 ### Issue at Line 219
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7274,7 +7274,7 @@ log_error() {
 
 ### Issue at Line 220
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7304,7 +7304,7 @@ log_error() {
 
 ### Issue at Line 221
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7334,7 +7334,7 @@ audit_log_entry() {
 
 ### Issue at Line 222
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7364,7 +7364,7 @@ audit_log_entry() {
 
 ### Issue at Line 223
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7394,7 +7394,7 @@ audit_log_entry() {
 
 ### Issue at Line 224
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7424,7 +7424,7 @@ audit_log_entry() {
 
 ### Issue at Line 225
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7454,7 +7454,7 @@ audit_log_entry() {
 
 ### Issue at Line 226
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7484,7 +7484,7 @@ audit_log_entry() {
 
 ### Issue at Line 227
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7514,7 +7514,7 @@ audit_log_entry() {
 
 ### Issue at Line 228
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7544,7 +7544,7 @@ audit_log_entry() {
 
 ### Issue at Line 229
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7574,7 +7574,7 @@ audit_log_entry() {
 
 ### Issue at Line 230
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7604,7 +7604,7 @@ audit_log_entry() {
 
 ### Issue at Line 231
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7634,7 +7634,7 @@ audit_log_entry() {
 
 ### Issue at Line 232
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7664,7 +7664,7 @@ audit_log_entry() {
 
 ### Issue at Line 233
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7694,7 +7694,7 @@ audit_log_entry() {
 
 ### Issue at Line 234
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7724,7 +7724,7 @@ audit_log_entry() {
 
 ### Issue at Line 235
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7754,7 +7754,7 @@ error_handler() {
 
 ### Issue at Line 236
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7784,7 +7784,7 @@ error_handler() {
 
 ### Issue at Line 237
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7814,7 +7814,7 @@ error_handler() {
 
 ### Issue at Line 238
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7844,7 +7844,7 @@ error_handler() {
 
 ### Issue at Line 239
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7874,7 +7874,7 @@ error_handler() {
 
 ### Issue at Line 240
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7904,7 +7904,7 @@ error_handler() {
 
 ### Issue at Line 241
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7934,7 +7934,7 @@ cleanup() {
 
 ### Issue at Line 242
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7964,7 +7964,7 @@ cleanup() {
 
 ### Issue at Line 243
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -7994,7 +7994,7 @@ cleanup() {
 
 ### Issue at Line 244
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8024,7 +8024,7 @@ cleanup() {
 
 ### Issue at Line 245
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8054,7 +8054,7 @@ debug_log() {
 
 ### Issue at Line 246
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8067,7 +8067,7 @@ cleanup() {
 }
 
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
 ```python
 
 ### Proposal
@@ -8084,7 +8084,7 @@ debug_log() {
 
 ### Issue at Line 247
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8096,7 +8096,7 @@ cleanup() {
 }
 
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
 ```python
 
@@ -8114,7 +8114,7 @@ debug_log() {
 
 ### Issue at Line 248
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8125,7 +8125,7 @@ debug_log() {
 }
 
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 ```python
@@ -8144,7 +8144,7 @@ debug_log() {
 
 ### Issue at Line 249
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8154,7 +8154,7 @@ debug_log() {
 }
 
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
@@ -8174,7 +8174,7 @@ debug_log() {
 
 ### Issue at Line 250
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8183,7 +8183,7 @@ debug_log() {
 ```python
 
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
@@ -8204,7 +8204,7 @@ debug_log() {
 
 ### Issue at Line 251
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8212,12 +8212,12 @@ debug_log() {
 
 ```python
 debug_log() {
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -8234,19 +8234,19 @@ debug_log() {
 
 ### Issue at Line 252
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ "${VERBOSE:-false}" == "true" ]]; then
+    if [["${VERBOSE:-false}" == "true"]]; then
         echo "[DEBUG] $1" >> "$LOG_FILE"
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Utility Functions
 ```python
 
@@ -8264,7 +8264,7 @@ debug_log() {
 
 ### Issue at Line 253
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8275,9 +8275,9 @@ debug_log() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Utility Functions
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -8294,7 +8294,7 @@ debug_log() {
 
 ### Issue at Line 254
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8304,9 +8304,9 @@ debug_log() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Utility Functions
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -8324,7 +8324,7 @@ debug_log() {
 
 ### Issue at Line 255
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8333,9 +8333,9 @@ debug_log() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # Utility Functions
-###############################################################################
+############################################################################### 
 
 print_usage() {
 ```python
@@ -8354,7 +8354,7 @@ print_usage() {
 
 ### Issue at Line 256
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8362,9 +8362,9 @@ print_usage() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Utility Functions
-###############################################################################
+############################################################################### 
 
 print_usage() {
     cat << EOF
@@ -8384,16 +8384,16 @@ print_usage() {
 
 ### Issue at Line 257
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Utility Functions
-###############################################################################
+############################################################################### 
 
 print_usage() {
     cat << EOF
@@ -8414,7 +8414,7 @@ ${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
 
 ### Issue at Line 258
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8422,7 +8422,7 @@ ${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
 
 ```python
 # Utility Functions
-###############################################################################
+############################################################################### 
 
 print_usage() {
     cat << EOF
@@ -8444,14 +8444,14 @@ ${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
 
 ### Issue at Line 259
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 print_usage() {
     cat << EOF
@@ -8474,7 +8474,7 @@ ${BLUE}Description:${NC}
 
 ### Issue at Line 294
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8504,7 +8504,7 @@ print_version() {
 
 ### Issue at Line 295
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8534,7 +8534,7 @@ print_version() {
 
 ### Issue at Line 296
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8564,7 +8564,7 @@ print_version() {
 
 ### Issue at Line 297
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8594,7 +8594,7 @@ generate_token() {
 
 ### Issue at Line 298
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8624,7 +8624,7 @@ generate_token() {
 
 ### Issue at Line 299
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8654,7 +8654,7 @@ generate_token() {
 
 ### Issue at Line 300
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8684,7 +8684,7 @@ generate_token() {
 
 ### Issue at Line 301
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8714,7 +8714,7 @@ generate_token() {
 
 ### Issue at Line 302
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8744,7 +8744,7 @@ generate_token() {
 
 ### Issue at Line 303
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8774,7 +8774,7 @@ generate_token() {
 
 ### Issue at Line 304
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8804,7 +8804,7 @@ validate_vm_name() {
 
 ### Issue at Line 305
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8834,7 +8834,7 @@ validate_vm_name() {
 
 ### Issue at Line 306
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8847,7 +8847,7 @@ validate_vm_name() {
 
 validate_vm_name() {
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
 ```python
 
 ### Proposal
@@ -8864,7 +8864,7 @@ validate_vm_name() {
 
 ### Issue at Line 307
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8876,7 +8876,7 @@ validate_vm_name() {
 
 validate_vm_name() {
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
 ```python
 
@@ -8894,7 +8894,7 @@ validate_vm_name() {
 
 ### Issue at Line 308
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8905,7 +8905,7 @@ validate_vm_name() {
 
 validate_vm_name() {
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
         return 1
 ```python
@@ -8924,7 +8924,7 @@ validate_vm_name() {
 
 ### Issue at Line 309
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8934,7 +8934,7 @@ validate_vm_name() {
 
 validate_vm_name() {
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
         return 1
     fi
@@ -8954,7 +8954,7 @@ validate_vm_name() {
 
 ### Issue at Line 310
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8963,7 +8963,7 @@ validate_vm_name() {
 ```python
 validate_vm_name() {
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
         return 1
     fi
@@ -8984,7 +8984,7 @@ validate_vm_name() {
 
 ### Issue at Line 311
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -8992,7 +8992,7 @@ validate_vm_name() {
 
 ```python
     local vm_name="$1"
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
         return 1
     fi
@@ -9014,14 +9014,14 @@ validate_vm_name() {
 
 ### Issue at Line 312
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if ! [[ "$vm_name" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    if ! [["$vm_name" =~ ^[a-zA-Z0-9._-]+$]]; then
         log_error "Invalid VM name: $vm_name"
         return 1
     fi
@@ -9044,7 +9044,7 @@ validate_port() {
 
 ### Issue at Line 313
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9074,7 +9074,7 @@ validate_port() {
 
 ### Issue at Line 314
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9087,7 +9087,7 @@ validate_port() {
 
 validate_port() {
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
 ```python
 
 ### Proposal
@@ -9104,7 +9104,7 @@ validate_port() {
 
 ### Issue at Line 315
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9116,7 +9116,7 @@ validate_port() {
 
 validate_port() {
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
 ```python
 
@@ -9134,7 +9134,7 @@ validate_port() {
 
 ### Issue at Line 316
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9145,7 +9145,7 @@ validate_port() {
 
 validate_port() {
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
         return 1
 ```python
@@ -9164,7 +9164,7 @@ validate_port() {
 
 ### Issue at Line 317
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9174,7 +9174,7 @@ validate_port() {
 
 validate_port() {
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
         return 1
     fi
@@ -9194,7 +9194,7 @@ validate_port() {
 
 ### Issue at Line 318
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9203,7 +9203,7 @@ validate_port() {
 ```python
 validate_port() {
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
         return 1
     fi
@@ -9224,7 +9224,7 @@ validate_port() {
 
 ### Issue at Line 319
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9232,7 +9232,7 @@ validate_port() {
 
 ```python
     local port="$1"
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
         return 1
     fi
@@ -9254,14 +9254,14 @@ validate_port() {
 
 ### Issue at Line 320
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+    if ! [["$port" =~ ^[0-9]+$]]; then
         log_error "Invalid port: $port"
         return 1
     fi
@@ -9284,7 +9284,7 @@ validate_port() {
 
 ### Issue at Line 321
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9314,7 +9314,7 @@ validate_port() {
 
 ### Issue at Line 322
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9344,7 +9344,7 @@ validate_port() {
 
 ### Issue at Line 323
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9374,7 +9374,7 @@ validate_port() {
 
 ### Issue at Line 324
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9387,7 +9387,7 @@ validate_port() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -9404,7 +9404,7 @@ validate_port() {
 
 ### Issue at Line 325
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9416,7 +9416,7 @@ validate_port() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # VNC Management Functions
 ```python
 
@@ -9434,7 +9434,7 @@ validate_port() {
 
 ### Issue at Line 326
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9445,9 +9445,9 @@ validate_port() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -9464,7 +9464,7 @@ validate_port() {
 
 ### Issue at Line 327
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9474,9 +9474,9 @@ validate_port() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -9494,7 +9494,7 @@ validate_port() {
 
 ### Issue at Line 328
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9503,9 +9503,9 @@ validate_port() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 
 ensure_vnc_port() {
 ```python
@@ -9524,7 +9524,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 329
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9532,9 +9532,9 @@ ensure_vnc_port() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 
 ensure_vnc_port() {
     local vm_name="$1"
@@ -9554,16 +9554,16 @@ ensure_vnc_port() {
 
 ### Issue at Line 330
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 
 ensure_vnc_port() {
     local vm_name="$1"
@@ -9584,7 +9584,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 331
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9592,7 +9592,7 @@ ensure_vnc_port() {
 
 ```python
 # VNC Management Functions
-###############################################################################
+############################################################################### 
 
 ensure_vnc_port() {
     local vm_name="$1"
@@ -9614,14 +9614,14 @@ ensure_vnc_port() {
 
 ### Issue at Line 332
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 ensure_vnc_port() {
     local vm_name="$1"
@@ -9644,7 +9644,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 333
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9674,7 +9674,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 334
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9704,7 +9704,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 335
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9734,7 +9734,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 336
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9764,7 +9764,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 337
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9794,7 +9794,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 338
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9824,7 +9824,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 339
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9854,7 +9854,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 340
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9884,7 +9884,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 341
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9914,7 +9914,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 342
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9944,7 +9944,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 343
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -9974,7 +9974,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 344
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10004,7 +10004,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 345
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10034,7 +10034,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 346
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10064,7 +10064,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 347
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10094,7 +10094,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 348
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10124,7 +10124,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 349
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10137,7 +10137,7 @@ ensure_vnc_port() {
         log_info "VNC already configured for $vm_name"
     else
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
 ```python
 
 ### Proposal
@@ -10154,7 +10154,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 350
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10166,7 +10166,7 @@ ensure_vnc_port() {
         log_info "VNC already configured for $vm_name"
     else
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
 ```python
 
@@ -10184,7 +10184,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 351
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10195,7 +10195,7 @@ ensure_vnc_port() {
         log_info "VNC already configured for $vm_name"
     else
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
             debug_log "Would configure VNC for VM: $vm_name"
 ```python
@@ -10214,7 +10214,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 352
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10224,7 +10224,7 @@ ensure_vnc_port() {
         log_info "VNC already configured for $vm_name"
     else
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
             debug_log "Would configure VNC for VM: $vm_name"
         fi
@@ -10244,7 +10244,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 353
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10253,7 +10253,7 @@ ensure_vnc_port() {
 ```python
     else
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
             debug_log "Would configure VNC for VM: $vm_name"
         fi
@@ -10274,7 +10274,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 354
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10282,7 +10282,7 @@ ensure_vnc_port() {
 
 ```python
         log_info "Configuring VNC for $vm_name"
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
             debug_log "Would configure VNC for VM: $vm_name"
         fi
@@ -10304,14 +10304,14 @@ ensure_vnc_port() {
 
 ### Issue at Line 355
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-        if [[ "$DRY_RUN" != "true" ]]; then
+        if [["$DRY_RUN" != "true"]]; then
             # This would use XML modification in production
             debug_log "Would configure VNC for VM: $vm_name"
         fi
@@ -10334,7 +10334,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 356
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10364,7 +10364,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 357
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10394,7 +10394,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 358
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10424,7 +10424,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 359
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10454,7 +10454,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 360
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10484,7 +10484,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 361
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10514,7 +10514,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 362
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10527,7 +10527,7 @@ ensure_vnc_port() {
     log_success "VNC port: $vnc_port for VM: $vm_name"
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
 ```python
 
 ### Proposal
@@ -10544,7 +10544,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 363
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10556,7 +10556,7 @@ ensure_vnc_port() {
     log_success "VNC port: $vnc_port for VM: $vm_name"
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 ```python
 
@@ -10574,7 +10574,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 364
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10585,7 +10585,7 @@ ensure_vnc_port() {
     log_success "VNC port: $vnc_port for VM: $vm_name"
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
 ```python
@@ -10604,7 +10604,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 365
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10614,7 +10614,7 @@ ensure_vnc_port() {
     log_success "VNC port: $vnc_port for VM: $vm_name"
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
   "vm_name": "$vm_name",
@@ -10634,7 +10634,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 366
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10643,7 +10643,7 @@ ensure_vnc_port() {
 ```python
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
   "vm_name": "$vm_name",
@@ -10664,7 +10664,7 @@ ensure_vnc_port() {
 
 ### Issue at Line 373
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10694,7 +10694,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 374
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10724,7 +10724,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 375
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10754,7 +10754,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 376
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10784,7 +10784,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 377
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10814,7 +10814,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 378
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10844,7 +10844,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 379
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10874,7 +10874,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 380
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10904,7 +10904,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 381
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10934,7 +10934,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 382
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10964,7 +10964,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 383
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -10994,7 +10994,7 @@ find_available_vnc_port() {
 
 ### Issue at Line 384
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11024,7 +11024,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 385
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11054,7 +11054,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 386
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11084,7 +11084,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 387
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11114,7 +11114,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 388
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11144,7 +11144,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 389
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11157,7 +11157,7 @@ validate_vnc_reachable() {
 
     log_info "Validating VNC at: $host_port"
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
 ```python
 
 ### Proposal
@@ -11174,7 +11174,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 390
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11186,7 +11186,7 @@ validate_vnc_reachable() {
 
     log_info "Validating VNC at: $host_port"
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
 ```python
 
@@ -11204,7 +11204,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 391
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11215,7 +11215,7 @@ validate_vnc_reachable() {
 
     log_info "Validating VNC at: $host_port"
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
 ```python
@@ -11234,7 +11234,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 392
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11244,7 +11244,7 @@ validate_vnc_reachable() {
 
     log_info "Validating VNC at: $host_port"
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
     fi
@@ -11264,7 +11264,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 393
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11273,7 +11273,7 @@ validate_vnc_reachable() {
 ```python
     log_info "Validating VNC at: $host_port"
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
     fi
@@ -11294,7 +11294,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 394
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11302,7 +11302,7 @@ validate_vnc_reachable() {
 
 ```python
 
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
     fi
@@ -11324,14 +11324,14 @@ validate_vnc_reachable() {
 
 ### Issue at Line 395
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ ! "$host_port" =~ ^[^:]+:[0-9]+$ ]]; then
+    if [[! "$host_port" =~ ^[^:]+:[0-9]+$]]; then
         log_error "Invalid host:port format: $host_port"
         return 1
     fi
@@ -11354,7 +11354,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 396
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11384,7 +11384,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 397
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11414,7 +11414,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 398
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11444,7 +11444,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 399
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11474,7 +11474,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 400
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11487,7 +11487,7 @@ validate_vnc_reachable() {
     validate_port "$port" || return 1
 
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
 ```python
 
 ### Proposal
@@ -11504,7 +11504,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 401
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11516,7 +11516,7 @@ validate_vnc_reachable() {
     validate_port "$port" || return 1
 
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
 ```python
 
@@ -11534,7 +11534,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 402
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11545,7 +11545,7 @@ validate_vnc_reachable() {
     validate_port "$port" || return 1
 
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
     fi
 ```python
@@ -11564,7 +11564,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 403
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11574,7 +11574,7 @@ validate_vnc_reachable() {
     validate_port "$port" || return 1
 
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
     fi
 
@@ -11594,7 +11594,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 404
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11603,7 +11603,7 @@ validate_vnc_reachable() {
 ```python
 
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
     fi
 
@@ -11624,7 +11624,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 405
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11632,7 +11632,7 @@ validate_vnc_reachable() {
 
 ```python
     # Check if port is within allowed VNC range
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
     fi
 
@@ -11654,14 +11654,14 @@ validate_vnc_reachable() {
 
 ### Issue at Line 406
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if ! [[ "$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$ ]]; then
+    if ! [["$port" =~ ^($(IFS=\|; echo "${ALLOWED_PORTS[*]}"))$]]; then
         log_warn "Port $port outside standard VNC range"
     fi
 
@@ -11684,7 +11684,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 407
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11714,7 +11714,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 408
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11744,7 +11744,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 409
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11774,7 +11774,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 410
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11804,7 +11804,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 411
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11834,7 +11834,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 412
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11864,7 +11864,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 413
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11894,7 +11894,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 414
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11924,7 +11924,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 415
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11954,7 +11954,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 416
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11967,7 +11967,7 @@ validate_vnc_reachable() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -11984,7 +11984,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 417
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -11996,7 +11996,7 @@ validate_vnc_reachable() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Console Token Management
 ```python
 
@@ -12014,7 +12014,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 418
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12025,9 +12025,9 @@ validate_vnc_reachable() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Console Token Management
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -12044,7 +12044,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 419
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12054,9 +12054,9 @@ validate_vnc_reachable() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Console Token Management
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -12074,7 +12074,7 @@ validate_vnc_reachable() {
 
 ### Issue at Line 420
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12083,9 +12083,9 @@ validate_vnc_reachable() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # Console Token Management
-###############################################################################
+############################################################################### 
 
 generate_console_token() {
 ```python
@@ -12104,7 +12104,7 @@ generate_console_token() {
 
 ### Issue at Line 421
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12112,9 +12112,9 @@ generate_console_token() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Console Token Management
-###############################################################################
+############################################################################### 
 
 generate_console_token() {
     local vm_name="$1"
@@ -12134,16 +12134,16 @@ generate_console_token() {
 
 ### Issue at Line 422
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Console Token Management
-###############################################################################
+############################################################################### 
 
 generate_console_token() {
     local vm_name="$1"
@@ -12164,7 +12164,7 @@ generate_console_token() {
 
 ### Issue at Line 423
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12172,7 +12172,7 @@ generate_console_token() {
 
 ```python
 # Console Token Management
-###############################################################################
+############################################################################### 
 
 generate_console_token() {
     local vm_name="$1"
@@ -12194,14 +12194,14 @@ generate_console_token() {
 
 ### Issue at Line 424
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 generate_console_token() {
     local vm_name="$1"
@@ -12224,7 +12224,7 @@ generate_console_token() {
 
 ### Issue at Line 425
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12254,7 +12254,7 @@ generate_console_token() {
 
 ### Issue at Line 426
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12284,7 +12284,7 @@ generate_console_token() {
 
 ### Issue at Line 427
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12314,7 +12314,7 @@ generate_console_token() {
 
 ### Issue at Line 428
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12344,7 +12344,7 @@ generate_console_token() {
 
 ### Issue at Line 429
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12374,7 +12374,7 @@ generate_console_token() {
 
 ### Issue at Line 430
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12404,7 +12404,7 @@ generate_console_token() {
 
 ### Issue at Line 431
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12434,7 +12434,7 @@ generate_console_token() {
 
 ### Issue at Line 432
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12464,7 +12464,7 @@ generate_console_token() {
 
 ### Issue at Line 433
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12494,7 +12494,7 @@ generate_console_token() {
 
 ### Issue at Line 434
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12507,7 +12507,7 @@ generate_console_token() {
     local token_type="${2:-read-write}"
 
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
 ```python
 
 ### Proposal
@@ -12524,7 +12524,7 @@ generate_console_token() {
 
 ### Issue at Line 435
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12536,7 +12536,7 @@ generate_console_token() {
     local token_type="${2:-read-write}"
 
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
 ```python
 
@@ -12554,7 +12554,7 @@ generate_console_token() {
 
 ### Issue at Line 436
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12565,7 +12565,7 @@ generate_console_token() {
     local token_type="${2:-read-write}"
 
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
         return 1
 ```python
@@ -12584,7 +12584,7 @@ generate_console_token() {
 
 ### Issue at Line 437
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12594,7 +12594,7 @@ generate_console_token() {
     local token_type="${2:-read-write}"
 
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
         return 1
     fi
@@ -12614,7 +12614,7 @@ generate_console_token() {
 
 ### Issue at Line 438
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12623,7 +12623,7 @@ generate_console_token() {
 ```python
 
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
         return 1
     fi
@@ -12644,7 +12644,7 @@ generate_console_token() {
 
 ### Issue at Line 439
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12652,12 +12652,12 @@ generate_console_token() {
 
 ```python
     # Validate token type
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
 ```python
 
 ### Proposal
@@ -12674,19 +12674,19 @@ generate_console_token() {
 
 ### Issue at Line 440
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if ! [[ "$token_type" =~ ^(read-only|read-write|admin)$ ]]; then
+    if ! [["$token_type" =~ ^(read-only|read-write|admin)$]]; then
         log_error "Invalid token type: $token_type"
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
 ```python
 
@@ -12704,7 +12704,7 @@ generate_console_token() {
 
 ### Issue at Line 441
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12715,7 +12715,7 @@ generate_console_token() {
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
 ```python
@@ -12734,7 +12734,7 @@ generate_console_token() {
 
 ### Issue at Line 442
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12744,7 +12744,7 @@ generate_console_token() {
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
         local token_file="$STATE_DIR/${token}.token"
@@ -12764,7 +12764,7 @@ generate_console_token() {
 
 ### Issue at Line 443
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12773,7 +12773,7 @@ generate_console_token() {
 ```python
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
         local token_file="$STATE_DIR/${token}.token"
@@ -12794,7 +12794,7 @@ generate_console_token() {
 
 ### Issue at Line 444
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12802,7 +12802,7 @@ generate_console_token() {
 
 ```python
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
         local token_file="$STATE_DIR/${token}.token"
@@ -12824,14 +12824,14 @@ generate_console_token() {
 
 ### Issue at Line 445
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         # Store token with metadata
         mkdir -p "$STATE_DIR"
         local token_file="$STATE_DIR/${token}.token"
@@ -12854,7 +12854,7 @@ generate_console_token() {
 
 ### Issue at Line 446
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12884,7 +12884,7 @@ generate_console_token() {
 
 ### Issue at Line 457
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12914,7 +12914,7 @@ EOF
 
 ### Issue at Line 458
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12944,7 +12944,7 @@ EOF
 
 ### Issue at Line 459
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -12974,7 +12974,7 @@ EOF
 
 ### Issue at Line 460
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13004,7 +13004,7 @@ EOF
 
 ### Issue at Line 461
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13034,7 +13034,7 @@ EOF
 
 ### Issue at Line 462
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13064,7 +13064,7 @@ EOF
 
 ### Issue at Line 463
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13094,7 +13094,7 @@ EOF
 
 ### Issue at Line 464
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13124,7 +13124,7 @@ EOF
 
 ### Issue at Line 465
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13154,7 +13154,7 @@ EOF
 
 ### Issue at Line 466
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13184,7 +13184,7 @@ EOF
 
 ### Issue at Line 467
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13214,7 +13214,7 @@ EOF
 
 ### Issue at Line 468
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13227,7 +13227,7 @@ EOF
     echo "Usage:"
     echo "  URL: vnc://$(hostname):5900?token=$token"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
 ```python
 
 ### Proposal
@@ -13244,7 +13244,7 @@ EOF
 
 ### Issue at Line 469
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13256,7 +13256,7 @@ EOF
     echo "Usage:"
     echo "  URL: vnc://$(hostname):5900?token=$token"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 ```python
 
@@ -13274,7 +13274,7 @@ EOF
 
 ### Issue at Line 470
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13285,7 +13285,7 @@ EOF
     echo "Usage:"
     echo "  URL: vnc://$(hostname):5900?token=$token"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
 ```python
@@ -13304,7 +13304,7 @@ EOF
 
 ### Issue at Line 471
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13314,7 +13314,7 @@ EOF
     echo "Usage:"
     echo "  URL: vnc://$(hostname):5900?token=$token"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
   "token": "$token",
@@ -13334,7 +13334,7 @@ EOF
 
 ### Issue at Line 472
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13343,7 +13343,7 @@ EOF
 ```python
     echo "  URL: vnc://$(hostname):5900?token=$token"
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         cat << EOF
 {
   "token": "$token",
@@ -13364,7 +13364,7 @@ EOF
 
 ### Issue at Line 481
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13394,7 +13394,7 @@ validate_console_token() {
 
 ### Issue at Line 482
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13424,7 +13424,7 @@ validate_console_token() {
 
 ### Issue at Line 483
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13454,7 +13454,7 @@ validate_console_token() {
 
 ### Issue at Line 484
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13484,7 +13484,7 @@ validate_console_token() {
 
 ### Issue at Line 485
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13514,7 +13514,7 @@ validate_console_token() {
 
 ### Issue at Line 486
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13527,7 +13527,7 @@ validate_console_token() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
 ```python
 
 ### Proposal
@@ -13544,7 +13544,7 @@ validate_console_token() {
 
 ### Issue at Line 487
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13556,7 +13556,7 @@ validate_console_token() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
 ```python
 
@@ -13574,7 +13574,7 @@ validate_console_token() {
 
 ### Issue at Line 488
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13585,7 +13585,7 @@ validate_console_token() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
         return 1
 ```python
@@ -13604,7 +13604,7 @@ validate_console_token() {
 
 ### Issue at Line 489
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13614,7 +13614,7 @@ validate_console_token() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
         return 1
     fi
@@ -13634,7 +13634,7 @@ validate_console_token() {
 
 ### Issue at Line 490
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13643,7 +13643,7 @@ validate_console_token() {
 ```python
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
         return 1
     fi
@@ -13664,7 +13664,7 @@ validate_console_token() {
 
 ### Issue at Line 491
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13672,7 +13672,7 @@ validate_console_token() {
 
 ```python
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
         return 1
     fi
@@ -13694,14 +13694,14 @@ validate_console_token() {
 
 ### Issue at Line 492
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Token not found: $token"
         return 1
     fi
@@ -13724,7 +13724,7 @@ validate_console_token() {
 
 ### Issue at Line 493
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13754,7 +13754,7 @@ validate_console_token() {
 
 ### Issue at Line 494
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13784,7 +13784,7 @@ validate_console_token() {
 
 ### Issue at Line 495
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13797,7 +13797,7 @@ validate_console_token() {
     local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
     local current_time=$(date -Iseconds)
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
 ```python
 
 ### Proposal
@@ -13814,7 +13814,7 @@ validate_console_token() {
 
 ### Issue at Line 496
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13826,7 +13826,7 @@ validate_console_token() {
     local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
     local current_time=$(date -Iseconds)
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
 ```python
 
@@ -13844,7 +13844,7 @@ validate_console_token() {
 
 ### Issue at Line 497
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13855,7 +13855,7 @@ validate_console_token() {
     local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
     local current_time=$(date -Iseconds)
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
 ```python
@@ -13874,7 +13874,7 @@ validate_console_token() {
 
 ### Issue at Line 498
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13884,7 +13884,7 @@ validate_console_token() {
     local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
     local current_time=$(date -Iseconds)
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
         return 1
@@ -13904,7 +13904,7 @@ validate_console_token() {
 
 ### Issue at Line 499
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13913,7 +13913,7 @@ validate_console_token() {
 ```python
     local current_time=$(date -Iseconds)
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
         return 1
@@ -13934,7 +13934,7 @@ validate_console_token() {
 
 ### Issue at Line 500
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -13942,7 +13942,7 @@ validate_console_token() {
 
 ```python
 
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
         return 1
@@ -13964,14 +13964,14 @@ validate_console_token() {
 
 ### Issue at Line 501
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ "$current_time" > "$expires_at" ]]; then
+    if [["$current_time" > "$expires_at"]]; then
         log_error "Token expired: $token"
         rm -f "$token_file"
         return 1
@@ -13994,7 +13994,7 @@ validate_console_token() {
 
 ### Issue at Line 502
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14024,7 +14024,7 @@ validate_console_token() {
 
 ### Issue at Line 503
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14054,7 +14054,7 @@ validate_console_token() {
 
 ### Issue at Line 504
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14084,7 +14084,7 @@ validate_console_token() {
 
 ### Issue at Line 505
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14097,7 +14097,7 @@ validate_console_token() {
     return 0
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -14114,7 +14114,7 @@ validate_console_token() {
 
 ### Issue at Line 506
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14126,7 +14126,7 @@ validate_console_token() {
     return 0
 }
 
-###############################################################################
+############################################################################### 
 # Session Management
 ```python
 
@@ -14144,7 +14144,7 @@ validate_console_token() {
 
 ### Issue at Line 507
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14155,9 +14155,9 @@ validate_console_token() {
     return 0
 }
 
-###############################################################################
+############################################################################### 
 # Session Management
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -14174,7 +14174,7 @@ validate_console_token() {
 
 ### Issue at Line 508
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14184,9 +14184,9 @@ validate_console_token() {
     return 0
 }
 
-###############################################################################
+############################################################################### 
 # Session Management
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -14204,7 +14204,7 @@ validate_console_token() {
 
 ### Issue at Line 509
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14213,9 +14213,9 @@ validate_console_token() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # Session Management
-###############################################################################
+############################################################################### 
 
 list_console_sessions() {
 ```python
@@ -14234,7 +14234,7 @@ list_console_sessions() {
 
 ### Issue at Line 510
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14242,9 +14242,9 @@ list_console_sessions() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Session Management
-###############################################################################
+############################################################################### 
 
 list_console_sessions() {
     log_info "Active console sessions:"
@@ -14264,16 +14264,16 @@ list_console_sessions() {
 
 ### Issue at Line 511
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Session Management
-###############################################################################
+############################################################################### 
 
 list_console_sessions() {
     log_info "Active console sessions:"
@@ -14294,7 +14294,7 @@ list_console_sessions() {
 
 ### Issue at Line 512
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14302,12 +14302,12 @@ list_console_sessions() {
 
 ```python
 # Session Management
-###############################################################################
+############################################################################### 
 
 list_console_sessions() {
     log_info "Active console sessions:"
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
 ```python
 
 ### Proposal
@@ -14324,19 +14324,19 @@ list_console_sessions() {
 
 ### Issue at Line 513
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 list_console_sessions() {
     log_info "Active console sessions:"
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
 ```python
 
@@ -14354,7 +14354,7 @@ list_console_sessions() {
 
 ### Issue at Line 514
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14365,7 +14365,7 @@ list_console_sessions() {
 list_console_sessions() {
     log_info "Active console sessions:"
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
         return 0
 ```python
@@ -14384,7 +14384,7 @@ list_console_sessions() {
 
 ### Issue at Line 515
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14394,7 +14394,7 @@ list_console_sessions() {
 list_console_sessions() {
     log_info "Active console sessions:"
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
         return 0
     fi
@@ -14414,7 +14414,7 @@ list_console_sessions() {
 
 ### Issue at Line 516
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14423,7 +14423,7 @@ list_console_sessions() {
 ```python
     log_info "Active console sessions:"
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
         return 0
     fi
@@ -14444,7 +14444,7 @@ list_console_sessions() {
 
 ### Issue at Line 517
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14452,7 +14452,7 @@ list_console_sessions() {
 
 ```python
 
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
         return 0
     fi
@@ -14474,14 +14474,14 @@ list_console_sessions() {
 
 ### Issue at Line 518
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ ! -d "$STATE_DIR" ]]; then
+    if [[! -d "$STATE_DIR"]]; then
         log_info "No active sessions"
         return 0
     fi
@@ -14504,7 +14504,7 @@ list_console_sessions() {
 
 ### Issue at Line 519
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14534,7 +14534,7 @@ list_console_sessions() {
 
 ### Issue at Line 520
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14564,7 +14564,7 @@ list_console_sessions() {
 
 ### Issue at Line 521
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14594,7 +14594,7 @@ list_console_sessions() {
 
 ### Issue at Line 522
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14624,7 +14624,7 @@ list_console_sessions() {
 
 ### Issue at Line 523
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14654,7 +14654,7 @@ list_console_sessions() {
 
 ### Issue at Line 524
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14667,7 +14667,7 @@ list_console_sessions() {
     echo "------|---------|------|---------|--------"
 
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
 ```python
 
 ### Proposal
@@ -14684,7 +14684,7 @@ list_console_sessions() {
 
 ### Issue at Line 525
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14696,7 +14696,7 @@ list_console_sessions() {
     echo "------|---------|------|---------|--------"
 
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
 ```python
 
@@ -14714,7 +14714,7 @@ list_console_sessions() {
 
 ### Issue at Line 526
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14725,7 +14725,7 @@ list_console_sessions() {
     echo "------|---------|------|---------|--------"
 
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
             local vm_name=$(grep "vm_name" "$token_file" | cut -d'"' -f4)
 ```python
@@ -14744,7 +14744,7 @@ list_console_sessions() {
 
 ### Issue at Line 527
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14754,7 +14754,7 @@ list_console_sessions() {
     echo "------|---------|------|---------|--------"
 
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
             local vm_name=$(grep "vm_name" "$token_file" | cut -d'"' -f4)
             local token_type=$(grep '"type"' "$token_file" | cut -d'"' -f4)
@@ -14774,7 +14774,7 @@ list_console_sessions() {
 
 ### Issue at Line 528
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14783,7 +14783,7 @@ list_console_sessions() {
 ```python
 
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
             local vm_name=$(grep "vm_name" "$token_file" | cut -d'"' -f4)
             local token_type=$(grep '"type"' "$token_file" | cut -d'"' -f4)
@@ -14804,7 +14804,7 @@ list_console_sessions() {
 
 ### Issue at Line 529
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14812,7 +14812,7 @@ list_console_sessions() {
 
 ```python
     for token_file in "$STATE_DIR"/*.token; do
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
             local vm_name=$(grep "vm_name" "$token_file" | cut -d'"' -f4)
             local token_type=$(grep '"type"' "$token_file" | cut -d'"' -f4)
@@ -14834,14 +14834,14 @@ list_console_sessions() {
 
 ### Issue at Line 530
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-        if [[ -f "$token_file" ]]; then
+        if [[-f "$token_file"]]; then
             ((count++))
             local vm_name=$(grep "vm_name" "$token_file" | cut -d'"' -f4)
             local token_type=$(grep '"type"' "$token_file" | cut -d'"' -f4)
@@ -14864,7 +14864,7 @@ list_console_sessions() {
 
 ### Issue at Line 531
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14894,7 +14894,7 @@ list_console_sessions() {
 
 ### Issue at Line 532
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14924,7 +14924,7 @@ list_console_sessions() {
 
 ### Issue at Line 533
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14954,7 +14954,7 @@ list_console_sessions() {
 
 ### Issue at Line 534
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -14984,7 +14984,7 @@ list_console_sessions() {
 
 ### Issue at Line 535
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15014,7 +15014,7 @@ list_console_sessions() {
 
 ### Issue at Line 536
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15044,7 +15044,7 @@ list_console_sessions() {
 
 ### Issue at Line 537
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15074,7 +15074,7 @@ list_console_sessions() {
 
 ### Issue at Line 538
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15104,7 +15104,7 @@ list_console_sessions() {
 
 ### Issue at Line 539
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15134,7 +15134,7 @@ list_console_sessions() {
 
 ### Issue at Line 540
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15164,7 +15164,7 @@ list_console_sessions() {
 
 ### Issue at Line 541
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15194,7 +15194,7 @@ list_console_sessions() {
 
 ### Issue at Line 542
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15207,7 +15207,7 @@ list_console_sessions() {
         log_info "Total sessions: $count"
     fi
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
 ```python
 
 ### Proposal
@@ -15224,7 +15224,7 @@ list_console_sessions() {
 
 ### Issue at Line 543
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15236,7 +15236,7 @@ list_console_sessions() {
         log_info "Total sessions: $count"
     fi
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
 ```python
 
@@ -15254,7 +15254,7 @@ list_console_sessions() {
 
 ### Issue at Line 544
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15265,7 +15265,7 @@ list_console_sessions() {
         log_info "Total sessions: $count"
     fi
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
         local first=true
 ```python
@@ -15284,7 +15284,7 @@ list_console_sessions() {
 
 ### Issue at Line 545
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15294,7 +15294,7 @@ list_console_sessions() {
         log_info "Total sessions: $count"
     fi
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
@@ -15314,7 +15314,7 @@ list_console_sessions() {
 
 ### Issue at Line 546
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15323,11 +15323,11 @@ list_console_sessions() {
 ```python
     fi
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
+            if [[-f "$token_file"]]; then
 ```python
 
 ### Proposal
@@ -15344,7 +15344,7 @@ list_console_sessions() {
 
 ### Issue at Line 547
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15352,12 +15352,12 @@ list_console_sessions() {
 
 ```python
 
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
 ```python
 
 ### Proposal
@@ -15374,19 +15374,19 @@ list_console_sessions() {
 
 ### Issue at Line 548
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ "${JSON_OUTPUT:-false}" == "true" ]]; then
+    if [["${JSON_OUTPUT:-false}" == "true"]]; then
         echo "["
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
                     echo ","
 ```python
 
@@ -15404,7 +15404,7 @@ list_console_sessions() {
 
 ### Issue at Line 549
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15414,8 +15414,8 @@ list_console_sessions() {
         echo "["
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
                     echo ","
                 fi
 ```python
@@ -15434,7 +15434,7 @@ list_console_sessions() {
 
 ### Issue at Line 550
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15443,8 +15443,8 @@ list_console_sessions() {
 ```python
         local first=true
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
                     echo ","
                 fi
                 cat "$token_file"
@@ -15464,7 +15464,7 @@ list_console_sessions() {
 
 ### Issue at Line 551
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15472,8 +15472,8 @@ list_console_sessions() {
 
 ```python
         for token_file in "$STATE_DIR"/*.token; do
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
                     echo ","
                 fi
                 cat "$token_file"
@@ -15494,15 +15494,15 @@ list_console_sessions() {
 
 ### Issue at Line 552
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-            if [[ -f "$token_file" ]]; then
-                if [[ "$first" == "false" ]]; then
+            if [[-f "$token_file"]]; then
+                if [["$first" == "false"]]; then
                     echo ","
                 fi
                 cat "$token_file"
@@ -15524,14 +15524,14 @@ list_console_sessions() {
 
 ### Issue at Line 553
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-                if [[ "$first" == "false" ]]; then
+                if [["$first" == "false"]]; then
                     echo ","
                 fi
                 cat "$token_file"
@@ -15554,7 +15554,7 @@ list_console_sessions() {
 
 ### Issue at Line 554
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15584,7 +15584,7 @@ list_console_sessions() {
 
 ### Issue at Line 555
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15614,7 +15614,7 @@ list_console_sessions() {
 
 ### Issue at Line 556
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15644,7 +15644,7 @@ list_console_sessions() {
 
 ### Issue at Line 557
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15674,7 +15674,7 @@ list_console_sessions() {
 
 ### Issue at Line 558
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15704,7 +15704,7 @@ close_console_session() {
 
 ### Issue at Line 559
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15734,7 +15734,7 @@ close_console_session() {
 
 ### Issue at Line 560
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15764,7 +15764,7 @@ close_console_session() {
 
 ### Issue at Line 561
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15794,7 +15794,7 @@ close_console_session() {
 
 ### Issue at Line 562
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15824,7 +15824,7 @@ close_console_session() {
 
 ### Issue at Line 563
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15854,7 +15854,7 @@ close_console_session() {
 
 ### Issue at Line 564
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15884,7 +15884,7 @@ close_console_session() {
 
 ### Issue at Line 565
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15897,7 +15897,7 @@ close_console_session() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
 ```python
 
 ### Proposal
@@ -15914,7 +15914,7 @@ close_console_session() {
 
 ### Issue at Line 566
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15926,7 +15926,7 @@ close_console_session() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
 ```python
 
@@ -15944,7 +15944,7 @@ close_console_session() {
 
 ### Issue at Line 567
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15955,7 +15955,7 @@ close_console_session() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
         return 1
 ```python
@@ -15974,7 +15974,7 @@ close_console_session() {
 
 ### Issue at Line 568
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -15984,7 +15984,7 @@ close_console_session() {
 
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
         return 1
     fi
@@ -16004,7 +16004,7 @@ close_console_session() {
 
 ### Issue at Line 569
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16013,7 +16013,7 @@ close_console_session() {
 ```python
     local token_file="$STATE_DIR/${token}.token"
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
         return 1
     fi
@@ -16034,7 +16034,7 @@ close_console_session() {
 
 ### Issue at Line 570
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16042,12 +16042,12 @@ close_console_session() {
 
 ```python
 
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
 ```python
 
 ### Proposal
@@ -16064,19 +16064,19 @@ close_console_session() {
 
 ### Issue at Line 571
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ ! -f "$token_file" ]]; then
+    if [[! -f "$token_file"]]; then
         log_error "Session not found: $token"
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
 ```python
 
@@ -16094,7 +16094,7 @@ close_console_session() {
 
 ### Issue at Line 572
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16105,7 +16105,7 @@ close_console_session() {
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
 ```python
@@ -16124,7 +16124,7 @@ close_console_session() {
 
 ### Issue at Line 573
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16134,7 +16134,7 @@ close_console_session() {
         return 1
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
         audit_log_entry "close_session" "$token" "success"
@@ -16154,7 +16154,7 @@ close_console_session() {
 
 ### Issue at Line 574
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16163,7 +16163,7 @@ close_console_session() {
 ```python
     fi
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
         audit_log_entry "close_session" "$token" "success"
@@ -16184,7 +16184,7 @@ close_console_session() {
 
 ### Issue at Line 575
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16192,7 +16192,7 @@ close_console_session() {
 
 ```python
 
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
         audit_log_entry "close_session" "$token" "success"
@@ -16214,14 +16214,14 @@ close_console_session() {
 
 ### Issue at Line 576
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ "$DRY_RUN" != "true" ]]; then
+    if [["$DRY_RUN" != "true"]]; then
         rm -f "$token_file"
         log_success "Session closed: $token"
         audit_log_entry "close_session" "$token" "success"
@@ -16244,7 +16244,7 @@ close_console_session() {
 
 ### Issue at Line 577
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16257,7 +16257,7 @@ close_console_session() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -16274,7 +16274,7 @@ close_console_session() {
 
 ### Issue at Line 578
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16286,7 +16286,7 @@ close_console_session() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Security Functions
 ```python
 
@@ -16304,7 +16304,7 @@ close_console_session() {
 
 ### Issue at Line 579
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16315,9 +16315,9 @@ close_console_session() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Security Functions
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -16334,7 +16334,7 @@ close_console_session() {
 
 ### Issue at Line 580
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16344,9 +16344,9 @@ close_console_session() {
     fi
 }
 
-###############################################################################
+############################################################################### 
 # Security Functions
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -16364,7 +16364,7 @@ close_console_session() {
 
 ### Issue at Line 581
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16373,9 +16373,9 @@ close_console_session() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # Security Functions
-###############################################################################
+############################################################################### 
 
 configure_vnc_security() {
 ```python
@@ -16394,7 +16394,7 @@ configure_vnc_security() {
 
 ### Issue at Line 582
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16402,9 +16402,9 @@ configure_vnc_security() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Security Functions
-###############################################################################
+############################################################################### 
 
 configure_vnc_security() {
     local vm_name="$1"
@@ -16424,16 +16424,16 @@ configure_vnc_security() {
 
 ### Issue at Line 583
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Security Functions
-###############################################################################
+############################################################################### 
 
 configure_vnc_security() {
     local vm_name="$1"
@@ -16454,7 +16454,7 @@ configure_vnc_security() {
 
 ### Issue at Line 584
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16462,7 +16462,7 @@ configure_vnc_security() {
 
 ```python
 # Security Functions
-###############################################################################
+############################################################################### 
 
 configure_vnc_security() {
     local vm_name="$1"
@@ -16484,14 +16484,14 @@ configure_vnc_security() {
 
 ### Issue at Line 585
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 configure_vnc_security() {
     local vm_name="$1"
@@ -16514,7 +16514,7 @@ configure_vnc_security() {
 
 ### Issue at Line 586
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16544,7 +16544,7 @@ configure_vnc_security() {
 
 ### Issue at Line 587
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16574,7 +16574,7 @@ configure_vnc_security() {
 
 ### Issue at Line 588
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16604,7 +16604,7 @@ configure_vnc_security() {
 
 ### Issue at Line 589
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16634,7 +16634,7 @@ configure_vnc_security() {
 
 ### Issue at Line 590
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16664,7 +16664,7 @@ configure_vnc_security() {
 
 ### Issue at Line 591
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16694,7 +16694,7 @@ configure_vnc_security() {
 
 ### Issue at Line 592
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16724,7 +16724,7 @@ configure_vnc_security() {
 
 ### Issue at Line 593
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16754,7 +16754,7 @@ configure_vnc_security() {
 
 ### Issue at Line 594
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16784,7 +16784,7 @@ configure_vnc_security() {
 
 ### Issue at Line 595
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16814,7 +16814,7 @@ configure_vnc_security() {
 
 ### Issue at Line 596
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16844,7 +16844,7 @@ configure_vnc_security() {
 
 ### Issue at Line 597
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16874,7 +16874,7 @@ configure_vnc_security() {
 
 ### Issue at Line 598
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16904,7 +16904,7 @@ configure_vnc_security() {
 
 ### Issue at Line 599
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16934,7 +16934,7 @@ configure_vnc_security() {
 
 ### Issue at Line 600
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16964,7 +16964,7 @@ configure_vnc_security() {
 
 ### Issue at Line 601
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -16994,7 +16994,7 @@ configure_vnc_security() {
 
 ### Issue at Line 602
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17024,7 +17024,7 @@ configure_vnc_security() {
 
 ### Issue at Line 603
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17054,7 +17054,7 @@ generate_security_report() {
 
 ### Issue at Line 604
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17084,7 +17084,7 @@ generate_security_report() {
 
 ### Issue at Line 605
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17114,7 +17114,7 @@ generate_security_report() {
 
 ### Issue at Line 606
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17144,7 +17144,7 @@ generate_security_report() {
 
 ### Issue at Line 607
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17174,7 +17174,7 @@ generate_security_report() {
 
 ### Issue at Line 608
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17204,7 +17204,7 @@ generate_security_report() {
 
 ### Issue at Line 609
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17234,7 +17234,7 @@ generate_security_report() {
 
 ### Issue at Line 610
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17264,7 +17264,7 @@ generate_security_report() {
 
 ### Issue at Line 611
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17294,7 +17294,7 @@ generate_security_report() {
 
 ### Issue at Line 612
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17324,7 +17324,7 @@ generate_security_report() {
 
 ### Issue at Line 613
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17354,7 +17354,7 @@ generate_security_report() {
 
 ### Issue at Line 614
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17384,7 +17384,7 @@ generate_security_report() {
 
 ### Issue at Line 615
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17414,7 +17414,7 @@ generate_security_report() {
 
 ### Issue at Line 616
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17444,7 +17444,7 @@ generate_security_report() {
 
 ### Issue at Line 617
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17474,7 +17474,7 @@ generate_security_report() {
 
 ### Issue at Line 618
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17504,7 +17504,7 @@ generate_security_report() {
 
 ### Issue at Line 619
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17534,7 +17534,7 @@ generate_security_report() {
 
 ### Issue at Line 620
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17564,7 +17564,7 @@ generate_security_report() {
 
 ### Issue at Line 621
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17594,7 +17594,7 @@ generate_security_report() {
 
 ### Issue at Line 622
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17624,7 +17624,7 @@ generate_security_report() {
 
 ### Issue at Line 623
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17637,7 +17637,7 @@ generate_security_report() {
 
     # Check for active sessions
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
 ```python
 
 ### Proposal
@@ -17654,7 +17654,7 @@ generate_security_report() {
 
 ### Issue at Line 624
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17666,7 +17666,7 @@ generate_security_report() {
 
     # Check for active sessions
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
 ```python
 
@@ -17684,7 +17684,7 @@ generate_security_report() {
 
 ### Issue at Line 625
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17695,7 +17695,7 @@ generate_security_report() {
 
     # Check for active sessions
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
         echo "  Current: $count"
 ```python
@@ -17714,7 +17714,7 @@ generate_security_report() {
 
 ### Issue at Line 626
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17724,7 +17724,7 @@ generate_security_report() {
 
     # Check for active sessions
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
         echo "  Current: $count"
         echo "  Max: $MAX_CONSOLE_SESSIONS"
@@ -17744,7 +17744,7 @@ generate_security_report() {
 
 ### Issue at Line 627
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17753,7 +17753,7 @@ generate_security_report() {
 ```python
     # Check for active sessions
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
         echo "  Current: $count"
         echo "  Max: $MAX_CONSOLE_SESSIONS"
@@ -17774,7 +17774,7 @@ generate_security_report() {
 
 ### Issue at Line 628
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17782,7 +17782,7 @@ generate_security_report() {
 
 ```python
     echo "Active Console Sessions:"
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
         echo "  Current: $count"
         echo "  Max: $MAX_CONSOLE_SESSIONS"
@@ -17804,14 +17804,14 @@ generate_security_report() {
 
 ### Issue at Line 629
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ -d "$STATE_DIR" ]]; then
+    if [[-d "$STATE_DIR"]]; then
         local count=$(find "$STATE_DIR" -name "*.token" -type f 2>/dev/null | wc -l)
         echo "  Current: $count"
         echo "  Max: $MAX_CONSOLE_SESSIONS"
@@ -17834,7 +17834,7 @@ generate_security_report() {
 
 ### Issue at Line 630
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17864,7 +17864,7 @@ generate_security_report() {
 
 ### Issue at Line 631
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17894,7 +17894,7 @@ generate_security_report() {
 
 ### Issue at Line 632
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17924,7 +17924,7 @@ generate_security_report() {
 
 ### Issue at Line 633
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17954,7 +17954,7 @@ generate_security_report() {
 
 ### Issue at Line 634
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17967,7 +17967,7 @@ generate_security_report() {
 
     # Check audit log
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
 ```python
 
 ### Proposal
@@ -17984,7 +17984,7 @@ generate_security_report() {
 
 ### Issue at Line 635
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -17996,7 +17996,7 @@ generate_security_report() {
 
     # Check audit log
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
 ```python
 
@@ -18014,7 +18014,7 @@ generate_security_report() {
 
 ### Issue at Line 636
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18025,7 +18025,7 @@ generate_security_report() {
 
     # Check audit log
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
     else
 ```python
@@ -18044,7 +18044,7 @@ generate_security_report() {
 
 ### Issue at Line 637
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18054,7 +18054,7 @@ generate_security_report() {
 
     # Check audit log
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
     else
         echo "  No audit entries yet"
@@ -18074,7 +18074,7 @@ generate_security_report() {
 
 ### Issue at Line 638
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18083,7 +18083,7 @@ generate_security_report() {
 ```python
     # Check audit log
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
     else
         echo "  No audit entries yet"
@@ -18104,7 +18104,7 @@ generate_security_report() {
 
 ### Issue at Line 639
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18112,7 +18112,7 @@ generate_security_report() {
 
 ```python
     echo "Recent Audit Entries (last 10):"
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
     else
         echo "  No audit entries yet"
@@ -18134,14 +18134,14 @@ generate_security_report() {
 
 ### Issue at Line 640
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ -f "$AUDIT_LOG" ]]; then
+    if [[-f "$AUDIT_LOG"]]; then
         tail -10 "$AUDIT_LOG"
     else
         echo "  No audit entries yet"
@@ -18164,7 +18164,7 @@ generate_security_report() {
 
 ### Issue at Line 641
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18194,7 +18194,7 @@ generate_security_report() {
 
 ### Issue at Line 642
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18224,7 +18224,7 @@ generate_security_report() {
 
 ### Issue at Line 643
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18254,7 +18254,7 @@ generate_security_report() {
 
 ### Issue at Line 644
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18284,7 +18284,7 @@ generate_security_report() {
 
 ### Issue at Line 645
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18314,7 +18314,7 @@ generate_security_report() {
 
 ### Issue at Line 646
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18344,7 +18344,7 @@ generate_security_report() {
 
 ### Issue at Line 647
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18374,7 +18374,7 @@ generate_security_report() {
 
 ### Issue at Line 648
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18404,7 +18404,7 @@ generate_security_report() {
 
 ### Issue at Line 649
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18434,7 +18434,7 @@ generate_security_report() {
 
 ### Issue at Line 650
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18464,7 +18464,7 @@ generate_security_report() {
 
 ### Issue at Line 651
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18494,7 +18494,7 @@ generate_security_report() {
 
 ### Issue at Line 652
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18524,7 +18524,7 @@ generate_security_report() {
 
 ### Issue at Line 653
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18537,7 +18537,7 @@ generate_security_report() {
     audit_log_entry "security_report" "system" "success"
 }
 
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -18554,7 +18554,7 @@ generate_security_report() {
 
 ### Issue at Line 654
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18566,7 +18566,7 @@ generate_security_report() {
     audit_log_entry "security_report" "system" "success"
 }
 
-###############################################################################
+############################################################################### 
 # Main Function
 ```python
 
@@ -18584,7 +18584,7 @@ generate_security_report() {
 
 ### Issue at Line 655
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18595,9 +18595,9 @@ generate_security_report() {
     audit_log_entry "security_report" "system" "success"
 }
 
-###############################################################################
+############################################################################### 
 # Main Function
-###############################################################################
+############################################################################### 
 ```python
 
 ### Proposal
@@ -18614,7 +18614,7 @@ generate_security_report() {
 
 ### Issue at Line 656
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18624,9 +18624,9 @@ generate_security_report() {
     audit_log_entry "security_report" "system" "success"
 }
 
-###############################################################################
+############################################################################### 
 # Main Function
-###############################################################################
+############################################################################### 
 
 ```python
 
@@ -18644,7 +18644,7 @@ generate_security_report() {
 
 ### Issue at Line 657
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18653,9 +18653,9 @@ generate_security_report() {
 ```python
 }
 
-###############################################################################
+############################################################################### 
 # Main Function
-###############################################################################
+############################################################################### 
 
 main() {
 ```python
@@ -18674,7 +18674,7 @@ main() {
 
 ### Issue at Line 658
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18682,9 +18682,9 @@ main() {
 
 ```python
 
-###############################################################################
+############################################################################### 
 # Main Function
-###############################################################################
+############################################################################### 
 
 main() {
     mkdir -p "$(dirname "$LOG_FILE")"
@@ -18704,16 +18704,16 @@ main() {
 
 ### Issue at Line 659
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 # Main Function
-###############################################################################
+############################################################################### 
 
 main() {
     mkdir -p "$(dirname "$LOG_FILE")"
@@ -18734,7 +18734,7 @@ main() {
 
 ### Issue at Line 660
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18742,7 +18742,7 @@ main() {
 
 ```python
 # Main Function
-###############################################################################
+############################################################################### 
 
 main() {
     mkdir -p "$(dirname "$LOG_FILE")"
@@ -18764,20 +18764,20 @@ main() {
 
 ### Issue at Line 661
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-###############################################################################
+############################################################################### 
 
 main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
 ```python
 
 ### Proposal
@@ -18794,7 +18794,7 @@ main() {
 
 ### Issue at Line 662
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18806,7 +18806,7 @@ main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
 ```python
 
@@ -18824,7 +18824,7 @@ main() {
 
 ### Issue at Line 663
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18835,7 +18835,7 @@ main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
         exit 1
 ```python
@@ -18854,7 +18854,7 @@ main() {
 
 ### Issue at Line 664
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18864,7 +18864,7 @@ main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     touch "$LOG_FILE"
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
         exit 1
     fi
@@ -18884,7 +18884,7 @@ main() {
 
 ### Issue at Line 665
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18893,7 +18893,7 @@ main() {
 ```python
     touch "$LOG_FILE"
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
         exit 1
     fi
@@ -18914,7 +18914,7 @@ main() {
 
 ### Issue at Line 666
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -18922,7 +18922,7 @@ main() {
 
 ```python
 
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
         exit 1
     fi
@@ -18944,14 +18944,14 @@ main() {
 
 ### Issue at Line 667
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-    if [[ $# -lt 1 ]]; then
+    if [[$# -lt 1]]; then
         print_usage
         exit 1
     fi
@@ -18974,7 +18974,7 @@ main() {
 
 ### Issue at Line 668
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19004,7 +19004,7 @@ main() {
 
 ### Issue at Line 669
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19034,7 +19034,7 @@ main() {
 
 ### Issue at Line 670
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19064,7 +19064,7 @@ main() {
 
 ### Issue at Line 671
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19094,7 +19094,7 @@ main() {
 
 ### Issue at Line 672
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19124,7 +19124,7 @@ main() {
 
 ### Issue at Line 673
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19154,7 +19154,7 @@ main() {
 
 ### Issue at Line 674
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19184,7 +19184,7 @@ main() {
 
 ### Issue at Line 675
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19214,7 +19214,7 @@ main() {
 
 ### Issue at Line 676
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19227,7 +19227,7 @@ main() {
         generate-token)
             local vm_name="${1:-}"
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
 ```python
 
 ### Proposal
@@ -19244,7 +19244,7 @@ main() {
 
 ### Issue at Line 677
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19256,7 +19256,7 @@ main() {
         generate-token)
             local vm_name="${1:-}"
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
 ```python
 
@@ -19274,7 +19274,7 @@ main() {
 
 ### Issue at Line 678
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19285,7 +19285,7 @@ main() {
         generate-token)
             local vm_name="${1:-}"
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
                 exit 1
 ```python
@@ -19304,7 +19304,7 @@ main() {
 
 ### Issue at Line 679
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19314,7 +19314,7 @@ main() {
         generate-token)
             local vm_name="${1:-}"
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
                 exit 1
             fi
@@ -19334,7 +19334,7 @@ main() {
 
 ### Issue at Line 680
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19343,7 +19343,7 @@ main() {
 ```python
             local vm_name="${1:-}"
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
                 exit 1
             fi
@@ -19364,7 +19364,7 @@ main() {
 
 ### Issue at Line 681
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19372,7 +19372,7 @@ main() {
 
 ```python
             local token_type="${2:-read-write}"
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
                 exit 1
             fi
@@ -19394,14 +19394,14 @@ main() {
 
 ### Issue at Line 682
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-            if [[ -z "$vm_name" ]]; then
+            if [[-z "$vm_name"]]; then
                 log_error "VM name required"
                 exit 1
             fi
@@ -19424,7 +19424,7 @@ main() {
 
 ### Issue at Line 683
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19454,7 +19454,7 @@ main() {
 
 ### Issue at Line 684
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19467,7 +19467,7 @@ main() {
             ;;
         validate-vnc)
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
 ```python
 
 ### Proposal
@@ -19484,7 +19484,7 @@ main() {
 
 ### Issue at Line 685
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19496,7 +19496,7 @@ main() {
             ;;
         validate-vnc)
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
 ```python
 
@@ -19514,7 +19514,7 @@ main() {
 
 ### Issue at Line 686
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19525,7 +19525,7 @@ main() {
             ;;
         validate-vnc)
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
                 exit 1
 ```python
@@ -19544,7 +19544,7 @@ main() {
 
 ### Issue at Line 687
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19554,7 +19554,7 @@ main() {
             ;;
         validate-vnc)
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
                 exit 1
             fi
@@ -19574,7 +19574,7 @@ main() {
 
 ### Issue at Line 688
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19583,7 +19583,7 @@ main() {
 ```python
         validate-vnc)
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
                 exit 1
             fi
@@ -19604,7 +19604,7 @@ main() {
 
 ### Issue at Line 689
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19612,7 +19612,7 @@ main() {
 
 ```python
             local host_port="${1:-}"
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
                 exit 1
             fi
@@ -19634,14 +19634,14 @@ main() {
 
 ### Issue at Line 690
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-            if [[ -z "$host_port" ]]; then
+            if [[-z "$host_port"]]; then
                 log_error "host:port required"
                 exit 1
             fi
@@ -19664,7 +19664,7 @@ main() {
 
 ### Issue at Line 691
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19694,7 +19694,7 @@ main() {
 
 ### Issue at Line 692
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19724,7 +19724,7 @@ main() {
 
 ### Issue at Line 693
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19754,7 +19754,7 @@ main() {
 
 ### Issue at Line 694
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19784,7 +19784,7 @@ main() {
 
 ### Issue at Line 695
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19797,7 +19797,7 @@ main() {
             ;;
         close-session)
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
 ```python
 
 ### Proposal
@@ -19814,7 +19814,7 @@ main() {
 
 ### Issue at Line 696
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19826,7 +19826,7 @@ main() {
             ;;
         close-session)
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
 ```python
 
@@ -19844,7 +19844,7 @@ main() {
 
 ### Issue at Line 697
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19855,7 +19855,7 @@ main() {
             ;;
         close-session)
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
                 exit 1
 ```python
@@ -19874,7 +19874,7 @@ main() {
 
 ### Issue at Line 698
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19884,7 +19884,7 @@ main() {
             ;;
         close-session)
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
                 exit 1
             fi
@@ -19904,7 +19904,7 @@ main() {
 
 ### Issue at Line 699
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19913,7 +19913,7 @@ main() {
 ```python
         close-session)
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
                 exit 1
             fi
@@ -19934,7 +19934,7 @@ main() {
 
 ### Issue at Line 700
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -19942,7 +19942,7 @@ main() {
 
 ```python
             local token="${1:-}"
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
                 exit 1
             fi
@@ -19964,14 +19964,14 @@ main() {
 
 ### Issue at Line 701
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-            if [[ -z "$token" ]]; then
+            if [[-z "$token"]]; then
                 log_error "Token required"
                 exit 1
             fi
@@ -19994,7 +19994,7 @@ main() {
 
 ### Issue at Line 702
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20024,7 +20024,7 @@ main() {
 
 ### Issue at Line 703
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20054,7 +20054,7 @@ main() {
 
 ### Issue at Line 704
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20084,7 +20084,7 @@ main() {
 
 ### Issue at Line 705
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20114,7 +20114,7 @@ main() {
 
 ### Issue at Line 706
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20144,7 +20144,7 @@ main() {
 
 ### Issue at Line 707
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20174,7 +20174,7 @@ main() {
 
 ### Issue at Line 708
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20204,7 +20204,7 @@ main() {
 
 ### Issue at Line 709
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20234,7 +20234,7 @@ main() {
 
 ### Issue at Line 710
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20264,7 +20264,7 @@ main() {
 
 ### Issue at Line 711
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20294,7 +20294,7 @@ main() {
 
 ### Issue at Line 712
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20324,7 +20324,7 @@ main() {
 
 ### Issue at Line 713
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20354,7 +20354,7 @@ main() {
 
 ### Issue at Line 714
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20384,7 +20384,7 @@ main() {
 
 ### Issue at Line 715
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20414,7 +20414,7 @@ main() {
 
 ### Issue at Line 716
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20444,7 +20444,7 @@ main() {
 
 ### Issue at Line 717
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20474,7 +20474,7 @@ main() {
 
 ### Issue at Line 718
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20504,7 +20504,7 @@ main() {
 
 ### Issue at Line 719
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20534,7 +20534,7 @@ main() {
 
 ### Issue at Line 720
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20564,7 +20564,7 @@ main() {
 
 ### Issue at Line 721
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20594,7 +20594,7 @@ main() {
 
 ### Issue at Line 722
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20624,7 +20624,7 @@ main() {
 
 ### Issue at Line 723
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20637,7 +20637,7 @@ main() {
     esac
 }
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
 ```python
 
 ### Proposal
@@ -20654,7 +20654,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 724
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20666,7 +20666,7 @@ while [[ $# -gt 0 ]]; do
     esac
 }
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
 ```python
 
@@ -20684,7 +20684,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 725
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20695,7 +20695,7 @@ while [[ $# -gt 0 ]]; do
     esac
 }
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
         --dry-run)
 ```python
@@ -20714,7 +20714,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 726
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20724,7 +20724,7 @@ while [[ $# -gt 0 ]]; do
     esac
 }
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
         --dry-run)
             DRY_RUN="true"
@@ -20744,7 +20744,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 727
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20753,7 +20753,7 @@ while [[ $# -gt 0 ]]; do
 ```python
 }
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
         --dry-run)
             DRY_RUN="true"
@@ -20774,7 +20774,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 728
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20782,7 +20782,7 @@ while [[ $# -gt 0 ]]; do
 
 ```python
 
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
         --dry-run)
             DRY_RUN="true"
@@ -20804,14 +20804,14 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 729
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
 ### Context
 
 ```python
-while [[ $# -gt 0 ]]; do
+while [[$# -gt 0]]; do
     case "$1" in
         --dry-run)
             DRY_RUN="true"
@@ -20834,7 +20834,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 730
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20864,7 +20864,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 731
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20894,7 +20894,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 732
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20924,7 +20924,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 733
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20954,7 +20954,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 734
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -20984,7 +20984,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 735
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21014,7 +21014,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 736
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21044,7 +21044,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 737
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21074,7 +21074,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 738
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21104,7 +21104,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 739
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21134,7 +21134,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 740
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21164,7 +21164,7 @@ while [[ $# -gt 0 ]]; do
 
 ### Issue at Line 741
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21194,7 +21194,7 @@ done
 
 ### Issue at Line 742
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21224,7 +21224,7 @@ done
 
 ### Issue at Line 743
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21237,7 +21237,7 @@ done
     esac
 done
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
 ```python
 
 ### Proposal
@@ -21254,7 +21254,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 
 ### Issue at Line 744
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21266,7 +21266,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     esac
 done
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
     main "$@"
 ```python
 
@@ -21284,7 +21284,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 
 ### Issue at Line 745
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21295,7 +21295,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     esac
 done
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
     main "$@"
 fi
 ```python
@@ -21314,7 +21314,7 @@ fi
 
 ### Issue at Line 746
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21324,7 +21324,7 @@ fi
     esac
 done
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
     main "$@"
 fi
 ```python
@@ -21343,7 +21343,7 @@ fi
 
 ### Issue at Line 747
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21352,7 +21352,7 @@ fi
 ```python
 done
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
     main "$@"
 fi
 ```python
@@ -21371,7 +21371,7 @@ fi
 
 ### Issue at Line 748
 
-**Tool:** shellcheck | **Code:** `1017` | **Severity:** ERROR
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
@@ -21379,7 +21379,7 @@ fi
 
 ```python
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [["${BASH_SOURCE[0]}" == "${0}"]]; then
     main "$@"
 fi
 ```python

@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_cli_wrappers.py
 
-Generated: 2025-12-13T15:08:12.314423
+Generated: 2025-12-13T15:23:28.350627
 Source: tests\test_cli_wrappers.py
 
 ## Issues Summary
@@ -14,46 +14,3 @@ Total: 1 issues found
 ## Implementation Status
 
 Items marked below as fixed:
-
-## Fix Proposals
-
-### 1 issues to fix
-
-### Issue at Line 288
-
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
-
-**Message:** Consider possible security implications associated with the subprocess module.
-
-### Context
-
-```python
-    @patch("subprocess.run")
-    def test_command_timeout(self, mock_run):
-        """Test command timeout handling."""
-        import subprocess
-
-        mock_run.side_effect = subprocess.TimeoutExpired("cmd", 60)
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-## Implementation Progress
-
-To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
-
-**Fixed Issues:** (none yet)
-
----
-*Updated: (auto-populated by coding expert)*

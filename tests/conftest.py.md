@@ -1,8 +1,10 @@
 # Code Issues Report: tests\conftest.py
+
 Generated: 2025-12-13T15:22:47.171530
 Source: tests\conftest.py
 
 ## Issues Summary
+
 Total: 9 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -18,4 +20,5 @@ Total: 9 issues found
 | 392 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
+
 Items marked below as fixed:

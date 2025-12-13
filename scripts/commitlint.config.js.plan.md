@@ -34,7 +34,7 @@ Status: INVALID
 
 - **Issue**: Spaces inside code span delimiters
 
-- **Fix**: Remove spaces: change ` code ` to `code`
+- **Fix**: Remove spaces: change `code` to `code`
 
 ### MD047: single-trailing-newline
 
@@ -47,7 +47,7 @@ Status: INVALID
 Each code file should have the following structure:
 
 ```python
-#!/usr/bin/env python3  (shebang for .py files)
+# !/usr/bin/env python3  (shebang for .py files)
 # [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
 
 """
@@ -102,17 +102,17 @@ Detailed description of what this file does.
 
    - **MD022**: Add blank lines around headings
 
-   - **MD038**: Remove spaces in code spans: `` `code` `` not `` ` code ` ``
+   - **MD038**: Remove spaces in code spans: ```code```not``` code` ``
 
 ### Example Template
 
 ```python
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

@@ -59,7 +59,7 @@ Items marked below as fixed:
 
 ### Issue at Line 146
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -89,7 +89,7 @@ Items marked below as fixed:
 
 ### Issue at Line 153
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -119,7 +119,7 @@ Items marked below as fixed:
 
 ### Issue at Line 154
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -149,7 +149,7 @@ Items marked below as fixed:
 
 ### Issue at Line 169
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -179,7 +179,7 @@ Items marked below as fixed:
 
 ### Issue at Line 181
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -208,7 +208,7 @@ Items marked below as fixed:
 
 ### Issue at Line 182
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -237,7 +237,7 @@ class TestPaymentValidationProperties:
 
 ### Issue at Line 194
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -267,7 +267,7 @@ class TestPaymentValidationProperties:
 
 ### Issue at Line 201
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -297,7 +297,7 @@ class TestPaymentValidationProperties:
 
 ### Issue at Line 209
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -326,7 +326,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 221
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -356,7 +356,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 222
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -386,7 +386,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 230
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -415,7 +415,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 246
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -445,7 +445,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 255
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -475,7 +475,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 278
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -504,7 +504,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 308
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -534,7 +534,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 309
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -564,7 +564,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 310
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -594,7 +594,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 311
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -624,7 +624,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 333
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -654,7 +654,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 336
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -683,7 +683,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 337
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -712,7 +712,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -720,7 +720,7 @@ class TestUserValidationProperties:
 
 ```python
         daily_rate = rate / Decimal("365")
-        interest = principal * daily_rate * days
+        interest = principal *daily_rate* days
 
         assert interest >= 0
 
@@ -742,7 +742,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 376
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -772,7 +772,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 377
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -802,7 +802,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 394
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -831,7 +831,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 417
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -861,7 +861,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 418
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -891,7 +891,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 419
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -921,7 +921,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 436
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -950,7 +950,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 437
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -979,7 +979,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 454
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1009,7 +1009,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 455
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1039,7 +1039,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 456
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1069,7 +1069,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 465
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1099,7 +1099,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 466
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1129,7 +1129,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 467
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1159,7 +1159,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 481
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1188,7 +1188,7 @@ class TestUserValidationProperties:
 
 ### Issue at Line 482
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 

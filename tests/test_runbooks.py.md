@@ -34,7 +34,7 @@ Items marked below as fixed:
 
 ### Issue at Line 19
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -64,7 +64,7 @@ Items marked below as fixed:
 
 ### Issue at Line 20
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -94,7 +94,7 @@ Items marked below as fixed:
 
 ### Issue at Line 21
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -124,7 +124,7 @@ Items marked below as fixed:
 
 ### Issue at Line 22
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -153,7 +153,7 @@ Items marked below as fixed:
 
 ### Issue at Line 23
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -182,7 +182,7 @@ def test_generate_runbook_disk_space(generator):
 
 ### Issue at Line 30
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -212,7 +212,7 @@ def test_generate_runbook_disk_space(generator):
 
 ### Issue at Line 31
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -241,7 +241,7 @@ def test_generate_runbook_disk_space(generator):
 
 ### Issue at Line 32
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -270,7 +270,7 @@ def test_generate_runbook_missing_context(generator):
 
 ### Issue at Line 38
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -299,7 +299,7 @@ def test_generate_runbook_unknown_type(generator):
 
 ### Issue at Line 43
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -328,7 +328,7 @@ def test_suggest_runbooks(generator):
 
 ### Issue at Line 50
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -358,7 +358,7 @@ def test_suggest_runbooks(generator):
 
 ### Issue at Line 51
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -387,7 +387,7 @@ def test_suggest_runbooks(generator):
 
 ### Issue at Line 52
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -416,7 +416,7 @@ def test_suggest_runbooks_service(generator):
 
 ### Issue at Line 65
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 

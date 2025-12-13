@@ -338,7 +338,7 @@ Total: 332 issues found
 | 327 | 16 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 328 | 5 | shellcheck | `1009` | INFO | The mentioned syntax error was in this simple command. |
 | 328 | 9 | shellcheck | `1073` | ERROR | Couldn't parse this here document. Fix to allow more checks. |
-| 328 | 12 | shellcheck | `1044` | ERROR | Couldn't find end token `'EOF'\r' in the here document. |
+| 328 | 12 | shellcheck | `1044`| ERROR | Couldn't find end token`'EOF'\r' in the here document. |
 | 328 | 17 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 | 589 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 

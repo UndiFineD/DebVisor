@@ -21,7 +21,7 @@ Items marked below as fixed:
 
 ### Issue at Line 8
 
-**Tool:** bandit | **Code:** `B108` | **Severity:** MEDIUM
+**Tool:**bandit |**Code:**`B108` |**Severity:** MEDIUM
 
 **Message:** Probable insecure usage of temp file/directory.
 

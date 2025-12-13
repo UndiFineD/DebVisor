@@ -2,12 +2,21 @@
 """
 Comprehensive markdown linting fixer for all documents.
 Fixes common markdown issues like:
+- MD009: Trailing spaces
+- MD010: Hard tabs
+- MD012: Multiple consecutive blank lines
+- MD018: No space after hash on atx style heading
+- MD019: Multiple spaces after hash on atx style heading
 - MD022: Blank lines around headings
 - MD026: Trailing punctuation in headings
+- MD027: Multiple spaces after blockquote symbol
 - MD031: Blank lines around code blocks
 - MD032: Blank lines around lists
 - MD034: Bare URLs (wrap in markdown links)
 - MD036: Emphasis as heading (convert to proper heading)
+- MD037: Spaces inside emphasis markers
+- MD038: Spaces inside code span delimiters
+- MD039: Spaces inside link text
 - MD040: Missing language identifier in code blocks
 - MD047: Missing trailing newline
 """
@@ -27,17 +36,46 @@ def fix_markdown_file(file_path):
 
     original_content = content
 
+    # Fix MD009: Remove trailing spaces from lines
+    lines = content.split('\n')
+    lines = [line.rstrip() for line in lines]
+    content = '\n'.join(lines)
+
+    # Fix MD010: Replace hard tabs with spaces
+    content = content.replace('\t', '    ')
+
     # Fix MD040: Add language identifier to code blocks
     content = re.sub(r'^```$', r'```python', content, flags=re.MULTILINE)
 
     # Fix MD012: Remove multiple consecutive blank lines
     content = re.sub(r'\n\n\n+', '\n\n', content)
 
+    # Fix MD018: Add space after hash on atx style heading (e.g., "##heading" -> "## heading")
+    content = re.sub(r'^(#+)([^ #])', r'\1 \2', content, flags=re.MULTILINE)
+
+    # Fix MD019: Remove multiple spaces after hash on atx style heading
+    content = re.sub(r'^(#+) {2,}', r'\1 ', content, flags=re.MULTILINE)
+
     # Fix MD036: Convert emphasis as heading to proper heading
     content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
 
     # Fix MD026: Remove trailing punctuation from headings
     content = re.sub(r'^(#+\s+[^:\n]+):\s*$', r'\1', content, flags=re.MULTILINE)
+
+    # Fix MD027: Remove multiple spaces after blockquote symbol
+    content = re.sub(r'^(>\s) {2,}', r'\1', content, flags=re.MULTILINE)
+
+    # Fix MD037: Remove spaces inside emphasis markers
+    content = re.sub(r'\*\* +(.+?) +\*\*', r'**\1**', content)
+    content = re.sub(r'\* +(.+?) +\*', r'*\1*', content)
+    content = re.sub(r'__ +(.+?) +__', r'__\1__', content)
+    content = re.sub(r'_ +(.+?) +_', r'_\1_', content)
+
+    # Fix MD038: Remove spaces inside code span delimiters
+    content = re.sub(r'` +(.+?) +`', r'`\1`', content)
+
+    # Fix MD039: Remove spaces inside link text
+    content = re.sub(r'\[ +(.+?) +\]', r'[\1]', content)
 
     # Fix MD034: Wrap bare URLs in markdown links
     content = re.sub(r'(?<!\[)https?://([^\s\)]+)(?!\))', r'[\g<0>](\g<0>)', content)
@@ -81,15 +119,15 @@ def fix_markdown_file(file_path):
             if i + 1 < len(lines) and lines[i + 1].strip() != '':
                 fixed_lines.append('')
 
-        # Check for list items
-        elif re.match(r'^\s*[-*+]\s', line):
+        # Check for list items (unordered and ordered)
+        elif re.match(r'^\s*[-*+]\s', line) or re.match(r'^\s*[0-9]+\.\s', line):
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
                 fixed_lines.append('')
             fixed_lines.append(line)
 
-        # Check for ordered list items
-        elif re.match(r'^\s*[0-9]+\.\s', line):
+        # Check for blockquote
+        elif line.startswith('>'):
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
                 fixed_lines.append('')
@@ -136,10 +174,10 @@ def main():
     for md_file in sorted(markdown_files):
         relative_path = md_file.relative_to(repo_root)
         if fix_markdown_file(str(md_file)):
-            print(f"  ✓ Fixed: {relative_path}")
+            print(f"  [FIXED] {relative_path}")
             fixed_count += 1
 
-    print(f"\n✓ Fixed {fixed_count}/{len(markdown_files)} markdown files")
+    print(f"\n[COMPLETE] Fixed {fixed_count}/{len(markdown_files)} markdown files")
 
 if __name__ == '__main__':
     main()

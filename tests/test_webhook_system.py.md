@@ -23,7 +23,7 @@ Items marked below as fixed:
 
 ### Issue at Line 35
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'test_secret'
 
@@ -53,7 +53,7 @@ Items marked below as fixed:
 
 ### Issue at Line 44
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'test_secret'
 
@@ -83,7 +83,7 @@ Items marked below as fixed:
 
 ### Issue at Line 54
 
-**Tool:** bandit | **Code:** `B105` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B105` |**Severity:** LOW
 
 **Message:** Possible hardcoded password: 'test_secret'
 

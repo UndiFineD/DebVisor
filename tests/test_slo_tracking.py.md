@@ -85,7 +85,7 @@ Items marked below as fixed:
 
 ### Issue at Line 35
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -115,7 +115,7 @@ Items marked below as fixed:
 
 ### Issue at Line 36
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -145,7 +145,7 @@ Items marked below as fixed:
 
 ### Issue at Line 37
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -175,7 +175,7 @@ Items marked below as fixed:
 
 ### Issue at Line 38
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -205,7 +205,7 @@ Items marked below as fixed:
 
 ### Issue at Line 42
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -235,7 +235,7 @@ Items marked below as fixed:
 
 ### Issue at Line 43
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -265,7 +265,7 @@ Items marked below as fixed:
 
 ### Issue at Line 44
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -294,7 +294,7 @@ Items marked below as fixed:
 
 ### Issue at Line 45
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -323,7 +323,7 @@ Items marked below as fixed:
 
 ### Issue at Line 65
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -353,7 +353,7 @@ Items marked below as fixed:
 
 ### Issue at Line 66
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -383,7 +383,7 @@ Items marked below as fixed:
 
 ### Issue at Line 67
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -413,7 +413,7 @@ Items marked below as fixed:
 
 ### Issue at Line 68
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -443,7 +443,7 @@ Items marked below as fixed:
 
 ### Issue at Line 69
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -473,7 +473,7 @@ Items marked below as fixed:
 
 ### Issue at Line 70
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -503,7 +503,7 @@ Items marked below as fixed:
 
 ### Issue at Line 82
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -532,7 +532,7 @@ Items marked below as fixed:
 
 ### Issue at Line 104
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -562,7 +562,7 @@ Items marked below as fixed:
 
 ### Issue at Line 105
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -592,7 +592,7 @@ Items marked below as fixed:
 
 ### Issue at Line 106
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -622,7 +622,7 @@ Items marked below as fixed:
 
 ### Issue at Line 107
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -652,7 +652,7 @@ Items marked below as fixed:
 
 ### Issue at Line 108
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -682,7 +682,7 @@ Items marked below as fixed:
 
 ### Issue at Line 120
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -711,7 +711,7 @@ Items marked below as fixed:
 
 ### Issue at Line 121
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -740,7 +740,7 @@ Items marked below as fixed:
 
 ### Issue at Line 144
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -770,7 +770,7 @@ Items marked below as fixed:
 
 ### Issue at Line 145
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -799,7 +799,7 @@ Items marked below as fixed:
 
 ### Issue at Line 146
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -828,7 +828,7 @@ Items marked below as fixed:
 
 ### Issue at Line 161
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -858,7 +858,7 @@ Items marked below as fixed:
 
 ### Issue at Line 162
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -888,7 +888,7 @@ Items marked below as fixed:
 
 ### Issue at Line 163
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -918,7 +918,7 @@ Items marked below as fixed:
 
 ### Issue at Line 172
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -948,7 +948,7 @@ Items marked below as fixed:
 
 ### Issue at Line 173
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -978,7 +978,7 @@ Items marked below as fixed:
 
 ### Issue at Line 174
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1008,7 +1008,7 @@ Items marked below as fixed:
 
 ### Issue at Line 182
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1038,7 +1038,7 @@ Items marked below as fixed:
 
 ### Issue at Line 183
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1068,7 +1068,7 @@ Items marked below as fixed:
 
 ### Issue at Line 196
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1098,7 +1098,7 @@ Items marked below as fixed:
 
 ### Issue at Line 205
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1127,7 +1127,7 @@ Items marked below as fixed:
 
 ### Issue at Line 206
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1156,7 +1156,7 @@ Items marked below as fixed:
 
 ### Issue at Line 229
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1186,7 +1186,7 @@ Items marked below as fixed:
 
 ### Issue at Line 244
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1216,7 +1216,7 @@ Items marked below as fixed:
 
 ### Issue at Line 245
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1246,7 +1246,7 @@ Items marked below as fixed:
 
 ### Issue at Line 265
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1276,7 +1276,7 @@ Items marked below as fixed:
 
 ### Issue at Line 266
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1306,7 +1306,7 @@ Items marked below as fixed:
 
 ### Issue at Line 267
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1336,7 +1336,7 @@ Items marked below as fixed:
 
 ### Issue at Line 290
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1366,7 +1366,7 @@ Items marked below as fixed:
 
 ### Issue at Line 291
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1396,7 +1396,7 @@ Items marked below as fixed:
 
 ### Issue at Line 311
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1426,7 +1426,7 @@ Items marked below as fixed:
 
 ### Issue at Line 312
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1455,7 +1455,7 @@ Items marked below as fixed:
 
 ### Issue at Line 313
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1484,7 +1484,7 @@ Items marked below as fixed:
 
 ### Issue at Line 337
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1514,7 +1514,7 @@ Items marked below as fixed:
 
 ### Issue at Line 339
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1544,7 +1544,7 @@ Items marked below as fixed:
 
 ### Issue at Line 341
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1574,7 +1574,7 @@ Items marked below as fixed:
 
 ### Issue at Line 342
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1604,7 +1604,7 @@ Items marked below as fixed:
 
 ### Issue at Line 359
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1634,7 +1634,7 @@ Items marked below as fixed:
 
 ### Issue at Line 360
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1664,7 +1664,7 @@ Items marked below as fixed:
 
 ### Issue at Line 362
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1694,7 +1694,7 @@ Items marked below as fixed:
 
 ### Issue at Line 363
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1724,7 +1724,7 @@ Items marked below as fixed:
 
 ### Issue at Line 364
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1754,7 +1754,7 @@ Items marked below as fixed:
 
 ### Issue at Line 378
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1784,7 +1784,7 @@ Items marked below as fixed:
 
 ### Issue at Line 380
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1814,7 +1814,7 @@ Items marked below as fixed:
 
 ### Issue at Line 381
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1843,7 +1843,7 @@ Items marked below as fixed:
 
 ### Issue at Line 382
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1872,7 +1872,7 @@ Items marked below as fixed:
 
 ### Issue at Line 442
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1880,7 +1880,7 @@ Items marked below as fixed:
 
 ```python
         availability_compliance = tracker.check_compliance("availability")
-        
+
         # Latency p99 is 500ms > 200ms target, so should fail
         assert latency_compliance is False
         # Availability is 98% < 99.9% target, so should fail
@@ -1902,7 +1902,7 @@ Items marked below as fixed:
 
 ### Issue at Line 444
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1932,7 +1932,7 @@ Items marked below as fixed:
 
 ### Issue at Line 449
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1962,7 +1962,7 @@ Items marked below as fixed:
 
 ### Issue at Line 450
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
@@ -1991,7 +1991,7 @@ Items marked below as fixed:
 
 ### Issue at Line 451
 
-**Tool:** bandit | **Code:** `B101` | **Severity:** LOW
+**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
