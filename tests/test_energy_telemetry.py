@@ -1,9 +1,12 @@
 """
 Tests for Energy Telemetry.
 """
+
 import pytest
 from unittest.mock import patch, mock_open
 from opt.services.observability.energy import EnergyMonitor
+@pytest.fixture
+def monitor() -> EnergyMonitor:
 
 
 @pytest.fixture
