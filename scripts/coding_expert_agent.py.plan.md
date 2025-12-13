@@ -1,6 +1,6 @@
 # Planning Report: scripts\coding_expert_agent.py
 
-Generated: 2025-12-13T20:40:16.341786
+Generated: 2025-12-13T21:14:03.914129
 Status: INVALID
 
 ## File Structure Validation
@@ -11,14 +11,14 @@ Status: INVALID
 |------|------|---------|
 | incorrect_header | 2 | Header line incorrect: got '"""', expected '# Copyright (c) 2025 DebVisor contributors' |
 | incorrect_header | 3 | Header line incorrect: got 'Coding Expert Agent: Reads issue reports from .md files and proposes fixes.', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
-| incorrect_header | 4 | Header line incorrect: got 'Uses runSubagent to autonomously generate patch proposals.', expected '# you may not use this file except in compliance with the License.' |
-| incorrect_header | 5 | Header line incorrect: got '"""', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 6 | Header line incorrect: got '', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)') |
-| incorrect_header | 7 | Header line incorrect: got 'import re', expected '# Unless required by applicable law or agreed to in writing, software' |
-| incorrect_header | 8 | Header line incorrect: got 'from pathlib import Path', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
-| incorrect_header | 9 | Header line incorrect: got 'from typing import List, Tuple', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
-| incorrect_header | 10 | Header line incorrect: got 'from dataclasses import dataclass', expected '# See the License for the specific language governing permissions and' |
-| incorrect_header | 11 | Header line incorrect: got 'import argparse', expected '# limitations under the License.' |
+| incorrect_header | 4 | Header line incorrect: got 'Uses GitHub Copilot CLI to autonomously generate patch proposals via GitHub Copilot.', expected '# you may not use this file except in compliance with the License.' |
+| incorrect_header | 5 | Header line incorrect: got '', expected '# You may obtain a copy of the License at' |
+| incorrect_header | 6 | Header line incorrect: got 'Copilot Integration Setup:', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)') |
+| incorrect_header | 7 | Header line incorrect: got '1. Install GitHub CLI: [https://cli.github.com/',]([https://cli.github.com/']([https://cli.github.com/]([https://cli.github.com](https://cli.github.com)/)'),) expected '# Unless required by applicable law or agreed to in writing, software' |
+| incorrect_header | 8 | Header line incorrect: got '2. Authenticate with GitHub: gh auth login', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
+| incorrect_header | 9 | Header line incorrect: got '3. Install Copilot extension: gh extension install github/gh-copilot', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
+| incorrect_header | 10 | Header line incorrect: got '4. Run the agent: python scripts/coding_expert_agent.py --agents-only', expected '# See the License for the specific language governing permissions and' |
+| incorrect_header | 11 | Header line incorrect: got '', expected '# limitations under the License.' |
 | missing_section | - | Missing '## Description' section in docstring. Should be in module docstring after license header. |
 | missing_section | - | Missing '## Changelog' section in docstring. Should be in module docstring after license header. |
 | missing_section | - | Missing '## Suggested Fixes' section in docstring. Should be in module docstring after license header. |

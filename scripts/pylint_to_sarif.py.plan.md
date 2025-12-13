@@ -1,6 +1,6 @@
 # Planning Report: scripts\pylint_to_sarif.py
 
-Generated: 2025-12-13T20:40:16.429290
+Generated: 2025-12-13T21:14:03.995651
 Status: INVALID
 
 ## File Structure Validation

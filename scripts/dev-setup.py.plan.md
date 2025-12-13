@@ -1,6 +1,6 @@
 # Planning Report: scripts\dev-setup.py
 
-Generated: 2025-12-13T20:40:16.348532
+Generated: 2025-12-13T21:14:03.921340
 Status: INVALID
 
 ## File Structure Validation

@@ -28,6 +28,54 @@ from pathlib import Path
 import argparse
 
 
+def runSubagent(description: str, prompt: str) -> str:
+    """
+    Run a subagent using GitHub Copilot CLI to interact with GitHub Copilot.
+
+    Args:
+        description: Description of the task
+        prompt: The prompt to send to Copilot
+
+    Returns:
+        Copilot's response as a string
+
+    Raises:
+        Exception: If GitHub CLI is not available or Copilot integration fails
+    """
+    try:
+        # Check if gh command is available
+        subprocess.run(['gh', '--version'], capture_output=True, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        raise Exception("GitHub CLI not available. Install from: https://cli.github.com/")
+
+    try:
+        # Check if copilot extension is installed
+        result = subprocess.run(['gh', 'extension', 'list'], capture_output=True, text=True)
+        if 'gh-copilot' not in result.stdout:
+            raise Exception("GitHub Copilot extension not installed. Run: gh extension install github/gh-copilot")
+    except subprocess.CalledProcessError:
+        raise Exception("Failed to check GitHub CLI extensions. Ensure gh is properly installed.")
+
+    try:
+        # Run gh copilot suggest with the prompt
+        result = subprocess.run(
+            ['gh', 'copilot', 'suggest', prompt],
+            capture_output=True,
+            text=True,
+            timeout=60  # 60 second timeout
+        )
+
+        if result.returncode != 0:
+            raise Exception(f"GitHub Copilot CLI failed: {result.stderr}")
+
+        return result.stdout.strip()
+
+    except subprocess.TimeoutExpired:
+        raise Exception("GitHub Copilot request timed out")
+    except Exception as e:
+        raise Exception(f"Failed to run Copilot subagent: {str(e)}")
+
+
 def run_git_command(command: list, description: str) -> bool:
     """Run a git command and return success status."""
     try:

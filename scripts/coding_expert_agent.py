@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """
 Coding Expert Agent: Reads issue reports from .md files and proposes fixes.
-Uses runSubagent to autonomously generate patch proposals.
+Uses GitHub Copilot CLI to autonomously generate patch proposals via GitHub Copilot.
+
+Copilot Integration Setup:
+1. Install GitHub CLI: https://cli.github.com/
+2. Authenticate with GitHub: gh auth login
+3. Install Copilot extension: gh extension install github/gh-copilot
+4. Run the agent: python scripts/coding_expert_agent.py --agents-only
+
+Note: Requires GitHub Copilot subscription.
 """
 
 import re
@@ -9,6 +17,55 @@ from pathlib import Path
 from typing import List, Tuple
 from dataclasses import dataclass
 import argparse
+import os
+import subprocess
+
+def runSubagent(description: str, prompt: str) -> str:
+    """
+    Run a subagent using GitHub Copilot CLI to interact with GitHub Copilot.
+
+    Args:
+        description: Description of the task
+        prompt: The prompt to send to Copilot
+
+    Returns:
+        Copilot's response as a string
+
+    Raises:
+        Exception: If GitHub CLI is not available or Copilot integration fails
+    """
+    try:
+        # Check if gh command is available
+        subprocess.run(['gh', '--version'], capture_output=True, check=True)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        raise Exception("GitHub CLI not available. Install from: https://cli.github.com/")
+
+    try:
+        # Check if copilot extension is installed
+        result = subprocess.run(['gh', 'extension', 'list'], capture_output=True, text=True)
+        if 'gh-copilot' not in result.stdout:
+            raise Exception("GitHub Copilot extension not installed. Run: gh extension install github/gh-copilot")
+    except subprocess.CalledProcessError:
+        raise Exception("Failed to check GitHub CLI extensions. Ensure gh is properly installed.")
+
+    try:
+        # Run gh copilot suggest with the prompt
+        result = subprocess.run(
+            ['gh', 'copilot', 'suggest', prompt],
+            capture_output=True,
+            text=True,
+            timeout=60  # 60 second timeout
+        )
+
+        if result.returncode != 0:
+            raise Exception(f"GitHub Copilot CLI failed: {result.stderr}")
+
+        return result.stdout.strip()
+
+    except subprocess.TimeoutExpired:
+        raise Exception("GitHub Copilot request timed out")
+    except Exception as e:
+        raise Exception(f"Failed to run Copilot subagent: {str(e)}")
 
 
 @dataclass
@@ -142,14 +199,14 @@ Be specific and provide actionable code changes.
                 description="Code fix analysis",
                 prompt=copilot_prompt
             )
-            
+
             # If auto-apply is enabled, try to apply the fix
             applied = False
             if self.auto_apply:
                 applied = self.apply_fix(source_path, issue, copilot_response)
                 if applied:
                     print(f"  -> Auto-applied fix for {issue.code}")
-            
+
             proposal = f"""
 ### Issue at Line {issue.line}
 
@@ -202,14 +259,14 @@ Be specific and provide actionable code changes.
             # Parse the Copilot response to extract code changes
             # Look for code blocks in the response
             import re
-            
+
             # Find code blocks (```language or ```)
             code_blocks = re.findall(r'```(?:\w+)?\n(.*?)\n```', copilot_response, re.DOTALL)
-            
+
             if not code_blocks:
                 print(f"  -> No code blocks found in Copilot response for {issue.code}")
                 return False
-            
+
             # For now, we'll just log the suggested fix
             # In a full implementation, you would parse the before/after code and apply it
             print(f"  -> Copilot suggested fix for {issue.code}:")
@@ -219,12 +276,12 @@ Be specific and provide actionable code changes.
                     print(f"      {line}")
                 if len(block.split('\n')) > 5:
                     print("      ...")
-            
+
             # TODO: Implement automatic application of fixes
             # This would require parsing the before/after code and applying patches
-            
+
             return False  # For now, don't apply automatically
-            
+
         except Exception as e:
             print(f"  -> Failed to apply fix for {issue.code}: {e}")
             return False

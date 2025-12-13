@@ -9,15 +9,25 @@ Status: CODE_ISSUES_ONLY
 
 ## Code Quality Issues
 
-Total: 5 issues found
+Total: 11 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
 | 25 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 34 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 63 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 63 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 105 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 47 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 47 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 53 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 53 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 61 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 61 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 82 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 111 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 111 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 153 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+
+## Implementation Status
+
+Items marked below as fixed:
 
 ## Implementation Status
 

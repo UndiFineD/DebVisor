@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_flake8_careful.py
 
-Generated: 2025-12-13T20:40:16.390477
+Generated: 2025-12-13T21:14:03.963358
 Status: INVALID
 
 ## File Structure Validation

@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_e251_simple.py
 
-Generated: 2025-12-13T20:40:16.382427
+Generated: 2025-12-13T21:14:03.957465
 Status: INVALID
 
 ## File Structure Validation

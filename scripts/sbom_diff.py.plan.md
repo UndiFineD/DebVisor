@@ -1,6 +1,6 @@
 # Planning Report: scripts\sbom_diff.py
 
-Generated: 2025-12-13T20:40:16.431262
+Generated: 2025-12-13T21:14:03.997488
 Status: INVALID
 
 ## File Structure Validation

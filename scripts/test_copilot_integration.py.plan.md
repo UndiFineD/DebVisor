@@ -1,6 +1,6 @@
-# Planning Report: scripts\update_type_ignore.py
+# Planning Report: scripts\test_copilot_integration.py
 
-Generated: 2025-12-13T21:14:04.009731
+Generated: 2025-12-13T21:14:04.003643
 Status: INVALID
 
 ## File Structure Validation
@@ -9,6 +9,16 @@ Status: INVALID
 
 | Type | Line | Message |
 |------|------|---------|
+| incorrect_header | 2 | Header line incorrect: got '"""', expected '# Copyright (c) 2025 DebVisor contributors' |
+| incorrect_header | 3 | Header line incorrect: got 'Test script for Copilot integration using GitHub Copilot CLI', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
+| incorrect_header | 4 | Header line incorrect: got '', expected '# you may not use this file except in compliance with the License.' |
+| incorrect_header | 5 | Header line incorrect: got 'This demonstrates how runSubagent works with GitHub Copilot.', expected '# You may obtain a copy of the License at' |
+| incorrect_header | 6 | Header line incorrect: got '"""', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)') |
+| incorrect_header | 7 | Header line incorrect: got '', expected '# Unless required by applicable law or agreed to in writing, software' |
+| incorrect_header | 8 | Header line incorrect: got 'import subprocess', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
+| incorrect_header | 9 | Header line incorrect: got 'from coding_expert_agent import runSubagent as cea_runSubagent', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
+| incorrect_header | 10 | Header line incorrect: got 'from planning_agent import runSubagent as pa_runSubagent', expected '# See the License for the specific language governing permissions and' |
+| incorrect_header | 11 | Header line incorrect: got 'from unified_workflow import runSubagent as uw_runSubagent', expected '# limitations under the License.' |
 | missing_section | - | Missing '## Description' section in docstring. Should be in module docstring after license header. |
 | missing_section | - | Missing '## Changelog' section in docstring. Should be in module docstring after license header. |
 | missing_section | - | Missing '## Suggested Fixes' section in docstring. Should be in module docstring after license header. |
@@ -83,7 +93,7 @@ Use these prompts with GitHub Copilot to enhance the docstring sections:
 ```python
 Review this Python module's current description and suggest improvements:
 
-File: scripts\update_type_ignore.py
+File: scripts\test_copilot_integration.py
 Current Description:
 [Insert current ## Description content here]
 
@@ -99,7 +109,7 @@ Please provide:
 ```python
 Analyze this Python module's changelog and suggest enhancements:
 
-File: scripts\update_type_ignore.py
+File: scripts\test_copilot_integration.py
 Current Changelog:
 [Insert current ## Changelog content here]
 
@@ -115,7 +125,7 @@ Please provide:
 ```python
 Review this Python module's suggested fixes and provide better recommendations:
 
-File: scripts\update_type_ignore.py
+File: scripts\test_copilot_integration.py
 Current Suggested Fixes:
 [Insert current ## Suggested Fixes content here]
 
@@ -131,7 +141,7 @@ Please provide:
 ```python
 Enhance this Python module's improvements section with better future plans:
 
-File: scripts\update_type_ignore.py
+File: scripts\test_copilot_integration.py
 Current Improvements:
 [Insert current ## Improvements content here]
 
