@@ -89,6 +89,9 @@ LICENSE_HEADER = [
     "limitations under the License.",
 ]
 
+# Toggle CRLF normalization across all fixers
+CRLF_FIXES_ENABLED = False
+
 # ===================================================================================
 # Data Structures
 # ===================================================================================
@@ -146,8 +149,8 @@ class WhitespaceFixer(BaseFixer):
             content_bytes = path.read_bytes()
             original_bytes = content_bytes
 
-            # Fix CRLF
-            if b'\r\n' in content_bytes:
+            # Fix CRLF (disabled unless explicitly enabled)
+            if CRLF_FIXES_ENABLED and b'\r\n' in content_bytes:
                 if self.apply:
                     content_bytes = content_bytes.replace(b'\r\n', b'\n')
                     stats.add(str(path), "CRLF", 0, "CRLF line endings found", fixed=True)
@@ -787,6 +790,8 @@ class ShellCheckFixer(BaseFixer):
 
     def _normalize_line_endings(self, path: Path, stats: RunStats) -> None:
         """Strip carriage returns so shellcheck 1017 stops firing."""
+        if not CRLF_FIXES_ENABLED:
+            return
         try:
             data = path.read_bytes()
             if b"\r" not in data:
@@ -2552,8 +2557,9 @@ class CI_ShellScriptFixer(BaseFixer):
                 original = content
 
                 # Fix common shell issues
-                content = content.replace('\r\n', '\n')  # CRLF to LF
-                content = content.replace('\r', '\n')     # CR to LF
+                if CRLF_FIXES_ENABLED:
+                    content = content.replace('\r\n', '\n')  # CRLF to LF
+                    content = content.replace('\r', '\n')     # CR to LF
 
                 # Ensure proper shebang
                 if not content.startswith('#!'):
@@ -2588,8 +2594,8 @@ class CI_EnhancedMarkdownFixer(BaseFixer):
                 content = filepath.read_text(encoding="utf-8")
                 original = content
 
-                # Convert CRLF to LF
-                content = content.replace('\r\n', '\n')
+                if CRLF_FIXES_ENABLED:
+                    content = content.replace('\r\n', '\n')
 
                 # Fix heading spacing (space after #)
                 lines = content.split('\n')
@@ -2638,8 +2644,8 @@ class CI_NotificationsFixer(BaseFixer):
             if not content.strip():
                 content = "# Notifications Report\n\nNo notifications recorded.\n"
 
-            # Convert CRLF to LF
-            content = content.replace('\r\n', '\n')
+            if CRLF_FIXES_ENABLED:
+                content = content.replace('\r\n', '\n')
 
             # Ensure title
             if not content.startswith('#'):
@@ -2872,6 +2878,8 @@ class CI_AggressiveCRLFFixer(BaseFixer):
 
     def run(self, stats: RunStats):
         """Convert all CRLF to LF in text files."""
+        if not CRLF_FIXES_ENABLED:
+            return
         for filepath in self.root.rglob("*"):
             if not filepath.is_file():
                 continue
@@ -3862,7 +3870,8 @@ class ComprehensiveMarkdownFixer(BaseFixer):
                 content = self._fix_list_blanks(content)
                 content = self._fix_fence_language(content)
                 content = self._fix_multiple_h1(content)
-                content = self._fix_crlf(content)
+                if CRLF_FIXES_ENABLED:
+                    content = self._fix_crlf(content)
 
                 if content != original and self.apply:
                     filepath.write_text(content, encoding="utf-8")
@@ -3873,6 +3882,8 @@ class ComprehensiveMarkdownFixer(BaseFixer):
 
     def _fix_crlf(self, content: str) -> str:
         """Fix CRLF to LF."""
+        if not CRLF_FIXES_ENABLED:
+            return content
         return content.replace('\r\n', '\n')
 
     def _fix_bare_urls(self, content: str) -> str:

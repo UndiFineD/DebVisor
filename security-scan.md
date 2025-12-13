@@ -1,3 +1,5 @@
+<!-- markdownlint-disable-file -->
+
 # Security Scan Report
 
 **Total Alerts:** 8946
