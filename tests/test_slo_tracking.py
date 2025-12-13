@@ -72,10 +72,10 @@ class TestSLOTarget:
     def test_target_with_percentile(self) -> None:
         """Should create target with percentile."""
         target = SLOTarget(
-            _name = "api-latency-p99",
-            _sli_type = SLIType.LATENCY,
-            _target_value = 500.0,
-            _threshold_type = "percentile",
+            name="api-latency-p99",
+            sli_type=SLIType.LATENCY,
+            target_value=500.0,
+            threshold_type="percentile",
             percentile=99,
         )
 
@@ -110,11 +110,11 @@ class TestSLIRecord:
     def test_record_auto_timestamp(self) -> None:
         """Should auto-generate timestamp if not provided."""
         record = SLIRecord(
-            _sli_type = SLIType.AVAILABILITY,
-            _service = "test",
-            _operation = "test",
-            _value = 1.0,
-            _success = True,
+            sli_type=SLIType.AVAILABILITY,
+            service="test",
+            operation="test",
+            value=1.0,
+            success=True,
         )
 
         assert record.timestamp is not None
@@ -257,7 +257,7 @@ class TestSLOTracker:
         # Record compliant values
         for _ in range(10):
             tracker.record(
-                _sli_type = SLIType.LATENCY, operation="test_op", value=150.0, success=True
+                sli_type=SLIType.LATENCY, operation="test_op", value=150.0, success=True
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -269,20 +269,20 @@ class TestSLOTracker:
     def test_detect_violation(self, tracker):
         """Should detect SLO violations."""
         target = SLOTarget(
-            _name = "test-latency",
+            name="test-latency",
             sli_type=SLIType.LATENCY,
-            _target_value = 200.0,
-            _threshold_type = "max",
+            target_value=200.0,
+            threshold_type="max",
         )
         tracker.register_target(target)
 
         # Record violating values
         for _ in range(10):
             tracker.record(
-                _sli_type = SLIType.LATENCY,
-                _operation = "test_op",
-                _value = 500.0,    # Above target
-                _success = True,
+                sli_type=SLIType.LATENCY,
+                operation="test_op",
+                value=500.0,    # Above target
+                success=True,
             )
 
         compliance = tracker.check_compliance("test-latency")
@@ -293,16 +293,16 @@ class TestSLOTracker:
     def test_get_summary(self, tracker):
         """Should generate summary report."""
         target = SLOTarget(
-            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
         for i in range(10):
             tracker.record(
-                _sli_type = SLIType.LATENCY,
-                _operation = "test_op",
-                _value = 100.0 + i * 10,
-                _success = True,
+                sli_type=SLIType.LATENCY,
+                operation="test_op",
+                value=100.0 + i * 10,
+                success=True,
             )
 
         summary = tracker.get_summary()
@@ -397,20 +397,20 @@ class TestSLOIntegration:
         # Register multiple targets
         tracker.register_target(
             SLOTarget(
-                _name = "latency-p99",
-                _sli_type = SLIType.LATENCY,
-                _target_value = 200.0,
-                _threshold_type = "percentile",
-                _percentile = 99,
+                name="latency-p99",
+                sli_type=SLIType.LATENCY,
+                target_value=200.0,
+                threshold_type="percentile",
+                percentile=99,
             )
         )
 
         tracker.register_target(
             SLOTarget(
-                _name = "availability",
-                _sli_type = SLIType.AVAILABILITY,
-                _target_value = 99.9,
-                _threshold_type = "min",
+                name="availability",
+                sli_type=SLIType.AVAILABILITY,
+                target_value=99.9,
+                threshold_type="min",
             )
         )
 
@@ -428,16 +428,20 @@ class TestSLOIntegration:
             )
 
             tracker.record(
-                _sli_type = SLIType.AVAILABILITY,
-                _operation = "get_user",
-                _value = 1.0 if success else 0.0,
-                _success = success,
+                sli_type=SLIType.AVAILABILITY,
+                operation="get_user",
+                value=1.0 if success else 0.0,
+                success=success,
             )
 
-        # Check compliance
-        pass  # Placeholder for compliance check logic
-        _latency_compliance = tracker.check_compliance("latency-p99")
-        _availability_compliance = tracker.check_compliance("availability")
+        # Check compliance (both should fail based on the data above)
+        latency_compliance = tracker.check_compliance("latency-p99")
+        availability_compliance = tracker.check_compliance("availability")
+        
+        # Latency p99 is 500ms > 200ms target, so should fail
+        assert latency_compliance is False
+        # Availability is 98% < 99.9% target, so should fail
+        assert availability_compliance is False
 
         # Get overall summary
         summary = tracker.get_summary()
