@@ -16,8 +16,6 @@ from typing import Generator
 
 
 @pytest.fixture
-
-
 def temp_dns_dir() -> Generator[str, None, None]:
     """Create temporary directory for DNS state files."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -25,32 +23,24 @@ def temp_dns_dir() -> Generator[str, None, None]:
 
 
 @pytest.fixture
-
-
 def tsig_key() -> str:
     """Sample TSIG key."""
     return "hmac-sha256:example.com:B64EncodedKeyHere=="
 
 
 @pytest.fixture
-
-
 def dns_server() -> str:
     """Sample DNS server address."""
     return "192.168.1.100"
 
 
 @pytest.fixture
-
-
 def test_hostname() -> str:
     """Test hostname."""
     return "vm.example.com"
 
 
 @pytest.fixture
-
-
 def test_ip() -> str:
     """Test IP address."""
     return "192.168.1.50"
@@ -366,8 +356,8 @@ class TestAuditLogging:
             "result": "success",
         }
 
-        assert log_entry["action"] == "update_dns"
-        assert log_entry["result"] == "success"
+        assert _log_entry["action"] == "update_dns"
+        assert _log_entry["result"] == "success"
 
     def test_audit_log_file_writing(self, temp_dns_dir, test_hostname):
         """Test writing to audit log file."""
@@ -386,11 +376,11 @@ class TestAuditLogging:
             },
         ]
 
-        with open(log_file, "w") as f:
-            for entry in entries:
+        with open(_log_file, "w") as f:
+            for entry in _entries:
                 f.write(json.dumps(entry) + "\n")
 
-        with open(log_file, "r") as f:
+        with open(_log_file, "r") as f:
             lines = f.readlines()
 
         assert len(lines) == 2
