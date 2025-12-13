@@ -116,7 +116,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
 ### Proposal
@@ -145,7 +145,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -174,7 +174,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -203,7 +203,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -232,7 +232,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -261,7 +261,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -290,7 +290,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org](http://www.apache.org)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o](http://www.apache.o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -800,7 +800,7 @@ systemctl enable --now "debvisor-websockify@${VM}.service"
 HOSTNAME=$(hostname -f 2>/dev/null || hostname)
 VNC_PATH="/novnc/vnc.html?path=/vnc/${VM}"
 
-echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${](http://${)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
+echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${]([http://$](http://$){)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
 ```python
 
 ### Proposal
@@ -829,7 +829,7 @@ systemctl enable --now "debvisor-websockify@${VM}.service"
 HOSTNAME=$(hostname -f 2>/dev/null || hostname)
 VNC_PATH="/novnc/vnc.html?path=/vnc/${VM}"
 
-echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${](http://${)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
+echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${]([http://$](http://$){)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
 ```python
 
 ### Proposal
@@ -857,7 +857,7 @@ echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://$
 HOSTNAME=$(hostname -f 2>/dev/null || hostname)
 VNC_PATH="/novnc/vnc.html?path=/vnc/${VM}"
 
-echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${](http://${)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
+echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${]([http://$](http://$){)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
 ```python
 
 ### Proposal
@@ -884,7 +884,7 @@ echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://$
 HOSTNAME=$(hostname -f 2>/dev/null || hostname)
 VNC_PATH="/novnc/vnc.html?path=/vnc/${VM}"
 
-echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${](http://${)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
+echo "[http://${HOSTNAME}${VNC_PATH}"]([http://${HOSTNAME}${VNC_PATH}]([http://${HOSTNAME}${VNC_PATH]([http://${HOSTNAME}${VNC_PAT]([http://${HOSTNAME}${VNC*PA]([http://${HOSTNAME}${VNC*P]([http://${HOSTNAME}${VNC*]([http://${HOSTNAME}${VNC]([http://${HOSTNAME}${VN]([http://${HOSTNAME}${V]([http://${HOSTNAME}${]([http://${HOSTNAME}$]([http://${HOSTNAME}]([http://${HOSTNAME]([http://${HOSTNAM]([http://${HOSTNA]([http://${HOSTN]([http://${HOST]([http://${HOS]([http://${HO]([http://${H]([http://${]([http://$](http://$){)H)O)S)T)N)A)M)E)})$){)V)N)C)*)P)A)T)H)})")
 ```python
 
 ### Proposal

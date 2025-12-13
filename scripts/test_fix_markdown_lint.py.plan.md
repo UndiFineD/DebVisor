@@ -1,6 +1,6 @@
 # Planning Report: scripts\test_fix_markdown_lint.py
 
-Generated: 2025-12-13T20:08:24.202198
+Generated: 2025-12-13T20:12:43.533845
 Status: INVALID
 
 ## File Structure Validation

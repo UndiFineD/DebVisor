@@ -52,7 +52,7 @@ class CodingExpertAgent:
                 message=match.group(6).replace('\\|', '|'),
                 implemented=False  # Will be determined below
             )
-            
+
             # Check if this specific issue is marked as implemented
             # Look for checkmark near the issue code in the content
             issue_code = match.group(4)
@@ -63,7 +63,7 @@ class CodingExpertAgent:
             context_end = min(len(content), end_pos + 200)  # Look 200 chars after
             context = content[context_start:context_end]
             issue.implemented = f'✅ {issue_code}' in context or f'✅ `{issue_code}`' in context
-            
+
             issues.append(issue)
 
         return source_path, issues, content

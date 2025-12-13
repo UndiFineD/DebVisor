@@ -1,6 +1,6 @@
 # Planning Report: scripts\check_type_coverage.py
 
-Generated: 2025-12-13T20:08:24.104422
+Generated: 2025-12-13T20:12:43.401172
 Status: INVALID
 
 ## File Structure Validation
