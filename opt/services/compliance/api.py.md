@@ -30,7 +30,7 @@ Items marked below as fixed:
 ```python
 app.register_blueprint(compliance_bp, url_prefix="/api/v1/compliance")
 
-if __name__ == "__main__":
+if **name** == "**main**":
     app.run(host="0.0.0.0", port=5005)
 ```python
 

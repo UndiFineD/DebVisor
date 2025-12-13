@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 import subprocess
 
-_logger=logging.getLogger(__name__)
+_logger=logging.getLogger(**name**)
 
 ```python
 

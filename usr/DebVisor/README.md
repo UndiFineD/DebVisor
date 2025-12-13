@@ -152,11 +152,11 @@ permissions:\n\n- debvisor-join.sh: root (disk provisioning)\n\n- debvisor-upgra
 updates)\n\n- debvisor-dns-update.sh: ceph/dns group (TSIG keys)\n\n### Rollback Procedures\n\nEach
 operational script should document:\n\n- What changes it makes\n\n- How to undo them if something
 goes wrong\n\n- Recovery procedures\n\n## References\n\n- [systemd
-Documentation]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys](https://www.freedesktop.org/wiki/Software/sys)t)e)m)d)/)\n\n-
+Documentation]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy](https://www.freedesktop.org/wiki/Software/sy)s)t)e)m)d)/)\n\n-
 [Bash Strict
-Mode]([http://redsymbol.net/articles/unofficial-bash-strict-mode]([http://redsymbol.net/articles/unofficial-bash-strict-mod]([http://redsymbol.net/articles/unofficial-bash-strict-mo]([http://redsymbol.net/articles/unofficial-bash-strict-m]([http://redsymbol.net/articles/unofficial-bash-strict-](http://redsymbol.net/articles/unofficial-bash-strict-)m)o)d)e)/)\n\n-
+Mode]([http://redsymbol.net/articles/unofficial-bash-strict-mode]([http://redsymbol.net/articles/unofficial-bash-strict-mod]([http://redsymbol.net/articles/unofficial-bash-strict-mo]([http://redsymbol.net/articles/unofficial-bash-strict-m]([http://redsymbol.net/articles/unofficial-bash-strict-]([http://redsymbol.net/articles/unofficial-bash-strict](http://redsymbol.net/articles/unofficial-bash-strict)-)m)o)d)e)/)\n\n-
 [BATS Testing
-Framework]([https://github.com/bats-core/bats-cor]([https://github.com/bats-core/bats-co]([https://github.com/bats-core/bats-c]([https://github.com/bats-core/bats-]([https://github.com/bats-core/bats](https://github.com/bats-core/bats)-)c)o)r)e)\n\n##
+Framework]([https://github.com/bats-core/bats-cor]([https://github.com/bats-core/bats-co]([https://github.com/bats-core/bats-c]([https://github.com/bats-core/bats-]([https://github.com/bats-core/bats]([https://github.com/bats-core/bat](https://github.com/bats-core/bat)s)-)c)o)r)e)\n\n##
 Related Documentation\n\n- See [/etc/README.md](../etc/README.md) for system maintenance
 services\n\n- See [/opt/README.md](../opt/README.md) for build and automation tools\n\n- See
 [README.md](../README.md) for project overview\n\n

@@ -33,7 +33,7 @@ Items marked below as fixed:
             _content=self._generate_html(report_data)  # type: ignore[name-defined]
             # In a real scenario, we would write to a PDF file here.
             # For now, we'll save as .html but pretend it's what was asked
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
+            _file_path=os.path.join("/tmp", f"compliance*report*{report*id}*{timestamp}.html")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
@@ -63,7 +63,7 @@ Items marked below as fixed:
 
         elif format.lower() == "html":
             _content=self._generate_html(report_data)  # type: ignore[name-defined]
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.html")  # type: ignore[name-defined]
+            _file_path=os.path.join("/tmp", f"compliance*report*{report*id}*{timestamp}.html")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)
@@ -93,7 +93,7 @@ Items marked below as fixed:
 
         elif format.lower() == "markdown":
             _content=self._generate_markdown(report_data)  # type: ignore[name-defined]
-            _file_path=os.path.join("/tmp", f"compliance_report_{report_id}_{timestamp}.md")  # type: ignore[name-defined]
+            _file_path=os.path.join("/tmp", f"compliance*report*{report*id}*{timestamp}.md")  # type: ignore[name-defined]
             try:
                 with open(file_path, "w") as f:  # type: ignore[name-defined]
                     f.write(content)

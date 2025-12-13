@@ -1464,7 +1464,7 @@ byte code.
         assert result["status"] == "ok"
         assert call_count == 2
 
-if _name__== "__main__":
+if *name**== "**main*_":
 ```python
 
 ### Proposal

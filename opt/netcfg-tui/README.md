@@ -54,7 +54,7 @@ Gateway (v6): 2001:db8::1\n\n## Generated .network file includes both\n\n##
 Address=192.168.1.10/24\n\n## Address=2001:db8::10/64\n\n## Gateway=192.168.1.1\n\n##
 Gateway=2001:db8::1\n\n## Network Isolation for Multi-Tenant\n\nIsolate customer networks using VLAN
 
-+ separate bridges:\n\n## Customer A: eth0.100 -> br-cust-a -> 10.0.0.0/24\n\n## Customer B:
+- separate bridges:\n\n## Customer A: eth0.100 -> br-cust-a -> 10.0.0.0/24\n\n## Customer B:
 eth0.200 -> br-cust-b -> 10.1.0.0/24\n\n## Customer C: eth0.300 -> br-cust-c -> 10.2.0.0/24\n\n## No
 cross-talk between customers\n\n## Firewall rules add additional security layer\n\n## Backend
 Options\n\n### systemd-networkd (Default, Recommended for Servers)\n\n### Pros\n\n- Native to
@@ -121,9 +121,9 @@ rollback\n\n- [] IPv6 full support (ULA, global unicast)\n\n- [] Multi-bridge sc
 Wireless scanning (iw integration)\n\n- [] Mock mode for CI/CD\n\n- [ ] Performance optimization
 (100+ interfaces)\n\n## Related Documentation\n\n- [Testing and Enhancement
 Guide](./TESTING_AND_ENHANCEMENTS.md)\n\n- [systemd-networkd
-Documentation]([https://man7.org/linux/man-pages/man5/systemd.network.5.htm]([https://man7.org/linux/man-pages/man5/systemd.network.5.ht]([https://man7.org/linux/man-pages/man5/systemd.network.5.h]([https://man7.org/linux/man-pages/man5/systemd.network.5.]([https://man7.org/linux/man-pages/man5/systemd.network.5](https://man7.org/linux/man-pages/man5/systemd.network.5).)h)t)m)l)\n\n-
+Documentation]([https://man7.org/linux/man-pages/man5/systemd.network.5.htm]([https://man7.org/linux/man-pages/man5/systemd.network.5.ht]([https://man7.org/linux/man-pages/man5/systemd.network.5.h]([https://man7.org/linux/man-pages/man5/systemd.network.5.]([https://man7.org/linux/man-pages/man5/systemd.network.5]([https://man7.org/linux/man-pages/man5/systemd.network.](https://man7.org/linux/man-pages/man5/systemd.network.)5).)h)t)m)l)\n\n-
 [Netplan
-Documentation]([https://netplan.io]([https://netplan.i]([https://netplan.]([https://netplan]([https://netpla](https://netpla)n).)i)o)/)\n\n-
+Documentation]([https://netplan.io]([https://netplan.i]([https://netplan.]([https://netplan]([https://netpla]([https://netpl](https://netpl)a)n).)i)o)/)\n\n-
 [Linux Bridge
-Documentation]([https://linux-bridge.wiki.kernel.org]([https://linux-bridge.wiki.kernel.or]([https://linux-bridge.wiki.kernel.o]([https://linux-bridge.wiki.kernel.]([https://linux-bridge.wiki.kernel](https://linux-bridge.wiki.kernel).)o)r)g)/)\n\n-
+Documentation]([https://linux-bridge.wiki.kernel.org]([https://linux-bridge.wiki.kernel.or]([https://linux-bridge.wiki.kernel.o]([https://linux-bridge.wiki.kernel.]([https://linux-bridge.wiki.kernel]([https://linux-bridge.wiki.kerne](https://linux-bridge.wiki.kerne)l).)o)r)g)/)\n\n-
 [DebVisor Networking Guide](../docs/networking.md)\n\n

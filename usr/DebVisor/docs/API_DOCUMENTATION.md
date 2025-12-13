@@ -1289,30 +1289,30 @@ API endpoint URL\n\n-`region: str`- Geographic region\n\n-`version: str`- Cluste
 *Returns:**`str` - Cluster ID\n\n-*Example:**\n\n```python\nfrom opt.services.multi_cluster import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"](https://k8s-west.example.com:6443"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<<[https://k8s-west.example.com:6443",>>\n]([https://k8s-west.example.com:6443",>>\]([https://k8s-west.example.com:6443",>>]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",](https://k8s-west.example.com:6443",)>)>)\)n)
+endpoint="<<[https://k8s-west.example.com:6443",>>\n]([https://k8s-west.example.com:6443",>>\]([https://k8s-west.example.com:6443",>>]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"](https://k8s-west.example.com:6443"),)>)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nfrom opt.services.multi_cluster import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"](https://k8s-west.example.com:6443"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nfrom opt.services.multi_cluster import
 MultiClusterManager\nmanager = MultiClusterManager()\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\nmanager =
 MultiClusterManager()\ncluster_id = manager.add_cluster(\n name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"](https://k8s-west.example.com:6443"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\nmanager = MultiClusterManager()\ncluster_id
 = manager.add_cluster(\n name="prod-west",\n
-endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)\)n)
+endpoint="[https://k8s-west.example.com:6443",\n]([https://k8s-west.example.com:6443",\]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443]([https://k8s-west.example.com:644](https://k8s-west.example.com:644)3)"),)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\ncluster_id = manager.add_cluster(\n
 name="prod-west",\n
-endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"](https://k8s-west.example.com:6443"),)>)\)n)
+endpoint="<[https://k8s-west.example.com:6443",>\n]([https://k8s-west.example.com:6443",>\]([https://k8s-west.example.com:6443",>]([https://k8s-west.example.com:6443",]([https://k8s-west.example.com:6443"]([https://k8s-west.example.com:6443](https://k8s-west.example.com:6443)"),)>)\)n)
 region="us-west-2",\n version="1.28.0"\n)\n\n```python\n\n- --\n#####`get_federation_status() ->
 Dict[str, Any]`\nGet overall federation status.\n\n- *Returns:**`Dict`with:\n\n-`total_clusters:
 int`- Number of clusters\n\n-`healthy_clusters: int`- Responsive clusters\n\n-`total_nodes: int`-

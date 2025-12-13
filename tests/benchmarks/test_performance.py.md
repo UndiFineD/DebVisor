@@ -195,11 +195,11 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ```python
         "disk_gb": random.randint(10, 500),
-        "network_interfaces": [
+        "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
 ```python
 
@@ -225,11 +225,11 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ```python
         "disk_gb": random.randint(10, 500),
-        "network_interfaces": [
+        "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
 ```python
 
@@ -255,11 +255,11 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ```python
         "disk_gb": random.randint(10, 500),
-        "network_interfaces": [
+        "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
 ```python
 
@@ -289,7 +289,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             }
             for _ in range(random.randint(1, 4))
         ],
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created*at": datetime.now(timezone.utc).isoformat(),
         "hypervisor": random.choice(["kvm", "xen"]),
 ```python
 
@@ -314,7 +314,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 ### Context
 
 ```python
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
         "created_at": datetime.now(timezone.utc).isoformat(),
         "hypervisor": random.choice(["kvm", "xen"]),

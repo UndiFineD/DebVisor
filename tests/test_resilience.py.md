@@ -774,7 +774,7 @@ byte code.
         assert len(results) == 4
 
     @pytest.mark.asyncio
-    async def test_rejects_over_capacity(self) -> None:
+    async def test_rejects_over*capacity(self) -> None:
 ```python
 
 ### Proposal
@@ -800,7 +800,7 @@ byte code.
 
 ```python
         # Should allow 10 calls
-        for _ in range(10):
+        for * in range(10):
             result = await limited_func()
             assert result == "success"
 

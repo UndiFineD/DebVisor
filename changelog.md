@@ -626,7 +626,7 @@ tests) | ? COMPLETE\n\n-*Components:**\n\n- 7 test scenario categories\n\n- Fail
 support (6 failure modes)\n\n- 10+ individual test cases\n\n- 26+ comprehensive unit tests\n\n-
 --\n\n### 8. Plugin Architecture (COMPLETED) [DONE]\n\n- *Status:**IMPLEMENTED | 629 lines (296 impl
 
-+ 333 tests) | ? COMPLETE\n\n-*Components:**\n\n- Dynamic loading with hot-reload\n\n- Lifecycle
+- 333 tests) | ? COMPLETE\n\n-*Components:**\n\n- Dynamic loading with hot-reload\n\n- Lifecycle
 hooks and dependency validation\n\n- 22+ tests covering all operations\n\n- --\n\n### 9. Advanced
 Features & Enhancements (COMPLETED) [DONE]\n\n- *Status:**IMPLEMENTED | 955 lines (530 impl + 425
 tests) | ? COMPLETE\n\n-*Components:**\n\n- Anomaly detection (statistical, 3? threshold)\n\n-
@@ -871,7 +871,7 @@ enhancements delivered -**ALL 16 ITEMS COMPLETE**?\n\n- *Workflows Enhanced:**\n
 multi-language scanning workflow (`.github/workflows/codeql.yml`) - weekly + PR push analysis.\n\n-
 TruffleHog secret scanning workflow (`.github/workflows/secret-scan.yml`) - continuous (6h schedule)
 
-+ PR gating with SARIF upload.\n\n- Coverage gate enforcement (`test.yml`) - 85% minimum threshold
+- PR gating with SARIF upload.\n\n- Coverage gate enforcement (`test.yml`) - 85% minimum threshold
 with pytest --cov-fail-under.\n\n- Mutation testing (`test.yml`) - mutmut integration for test
 quality validation.\n\n- SARIF export (`lint.yml`) - flake8 native + custom pylint converter with
 consolidated uploads.\n\n- Docker build + security (`release.yml`) - multi-stage build, Trivy SARIF
@@ -1240,7 +1240,7 @@ validation passes with only informational warnings about optional secrets\n\n-
 *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9 workflows\n\n-`6667b5c`- Permission fixes
 for 4 workflows\n\n-`36880ed`- CHANGELOG duplicate removal\n\n-`c5e52d8`- release.yml platform guard
 
-+ GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
+- GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
 runners\n\n- Linux-specific jobs skip gracefully with informative notices\n\n- Permission errors
 resolved for reusable workflow calls\n\n- Linter validation passes with only informational warnings
 about optional secrets\n\n- *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9
@@ -1252,7 +1252,7 @@ validation passes with only informational warnings about optional secrets\n\n-
 *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9 workflows\n\n-`6667b5c`- Permission fixes
 for 4 workflows\n\n-`36880ed`- CHANGELOG duplicate removal\n\n-`c5e52d8`- release.yml platform guard
 
-+ GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
+- GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
 runners\n\n- Linux-specific jobs skip gracefully with informative notices\n\n- Permission errors
 resolved for reusable workflow calls\n\n- Linter validation passes with only informational warnings
 about optional secrets\n\n- *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9
@@ -1264,7 +1264,7 @@ validation passes with only informational warnings about optional secrets\n\n-
 *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9 workflows\n\n-`6667b5c`- Permission fixes
 for 4 workflows\n\n-`36880ed`- CHANGELOG duplicate removal\n\n-`c5e52d8`- release.yml platform guard
 
-+ GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
+- GPG fixes\n\n- *Impact**:\n\n- All workflows now execute correctly on Windows self-hosted
 runners\n\n- Linux-specific jobs skip gracefully with informative notices\n\n- Permission errors
 resolved for reusable workflow calls\n\n- Linter validation passes with only informational warnings
 about optional secrets\n\n- *Commits**:\n\n-`e29a3df`- Platform guard pattern for 9

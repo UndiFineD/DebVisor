@@ -1,7 +1,7 @@
 # Code Issues Report: tests\test_hvctl_xen.py
 
 Generated: 2025-12-13T15:24:06.057666
-Source: tests\test_hvctl_xen.py
+Source: tests\test_hvctl*xen.py
 
 ## Issues Summary
 
@@ -35,7 +35,7 @@ byte code.
 
 ```python
     # Verify virsh was called with -c xen:///system
-    args, _ = mock_run.call_args
+    args, * = mock_run.call*args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
@@ -65,7 +65,7 @@ byte code.
 ### Context
 
 ```python
-    args, _ = mock_run.call_args
+    args, * = mock_run.call*args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
@@ -126,7 +126,7 @@ byte code.
 
 ```python
 
-    args, _ = mock_run.call_args
+    args, * = mock_run.call*args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
@@ -155,7 +155,7 @@ byte code.
 ### Context
 
 ```python
-    args, _ = mock_run.call_args
+    args, * = mock_run.call_args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"

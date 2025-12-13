@@ -39,6 +39,10 @@ Fixes common markdown issues like:
 - MD040: Missing language identifier in code blocks
 - MD041: First line in a file should be a top level heading
 - MD045: Images should have alternate text
+- MD046: Code block style (indentation vs fenced)
+- MD048: Code fence style (backticks vs tildes)
+- MD049: Emphasis marker style (underscores vs asterisks)
+- MD054: Relative links
 - MD047: Missing trailing newline
 """
 
@@ -171,6 +175,14 @@ def fix_markdown_file(file_path):
     content = re.sub(r'\* +(.+?) +\*', r'*\1*', content)
     content = re.sub(r'__ +(.+?) +__', r'__\1__', content)
     content = re.sub(r'_ +(.+?) +_', r'_\1_', content)
+
+    # Fix MD049: Normalize emphasis markers (prefer asterisks over underscores for bold)
+    content = re.sub(r'__([^_]+)__', r'**\1**', content)
+    content = re.sub(r'_([^_]+)_(?![a-zA-Z0-9])', r'*\1*', content)
+
+    # Fix MD048: Normalize code fence style (prefer backticks over tildes)
+    content = re.sub(r'^~~~+', '```', content, flags=re.MULTILINE)
+    content = re.sub(r'~~~+$', '```', content, flags=re.MULTILINE)
 
     # Fix MD038: Remove spaces inside code span delimiters
     content = re.sub(r'` +(.+?) +`', r'`\1`', content)

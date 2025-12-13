@@ -184,7 +184,7 @@ from typing import Any, Dict
 ### Context
 
 ```python
-            os.path.dirname(__file__), "discovery", "zerotouch.py"
+            os.path.dirname(**file**), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
             subprocess.run(
@@ -214,7 +214,7 @@ from typing import Any, Dict
 ### Context
 
 ```python
-            os.path.dirname(__file__), "discovery", "zerotouch.py"
+            os.path.dirname(**file**), "discovery", "zerotouch.py"
         )
         if os.path.exists(script_path):
             subprocess.run([sys.executable, script_path, "advertise", "--role", role])

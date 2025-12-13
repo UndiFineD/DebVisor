@@ -33,10 +33,10 @@ via Keycloak.\n\n1. Add snapshot lifecycle + tenant self-service.\n\n1. Implemen
 orchestration + health scoring.\n\n1. Integrate post-copy migration for large memory VMs.\n\n1.
 Multi-region replication (stretch Ceph cluster or RBD mirroring).\n\n## References\n\n- Libvirt
 migration:
-<[https://libvirt.org/migration.html>\n\n-]([https://libvirt.org/migration.html>\n\n]([https://libvirt.org/migration.html>\n\]([https://libvirt.org/migration.html>\n]([https://libvirt.org/migration.html>\](https://libvirt.org/migration.html>\)n)\)n)-)
+<[https://libvirt.org/migration.html>\n\n-]([https://libvirt.org/migration.html>\n\n]([https://libvirt.org/migration.html>\n\]([https://libvirt.org/migration.html>\n]([https://libvirt.org/migration.html>\]([https://libvirt.org/migration.html>](https://libvirt.org/migration.html>)\)n)\)n)-)
 Ceph RBD:
-<[https://docs.ceph.com/en/latest/rbd/>\n\n-]([https://docs.ceph.com/en/latest/rbd/>\n\n]([https://docs.ceph.com/en/latest/rbd/>\n\]([https://docs.ceph.com/en/latest/rbd/>\n]([https://docs.ceph.com/en/latest/rbd/>\](https://docs.ceph.com/en/latest/rbd/>\)n)\)n)-)
+<[https://docs.ceph.com/en/latest/rbd/>\n\n-]([https://docs.ceph.com/en/latest/rbd/>\n\n]([https://docs.ceph.com/en/latest/rbd/>\n\]([https://docs.ceph.com/en/latest/rbd/>\n]([https://docs.ceph.com/en/latest/rbd/>\]([https://docs.ceph.com/en/latest/rbd/>](https://docs.ceph.com/en/latest/rbd/>)\)n)\)n)-)
 SSSD/AD:
-<[https://sssd.io/>\n\n-]([https://sssd.io/>\n\n]([https://sssd.io/>\n\]([https://sssd.io/>\n]([https://sssd.io/>\](https://sssd.io/>\)n)\)n)-)
+<[https://sssd.io/>\n\n-]([https://sssd.io/>\n\n]([https://sssd.io/>\n\]([https://sssd.io/>\n]([https://sssd.io/>\]([https://sssd.io/>](https://sssd.io/>)\)n)\)n)-)
 Keycloak:
-<[https://www.keycloak.org/>\n\n]([https://www.keycloak.org/>\n\]([https://www.keycloak.org/>\n]([https://www.keycloak.org/>\]([https://www.keycloak.org/>](https://www.keycloak.org/>)\)n)\)n)
+<[https://www.keycloak.org/>\n\n]([https://www.keycloak.org/>\n\]([https://www.keycloak.org/>\n]([https://www.keycloak.org/>\]([https://www.keycloak.org/>]([https://www.keycloak.org/](https://www.keycloak.org/)>)\)n)\)n)

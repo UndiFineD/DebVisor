@@ -32,7 +32,9 @@ Secrets file\n\n## Ownership (root:root for system-wide services)\n\n chown root
 /etc/systemd/system/debvisor-*.service\n chown root:root /etc/debvisor/*.conf\n\n## Secrets file
 should have restrictive permissions\n\n chown root:debvisor /etc/debvisor/debvisor-secrets.conf\n
 chmod 640 /etc/debvisor/debvisor-secrets.conf\n\n## Permission Verification Script\n\n
-#!/bin/bash\n\n## Verify systemd service file permissions\n\n echo "Checking systemd service file
+
+# !/bin/bash\n\n## Verify systemd service file permissions\n\n echo "Checking systemd service file
+
 permissions..."\n\n## Service files should be 0644\n\n find /etc/systemd/system -name
 "debvisor-*.service" -type f ! -perm 644 \\n && echo "[warn]? Service files with incorrect
 permissions:" && \\n find /etc/systemd/system -name "debvisor-*.service" -type f ! -perm 644
@@ -100,13 +102,15 @@ for service in "${services[@]}"; do\n if systemctl is-active --quiet "$service.s
 systemctl is-active --quiet "$service"; then\n echo "? $service is running"\n else\n echo "?
 $service failed to start"\n systemctl status "$service" -l\n journalctl -u "$service" -n 20
 --no-pager\n fi\n done\n\n## Verify RPC service responds to requests\n\n if curl -s
-[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h](http://localhost:5000/api/h)e)a)l)t)h)
+[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/](http://localhost:5000/api/)h)e)a)l)t)h)
 
 >/dev/null; then\n echo "? RPC service responding to requests"\n else\n echo "? RPC service not
 responding"\n fi\n\n## Check for startup errors in journal\n\n if journalctl --since "10 seconds
 ago" | grep -i error | grep -i debvisor; then\n echo "[warn]? Found startup errors in journal"\n
 journalctl --since "10 seconds ago" | grep -i debvisor\n fi\n\n## Pre-Reboot Validation\n\n
-#!/bin/bash\n\n## pre-reboot-check.sh - Verify system is ready for safe reboot\n\n echo "Running
+
+# !/bin/bash\n\n## pre-reboot-check.sh - Verify system is ready for safe reboot\n\n echo "Running
+
 pre-reboot checks..."\n\n## 1. Verify all service files are valid\n\n systemd-analyze verify
 /etc/systemd/system/debvisor-*.service 2>&1\n if [$? -ne 0]; then\n echo "? Service file validation
 failed"\n exit 1\n fi\n\n## 2. Check for services in failed state\n\n if systemctl list-units
@@ -120,7 +124,7 @@ post-reboot-check.sh - Verify system recovered correctly after reboot\n\n echo "
 checks (run 2-3 minutes after boot)..."\n\n## 1. Verify all services started\n\n systemctl status
 debvisor-*.service debvisor-*.timer\n\n## 2. Check service response times (should be fast)\n\n curl
 -w "@curl-format.txt" -o /dev/null -s
-[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h](http://localhost:5000/api/h)e)a)l)t)h)\n\n##
+[http://localhost:5000/api/health]([http://localhost:5000/api/healt]([http://localhost:5000/api/heal]([http://localhost:5000/api/hea]([http://localhost:5000/api/he]([http://localhost:5000/api/h]([http://localhost:5000/api/](http://localhost:5000/api/)h)e)a)l)t)h)\n\n##
 
 3. Verify no error floods in logs\n\n error_count=$(journalctl --since "5 minutes ago" \\n | grep -i
 "debvisor\|rpcd\|panel" \\n | grep -i "error\|fail" \\n | wc -l)\n echo "Errors in last 5 minutes:
@@ -128,7 +132,7 @@ $error_count"\n\n## 4. Check persistent state was preserved\n\n if [-f
 /var/lib/debvisor/state.json]; then\n echo "? Persistent state file present"\n jq .
 /var/lib/debvisor/state.json 2>/dev/null | head -20\n fi\n echo "Post-reboot checks complete."\n\n##
 References\n\n- Systemd documentation:
-[https://www.freedesktop.org/software/systemd/man/]([https://www.freedesktop.org/software/systemd/man]([https://www.freedesktop.org/software/systemd/ma]([https://www.freedesktop.org/software/systemd/m]([https://www.freedesktop.org/software/systemd/]([https://www.freedesktop.org/software/systemd](https://www.freedesktop.org/software/systemd)/)m)a)n)/)\n\n-
+[https://www.freedesktop.org/software/systemd/man/]([https://www.freedesktop.org/software/systemd/man]([https://www.freedesktop.org/software/systemd/ma]([https://www.freedesktop.org/software/systemd/m]([https://www.freedesktop.org/software/systemd/]([https://www.freedesktop.org/software/systemd]([https://www.freedesktop.org/software/system](https://www.freedesktop.org/software/system)d)/)m)a)n)/)\n\n-
 Service file format: `man 5 systemd.service`\n\n- Timer format: `man 5 systemd.timer`\n\n- Drop-in
 files: `man 5 systemd.unit`\n\n- Security directives:
-[https://www.freedesktop.org/software/systemd/man/systemd.exec.html]([https://www.freedesktop.org/software/systemd/man/systemd.exec.htm]([https://www.freedesktop.org/software/systemd/man/systemd.exec.ht]([https://www.freedesktop.org/software/systemd/man/systemd.exec.h]([https://www.freedesktop.org/software/systemd/man/systemd.exec.]([https://www.freedesktop.org/software/systemd/man/systemd.exec](https://www.freedesktop.org/software/systemd/man/systemd.exec).)h)t)m)l)\n\n
+[https://www.freedesktop.org/software/systemd/man/systemd.exec.html]([https://www.freedesktop.org/software/systemd/man/systemd.exec.htm]([https://www.freedesktop.org/software/systemd/man/systemd.exec.ht]([https://www.freedesktop.org/software/systemd/man/systemd.exec.h]([https://www.freedesktop.org/software/systemd/man/systemd.exec.]([https://www.freedesktop.org/software/systemd/man/systemd.exec]([https://www.freedesktop.org/software/systemd/man/systemd.exe](https://www.freedesktop.org/software/systemd/man/systemd.exe)c).)h)t)m)l)\n\n

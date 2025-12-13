@@ -25,7 +25,7 @@ changes; use tests.\n- CI noise: start with advisory checks, then enforce once p
 cases: expand tests when new patterns are discovered.\n\n## Quick Commands\n\n```powershell\n# Run
 fixer for a file\n& .\.venv\Scripts\python.exe .\fix_markdown_lint.py .\docs\CONTRIBUTING.md\n\n#
 Run fixer for all Markdown files\nGet-ChildItem -Recurse -Filter *.md | ForEach-Object {\n &
-.\.venv\Scripts\python.exe .\fix_markdown_lint.py $_.FullName\n}\n\n# Run fixer unit tests\n&
+.\.venv\Scripts\python.exe .\fix_markdown*lint.py $*.FullName\n}\n\n# Run fixer unit tests\n&
 .\.venv\Scripts\python.exe .\scripts\test_fix_markdown_lint.py\n\n```text\n\n##
 Cross-References\n\n- Fixer script: [fix_markdown_lint.py](fix_markdown_lint.py)\n- Fixer tests:
 [scripts/test_fix_markdown_lint.py](scripts/test_fix_markdown_lint.py)\n- VS Code tasks:

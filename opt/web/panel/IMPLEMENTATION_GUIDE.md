@@ -182,7 +182,7 @@ functools import wraps\n from flask import abort\n from flask_login import curre
 models.audit_log import audit_log\n def decorator(f):\n @wraps(f)\n def
 decorated_function(*args,**kwargs):\n if not current_user.has_permission(permission):\n
 audit_log('AUTHZ_DENIED',\n f'Access denied for {current_user.username}',\n
-extra={'required_permission': permission})\n abort(403)\n return f(*args,__kwargs)\n return
+extra={'required*permission': permission})\n abort(403)\n return f(*args,*_kwargs)\n return
 decorated_function\n return decorator\n\n### Audit Logging (models/audit_log.py)\n\n """\n Audit
 logging for compliance and security monitoring\n """\n import json\n import logging\n from datetime
 import datetime\n from flask import request\n from flask_login import current_user\n audit_logger =
@@ -271,14 +271,14 @@ ssl_ciphers HIGH:!aNULL:!MD5;\n ssl_prefer_server_ciphers on;\n\n## Security hea
 Strict-Transport-Security "max-age=31536000; includeSubDomains" always;\n add_header X-Frame-Options
 "DENY" always;\n add_header X-Content-Type-Options "nosniff" always;\n add_header X-XSS-Protection
 "1; mode=block" always;\n\n## Proxy settings\n\n proxy_pass
-[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor_pa]([http://debvisor_p](http://debvisor_p)a)n)e)l);)\n
+[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor_pa]([http://debvisor_p]([http://debvisor_](http://debvisor_)p)a)n)e)l);)\n
 proxy_set_header Host $host;\n proxy_set_header X-Real-IP $remote_addr;\n proxy_set_header
 X-Forwarded-For $proxy_add_x_forwarded_for;\n proxy_set_header X-Forwarded-Proto $scheme;\n\n##
 Request limits\n\n client_max_body_size 10M;\n proxy_read_timeout 30s;\n\n## WebSocket support (if
 needed)\n\n proxy_http_version 1.1;\n proxy_set_header Upgrade $http_upgrade;\n proxy_set_header
 Connection "upgrade";\n }\n\n## Redirect HTTP to HTTPS\n\n server {\n listen 80;\n server_name
 cluster.example.com;\n return 301
-[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server_name$request_]([https://$server_name$request](https://$server_name$request)_)u)r)i);)\n
+[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques](https://$server*name$reques)t)*)u)r)i);)\n
 }\n\n## Testing\n\n### Test Structure (tests/test_nodes.py)\n\n """\n Tests for node management
 endpoints\n """\n import pytest\n from flask_login import FlaskLoginClient\n @pytest.fixture\n def
 client(app):\n """Authenticated test client"""\n return app.test_client(use_cookies=True)\n

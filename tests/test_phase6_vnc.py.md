@@ -2139,7 +2139,7 @@ byte code.
         rbac = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
         assert rbac is True
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

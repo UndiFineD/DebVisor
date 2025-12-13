@@ -57,7 +57,7 @@ All services integrate with systemd journal\n\n- **Monitoring**: Prometheus metr
 status\n\n- **Health**: debvisor-health-check validates services\n\n- **Audit**: All configuration
 changes logged\n\n- **Dependencies**: Clear service dependency graph\n\n## References\n\n- systemd
 documentation:
-[https://systemd.io/]([https://systemd.io]([https://systemd.i]([https://systemd.]([https://systemd]([https://system](https://system)d).)i)o)/)\n\n-
+[https://systemd.io/]([https://systemd.io]([https://systemd.i]([https://systemd.]([https://systemd]([https://system]([https://syste](https://syste)m)d).)i)o)/)\n\n-
 Service file format: `man 5 systemd.service`\n\n- Timer format: `man 5 systemd.timer`\n\n- Best
 practices:
-[https://www.freedesktop.org/wiki/Software/systemd/]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys](https://www.freedesktop.org/wiki/Software/sys)t)e)m)d)/)\n\n
+[https://www.freedesktop.org/wiki/Software/systemd/]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy](https://www.freedesktop.org/wiki/Software/sy)s)t)e)m)d)/)\n\n

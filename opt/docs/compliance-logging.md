@@ -35,7 +35,7 @@ Fluent Bit config to all VM hosts\n\n1. Create Kafka topic with replication\n\n1
 pipeline with credentials\n\n1. Configure S3 bucket with object lock\n\n1. Import Grafana compliance
 dashboard\n\n## Retrieval for Auditors\n\n## Query Elasticsearch for specific audit ID\n\n curl -X
 GET
-"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/_se](http://es01:9200/debvisor-compliance-*/_se)a)r)c)h)")
+"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/_se]([http://es01:9200/debvisor-compliance-*/_s](http://es01:9200/debvisor-compliance-*/_s)e)a)r)c)h)")
 \\n\n - H 'Content-Type: application/json' \\n\n - d '{"query": {"term": {"audit_id":
 "MFA-20251123-001"}}}'\n\n## Download from S3 immutable archive\n\n aws s3 cp
 s3://debvisor-compliance-archive/logs/2025/11/23/ . --recursive\n\n## Compliance Tags\n\n- `MFA`:

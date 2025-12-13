@@ -39,7 +39,7 @@ byte code.
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos](https://localhos)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho](https://localho)s)t)")
     if resp.status_code == 301:
         print(f"Redirecting to: {resp.headers.get('Location')}")
     assert resp.status_code in (200, 503)
@@ -256,7 +256,7 @@ byte code.
 ```python
     monkeypatch.setenv("SMTP_STARTTLS", "true")
 
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos](https://localhos)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho](https://localho)s)t)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data
@@ -285,7 +285,7 @@ byte code.
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos](https://localhos)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho](https://localho)s)t)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data

@@ -12,7 +12,7 @@ etc.).\n\n- Defines the canonical datasource names and, where supported,\n\n exp
 `monitoring/grafana/provisioning/alerting/`\n\n- Alerting rules intended to pair with the shipped
 dashboards.\n\n- Typically mounted under `/etc/grafana/provisioning/alerting/`on a\n\n DebVisor
 node.\nOn a DebVisor host that runs Grafana locally, the usual mapping is:\n\n- Provisioning
-YAML:`/etc/grafana/provisioning/__`(mounted or copied\n\n from this directory).\n\n- Dashboards
+YAML:`/etc/grafana/provisioning/**`(mounted or copied\n\n from this directory).\n\n- Dashboards
 JSON:`/var/lib/grafana/dashboards/`pointing back to\n\n`monitoring/grafana/dashboards/`via copy,
 sync job, or read-only\n bind mount.\nIn clusters where Grafana runs elsewhere, treat this directory
 as the\n\n- *source of truth**and sync the provisioning and dashboard JSON into\n\nthat Grafana
@@ -20,14 +20,14 @@ instance.\n\n## Datasource names and UIDs\n\nTo make dashboards portable between
 deployments, we recommend\nrecreating datasources with the following identifiers:\n\n-
 Prometheus:\n\n- Name:`Prometheus`\n\n- Suggested UID: `prometheus-debvisor`\n\n- Type:
 `prometheus`\n\n- URL examples:\n\n- Single-node:
-[http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost](http://localhost):)9)0)9)0)\n\n-
+[http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost]([http://localhos](http://localhos)t):)9)0)9)0)\n\n-
 Clustered:
-[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc](http://prometheus.debvisor-monitoring.svc):)9)0)9)0)\n\n-
+[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv](http://prometheus.debvisor-monitoring.sv)c):)9)0)9)0)\n\n-
 Loki (optional, if you deploy it):\n\n- Name: `Loki`\n\n- Suggested UID: `loki-debvisor`\n\n- Type:
 `loki`\n\n- URL examples:\n\n- Single-node:
-[http://localhost:3100]([http://localhost:310]([http://localhost:31]([http://localhost:3]([http://localhost:]([http://localhost](http://localhost):)3)1)0)0)\n\n-
+[http://localhost:3100]([http://localhost:310]([http://localhost:31]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos](http://localhos)t):)3)1)0)0)\n\n-
 Clustered:
-[http://loki.debvisor-monitoring.svc:3100]([http://loki.debvisor-monitoring.svc:310]([http://loki.debvisor-monitoring.svc:31]([http://loki.debvisor-monitoring.svc:3]([http://loki.debvisor-monitoring.svc:]([http://loki.debvisor-monitoring.svc](http://loki.debvisor-monitoring.svc):)3)1)0)0)\n\nDashboards
+[http://loki.debvisor-monitoring.svc:3100]([http://loki.debvisor-monitoring.svc:310]([http://loki.debvisor-monitoring.svc:31]([http://loki.debvisor-monitoring.svc:3]([http://loki.debvisor-monitoring.svc:]([http://loki.debvisor-monitoring.svc]([http://loki.debvisor-monitoring.sv](http://loki.debvisor-monitoring.sv)c):)3)1)0)0)\n\nDashboards
 under `monitoring/grafana/dashboards/`should use these\nnames or UIDs so that operators can:\n\n-
 Import them into an existing Grafana.\n\n- Create matching datasources once per environment.\n\nIf
 you choose different names or UIDs, update the datasource\nreferences in the dashboards or override
@@ -46,7 +46,7 @@ your\n\n Prometheus and Loki instances.\n\n- Adjust thresholds and time ranges f
 and\n\n performance envelope.\n\n- Wire alert rules into your chosen Alertmanager routes and\n\n
 notification channels.\n\n## How to use in practice\n\n1. Ensure Prometheus (and optionally Loki)
 are reachable from Grafana\n\n and configured with the names/UIDs above.\n\n1. Copy or
-mount`monitoring/grafana/provisioning/__`into your\n\n Grafana provisioning directory.\n\n1. Copy or
+mount`monitoring/grafana/provisioning/**`into your\n\n Grafana provisioning directory.\n\n1. Copy or
 sync`monitoring/grafana/dashboards/__`into the path\n\n referenced by the dashboard provisioning
 YAML (for example\n`/var/lib/grafana/dashboards/`).\n\n1. Restart Grafana; check that the DebVisor
 dashboards appear under\n\n the expected folders and that panels render data.\n\n1. Enable or adjust

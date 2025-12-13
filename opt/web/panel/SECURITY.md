@@ -52,7 +52,7 @@ audit_log('AUTH', f'User {username} logged out')\n return redirect(url_for('logi
 Policy\n\n### Requirements\n\n- Minimum 12 characters\n\n- Mix of uppercase, lowercase, digits,
 special characters\n\n- No dictionary words or keyboard patterns\n\n- No username in password\n\n-
 No more than 3 repeated characters\n\n import re\n class PasswordValidator:\n """Validate password
-strength"""\n MIN_LENGTH = 12\n SPECIAL_CHARS = r'[!@#$%^&*()_+\-=\[\]{};:\'",.<>?/\\|`~]'\n
+strength"""\n MIN_LENGTH = 12\n SPECIAL*CHARS = r'[!@#$%^&*()*+\-=\[\]{};:\'",.<>?/\\|`~]'\n
 @staticmethod\n def validate(password, username):\n """Validate password meets requirements"""\n
 errors = []\n\n## Length\n\n if len(password) < PasswordValidator.MIN_LENGTH:\n
 errors.append(f'Password must be at least {PasswordValidator.MIN_LENGTH} characters')\n\n##
@@ -117,10 +117,10 @@ in ROLES:\n return False\n permissions = ROLES[user.role]['permissions']\n\n## W
 True\n\n## Prefix match (e.g., 'nodes:*' matches 'nodes:list')\n\n for perm in permissions:\n if
 perm.endswith(':*'):\n prefix = perm[:-2]\n if permission.startswith(prefix + ':'):\n return True\n
 return False\n def require_permission(permission):\n """Decorator to require permission"""\n def
-decorator(f):\n @wraps(f)\n def decorated_function(*args,__kwargs):\n if not
+decorator(f):\n @wraps(f)\n def decorated*function(*args,*_kwargs):\n if not
 check_permission(current_user, permission):\n audit_log('AUTHZ_DENIED', f'Access denied for
-{current_user.username}',\n extra={'required_permission': permission})\n abort(403)\n return
-f(*args,__kwargs)\n return decorated_function\n return decorator\n\n## Usage in routes\n\n
+{current_user.username}',\n extra={'required*permission': permission})\n abort(403)\n return
+f(*args,*_kwargs)\n return decorated_function\n return decorator\n\n## Usage in routes\n\n
 @app.route('/api/nodes', methods=['GET'])\n @login_required\n @require_permission('nodes:read')\n
 def list_nodes():\n """List cluster nodes"""\n nodes = rpc_client.list_nodes()\n audit_log('AUDIT',
 f'User {current_user.username} listed nodes',\n extra={'count': len(nodes)})\n return
@@ -185,8 +185,8 @@ console.log('Success:', data));\n\n## Input Validation & Output Escaping\n\n### 
 import re\n from urllib.parse import urlparse\n class InputValidator:\n """Validate user
 input"""\n\n## Patterns for common inputs\n\n PATTERNS = {\n 'hostname':
 r'^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$',\n 'ipv4': r'^(\d{1,3}\.){3}\d{1,3}$',\n 'uuid':
-r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',\n 'snapshot_name':
-r'^[a-zA-Z0-9_-]{1,64}$',\n 'pool_name': r'^[a-zA-Z0-9_-]{1,32}$',\n }\n @staticmethod\n def
+r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',\n 'snapshot*name':
+r'^[a-zA-Z0-9*-]{1,64}$',\n 'pool*name': r'^[a-zA-Z0-9*-]{1,32}$',\n }\n @staticmethod\n def
 validate_hostname(hostname):\n """Validate hostname format"""\n if not hostname or len(hostname) >
 253:\n return False\n return bool(re.match(InputValidator.PATTERNS['hostname'], hostname))\n
 @staticmethod\n def validate_ipv4(ip):\n """Validate IPv4 address"""\n if not

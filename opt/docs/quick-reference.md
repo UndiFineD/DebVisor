@@ -17,9 +17,9 @@ tsig-list\n\n## Cluster Operations\n\n## Join new node\n\n /usr/local/bin/debvis
 Migrate VM\n\n /usr/local/bin/debvisor-migrate.sh vm-name target-host\n\n## Check cluster health\n\n
 ceph -s\n kubectl get nodes\n virsh list --all\n\n## Monitoring\n\n## Check Prometheus targets\n\n
 curl
-[http://10.10.0.1:9090/api/v1/targets]([http://10.10.0.1:9090/api/v1/target]([http://10.10.0.1:9090/api/v1/targe]([http://10.10.0.1:9090/api/v1/targ]([http://10.10.0.1:9090/api/v1/tar]([http://10.10.0.1:9090/api/v1/ta](http://10.10.0.1:9090/api/v1/ta)r)g)e)t)s)\n\n##
+[http://10.10.0.1:9090/api/v1/targets]([http://10.10.0.1:9090/api/v1/target]([http://10.10.0.1:9090/api/v1/targe]([http://10.10.0.1:9090/api/v1/targ]([http://10.10.0.1:9090/api/v1/tar]([http://10.10.0.1:9090/api/v1/ta]([http://10.10.0.1:9090/api/v1/t](http://10.10.0.1:9090/api/v1/t)a)r)g)e)t)s)\n\n##
 Query metrics\n\n curl
-'[http://10.10.0.1:9090/api/v1/query?query=bind_queries_total']([http://10.10.0.1:9090/api/v1/query?query=bind_queries_total]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_tota]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_tot]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_to]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_t](http://10.10.0.1:9090/api/v1/query?query=bind_queries_t)o)t)a)l)')\n\n##
+'[http://10.10.0.1:9090/api/v1/query?query=bind_queries_total']([http://10.10.0.1:9090/api/v1/query?query=bind_queries_total]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_tota]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_tot]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_to]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_t]([http://10.10.0.1:9090/api/v1/query?query=bind_queries_](http://10.10.0.1:9090/api/v1/query?query=bind_queries_)t)o)t)a)l)')\n\n##
 View logs\n\n kubectl logs -n debvisor-monitoring -l app=synthetic-workload\n\n## Security\n\n## Run
 MFA enforcement\n\n ansible-playbook -i inventory ansible/playbooks/enforce-mfa.yml\n\n## Quarantine
 compromised host\n\n ansible-playbook -i inventory -e "target_host=node3" \\n
@@ -28,7 +28,7 @@ ansible/playbooks/quarantine-host.yml\n\n## Block IPs\n\n ansible-playbook -i in
 logs\n\n journalctl -u auditd | grep -i "config"\n\n## Check immutable log status\n\n aws s3api
 get-object-lock-configuration \\n\n - -bucket debvisor-compliance-archive\n\n## Search compliance
 events\n\n curl -X GET
-"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/_se](http://es01:9200/debvisor-compliance-*/_se)a)r)c)h)")
+"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/_se]([http://es01:9200/debvisor-compliance-*/_s](http://es01:9200/debvisor-compliance-*/_s)e)a)r)c)h)")
 \\n\n - H 'Content-Type: application/json' \\n\n - d '{"query": {"term": {"compliance_tag":
 "MFA"}}}'\n\n## File Locations\n\nSee `DebVisor_initial.md` for complete canonical location
 table.\n\n

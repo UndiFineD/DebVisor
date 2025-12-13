@@ -1,4 +1,4 @@
-# Planning Report: opt\security\__init__.py
+# Planning Report: opt\security\**init**.py
 
 Generated: 2025-12-13T15:10:42.565773
 Status: INVALID
@@ -13,8 +13,8 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got '# Copyright (c) 2025 DebVisor contributors', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got '# Licensed under the Apache License, Version 2.0 (the "License");', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got '# you may not use this file except in compliance with the License.', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got '# You may obtain a copy of the License at', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)') |
-| incorrect_header | 6 | Header line incorrect: got '#     [http://www.apache.org/licenses/LICENSE-2.0',]([http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)'),) expected '# Unless required by applicable law or agreed to in writing, software' |
+| incorrect_header | 5 | Header line incorrect: got '# You may obtain a copy of the License at', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN](http://www.apache.org/licenses/LICEN)S)E)-)2).)0)') |
+| incorrect_header | 6 | Header line incorrect: got '#     [http://www.apache.org/licenses/LICENSE-2.0',]([http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS](http://www.apache.org/licenses/LICENS)E)-)2).)0)'),) expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got '# Unless required by applicable law or agreed to in writing, software', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got '# distributed under the License is distributed on an "AS IS" BASIS,', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
 | incorrect_header | 9 | Header line incorrect: got '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.', expected '# See the License for the specific language governing permissions and' |
@@ -122,7 +122,7 @@ Detailed description of what this file does.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN](http://www.apache.org/licenses/LICEN)S)E)-)2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC](http://www.apache.org/licenses/LIC)E)N)S)E)-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

@@ -82,8 +82,8 @@ byte code.
         )
 
         # Verify key format
-        assert api_key.startswith("dv_")
-        assert len(api_key) == 67    # "dv_" + 64 hex chars
+        assert api*key.startswith("dv*")
+        assert len(api*key) == 67    # "dv*" + 64 hex chars
 
         # Verify key object
 ```python
@@ -112,8 +112,8 @@ byte code.
 ```python
 
         # Verify key format
-        assert api_key.startswith("dv_")
-        assert len(api_key) == 67    # "dv_" + 64 hex chars
+        assert api*key.startswith("dv*")
+        assert len(api*key) == 67    # "dv*" + 64 hex chars
 
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
@@ -141,7 +141,7 @@ byte code.
 ### Context
 
 ```python
-        assert len(api_key) == 67    # "dv_" + 64 hex chars
+        assert len(api*key) == 67    # "dv*" + 64 hex chars
 
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
@@ -390,7 +390,7 @@ byte code.
 
 ```python
         """Test validation of invalid key."""
-        invalid_key = "dv_" + "0" * 64
+        invalid*key = "dv*" + "0" * 64
         validated = key_manager.validate_key(invalid_key)
         assert validated is None
 

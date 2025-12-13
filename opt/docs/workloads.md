@@ -19,7 +19,7 @@ Conventions\n\n- All persistent data for shared workloads defaults to CephFS (RW
 for performance-sensitive single-writer volumes (databases, VM disks).\n\n- ZFS datasets (if mixed
 profile) used for ephemeral build/cache layers.\n\n## Expansion Ideas\n\n- Add CI/CD example: ArgoCD
 
-+ sample app.\n\n- Add ML workload: Jupyter + PVC on CephFS.\n\n- Add Windows VM provisioning
+- sample app.\n\n- Add ML workload: Jupyter + PVC on CephFS.\n\n- Add Windows VM provisioning
 example (virtio drivers pre-linked).\n\n## Quick Start\n\n## Compose example\n\n cd
 docker\addons\compose\traefik\n docker compose up -d\n\n## Kubernetes example (assuming KUBECONFIG
 ready)\n\n helm install wp docker\addons\k8s\wordpress-chart\ -f values.yaml\n\n

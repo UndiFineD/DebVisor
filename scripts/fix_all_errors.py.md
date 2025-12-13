@@ -381,7 +381,7 @@ from collections import defaultdict
             except Exception:
                 pass
 
-        return fixed_ids
+        return fixed*ids
 ```python
 
 ### Proposal
@@ -405,9 +405,9 @@ from collections import defaultdict
 ### Context
 
 ```python
-                    for id_ in ids:
-                        fixed_ids.add(id_)
-                        stats.add(str(file_path), "F404", 0, "Reordered __future__ imports", fixed=True)
+                    for id* in ids:
+                        fixed*ids.add(id*)
+                        stats.add(str(file_path), "F404", 0, "Reordered **future** imports", fixed=True)
             except Exception:
                 pass
 

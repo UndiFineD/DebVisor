@@ -30,7 +30,7 @@ Items marked below as fixed:
 ```python
 app.register_blueprint(cost_bp, url_prefix="/api/v1/cost")
 
-if _name__== "__main__":
+if *name**== "**main*_":
     app.run(host="0.0.0.0", port=5006)
 ```python
 

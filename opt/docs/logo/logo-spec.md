@@ -23,7 +23,7 @@ versions:\n\n- White-on-dark (for dark backgrounds).\n\n- Dark-on-white (for lig
 backgrounds).\n\n- Ensure high contrast and remove small VM details for the smallest sizes (<=24px)
 -- use only server + visor.\n\nTiny icon guidance\n\n- For 16?16 and 32?32, simplify to server shape
 
-+ visor band only (no VM blocks).\n\n- Use solid shapes; avoid strokes.\n\nAccessibility\n\n- Ensure
+- visor band only (no VM blocks).\n\n- Use solid shapes; avoid strokes.\n\nAccessibility\n\n- Ensure
 contrast ratio >4.5:1 for small text and UI uses.\n\n- Provide alt text: "DebVisor logo" and role
 attributes in SVGs as needed.\n\nDeliverables checklist\n\n- SVG master (mark + wordmark)\n\n- SVG
 mark-only\n\n- SVG monochrome variants\n\n- 16/32/64/128/256/512 PNGs (transparent background)\n\n-

@@ -4244,7 +4244,7 @@ byte code.
         assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
         assert iface["mtu"] == 9000  # type: ignore[index]
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

@@ -13,9 +13,9 @@ such as DNS servers and the Prometheus Pushgateway are\nparameterized via
 the`synthetic-metrics-config`ConfigMap. To\ncustomize them for a given cluster, edit the values in
 that ConfigMap\nbefore applying, for example:\n apiVersion: v1\n kind: ConfigMap\n metadata:\n name:
 synthetic-metrics-config\n namespace: debvisor-monitoring\n data:\n PROMETHEUS_PUSHGATEWAY:
-"[http://prometheus-pushgateway.debvisor-monitoring.svc:9091"]([http://prometheus-pushgateway.debvisor-monitoring.svc:9091]([http://prometheus-pushgateway.debvisor-monitoring.svc:909]([http://prometheus-pushgateway.debvisor-monitoring.svc:90]([http://prometheus-pushgateway.debvisor-monitoring.svc:9]([http://prometheus-pushgateway.debvisor-monitoring.svc:](http://prometheus-pushgateway.debvisor-monitoring.svc:)9)0)9)1)")\n
+"[http://prometheus-pushgateway.debvisor-monitoring.svc:9091"]([http://prometheus-pushgateway.debvisor-monitoring.svc:9091]([http://prometheus-pushgateway.debvisor-monitoring.svc:909]([http://prometheus-pushgateway.debvisor-monitoring.svc:90]([http://prometheus-pushgateway.debvisor-monitoring.svc:9]([http://prometheus-pushgateway.debvisor-monitoring.svc:]([http://prometheus-pushgateway.debvisor-monitoring.svc](http://prometheus-pushgateway.debvisor-monitoring.svc):)9)0)9)1)")\n
 DNS_SERVER: "10.10.0.1"\n BIND_EXPORTER:
-"[http://10.10.0.1:9119"]([http://10.10.0.1:9119]([http://10.10.0.1:911]([http://10.10.0.1:91]([http://10.10.0.1:9]([http://10.10.0.1:](http://10.10.0.1:)9)1)1)9)")\nTo
+"[http://10.10.0.1:9119"]([http://10.10.0.1:9119]([http://10.10.0.1:911]([http://10.10.0.1:91]([http://10.10.0.1:9]([http://10.10.0.1:]([http://10.10.0.1](http://10.10.0.1):)9)1)1)9)")\nTo
 deploy the fixtures in a cluster:\n kubectl apply -f
 monitoring/grafana/manifests/synthetic-metrics-configmap.yaml\n kubectl apply -f
 monitoring/grafana/manifests/synthetic-metrics-cronjob.yaml\nTo remove them again:\n kubectl delete
@@ -32,7 +32,7 @@ Verification flow\n\n## CI/CD Validation\n\nLocated in `../.github/workflows/`:\
 **validate-dashboards.yml**: GitHub Actions workflow to validate JSON schema and test Grafana
 imports\n\n## Usage\n\n### Import Dashboards\n\n for dashboard in grafana/dashboards/*.json; do\n
 curl -X POST
-[http://admin:admin@grafana.debvisor.local/api/dashboards/db]([http://admin:admin@grafana.debvisor.local/api/dashboards/d]([http://admin:admin@grafana.debvisor.local/api/dashboards/]([http://admin:admin@grafana.debvisor.local/api/dashboards]([http://admin:admin@grafana.debvisor.local/api/dashboard]([http://admin:admin@grafana.debvisor.local/api/dashboar](http://admin:admin@grafana.debvisor.local/api/dashboar)d)s)/)d)b)
+[http://admin:admin@grafana.debvisor.local/api/dashboards/db]([http://admin:admin@grafana.debvisor.local/api/dashboards/d]([http://admin:admin@grafana.debvisor.local/api/dashboards/]([http://admin:admin@grafana.debvisor.local/api/dashboards]([http://admin:admin@grafana.debvisor.local/api/dashboard]([http://admin:admin@grafana.debvisor.local/api/dashboar]([http://admin:admin@grafana.debvisor.local/api/dashboa](http://admin:admin@grafana.debvisor.local/api/dashboa)r)d)s)/)d)b)
 \\n\n - H "Content-Type: application/json" \\n\n - d @"$dashboard"\n\n done\n\n### Deploy Kubernetes
 Resources\n\n kubectl apply -f monitoring/grafana/manifests/synthetic-metrics-cronjob.yaml\n kubectl
 apply -f monitoring/grafana/manifests/synthetic-metrics-configmap.yaml\nTo remove the fixtures

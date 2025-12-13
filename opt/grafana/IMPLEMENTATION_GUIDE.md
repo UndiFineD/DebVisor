@@ -19,17 +19,17 @@ stat/graph/table | `metric`| 30s |\n\n## Thresholds\n\n | Metric | Warning | Cri
 Prometheus\n\n- [] Thresholds tuned with ops team\n\n- [] No N/A values in production\n\n- [] <3
 seconds load time\n\n## Step 2: Set Up Local Development\n\n### Verify Prometheus Metrics\n\nBefore
 building dashboard, confirm metrics are available:\n\n## Verify Prometheus is running\n\n curl
-[http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he](http://localhost:9090/-/he)a)l)t)h)y)\n\n##
+[http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he]([http://localhost:9090/-/h](http://localhost:9090/-/h)e)a)l)t)h)y)\n\n##
 Check for your metrics\n\n curl
-'[http://localhost:9090/api/v1/query?query=your_metric_name']([http://localhost:9090/api/v1/query?query=your_metric_name]([http://localhost:9090/api/v1/query?query=your_metric_nam]([http://localhost:9090/api/v1/query?query=your_metric_na]([http://localhost:9090/api/v1/query?query=your_metric_n]([http://localhost:9090/api/v1/query?query=your_metric_](http://localhost:9090/api/v1/query?query=your_metric_)n)a)m)e)')
+'[http://localhost:9090/api/v1/query?query=your_metric_name']([http://localhost:9090/api/v1/query?query=your_metric_name]([http://localhost:9090/api/v1/query?query=your_metric_nam]([http://localhost:9090/api/v1/query?query=your_metric_na]([http://localhost:9090/api/v1/query?query=your_metric_n]([http://localhost:9090/api/v1/query?query=your*metric*]([http://localhost:9090/api/v1/query?query=your*metric](http://localhost:9090/api/v1/query?query=your*metric)*)n)a)m)e)')
 | jq .\n\n## List all metrics starting with your prefix\n\n curl
-'[http://localhost:9090/api/v1/series?match[]=your_prefix_*']([http://localhost:9090/api/v1/series?match[]=your_prefix_*]([http://localhost:9090/api/v1/series?match[]=your_prefix_]([http://localhost:9090/api/v1/series?match[]=your_prefix]([http://localhost:9090/api/v1/series?match[]=your_prefi]([http://localhost:9090/api/v1/series?match[]=your_pref](http://localhost:9090/api/v1/series?match[]=your_pref)i)x)_)*)')
+'[http://localhost:9090/api/v1/series?match[]=your*prefix**']([http://localhost:9090/api/v1/series?match[]=your*prefix**]([http://localhost:9090/api/v1/series?match[]=your*prefix*]([http://localhost:9090/api/v1/series?match[]=your_prefix]([http://localhost:9090/api/v1/series?match[]=your_prefi]([http://localhost:9090/api/v1/series?match[]=your_pref]([http://localhost:9090/api/v1/series?match[]=your*pre](http://localhost:9090/api/v1/series?match[]=your*pre)f)i)x)*)*)')
 | jq .\n\n## Start Grafana Locally\n\n## Docker Compose\n\n docker run -d -p 3000:3000
 grafana/grafana:latest\n\n## Or systemd\n\n systemctl start grafana-server\n\n## Default:
-[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost](http://localhost):)3)0)0)0)
+[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos](http://localhos)t):)3)0)0)0)
 (admin/admin)\n\n## Add Prometheus Datasource\n\n1. Login to Grafana (admin/admin)\n\n1. Navigate to
 Configuration -> Data Sources\n\n1. Click "Add data source"\n\n1. Select "Prometheus"\n\n1. URL:
-[http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus](http://prometheus):)9)0)9)0)\n\n1.
+[http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu](http://prometheu)s):)9)0)9)0)\n\n1.
 Click "Save & Test"\n\n## Step 3: Create Dashboard JSON\n\n### Option A: UI Creation (Easier for
 First-Time)\n\n1.**Create Dashboard:**Click "+" -> "Dashboard" -> "New Panel"\n1.**Add Panel:**Click
 "Add panel"\n1.**Configure Panel:**\n\n- Title: "CPU Usage (%)"\n\n- Query:`100 *(1 -
@@ -96,13 +96,13 @@ utilization"},\n {"color": "red", "value": 90, "annotation": "Critical"}\n ]\n }
 Thresholds in Dashboard\n\nAdd to description:\n\n## Thresholds [2]\n\n### CPU
 Utilization\n\n-**Warning:**70%\n\n- **Critical:**90%\n\n- **Rationale:**Headroom needed for spike
 absorption\n\n- **Runbook:**[CPU High
-Troubleshooting]([https://docs.example.com/runbooks/cpu-hig]([https://docs.example.com/runbooks/cpu-hi]([https://docs.example.com/runbooks/cpu-h]([https://docs.example.com/runbooks/cpu-]([https://docs.example.com/runbooks/cpu](https://docs.example.com/runbooks/cpu)-)h)i)g)h)\n\n###
+Troubleshooting]([https://docs.example.com/runbooks/cpu-hig]([https://docs.example.com/runbooks/cpu-hi]([https://docs.example.com/runbooks/cpu-h]([https://docs.example.com/runbooks/cpu-]([https://docs.example.com/runbooks/cpu]([https://docs.example.com/runbooks/cp](https://docs.example.com/runbooks/cp)u)-)h)i)g)h)\n\n###
 Memory Utilization\n\n- **Warning:**80%\n\n- **Critical:**95%\n\n- **Rationale:**OOM killer
 activates near 100%\n\n- **Runbook:**[Memory Pressure
-Troubleshooting]([https://docs.example.com/runbooks/memory-pressur]([https://docs.example.com/runbooks/memory-pressu]([https://docs.example.com/runbooks/memory-press]([https://docs.example.com/runbooks/memory-pres]([https://docs.example.com/runbooks/memory-pre](https://docs.example.com/runbooks/memory-pre)s)s)u)r)e)\n\n##
+Troubleshooting]([https://docs.example.com/runbooks/memory-pressur]([https://docs.example.com/runbooks/memory-pressu]([https://docs.example.com/runbooks/memory-press]([https://docs.example.com/runbooks/memory-pres]([https://docs.example.com/runbooks/memory-pre]([https://docs.example.com/runbooks/memory-pr](https://docs.example.com/runbooks/memory-pr)e)s)s)u)r)e)\n\n##
 Step 8: Export Dashboard\n\nAfter testing in Grafana UI:\n\n### Export from Grafana\n\n## Get your
 dashboard\n\n curl -s
-[http://localhost:3000/api/dashboards/uid/my-dashboard]([http://localhost:3000/api/dashboards/uid/my-dashboar]([http://localhost:3000/api/dashboards/uid/my-dashboa]([http://localhost:3000/api/dashboards/uid/my-dashbo]([http://localhost:3000/api/dashboards/uid/my-dashb]([http://localhost:3000/api/dashboards/uid/my-dash](http://localhost:3000/api/dashboards/uid/my-dash)b)o)a)r)d)
+[http://localhost:3000/api/dashboards/uid/my-dashboard]([http://localhost:3000/api/dashboards/uid/my-dashboar]([http://localhost:3000/api/dashboards/uid/my-dashboa]([http://localhost:3000/api/dashboards/uid/my-dashbo]([http://localhost:3000/api/dashboards/uid/my-dashb]([http://localhost:3000/api/dashboards/uid/my-dash]([http://localhost:3000/api/dashboards/uid/my-das](http://localhost:3000/api/dashboards/uid/my-das)h)b)o)a)r)d)
 \\n\n - H "Authorization: Bearer $GRAFANA_TOKEN" | jq '.dashboard' > my-dashboard.json\n\n##
 Validate JSON\n\n jq . my-dashboard.json > /dev/null && echo "Valid JSON"\n\n## Add to
 Repository\n\n## Copy to dashboards directory\n\n cp my-dashboard.json opt/grafana/dashboards/\n\n##
@@ -134,10 +134,10 @@ Thresholds documented with runbook links\n\n- [] Added to opt/grafana/README.md\
 Refresh rate appropriate (10s for alerts, 30s for normal)\n\n- [] Legends show current, max, mean
 (not excessive)\n\n- [] <20 panels per dashboard\n\n## Common Dashboard Patterns\n\n###
 Multi-Cluster Monitoring\n\n- *Key Pattern:**Use`$cluster` selector in all queries\n\n {\n
-"targets": [\n {\n "expr": "sum by (cluster) (rate(metric_total{cluster=\"$cluster\"}[5m]))"\n
+"targets": [\n {\n "expr": "sum by (cluster) (rate(metric*total{cluster=\"$cluster\"}[5m]))"\n
 }\n]\n }\n\n### Drill-Down Navigation\n\n- *Pattern:**Click panel value to go to detail
 dashboard\n\n {\n "fieldConfig": {\n "defaults": {\n "links": [\n {\n "title": "View Details",\n
-"url": "d/node-details?var-node=${__value.raw}",\n "targetBlank": false\n }\n ]\n }\n }\n }\n\n###
+"url": "d/node-details?var-node=${*_value.raw}",\n "targetBlank": false\n }\n ]\n }\n }\n }\n\n###
 Comparative Analysis\n\n- *Pattern:**Show top 5 problematic resources\n\n## Top 5 nodes by CPU
 usage\n\n topk(5, 100 *(1 - avg by (instance) (\n rate(node_cpu_seconds_total{mode="idle"}[5m])\n
 )))\n\n## Per-Service Status Table\n\n-*Pattern:**Table with resource names and statuses\n\n {\n
@@ -145,9 +145,9 @@ usage\n\n topk(5, 100 *(1 - avg by (instance) (\n rate(node_cpu_seconds_total{mo
 }\n ],\n "options": {\n "showHeader": true,\n "sortBy": ["value"]\n }\n }\n\n##
 Troubleshooting\n\n### "No Data" Errors\n\n- *Problem:**Dashboard shows "No Data" in panels\n\n###
 Debug\n\n## 1. Check metric exists in Prometheus\n\n curl
-'[http://prometheus:9090/api/v1/series?match[]=your_metric']([http://prometheus:9090/api/v1/series?match[]=your_metric]([http://prometheus:9090/api/v1/series?match[]=your_metri]([http://prometheus:9090/api/v1/series?match[]=your_metr]([http://prometheus:9090/api/v1/series?match[]=your_met]([http://prometheus:9090/api/v1/series?match[]=your_me](http://prometheus:9090/api/v1/series?match[]=your_me)t)r)i)c)')
+'[http://prometheus:9090/api/v1/series?match[]=your_metric']([http://prometheus:9090/api/v1/series?match[]=your_metric]([http://prometheus:9090/api/v1/series?match[]=your_metri]([http://prometheus:9090/api/v1/series?match[]=your_metr]([http://prometheus:9090/api/v1/series?match[]=your_met]([http://prometheus:9090/api/v1/series?match[]=your_me]([http://prometheus:9090/api/v1/series?match[]=your_m](http://prometheus:9090/api/v1/series?match[]=your_m)e)t)r)i)c)')
 | jq .\n\n## 2. Test query in Prometheus UI\n\n## Go to
-[http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus](http://prometheus):)9)0)9)0)
+[http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu](http://prometheu)s):)9)0)9)0)
 and paste query\n\n## 3. Check datasource connection\n\n## In Grafana: Configuration -> Data Sources
 -> Test\n\n## Solution\n\n- Verify metric name and label matchers\n\n- Check Prometheus scrape
 config includes job\n\n- Verify datasource URL is correct\n\n### Slow Dashboard Load\n\n-
@@ -156,7 +156,7 @@ total)\n\n 1. Increase refresh rate (30s instead of 10s)\n\n 1. Simplify queries
 high-cardinality labels)\n\n 1. Add query caching where appropriate\n\n### Threshold Not
 Triggering\n\n- *Problem:**Threshold colors don't change\n\n### Debug [2]\n\n## 1. Run query
 manually\n\n curl
-'[http://prometheus:9090/api/v1/query?query=YOUR_QUERY']([http://prometheus:9090/api/v1/query?query=YOUR_QUERY]([http://prometheus:9090/api/v1/query?query=YOUR_QUER]([http://prometheus:9090/api/v1/query?query=YOUR_QUE]([http://prometheus:9090/api/v1/query?query=YOUR_QU]([http://prometheus:9090/api/v1/query?query=YOUR_Q](http://prometheus:9090/api/v1/query?query=YOUR_Q)U)E)R)Y)')
+'[http://prometheus:9090/api/v1/query?query=YOUR_QUERY']([http://prometheus:9090/api/v1/query?query=YOUR_QUERY]([http://prometheus:9090/api/v1/query?query=YOUR_QUER]([http://prometheus:9090/api/v1/query?query=YOUR_QUE]([http://prometheus:9090/api/v1/query?query=YOUR_QU]([http://prometheus:9090/api/v1/query?query=YOUR_Q]([http://prometheus:9090/api/v1/query?query=YOUR_](http://prometheus:9090/api/v1/query?query=YOUR_)Q)U)E)R)Y)')
 | jq .\n\n## 2. Check current value vs threshold\n\n## Panel shows current value; compare to
 threshold\n\n## 3. Verify threshold mode\n\n## Should be "absolute" or "percentage" as needed\n\n##
 Solution [2]\n\n- Adjust threshold values based on actual metric range\n\n- Verify aggregation
@@ -170,8 +170,8 @@ Usage:**Check if operators are actually using it\n1.**Gather Feedback:**Ask "Is 
 missing?"\n1.**Refine:**Adjust panels, queries, thresholds based on feedback\n1.**Document
 Results:**Update README with lessons learned\n\n## References\n\n- [Dashboard
 Standards](./DASHBOARD_STANDARDS.md)\n\n- [Prometheus Query
-Documentation]([https://prometheus.io/docs/prometheus/latest/querying/basics]([https://prometheus.io/docs/prometheus/latest/querying/basic]([https://prometheus.io/docs/prometheus/latest/querying/basi]([https://prometheus.io/docs/prometheus/latest/querying/bas]([https://prometheus.io/docs/prometheus/latest/querying/ba](https://prometheus.io/docs/prometheus/latest/querying/ba)s)i)c)s)/)\n\n-
+Documentation]([https://prometheus.io/docs/prometheus/latest/querying/basics]([https://prometheus.io/docs/prometheus/latest/querying/basic]([https://prometheus.io/docs/prometheus/latest/querying/basi]([https://prometheus.io/docs/prometheus/latest/querying/bas]([https://prometheus.io/docs/prometheus/latest/querying/ba]([https://prometheus.io/docs/prometheus/latest/querying/b](https://prometheus.io/docs/prometheus/latest/querying/b)a)s)i)c)s)/)\n\n-
 [Grafana
-Documentation]([https://grafana.com/docs/grafana/latest]([https://grafana.com/docs/grafana/lates]([https://grafana.com/docs/grafana/late]([https://grafana.com/docs/grafana/lat]([https://grafana.com/docs/grafana/la](https://grafana.com/docs/grafana/la)t)e)s)t)/)\n\n-
+Documentation]([https://grafana.com/docs/grafana/latest]([https://grafana.com/docs/grafana/lates]([https://grafana.com/docs/grafana/late]([https://grafana.com/docs/grafana/lat]([https://grafana.com/docs/grafana/la]([https://grafana.com/docs/grafana/l](https://grafana.com/docs/grafana/l)a)t)e)s)t)/)\n\n-
 [DebVisor Monitoring Guide](../monitoring/README.md)\n\n- [DebVisor Fixtures
 Guide](../monitoring/FIXTURES_GUIDE.md) (for testing with synthetic data)\n\n

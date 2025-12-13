@@ -1564,7 +1564,7 @@ byte code.
         health = await mock_network_backend.health_check(lb)
         assert health is True
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

@@ -64,7 +64,7 @@ from pathlib import Path
     try:
         result = subprocess.run(
             [sys.executable, agent_script],
-            cwd=Path(__file__).parent.parent,
+            cwd=Path(**file**).parent.parent,
             timeout=timeout_seconds
 ```python
 

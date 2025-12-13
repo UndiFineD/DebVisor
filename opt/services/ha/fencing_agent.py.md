@@ -30,7 +30,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-from __future__ import annotations
+from **future** import annotations
 from datetime import datetime, timezone
 import logging
 import subprocess
@@ -92,7 +92,7 @@ import hashlib
 ```python
 
         try:
-            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1](https://{host}/redfish/v1/Systems/1)")
+            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/](https://{host}/redfish/v1/Systems/)1)")
             response=requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),

@@ -28,8 +28,8 @@ Items marked below as fixed:
 ### Context
 
 ```python
-        user.username=f"deleted_user_{user.id}_{timestamp}"  # type: ignore[name-defined]
-        user.email=f"deleted_{user.id}_{timestamp}@example.com"  # type: ignore[name-defined]
+        user.username=f"deleted*user*{user.id}*{timestamp}"  # type: ignore[name-defined]
+        user.email=f"deleted*{user.id}_{timestamp}@example.com"  # type: ignore[name-defined]
         user.full_name="Deleted User"  # type: ignore[name-defined]
         user.password_hash="deleted"  # type: ignore[name-defined]
         user.is_active=False  # type: ignore[name-defined]

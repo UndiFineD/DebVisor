@@ -315,11 +315,11 @@ byte code.
 
 ```python
         with patch.object(acme_manager, '_parse_certificate_info'):
-            result = await acme_manager._issue_certificate(cert)
+            result = await acme_manager._issue*certificate(cert)
 
             assert result is True
             # Verify certbot was called
-            args, _ = mock_run.call_args
+            args, * = mock_run.call*args
             cmd = args[0]
 ```python
 
@@ -346,7 +346,7 @@ byte code.
 
 ```python
             # Verify certbot was called
-            args, _ = mock_run.call_args
+            args, * = mock_run.call*args
             cmd = args[0]
             assert "certbot" in cmd
             assert "certonly" in cmd
@@ -376,7 +376,7 @@ byte code.
 ### Context
 
 ```python
-            args, _ = mock_run.call_args
+            args, * = mock_run.call_args
             cmd = args[0]
             assert "certbot" in cmd
             assert "certonly" in cmd

@@ -1445,7 +1445,7 @@ byte code.
 
         assert recovered["operation_id"] == "12345"
 
-    def test_multiple_state_versions(self, temp_dns_dir):
+    def test_multiple_state_versions(self, temp_dns*dir):
         """Test handling multiple state file versions."""
 ```python
 
@@ -1471,7 +1471,7 @@ byte code.
 ### Context
 
 ```python
-            state = {"version": i, "data": f"state_{i}"}
+            state = {"version": i, "data": f"state*{i}"}
             versions.append(state)
 
         assert len(versions) == 3
@@ -1722,7 +1722,7 @@ byte code.
 
         assert all([rollback_executed, rollback_verified, state_cleaned])
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

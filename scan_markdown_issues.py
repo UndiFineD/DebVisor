@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Scan markdown files for common linting issues.
-Reports on issues not yet fixed by fix_all_markdown.py
+Extended markdown linting issue scanner.
+Identifies additional markdown issues for fix_all_markdown.py
 """
 
 import re
@@ -58,7 +58,7 @@ def scan_markdown_file(file_path):
     for i, line in enumerate(lines):
         if line.startswith('```'):
             in_code_block = not in_code_block
-        elif not in_code_block and len(line) > 80 and line.strip() and not line.strip().startswith('http'):
+        elif not in_code_block and len(line) > 100 and line.strip() and not line.strip().startswith('http'):
             if i == 0 or (i > 0 and not lines[i-1].startswith('`')):
                 issues['MD013_line_too_long'] += 1
                 break
@@ -78,16 +78,58 @@ def scan_markdown_file(file_path):
     if re.search(r'<[^>]+>', content):
         issues['MD033_inline_html'] += 1
 
-    # MD035: Horizontal rule style
-    for line in lines:
-        if re.match(r'^[-_*]{3,}$', line.strip()):
-            # Found hr but check if consistent
-            if not re.match(r'^---+$', line.strip()):
-                issues['MD035_hr_style'] += 1
+    # MD043: Required heading hierarchy
+    h1_found = False
+    h2_found = False
+    for i, line in enumerate(lines):
+        if line.startswith('# '):
+            h1_found = True
+        elif line.startswith('## '):
+            h2_found = True
+        elif line.startswith('### ') and not h2_found and h1_found:
+            # H3 before H2
+            issues['MD043_heading_hierarchy'] += 1
+            break
+
+    # MD046: Code block style (indentation vs fence)
+    indented_code_lines = sum(1 for line in lines if line.startswith('    ') and line.strip())
+    fenced_code_lines = sum(1 for line in lines if '```' in line)
+    if indented_code_lines > 3 and fenced_code_lines > 0:
+        issues['MD046_code_block_style'] += 1
+
+    # MD048: Code fence style (backticks vs tildes)
+    backtick_count = content.count('```')
+    tilde_count = content.count('~~~')
+    if backtick_count > 0 and tilde_count > 0:
+        issues['MD048_fence_style'] += 1
+
+    # MD049: Emphasis marker style (underscores vs asterisks)
+    underscore_bold = len(re.findall(r'__[^_]+__', content))
+    asterisk_bold = len(re.findall(r'\*\*[^*]+\*\*', content))
+    if underscore_bold > 0 and asterisk_bold > 0:
+        issues['MD049_emphasis_style'] += 1
+
+    # MD050: Ordered list item prefix style inconsistency
+    period_prefixes = len(re.findall(r'^\s*\d+\.\s', '\n'.join(lines), re.MULTILINE))
+    paren_prefixes = len(re.findall(r'^\s*\d+\)\s', '\n'.join(lines), re.MULTILINE))
+    if period_prefixes > 0 and paren_prefixes > 0:
+        issues['MD050_ol_prefix'] += 1
+
+    # MD051: Link fragments (check for headings without proper IDs)
+    # Check for links to internal anchors
+    internal_links = re.findall(r'\[([^\]]+)\]\(#([^)]+)\)', content)
+    if internal_links:
+        # Check if heading with matching text exists
+        for link_text, anchor in internal_links:
+            if not any(anchor.lower() in line.lower() for line in lines):
+                issues['MD051_link_fragments'] += 1
                 break
 
-    # MD044: Proper names (capitalization)
-    # This is harder to detect, skip for now
+    # MD054: Relative links
+    relative_links = len(re.findall(r'\]\(\.\/?[^)]+\)', content))
+    absolute_links = len(re.findall(r'\]\(https?://[^)]+\)', content))
+    if relative_links > 0 and absolute_links > 0:
+        issues['MD054_relative_links'] += 1
 
     return issues
 

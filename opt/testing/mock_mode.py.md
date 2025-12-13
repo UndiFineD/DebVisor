@@ -307,11 +307,11 @@ Items marked below as fixed:
 ```python
             "network_interfaces": [
                 {
-                    "mac": _generate_mac(),
+                    "mac": _generate*mac(),
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
                     "network": f"net-{random.randint(0, 2):02d}",
                 }
-                for _ in range(random.randint(1, 3))
+                for * in range(random.randint(1, 3))
 ```python
 
 ### Proposal
@@ -337,11 +337,11 @@ Items marked below as fixed:
 ```python
             "network_interfaces": [
                 {
-                    "mac": _generate_mac(),
+                    "mac": _generate*mac(),
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
                     "network": f"net-{random.randint(0, 2):02d}",
                 }
-                for _ in range(random.randint(1, 3))
+                for * in range(random.randint(1, 3))
 ```python
 
 ### Proposal
@@ -366,11 +366,11 @@ Items marked below as fixed:
 
 ```python
                 {
-                    "mac": _generate_mac(),
+                    "mac": _generate*mac(),
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
                     "network": f"net-{random.randint(0, 2):02d}",
                 }
-                for _ in range(random.randint(1, 3))
+                for * in range(random.randint(1, 3))
             ],
 ```python
 
@@ -875,10 +875,10 @@ def _generate_mac() -> str:
             "ports": [
                 {
                     "container_port": random.choice([80, 443, 8080, 3000, 5432, 6379]),
-                    "host_port": random.randint(30000, 32767),
+                    "host*port": random.randint(30000, 32767),
                     "protocol": "tcp",
                 }
-                for _ in range(random.randint(0, 3))
+                for * in range(random.randint(0, 3))
 ```python
 
 ### Proposal
@@ -902,10 +902,10 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-                    "host_port": random.randint(30000, 32767),
+                    "host*port": random.randint(30000, 32767),
                     "protocol": "tcp",
                 }
-                for _ in range(random.randint(0, 3))
+                for * in range(random.randint(0, 3))
             ],
             "labels": {
                 "app": f"app-{random.randint(1, 10):02d}",
@@ -1952,11 +1952,11 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-            raise MockServiceError(f"Mock failure: {func.__name__}")
+            raise MockServiceError(f"Mock failure: {func.**name**}")
 
         if config.behavior == MockBehavior.FLAKY:
             if random.random() < config.failure_rate:
-                raise MockServiceError(f"Random mock failure: {func.__name__}")
+                raise MockServiceError(f"Random mock failure: {func.**name**}")
 
         if config.behavior == MockBehavior.TIMEOUT:
 ```python
@@ -1982,12 +1982,12 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-                raise MockServiceError(f"Random mock failure: {func.__name__}")
+                raise MockServiceError(f"Random mock failure: {func.**name**}")
 
         if config.behavior == MockBehavior.TIMEOUT:
             if random.random() < config.timeout_rate:
                 time.sleep(config.timeout_seconds)
-                raise MockTimeoutError(f"Mock timeout: {func.__name__}")
+                raise MockTimeoutError(f"Mock timeout: {func.**name**}")
 
 ```python
 
@@ -2042,13 +2042,13 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-            raise MockServiceError(f"Mock failure: {func.__name__}")
+            raise MockServiceError(f"Mock failure: {func.**name**}")
 
         if config.behavior == MockBehavior.FLAKY:
             if random.random() < config.failure_rate:
-                raise MockServiceError(f"Random mock failure: {func.__name__}")
+                raise MockServiceError(f"Random mock failure: {func.**name**}")
 
-        return _get_mock_response(func.__name__, *args, **kwargs)
+        return _get_mock_response(func.**name**, *args, **kwargs)
 ```python
 
 ### Proposal
@@ -2076,7 +2076,7 @@ def _generate_mac() -> str:
 
     @mockable
     def create_secret(  # type: ignore[empty-body, return-value]
-        self, name: str, value: str, secret_type: str="generic"
+        self, name: str, value: str, secret*type: str="generic"
     ) -> Dict[str, Any]:
         """Create a new secret."""
 ```python
@@ -2102,7 +2102,7 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-        return ":".join(f"{rng.randint(0, 255):02x}" for _ in range(6))
+        return ":".join(f"{rng.randint(0, 255):02x}" for * in range(6))
 
     def _generate_default_state(self, seed: int | None=None) -> None:
         _rng=random.Random(seed)

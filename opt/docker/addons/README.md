@@ -37,7 +37,7 @@ conflicts:\n\n- addon: other-monitoring-stack\n\n## Lifecycle hooks\n\n hooks:\n
 before deployment\n\n- script: validate-prereqs.sh\n\n post_deploy: # Run after deployment\n\n-
 script: configure-monitoring.sh\n\n pre_remove: # Run before removal\n\n- script:
 backup-data.sh\n\n## Health checks\n\n healthcheck:\n type: http\n endpoint:
-"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea](http://localhost:9090/-/hea)l)t)h)y)")\n
+"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he](http://localhost:9090/-/he)a)l)t)h)y)")\n
 interval: 30s\n timeout: 5s\n\n## Configuration schema (for validation)\n\n config:\n properties:\n
 prometheus_retention_days:\n type: integer\n default: 30\n description: "Prometheus data retention
 period (days)"\n grafana_admin_password:\n type: string\n description: "Initial Grafana admin
@@ -50,7 +50,7 @@ remove:\n instructions: |\n\n 1. Backup Prometheus data: `kubectl exec -it prome
 volumes: `kubectl delete pvc --all -n monitoring`\n\n## Post-install validation\n\n validation:\n
 checks:\n\n- name: "Prometheus running"\n\n command: "kubectl get deployment prometheus -n
 monitoring"\n\n- name: "Grafana accessible"\n\n command: "curl -f
-[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost](http://localhost):)3)0)0)0)
+[http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos](http://localhos)t):)3)0)0)0)
 || exit 1"\n\n### Addon Metadata Schema Fields\n\n| Field | Required | Type | Description
 |\n|-------|----------|------|-------------|\n| `metadata.name`| Yes | string | Unique addon
 identifier (alphanumeric + dash) |\n|`metadata.description`| Yes | string | Human-readable
@@ -63,7 +63,7 @@ Persistent storage requirement |\n|`spec.supported_architectures`| Yes | list | 
 amd64, arm64, ppc64le, s390x |\n|`spec.dependencies`| No | list | Required addons (name + optional
 version) |\n|`spec.conflicts`| No | list | Conflicting addons (cannot be enabled together)
 |\n|`spec.hooks.pre_deploy`| No | list | Scripts to run before deployment
-|\n|`spec.hooks.post_deploy`| No | list | Scripts to run after deployment
+|\n|`spec.hooks.post*deploy`| No | list | Scripts to run after deployment
 |\n|`spec.healthcheck.type`| No | enum | Health check type: http, tcp, exec, kubernetes
 |\n|`spec.install.instructions`| Yes | string | Installation instructions
 |\n|`spec.remove.instructions`| Yes | string | Removal instructions |\n\n## Addon
@@ -105,7 +105,7 @@ Dependency Detection\n\nValidation fails if circular dependencies are detected:\
 addon-b\n addon-b depends on addon-a\n v\n ERROR: Circular dependency detected\n\n## Addon
 Integration with DebVisor Components\n\n### Monitoring Integration\n\n- Addons
 in`k8s/monitoring/`inherit DebVisor Prometheus label conventions\n\n- Export metrics
-following`debvisor_*`namespace\n\n- Register with existing Grafana dashboards via label
+following`debvisor**`namespace\n\n- Register with existing Grafana dashboards via label
 matching\n\n### Networking Integration\n\n- Addons requiring network access should use DebVisor
 bridge or Calico networks\n\n- DNS integration: register addon services in DebVisor DNS\n\n- Load
 balancing: use existing HAProxy or Kubernetes ingress\n\n### Storage Integration\n\n- Addons

@@ -249,15 +249,15 @@ compression)\n1.**Medium-term:**Implement gRPC RPC service and web panel advance
 WebSockets, PDF)\n1.**Medium-term:**Add comprehensive testing framework\n1.**Medium-term:**Large
 cluster optimization (1000+ nodes)\n1.**Long-term:**Develop HA cluster automation\n\n##
 References\n\n- [Ansible
-Documentation]([https://docs.ansible.com]([https://docs.ansible.co]([https://docs.ansible.c]([https://docs.ansible.]([https://docs.ansible](https://docs.ansible).)c)o)m)/)\n\n-
+Documentation]([https://docs.ansible.com]([https://docs.ansible.co]([https://docs.ansible.c]([https://docs.ansible.]([https://docs.ansible]([https://docs.ansibl](https://docs.ansibl)e).)c)o)m)/)\n\n-
 [Live-build
-Manual]([https://live-team.pages.debian.net/live-manual]([https://live-team.pages.debian.net/live-manua]([https://live-team.pages.debian.net/live-manu]([https://live-team.pages.debian.net/live-man]([https://live-team.pages.debian.net/live-ma](https://live-team.pages.debian.net/live-ma)n)u)a)l)/)\n\n-
+Manual]([https://live-team.pages.debian.net/live-manual]([https://live-team.pages.debian.net/live-manua]([https://live-team.pages.debian.net/live-manu]([https://live-team.pages.debian.net/live-man]([https://live-team.pages.debian.net/live-ma]([https://live-team.pages.debian.net/live-m](https://live-team.pages.debian.net/live-m)a)n)u)a)l)/)\n\n-
 [Grafana
-Documentation]([https://grafana.com/docs]([https://grafana.com/doc]([https://grafana.com/do]([https://grafana.com/d]([https://grafana.com/](https://grafana.com/)d)o)c)s)/)\n\n-
+Documentation]([https://grafana.com/docs]([https://grafana.com/doc]([https://grafana.com/do]([https://grafana.com/d]([https://grafana.com/]([https://grafana.com](https://grafana.com)/)d)o)c)s)/)\n\n-
 [Prometheus
-Documentation]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/](https://prometheus.io/)d)o)c)s)/)\n\n-
+Documentation]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/]([https://prometheus.io](https://prometheus.io)/)d)o)c)s)/)\n\n-
 [Kubernetes
-Documentation]([https://kubernetes.io/docs]([https://kubernetes.io/doc]([https://kubernetes.io/do]([https://kubernetes.io/d]([https://kubernetes.io/](https://kubernetes.io/)d)o)c)s)/)\n\n##
+Documentation]([https://kubernetes.io/docs]([https://kubernetes.io/doc]([https://kubernetes.io/do]([https://kubernetes.io/d]([https://kubernetes.io/]([https://kubernetes.io](https://kubernetes.io)/)d)o)c)s)/)\n\n##
 Related Documentation\n\n- See [/etc/README.md](../etc/README.md) for system services and
 maintenance\n\n- See [/usr/README.md](../usr/README.md) for operational scripts and CLIs
 (planned)\n\n- See [README.md](../README.md) for project overview\n\n

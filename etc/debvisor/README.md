@@ -167,19 +167,19 @@ ceph'\n\n## Adjust limits in service file or drop-in override\n\n## Logs Not App
 journal is working\n\n sudo systemctl status systemd-journald\n\n## Check journal disk usage\n\n
 sudo journalctl --disk-usage\n\n## View journal info\n\n sudo journalctl --unit=ceph-health.service
 --follow --all\n\n## References\n\n-
-[systemd.service(5)]([https://www.freedesktop.org/software/systemd/man/systemd.service.htm]([https://www.freedesktop.org/software/systemd/man/systemd.service.ht]([https://www.freedesktop.org/software/systemd/man/systemd.service.h]([https://www.freedesktop.org/software/systemd/man/systemd.service.]([https://www.freedesktop.org/software/systemd/man/systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service).)h)t)m)l)
+[systemd.service(5)]([https://www.freedesktop.org/software/systemd/man/systemd.service.htm]([https://www.freedesktop.org/software/systemd/man/systemd.service.ht]([https://www.freedesktop.org/software/systemd/man/systemd.service.h]([https://www.freedesktop.org/software/systemd/man/systemd.service.]([https://www.freedesktop.org/software/systemd/man/systemd.service]([https://www.freedesktop.org/software/systemd/man/systemd.servic](https://www.freedesktop.org/software/systemd/man/systemd.servic)e).)h)t)m)l)
 
 - Service unit documentation\n\n-
-[systemd.timer(5)]([https://www.freedesktop.org/software/systemd/man/systemd.timer.htm]([https://www.freedesktop.org/software/systemd/man/systemd.timer.ht]([https://www.freedesktop.org/software/systemd/man/systemd.timer.h]([https://www.freedesktop.org/software/systemd/man/systemd.timer.]([https://www.freedesktop.org/software/systemd/man/systemd.timer](https://www.freedesktop.org/software/systemd/man/systemd.timer).)h)t)m)l)
+[systemd.timer(5)]([https://www.freedesktop.org/software/systemd/man/systemd.timer.htm]([https://www.freedesktop.org/software/systemd/man/systemd.timer.ht]([https://www.freedesktop.org/software/systemd/man/systemd.timer.h]([https://www.freedesktop.org/software/systemd/man/systemd.timer.]([https://www.freedesktop.org/software/systemd/man/systemd.timer]([https://www.freedesktop.org/software/systemd/man/systemd.time](https://www.freedesktop.org/software/systemd/man/systemd.time)r).)h)t)m)l)
 
 - Timer unit documentation\n\n-
-[ceph(1)]([https://docs.ceph.com/en/latest/man/8/ceph]([https://docs.ceph.com/en/latest/man/8/cep]([https://docs.ceph.com/en/latest/man/8/ce]([https://docs.ceph.com/en/latest/man/8/c]([https://docs.ceph.com/en/latest/man/8/](https://docs.ceph.com/en/latest/man/8/)c)e)p)h)/)
+[ceph(1)]([https://docs.ceph.com/en/latest/man/8/ceph]([https://docs.ceph.com/en/latest/man/8/cep]([https://docs.ceph.com/en/latest/man/8/ce]([https://docs.ceph.com/en/latest/man/8/c]([https://docs.ceph.com/en/latest/man/8/]([https://docs.ceph.com/en/latest/man/8](https://docs.ceph.com/en/latest/man/8)/)c)e)p)h)/)
 
 - Ceph cluster command reference\n\n-
-[zpool-scrub(8)]([https://linux.die.net/man/8/zpoo]([https://linux.die.net/man/8/zpo]([https://linux.die.net/man/8/zp]([https://linux.die.net/man/8/z]([https://linux.die.net/man/8/](https://linux.die.net/man/8/)z)p)o)o)l)
+[zpool-scrub(8)]([https://linux.die.net/man/8/zpoo]([https://linux.die.net/man/8/zpo]([https://linux.die.net/man/8/zp]([https://linux.die.net/man/8/z]([https://linux.die.net/man/8/]([https://linux.die.net/man/8](https://linux.die.net/man/8)/)z)p)o)o)l)
 
 - ZFS pool scrub documentation\n\n-
-[systemd.time(7)]([https://www.freedesktop.org/software/systemd/man/systemd.time.htm]([https://www.freedesktop.org/software/systemd/man/systemd.time.ht]([https://www.freedesktop.org/software/systemd/man/systemd.time.h]([https://www.freedesktop.org/software/systemd/man/systemd.time.]([https://www.freedesktop.org/software/systemd/man/systemd.time](https://www.freedesktop.org/software/systemd/man/systemd.time).)h)t)m)l)
+[systemd.time(7)]([https://www.freedesktop.org/software/systemd/man/systemd.time.htm]([https://www.freedesktop.org/software/systemd/man/systemd.time.ht]([https://www.freedesktop.org/software/systemd/man/systemd.time.h]([https://www.freedesktop.org/software/systemd/man/systemd.time.]([https://www.freedesktop.org/software/systemd/man/systemd.time]([https://www.freedesktop.org/software/systemd/man/systemd.tim](https://www.freedesktop.org/software/systemd/man/systemd.tim)e).)h)t)m)l)
 
 - Time specification format\n\n## See Also\n\n- [../opt/README.md](../opt/README.md) - Operational
 scripts and tools\n\n- [../usr/README.md](../usr/README.md) - Runtime services and CLIs\n\n-

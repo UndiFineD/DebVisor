@@ -52,25 +52,25 @@ restart debvisor\n```text\n```text\n```text\n```text\n\n1.**Verify Health**:\n\n
 ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify
 
 Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n curl -f
-<[http://localhost:8080/health/live>\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv](http://localhost:8080/health/liv)e)>)\)n)
+<[http://localhost:8080/health/live>\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv]([http://localhost:8080/health/li](http://localhost:8080/health/li)v)e)>)\)n)
 curl -f
-<[http://localhost:8080/health/ready>\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text](http://localhost:8080/health/ready>\n```text)\)n)\)n)
+<[http://localhost:8080/health/ready>\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text]([http://localhost:8080/health/ready>\n```tex](http://localhost:8080/health/ready>\n```tex)t)\)n)\)n)
 curl -f
-<<[http://localhost:8080/health/ready>>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te](http://localhost:8080/health/ready>>\n```te)x)t)\)n)
+<<[http://localhost:8080/health/ready>>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te]([http://localhost:8080/health/ready>>\n```t](http://localhost:8080/health/ready>>\n```t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li](https://localhost:8080/health/li)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l](https://localhost:8080/health/l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text](https://localhost:8080/health/ready\n```text)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex](https://localhost:8080/health/ready\n```tex)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te](https://localhost:8080/health/ready>\n```te)x)t)\)n)
+<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t](https://localhost:8080/health/ready>\n```t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li](https://localhost:8080/health/li)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l](https://localhost:8080/health/l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text](https://localhost:8080/health/ready\n```text)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex](https://localhost:8080/health/ready\n```tex)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te](https://localhost:8080/health/ready>\n```te)x)t)\)n)
+<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t](https://localhost:8080/health/ready>\n```t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\](https://localhost:8080/health/ready\n```text\n```text\)n)#)#)#)
+[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\]([https://localhost:8080/health/ready\n```text\n```text](https://localhost:8080/health/ready\n```text\n```text)\)n)#)#)#)
 Post-Deployment\n- [] **Smoke Test**: Log in to the Web Panel and verify dashboard loads.\n\n- []
 **Monitor**: Watch error rates and latency for 15 minutes.\n\n- --\n## Rollback Procedures\nIf
 critical issues are detected:\n\n1. **Revert Code/Image**:\n\n ```bash\n\n- [] **Smoke Test**: Log

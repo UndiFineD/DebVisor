@@ -2,7 +2,7 @@
 
 Apache License, Version 2.0 (the "License");\n\n## you may not use this file except in compliance
 with the License.\n\n## You may obtain a copy of the License at\n\n##
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n](http://www.apache.org/licenses/LICENSE-2.0>\n)\)n)#)#)
+<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\](http://www.apache.org/licenses/LICENSE-2.0>\)n)\)n)#)#)
 Unless required by applicable law or agreed to in writing, software\n\n## distributed under the
 License is distributed on an "AS IS" BASIS,\n\n## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 either express or implied.\n\n## See the License for the specific language governing permissions
@@ -37,7 +37,7 @@ Example\n\n##```python\n\n## #!/usr/bin/env python3 (2)\n\n## # Copyright (c) 20
 contributors (2)\n\n## # Licensed under the Apache License, Version 2.0 (the "License"); (2)\n\n## #
 you may not use this file except in compliance with the License.\n\n## # You may obtain a copy of
 the License at\n\n## #
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n](http://www.apache.org/licenses/LICENSE-2.0>\n)\)n)#)#)
+<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\](http://www.apache.org/licenses/LICENSE-2.0>\)n)\)n)#)#)
 
 # Unless required by applicable law or agreed to in writing, software\n\n## # distributed under the
 
@@ -56,7 +56,9 @@ processing\n\n## - Add comprehensive logging\n\n## """ (2)\n\n## #
 ===================================================== (2)\n\n## import sys\n\n## from pathlib import
 Path\n\n## def main():\n\n## """Main entry point."""\n\n## pass\n\n## if **name**==
 '**main**':\n\n## main()\n\n## ```(6)\n\n## ### Shell Script Example\n\n##```bash (2)\n\n##
-#!/bin/bash\n\n## # Copyright (c) 2025 DebVisor contributors (3)\n\n## # Licensed under the Apache
+
+# !/bin/bash\n\n## # Copyright (c) 2025 DebVisor contributors (3)\n\n## # Licensed under the Apache
+
 License, Version 2.0 (the "License"); (3)\n\n## # ... (rest of license header)\n\n#\n\n## :
 <<'EOF'\n\n## Brief description of what this script does.\n\n#\n\n## ## Description (2)\n\n##
 Detailed description...\n\n#\n\n## ## Changelog (2)\n\n## - 1.0.0: Initial version (2)\n\n#\n\n## ##

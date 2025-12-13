@@ -61,8 +61,8 @@ Example [3]\n\n user_input = 'test"; alert("XSS'\n escaped = js_string_escape(us
 Result: "test\"; alert(\"XSS"\n\n## Usage in template\n\n {% raw %}\n var username = {{ username |
 tojson }};\n {% endraw %}\n\n## CSS Escaping\n\n import re\n def css_escape(text):\n """Escape for
 CSS context"""\n\n## Remove all special CSS characters\n\n## CSS identifiers: alphanumeric, hyphen,
-underscore, non-ASCII, escaped chars\n\n## For safety, only allow safe subset\n\n safe_chars =
-re.sub(r'[^a-zA-Z0-9_-]', '', text)\n return safe_chars\n\n## Example [4]\n\n user_input = 'red;
+underscore, non-ASCII, escaped chars\n\n## For safety, only allow safe subset\n\n safe*chars =
+re.sub(r'[^a-zA-Z0-9*-]', '', text)\n return safe_chars\n\n## Example [4]\n\n user_input = 'red;
 background: url(javascript:alert(1))'\n escaped = css_escape(user_input)\n\n## Result:
 red-backgroundurljava?scriptalert1\n\n## For colors specifically\n\n def css_color_escape(color):\n
 """Validate and escape CSS color"""\n\n## Only allow hex colors #RRGGBB or named colors\n\n if
@@ -90,22 +90,22 @@ ValueError('Port out of range (1-65535)')\n return port\n\n## Identifiers\n\n @s
 validate_uuid(value):\n """UUID (RFC 4122)"""\n pattern =
 r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'\n if not re.match(pattern, value,
 re.IGNORECASE):\n raise ValueError('Invalid UUID')\n return value.lower()\n @staticmethod\n def
-validate_pool_name(value):\n """Storage pool name"""\n pattern =
-r'^[a-zA-Z0-9][a-zA-Z0-9_-]{0,30}[a-zA-Z0-9]$'\n if not re.match(pattern, value):\n raise
+validate_pool*name(value):\n """Storage pool name"""\n pattern =
+r'^[a-zA-Z0-9][a-zA-Z0-9*-]{0,30}[a-zA-Z0-9]$'\n if not re.match(pattern, value):\n raise
 ValueError('Invalid pool name (alphanumeric, hyphen, underscore only)')\n return value\n
-@staticmethod\n def validate_snapshot_name(value):\n """Snapshot name"""\n pattern =
-r'^[a-zA-Z0-9][a-zA-Z0-9_-]{0,62}[a-zA-Z0-9]$'\n if not re.match(pattern, value):\n raise
-ValueError('Invalid snapshot name')\n return value\n @staticmethod\n def validate_vm_name(value):\n
-"""Virtual machine name"""\n pattern = r'^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}[a-zA-Z0-9]$'\n if not
+@staticmethod\n def validate_snapshot*name(value):\n """Snapshot name"""\n pattern =
+r'^[a-zA-Z0-9][a-zA-Z0-9*-]{0,62}[a-zA-Z0-9]$'\n if not re.match(pattern, value):\n raise
+ValueError('Invalid snapshot name')\n return value\n @staticmethod\n def validate_vm*name(value):\n
+"""Virtual machine name"""\n pattern = r'^[a-zA-Z0-9][a-zA-Z0-9.*-]{0,63}[a-zA-Z0-9]$'\n if not
 re.match(pattern, value):\n raise ValueError('Invalid VM name')\n return value\n\n## Email and
-text\n\n @staticmethod\n def validate_email(value):\n """Email address (simplified)"""\n pattern =
-r'^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'\n
+text\n\n @staticmethod\n def validate*email(value):\n """Email address (simplified)"""\n pattern =
+r'^[a-zA-Z0-9.!#$%&\'*+/=?^*`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'\n
 if not re.match(pattern, value):\n raise ValueError('Invalid email address')\n return
-value.lower()\n @staticmethod\n def validate_username(value):\n """Linux username (3-32 chars)"""\n
-pattern = r'^[a-z_][a-z0-9_-]{2,31}$'\n if not re.match(pattern, value):\n raise ValueError('Invalid
+value.lower()\n @staticmethod\n def validate*username(value):\n """Linux username (3-32 chars)"""\n
+pattern = r'^[a-z*][a-z0-9_-]{2,31}$'\n if not re.match(pattern, value):\n raise ValueError('Invalid
 username (3-32 alphanumeric, underscore, hyphen)')\n return value\n @staticmethod\n def
-validate_url(value):\n """HTTP/HTTPS URL"""\n pattern =
-r'^https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(/[a-zA-Z0-9._~:/?#[\]@!$&\'()*+,;=-]*)?$'\n
+validate*url(value):\n """HTTP/HTTPS URL"""\n pattern =
+r'^https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(/[a-zA-Z0-9.*~:/?#[\]@!$&\'()*+,;=-]*)?$'\n
 if not re.match(pattern, value):\n raise ValueError('Invalid URL')\n if len(value) > 2048:\n raise
 ValueError('URL too long')\n return value\n @staticmethod\n def validate_cidr(value):\n """CIDR
 notation (192.168.1.0/24)"""\n try:\n from ipaddress import ip_network\n net = ip_network(value,

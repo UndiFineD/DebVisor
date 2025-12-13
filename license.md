@@ -1,6 +1,6 @@
 # License\n\n Apache License\n Version 2.0, January 2004\n
 
-<<[https://www.apache.org/licenses/>\n>]([https://www.apache.org/licenses/>\n]([https://www.apache.org/licenses/>\]([https://www.apache.org/licenses/>]([https://www.apache.org/licenses/](https://www.apache.org/licenses/)>)\)n)>)
+<<[https://www.apache.org/licenses/>\n>]([https://www.apache.org/licenses/>\n]([https://www.apache.org/licenses/>\]([https://www.apache.org/licenses/>]([https://www.apache.org/licenses/]([https://www.apache.org/licenses](https://www.apache.org/licenses)/)>)\)n)>)
 TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n 1. Definitions.\n\n "License" shall
 mean the terms and conditions for use, reproduction,\n and distribution as defined by Sections 1
 through 9 of this document.\n "Licensor" shall mean the copyright owner or entity authorized by\n
@@ -105,7 +105,7 @@ description of purpose be included on the\n same "printed page" as the copyright
 identification within third-party archives.\n Copyright [yyyy] [name of copyright owner]\n Licensed
 under the Apache License, Version 2.0 (the "License");\n you may not use this file except in
 compliance with the License.\n You may obtain a copy of the License at\n
-<<[https://www.apache.org/licenses/LICENSE-2.0>\n>]([https://www.apache.org/licenses/LICENSE-2.0>\n]([https://www.apache.org/licenses/LICENSE-2.0>\]([https://www.apache.org/licenses/LICENSE-2.0>]([https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)>)\)n)>)
+<<[https://www.apache.org/licenses/LICENSE-2.0>\n>]([https://www.apache.org/licenses/LICENSE-2.0>\n]([https://www.apache.org/licenses/LICENSE-2.0>\]([https://www.apache.org/licenses/LICENSE-2.0>]([https://www.apache.org/licenses/LICENSE-2.0]([https://www.apache.org/licenses/LICENSE-2.](https://www.apache.org/licenses/LICENSE-2.)0)>)\)n)>)
 Unless required by applicable law or agreed to in writing, software\n distributed under the License
 is distributed on an "AS IS" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.\n See the License for the specific language governing permissions and\n limitations

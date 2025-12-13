@@ -51,11 +51,11 @@ Decide whether to block both or just one.\n\n## IPv4 blocklist entry\n\n 192.0.2
 IPv6-mapped version (optional, for defense-in-depth)\n\n ::ffff:192.0.2.0/120\n1.**Dual-Stack
 Testing**: When validating, test both IPv4 and IPv6 traffic:\n\n## Test IPv4 traffic from blocked
 range\n\n curl --ipv4 --source-address 203.0.113.1
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)\n\n##
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)\n\n##
 Test IPv6 traffic from blocked range\n\n curl --ipv6 --source-address 2001:db8:bad::1
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)\n\n##
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)\n\n##
 Test via DNS (may resolve to either)\n\n curl
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)\n\n##
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)\n\n##
 IPv6 Validation with validate-blocklists.sh\n\nThe validation script automatically detects and
 validates both IPv4 and IPv6 entries:\n\n## Validate mixed IPv4/IPv6 blocklist\n\n
 ./etc/debvisor/validate-blocklists.sh --blocklist blocklist-example.txt --verbose\nCheck for
@@ -134,7 +134,7 @@ versioned using:\n\n## Version format: YYYY-MM-DD-HHMMSS\n\n 2025-11-26-143022\n
 versioning\n\n v1.2.3\n\n## Metadata File\n\n`blocklist-metadata.json`tracks:\n {\n
 "blocklist_version": "2025-11-26-143022",\n "blocklist_count": 1250,\n "whitelist_count": 45,\n
 "sources": [\n {\n "name": "malware",\n "url":
-"[https://threatintel.example.com/malware.txt",]([https://threatintel.example.com/malware.txt"]([https://threatintel.example.com/malware.txt]([https://threatintel.example.com/malware.tx]([https://threatintel.example.com/malware.t]([https://threatintel.example.com/malware.](https://threatintel.example.com/malware.)t)x)t)"),)\n
+"[https://threatintel.example.com/malware.txt",]([https://threatintel.example.com/malware.txt"]([https://threatintel.example.com/malware.txt]([https://threatintel.example.com/malware.tx]([https://threatintel.example.com/malware.t]([https://threatintel.example.com/malware.]([https://threatintel.example.com/malware](https://threatintel.example.com/malware).)t)x)t)"),)\n
 "updated": "2025-11-26T14:30:22Z",\n "sha256": "abc123..."\n }\n ],\n "caveats": [\n "Malware list
 is 2 days old; recommend daily refresh",\n "Tor exit nodes list may be incomplete"\n ],\n
 "applicable_versions": [\n "bookworm",\n "trixie"\n ]\n }\n\n### Automated Updates\n\nEnable
@@ -161,7 +161,7 @@ Integration Testing\n\nVerify blocklists work in practice:\n\n## Test environmen
 ansible-playbook opt/ansible/playbooks/deploy-blocklist.yml \\n\n - i inventory.test \\n\n - -tags
 blocklist\n\n## Verify firewall rules loaded\n\n sudo nft list chain filter input | grep
 blocklist\n\n## Test traffic from blocked IP\n\n curl --source-address 203.0.113.1
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)
 
 # Should fail\n\n## Smoke Tests\n\nPost-deployment validation:\n\n## 1. Verify firewall rules are
 
@@ -169,7 +169,7 @@ active\n\n sudo nft list ruleset | grep -c "drop from"\n\n## 2. Check for rule c
 nft validate\n\n## 3. Monitor logs for excessive drops\n\n sudo journalctl -u nftables -n 100\n\n##
 
 4. Verify whitelist exceptions work\n\n curl --source-address 10.0.0.1
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)
 
 # Should succeed\n\n## Continuous Integration (CI) Validation\n\n### GitHub Actions
 
@@ -194,8 +194,8 @@ detected\n\n- All entries valid CIDR format\n\nIf validation fails:\n ? Blocklis
 failed\n\n- blocklist-example.txt: Failed\n\n Line 42: Invalid CIDR syntax "192.168.1.0/33"\n\n-
 Overlap detected: 10.0.0.0/8 in both blocklist and whitelist\n\n#### Artifacts and Reports\n\nAfter
 workflow completion, detailed reports are available:\n\n- **blocklist-validation-reports/**artifact
-contains:\n\n-`summary.md`- Validation summary with pass/fail status\n\n-`etc_debvisor_*.json`-
-Detailed validation output per file\n\n-`etc_debvisor_*.log`- Error logs and warnings\n\n###
+contains:\n\n-`summary.md`- Validation summary with pass/fail status\n\n-`etc*debvisor**.json`-
+Detailed validation output per file\n\n-`etc*debvisor**.log`- Error logs and warnings\n\n###
 Validation Script Command Reference\n\nThe`validate-blocklists.sh`script can be run locally:\n\n##
 Basic validation\n\n ./etc/debvisor/validate-blocklists.sh --blocklist
 /path/to/blocklist.txt\nValidate whitelist:\n ./etc/debvisor/validate-blocklists.sh --whitelist
@@ -303,19 +303,19 @@ steps.check.outputs.new_version }}\n\n- Changes: ${{ steps.check.outputs.change_
 Validation result: ${{ steps.validate.outputs.result }}\n\n- --\n\n## Security Standards and Best
 Practices\n\n### Risks of External Blocklists\n\n#### Typosquatting\n\nEnsure blocklist URLs are
 correct:\n\n## Bad\n\n
-[https://example.com/blocklist.txt]([https://example.com/blocklist.tx]([https://example.com/blocklist.t]([https://example.com/blocklist.]([https://example.com/blocklist]([https://example.com/blocklis](https://example.com/blocklis)t).)t)x)t)
+[https://example.com/blocklist.txt]([https://example.com/blocklist.tx]([https://example.com/blocklist.t]([https://example.com/blocklist.]([https://example.com/blocklist]([https://example.com/blocklis]([https://example.com/blockli](https://example.com/blockli)s)t).)t)x)t)
 
 # Could be typosquatted\n
 
-[https://example.txt/blocklist]([https://example.txt/blocklis]([https://example.txt/blockli]([https://example.txt/blockl]([https://example.txt/block]([https://example.txt/bloc](https://example.txt/bloc)k)l)i)s)t)
+[https://example.txt/blocklist]([https://example.txt/blocklis]([https://example.txt/blockli]([https://example.txt/blockl]([https://example.txt/block]([https://example.txt/bloc]([https://example.txt/blo](https://example.txt/blo)c)k)l)i)s)t)
 
 # Non-standard domain\n\n## Good\n\n
 
-[https://blocklists.example.com/v1.0/malware.txt]([https://blocklists.example.com/v1.0/malware.tx]([https://blocklists.example.com/v1.0/malware.t]([https://blocklists.example.com/v1.0/malware.]([https://blocklists.example.com/v1.0/malware]([https://blocklists.example.com/v1.0/malwar](https://blocklists.example.com/v1.0/malwar)e).)t)x)t)
+[https://blocklists.example.com/v1.0/malware.txt]([https://blocklists.example.com/v1.0/malware.tx]([https://blocklists.example.com/v1.0/malware.t]([https://blocklists.example.com/v1.0/malware.]([https://blocklists.example.com/v1.0/malware]([https://blocklists.example.com/v1.0/malwar]([https://blocklists.example.com/v1.0/malwa](https://blocklists.example.com/v1.0/malwa)r)e).)t)x)t)
 
 # Clear version path\n
 
-[https://osint.example.org/ipv4/c2.txt]([https://osint.example.org/ipv4/c2.tx]([https://osint.example.org/ipv4/c2.t]([https://osint.example.org/ipv4/c2.]([https://osint.example.org/ipv4/c2]([https://osint.example.org/ipv4/c](https://osint.example.org/ipv4/c)2).)t)x)t)
+[https://osint.example.org/ipv4/c2.txt]([https://osint.example.org/ipv4/c2.tx]([https://osint.example.org/ipv4/c2.t]([https://osint.example.org/ipv4/c2.]([https://osint.example.org/ipv4/c2]([https://osint.example.org/ipv4/c]([https://osint.example.org/ipv4/](https://osint.example.org/ipv4/)c)2).)t)x)t)
 
 # Explicit path\n\n## Supply Chain Verification\n\nVerify blocklist source authenticity:\n\n## Check
 
@@ -355,26 +355,26 @@ CIDR format\n\n python3 -c "from ipaddress import ip_network; ip_network('192.16
 Performance Issues\n\n- *Problem**: Firewall is slow after enabling blocklists\n\n-
 *Solution**:\n\n## Profile firewall performance\n\n nft -e list ruleset | wc -l # Count rules\n\n##
 Segment blocklists by category\n\n## Measure before/after\n\n time curl
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)\n\n##
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)\n\n##
 Traffic Unexpectedly Blocked\n\n- *Problem**: Legitimate traffic is being dropped\n\n-
 *Solution**:\n\n## Check blocklist for source IP\n\n grep -E "203\.0\.113\.(1|2|3)"
 /etc/debvisor/blocklist-*.txt\n\n## Verify whitelist\n\n grep -E "203\.0\.113\.(1|2|3)"
 /etc/debvisor/blocklist-whitelist-*.txt\n\n## Temporarily disable and test\n\n sudo nft flush
 ruleset\n curl --source-address 203.0.113.1
-[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl](https://internal.exampl)e).)c)o)m)\n\n##
+[https://internal.example.com]([https://internal.example.co]([https://internal.example.c]([https://internal.example.]([https://internal.example]([https://internal.exampl]([https://internal.examp](https://internal.examp)l)e).)c)o)m)\n\n##
 Overlapping Ranges\n\n- *Problem**: Multiple rules for the same IP (performance issue)\n\n-
 *Solution**:\n\n## Find overlaps\n\n ./etc/debvisor/validate-blocklists.sh --check-overlaps
 --verbose\n\n## Consolidate overlapping ranges\n\n## Example: 10.0.0.0/16 and 10.0.1.0/24 ->
 consolidate to 10.0.0.0/16\n\n## References and External Resources\n\n- [RFC 4632: IPv4 CIDR Address
-Aggregation]([https://tools.ietf.org/html/rfc463]([https://tools.ietf.org/html/rfc46]([https://tools.ietf.org/html/rfc4]([https://tools.ietf.org/html/rfc]([https://tools.ietf.org/html/rf](https://tools.ietf.org/html/rf)c)4)6)3)2)\n\n-
+Aggregation]([https://tools.ietf.org/html/rfc463]([https://tools.ietf.org/html/rfc46]([https://tools.ietf.org/html/rfc4]([https://tools.ietf.org/html/rfc]([https://tools.ietf.org/html/rf]([https://tools.ietf.org/html/r](https://tools.ietf.org/html/r)f)c)4)6)3)2)\n\n-
 [IPv6 Address Architecture (RFC
-4291)]([https://tools.ietf.org/html/rfc429]([https://tools.ietf.org/html/rfc42]([https://tools.ietf.org/html/rfc4]([https://tools.ietf.org/html/rfc]([https://tools.ietf.org/html/rf](https://tools.ietf.org/html/rf)c)4)2)9)1)\n\n-
+4291)]([https://tools.ietf.org/html/rfc429]([https://tools.ietf.org/html/rfc42]([https://tools.ietf.org/html/rfc4]([https://tools.ietf.org/html/rfc]([https://tools.ietf.org/html/rf]([https://tools.ietf.org/html/r](https://tools.ietf.org/html/r)f)c)4)2)9)1)\n\n-
 [Python ipaddress
-Module]([https://docs.python.org/3/library/ipaddress.htm]([https://docs.python.org/3/library/ipaddress.ht]([https://docs.python.org/3/library/ipaddress.h]([https://docs.python.org/3/library/ipaddress.]([https://docs.python.org/3/library/ipaddress](https://docs.python.org/3/library/ipaddress).)h)t)m)l)\n\n-
+Module]([https://docs.python.org/3/library/ipaddress.htm]([https://docs.python.org/3/library/ipaddress.ht]([https://docs.python.org/3/library/ipaddress.h]([https://docs.python.org/3/library/ipaddress.]([https://docs.python.org/3/library/ipaddress]([https://docs.python.org/3/library/ipaddres](https://docs.python.org/3/library/ipaddres)s).)h)t)m)l)\n\n-
 [nftables
-Documentation]([https://wiki.nftables.org]([https://wiki.nftables.or]([https://wiki.nftables.o]([https://wiki.nftables.]([https://wiki.nftables](https://wiki.nftables).)o)r)g)/)\n\n-
+Documentation]([https://wiki.nftables.org]([https://wiki.nftables.or]([https://wiki.nftables.o]([https://wiki.nftables.]([https://wiki.nftables]([https://wiki.nftable](https://wiki.nftable)s).)o)r)g)/)\n\n-
 [IANA Special-Use IPv4
-Addresses]([https://www.iana.org/assignments/iana-ipv4-special-registry]([https://www.iana.org/assignments/iana-ipv4-special-registr]([https://www.iana.org/assignments/iana-ipv4-special-regist]([https://www.iana.org/assignments/iana-ipv4-special-regis]([https://www.iana.org/assignments/iana-ipv4-special-regi](https://www.iana.org/assignments/iana-ipv4-special-regi)s)t)r)y)/)\n\n##
+Addresses]([https://www.iana.org/assignments/iana-ipv4-special-registry]([https://www.iana.org/assignments/iana-ipv4-special-registr]([https://www.iana.org/assignments/iana-ipv4-special-regist]([https://www.iana.org/assignments/iana-ipv4-special-regis]([https://www.iana.org/assignments/iana-ipv4-special-regi]([https://www.iana.org/assignments/iana-ipv4-special-reg](https://www.iana.org/assignments/iana-ipv4-special-reg)i)s)t)r)y)/)\n\n##
 Support and Questions\n\nFor questions about blocklist deployment:\n\n- Check`docs/networking.md`for
 network configuration details\n\n- Review Ansible playbook
 at`opt/ansible/playbooks/deploy-blocklist.yml`\n\n- Check system logs: `sudo journalctl -u

@@ -8,11 +8,11 @@ drive.\n\n1. Follow the on-screen prompts to install DebVisor to your hard drive
 will reboot into the DebVisor Console Menu.\n\n### Method 2: Install on Existing Debian 12
 (Bookworm)\n\nIf you already have a minimal Debian 12 installation:\n\n1. **Clone the
 Repository**:\n\n ```bash\n git clone
-<[https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.](https://github.com/your-org/debvisor.)g)i)t)>)
+<[https://github.com/your-org/debvisor.git>]([https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.]([https://github.com/your-org/debvisor](https://github.com/your-org/debvisor).)g)i)t)>)
 /opt/debvisor\n cd /opt/debvisor\n```text\n\n cd /opt/debvisor\n```text\n git clone
-[https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.]([https://github.com/your-org/debvisor](https://github.com/your-org/debvisor).)g)i)t)
+[https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.]([https://github.com/your-org/debvisor]([https://github.com/your-org/debviso](https://github.com/your-org/debviso)r).)g)i)t)
 /opt/debvisor\n cd /opt/debvisor\n```text\n\n cd /opt/debvisor\n```text\n git clone
-[https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.]([https://github.com/your-org/debvisor](https://github.com/your-org/debvisor).)g)i)t)
+[https://github.com/your-org/debvisor.git]([https://github.com/your-org/debvisor.gi]([https://github.com/your-org/debvisor.g]([https://github.com/your-org/debvisor.]([https://github.com/your-org/debvisor]([https://github.com/your-org/debviso](https://github.com/your-org/debviso)r).)g)i)t)
 /opt/debvisor\n cd /opt/debvisor\n```text\n\n cd /opt/debvisor\n```text\n cd
 /opt/debvisor\n```text\n```text\n\n1. **Install Dependencies**:\n\n ```bash\n\n1. **Install
 Dependencies**:\n\n ```bash\n\n1. **Install Dependencies**:\n\n ```bash\n\n1. **Install
@@ -67,7 +67,7 @@ systemctl enable --now debvisor-rpcd debvisor-panel\n```text\n pip install -r re
 Install Systemd Services\n cp etc/systemd/system/*.service /etc/systemd/system/\n systemctl
 daemon-reload\n systemctl enable --now debvisor-rpcd debvisor-panel\n```text\n##
 Post-Installation\n1. **Access the Web Panel**:\n Open a browser and navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -75,7 +75,7 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting\n- **L
 `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl status
 debvisor-rpcd`.\n## Post-Installation (2)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -83,7 +83,7 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (2)\n-
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n## Post-Installation (3)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -91,14 +91,14 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (3)\n-
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n## Post-Installation (4)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
 console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (4)\n- **Logs**: Check
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n\n1. **Access the Web Panel**:\n Open a browser and navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -106,7 +106,7 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (5)\n-
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n## Post-Installation (5)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -114,7 +114,7 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (6)\n-
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n## Post-Installation (6)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the
@@ -122,7 +122,7 @@ console menu to set up static IPs, bonds, or bridges.\n## Troubleshooting (7)\n-
 logs in `/var/log/debvisor/`or use`journalctl -u debvisor-rpcd`.\n\n- **Service Status**: `systemctl
 status debvisor-rpcd`.\n## Post-Installation (7)\n1. **Access the Web Panel**:\n Open a browser and
 navigate to
-`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>)>)>)>)>)
+`[https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>>]([https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>](https://<server-ip:8443>`.>>>>>>>>>>>>>>>>>>>>)>)>)>)>)>)
 Default credentials (if configured) or follow the initial setup wizard.\n\n1. **Console Access**:\n
 Log in to the physical console or SSH. You will be greeted by the DebVisor Console Menu
 (`debvisor-menu`).\n\n1. **Network Configuration**:\n Use the "Network Configuration" option in the

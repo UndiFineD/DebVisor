@@ -28,7 +28,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-        self.app = Flask(__name__)
+        self.app = Flask(**name**)
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['SECRET_KEY'] = 'test-key'

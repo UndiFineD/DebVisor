@@ -107,7 +107,7 @@ Upload to release artifacts\n\n1. Smoke test re-computation and comparison\n\n1.
 hash consistency check\n\n- --\n\n### 3. SBOM Generation (Dual Format) (7)\n\n- *Implementation**:
 `.github/workflows/release.yml`(job:`build-artifacts`)\n\n#### CycloneDX Format (7)\n```bash\n\n-
 *Job Outputs**:\n\n- `tarball_sha256`: Tarball digest\n\n- `sbom_sha256`: CycloneDX SBOM digest\n\n-
-`spdx_sha256`: SPDX SBOM digest\n\n- *Verification Flow**:\n\n1. Build-time hash generation\n\n1.
+`spdx*sha256`: SPDX SBOM digest\n\n- *Verification Flow**:\n\n1. Build-time hash generation\n\n1.
 Upload to release artifacts\n\n1. Smoke test re-computation and comparison\n\n1. SBOM attestation
 hash consistency check\n\n- --\n\n### 3. SBOM Generation (Dual Format) (8)\n\n- *Implementation**:
 `.github/workflows/release.yml`(job:`build-artifacts`)\n\n#### CycloneDX Format
@@ -127,19 +127,19 @@ metadata\n\n#### SPDX Format (6)\n\n```json\n\n- *Advantages**:\n\n- Wide ecosys
 Rich vulnerability correlation\n\n- Component metadata\n\n#### SPDX Format (7)\n```json\n\n-
 *Advantages**:\n\n- Wide ecosystem support\n\n- Rich vulnerability correlation\n\n- Component
 metadata\n\n#### SPDX Format (8)\n\n```json\n{\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n\n "@context":
-"<<[https://openvex.dev/ns/v0.2.0",>>\n]([https://openvex.dev/ns/v0.2.0",>>\]([https://openvex.dev/ns/v0.2.0",>>]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",](https://openvex.dev/ns/v0.2.0",)>)>)\)n)
+"<<[https://openvex.dev/ns/v0.2.0",>>\n]([https://openvex.dev/ns/v0.2.0",>>\]([https://openvex.dev/ns/v0.2.0",>>]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)>)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n{\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n{\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "spdxVersion": "SPDX-2.3",\n "packages": [...]\n}\n```text\n "spdxVersion": "SPDX-2.3",\n
 "packages": [...]\n}\n```text\n\n- *Advantages**:\n\n- ISO/IEC 5962:2021 standard\n\n- License
 compliance tooling\n\n- Legal review compatibility\n\n- *Minimum Quality Standards**:\n\n- ?10
@@ -294,49 +294,49 @@ Rules\n```rego\n\n- --\n\n### 6. Policy Enforcement (OPA/Conftest) (2)\n\n- *Imp
 `.github/workflows/sbom-policy.yml`\n\n- *Policy File**: `.github/policies/sbom.rego`\n\n#### Rules
 (8)\n\n```rego\n# Minimum component count\ndeny[msg] {\n count(input.components) < 10\n msg :=
 sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])\n}\n#
-Version information required\ndeny[msg] {\n component := input.components[_]\n not
+Version information required\ndeny[msg] {\n component := input.components[*]\n not
 component.version\n msg := sprintf("Component '%s' missing version information",
 [component.name])\n}\n# License metadata validation\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\ndeny[msg] {\n count(input.components) < 10\n msg :=
 sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])\n}\n\n##
-Version information required\n\ndeny[msg] {\n component := input.components[_]\n not
+Version information required\n\ndeny[msg] {\n component := input.components[*]\n not
 component.version\n msg := sprintf("Component '%s' missing version information",
 [component.name])\n}\n\n## License metadata validation\n\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\n## Minimum component count\n\ndeny[msg] {\n
 count(input.components) < 10\n msg := sprintf("SBOM must contain at least 10 components, found %d",
 [count(input.components)])\n}\n\n## Version information required (2)\n\ndeny[msg] {\n component :=
-input.components[_]\n not component.version\n msg := sprintf("Component '%s' missing version
+input.components[*]\n not component.version\n msg := sprintf("Component '%s' missing version
 information", [component.name])\n}\n\n## License metadata validation (2)\n\nwarn[msg] {\n component
-:= input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+:= input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\n\ndeny[msg] {\n count(input.components) < 10\n msg :=
 sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])\n}\n\n##
-Version information required (3)\n\ndeny[msg] {\n component := input.components[_]\n not
+Version information required (3)\n\ndeny[msg] {\n component := input.components[*]\n not
 component.version\n msg := sprintf("Component '%s' missing version information",
 [component.name])\n}\n\n## License metadata validation (3)\n\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\n## Minimum component count (2)\ndeny[msg] {\n
 count(input.components) < 10\n msg := sprintf("SBOM must contain at least 10 components, found %d",
 [count(input.components)])\n}\n## Version information required (4)\ndeny[msg] {\n component :=
-input.components[_]\n not component.version\n msg := sprintf("Component '%s' missing version
+input.components[*]\n not component.version\n msg := sprintf("Component '%s' missing version
 information", [component.name])\n}\n## License metadata validation (4)\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\n\ndeny[msg] {\n count(input.components) < 10\n msg :=
 sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])\n}\n\n##
-Version information required (5)\n\ndeny[msg] {\n component := input.components[_]\n not
+Version information required (5)\n\ndeny[msg] {\n component := input.components[*]\n not
 component.version\n msg := sprintf("Component '%s' missing version information",
 [component.name])\n}\n\n## License metadata validation (5)\n\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\ndeny[msg] {\n count(input.components) < 10\n msg :=
 sprintf("SBOM must contain at least 10 components, found %d", [count(input.components)])\n}\n\n##
-Version information required (6)\n\ndeny[msg] {\n component := input.components[_]\n not
+Version information required (6)\n\ndeny[msg] {\n component := input.components[*]\n not
 component.version\n msg := sprintf("Component '%s' missing version information",
 [component.name])\n}\n\n## License metadata validation (6)\n\nwarn[msg] {\n component :=
-input.components[_]\n not component.licenses\n msg := sprintf("Component '%s' missing license
+input.components[*]\n not component.licenses\n msg := sprintf("Component '%s' missing license
 information", [component.name])\n}\n```text\n count(input.components) < 10\n msg := sprintf("SBOM
 must contain at least 10 components, found %d", [count(input.components)])\n}\n\n## Version
-information required (7)\n\ndeny[msg] {\n component := input.components[_]\n not component.version\n
+information required (7)\n\ndeny[msg] {\n component := input.components[*]\n not component.version\n
 msg := sprintf("Component '%s' missing version information", [component.name])\n}\n\n## License
 metadata validation (7)\n\nwarn[msg] {\n component := input.components[_]\n not component.licenses\n
 msg := sprintf("Component '%s' missing license information", [component.name])\n}\n```text\n\n-
@@ -348,86 +348,86 @@ msg := sprintf("Component '%s' missing license information", [component.name])\n
 .github/policies --output json\n```text\n```text\n```text\n```text\n\n- *Integration**: Called as
 reusable workflow after SBOM attestation.\n\n- --\n### 7. VEX (Vulnerability Exploitability
 eXchange)\n- *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n####
 Document Structure\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (2)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (2)\n\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (3)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (3)\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (4)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (4)\n\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n### 7. VEX (Vulnerability Exploitability eXchange) (5)\n- *Implementation**:
 `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n####
 Document Structure (5)\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (6)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (6)\n\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (7)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (7)\n```json\n\n- *Integration**: Called as reusable workflow after SBOM
 attestation.\n\n- --\n\n### 7. VEX (Vulnerability Exploitability eXchange) (8)\n\n-
 *Implementation**: `.github/workflows/vex-generate.yml`\n\n- *Format**: OpenVEX
-([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n####
+([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n####
 Document Structure (8)\n\n```json\n{\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "@id":
-"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"),)>)\)n)
+"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)>)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n\n "@context":
-"<<[https://openvex.dev/ns/v0.2.0",>>\n]([https://openvex.dev/ns/v0.2.0",>>\]([https://openvex.dev/ns/v0.2.0",>>]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",](https://openvex.dev/ns/v0.2.0",)>)>)\)n)
+"<<[https://openvex.dev/ns/v0.2.0",>>\n]([https://openvex.dev/ns/v0.2.0",>>\]([https://openvex.dev/ns/v0.2.0",>>]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)>)\)n)
 "@id":
-"<<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",)>)>)\)n)
+"<<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"),)>)>)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n{\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "@id":
-"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)\)n)
+"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.)0)"),)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "@id":
-"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"),)>)\)n)
+"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)>)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n{\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "@id":
-"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)\)n)
+"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.)0)"),)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n\n "@context":
-"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"](https://openvex.dev/ns/v0.2.0"),)>)\)n)
+"<[https://openvex.dev/ns/v0.2.0",>\n]([https://openvex.dev/ns/v0.2.0",>\]([https://openvex.dev/ns/v0.2.0",>]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)>)\)n)
 "@id":
-"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"),)>)\)n)
+"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)>)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n "@context":
-"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0](https://openvex.dev/ns/v0.2.0)"),)\)n)
+"[https://openvex.dev/ns/v0.2.0",\n]([https://openvex.dev/ns/v0.2.0",\]([https://openvex.dev/ns/v0.2.0",]([https://openvex.dev/ns/v0.2.0"]([https://openvex.dev/ns/v0.2.0]([https://openvex.dev/ns/v0.2.](https://openvex.dev/ns/v0.2.)0)"),)\)n)
 "@id":
-"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)\)n)
+"[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.)0)"),)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
 ]\n}\n```text\n "@id":
-"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"),)>)\)n)
+"<[https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\n]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>\]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",>]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0",]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0"]([https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0](https://github.com/UndiFineD/DebVisor/vex/debvisor-1.0.0)"),)>)\)n)
 "author": "DebVisor Security Team",\n "timestamp": "2025-11-29T00:00:00Z",\n "statements": [\n {\n
 "vulnerability": {"id": "CVE-2024-1234"},\n "products": [{"id": "cryptography", "version":
 "41.0.0"}],\n "status": "not_affected",\n "justification": "inline_mitigations_already_exist"\n }\n
@@ -588,25 +588,25 @@ v1.0.0\n```text\n```text\n```text\n```text\n\n- *Step 2: Verify GPG Signature**\
 *Step 2: Verify GPG Signature**\n\n```bash\n\n- *Step 2: Verify GPG Signature**\n\n```bash\n\n-
 *Step 2: Verify GPG Signature**\n\n```bash\n\n- *Step 2: Verify GPG Signature**\n\n```bash\n\n-
 *Step 2: Verify GPG Signature**\n\n```bash\n# Import public key\ncurl -L
-<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.](https://github.com/UndiFineD.)g)p)g)>)
+<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)>)
 | gpg --import\n# Verify tarball\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\ncurl -L
-<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.](https://github.com/UndiFineD.)g)p)g)>)
+<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)>)
 | gpg --import\n\n## Verify tarball\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n## Import public key\n\ncurl -L
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 | gpg --import\n\n## Verify tarball (2)\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n\ncurl -L
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 | gpg --import\n\n## Verify tarball (3)\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n## Import public key (2)\ncurl -L
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 | gpg --import\n## Verify tarball (4)\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n\ncurl -L
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 | gpg --import\n\n## Verify tarball (5)\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\ncurl -L
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 | gpg --import\n\n## Verify tarball (6)\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n\n## Verify tarball (7)\n\ngpg --verify debvisor-1.0.0.tar.gz.asc
 debvisor-1.0.0.tar.gz\n```text\n\n- *Step 3: Verify Checksums**\n\n```bash\n\n- *Step 3: Verify
@@ -738,7 +738,7 @@ Chain Attack Mitigation\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n### Compliance Mappings\n- *NIST SSDF**:\n\n- PO.3.1: SBOM
 generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -780,7 +780,7 @@ Rotation (2)\n\n- *GPG Key Expiry**:\n\n```bash\n\n- --\n\n## [U+1F6E1]? Securit
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n\n### Compliance Mappings (3)\n\n- *NIST SSDF**:\n\n- PO.3.1:
 SBOM generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -802,7 +802,7 @@ Mitigation (4)\n\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n\n### Compliance Mappings (4)\n\n- *NIST SSDF**:\n\n- PO.3.1:
 SBOM generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -824,7 +824,7 @@ Mitigation (5)\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n### Compliance Mappings (5)\n- *NIST SSDF**:\n\n- PO.3.1: SBOM
 generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -846,7 +846,7 @@ Mitigation (6)\n\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n\n### Compliance Mappings (6)\n\n- *NIST SSDF**:\n\n- PO.3.1:
 SBOM generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -868,7 +868,7 @@ Mitigation (7)\n\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n\n### Compliance Mappings (7)\n\n- *NIST SSDF**:\n\n- PO.3.1:
 SBOM generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -890,7 +890,7 @@ Mitigation (8)\n\n| Attack Vector | Mitigation | Verification
 |\n|--------------|------------|--------------|\n| Compromised dependencies | SBOM + VEX | Policy
 enforcement |\n| Build tampering | SLSA provenance | slsa-verifier |\n| Artifact substitution | GPG
 
-+ SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
+- SHA256 | Signature verification |\n| Registry compromise | Cosign attestation | Rekor transparency
 |\n| Malicious commits | Provenance identity | OIDC workflow path |\n| Vulnerability injection | VEX
 statements | Trivy + manual review |\n\n### Compliance Mappings (8)\n\n- *NIST SSDF**:\n\n- PO.3.1:
 SBOM generation ?\n\n- PO.3.2: Provenance documentation ?\n\n- PO.5.1: Vulnerability tracking (VEX)
@@ -910,36 +910,36 @@ signature\n\n- --\n\n## [U+1F527] Maintenance (8)\n\n### Key Rotation (8)\n\n- *
 Expiry**:\n\n```bash\n# Generate new key\ngpg --full-generate-key\n# Export and update secret\ngpg
 --export-secret-keys --armor NEWKEYID > new_key.txt\ngh secret set GPG_PRIVATE_KEY < new_key.txt\n#
 Publish public key\ngpg --export --armor NEWKEYID > public.asc\n# Add to
-<[https://github.com/UndiFineD.gpg>\n```text\ngpg]([https://github.com/UndiFineD.gpg>\n```text\ngp]([https://github.com/UndiFineD.gpg>\n```text\ng]([https://github.com/UndiFineD.gpg>\n```text\n]([https://github.com/UndiFineD.gpg>\n```text\](https://github.com/UndiFineD.gpg>\n```text\)n)g)p)g)
+<[https://github.com/UndiFineD.gpg>\n```text\ngpg]([https://github.com/UndiFineD.gpg>\n```text\ngp]([https://github.com/UndiFineD.gpg>\n```text\ng]([https://github.com/UndiFineD.gpg>\n```text\n]([https://github.com/UndiFineD.gpg>\n```text\]([https://github.com/UndiFineD.gpg>\n```text](https://github.com/UndiFineD.gpg>\n```text)\)n)g)p)g)
 --full-generate-key\n\n## Export and update secret\n\ngpg --export-secret-keys --armor NEWKEYID >
 new_key.txt\ngh secret set GPG_PRIVATE_KEY < new_key.txt\n\n## Publish public key\n\ngpg --export
 --armor NEWKEYID > public.asc\n\n## Add to
-<<[https://github.com/UndiFineD.gpg>>\n\n```text\n##]([https://github.com/UndiFineD.gpg>>\n\n```text\n#]([https://github.com/UndiFineD.gpg>>\n\n```text\n]([https://github.com/UndiFineD.gpg>>\n\n```text\]([https://github.com/UndiFineD.gpg>>\n\n```text](https://github.com/UndiFineD.gpg>>\n\n```text)\)n)#)#)
+<<[https://github.com/UndiFineD.gpg>>\n\n```text\n##]([https://github.com/UndiFineD.gpg>>\n\n```text\n#]([https://github.com/UndiFineD.gpg>>\n\n```text\n]([https://github.com/UndiFineD.gpg>>\n\n```text\]([https://github.com/UndiFineD.gpg>>\n\n```text]([https://github.com/UndiFineD.gpg>>\n\n```tex](https://github.com/UndiFineD.gpg>>\n\n```tex)t)\)n)#)#)
 Generate new key\n\ngpg --full-generate-key\n\n## Export and update secret (2)\n\ngpg
 --export-secret-keys --armor NEWKEYID > new_key.txt\ngh secret set GPG_PRIVATE_KEY <
 new_key.txt\n\n## Publish public key (2)\n\ngpg --export --armor NEWKEYID > public.asc\n\n## Add to
-[https://github.com/UndiFineD.gpg\n```text\n\ngpg]([https://github.com/UndiFineD.gpg\n```text\n\ngp]([https://github.com/UndiFineD.gpg\n```text\n\ng]([https://github.com/UndiFineD.gpg\n```text\n\n]([https://github.com/UndiFineD.gpg\n```text\n\](https://github.com/UndiFineD.gpg\n```text\n\)n)g)p)g)
+[https://github.com/UndiFineD.gpg\n```text\n\ngpg]([https://github.com/UndiFineD.gpg\n```text\n\ngp]([https://github.com/UndiFineD.gpg\n```text\n\ng]([https://github.com/UndiFineD.gpg\n```text\n\n]([https://github.com/UndiFineD.gpg\n```text\n\]([https://github.com/UndiFineD.gpg\n```text\n](https://github.com/UndiFineD.gpg\n```text\n)\)n)g)p)g)
 --full-generate-key\n\n## Export and update secret (3)\n\ngpg --export-secret-keys --armor NEWKEYID
 
 > new_key.txt\ngh secret set GPG_PRIVATE_KEY < new_key.txt\n\n## Publish public key (3)\n\ngpg
 --export --armor NEWKEYID > public.asc\n\n## Add to
-<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.](https://github.com/UndiFineD.)g)p)g)>)
+<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)>)
 (2)\n\n```text\n## Generate new key (2)\ngpg --full-generate-key\n## Export and update secret
 (4)\ngpg --export-secret-keys --armor NEWKEYID > new_key.txt\ngh secret set GPG_PRIVATE_KEY <
 new_key.txt\n## Publish public key (4)\ngpg --export --armor NEWKEYID > public.asc\n## Add to
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 (3)\n```text\n\ngpg --full-generate-key\n\n## Export and update secret (5)\n\ngpg
 --export-secret-keys --armor NEWKEYID > new_key.txt\ngh secret set GPG_PRIVATE_KEY <
 new_key.txt\n\n## Publish public key (5)\n\ngpg --export --armor NEWKEYID > public.asc\n\n## Add to
-<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.](https://github.com/UndiFineD.)g)p)g)>)
+<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)>)
 (4)\n\n```text\ngpg --full-generate-key\n\n## Export and update secret (6)\n\ngpg
 --export-secret-keys --armor NEWKEYID > new_key.txt\ngh secret set GPG_PRIVATE_KEY <
 new_key.txt\n\n## Publish public key (6)\n\ngpg --export --armor NEWKEYID > public.asc\n\n## Add to
-[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)
+[https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD]([https://github.com/UndiFine](https://github.com/UndiFine)D).)g)p)g)
 (5)\n```text\n\n## Export and update secret (7)\n\ngpg --export-secret-keys --armor NEWKEYID >
 new_key.txt\ngh secret set GPG_PRIVATE_KEY < new_key.txt\n\n## Publish public key (7)\n\ngpg
 --export --armor NEWKEYID > public.asc\n\n## Add to
-<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.](https://github.com/UndiFineD.)g)p)g)>)
+<[https://github.com/UndiFineD.gpg>]([https://github.com/UndiFineD.gpg]([https://github.com/UndiFineD.gp]([https://github.com/UndiFineD.g]([https://github.com/UndiFineD.]([https://github.com/UndiFineD](https://github.com/UndiFineD).)g)p)g)>)
 (6)\n\n```text\n\n- *Cosign Key Rotation**: Keyless signing (no manual rotation required)\n###
 Policy Updates\n- *Adding New Rules**:\n\n```bash\n\n- *Cosign Key Rotation**: Keyless signing (no
 manual rotation required)\n\n### Policy Updates (2)\n\n- *Adding New Rules**:\n\n```bash\n\n-
@@ -1005,114 +1005,114 @@ debvisor-*.tar.gz.asc\nsha256sum -c *.sha256\n```text\n## Random release verific
 $VERSION\ngpg --verify debvisor-*.tar.gz.asc\nsha256sum -c *.sha256\n```text\ngh release download
 $VERSION\ngpg --verify debvisor-*.tar.gz.asc\nsha256sum -c *.sha256\n```text\n\n- --\n## [U+1F4DA]
 References\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n- *Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (2)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (3)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (4)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (5)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (6)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (7)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?**Open an issue with the`supply-chain-security`label.\n\n- --\n## [U+1F4DA]
 References (8)\n- [SLSA
-Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls](https://sls)a).)d)e)v)\n\n-
+Framework]([https://slsa.de]([https://slsa.d]([https://slsa.]([https://slsa]([https://sls]([https://sl](https://sl)s)a).)d)e)v)\n\n-
 [Sigstore
-Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor](https://docs.sigstor)e).)d)e)v)\n\n-
+Documentation]([https://docs.sigstore.de]([https://docs.sigstore.d]([https://docs.sigstore.]([https://docs.sigstore]([https://docs.sigstor]([https://docs.sigsto](https://docs.sigsto)r)e).)d)e)v)\n\n-
 [CycloneDX
-Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over](https://cyclonedx.org/specification/over)v)i)e)w)/)\n\n-
+Specification]([https://cyclonedx.org/specification/overview]([https://cyclonedx.org/specification/overvie]([https://cyclonedx.org/specification/overvi]([https://cyclonedx.org/specification/overv]([https://cyclonedx.org/specification/over]([https://cyclonedx.org/specification/ove](https://cyclonedx.org/specification/ove)r)v)i)e)w)/)\n\n-
 [SPDX
-2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/](https://spdx.github.io/spdx-spec/)v)2).)3)/)\n\n-
-[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve](https://openve)x).)d)e)v)\n\n-
+2.3]([https://spdx.github.io/spdx-spec/v2.3]([https://spdx.github.io/spdx-spec/v2.]([https://spdx.github.io/spdx-spec/v2]([https://spdx.github.io/spdx-spec/v]([https://spdx.github.io/spdx-spec/]([https://spdx.github.io/spdx-spec](https://spdx.github.io/spdx-spec)/)v)2).)3)/)\n\n-
+[OpenVEX]([https://openvex.de]([https://openvex.d]([https://openvex.]([https://openvex]([https://openve]([https://openv](https://openv)e)x).)d)e)v)\n\n-
 [Open Policy
-Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent](https://www.openpolicyagent).)o)r)g)/)\n\n-
+Agent]([https://www.openpolicyagent.org]([https://www.openpolicyagent.or]([https://www.openpolicyagent.o]([https://www.openpolicyagent.]([https://www.openpolicyagent]([https://www.openpolicyagen](https://www.openpolicyagen)t).)o)r)g)/)\n\n-
 [NIST
-SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/](https://csrc.nist.gov/publications/detail/sp/800-218/)f)i)n)a)l)\n\n-
+SSDF]([https://csrc.nist.gov/publications/detail/sp/800-218/fina]([https://csrc.nist.gov/publications/detail/sp/800-218/fin]([https://csrc.nist.gov/publications/detail/sp/800-218/fi]([https://csrc.nist.gov/publications/detail/sp/800-218/f]([https://csrc.nist.gov/publications/detail/sp/800-218/]([https://csrc.nist.gov/publications/detail/sp/800-218](https://csrc.nist.gov/publications/detail/sp/800-218)/)f)i)n)a)l)\n\n-
 --\n\n-*Questions?** Open an issue with the`supply-chain-security` label.\n\n

@@ -1372,7 +1372,7 @@ byte code.
         )
         assert alert == "a-001"
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

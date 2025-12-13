@@ -297,7 +297,7 @@ byte code.
 
 ```python
             ctx = pool.acquire()
-            conn = await ctx.__aenter__()
+            conn = await ctx.**aenter**()
             connections.append(ctx)
             assert conn is not None
 

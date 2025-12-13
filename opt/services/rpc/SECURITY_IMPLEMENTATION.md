@@ -111,13 +111,13 @@ try:\n UUID(uuid_str)\n return uuid_str\n except (ValueError, AttributeError):\n
 ValueError(f'Invalid UUID: {uuid_str}')\n @staticmethod\n def validate_label(label,
 max_length=256):\n """Validate snapshot/pool label"""\n if not isinstance(label, str) or len(label)
 == 0:\n raise ValueError('Label must be a non-empty string')\n if len(label) > max_length:\n raise
-ValueError(f'Label too long (max {max_length} characters)')\n\n## Only allow alphanumeric, hyphens,
-underscores\n\n if not re.match(r'^[a-zA-Z0-9_-]+$', label):\n raise ValueError(f'Label contains
+ValueError(f'Label too long (max {max*length} characters)')\n\n## Only allow alphanumeric, hyphens,
+underscores\n\n if not re.match(r'^[a-zA-Z0-9*-]+$', label):\n raise ValueError(f'Label contains
 invalid characters: {label}')\n return label\n @staticmethod\n def
 validate_permission_spec(perm_spec):\n """Validate permission specification string"""\n\n## Format:
 "service:resource:action" or "service:*" or "*"\n\n if perm_spec == '*':\n return perm_spec\n parts
 = perm_spec.split(':')\n if len(parts) 3:\n raise ValueError(f'Invalid permission spec:
-{perm_spec}')\n for part in parts:\n if part != '*' and not re.match(r'^[a-z][a-z0-9_]*$', part):\n
+{perm*spec}')\n for part in parts:\n if part != '*' and not re.match(r'^[a-z][a-z0-9*]*$', part):\n
 raise ValueError(f'Invalid permission spec: {perm_spec}')\n return perm_spec\n\n## Usage in service
 handlers\n\n class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):\n def RegisterNode(self,
 request, context):\n try:\n\n## Validate inputs\n\n hostname =

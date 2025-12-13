@@ -480,7 +480,7 @@ Source\n```bash\n\n### From Source (2)\n\n```bash\n## Building the Kernel (2)\n\
 (5)\n```bash\n\n### From Source (6)\n\n```bash\n### From Source (7)\n```bash\n\n```bash\n# Install
 build dependencies\napt install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n#
 Download kernel source\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\)n)t)a)r)
+<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n# Start with distribution config\ncp /boot/config-$(uname
 -r) .config\n# Apply DebVisor requirements\nscripts/config --enable KVM\nscripts/config --module
 KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable VFIO\nscripts/config --module
@@ -488,7 +488,7 @@ VFIO_PCI\n# ... (apply all required options)\n# Update config\nmake olddefconfig
 -j$(nproc)\nmake modules_install\nmake install\n# Update bootloader\nupdate-grub\n```text\napt
 install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel
 source\n\nwget
-<<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\)n)t)a)r)
+<<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -497,7 +497,7 @@ config\n\nmake olddefconfig\n\n## Build\n\nmake -j$(nproc)\nmake modules_install
 Update bootloader\n\nupdate-grub\n```text\n## Install build dependencies\n\napt install
 build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source
 (2)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (2)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (2)\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -505,7 +505,7 @@ VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (2
 config (2)\n\nmake olddefconfig\n\n## Build (2)\n\nmake -j$(nproc)\nmake modules_install\nmake
 install\n\n## Update bootloader (2)\n\nupdate-grub\n```text\n\napt install build-essential
 libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source (3)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\)n)t)a)r)
+<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (3)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (3)\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -514,7 +514,7 @@ config (3)\n\nmake olddefconfig\n\n## Build (3)\n\nmake -j$(nproc)\nmake modules
 install\n\n## Update bootloader (3)\n\nupdate-grub\n```text\n## Install build dependencies (2)\napt
 install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n## Download kernel source
 (4)\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n## Start with distribution config (4)\ncp
 /boot/config-$(uname -r) .config\n## Apply DebVisor requirements (4)\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -522,7 +522,7 @@ VFIO\nscripts/config --module VFIO_PCI\n## ... (apply all required options) (4)\
 (4)\nmake olddefconfig\n## Build (4)\nmake -j$(nproc)\nmake modules_install\nmake install\n## Update
 bootloader (4)\nupdate-grub\n```text\n\napt install build-essential libncurses-dev bison flex
 libssl-dev libelf-dev\n\n## Download kernel source (5)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\)n)t)a)r)
+<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (5)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (5)\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -530,14 +530,14 @@ VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (5
 config (5)\n\nmake olddefconfig\n\n## Build (5)\n\nmake -j$(nproc)\nmake modules_install\nmake
 install\n\n## Update bootloader (5)\n\nupdate-grub\n```text\napt install build-essential
 libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source (6)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (6)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (6)\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
 VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (6)\n\n## Update
 config (6)\n\nmake olddefconfig\n\n## Build (6)\n\nmake -j$(nproc)\nmake modules_install\nmake
 install\n\n## Update bootloader (6)\n\nupdate-grub\n```text\n\n## Download kernel source (7)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\)n)t)a)r)
+<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (7)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (7)\n\nscripts/config --enable
 KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
@@ -546,9 +546,9 @@ config (7)\n\nmake olddefconfig\n\n## Build (7)\n\nmake -j$(nproc)\nmake modules
 install\n\n## Update bootloader (7)\n\nupdate-grub\n```text\n### Verification
 Script\n```bash\n\n```bash\n### Verification Script (2)\n```bash\n\n```bash\n### Verification Script
 (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# !/bin/bash\n# verify-kernel-config.sh - Verify
-kernel has required features\ncheck_config() {\n local opt=$1\n local required=$2\n if grep -q
-"CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG_${opt}"\n else\n if
-["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} - REQUIRED"\n else\n echo "[WARN]
+kernel has required features\ncheck*config() {\n local opt=$1\n local required=$2\n if grep -q
+"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG*${opt}"\n else\n if
+["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN]
 CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel Configuration Check ==="\necho
 "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization ---"\ncheck_config KVM
 required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho ""\necho "--- Storage
@@ -557,9 +557,9 @@ Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL required\
 NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config NAMESPACES
 required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho "---
 Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features\n\ncheck_config() {\n local opt=$1\n
-local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK]
-CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} -
+verify-kernel-config.sh - Verify kernel has required features\n\ncheck*config() {\n local opt=$1\n
+local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK]
+CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} -
 REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
 Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
 ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
@@ -568,10 +568,10 @@ Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtual
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n##
-!/bin/bash\n\n## verify-kernel-config.sh - Verify kernel has required features (2)\n\ncheck_config()
-{\n local opt=$1\n local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r);
-then\n echo "[OK] CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
-CONFIG_${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "===
+!/bin/bash\n\n## verify-kernel-config.sh - Verify kernel has required features (2)\n\ncheck*config()
+{\n local opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
+CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "===
 DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
 Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
 required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
@@ -579,9 +579,9 @@ required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features (3)\n\ncheck_config() {\n local
-opt=$1\n local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo
-"[OK] CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} -
+verify-kernel-config.sh - Verify kernel has required features (3)\n\ncheck*config() {\n local
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo
+"[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} -
 REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
 Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
 ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
@@ -590,10 +590,10 @@ Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtual
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n##
-!/bin/bash (2)\n## verify-kernel-config.sh - Verify kernel has required features (4)\ncheck_config()
-{\n local opt=$1\n local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r);
-then\n echo "[OK] CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
-CONFIG_${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "===
+!/bin/bash (2)\n## verify-kernel-config.sh - Verify kernel has required features (4)\ncheck*config()
+{\n local opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
+CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "===
 DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
 Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
 required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
@@ -601,9 +601,9 @@ required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features (5)\n\ncheck_config() {\n local
-opt=$1\n local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo
-"[OK] CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} -
+verify-kernel-config.sh - Verify kernel has required features (5)\n\ncheck*config() {\n local
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo
+"[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} -
 REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
 Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
 ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
@@ -612,9 +612,9 @@ Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtual
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n##
-verify-kernel-config.sh - Verify kernel has required features (6)\n\ncheck_config() {\n local
-opt=$1\n local required=$2\n if grep -q "CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo
-"[OK] CONFIG_${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} -
+verify-kernel-config.sh - Verify kernel has required features (6)\n\ncheck*config() {\n local
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo
+"[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} -
 REQUIRED"\n else\n echo "[WARN] CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
 Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
 ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
@@ -623,9 +623,9 @@ Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtual
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config
 NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY
-optional\n```text\n\ncheck_config() {\n local opt=$1\n local required=$2\n if grep -q
-"CONFIG_${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG_${opt}"\n else\n if
-["$required" = "required"]; then\n echo "[FAIL] CONFIG_${opt} - REQUIRED"\n else\n echo "[WARN]
+optional\n```text\n\ncheck*config() {\n local opt=$1\n local required=$2\n if grep -q
+"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG*${opt}"\n else\n if
+["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN]
 CONFIG_${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel Configuration Check ==="\necho
 "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization ---"\ncheck_config KVM
 required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho ""\necho "--- Storage
@@ -736,66 +736,66 @@ grep cgroup2\n```text\n## Verify eBPF (2)\nbpftool feature probe\n## Check cgrou
 grep cgroup2\n```text\n\nbpftool feature probe\n\n## Check cgroup v2 (5)\n\nmount | grep
 cgroup2\n```text\nbpftool feature probe\n\n## Check cgroup v2 (6)\n\nmount | grep
 cgroup2\n```text\n\n## Check cgroup v2 (7)\n\nmount | grep cgroup2\n```text\n## References\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (2)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (3)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (4)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n\n-
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n\n-
 [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (5)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (6)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n##
 References (7)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu](https://www.linux-kvm.org/page/Docu)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc](https://www.linux-kvm.org/page/Doc)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke](https://docs.ceph.com/en/latest/cephfs/ke)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k](https://docs.ceph.com/en/latest/cephfs/k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-](https://openzfs.github.io/openzfs-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs](https://openzfs.github.io/openzfs)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem](https://docs.cilium.io/en/stable/operations/system_requirem)e)n)t)s)/)\n\n
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require](https://docs.cilium.io/en/stable/operations/system_require)m)e)n)t)s)/)\n\n

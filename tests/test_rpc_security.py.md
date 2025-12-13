@@ -1880,7 +1880,7 @@ byte code.
         ddos = await mock_rpc_security.check_ddos_threshold("192.168.1.100")
         assert ddos is True
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

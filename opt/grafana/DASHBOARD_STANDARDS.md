@@ -21,8 +21,8 @@ dev)\n\n### Examples [2]\n\n {\n "title": "CPU Usage (%)",\n "targets": [\n {"ex
 "sum(rate(node_cpu_seconds_total[5m]))"}\n ]\n }\n\n### Variable Naming Convention\n\nAll template
 variables MUST use lowercase with underscores:\n $cluster_name // Cluster identifier\n $time_range
 // Time range selector\n $node_filter // Node name filter\n $namespace_filter // Kubernetes
-namespace filter\n $severity_level // Alert severity (critical/warning/info)\n $component //
-Component/service (ceph/k8s/dns)\n\n### Pattern\n\n $_\n ? Correct: $pod_namespace, $osd_filter,
+namespace filter\n $severity*level // Alert severity (critical/warning/info)\n $component //
+Component/service (ceph/k8s/dns)\n\n### Pattern\n\n $*\n ? Correct: $pod_namespace, $osd_filter,
 $alert_severity\n ? Wrong: $pod-namespace (hyphens), $POD_NAMESPACE (caps), $_pod (leading
 underscore)\n\n## Color Standards\n\n### Primary Palette\n\nAll dashboards MUST use this standard
 color palette:\n Success/Healthy: #31C740 (Green)\n Warning/Caution: #F2AC29 (Orange/Yellow)\n
@@ -120,7 +120,7 @@ DNS response times are 20-50ms\n\n- >100ms indicates resolver performance issue\
 indicates network problem or resolver down\n\n### Tuning\n\n- High-latency networks (satellite):
 Adjust to 200ms warning / 1000ms critical\n\n- Local labs: Can tighten to 50ms warning / 200ms
 critical\n\n- *Runbook:**[DNS Query Latency
-Troubleshooting]([https://docs.example.com/runbooks/dns-latenc]([https://docs.example.com/runbooks/dns-laten]([https://docs.example.com/runbooks/dns-late]([https://docs.example.com/runbooks/dns-lat]([https://docs.example.com/runbooks/dns-la](https://docs.example.com/runbooks/dns-la)t)e)n)c)y)\n\n##
+Troubleshooting]([https://docs.example.com/runbooks/dns-latenc]([https://docs.example.com/runbooks/dns-laten]([https://docs.example.com/runbooks/dns-late]([https://docs.example.com/runbooks/dns-lat]([https://docs.example.com/runbooks/dns-la]([https://docs.example.com/runbooks/dns-l](https://docs.example.com/runbooks/dns-l)a)t)e)n)c)y)\n\n##
 Query Standards\n\n### Query Naming & Documentation\n\n### All queries MUST have\n\n1.**Legend
 format**indicating what's being shown\n1.**Comment**explaining the query\n1.**Aggregation
 level**(per-node, per-pool, cluster-wide)\n\n### Example\n\n## CPU utilization per node (%)\n\n## =
@@ -152,8 +152,8 @@ Details Dashboard\n\n### Template Variables\n\n### Standard Variable Patterns\n\
 "value": "DebVisor"},\n "multi": false\n },\n {\n "name": "time_range",\n "type": "interval",\n
 "values": ["5m", "15m", "1h", "6h", "1d", "7d"],\n "current": {"text": "1h", "value": "1h"}\n },\n
 {\n "name": "node_filter",\n "type": "query",\n "datasource": "Prometheus-DebVisor",\n "query":
-"label_values(node_cpu_seconds_total, instance)",\n "multi": true,\n "current": {"text": "All",
-"value": "$__all"}\n }\n ]\n }\n}\n\n### Standard Variables to Include\n\n | Variable | Type |
+"label_values(node_cpu_seconds*total, instance)",\n "multi": true,\n "current": {"text": "All",
+"value": "$*_all"}\n }\n ]\n }\n}\n\n### Standard Variables to Include\n\n | Variable | Type |
 Purpose | Multi-Select |\n |---|---|---|---|\n |`cluster_name`| Query | Filter by cluster | No |\n
 |`time_range`| Interval | Time window selector | No |\n |`node_filter`| Query | Filter by node | Yes
 |\n |`namespace_filter`| Query | Filter by K8s namespace | Yes |\n |`severity_filter` | Custom |
@@ -192,11 +192,11 @@ Versioning\n\n### Dashboard Versioning\n\n Track dashboard changes:\n{\n "dashbo
 required variables)\n\n- Minor (v1.0 -> v1.1): New panels, new queries\n\n- Patch (v1.0 -> v1.0.1):
 Threshold adjustments, cosmetic fixes\n\n### Dashboard Migration\n\n When migrating between
 environments:\n\n## Export from staging\n\ncurl -s
-[http://grafana-staging:3000/api/dashboards/uid/overview]([http://grafana-staging:3000/api/dashboards/uid/overvie]([http://grafana-staging:3000/api/dashboards/uid/overvi]([http://grafana-staging:3000/api/dashboards/uid/overv]([http://grafana-staging:3000/api/dashboards/uid/over]([http://grafana-staging:3000/api/dashboards/uid/ove](http://grafana-staging:3000/api/dashboards/uid/ove)r)v)i)e)w)
+[http://grafana-staging:3000/api/dashboards/uid/overview]([http://grafana-staging:3000/api/dashboards/uid/overvie]([http://grafana-staging:3000/api/dashboards/uid/overvi]([http://grafana-staging:3000/api/dashboards/uid/overv]([http://grafana-staging:3000/api/dashboards/uid/over]([http://grafana-staging:3000/api/dashboards/uid/ove]([http://grafana-staging:3000/api/dashboards/uid/ov](http://grafana-staging:3000/api/dashboards/uid/ov)e)r)v)i)e)w)
 \\n\n- H "Authorization: Bearer $TOKEN" > overview.json\n\n## Adjust environment-specific
 values\n\njq '.dashboard.panels[].targets[].expr |= gsub("staging"; "prod")' overview.json\n\n##
 Import to production\n\ncurl -X POST
-[http://grafana-prod:3000/api/dashboards/db]([http://grafana-prod:3000/api/dashboards/d]([http://grafana-prod:3000/api/dashboards/]([http://grafana-prod:3000/api/dashboards]([http://grafana-prod:3000/api/dashboard]([http://grafana-prod:3000/api/dashboar](http://grafana-prod:3000/api/dashboar)d)s)/)d)b)
+[http://grafana-prod:3000/api/dashboards/db]([http://grafana-prod:3000/api/dashboards/d]([http://grafana-prod:3000/api/dashboards/]([http://grafana-prod:3000/api/dashboards]([http://grafana-prod:3000/api/dashboard]([http://grafana-prod:3000/api/dashboar]([http://grafana-prod:3000/api/dashboa](http://grafana-prod:3000/api/dashboa)r)d)s)/)d)b)
 \\n\n- H "Authorization: Bearer $TOKEN" \\n\n- d @overview.json\n\n## Governance &
 Maintenance\n\n### Dashboard Lifecycle\n\nNew Dashboard (Community Contribution)\n v\nCode Review
 (Dashboard Standards Compliance)\n v\nTesting (Queries, Thresholds, Performance)\n v\nApproval

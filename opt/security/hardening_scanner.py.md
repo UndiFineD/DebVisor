@@ -33,7 +33,7 @@ import os
 import re
 import subprocess
 
-_logger=logging.getLogger(__name__)
+_logger=logging.getLogger(**name**)
 
 ```python
 

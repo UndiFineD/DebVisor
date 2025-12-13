@@ -28,7 +28,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-from __future__ import annotations
+from **future** import annotations
 from datetime import datetime, timezone
 import logging
 import subprocess

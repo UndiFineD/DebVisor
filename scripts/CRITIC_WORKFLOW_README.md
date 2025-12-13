@@ -9,8 +9,8 @@ Extensions:**`.py`, `.sh`, `.js`, `.css`, `.html`, `.go`\n\n**Tools per Extensio
 | Tools |\n|-----------|-------|\n| `.py`| flake8, mypy, bandit |\n|`.sh`| shellcheck, bandit
 |\n|`.js`| eslint |\n|`.css`| stylelint |\n|`.html`| htmlhint |\n|`.go`| golangci-lint |\n\n**Output
 Format:**\n\nFor each code file, a sibling`.md`file is created with
-issues:\n\n```text\nopt/ansible/__init__.py → opt/ansible/__init__.py.md\n\n```text\n\n**Report
-Structure:**\n\n```markdown\n# Code Issues Report: opt/ansible/__init__.py\nGenerated:
+issues:\n\n```text\nopt/ansible/**init**.py → opt/ansible/**init**.py.md\n\n```text\n\n**Report
+Structure:**\n\n```markdown\n# Code Issues Report: opt/ansible/**init**.py\nGenerated:
 2025-12-13T10:30:45.123456\n\n## Issues Summary\nTotal: 5 issues found\n\n| Line | Column | Tool |
 Code | Severity | Message |\n|------|--------|------|------|----------|---------|\n| 42 | 0 | flake8
 | E501 | WARNING | line too long (105 > 100 characters) |\n| 15 | 8 | mypy | name-defined | ERROR |
@@ -41,16 +41,16 @@ message)\n-**Implementation Status**: Section to track fixed issues\n-**Fix Prop
 proposals for each unimplemented issue (added by Coding Expert)\n- **Implementation Progress**:
 Checklist of fixed items\n\n## Issue Codes\n\n### Flake8 (Python)\n\n-`E501`: Line too long\n-
 `E302`: Expected 2 blank lines\n- `W291`: Trailing whitespace\n- [Full
-list]([https://www.flake8.org]([https://www.flake8.or]([https://www.flake8.o]([https://www.flake8.]([https://www.flake8](https://www.flake8).)o)r)g)/)\n\n###
+list]([https://www.flake8.org]([https://www.flake8.or]([https://www.flake8.o]([https://www.flake8.]([https://www.flake8]([https://www.flake](https://www.flake)8).)o)r)g)/)\n\n###
 Mypy (Python Type Checking)\n\n- `name-defined`: Name is not defined\n- `type-error`: Type
 mismatch\n- `return-value`: Return type mismatch\n- [Full
-list]([https://mypy.readthedocs.io]([https://mypy.readthedocs.i]([https://mypy.readthedocs.]([https://mypy.readthedocs]([https://mypy.readthedoc](https://mypy.readthedoc)s).)i)o)/)\n\n###
+list]([https://mypy.readthedocs.io]([https://mypy.readthedocs.i]([https://mypy.readthedocs.]([https://mypy.readthedocs]([https://mypy.readthedoc]([https://mypy.readthedo](https://mypy.readthedo)c)s).)i)o)/)\n\n###
 Shellcheck (Shell)\n\n- `SC2086`: Double quote to prevent globbing\n- `SC2181`: Check exit code of
 command\n- `SC1091`: Not following source\n- [Full
-list]([https://www.shellcheck.net]([https://www.shellcheck.ne]([https://www.shellcheck.n]([https://www.shellcheck.]([https://www.shellcheck](https://www.shellcheck).)n)e)t)/)\n\n###
+list]([https://www.shellcheck.net]([https://www.shellcheck.ne]([https://www.shellcheck.n]([https://www.shellcheck.]([https://www.shellcheck]([https://www.shellchec](https://www.shellchec)k).)n)e)t)/)\n\n###
 ESLint (JavaScript)\n\n- `no-unused-vars`: Variable declared but never used\n- `no-undef`: Variable
 not defined\n- `semi`: Missing semicolon\n- [Full
-list]([https://eslint.org]([https://eslint.or]([https://eslint.o]([https://eslint.]([https://eslint](https://eslint).)o)r)g)/)\n\n##
+list]([https://eslint.org]([https://eslint.or]([https://eslint.o]([https://eslint.]([https://eslint]([https://eslin](https://eslin)t).)o)r)g)/)\n\n##
 Integration with context.md & changelog.md\n\nWhen implementing fixes:\n\n1. Update
 [context.md](../context.md) with any architectural changes\n1. Log implementation progress in
 [changelog.md](../changelog.md)\n\nExample changelog entry:\n\n```markdown\n\n### Code Quality
@@ -78,8 +78,8 @@ opt/services/api.py.md\n...\n[Coding Expert] Ready for implementation. Review pr
 issues as fixed in corresponding .md files\n\n## Add ✅ emoji and code to "Fixed Issues"
 section\n\n## 5. Re-run workflow\n\n$ python3 scripts/critic_workflow.py\n\n```text\n\n## Extending
 the System\n\n### Add a New File Type\n\nEdit `scripts/critic_agent.py`:\n\n1. Add extension to
-`SUPPORTED_EXTENSIONS`\n1. Add tools to `TOOLS`dict\n1. Implement`analyze_<ext>()`method\n1. Call it
-from`analyze_file()`\n\n### Add a Custom Tool\n\nImplement an `analyze_<tool>()`method following the
+`SUPPORTED*EXTENSIONS`\n1. Add tools to `TOOLS`dict\n1. Implement`analyze*<ext>()`method\n1. Call it
+from`analyze*file()`\n\n### Add a Custom Tool\n\nImplement an `analyze*<tool>()`method following the
 pattern:\n\n```python\ndef analyze_mytool(self, file_path: Path) -> List[Dict[str, Any]]:\n """Run
 mytool on file."""\n issues = []\n try:\n result = subprocess.run(\n ['mytool', str(file_path),
 '--format=json'],\n capture_output=True, text=True, timeout=10\n )\n if result.stdout:\n for issue

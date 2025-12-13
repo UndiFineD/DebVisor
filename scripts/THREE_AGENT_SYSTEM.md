@@ -28,7 +28,7 @@ Template\n\nEach code file should follow this structure:\n\n```python\n#!/usr/bi
 Copyright (c) 2025 DebVisor contributors\n# Licensed under the Apache License, Version 2.0 (the
 "License");\n# you may not use this file except in compliance with the License.\n# You may obtain a
 copy of the License at\n#
-[http://www.apache.org/licenses/LICENSE-2.0\n#]([http://www.apache.org/licenses/LICENSE-2.0\n]([http://www.apache.org/licenses/LICENSE-2.0\]([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)\)n)#)
+[http://www.apache.org/licenses/LICENSE-2.0\n#]([http://www.apache.org/licenses/LICENSE-2.0\n]([http://www.apache.org/licenses/LICENSE-2.0\]([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)\)n)#)
 Unless required by applicable law or agreed to in writing, software\n# distributed under the License
 is distributed on an "AS IS" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.\n# See the License for the specific language governing permissions and\n# limitations
@@ -40,7 +40,7 @@ support for streaming input\n- Implement caching layer\n\n## Improvements\n- Add
 logging\n- Implement parallel processing\n- Add type hints to all functions\n"""\n\n#
 =====================================================\n# Implementation\n#
 ===================================================== (2)\n\nimport sys\nfrom pathlib import
-Path\n\ndef main():\n """Main entry point."""\n pass\n\nif __name__== '__main__':\n
+Path\n\ndef main():\n """Main entry point."""\n pass\n\nif **name**== '**main**':\n
 main()\n\n```text\n\n## Usage Workflow\n\n### Step 1: Run Full Workflow\n\n```bash\npython3
 scripts/unified_workflow.py\n\n```text\n\nThis will:\n\n- Validate file structure across all code
 files\n- Detect code quality issues\n- Generate fix proposals\n\n### Step 2: Review Generated
@@ -55,8 +55,8 @@ Workflow\n\nRun the workflow again to verify fixes and detect new issues:\n\n```
 scripts/unified_workflow.py\n\n```text\n\n## Output Structure\n\n```text\nrepository/\n├──
 scripts/\n│ ├── planning_agent.py\n│ ├── critic_agent.py\n│ ├── coding_expert_agent.py\n│ ├──
 unified_workflow.py\n│ ├── PLANNING_AGENT_README.md\n│ ├── CRITIC_WORKFLOW_README.md\n│ └──
-README.md (this file)\n│\n├── opt/\n│ ├──__init__.py\n│ ├── __init__.py.plan.md (structure
-validation)\n│ ├── __init__.py.md (code issues)\n│ ├── services/\n│ │ ├── api.py\n│ │ ├──
+README.md (this file)\n│\n├── opt/\n│ ├──**init**.py\n│ ├── **init**.py.plan.md (structure
+validation)\n│ ├── **init**.py.md (code issues)\n│ ├── services/\n│ │ ├── api.py\n│ │ ├──
 api.py.plan.md\n│ │ └── api.py.md\n│ └── ...\n│\n└── docs/\n ├── CODE_OF_CONDUCT.md\n ├──
 CONTRIBUTING.md\n └── ...\n\n```text\n\n## Integration Points\n\n### With Version Control\n\n- Run
 workflow before committing\n- Review generated`.md`reports\n- Commit fixes with clear messages

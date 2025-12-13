@@ -161,7 +161,7 @@ Flag\n\nAdd`--apply` flag for direct system application (with confirmation):\n p
 --apply --backend networkd\n\n## Prompts\n\n## About to apply network configuration\n\n## - eth0:
 DHCP\n\n## - eth1: Static 192.168.1.10/24\n\n## - br0: Bridge\n\n #\n\n## Continue? (y/n) y\n\n
 
-#\n\n## Applying configuration\n\n## ? Copied 10-br0.netdev to /etc/systemd/network/\n\n## ? Copied
+# \n\n## Applying configuration\n\n## ? Copied 10-br0.netdev to /etc/systemd/network/\n\n## ? Copied
 
 10-br0.network to /etc/systemd/network/\n\n## ? Restarted systemd-networkd\n\n## ? Verified network
 connectivity\n\n## ? COMPLETE\n\n #\n\n## To rollback\n\n## ./apply-rollback.sh\n\n## Key
@@ -195,14 +195,14 @@ per page)\n\n- Lazy-load per-interface details\n\n- Optimize refresh rate for 10
 Next Steps\n\n1.**Phase 1:**Add comprehensive unit test framework (1-2 weeks)\n1.**Phase
 2:**Implement error handling for edge cases (1 week)\n1.**Phase 3:**Add --apply flag with safety
 (1-2 weeks)\n1.**Phase 4:**Expand documentation (1 week)\n\n## References\n\n- [systemd-networkd
-Documentation]([https://man7.org/linux/man-pages/man5/systemd.network.5.htm]([https://man7.org/linux/man-pages/man5/systemd.network.5.ht]([https://man7.org/linux/man-pages/man5/systemd.network.5.h]([https://man7.org/linux/man-pages/man5/systemd.network.5.]([https://man7.org/linux/man-pages/man5/systemd.network.5](https://man7.org/linux/man-pages/man5/systemd.network.5).)h)t)m)l)\n\n-
+Documentation]([https://man7.org/linux/man-pages/man5/systemd.network.5.htm]([https://man7.org/linux/man-pages/man5/systemd.network.5.ht]([https://man7.org/linux/man-pages/man5/systemd.network.5.h]([https://man7.org/linux/man-pages/man5/systemd.network.5.]([https://man7.org/linux/man-pages/man5/systemd.network.5]([https://man7.org/linux/man-pages/man5/systemd.network.](https://man7.org/linux/man-pages/man5/systemd.network.)5).)h)t)m)l)\n\n-
 [Netplan
-Documentation]([https://netplan.io]([https://netplan.i]([https://netplan.]([https://netplan]([https://netpla](https://netpla)n).)i)o)/)\n\n-
+Documentation]([https://netplan.io]([https://netplan.i]([https://netplan.]([https://netplan]([https://netpla]([https://netpl](https://netpl)a)n).)i)o)/)\n\n-
 [iproute2
-Manual]([https://linux.die.net/man/8/i]([https://linux.die.net/man/8/]([https://linux.die.net/man/8]([https://linux.die.net/man/]([https://linux.die.net/man](https://linux.die.net/man)/)8)/)i)p)\n\n-
+Manual]([https://linux.die.net/man/8/i]([https://linux.die.net/man/8/]([https://linux.die.net/man/8]([https://linux.die.net/man/]([https://linux.die.net/man]([https://linux.die.net/ma](https://linux.die.net/ma)n)/)8)/)i)p)\n\n-
 [NetworkManager
-nmcli]([https://networkmanager.dev/docs/api/latest/nmcli.htm]([https://networkmanager.dev/docs/api/latest/nmcli.ht]([https://networkmanager.dev/docs/api/latest/nmcli.h]([https://networkmanager.dev/docs/api/latest/nmcli.]([https://networkmanager.dev/docs/api/latest/nmcli](https://networkmanager.dev/docs/api/latest/nmcli).)h)t)m)l)\n\n-
+nmcli]([https://networkmanager.dev/docs/api/latest/nmcli.htm]([https://networkmanager.dev/docs/api/latest/nmcli.ht]([https://networkmanager.dev/docs/api/latest/nmcli.h]([https://networkmanager.dev/docs/api/latest/nmcli.]([https://networkmanager.dev/docs/api/latest/nmcli]([https://networkmanager.dev/docs/api/latest/nmcl](https://networkmanager.dev/docs/api/latest/nmcl)i).)h)t)m)l)\n\n-
 [Python unittest
-Documentation]([https://docs.python.org/3/library/unittest.htm]([https://docs.python.org/3/library/unittest.ht]([https://docs.python.org/3/library/unittest.h]([https://docs.python.org/3/library/unittest.]([https://docs.python.org/3/library/unittest](https://docs.python.org/3/library/unittest).)h)t)m)l)\n\n-
+Documentation]([https://docs.python.org/3/library/unittest.htm]([https://docs.python.org/3/library/unittest.ht]([https://docs.python.org/3/library/unittest.h]([https://docs.python.org/3/library/unittest.]([https://docs.python.org/3/library/unittest]([https://docs.python.org/3/library/unittes](https://docs.python.org/3/library/unittes)t).)h)t)m)l)\n\n-
 [pytest
-Documentation]([https://docs.pytest.org]([https://docs.pytest.or]([https://docs.pytest.o]([https://docs.pytest.]([https://docs.pytest](https://docs.pytest).)o)r)g)/)\n\n
+Documentation]([https://docs.pytest.org]([https://docs.pytest.or]([https://docs.pytest.o]([https://docs.pytest.]([https://docs.pytest]([https://docs.pytes](https://docs.pytes)t).)o)r)g)/)\n\n

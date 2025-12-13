@@ -1466,7 +1466,7 @@ byte code.
 
         assert os.path.exists(iso_file)
 
-if __name__ == "__main__":
+if **name** == "**main**":
 ```python
 
 ### Proposal

@@ -33,7 +33,7 @@ Roles tested: all roles in opt/ansible/roles/\n\n## Validation: Idempotence, ser
 End-to-End Tests (Staging/Prod)\n\n## Scope: Full system tests against deployed environment\n\n## 1.
 Node provisioning\n\n debvisor-provision-node --host staging-node-1 --profile ceph\n\n## 2. Cluster
 health\n\n cephctl health\n hvctl nodes\n k8sctl nodes\n\n## 3. Web panel\n\n curl -u admin:password
-[https://staging-panel.local/api/health]([https://staging-panel.local/api/healt]([https://staging-panel.local/api/heal]([https://staging-panel.local/api/hea]([https://staging-panel.local/api/he]([https://staging-panel.local/api/h](https://staging-panel.local/api/h)e)a)l)t)h)\n\n##
+[https://staging-panel.local/api/health]([https://staging-panel.local/api/healt]([https://staging-panel.local/api/heal]([https://staging-panel.local/api/hea]([https://staging-panel.local/api/he]([https://staging-panel.local/api/h]([https://staging-panel.local/api/](https://staging-panel.local/api/)h)e)a)l)t)h)\n\n##
 
 4. RPC service\n\n grpcurl -plaintext localhost:5000 debvisor.Node/Status\n\n## 5.
 Backup/restore\n\n debvisor-backup --path /backup/staging-$(date +%Y%m%d)\n debvisor-restore --path

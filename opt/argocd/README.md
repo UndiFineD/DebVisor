@@ -55,11 +55,11 @@ addresses, tenant IDs, or other data needed by the playbook:\n annotations:\n re
 "host-03.cluster-a"\n threat_level: "critical"\n attack_vector: "ssh_brute_force"\n\n####
 Alertmanager Configuration\n\nConfigure Alertmanager to route security/remediation alerts to
 the\nworkflow webhook:\n receivers:\n\n- name: 'debvisor-automation'\n\n webhook_configs:\n\n- url:
-'[http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert']([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/aler]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/ale]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/al]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/a](http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/a)l)e)r)t)')\n\n
-send_resolved: false\n route:\n receiver: 'default'\n routes:\n\n- match:\n\n alertname:
+'[http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert']([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/alert]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/aler]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/ale]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/al]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/a]([http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/](http://debvisor-webhook-receiver.debvisor-monitoring.svc:8080/)a)l)e)r)t)')\n\n
+send*resolved: false\n route:\n receiver: 'default'\n routes:\n\n- match:\n\n alertname:
 'MFAComplianceViolation|HostCompromised|MaliciousIPDetected'\n receiver:
 'debvisor-automation'\n\n#### Success Metric Naming Convention\n\nThe workflow constructs the
-expected success metric as:\n debvisor_{alertname_lowercase}_resolved\nFor example:\n\n- Alert
+expected success metric as:\n debvisor*{alertname_lowercase}_resolved\nFor example:\n\n- Alert
 `MFAComplianceViolation`-> Metric`debvisor_mfacomplianceviolation_resolved`\n\n- Alert
 `HostCompromised`-> Metric`debvisor_hostcompromised_resolved`\n\nAWX playbooks should emit these
 metrics (via Prometheus pushgateway or\nexporter) once remediation is confirmed. The metric should
@@ -74,22 +74,22 @@ metric confirmation; account for remediation propagation delay. |\n|`dead-letter
 | 5s, factor 2 | Ensure failure is recorded even if primary sink is degraded. |\n\n###
 Parameterizing endpoints and tokens\n\nThe workflow accepts the following parameters (overridable
 per invocation):\n| Parameter | Default | Usage
-|\n|---|---|---|\n|`awx-base-url`|[https://awx.debvisor.local]([https://awx.debvisor.loca]([https://awx.debvisor.loc]([https://awx.debvisor.lo]([https://awx.debvisor.l]([https://awx.debvisor.](https://awx.debvisor.)l)o)c)a)l)
+|\n|---|---|---|\n|`awx-base-url`|[https://awx.debvisor.local]([https://awx.debvisor.loca]([https://awx.debvisor.loc]([https://awx.debvisor.lo]([https://awx.debvisor.l]([https://awx.debvisor.]([https://awx.debvisor](https://awx.debvisor).)l)o)c)a)l)
 | Base URL of the AWX API. |\n|
-`prometheus-base-url`|[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc](http://prometheus.debvisor-monitoring.svc):)9)0)9)0)
+`prometheus-base-url`|[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv](http://prometheus.debvisor-monitoring.sv)c):)9)0)9)0)
 | Base URL of the Prometheus API. |\n| `awx-token`| (empty) | Bearer token for AWX authentication
 (required). |\n|`dry-run`|`"false"`| Set to`"true"`to test playbooks without executing.
-|\n|`alert-sink`|[http://alert-sink.debvisor-monitoring.svc:8080/failed]([http://alert-sink.debvisor-monitoring.svc:8080/faile]([http://alert-sink.debvisor-monitoring.svc:8080/fail]([http://alert-sink.debvisor-monitoring.svc:8080/fai]([http://alert-sink.debvisor-monitoring.svc:8080/fa]([http://alert-sink.debvisor-monitoring.svc:8080/f](http://alert-sink.debvisor-monitoring.svc:8080/f)a)i)l)e)d)
+|\n|`alert-sink`|[http://alert-sink.debvisor-monitoring.svc:8080/failed]([http://alert-sink.debvisor-monitoring.svc:8080/faile]([http://alert-sink.debvisor-monitoring.svc:8080/fail]([http://alert-sink.debvisor-monitoring.svc:8080/fai]([http://alert-sink.debvisor-monitoring.svc:8080/fa]([http://alert-sink.debvisor-monitoring.svc:8080/f]([http://alert-sink.debvisor-monitoring.svc:8080/](http://alert-sink.debvisor-monitoring.svc:8080/)f)a)i)l)e)d)
 | Endpoint for dead-letter queue (failed remediations). |\nThese can be overridden:\n\n- **Per
 workflow invocation**: Pass as arguments when launching.\n\n- **Via WorkflowTemplate**: Define
 defaults in a reusable template.\n\n- **Via ConfigMap**: Reference a ConfigMap for
 environment-specific values\n\n (lab, staging, production).\nExample via Argo Workflows CLI:\n argo
 submit -f security-remediation-workflow.yaml \\n\n - p
-awx-base-url=[https://awx.prod.example.com]([https://awx.prod.example.co]([https://awx.prod.example.c]([https://awx.prod.example.]([https://awx.prod.example]([https://awx.prod.exampl](https://awx.prod.exampl)e).)c)o)m)
+awx-base-url=[https://awx.prod.example.com]([https://awx.prod.example.co]([https://awx.prod.example.c]([https://awx.prod.example.]([https://awx.prod.example]([https://awx.prod.exampl]([https://awx.prod.examp](https://awx.prod.examp)l)e).)c)o)m)
 \\n\n - p awx-token=$AWX_TOKEN \\n\n - p dry-run=false\n\n### Dry-run / Simulation mode\n\nFor
 safely testing new alert routes or playbook mappings:\n\n1. Set the `dry-run`parameter
 to`"true"`when launching.\n\n1. The workflow will:\n\n- Parse the alert and select a playbook +
-extra vars normally.\n\n- Pass`dry_run: true`to AWX (playbook logs actions but doesn't
+extra vars normally.\n\n- Pass`dry*run: true`to AWX (playbook logs actions but doesn't
 execute).\n\n- Still validate alert JSON and signal errors for malformed payloads.\n\n- Still emit
 audit logs (marked as dry-run in the audit context).\n\nThis allows debugging new alert
 configurations without impacting live\nsystems.\n\n### ServiceAccount & RBAC\n\nThe workflow runs as
@@ -110,7 +110,7 @@ name.\n\n- Check AWX logs for authentication or template errors.\n\n- Verify ext
 JSON.\n\n1. Increase timeouts if playbook execution is slow:\n\n-
 Update`awx-job-launcher``timeoutSeconds`value.\n\n#### Remediation not verified (metric check
 fails)\n\n1. Verify success metric is emitted:\n\n- Check Prometheus for the
-metric:`debvisor_*_resolved`.\n\n- Verify metric value is`1`when remediation completes.\n\n1. Adjust
+metric:`debvisor**_resolved`.\n\n- Verify metric value is`1`when remediation completes.\n\n1. Adjust
 retry/backoff if metric takes time to appear:\n\n- Increase`check-metrics`retry count.\n\n- Increase
 backoff duration if propagation is slow.\n\n1. Check playbook output:\n\n- Verify AWX playbook emits
 the metric (via pushgateway or exporter).\n\n#### Manual intervention alert received\n\n1. Review
