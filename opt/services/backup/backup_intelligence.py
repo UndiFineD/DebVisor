@@ -349,10 +349,10 @@ class ChangeRateEstimator:
         now = datetime.now(timezone.utc)
 
         for h in range(hours_ahead):  # type: ignore[name-defined]
-            _future_hour=(now.hour + h) % 24  # type: ignore[name-defined]
-            _future_day=(now.weekday() + (now.hour + h) // 24) % 7  # type: ignore[name-defined]
+            future_hour = (now.hour + h) % 24  # type: ignore[name-defined]
+            future_day = (now.weekday() + (now.hour + h) // 24) % 7  # type: ignore[name-defined]
 
-            _hour_rate=m.daily_pattern.get(future_hour, m.predicted_rate)  # type: ignore[name-defined]
+            hour_rate = m.daily_pattern.get(future_hour, m.predicted_rate)  # type: ignore[name-defined]
             day_factor = m.weekly_pattern.get(future_day, m.predicted_rate) / max(  # type: ignore[name-defined]
                 m.predicted_rate, 0.01
             )
@@ -377,13 +377,13 @@ class ChangeRateEstimator:
 
         m = self.metrics[vm_id]
         now = datetime.now(timezone.utc)
-        _rpo_deadline=now + timedelta(minutes=rpo_minutes)  # type: ignore[name-defined]
+        rpo_deadline = now + timedelta(minutes=rpo_minutes)  # type: ignore[name-defined]
 
         candidates: List[Tuple[datetime, float]] = []    # (time, score)
 
         # Check each hour in the next 24 hours
         for h in range(min(24, rpo_minutes // 60 + 1)):
-            _check_time=now + timedelta(hours=h)  # type: ignore[name-defined]
+            check_time = now + timedelta(hours=h)  # type: ignore[name-defined]
 
             # Must be within a window
             if not self._in_window(check_time, windows):  # type: ignore[name-defined]
@@ -394,8 +394,8 @@ class ChangeRateEstimator:
                 continue
 
             # Score based on predicted change rate (lower is better)
-            _hour_rate=m.daily_pattern.get(check_time.hour, m.predicted_rate)  # type: ignore[name-defined]
-            _day_rate=m.weekly_pattern.get(check_time.weekday(), m.predicted_rate)  # type: ignore[name-defined]
+            hour_rate = m.daily_pattern.get(check_time.hour, m.predicted_rate)  # type: ignore[name-defined]
+            day_rate = m.weekly_pattern.get(check_time.weekday(), m.predicted_rate)  # type: ignore[name-defined]
 
             # Combine with window priority
             _window=self._get_window(check_time, windows)  # type: ignore[name-defined]
