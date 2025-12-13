@@ -21,16 +21,19 @@ Checks that each code file has:
 6. Then the actual code
 
 Generates .plan.md reports for each file with structure issues and fix proposals.
+Reports include Copilot enhancement prompts for AI-assisted improvements.
 
 ## Description
 This module provides a Planning Agent that validates and enforces proper code file structure
 across a codebase. It ensures all code files follow a consistent format with license headers,
-comprehensive docstrings, and proper organization.
+comprehensive docstrings, and proper organization. Generated planning reports include
+prompts for GitHub Copilot to provide enhanced analysis and recommendations.
 
 ## Changelog
 - 1.0.0: Initial implementation with basic structure validation
 - 1.1.0: Enhanced docstring parsing for Python files
 - 1.2.0: Added support for multiple programming languages
+- 1.3.0: Added Copilot enhancement prompts to generated reports
 
 ## Suggested Fixes
 - Improve error messages for better user guidance
@@ -41,6 +44,7 @@ comprehensive docstrings, and proper organization.
 - Performance optimization for large codebases
 - Better integration with CI/CD pipelines
 - Enhanced reporting with actionable recommendations
+- AI-assisted report enhancement via Copilot prompts
 """
 
 import subprocess
@@ -561,7 +565,7 @@ class PlanningAgent:
                 wrote_markdown = True
             else:
                 validated += 1
-                print("  -> Structure is valid ✅")
+                print("  -> Structure is valid")
 
         print("[Planning] Analysis complete!")
         print(f"[Planning] Summary: {validated} valid, {with_issues} with issues")
