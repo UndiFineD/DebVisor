@@ -1,9 +1,8 @@
-import unittest
-from unittest.mock import patch
 import pytest
 import os
 import json
 import tempfile
+from typing import Generator
 # from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 # Import the class to test
 # We need to patch the module level logger and HAS_CRYPTO if needed,
@@ -12,14 +11,13 @@ import tempfile
 from opt.services.backup_manager import BackupEncryption
 
 
-from typing import Generator
-
 @pytest.fixture
 
 
 def temp_dir() -> Generator[str, None, None]:
     with tempfile.TemporaryDirectory() as tmp:
         yield tmp
+
 
 @pytest.fixture
 

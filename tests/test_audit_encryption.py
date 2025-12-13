@@ -9,10 +9,9 @@ Tests for:
 - Searchable encryption hashing
 """
 
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import secrets
 import unittest
-from unittest.mock import MagicMock, patch
 
 from opt.services.audit_encryption import (
     FieldEncryptor,
