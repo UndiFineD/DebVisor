@@ -3,11 +3,39 @@
 Critic + Coding Expert Workflow Driver
 1. Critic agent detects issues and writes .md reports
 2. Coding expert agent reads reports and proposes fixes
+3. Both agents are aware of markdown linting standards
 """
 
 import sys
 import subprocess
 from pathlib import Path
+
+
+MARKDOWN_LINTING_STANDARDS = """
+## Markdown Linting Standards for Generated Reports
+
+When generating .md report files, ensure compliance with these markdown rules:
+
+**MD034: no-bare-urls**
+- Issue: Bare URLs used in markdown
+- Example of violation: `Visit http://example.com for details`
+- Fix: Wrap in markdown link format: `Visit [http://example.com](http://example.com) for details`
+
+**MD047: single-trailing-newline**
+- Issue: File doesn't end with exactly one newline character
+- Fix: Ensure all generated .md files end with a single newline (\\n)
+- How: Use file I/O to append newline if not present
+
+**MD022: blanks-around-headings**
+- Issue: Headings not surrounded by blank lines
+- Example of violation: Line before heading without blank line
+- Fix: Add blank lines before and after each heading
+
+**MD038: no-space-in-code**
+- Issue: Spaces inside code span delimiters
+- Example of violation: ` code ` (with spaces inside backticks)
+- Fix: Remove spaces: `code` (no spaces)
+"""
 
 
 def run_agent(script_name: str, script_path: Path):
@@ -35,6 +63,8 @@ def main():
     print("=" * 70)
     print("CRITIC + CODING EXPERT WORKFLOW")
     print("=" * 70)
+    print(MARKDOWN_LINTING_STANDARDS)
+    print("=" * 70)
 
     # Step 1: Run Critic Agent
     critic_success = run_agent(
@@ -60,10 +90,17 @@ def main():
     print("""
 Next steps:
 1. Review all .md files generated alongside code files
-2. Implement the proposed fixes in the source files
-3. Once fixed, mark issues as implemented by adding the code to the
+2. Ensure all generated .md files comply with markdown linting rules:
+   - MD034: Wrap bare URLs in markdown links
+   - MD047: Add trailing newline at end of file
+   - MD022: Add blank lines around headings
+   - MD038: Remove spaces in code spans
+3. Implement the proposed fixes in the source files
+4. Once fixed, mark issues as implemented by adding the code to the
    "Fixed Issues" section in the corresponding .md file
-4. Re-run this workflow to detect any new issues
+5. Re-run this workflow to detect any new issues
+
+Note: Use Get-Content/Set-Content for proper line ending handling on Windows
 """)
 
 

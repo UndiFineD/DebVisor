@@ -38,6 +38,29 @@ REQUIRED_SECTIONS = [
     "Improvements"
 ]
 
+MARKDOWN_LINTING_RULES = {
+    'MD034': {
+        'name': 'no-bare-urls',
+        'description': 'Bare URL used',
+        'fix': 'Wrap URLs in markdown link format: [URL](URL)'
+    },
+    'MD047': {
+        'name': 'single-trailing-newline',
+        'description': 'Files should end with a single newline character',
+        'fix': 'Add a single newline (\\n) at the end of the file'
+    },
+    'MD022': {
+        'name': 'blanks-around-headings',
+        'description': 'Headings should be surrounded by blank lines',
+        'fix': 'Add blank lines before and after headings'
+    },
+    'MD038': {
+        'name': 'no-space-in-code',
+        'description': 'Spaces inside code span delimiters',
+        'fix': 'Remove spaces: change ` code ` to `code`'
+    }
+}
+
 
 class PlanningAgent:
     """Validates code file structure and generates planning reports."""
@@ -233,6 +256,21 @@ class PlanningAgent:
 
         lines.extend([
             "",
+            "## Markdown Linting Awareness",
+            "",
+            "⚠️ **Generated .md files should comply with these rules:**",
+            "",
+        ])
+
+        for code, rule_info in sorted(MARKDOWN_LINTING_RULES.items()):
+            lines.extend([
+                f"### {code}: {rule_info['name']}",
+                f"- **Issue**: {rule_info['description']}",
+                f"- **Fix**: {rule_info['fix']}",
+                ""
+            ])
+
+        lines.extend([
             "## Required Structure",
             "",
             "Each code file should have the following structure:",
@@ -281,6 +319,11 @@ class PlanningAgent:
                 "   - Suggested Fixes",
                 "   - Improvements",
                 "4. Separate docstring from code with blank line and comment divider",
+                "5. Ensure generated .md reports comply with markdown linting rules:",
+                "   - **MD034**: Wrap bare URLs in links: `[URL](URL)`",
+                "   - **MD047**: Add trailing newline at end of file",
+                "   - **MD022**: Add blank lines around headings",
+                "   - **MD038**: Remove spaces in code spans: `` `code` `` not `` ` code ` ``",
                 "",
                 "### Example Template:",
                 "",
@@ -290,7 +333,7 @@ class PlanningAgent:
                 '# Licensed under the Apache License, Version 2.0 (the "License");',
                 "# you may not use this file except in compliance with the License.",
                 "# You may obtain a copy of the License at",
-                "#     http://www.apache.org/licenses/LICENSE-2.0",
+                "#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)",
                 "# Unless required by applicable law or agreed to in writing, software",
                 '# distributed under the License is distributed on an "AS IS" BASIS,',
                 "# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
