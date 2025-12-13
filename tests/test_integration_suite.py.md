@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_integration_suite.py
 
-Generated: 2025-12-13T16:55:14.557939
+Generated: 2025-12-13T17:19:36.790259
 Source: tests\test_integration_suite.py
 
 ## Issues Summary
@@ -72,7 +72,7 @@ Items marked below as fixed:
 async def vault_client() -> None:  # type: ignore[misc]
     """Initialize Vault client for testing."""
     config = VaultConfig(
-        _url = "[http://127.0.0.1:8200",](http://127.0.0.1:8200",)
+        _url = "[http://127.0.0.1:8200",]([http://127.0.0.1:8200"]([http://127.0.0.1:8200]([http://127.0.0.1:820]([http://127.0.0.1:82](http://127.0.0.1:82)0)0)"),)
         _auth_method = AuthMethod.TOKEN,
         _token = "dev-only-token",
 ```python

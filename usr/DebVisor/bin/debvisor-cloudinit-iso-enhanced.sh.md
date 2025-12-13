@@ -1,6 +1,6 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-cloudinit-iso-enhanced.sh
 
-Generated: 2025-12-13T16:56:32.642548
+Generated: 2025-12-13T17:20:40.723033
 Source: usr\DebVisor\bin\debvisor-cloudinit-iso-enhanced.sh
 
 ## Issues Summary
@@ -303,19 +303,19 @@ Total: 276 issues found
 ### Context
 ```python
 
-```
+```python
 echo -e "${RED}[ERROR]${NC} $1" | tee -a "$LOG_FILE"
-```
+```python
 
 }
 
 debug_log() {
 
-```
+```python
 if [["${VERBOSE:-false}" == "true"]]; then
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 ```python
 
@@ -340,11 +340,11 @@ fi
 
 debug_log() {
 
-```
+```python
 if [["${VERBOSE:-false}" == "true"]]; then
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 }
 
@@ -369,11 +369,11 @@ fi
 
 debug_log() {
 
-```
+```python
 if [["${VERBOSE:-false}" == "true"]]; then
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 }
 
@@ -398,11 +398,11 @@ fi
 
 debug_log() {
 
-```
+```python
 if [["${VERBOSE:-false}" == "true"]]; then
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 }
 
@@ -427,19 +427,19 @@ error_handler() {
 ### Context
 ```python
 
-```
+```python
 if [["${VERBOSE:-false}" == "true"]]; then
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 }
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
-```
+```python
 
 ```python
 
@@ -460,19 +460,19 @@ local exit_code=$1
 ### Context
 ```python
 
-```
+```python
     echo "[DEBUG] $1" >> "$LOG_FILE"
 fi
-```
+```python
 
 }
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
 local line_number=$2
-```
+```python
 
 ```python
 
@@ -493,19 +493,19 @@ local line_number=$2
 ### Context
 ```python
 
-```
+```python
 fi
-```
+```python
 
 }
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 ```python
 
@@ -530,11 +530,11 @@ log_error "Script failed at line $line_number with exit code $exit_code"
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
@@ -559,11 +559,11 @@ log_error "Script failed at line $line_number with exit code $exit_code"
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
@@ -588,11 +588,11 @@ log_error "Script failed at line $line_number with exit code $exit_code"
 
 error_handler() {
 
-```
+```python
 local exit_code=$1
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
@@ -617,19 +617,19 @@ cleanup() {
 ### Context
 ```python
 
-```
+```python
 local exit_code=$1
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
-```
+```python
 
 ```python
 
@@ -650,19 +650,19 @@ if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
 ### Context
 ```python
 
-```
+```python
 local line_number=$2
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
-```
+```python
 
 ```python
 
@@ -683,19 +683,19 @@ if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
 ### Context
 ```python
 
-```
+```python
 log_error "Script failed at line $line_number with exit code $exit_code"
-```
+```python
 
 }
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 ```python
 
@@ -720,11 +720,11 @@ fi
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 }
 
@@ -749,11 +749,11 @@ fi
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 }
 
@@ -778,11 +778,11 @@ fi
 
 cleanup() {
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 }
 
@@ -807,11 +807,11 @@ fi
 ### Context
 ```python
 
-```
+```python
 if [["${KEEP_TEMP:-false}" != "true"]] && [[-d "$WORKDIR"]]; then
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 }
 
@@ -838,10 +838,10 @@ fi
 ### Context
 ```python
 
-```
+```python
     rm -rf "$WORKDIR"
 fi
-```
+```python
 
 }
 
@@ -870,9 +870,9 @@ fi
 ### Context
 ```python
 
-```
+```python
 fi
-```
+```python
 
 }
 
@@ -938,9 +938,9 @@ print_usage() {
 
 print_usage() {
 
-```
+```python
 cat << EOF
-```
+```python
 
 ```python
 
@@ -969,9 +969,9 @@ cat << EOF
 
 print_usage() {
 
-```
+```python
 cat << EOF
-```
+```python
 
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS]
 
@@ -1000,9 +1000,9 @@ ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS]
 
 print_usage() {
 
-```
+```python
 cat << EOF
-```
+```python
 
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS]
 
@@ -1029,9 +1029,9 @@ ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS]
 
 print_usage() {
 
-```
+```python
 cat << EOF
-```
+```python
 
 ${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS]
 
@@ -1056,19 +1056,19 @@ ${BLUE}Description:${NC}
 ### Context
 ```python
 
-```
+```python
 --packages curl,vim,htop \\
 -o /tmp/cloud-init.iso
-```
+```python
 
 EOF
 }
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 ```python
 
@@ -1089,18 +1089,18 @@ echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 ### Context
 ```python
 
-```
+```python
 -o /tmp/cloud-init.iso
-```
+```python
 
 EOF
 }
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1128,9 +1128,9 @@ EOF
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1157,9 +1157,9 @@ echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1186,9 +1186,9 @@ echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1217,9 +1217,9 @@ echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 
 print_version() {
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1248,9 +1248,9 @@ echo "$SCRIPT_NAME version $SCRIPT_VERSION"
 ### Context
 ```python
 
-```
+```python
 echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```
+```python
 
 }
 
@@ -1316,9 +1316,9 @@ list_templates() {
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
-```
+```python
 
 ```python
 
@@ -1347,10 +1347,10 @@ log_info "Available templates:"
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
-```
+```python
 
 ```python
 
@@ -1377,11 +1377,11 @@ if [[-d "$TEMPLATE_DIR"]]; then
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
-```
+```python
 
 ```python
 
@@ -1406,12 +1406,12 @@ if [[-d "$TEMPLATE_DIR"]]; then
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
         local name=$(basename "$template" .template)
-```
+```python
 
 ```python
 
@@ -1434,13 +1434,13 @@ if [[-d "$TEMPLATE_DIR"]]; then
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
         local name=$(basename "$template" .template)
         echo "  - $name"
-```
+```python
 
 ```python
 
@@ -1463,14 +1463,14 @@ if [[-d "$TEMPLATE_DIR"]]; then
 
 list_templates() {
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
         local name=$(basename "$template" .template)
         echo "  - $name"
     done
-```
+```python
 
 ```python
 
@@ -1491,7 +1491,7 @@ if [[-d "$TEMPLATE_DIR"]]; then
 ### Context
 ```python
 
-```
+```python
 log_info "Available templates:"
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
@@ -1499,7 +1499,7 @@ if [[-d "$TEMPLATE_DIR"]]; then
         echo "  - $name"
     done
 fi
-```
+```python
 
 ```python
 
@@ -1520,7 +1520,7 @@ fi
 ### Context
 ```python
 
-```
+```python
 if [[-d "$TEMPLATE_DIR"]]; then
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
         local name=$(basename "$template" .template)
@@ -1528,7 +1528,7 @@ if [[-d "$TEMPLATE_DIR"]]; then
     done
 fi
 echo "  - ubuntu (built-in)"
-```
+```python
 
 ```python
 
@@ -1549,7 +1549,7 @@ echo "  - ubuntu (built-in)"
 ### Context
 ```python
 
-```
+```python
     find "$TEMPLATE_DIR" -name "*.template" -type f | while read -r template; do
         local name=$(basename "$template" .template)
         echo "  - $name"
@@ -1557,7 +1557,7 @@ echo "  - ubuntu (built-in)"
 fi
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
-```
+```python
 
 ```python
 
@@ -1578,7 +1578,7 @@ echo "  - debian (built-in)"
 ### Context
 ```python
 
-```
+```python
         local name=$(basename "$template" .template)
         echo "  - $name"
     done
@@ -1586,7 +1586,7 @@ fi
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 ```python
 
@@ -1607,14 +1607,14 @@ echo "  - rhel (built-in)"
 ### Context
 ```python
 
-```
+```python
         echo "  - $name"
     done
 fi
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
@@ -1637,13 +1637,13 @@ echo "  - rhel (built-in)"
 ### Context
 ```python
 
-```
+```python
     done
 fi
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
@@ -1666,12 +1666,12 @@ echo "  - rhel (built-in)"
 ### Context
 ```python
 
-```
+```python
 fi
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
@@ -1696,19 +1696,19 @@ generate_ubuntu_template() {
 ### Context
 ```python
 
-```
+```python
 echo "  - ubuntu (built-in)"
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
-```
+```python
 
 ```python
 
@@ -1729,19 +1729,19 @@ local hostname="${1:-debvisor-vm}"
 ### Context
 ```python
 
-```
+```python
 echo "  - debian (built-in)"
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
-```
+```python
 
 ```python
 
@@ -1762,19 +1762,19 @@ local username="${2:-ubuntu}"
 ### Context
 ```python
 
-```
+```python
 echo "  - rhel (built-in)"
-```
+```python
 
 }
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
-```
+```python
 
 ```python
 
@@ -1799,12 +1799,12 @@ local ssh_key="${3:-}"
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
 local packages="${4:-}"
-```
+```python
 
 ```python
 
@@ -1827,13 +1827,13 @@ local packages="${4:-}"
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
-```
+```python
 
 ```python
 
@@ -1856,14 +1856,14 @@ local packages="${4:-}"
 
 generate_ubuntu_template() {
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ```python
 
@@ -1884,14 +1884,14 @@ cat << 'EOF'
 ### Context
 ```python
 
-```
+```python
 local hostname="${1:-debvisor-vm}"
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -1914,13 +1914,13 @@ cat << 'EOF'
 ### Context
 ```python
 
-```
+```python
 local username="${2:-ubuntu}"
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -1945,12 +1945,12 @@ version: 2
 ### Context
 ```python
 
-```
+```python
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -1976,12 +1976,12 @@ EOF
 ### Context
 ```python
 
-```
+```python
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -2007,12 +2007,12 @@ EOF
 ### Context
 ```python
 
-```
+```python
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -2038,12 +2038,12 @@ EOF
 ### Context
 ```python
 
-```
+```python
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -2069,12 +2069,12 @@ EOF
 ### Context
 ```python
 
-```
+```python
 local ssh_key="${3:-}"
 local packages="${4:-}"
 
 cat << 'EOF'
-```
+```python
 
 ## cloud-config
 
@@ -2102,9 +2102,9 @@ EOF
 
 if [["${BASH_SOURCE[0]}" == "${0}"]]; then
 
-```
+```python
 main "$@"
-```
+```python
 
 fi
 

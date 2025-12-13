@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\cost_optimization\api.py
 
-Generated: 2025-12-13T16:45:37.373156
+Generated: 2025-12-13T17:11:15.117689
 Source: opt\services\cost_optimization\api.py
 
 ## Issues Summary
@@ -28,9 +28,9 @@ Items marked below as fixed:
 ### Context
 
 ```python
-app.register_blueprint(cost_bp, url_prefix="/api/v1/cost")
+app.register_blueprint(cost_bp, url*prefix="/api/v1/cost")
 
-if *name**== "**main*_":
+if *name**== "**main**":
     app.run(host="0.0.0.0", port=5006)
 ```python
 

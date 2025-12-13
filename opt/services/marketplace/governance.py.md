@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\marketplace\governance.py
 
-Generated: 2025-12-13T16:46:10.556055
+Generated: 2025-12-13T17:11:43.486321
 Source: opt\services\marketplace\governance.py
 
 ## Issues Summary

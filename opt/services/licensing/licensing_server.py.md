@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\licensing\licensing_server.py
 
-Generated: 2025-12-13T16:46:07.937455
+Generated: 2025-12-13T17:11:41.044621
 Source: opt\services\licensing\licensing_server.py
 
 ## Issues Summary

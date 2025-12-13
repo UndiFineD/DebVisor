@@ -622,7 +622,7 @@ Connection "upgrade";\n }\n\n## Redirect HTTP to HTTPS\n\n server {\n listen
 80;\n
 server_name
 cluster.example.com;\n return 301
-[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque]([https://$server*name$requ]([https://$server*name$req]([https://$server*name$re]([https://$server*name$r]([https://$server*name$]([https://$server*name]([https://$server*nam]([https://$server*na]([https://$server*n]([https://$server*]([https://$server]([https://$serve]([https://$serv]([https://$ser]([https://$se]([https://$s](https://$s)e)r)v)e)r)*)n)a)m)e)$)r)e)q)u)e)s)t)*)u)r)i);)\n
+[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque]([https://$server*name$requ]([https://$server*name$req]([https://$server*name$re]([https://$server*name$r]([https://$server*name$]([https://$server*name]([https://$server*nam]([https://$server*na]([https://$server*n]([https://$server*]([https://$server]([https://$serve]([https://$serv]([https://$ser]([https://$se]([https://$s]([https://$](https://$)s)e)r)v)e)r)*)n)a)m)e)$)r)e)q)u)e)s)t)*)u)r)i);)\n
 }\n\n## Testing\n\n### Test Structure (tests/test_nodes.py)\n\n """\n Tests for
 node
 management

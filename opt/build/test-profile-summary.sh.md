@@ -1,6 +1,6 @@
 # Code Issues Report: opt\build\test-profile-summary.sh
 
-Generated: 2025-12-13T16:41:06.924586
+Generated: 2025-12-13T17:07:40.089309
 Source: opt\build\test-profile-summary.sh
 
 ## Issues Summary

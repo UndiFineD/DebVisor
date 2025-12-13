@@ -1,6 +1,6 @@
 # Code Issues Report: opt\system\hardware_detection.py
 
-Generated: 2025-12-13T16:49:02.987928
+Generated: 2025-12-13T17:14:15.271259
 Source: opt\system\hardware_detection.py
 
 ## Issues Summary

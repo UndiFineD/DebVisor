@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\security\firewall_manager.py
 
-Generated: 2025-12-13T16:48:37.524451
+Generated: 2025-12-13T17:13:53.918856
 Source: opt\services\security\firewall_manager.py
 
 ## Issues Summary

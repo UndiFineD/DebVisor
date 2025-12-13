@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import List, Tuple
 from dataclasses import dataclass
+import argparse
 
 
 @dataclass
@@ -25,8 +26,9 @@ class Issue:
 class CodingExpertAgent:
     """Proposes and implements fixes for code issues."""
 
-    def __init__(self, repo_root: str = '.'):
+    def __init__(self, repo_root: str = '.', agents_only: bool = False):
         self.repo_root = Path(repo_root)
+        self.agents_only = agents_only
 
     def parse_issue_report(self, md_path: Path) -> Tuple[Path, List[Issue], str]:
         """Parse markdown issue report and extract issues."""
@@ -57,8 +59,17 @@ class CodingExpertAgent:
     def find_issue_reports(self) -> List[Path]:
         """Find all .md issue report files."""
         reports = []
-        for pattern in ['**/*.py.md', '**/*.sh.md', '**/*.js.md', '**/*.go.md', '**/*.html.md', '**/*.css.md']:
-            reports.extend(self.repo_root.glob(pattern))
+        patterns = ['**/*.py.md', '**/*.sh.md', '**/*.js.md', '**/*.go.md', '**/*.html.md', '**/*.css.md']
+        
+        if self.agents_only:
+            # Focus only on scripts/ directory for agent development/testing
+            scripts_dir = self.repo_root / 'scripts'
+            for pattern in patterns:
+                reports.extend(scripts_dir.glob(pattern))
+        else:
+            for pattern in patterns:
+                reports.extend(self.repo_root.glob(pattern))
+        
         return sorted(reports)
 
     def get_source_context(self, source_path: Path, line: int, context_lines: int = 3) -> Tuple[int, str]:
@@ -170,11 +181,33 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
             if not unimplemented:
                 print("  -> All " + str(len(issues)) + " issues already implemented ✅")
-                # Remove the corresponding .plan.md file if it exists
+                # Mark all issues as [Fixed] in the corresponding .plan.md file if it exists
                 plan_md_path = source_path.with_suffix('.plan.md')
                 if plan_md_path.exists():
-                    plan_md_path.unlink()
-                    print("  -> Removed plan file: " + str(plan_md_path.relative_to(self.repo_root)))
+                    try:
+                        content = plan_md_path.read_text(encoding='utf-8', errors='replace')
+                        # Mark issues as [Fixed] in the table rows
+                        lines = content.split('\n')
+                        updated_lines = []
+                        for line in lines:
+                            # Check if this is an issue table row (contains | type | line | message |)
+                            if '|' in line and 'incorrect_header' in line or 'missing_section' in line:
+                                # Add [Fixed] to the message part
+                                parts = line.split('|')
+                                if len(parts) >= 4:
+                                    # The message is in the last part before the closing |
+                                    message_part = parts[-2].strip()
+                                    if not message_part.startswith('[Fixed]'):
+                                        parts[-2] = f' [Fixed] {message_part}'
+                                        line = '|'.join(parts)
+                            updated_lines.append(line)
+
+                        updated_content = '\n'.join(updated_lines)
+                        plan_md_path.write_text(updated_content, encoding='utf-8')
+                        print("  -> Marked all issues as [Fixed] in plan file: " +
+                              str(plan_md_path.relative_to(self.repo_root)))
+                    except Exception as e:
+                        print(f"  -> Failed to update plan file: {e}")
                 continue
 
             # Generate detailed proposal report
@@ -188,5 +221,9 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
 
 if __name__ == '__main__':
-    agent = CodingExpertAgent()
+    parser = argparse.ArgumentParser(description='Coding Expert Agent: Reads issue reports from .md files and proposes fixes.')
+    parser.add_argument('--agents-only', action='store_true', help='Focus only on scripts/ directory for agent development/testing')
+    args = parser.parse_args()
+    
+    agent = CodingExpertAgent(agents_only=args.agents_only)
     agent.run()

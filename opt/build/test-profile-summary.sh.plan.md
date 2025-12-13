@@ -1,6 +1,6 @@
 # Planning Report: opt\build\test-profile-summary.sh
 
-Generated: 2025-12-13T17:06:28.281333
+Generated: 2025-12-13T18:59:40.274763
 Status: INVALID
 
 ## File Structure Validation
@@ -13,16 +13,16 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got 'set -euo pipefail', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got '', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got '# Smoke test for debvisor-profile-summary.sh', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got 'SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)') |
+| incorrect_header | 5 | Header line incorrect: got 'SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)') |
 | incorrect_header | 6 | Header line incorrect: got 'ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got 'HELPER="${ROOT_DIR}/config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got 'TMPDIR="$(mktemp -d)"', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
 | incorrect_header | 9 | Header line incorrect: got 'trap 'rm -rf "${TMPDIR}"' EXIT', expected '# See the License for the specific language governing permissions and' |
 | incorrect_header | 10 | Header line incorrect: got '', expected '# limitations under the License.' |
-| missing_section | - | Missing 'Description' section. Should be in docstring after license header. |
-| missing_section | - | Missing 'Changelog' section. Should be in docstring after license header. |
-| missing_section | - | Missing 'Suggested Fixes' section. Should be in docstring after license header. |
-| missing_section | - | Missing 'Improvements' section. Should be in docstring after license header. |
+| missing_section | - | Missing 'Description' section. Should be documented in the file. |
+| missing_section | - | Missing 'Changelog' section. Should be documented in the file. |
+| missing_section | - | Missing 'Suggested Fixes' section. Should be documented in the file. |
+| missing_section | - | Missing 'Improvements' section. Should be documented in the file. |
 
 ## Markdown Linting Awareness
 
@@ -84,6 +84,74 @@ Detailed description of what this file does.
 ## =====================================================
 ```python
 
+## Copilot Improvement Queries
+
+Use these prompts with GitHub Copilot to enhance the docstring sections:
+
+### 1. Improve Description Section
+
+```python
+Review this Python module's current description and suggest improvements:
+
+File: opt\build\test-profile-summary.sh
+Current Description:
+[Insert current ## Description content here]
+
+Please provide:
+1. A more comprehensive and clear description
+2. Better organization of information
+3. More specific technical details
+4. Clear explanation of the module's purpose and scope
+```python
+
+### 2. Improve Changelog Section
+
+```python
+Analyze this Python module's changelog and suggest enhancements:
+
+File: opt\build\test-profile-summary.sh
+Current Changelog:
+[Insert current ## Changelog content here]
+
+Please provide:
+1. More detailed version entries
+2. Better categorization of changes (features, fixes, breaking changes)
+3. Consistent formatting and style
+4. Addition of missing version entries if applicable
+```python
+
+### 3. Improve Suggested Fixes Section
+
+```python
+Review this Python module's suggested fixes and provide better recommendations:
+
+File: opt\build\test-profile-summary.sh
+Current Suggested Fixes:
+[Insert current ## Suggested Fixes content here]
+
+Please provide:
+1. More specific and actionable fix suggestions
+2. Prioritized list of improvements
+3. Technical details for implementation
+4. Potential impact assessment for each fix
+```python
+
+### 4. Improve Improvements Section
+
+```python
+Enhance this Python module's improvements section with better future plans:
+
+File: opt\build\test-profile-summary.sh
+Current Improvements:
+[Insert current ## Improvements content here]
+
+Please provide:
+1. More ambitious and innovative improvement ideas
+2. Roadmap-style organization
+3. Technical feasibility assessment
+4. Potential benefits and impact of each improvement
+```python
+
 ## Fix Proposals
 
 ### To Fix This File
@@ -122,7 +190,7 @@ Detailed description of what this file does.
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN](http://www.apache.org/licenses/LICEN)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

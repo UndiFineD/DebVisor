@@ -1,6 +1,6 @@
 # Code Issues Report: opt\build\sync-addons-playbook.sh
 
-Generated: 2025-12-13T16:41:06.732764
+Generated: 2025-12-13T17:07:39.919651
 Source: opt\build\sync-addons-playbook.sh
 
 ## Issues Summary

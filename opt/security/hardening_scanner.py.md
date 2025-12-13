@@ -1,6 +1,6 @@
 # Code Issues Report: opt\security\hardening_scanner.py
 
-Generated: 2025-12-13T16:43:36.378696
+Generated: 2025-12-13T17:09:50.063496
 Source: opt\security\hardening_scanner.py
 
 ## Issues Summary

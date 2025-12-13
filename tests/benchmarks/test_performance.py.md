@@ -1,6 +1,6 @@
 # Code Issues Report: tests\benchmarks\test_performance.py
 
-Generated: 2025-12-13T16:53:36.236804
+Generated: 2025-12-13T17:18:18.444076
 Source: tests\benchmarks\test_performance.py
 
 ## Issues Summary
@@ -254,7 +254,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 ### Context
 
 ```python
-        "disk_gb": random.randint(10, 500),
+        "disk*gb": random.randint(10, 500),
         "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
@@ -287,7 +287,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
         "created*at": datetime.now(timezone.utc).isoformat(),
         "hypervisor": random.choice(["kvm", "xen"]),

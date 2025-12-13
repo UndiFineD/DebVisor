@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Critic Testing Agent: Detects code issues and logs them to sibling .md files.
+Critic Testing Agent: Detects code issues and appends them to *.plan.md files.
 Supports: py, sh, js, css, html, go files.
 Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.
 """
@@ -11,6 +11,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Set
+import argparse
 
 
 def load_codeignore(root: Path) -> Set[str]:
@@ -43,8 +44,9 @@ class CriticAgent:
         '.go': ['golangci-lint'],
     }
 
-    def __init__(self, repo_root: str = '.'):
+    def __init__(self, repo_root: str = '.', agents_only: bool = False):
         self.repo_root = Path(repo_root)
+        self.agents_only = agents_only
         self.issues: Dict[str, List[Dict[str, Any]]] = {}
         self.ignored_patterns = load_codeignore(self.repo_root)
 
@@ -53,6 +55,12 @@ class CriticAgent:
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
+        
+        # Filter to scripts directory if agents_only is True
+        if self.agents_only:
+            scripts_dir = self.repo_root / 'scripts'
+            code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
+        
         return sorted([f for f in code_files if not self._is_ignored(f)])
 
     def _is_ignored(self, path: Path) -> bool:
@@ -229,16 +237,15 @@ class CriticAgent:
 
         return []
 
-    def generate_md_report(self, file_path: Path, issues: List[Dict[str, Any]]) -> str:
-        """Generate markdown report for issues."""
-        relative_path = file_path.relative_to(self.repo_root)
+    def generate_code_issues_section(self, issues: List[Dict[str, Any]]) -> str:
+        """Generate markdown section for code issues."""
+        if not issues:
+            return ""
 
         lines = [
-            f"# Code Issues Report: {relative_path}",
-            f"Generated: {datetime.now().isoformat()}",
-            f"Source: {relative_path}",
             "",
-            "## Issues Summary",
+            "## Code Quality Issues",
+            "",
             f"Total: {len(issues)} issues found",
             "",
             "| Line | Column | Tool | Code | Severity | Message |",
@@ -276,10 +283,54 @@ class CriticAgent:
             issues = self.analyze_file(file_path)
 
             if issues:
-                md_report = self.generate_md_report(file_path, issues)
-                md_path = file_path.with_suffix(file_path.suffix + '.md')
-                md_path.write_text(md_report, encoding='utf-8')
-                print(f"  -> {len(issues)} issues found, wrote to {md_path.relative_to(self.repo_root)}")
+                # Check if .plan.md file exists
+                plan_md_path = file_path.with_suffix('.plan.md')
+                code_issues_section = self.generate_code_issues_section(issues)
+
+                if plan_md_path.exists():
+                    # Append to existing .plan.md file
+                    try:
+                        existing_content = plan_md_path.read_text(encoding='utf-8')
+                        # Check if code issues section already exists
+                        if "## Code Quality Issues" in existing_content:
+                            # Update existing section
+                            parts = existing_content.split("## Code Quality Issues")
+                            if len(parts) > 1:
+                                before_section = parts[0]
+                                after_section = parts[1].split("## ", 1)
+                                if len(after_section) > 1:
+                                    after_section = "## " + after_section[1]
+                                else:
+                                    after_section = ""
+                                updated_content = before_section + code_issues_section + after_section
+                            else:
+                                updated_content = existing_content + code_issues_section
+                        else:
+                            # Append new section
+                            updated_content = existing_content + code_issues_section
+                        
+                        plan_md_path.write_text(updated_content, encoding='utf-8')
+                        print(f"  -> {len(issues)} issues found, appended to {plan_md_path.relative_to(self.repo_root)}")
+                    except Exception as e:
+                        print(f"  -> Failed to update plan file: {e}")
+                        continue
+                else:
+                    # Create new .plan.md file with code issues
+                    relative_path = file_path.relative_to(self.repo_root)
+                    new_content = [
+                        f"# Planning Report: {relative_path}",
+                        f"Generated: {datetime.now().isoformat()}",
+                        f"Status: CODE_ISSUES_ONLY",
+                        "",
+                        "## File Structure Validation",
+                        "",
+                        "⚠️ **Structure validation not performed**",
+                        "",
+                    ]
+                    new_content.append(code_issues_section)
+                    plan_md_path.write_text('\n'.join(new_content), encoding='utf-8')
+                    print(f"  -> {len(issues)} issues found, created {plan_md_path.relative_to(self.repo_root)}")
+                
                 wrote_markdown = True
 
         print("[Critic] Analysis complete!")
@@ -298,5 +349,9 @@ class CriticAgent:
 
 
 if __name__ == '__main__':
-    agent = CriticAgent()
+    parser = argparse.ArgumentParser(description='Critic Agent: Detects code issues and appends them to *.plan.md files.')
+    parser.add_argument('--agents-only', action='store_true', help='Focus only on scripts/ directory for agent development/testing')
+    args = parser.parse_args()
+    
+    agent = CriticAgent(agents_only=args.agents_only)
     agent.run()

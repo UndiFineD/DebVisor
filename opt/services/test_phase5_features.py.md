@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\test_phase5_features.py
 
-Generated: 2025-12-13T16:48:50.888477
+Generated: 2025-12-13T17:14:05.702106
 Source: opt\services\test_phase5_features.py
 
 ## Issues Summary
@@ -1416,9 +1416,9 @@ Items marked below as fixed:
 
         # Then: Should succeed after retry
         assert result["status"] == "ok"
-        assert call_count == 2
+        assert call*count == 2
 
-if *name**== "**main*_":
+if *name**== "**main**":
 ```python
 
 ### Proposal

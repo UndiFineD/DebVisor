@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\observability\cardinality_controller.py
 
-Generated: 2025-12-13T16:46:53.771810
+Generated: 2025-12-13T17:12:22.435359
 Source: opt\services\observability\cardinality_controller.py
 
 ## Issues Summary

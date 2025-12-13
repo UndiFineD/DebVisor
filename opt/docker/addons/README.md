@@ -87,7 +87,7 @@ deployment\n\n-
 script: configure-monitoring.sh\n\n pre_remove: # Run before removal\n\n-
 script:
 backup-data.sh\n\n## Health checks\n\n healthcheck:\n type: http\n endpoint:
-"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he]([http://localhost:9090/-/h]([http://localhost:9090/-/]([http://localhost:9090/-]([http://localhost:9090/]([http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh]([http://local]([http://loca]([http://loc]([http://lo](http://lo)c)a)l)h)o)s)t):)9)0)9)0)/)-)/)h)e)a)l)t)h)y)")\n
+"[http://localhost:9090/-/healthy"]([http://localhost:9090/-/healthy]([http://localhost:9090/-/health]([http://localhost:9090/-/healt]([http://localhost:9090/-/heal]([http://localhost:9090/-/hea]([http://localhost:9090/-/he]([http://localhost:9090/-/h]([http://localhost:9090/-/]([http://localhost:9090/-]([http://localhost:9090/]([http://localhost:9090]([http://localhost:909]([http://localhost:90]([http://localhost:9]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh]([http://local]([http://loca]([http://loc]([http://lo]([http://l](http://l)o)c)a)l)h)o)s)t):)9)0)9)0)/)-)/)h)e)a)l)t)h)y)")\n
 interval: 30s\n timeout: 5s\n\n## Configuration schema (for validation)\n\n
 config:\n
 properties:\n

@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\observability\carbon_telemetry.py
 
-Generated: 2025-12-13T16:46:51.089210
+Generated: 2025-12-13T17:12:19.814538
 Source: opt\services\observability\carbon_telemetry.py
 
 ## Issues Summary

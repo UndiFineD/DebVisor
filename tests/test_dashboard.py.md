@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_dashboard.py
 
-Generated: 2025-12-13T16:54:46.739822
+Generated: 2025-12-13T17:19:12.138336
 Source: tests\test_dashboard.py
 
 ## Issues Summary

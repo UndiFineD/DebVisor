@@ -19,23 +19,91 @@ Orchestrates all three quality agents in sequence:
 3. Coding Expert Agent: Proposes fixes
 
 Usage:
-    python3 scripts/unified_workflow.py
+    python3 scripts/unified_workflow.py [--agents-only]
 """
 
 import subprocess
 import sys
 from pathlib import Path
+import argparse
 
 
-def run_agent(agent_script: str, description: str, timeout_seconds: int) -> bool:
+def run_git_command(command: list, description: str) -> bool:
+    """Run a git command and return success status."""
+    try:
+        result = subprocess.run(
+            command,
+            cwd=Path(__file__).parent.parent,
+            capture_output=True,
+            text=True,
+            timeout=60
+        )
+        if result.returncode == 0:
+            print(f"[GIT] ✅ {description}")
+            return True
+        else:
+            print(f"[GIT] ❌ {description} failed: {result.stderr.strip()}")
+            return False
+    except subprocess.TimeoutExpired:
+        print(f"[GIT] ❌ {description} timed out")
+        return False
+    except Exception as e:
+        print(f"[GIT] ❌ {description} error: {str(e)}")
+        return False
+
+
+def run_git_workflow():
+    """Execute git add, commit, and push workflow."""
+    print(f"\n{'=' * 70}")
+    print("[GIT] Starting automated git workflow")
+    print(f"{'=' * 70}\n")
+
+    # Check if there are any changes to commit
+    try:
+        status_result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=Path(__file__).parent.parent,
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        if not status_result.stdout.strip():
+            print("[GIT] No changes to commit")
+            return True
+    except Exception as e:
+        print(f"[GIT] Could not check git status: {str(e)}")
+        return False
+
+    # Git add all changes
+    if not run_git_command(["git", "add", "-A"], "Staged all changes"):
+        return False
+
+    # Git commit with automated message
+    commit_message = "Automated code quality workflow updates"
+    if not run_git_command(["git", "commit", "-m", commit_message], f"Committed changes: '{commit_message}'"):
+        return False
+
+    # Git push
+    if not run_git_command(["git", "push"], "Pushed changes to remote"):
+        return False
+
+    print("[GIT] ✅ Git workflow completed successfully")
+    return True
+
+
+def run_agent(agent_script: str, description: str, timeout_seconds: int, extra_args: list = None) -> bool:
     """Run an agent script and return success status."""
     print(f"\n{'=' * 70}")
     print(f"[WORKFLOW] Starting: {description}")
     print(f"{'=' * 70}\n")
 
+    cmd = [sys.executable, agent_script]
+    if extra_args:
+        cmd.extend(extra_args)
+
     try:
         result = subprocess.run(
-            [sys.executable, agent_script],
+            cmd,
             cwd=Path(__file__).parent.parent,
             timeout=timeout_seconds
         )
@@ -51,8 +119,15 @@ def run_agent(agent_script: str, description: str, timeout_seconds: int) -> bool
 
 def main():
     """Execute the unified workflow."""
+    parser = argparse.ArgumentParser(description='DebVisor Unified Quality Workflow')
+    parser.add_argument('--agents-only', action='store_true',
+                       help='Only process files in the scripts/ directory (agents focus on themselves)')
+    args = parser.parse_args()
+
     print("\n" + "=" * 70)
     print("DEBVISOR UNIFIED QUALITY WORKFLOW")
+    if args.agents_only:
+        print("MODE: AGENTS-ONLY (processing scripts/ directory only)")
     print("=" * 70)
 
     scripts_dir = Path(__file__).parent
@@ -61,6 +136,11 @@ def main():
         ("critic_agent.py", "Critic Agent (Code Quality Analysis)", 3600),
         ("coding_expert_agent.py", "Coding Expert Agent (Fix Proposals)", 1800),
     ]
+
+    # Prepare extra arguments for agents
+    extra_args = []
+    if args.agents_only:
+        extra_args = ["--agents-only"]
 
     results = {}
 
@@ -71,7 +151,7 @@ def main():
             results[description] = False
             continue
 
-        success = run_agent(str(agent_path), description, timeout_seconds)
+        success = run_agent(str(agent_path), description, timeout_seconds, extra_args)
         results[description] = success
 
     # Print final summary
@@ -88,6 +168,10 @@ def main():
     print("\n" + "=" * 70)
     if all_passed:
         print("✅ ALL AGENTS COMPLETED SUCCESSFULLY")
+
+        # Run automated git workflow
+        git_success = run_git_workflow()
+
         print("\nNext Steps:")
         print("1. Review generated .plan.md reports (file structure issues)")
         print("2. Review generated .md reports (code quality issues)")
@@ -95,6 +179,9 @@ def main():
         print("4. Implement fixes in source files")
         print("5. Mark fixed issues with ✅ emoji in reports")
         print("6. Re-run this workflow to detect new issues")
+
+        if git_success:
+            print("7. Changes have been automatically committed and pushed")
     else:
         print("❌ SOME AGENTS FAILED")
         print("\nCheck error messages above and fix issues before re-running.")

@@ -1,6 +1,6 @@
 # Code Issues Report: opt\testing\mock_mode.py
 
-Generated: 2025-12-13T16:49:21.470999
+Generated: 2025-12-13T17:14:29.962361
 Source: opt\testing\mock_mode.py
 
 ## Issues Summary
@@ -366,7 +366,7 @@ Items marked below as fixed:
 
 ```python
                 {
-                    "mac": _generate*mac(),
+                    "mac": *generate*mac(),
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
                     "network": f"net-{random.randint(0, 2):02d}",
                 }
@@ -398,7 +398,7 @@ Items marked below as fixed:
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
                     "network": f"net-{random.randint(0, 2):02d}",
                 }
-                for _ in range(random.randint(1, 3))
+                for * in range(random.randint(1, 3))
             ],
             "disks": [
                 {
@@ -874,7 +874,7 @@ def _generate_mac() -> str:
 ```python
             "ports": [
                 {
-                    "container_port": random.choice([80, 443, 8080, 3000, 5432, 6379]),
+                    "container*port": random.choice([80, 443, 8080, 3000, 5432, 6379]),
                     "host*port": random.randint(30000, 32767),
                     "protocol": "tcp",
                 }
@@ -932,7 +932,7 @@ def _generate_mac() -> str:
 ### Context
 
 ```python
-                for _ in range(random.randint(0, 3))
+                for * in range(random.randint(0, 3))
             ],
             "labels": {
                 "app": f"app-{random.randint(1, 10):02d}",

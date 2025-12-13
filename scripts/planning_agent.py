@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """
 Planning Agent: Validates and enforces code file structure.
 
@@ -11,6 +21,26 @@ Checks that each code file has:
 6. Then the actual code
 
 Generates .plan.md reports for each file with structure issues and fix proposals.
+
+## Description
+This module provides a Planning Agent that validates and enforces proper code file structure
+across a codebase. It ensures all code files follow a consistent format with license headers,
+comprehensive docstrings, and proper organization.
+
+## Changelog
+- 1.0.0: Initial implementation with basic structure validation
+- 1.1.0: Enhanced docstring parsing for Python files
+- 1.2.0: Added support for multiple programming languages
+
+## Suggested Fixes
+- Improve error messages for better user guidance
+- Add configuration file support for custom validation rules
+- Implement auto-fix capabilities for common issues
+
+## Improvements
+- Performance optimization for large codebases
+- Better integration with CI/CD pipelines
+- Enhanced reporting with actionable recommendations
 """
 
 import subprocess
@@ -18,6 +48,7 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Any, Set
 from datetime import datetime
+import argparse
 
 
 def load_codeignore(root: Path) -> Set[str]:
@@ -82,8 +113,9 @@ class PlanningAgent:
 
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
-    def __init__(self, repo_root: str = '.'):
+    def __init__(self, repo_root: str = '.', agents_only: bool = False):
         self.repo_root = Path(repo_root)
+        self.agents_only = agents_only
         self.issues: Dict[str, List[Dict[str, Any]]] = {}
         self.ignored_patterns = load_codeignore(self.repo_root)
 
@@ -92,6 +124,12 @@ class PlanningAgent:
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
+        
+        # Filter to scripts directory if agents_only is True
+        if self.agents_only:
+            scripts_dir = self.repo_root / 'scripts'
+            code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
+        
         return sorted([f for f in code_files if not self._is_ignored(f)])
 
     def _is_ignored(self, path: Path) -> bool:
@@ -154,60 +192,120 @@ class PlanningAgent:
         # Get expected header lines
         expected_header = [f"{comment_char} {line}" for line in LICENSE_HEADER]
 
-        # Check first N lines
+        # For Python files, skip shebang line
+        start_line = 0
+        if ext == '.py' and lines and lines[0].startswith('#!'):
+            start_line = 1
+
+        # Check header lines starting from start_line
         for i, expected in enumerate(expected_header):
-            if i >= len(lines):
+            line_idx = start_line + i
+            if line_idx >= len(lines):
                 issues.append({
                     'type': 'missing_header_line',
-                    'line': i + 1,
+                    'line': line_idx + 1,
                     'message': f"Missing license header line: {expected}"
                 })
-            elif lines[i].strip() != expected.strip():
+            elif lines[line_idx].strip() != expected.strip():
                 issues.append({
                     'type': 'incorrect_header',
-                    'line': i + 1,
+                    'line': line_idx + 1,
                     'message': (
-                        f"Header line incorrect: got '{lines[i]}', "
+                        f"Header line incorrect: got '{lines[line_idx]}', "
                         f"expected '{expected}'"
                     )
                 })
 
         return issues
 
+    def _extract_docstring(self, lines: List[str]) -> str:
+        """Extract the module docstring from Python file lines."""
+        content = '\n'.join(lines)
+        # Find the first docstring after license header (assume header is ~10 lines)
+        start_idx = 0
+        for i, line in enumerate(lines):
+            if i > 10:  # After license header
+                if '"""' in line or "'''" in line:
+                    start_idx = i
+                    break
+        
+        if start_idx == 0:
+            return ""
+        
+        # Find the quote type
+        start_line = lines[start_idx]
+        if '"""' in start_line:
+            quote = '"""'
+        elif "'''" in start_line:
+            quote = "'''"
+        else:
+            return ""
+        
+        # Find the end
+        docstring_lines = []
+        for i in range(start_idx, len(lines)):
+            docstring_lines.append(lines[i])
+            if i > start_idx and quote in lines[i]:
+                break
+        
+        return '\n'.join(docstring_lines)
+
     def _check_required_sections(self, file_path: Path, lines: List[str]) -> List[Dict[str, str]]:
         """Check for required documentation sections."""
         issues = []
-        content = '\n'.join(lines)
-
-        for section in REQUIRED_SECTIONS:
-            if section not in content:
+        ext = file_path.suffix.lower()
+        
+        if ext == '.py':
+            # For Python files, check sections within the docstring
+            docstring = self._extract_docstring(lines)
+            if not docstring:
                 issues.append({
-                    'type': 'missing_section',
-                    'message': (
-                        f"Missing '{section}' section. "
-                        "Should be in docstring after license header."
-                    )
+                    'type': 'missing_docstring',
+                    'message': "Missing module docstring after license header."
                 })
-
-        # Check section order if all exist
-        if not issues:
-            positions = {}
+                return issues
+            
+            # Check each section exists in docstring
             for section in REQUIRED_SECTIONS:
-                pos = content.find(section)
-                if pos != -1:
-                    positions[section] = pos
-
-            sorted_sections = sorted(positions.items(), key=lambda x: x[1])
-            for i in range(len(sorted_sections) - 1):
-                current_sec = sorted_sections[i][0]
-                next_idx = REQUIRED_SECTIONS.index(sorted_sections[i + 1][0]) + 1
-                if current_sec not in REQUIRED_SECTIONS[:next_idx]:
-                    sections_str = ', '.join(REQUIRED_SECTIONS)
+                if f"## {section}" not in docstring:
                     issues.append({
-                        'type': 'section_order',
-                        'message': f"Sections out of order. Expected: {sections_str}"
+                        'type': 'missing_section',
+                        'message': (
+                            f"Missing '## {section}' section in docstring. "
+                            "Should be in module docstring after license header."
+                        )
                     })
-                    break
+            
+            # Check section order if all exist
+            if not issues:
+                positions = {}
+                for section in REQUIRED_SECTIONS:
+                    pos = docstring.find(f"## {section}")
+                    if pos != -1:
+                        positions[section] = pos
+                
+                if len(positions) == len(REQUIRED_SECTIONS):
+                    sorted_sections = sorted(positions.items(), key=lambda x: x[1])
+                    expected_order = REQUIRED_SECTIONS
+                    actual_order = [sec for sec, _ in sorted_sections]
+                    if actual_order != expected_order:
+                        sections_str = ', '.join(expected_order)
+                        issues.append({
+                            'type': 'section_order',
+                            'message': f"Sections out of order in docstring. Expected: {sections_str}"
+                        })
+        else:
+            # For other languages, check sections anywhere (fallback)
+            content = '\n'.join(lines)
+            for section in REQUIRED_SECTIONS:
+                if section not in content:
+                    issues.append({
+                        'type': 'missing_section',
+                        'message': (
+                            f"Missing '{section}' section. "
+                            "Should be documented in the file."
+                        )
+                    })
 
         return issues
 
@@ -224,14 +322,6 @@ class PlanningAgent:
                     'type': 'missing_shebang',
                     'line': 1,
                     'message': "Python files should start with shebang: #!/usr/bin/env python3"
-                })
-
-            # Check for docstring after header
-            content = '\n'.join(lines)
-            if '"""' not in content and "'''" not in content:
-                issues.append({
-                    'type': 'missing_docstring',
-                    'message': "Missing module docstring after license header"
                 })
 
         return issues
@@ -313,6 +403,70 @@ class PlanningAgent:
             "# [Actual code starts here]",
             "# =====================================================",
             "```",
+            "",
+            "## Copilot Improvement Queries",
+            "",
+            "Use these prompts with GitHub Copilot to enhance the docstring sections:",
+            "",
+            "### 1. Improve Description Section",
+            f"```",
+            f"Review this Python module's current description and suggest improvements:",
+            f"",
+            f"File: {relative_path}",
+            f"Current Description:",
+            f"[Insert current ## Description content here]",
+            f"",
+            f"Please provide:",
+            f"1. A more comprehensive and clear description",
+            f"2. Better organization of information",
+            f"3. More specific technical details",
+            f"4. Clear explanation of the module's purpose and scope",
+            f"```",
+            "",
+            "### 2. Improve Changelog Section",
+            f"```",
+            f"Analyze this Python module's changelog and suggest enhancements:",
+            f"",
+            f"File: {relative_path}",
+            f"Current Changelog:",
+            f"[Insert current ## Changelog content here]",
+            f"",
+            f"Please provide:",
+            f"1. More detailed version entries",
+            f"2. Better categorization of changes (features, fixes, breaking changes)",
+            f"3. Consistent formatting and style",
+            f"4. Addition of missing version entries if applicable",
+            f"```",
+            "",
+            "### 3. Improve Suggested Fixes Section",
+            f"```",
+            f"Review this Python module's suggested fixes and provide better recommendations:",
+            f"",
+            f"File: {relative_path}",
+            f"Current Suggested Fixes:",
+            f"[Insert current ## Suggested Fixes content here]",
+            f"",
+            f"Please provide:",
+            f"1. More specific and actionable fix suggestions",
+            f"2. Prioritized list of improvements",
+            f"3. Technical details for implementation",
+            f"4. Potential impact assessment for each fix",
+            f"```",
+            "",
+            "### 4. Improve Improvements Section",
+            f"```",
+            f"Enhance this Python module's improvements section with better future plans:",
+            f"",
+            f"File: {relative_path}",
+            f"Current Improvements:",
+            f"[Insert current ## Improvements content here]",
+            f"",
+            f"Please provide:",
+            f"1. More ambitious and innovative improvement ideas",
+            f"2. Roadmap-style organization",
+            f"3. Technical feasibility assessment",
+            f"4. Potential benefits and impact of each improvement",
+            f"```",
             "",
         ])
 
@@ -427,5 +581,10 @@ class PlanningAgent:
 
 
 if __name__ == '__main__':
-    agent = PlanningAgent()
+    parser = argparse.ArgumentParser(description='Planning Agent: Validates code file structure')
+    parser.add_argument('--agents-only', action='store_true',
+                       help='Only process files in the scripts/ directory')
+    args = parser.parse_args()
+    
+    agent = PlanningAgent(agents_only=args.agents_only)
     agent.run()

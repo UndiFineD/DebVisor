@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\ha\fencing_agent.py
 
-Generated: 2025-12-13T16:46:02.410482
+Generated: 2025-12-13T17:11:35.946035
 Source: opt\services\ha\fencing_agent.py
 
 ## Issues Summary
@@ -92,7 +92,7 @@ import hashlib
 ```python
 
         try:
-            url=f"[https://{host}/redfish/v1/Systems/1"](https://{host}/redfish/v1/Systems/1")
+            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/]([https://{host}/redfish/v1/Systems]([https://{host}/redfish/v1/System](https://{host}/redfish/v1/System)s)/)1)")
             response=requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),

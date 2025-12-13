@@ -1,6 +1,6 @@
 # Code Issues Report: opt\build\build-debvisor.sh
 
-Generated: 2025-12-13T16:41:06.658971
+Generated: 2025-12-13T17:07:39.848457
 Source: opt\build\build-debvisor.sh
 
 ## Issues Summary
@@ -652,7 +652,7 @@ DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 ```python
 
 ### Proposal
@@ -681,8 +681,8 @@ DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 ```python
 
 ### Proposal
@@ -710,8 +710,8 @@ DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 ```python
 
@@ -739,8 +739,8 @@ DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 ```python
@@ -768,8 +768,8 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 ```python
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
@@ -797,8 +797,8 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
 ```python
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
@@ -826,8 +826,8 @@ normalize_bool() {
 ### Context
 
 ```python
-DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
@@ -856,7 +856,7 @@ normalize_bool() {
 ### Context
 
 ```python
-DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"](http://deb.debian.org/debian/}")
+DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia](http://deb.debian.org/debia)n)/)})")
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
@@ -3821,18 +3821,18 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
 fi
-```
+```python
 
 done
 
 SKIP_CONFIG=0
 case "${DEBVISOR_FAST}" in
 
-```
+```python
 1. echo "[DebVisor] FAST=0: full clean & re-configure"
-```
+```python
 
 ```python
 
@@ -3858,10 +3858,10 @@ done
 SKIP_CONFIG=0
 case "${DEBVISOR_FAST}" in
 
-```
+```python
 1. echo "[DebVisor] FAST=0: full clean & re-configure"
     lb clean || true
-```
+```python
 
 ```python
 
@@ -3885,11 +3885,11 @@ case "${DEBVISOR_FAST}" in
 SKIP_CONFIG=0
 case "${DEBVISOR_FAST}" in
 
-```
+```python
 1. echo "[DebVisor] FAST=0: full clean & re-configure"
     lb clean || true
     ;;
-```
+```python
 
 ```python
 
@@ -3913,13 +3913,13 @@ case "${DEBVISOR_FAST}" in
 SKIP_CONFIG=0
 case "${DEBVISOR_FAST}" in
 
-```
+```python
 1. echo "[DebVisor] FAST=0: full clean & re-configure"
     lb clean || true
     ;;
 1. ```python
 
-```
+```python
 
 ### Proposal
 
@@ -4022,13 +4022,13 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     lb clean || true
     ;;
 1. echo "[DebVisor] FAST=1: skipping clean, will re-configure"
     ;;
 1. echo "[DebVisor] FAST=2: skipping clean and config"
-```
+```python
 
 ```python
 
@@ -4049,13 +4049,13 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     ;;
 1. echo "[DebVisor] FAST=1: skipping clean, will re-configure"
     ;;
 1. echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
-```
+```python
 
 ```python
 
@@ -4076,13 +4076,13 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
 1. echo "[DebVisor] FAST=1: skipping clean, will re-configure"
     ;;
 1. echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
     ;;
-```
+```python
 
 ```python
 
@@ -4103,14 +4103,14 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     echo "[DebVisor] FAST=1: skipping clean, will re-configure"
     ;;
 1. echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
     ;;
 *)
-```
+```python
 
 ```python
 
@@ -4131,14 +4131,14 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     ;;
 1. echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
     ;;
 *)
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
-```
+```python
 
 ```python
 
@@ -4159,14 +4159,14 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
 1. echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
     ;;
 *)
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
-```
+```python
 
 ```python
 
@@ -4187,7 +4187,7 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     echo "[DebVisor] FAST=2: skipping clean and config"
     SKIP_CONFIG=1
     ;;
@@ -4195,7 +4195,7 @@ case "${DEBVISOR_FAST}" in
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
     ;;
-```
+```python
 
 ```python
 
@@ -4216,14 +4216,14 @@ case "${DEBVISOR_FAST}" in
 ### Context
 ```python
 
-```
+```python
     SKIP_CONFIG=1
     ;;
 *)
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
     ;;
-```
+```python
 
 esac
 
@@ -4246,13 +4246,13 @@ esac
 ### Context
 ```python
 
-```
+```python
     ;;
 *)
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
     ;;
-```
+```python
 
 esac
 
@@ -4275,12 +4275,12 @@ esac
 ### Context
 ```python
 
-```
+```python
 *)
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
     ;;
-```
+```python
 
 esac
 
@@ -4305,19 +4305,19 @@ if ["${SKIP_CONFIG}" -ne 1]; then
 ### Context
 ```python
 
-```
+```python
     echo "[DebVisor] ERROR: Invalid DEBVISOR_FAST: ${DEBVISOR_FAST} (use 0,1,2)" >&2
     exit 1
     ;;
-```
+```python
 
 esac
 
 if ["${SKIP_CONFIG}" -ne 1]; then
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
-```
+```python
 
 ```python
 
@@ -4338,19 +4338,19 @@ echo "[DebVisor] Configuring live-build"
 ### Context
 ```python
 
-```
+```python
     exit 1
     ;;
-```
+```python
 
 esac
 
 if ["${SKIP_CONFIG}" -ne 1]; then
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
 lb config \
-```
+```python
 
 ```python
 
@@ -4371,19 +4371,19 @@ lb config \
 ### Context
 ```python
 
-```
+```python
     ;;
-```
+```python
 
 esac
 
 if ["${SKIP_CONFIG}" -ne 1]; then
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
 lb config \
 --mode debian \
-```
+```python
 
 ```python
 
@@ -4408,12 +4408,12 @@ esac
 
 if ["${SKIP_CONFIG}" -ne 1]; then
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
 lb config \
 --mode debian \
 --distribution "${DEBVISOR_DIST}" \
-```
+```python
 
 ```python
 
@@ -4436,14 +4436,14 @@ lb config \
 
 if ["${SKIP_CONFIG}" -ne 1]; then
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
 lb config \
 --mode debian \
 --distribution "${DEBVISOR_DIST}" \
 --binary-images iso-hybrid \
 --architectures "${DEBVISOR_ARCH}" \
-```
+```python
 
 ```python
 
@@ -4464,7 +4464,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] Configuring live-build"
 lb config \
 --mode debian \
@@ -4472,7 +4472,7 @@ lb config \
 --binary-images iso-hybrid \
 --architectures "${DEBVISOR_ARCH}" \
 --linux-flavours "${DEBVISOR_ARCH}" \
-```
+```python
 
 ```python
 
@@ -4493,7 +4493,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 lb config \
 --mode debian \
 --distribution "${DEBVISOR_DIST}" \
@@ -4501,7 +4501,7 @@ lb config \
 --architectures "${DEBVISOR_ARCH}" \
 --linux-flavours "${DEBVISOR_ARCH}" \
 --apt-recommends true \
-```
+```python
 
 ```python
 
@@ -4522,7 +4522,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --mode debian \
 --distribution "${DEBVISOR_DIST}" \
 --binary-images iso-hybrid \
@@ -4530,7 +4530,7 @@ lb config \
 --linux-flavours "${DEBVISOR_ARCH}" \
 --apt-recommends true \
 --archive-areas "main contrib non-free non-free-firmware" \
-```
+```python
 
 ```python
 
@@ -4551,7 +4551,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --distribution "${DEBVISOR_DIST}" \
 --binary-images iso-hybrid \
 --architectures "${DEBVISOR_ARCH}" \
@@ -4559,7 +4559,7 @@ lb config \
 --apt-recommends true \
 --archive-areas "main contrib non-free non-free-firmware" \
 --debian-installer live \
-```
+```python
 
 ```python
 
@@ -4580,7 +4580,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --binary-images iso-hybrid \
 --architectures "${DEBVISOR_ARCH}" \
 --linux-flavours "${DEBVISOR_ARCH}" \
@@ -4588,7 +4588,7 @@ lb config \
 --archive-areas "main contrib non-free non-free-firmware" \
 --debian-installer live \
 --debian-installer-gui false \
-```
+```python
 
 ```python
 
@@ -4609,7 +4609,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --architectures "${DEBVISOR_ARCH}" \
 --linux-flavours "${DEBVISOR_ARCH}" \
 --apt-recommends true \
@@ -4617,7 +4617,7 @@ lb config \
 --debian-installer live \
 --debian-installer-gui false \
 --debian-installer-preseed config/preseed.cfg \
-```
+```python
 
 ```python
 
@@ -4638,7 +4638,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --linux-flavours "${DEBVISOR_ARCH}" \
 --apt-recommends true \
 --archive-areas "main contrib non-free non-free-firmware" \
@@ -4646,7 +4646,7 @@ lb config \
 --debian-installer-gui false \
 --debian-installer-preseed config/preseed.cfg \
 --bootloaders grub-efi \
-```
+```python
 
 ```python
 
@@ -4667,7 +4667,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --apt-recommends true \
 --archive-areas "main contrib non-free non-free-firmware" \
 --debian-installer live \
@@ -4675,7 +4675,7 @@ lb config \
 --debian-installer-preseed config/preseed.cfg \
 --bootloaders grub-efi \
 --system live \
-```
+```python
 
 ```python
 
@@ -4696,7 +4696,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --archive-areas "main contrib non-free non-free-firmware" \
 --debian-installer live \
 --debian-installer-gui false \
@@ -4704,7 +4704,7 @@ lb config \
 --bootloaders grub-efi \
 --system live \
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
-```
+```python
 
 ```python
 
@@ -4725,7 +4725,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --debian-installer live \
 --debian-installer-gui false \
 --debian-installer-preseed config/preseed.cfg \
@@ -4733,7 +4733,7 @@ lb config \
 --system live \
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
-```
+```python
 
 ```python
 
@@ -4754,7 +4754,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --debian-installer-gui false \
 --debian-installer-preseed config/preseed.cfg \
 --bootloaders grub-efi \
@@ -4762,7 +4762,7 @@ lb config \
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
 --updates true \
-```
+```python
 
 ```python
 
@@ -4783,7 +4783,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --debian-installer-preseed config/preseed.cfg \
 --bootloaders grub-efi \
 --system live \
@@ -4791,7 +4791,7 @@ lb config \
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
 --updates true \
 --security true \
-```
+```python
 
 ```python
 
@@ -4812,7 +4812,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --bootloaders grub-efi \
 --system live \
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
@@ -4820,7 +4820,7 @@ lb config \
 --updates true \
 --security true \
 --backports true \
-```
+```python
 
 ```python
 
@@ -4841,7 +4841,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --system live \
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
@@ -4849,7 +4849,7 @@ lb config \
 --security true \
 --backports true \
 --iso-application "DebVisor" \
-```
+```python
 
 ```python
 
@@ -4870,7 +4870,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --firmware-chroot "${DEBVISOR_FIRMWARE_CHROOT}" \
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
 --updates true \
@@ -4878,7 +4878,7 @@ lb config \
 --backports true \
 --iso-application "DebVisor" \
 --iso-volume "DebVisor" \
-```
+```python
 
 ```python
 
@@ -4899,7 +4899,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --firmware-binary "${DEBVISOR_FIRMWARE_BINARY}" \
 --updates true \
 --security true \
@@ -4907,7 +4907,7 @@ lb config \
 --iso-application "DebVisor" \
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
-```
+```python
 
 ```python
 
@@ -4928,7 +4928,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --updates true \
 --security true \
 --backports true \
@@ -4936,7 +4936,7 @@ lb config \
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
-```
+```python
 
 ```python
 
@@ -4957,7 +4957,7 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --security true \
 --backports true \
 --iso-application "DebVisor" \
@@ -4965,7 +4965,7 @@ lb config \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 ```python
 
@@ -4986,14 +4986,14 @@ lb config \
 ### Context
 ```python
 
-```
+```python
 --backports true \
 --iso-application "DebVisor" \
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
@@ -5016,13 +5016,13 @@ fi
 ### Context
 ```python
 
-```
+```python
 --iso-application "DebVisor" \
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
@@ -5045,12 +5045,12 @@ fi
 ### Context
 ```python
 
-```
+```python
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
@@ -5075,12 +5075,12 @@ echo "[DebVisor] Syncing addons playbook (if script present)"
 ### Context
 ```python
 
-```
+```python
 --iso-volume "DebVisor" \
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
@@ -5105,11 +5105,11 @@ echo "[DebVisor] Syncing addons playbook (if script present)"
 ### Context
 ```python
 
-```
+```python
 --mirror-bootstrap "${DEBVISOR_MIRROR_BOOTSTRAP}" \
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
@@ -5135,19 +5135,19 @@ if [-x build/sync-addons-playbook.sh]; then
 ### Context
 ```python
 
-```
+```python
 --mirror-binary "${DEBVISOR_MIRROR_BINARY}" \
 --grub-splash none
-```
+```python
 
 fi
 
 echo "[DebVisor] Syncing addons playbook (if script present)"
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 ```python
 
@@ -5168,18 +5168,18 @@ build/sync-addons-playbook.sh
 ### Context
 ```python
 
-```
+```python
 --grub-splash none
-```
+```python
 
 fi
 
 echo "[DebVisor] Syncing addons playbook (if script present)"
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
@@ -5207,15 +5207,15 @@ fi
 echo "[DebVisor] Syncing addons playbook (if script present)"
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 ```python
 
@@ -5239,15 +5239,15 @@ echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executa
 echo "[DebVisor] Syncing addons playbook (if script present)"
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
@@ -5273,15 +5273,15 @@ fi
 echo "[DebVisor] Syncing addons playbook (if script present)"
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
@@ -5306,15 +5306,15 @@ fi
 
 if [-x build/sync-addons-playbook.sh]; then
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
@@ -5339,23 +5339,23 @@ if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 ### Context
 ```python
 
-```
+```python
 build/sync-addons-playbook.sh
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
-```
+```python
 
 ```python
 
@@ -5378,18 +5378,18 @@ echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 
 else
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 ```python
 
@@ -5410,18 +5410,18 @@ exit 0
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] Skipping addons sync (build/sync-addons-playbook.sh not executable)"
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 fi
 
@@ -5448,10 +5448,10 @@ fi
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 fi
 
@@ -5476,10 +5476,10 @@ fi
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 fi
 
@@ -5506,18 +5506,18 @@ if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
 if ["${DEBVISOR_SELFTEST:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 fi
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
-```
+```python
 
 ```python
 
@@ -5538,19 +5538,19 @@ echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] SELFTEST mode enabled: running lb config only (no build)"
 exit 0
-```
+```python
 
 fi
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 ```python
 
@@ -5571,18 +5571,18 @@ exit 0
 ### Context
 ```python
 
-```
+```python
 exit 0
-```
+```python
 
 fi
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 fi
 
@@ -5609,10 +5609,10 @@ fi
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 fi
 
@@ -5637,10 +5637,10 @@ fi
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 fi
 
@@ -5667,10 +5667,10 @@ echo "[DebVisor] Building ISO (this can take a while)"
 
 if ["${DEBVISOR_DRYRUN:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 fi
 
@@ -5696,10 +5696,10 @@ lb build
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] DRYRUN enabled: configuration validated, skipping lb build"
 exit 0
-```
+```python
 
 fi
 
@@ -5726,9 +5726,9 @@ iso_name() {
 ### Context
 ```python
 
-```
+```python
 exit 0
-```
+```python
 
 fi
 
@@ -5736,9 +5736,9 @@ echo "[DebVisor] Building ISO (this can take a while)"
 lb build
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
-```
+```python
 
 ```python
 
@@ -5765,10 +5765,10 @@ echo "[DebVisor] Building ISO (this can take a while)"
 lb build
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
-```
+```python
 
 ```python
 
@@ -5793,11 +5793,11 @@ echo "[DebVisor] Building ISO (this can take a while)"
 lb build
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
-```
+```python
 
 ```python
 
@@ -5822,12 +5822,12 @@ echo "[DebVisor] Building ISO (this can take a while)"
 lb build
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
-```
+```python
 
 ```python
 
@@ -5851,13 +5851,13 @@ else
 lb build
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 ```python
 
@@ -5880,13 +5880,13 @@ fi
 
 iso_name() {
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 }
 
@@ -5909,13 +5909,13 @@ fi
 ### Context
 ```python
 
-```
+```python
 if [-n "${DEBVISOR_VERSION}"]; then
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 }
 
@@ -5938,12 +5938,12 @@ fi
 ### Context
 ```python
 
-```
+```python
     printf 'debvisor-%s-%s.hybrid.iso\n' "${DEBVISOR_VERSION}" "${DEBVISOR_ARCH}"
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 }
 
@@ -5968,11 +5968,11 @@ ISO="$(iso_name)"
 ### Context
 ```python
 
-```
+```python
 else
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 }
 
@@ -5998,19 +5998,19 @@ if [-f "${ISO}"]; then
 ### Context
 ```python
 
-```
+```python
     printf 'live-image-%s.hybrid.iso\n' "${DEBVISOR_ARCH}"
 fi
-```
+```python
 
 }
 
 ISO="$(iso_name)"
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
-```
+```python
 
 ```python
 
@@ -6031,19 +6031,19 @@ if command -v readlink >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
 fi
-```
+```python
 
 }
 
 ISO="$(iso_name)"
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
-```
+```python
 
 ```python
 
@@ -6069,11 +6069,11 @@ if command -v readlink >/dev/null 2>&1; then
 ISO="$(iso_name)"
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
-```
+```python
 
 ```python
 
@@ -6097,12 +6097,12 @@ else
 ISO="$(iso_name)"
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
     ISO_PATH="${ISO}"
-```
+```python
 
 ```python
 
@@ -6126,13 +6126,13 @@ else
 ISO="$(iso_name)"
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
     ISO_PATH="${ISO}"
 fi
-```
+```python
 
 ```python
 
@@ -6155,14 +6155,14 @@ fi
 
 if [-f "${ISO}"]; then
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
     ISO_PATH="${ISO}"
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 ```python
 
@@ -6183,14 +6183,14 @@ echo "[DebVisor] Build complete: ${ISO_PATH}"
 ### Context
 ```python
 
-```
+```python
 if command -v readlink >/dev/null 2>&1; then
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
     ISO_PATH="${ISO}"
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
@@ -6213,19 +6213,19 @@ else
 ### Context
 ```python
 
-```
+```python
     ISO_PATH="$(readlink -f "${ISO}" 2>/dev/null || echo "${ISO}")"
 else
     ISO_PATH="${ISO}"
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
-```
+```python
 
 ```python
 
@@ -6246,19 +6246,19 @@ echo "[DebVisor] Build finished but ISO not found" >&2
 ### Context
 ```python
 
-```
+```python
 else
     ISO_PATH="${ISO}"
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 ```python
 
@@ -6279,18 +6279,18 @@ exit 1
 ### Context
 ```python
 
-```
+```python
     ISO_PATH="${ISO}"
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 fi
 
@@ -6313,17 +6313,17 @@ fi
 ### Context
 ```python
 
-```
+```python
 fi
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 fi
 
@@ -6346,16 +6346,16 @@ fi
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] Build complete: ${ISO_PATH}"
-```
+```python
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 fi
 
@@ -6382,18 +6382,18 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
 else
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
-```
+```python
 
 ```python
 
@@ -6414,19 +6414,19 @@ echo "[DebVisor] Generating SHA256 checksum for ISO"
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] Build finished but ISO not found" >&2
 exit 1
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
-```
+```python
 
 ```python
 
@@ -6447,19 +6447,19 @@ sha256sum "${ISO}" > "${ISO}.sha256"
 ### Context
 ```python
 
-```
+```python
 exit 1
-```
+```python
 
 fi
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
 
-```
+```python
 
 ```python
 
@@ -6484,12 +6484,12 @@ fi
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
 
 if command -v gpg >/dev/null 2>&1; then
-```
+```python
 
 ```python
 
@@ -6512,13 +6512,13 @@ if command -v gpg >/dev/null 2>&1; then
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
 
 if command -v gpg >/dev/null 2>&1; then
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
-```
+```python
 
 ```python
 
@@ -6541,14 +6541,14 @@ if command -v gpg >/dev/null 2>&1; then
 
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"]; then
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
 
 if command -v gpg >/dev/null 2>&1; then
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
-```
+```python
 
 ```python
 
@@ -6569,7 +6569,7 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
 echo "[DebVisor] Generating SHA256 checksum for ISO"
 sha256sum "${ISO}" > "${ISO}.sha256"
 
@@ -6577,7 +6577,7 @@ if command -v gpg >/dev/null 2>&1; then
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
-```
+```python
 
 ```python
 
@@ -6598,7 +6598,7 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
 sha256sum "${ISO}" > "${ISO}.sha256"
 
 if command -v gpg >/dev/null 2>&1; then
@@ -6606,7 +6606,7 @@ if command -v gpg >/dev/null 2>&1; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
     else
-```
+```python
 
 ```python
 
@@ -6627,14 +6627,14 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
 if command -v gpg >/dev/null 2>&1; then
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
     else
         echo "[DebVisor] Creating detached GPG signature with default key"
-```
+```python
 
 ```python
 
@@ -6655,7 +6655,7 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
 if command -v gpg >/dev/null 2>&1; then
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
@@ -6663,7 +6663,7 @@ if command -v gpg >/dev/null 2>&1; then
     else
         echo "[DebVisor] Creating detached GPG signature with default key"
         gpg --detach-sign --armor "${ISO}"
-```
+```python
 
 ```python
 
@@ -6684,7 +6684,7 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
     if [-n "${DEBVISOR_GPG_KEY:-}"]; then
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
@@ -6692,7 +6692,7 @@ if command -v gpg >/dev/null 2>&1; then
         echo "[DebVisor] Creating detached GPG signature with default key"
         gpg --detach-sign --armor "${ISO}"
     fi
-```
+```python
 
 ```python
 
@@ -6713,7 +6713,7 @@ if command -v gpg >/dev/null 2>&1; then
 ### Context
 ```python
 
-```
+```python
         echo "[DebVisor] Creating detached GPG signature with key: ${DEBVISOR_GPG_KEY}"
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
     else
@@ -6721,7 +6721,7 @@ if command -v gpg >/dev/null 2>&1; then
         gpg --detach-sign --armor "${ISO}"
     fi
 else
-```
+```python
 
 ```python
 
@@ -6742,7 +6742,7 @@ else
 ### Context
 ```python
 
-```
+```python
         gpg --local-user "${DEBVISOR_GPG_KEY}" --detach-sign --armor "${ISO}"
     else
         echo "[DebVisor] Creating detached GPG signature with default key"
@@ -6750,7 +6750,7 @@ else
     fi
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
-```
+```python
 
 ```python
 
@@ -6771,7 +6771,7 @@ else
 ### Context
 ```python
 
-```
+```python
     else
         echo "[DebVisor] Creating detached GPG signature with default key"
         gpg --detach-sign --armor "${ISO}"
@@ -6779,7 +6779,7 @@ else
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 ```python
 
@@ -6800,14 +6800,14 @@ fi
 ### Context
 ```python
 
-```
+```python
         echo "[DebVisor] Creating detached GPG signature with default key"
         gpg --detach-sign --armor "${ISO}"
     fi
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 fi
 
@@ -6830,13 +6830,13 @@ fi
 ### Context
 ```python
 
-```
+```python
         gpg --detach-sign --armor "${ISO}"
     fi
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 fi
 
@@ -6859,12 +6859,12 @@ fi
 ### Context
 ```python
 
-```
+```python
     fi
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 fi
 
@@ -6889,19 +6889,19 @@ if [-x build/test-firstboot.sh]; then
 ### Context
 ```python
 
-```
+```python
 else
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 fi
 
 if [-x build/test-firstboot.sh]; then
 
-```
+```python
 echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
-```
+```python
 
 ```python
 
@@ -6922,18 +6922,18 @@ echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
 ### Context
 ```python
 
-```
+```python
     echo "[DebVisor] WARNING: gpg not found; skipping ISO signature" >&2
 fi
-```
+```python
 
 fi
 
 if [-x build/test-firstboot.sh]; then
 
-```
+```python
 echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
-```
+```python
 
 fi
 
@@ -6956,17 +6956,17 @@ fi
 ### Context
 ```python
 
-```
+```python
 fi
-```
+```python
 
 fi
 
 if [-x build/test-firstboot.sh]; then
 
-```
+```python
 echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
-```
+```python
 
 fi
 
@@ -6993,9 +6993,9 @@ fi
 
 if [-x build/test-firstboot.sh]; then
 
-```
+```python
 echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
-```
+```python
 
 fi
 
@@ -7020,9 +7020,9 @@ fi
 
 if [-x build/test-firstboot.sh]; then
 
-```
+```python
 echo "[DebVisor] You can run post-build tests with: build/test-firstboot.sh"
-```
+```python
 
 fi
 

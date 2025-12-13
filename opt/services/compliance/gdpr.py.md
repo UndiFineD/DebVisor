@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\compliance\gdpr.py
 
-Generated: 2025-12-13T16:45:13.786925
+Generated: 2025-12-13T17:10:57.256485
 Source: opt\services\compliance\gdpr.py
 
 ## Issues Summary

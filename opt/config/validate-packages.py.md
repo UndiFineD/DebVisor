@@ -1,6 +1,6 @@
 # Code Issues Report: opt\config\validate-packages.py
 
-Generated: 2025-12-13T16:41:21.251549
+Generated: 2025-12-13T17:07:52.985033
 Source: opt\config\validate-packages.py
 
 ## Issues Summary
@@ -9,7 +9,7 @@ Total: 1 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
-| 117 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
+| 29 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
 
 ## Implementation Status
 
@@ -19,7 +19,7 @@ Items marked below as fixed:
 
 ### 1 issues to fix
 
-### Issue at Line 117
+### Issue at Line 29
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
