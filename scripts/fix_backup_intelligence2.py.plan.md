@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_backup_intelligence2.py
 
-Generated: 2025-12-13T21:14:03.945761
+Generated: 2025-12-13T21:20:30.479122
 Status: INVALID
 
 ## File Structure Validation

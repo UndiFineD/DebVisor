@@ -14,10 +14,14 @@ Total: 5 issues found
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
 | 8 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 18 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 18 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 30 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 30 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 19 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 19 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 31 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 31 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+
+## Implementation Status
+
+Items marked below as fixed:
 
 ## Implementation Status
 

@@ -1,6 +1,6 @@
 # Planning Report: scripts\license_header_check.py
 
-Generated: 2025-12-13T21:14:03.991178
+Generated: 2025-12-13T21:20:30.522170
 Status: INVALID
 
 ## File Structure Validation

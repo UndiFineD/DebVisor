@@ -1,6 +1,6 @@
 # Planning Report: scripts\debug_anchors.py
 
-Generated: 2025-12-13T21:14:03.919250
+Generated: 2025-12-13T21:20:30.453085
 Status: INVALID
 
 ## File Structure Validation

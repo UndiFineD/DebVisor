@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_api_key_manager_surgical.py
 
-Generated: 2025-12-13T21:14:03.934115
+Generated: 2025-12-13T21:20:30.466826
 Status: INVALID
 
 ## File Structure Validation
