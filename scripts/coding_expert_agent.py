@@ -170,6 +170,11 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
             if not unimplemented:
                 print("  -> All " + str(len(issues)) + " issues already implemented ✅")
+                # Remove the corresponding .plan.md file if it exists
+                plan_md_path = source_path.with_suffix('.plan.md')
+                if plan_md_path.exists():
+                    plan_md_path.unlink()
+                    print("  -> Removed plan file: " + str(plan_md_path.relative_to(self.repo_root)))
                 continue
 
             # Generate detailed proposal report

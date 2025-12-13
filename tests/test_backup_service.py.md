@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_backup_service.py
 
-Generated: 2025-12-13T15:23:23.725169
+Generated: 2025-12-13T16:54:22.339890
 Source: tests\test_backup_service.py
 
 ## Issues Summary
@@ -66,9 +66,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -98,9 +96,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -130,9 +126,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -140,71 +134,7 @@ byte code.
         max_chunk = 256 * 1024    # 256 KB
 
         # Verify boundaries are reasonable
-        assert min_chunk < avg_chunk < max_chunk
-        assert max_chunk <= 1024 * 1024    # Max 1 MB
-
-    def test_rolling_hash_simulation(self, sample_data_blocks):
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 186
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-
-        # Verify boundaries are reasonable
-        assert min_chunk < avg_chunk < max_chunk
-        assert max_chunk <= 1024 * 1024    # Max 1 MB
-
-    def test_rolling_hash_simulation(self, sample_data_blocks):
-        """Simulate rolling hash for content-defined boundaries."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 205
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-                )
-                fingerprints.append(fp % (2**32))
-
-            assert len(fingerprints) > 0
+        assert min_chunk  0
 
     def test_empty_data_handling(self) -> None:
         """Test handling of empty data."""
@@ -226,9 +156,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -257,9 +185,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -289,9 +215,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -321,9 +245,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -353,9 +275,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -385,9 +305,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -417,9 +335,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -449,9 +365,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -481,9 +395,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -513,9 +425,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -545,9 +455,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -577,9 +485,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -608,9 +514,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -639,9 +543,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -650,7 +552,7 @@ byte code.
         snap = sample_snapshots[0]
 
         assert snap.snapshot_id == "snap-001"
-        assert snap.size_bytes == 10 *1024*1024* 1024
+        assert snap.size_bytes == 10 *1024* 1024 * 1024
         assert snap.chunk_count == 1000
 
 ```python
@@ -671,9 +573,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -681,7 +581,7 @@ byte code.
         snap = sample_snapshots[0]
 
         assert snap.snapshot_id == "snap-001"
-        assert snap.size_bytes == 10 *1024*1024* 1024
+        assert snap.size_bytes == 10 *1024* 1024 * 1024
         assert snap.chunk_count == 1000
 
     def test_snapshot_filtering_by_source(self, sample_snapshots):
@@ -703,16 +603,14 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
 
         assert snap.snapshot_id == "snap-001"
-        assert snap.size_bytes == 10 *1024*1024* 1024
+        assert snap.size_bytes == 10 *1024* 1024 * 1024
         assert snap.chunk_count == 1000
 
     def test_snapshot_filtering_by_source(self, sample_snapshots):
@@ -735,9 +633,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -767,9 +663,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -799,9 +693,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -831,9 +723,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -863,9 +753,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -873,7 +761,7 @@ byte code.
         total_size = sum(s.size_bytes for s in sample_snapshots)
 
         # 10 + 10 + 50 = 70 GB
-        assert total_size == 70 *1024*1024* 1024
+        assert total_size == 70 *1024* 1024 * 1024
 
 ## =============================================================================
 ```python
@@ -894,9 +782,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -904,102 +790,7 @@ byte code.
             :daily_keep
         ]
 
-        assert len(to_keep) <= daily_keep
-
-    def test_retention_by_age(self, retention_policy):
-        """Test retention based on snapshot age."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 383
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        # Filter by age (strictly less than, so 7 days = days 0-6 inclusive)
-        keep_snaps = [s for s in test_snaps if (now - s.created_at) < max_daily_age]
-
-        assert len(keep_snaps) == 7    # Days 0-6
-
-    def test_grandfather_father_son_policy(self, retention_policy):
-        """Test GFS rotation policy."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 395
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-            - retention_policy["yearly"]
-        )
-
-        assert total_retention == 26
-
-## =============================================================================
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 438
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-            chunk_count=len(chunks),
-        )
-
-        assert snapshot.chunk_count > 0
+        assert len(to_keep)  0
         assert in_memory_chunk_store.total_chunks > 0
 
     def test_incremental_backup_simulation(
@@ -1021,9 +812,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1053,9 +842,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1063,201 +850,7 @@ byte code.
         _overlap = set(first_chunks) & set(second_chunks)
 
         # Only new chunks should be stored
-        assert in_memory_chunk_store.total_chunks < len(first_chunks) + len(
-            second_chunks
-        )
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 503
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        # Restore
-        restored = in_memory_chunk_store.retrieve(chunk_hash)
-
-        assert restored == original
-
-    def test_restore_ordered_chunks(self, in_memory_chunk_store):
-        """Test restoring data from ordered chunk list."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 525
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        restored_chunks = [in_memory_chunk_store.retrieve(h) for h in chunk_hashes]
-        restored = b"".join(restored_chunks)
-
-        assert restored == original
-
-    def test_restore_integrity_verification(self, in_memory_chunk_store):
-        """Test integrity verification during restore."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 538
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        restored = in_memory_chunk_store.retrieve(chunk_hash)
-        restored_hash = hashlib.sha256(restored).hexdigest()
-
-        assert restored_hash == chunk_hash
-
-## =============================================================================
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 559
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        chunk_file.parent.mkdir(parents=True, exist_ok=True)
-        chunk_file.write_bytes(chunk_data)
-
-        assert chunk_file.exists()
-        assert chunk_file.read_bytes() == chunk_data
-
-    def test_local_backend_read(self, tmp_path):
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 560
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        chunk_file.write_bytes(chunk_data)
-
-        assert chunk_file.exists()
-        assert chunk_file.read_bytes() == chunk_data
-
-    def test_local_backend_read(self, tmp_path):
-        """Test local filesystem backend read."""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 577
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        # Read back
-        read_data = chunk_file.read_bytes()
-
-        assert read_data == chunk_data
-
-    @pytest.mark.asyncio
-    async def test_s3_backend_mock(self) -> None:
+        assert in_memory_chunk_store.total_chunks  None:
 ```python
 
 ### Proposal
@@ -1276,9 +869,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1308,9 +899,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1339,9 +928,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1371,9 +958,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1402,9 +987,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1434,9 +1017,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

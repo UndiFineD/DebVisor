@@ -1,6 +1,6 @@
 # Code Issues Report: opt\config\includes.chroot\usr\local\bin\chk-bind.sh
 
-Generated: 2025-12-13T15:11:15.624276
+Generated: 2025-12-13T16:41:17.491774
 Source: opt\config\includes.chroot\usr\local\bin\chk-bind.sh
 
 ## Issues Summary
@@ -342,7 +342,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -371,7 +371,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -400,7 +400,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -429,7 +429,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -458,7 +458,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -487,7 +487,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -516,7 +516,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -552,7 +552,6 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -581,8 +580,7 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
+## Simple Bind9 health probe for DebVisor
 ```python
 
 ### Proposal
@@ -610,9 +608,8 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
+## Simple Bind9 health probe for DebVisor
+
 ```python
 
 ### Proposal
@@ -639,10 +636,9 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## Simple Bind9 health probe for DebVisor
+
+set -euo pipefail
 ```python
 
 ### Proposal
@@ -668,11 +664,10 @@ Items marked below as fixed:
 ```python
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
+## Simple Bind9 health probe for DebVisor
+
+set -euo pipefail
+
 ```python
 
 ### Proposal
@@ -697,12 +692,11 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## Simple Bind9 health probe for DebVisor
+
+set -euo pipefail
+
+if ! command -v dig >/dev/null 2>&1; then
 ```python
 
 ### Proposal
@@ -726,13 +720,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
+## Simple Bind9 health probe for DebVisor
+
+set -euo pipefail
+
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
 ```python
 
 ### Proposal
@@ -756,13 +750,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## Simple Bind9 health probe for DebVisor
+
+set -euo pipefail
+
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
 ```python
 
 ### Proposal
@@ -786,13 +780,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+set -euo pipefail
+
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
+fi
 ```python
 
 ### Proposal
@@ -816,13 +810,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+set -euo pipefail
+
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
+fi
+
 ```python
 
 ### Proposal
@@ -846,13 +840,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
+fi
+
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
 ```python
 
 ### Proposal
@@ -876,13 +870,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+if ! command -v dig >/dev/null 2>&1; then
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
+fi
 
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
 ```python
 
 ### Proposal
@@ -906,13 +900,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+    echo "chk-bind: dig command not found, skipping check" >&2
+    exit 0
+fi
 
-## !/bin/bash
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
+else
 ```python
 
 ### Proposal
@@ -936,13 +930,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+    exit 0
+fi
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
 ```python
 
 ### Proposal
@@ -966,13 +960,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+fi
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
 ```python
 
 ### Proposal
@@ -996,13 +990,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1026,13 +1020,12 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
+if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
+    exit 0
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1056,13 +1049,11 @@ Items marked below as fixed:
 ### Context
 
 ```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+    exit 0
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1086,13 +1077,10 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+else
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1116,13 +1104,9 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1146,13 +1130,8 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    exit 1
+fi
 ```python
 
 ### Proposal
@@ -1176,13 +1155,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+fi
 ```python
 
 ### Proposal
@@ -1206,13 +1179,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -1236,12 +1203,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -1266,13 +1227,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -1296,13 +1251,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -1326,13 +1275,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -1356,13 +1299,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -1386,13 +1323,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -1417,12 +1348,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -1446,13 +1371,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -1476,13 +1395,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -1506,13 +1419,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -1536,13 +1443,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -1566,13 +1467,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -1596,12 +1491,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -1626,13 +1515,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -1656,13 +1539,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -1686,13 +1563,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -1716,13 +1587,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -1746,13 +1611,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -1777,12 +1636,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -1806,13 +1659,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -1836,13 +1683,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -1866,13 +1707,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -1896,13 +1731,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -1926,13 +1755,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -1956,12 +1779,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -1986,13 +1803,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -2016,13 +1827,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -2046,13 +1851,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -2076,13 +1875,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -2106,13 +1899,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -2137,12 +1924,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -2166,13 +1947,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -2196,13 +1971,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -2226,13 +1995,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -2256,13 +2019,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -2286,13 +2043,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -2316,12 +2067,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -2346,13 +2091,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -2376,13 +2115,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -2406,13 +2139,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -2436,13 +2163,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -2466,13 +2187,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -2497,12 +2212,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -2526,13 +2235,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -2556,13 +2259,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -2586,13 +2283,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -2616,13 +2307,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -2646,13 +2331,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -2676,12 +2355,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -2706,13 +2379,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -2736,13 +2403,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -2766,13 +2427,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -2796,13 +2451,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -2826,13 +2475,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -2857,12 +2500,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -2886,13 +2523,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -2916,13 +2547,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -2946,13 +2571,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -2976,13 +2595,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -3006,13 +2619,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -3036,12 +2643,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -3066,13 +2667,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -3096,13 +2691,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -3126,13 +2715,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -3156,13 +2739,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -3186,13 +2763,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -3217,12 +2788,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -3246,13 +2811,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -3276,13 +2835,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -3306,13 +2859,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -3336,13 +2883,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -3366,13 +2907,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -3396,12 +2931,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -3426,13 +2955,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -3456,13 +2979,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -3486,13 +3003,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -3516,13 +3027,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -3546,13 +3051,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -3577,12 +3076,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -3606,13 +3099,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -3636,13 +3123,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -3666,13 +3147,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -3696,13 +3171,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -3726,13 +3195,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -3756,12 +3219,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -3786,13 +3243,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -3816,13 +3267,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -3846,13 +3291,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -3876,13 +3315,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -3906,13 +3339,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -3937,12 +3364,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -3966,13 +3387,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -3996,13 +3411,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -4026,13 +3435,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -4056,13 +3459,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -4086,13 +3483,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -4116,12 +3507,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -4146,13 +3531,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -4176,13 +3555,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -4206,13 +3579,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -4236,13 +3603,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -4266,13 +3627,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -4297,12 +3652,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -4326,13 +3675,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -4356,13 +3699,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -4386,13 +3723,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -4416,13 +3747,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -4446,13 +3771,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -4476,12 +3795,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -4506,13 +3819,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -4536,13 +3843,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -4566,13 +3867,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -4596,13 +3891,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -4626,13 +3915,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -4657,12 +3940,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -4686,13 +3963,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -4716,13 +3987,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -4746,13 +4011,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -4776,13 +4035,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -4806,13 +4059,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -4836,12 +4083,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -4866,13 +4107,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -4896,13 +4131,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -4926,13 +4155,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -4956,13 +4179,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -4986,13 +4203,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -5017,12 +4228,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -5046,13 +4251,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -5076,13 +4275,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -5106,13 +4299,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -5136,13 +4323,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -5166,13 +4347,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -5196,12 +4371,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -5226,13 +4395,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -5256,13 +4419,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -5286,13 +4443,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -5316,13 +4467,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -5346,13 +4491,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -5377,12 +4516,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -5406,13 +4539,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -5436,13 +4563,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -5466,13 +4587,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -5496,13 +4611,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -5526,13 +4635,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -5556,12 +4659,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -5586,13 +4683,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -5616,13 +4707,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -5646,13 +4731,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -5676,13 +4755,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -5706,13 +4779,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -5737,12 +4804,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -5766,13 +4827,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -5796,13 +4851,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -5826,13 +4875,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -5856,13 +4899,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -5886,13 +4923,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -5916,12 +4947,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -5946,13 +4971,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -5976,13 +4995,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -6006,13 +5019,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -6036,13 +5043,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -6066,13 +5067,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -6097,12 +5092,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -6126,13 +5115,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -6156,13 +5139,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -6186,13 +5163,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -6216,13 +5187,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -6246,13 +5211,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -6276,12 +5235,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -6306,13 +5259,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -6336,13 +5283,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -6366,13 +5307,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -6396,13 +5331,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -6426,13 +5355,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -6457,12 +5380,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -6486,13 +5403,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -6516,13 +5427,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -6546,13 +5451,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -6576,13 +5475,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -6606,13 +5499,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -6636,12 +5523,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -6666,13 +5547,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -6696,13 +5571,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -6726,13 +5595,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -6756,13 +5619,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -6786,13 +5643,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -6817,12 +5668,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -6846,13 +5691,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -6876,13 +5715,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -6906,13 +5739,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -6936,13 +5763,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -6966,13 +5787,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -6996,12 +5811,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -7026,13 +5835,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -7056,13 +5859,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
 ```python
 
 ### Proposal
@@ -7086,13 +5883,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
 ```python
 
 ### Proposal
@@ -7116,13 +5907,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
 ```python
 
 ### Proposal
@@ -7146,13 +5931,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
 ```python
 
 ### Proposal
@@ -7177,12 +5956,6 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
 ```python
 
 ### Proposal
@@ -7206,13 +5979,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
 ```python
 
 ### Proposal
@@ -7236,13 +6003,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+
 ```python
 
 ### Proposal
@@ -7266,13 +6027,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 ```python
 
 ### Proposal
@@ -7296,13 +6051,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+
 ```python
 
 ### Proposal
@@ -7326,13 +6075,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
 ```python
 
 ### Proposal
@@ -7356,12 +6099,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
 ```python
 
@@ -7386,13 +6123,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## Simple Bind9 health probe for DebVisor
 ```python
 
 ### Proposal
@@ -7416,12 +6147,6 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## Simple Bind9 health probe for DebVisor
 
 ```python
 
@@ -7446,13 +6171,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
 
-## Simple Bind9 health probe for DebVisor
-
-set -euo pipefail
 ```python
 
 ### Proposal
@@ -7476,12 +6195,6 @@ set -euo pipefail
 ### Context
 
 ```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## Simple Bind9 health probe for DebVisor
-
-set -euo pipefail
 
 ```python
 
@@ -7506,13 +6219,7 @@ set -euo pipefail
 ### Context
 
 ```python
-## limitations under the License.
 
-## Simple Bind9 health probe for DebVisor
-
-set -euo pipefail
-
-if ! command -v dig >/dev/null 2>&1; then
 ```python
 
 ### Proposal
@@ -7537,12 +6244,6 @@ if ! command -v dig >/dev/null 2>&1; then
 
 ```python
 
-## Simple Bind9 health probe for DebVisor
-
-set -euo pipefail
-
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
 ```python
 
 ### Proposal
@@ -7566,13 +6267,7 @@ if ! command -v dig >/dev/null 2>&1; then
 ### Context
 
 ```python
-## Simple Bind9 health probe for DebVisor
 
-set -euo pipefail
-
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
 ```python
 
 ### Proposal
@@ -7597,12 +6292,6 @@ if ! command -v dig >/dev/null 2>&1; then
 
 ```python
 
-set -euo pipefail
-
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
-fi
 ```python
 
 ### Proposal
@@ -7626,12 +6315,6 @@ fi
 ### Context
 
 ```python
-set -euo pipefail
-
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
-fi
 
 ```python
 
@@ -7657,12 +6340,6 @@ fi
 
 ```python
 
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
-fi
-
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
 ```python
 
 ### Proposal
@@ -7686,13 +6363,7 @@ if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
 ### Context
 
 ```python
-if ! command -v dig >/dev/null 2>&1; then
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
-fi
 
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
 ```python
 
 ### Proposal
@@ -7716,13 +6387,7 @@ if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
 ### Context
 
 ```python
-    echo "chk-bind: dig command not found, skipping check" >&2
-    exit 0
-fi
 
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
-else
 ```python
 
 ### Proposal
@@ -7746,13 +6411,7 @@ else
 ### Context
 
 ```python
-    exit 0
-fi
 
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
 ```python
 
 ### Proposal
@@ -7776,13 +6435,7 @@ else
 ### Context
 
 ```python
-fi
 
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
-    exit 1
 ```python
 
 ### Proposal
@@ -7807,12 +6460,6 @@ else
 
 ```python
 
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
-    exit 1
-fi
 ```python
 
 ### Proposal
@@ -7836,12 +6483,7 @@ fi
 ### Context
 
 ```python
-if dig +time=1 +tries=1 @127.0.0.1 SOA debvisor.local >/dev/null 2>&1; then
-    exit 0
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
-    exit 1
-fi
+
 ```python
 
 ### Proposal
@@ -7865,11 +6507,7 @@ fi
 ### Context
 
 ```python
-    exit 0
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
-    exit 1
-fi
+
 ```python
 
 ### Proposal
@@ -7893,10 +6531,7 @@ fi
 ### Context
 
 ```python
-else
-    logger "DebVisor: Bind9 health check failed for debvisor.local SOA on 127.0.0.1"
-    exit 1
-fi
+
 ```python
 
 ### Proposal

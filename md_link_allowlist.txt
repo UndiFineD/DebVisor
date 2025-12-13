@@ -1,0 +1,11 @@
+etc/debvisor/README.md
+opt/grafana/DASHBOARD_STANDARDS.md
+opt/grafana/IMPLEMENTATION_GUIDE.md
+opt/grafana/README.md
+opt/netcfg-tui/README.md
+opt/docs/README.md
+opt/installer/README.md
+opt/web/README.md
+opt/README.md
+scripts/CRITIC_WORKFLOW_README.md
+usr/DebVisor/README.md

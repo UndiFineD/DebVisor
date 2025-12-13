@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\cluster\large_cluster_optimizer.py
 
-Generated: 2025-12-13T15:14:27.214488
+Generated: 2025-12-13T16:44:50.465416
 Source: opt\services\cluster\large_cluster_optimizer.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 

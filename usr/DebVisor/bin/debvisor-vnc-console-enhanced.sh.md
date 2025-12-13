@@ -1,6 +1,6 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-vnc-console-enhanced.sh
 
-Generated: 2025-12-13T15:25:25.617217
+Generated: 2025-12-13T16:56:37.618231
 Source: usr\DebVisor\bin\debvisor-vnc-console-enhanced.sh
 
 ## Issues Summary
@@ -777,7 +777,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -806,7 +806,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -835,7 +835,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -864,7 +864,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -893,7 +893,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -922,7 +922,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -951,7 +951,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1137,7 +1137,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1166,7 +1166,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1195,7 +1195,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1224,7 +1224,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1253,7 +1253,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1282,7 +1282,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1311,7 +1311,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1497,7 +1497,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1526,7 +1526,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1555,7 +1555,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1584,7 +1584,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1613,7 +1613,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1642,7 +1642,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1671,7 +1671,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1857,7 +1857,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1886,7 +1886,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1915,7 +1915,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1944,7 +1944,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1973,7 +1973,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2002,7 +2002,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2031,7 +2031,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2217,7 +2217,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2246,7 +2246,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2275,7 +2275,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2304,7 +2304,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2333,7 +2333,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2362,7 +2362,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2391,7 +2391,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2577,7 +2577,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2606,7 +2606,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2635,7 +2635,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2664,7 +2664,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2693,7 +2693,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2722,7 +2722,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2751,7 +2751,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2937,7 +2937,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2966,7 +2966,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2995,7 +2995,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3024,7 +3024,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3053,7 +3053,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3082,7 +3082,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3111,7 +3111,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3297,7 +3297,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3326,7 +3326,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3355,7 +3355,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3384,7 +3384,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3413,7 +3413,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3442,7 +3442,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3471,7 +3471,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3657,7 +3657,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3686,7 +3686,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3715,7 +3715,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3744,7 +3744,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3773,7 +3773,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3802,7 +3802,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3831,7 +3831,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4017,7 +4017,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4046,7 +4046,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4075,7 +4075,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4104,7 +4104,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4133,7 +4133,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4162,7 +4162,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4191,7 +4191,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4377,7 +4377,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4406,7 +4406,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4435,7 +4435,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4464,7 +4464,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4493,7 +4493,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4522,7 +4522,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4551,7 +4551,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4737,7 +4737,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4766,7 +4766,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4795,7 +4795,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4824,7 +4824,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4853,7 +4853,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4882,7 +4882,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4911,7 +4911,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5097,7 +5097,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5126,7 +5126,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5155,7 +5155,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5184,7 +5184,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5213,7 +5213,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5242,7 +5242,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5271,7 +5271,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5457,7 +5457,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5486,7 +5486,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5515,7 +5515,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5544,7 +5544,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5573,7 +5573,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5602,7 +5602,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5631,7 +5631,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -8367,847 +8367,7 @@ print_usage() {
 ############################################################################### 
 
 print_usage() {
-    cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 257
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 258
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 259
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-
-${BLUE}Description:${NC}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 294
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  # Security report
-  $SCRIPT_NAME security-report
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 295
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  $SCRIPT_NAME security-report
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 296
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 297
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-generate_token() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 298
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 299
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 300
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 301
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 302
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 303
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-generate_token() {
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 304
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local length=${1:-$CONSOLE_TOKEN_LENGTH}
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-}
-
-validate_vm_name() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 305
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local token
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-}
-
-validate_vm_name() {
-    local vm_name="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 306
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    token=$(head -c 32 /dev/urandom | base64 | tr -d '+/=' | cut -c1-"$length")
-    echo "$token"
-}
-
-validate_vm_name() {
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 307
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "$token"
-}
-
-validate_vm_name() {
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 308
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-validate_vm_name() {
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 309
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-validate_vm_name() {
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 310
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_vm_name() {
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-        return 1
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 311
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_name="$1"
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-        return 1
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 312
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ! [["$vm*name" =~ ^[a-zA-Z0-9.*-]+$]]; then
-        log_error "Invalid VM name: $vm_name"
-        return 1
-    fi
-}
-
-validate_port() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 313
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Invalid VM name: $vm_name"
-        return 1
-    fi
-}
-
-validate_port() {
-    local port="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 314
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-}
-
-validate_port() {
-    local port="$1"
-    if ! [["$port" =~ ^[0-9]+$]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 315
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-validate_port() {
-    local port="$1"
-    if ! [["$port" =~ ^[0-9]+$]]; then
-        log_error "Invalid port: $port"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 316
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-validate_port() {
-    local port="$1"
-    if ! [["$port" =~ ^[0-9]+$]]; then
-        log_error "Invalid port: $port"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 317
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-validate_port() {
-    local port="$1"
-    if ! [["$port" =~ ^[0-9]+$]]; then
-        log_error "Invalid port: $port"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 318
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_port() {
-    local port="$1"
-    if ! [["$port" =~ ^[0-9]+$]]; then
-        log_error "Invalid port: $port"
-        return 1
-    fi
-    if ((port < 0 || port > 65535)); then
+    cat  65535)); then
 ```python
 
 ### Proposal
@@ -9236,7 +8396,7 @@ validate_port() {
         log_error "Invalid port: $port"
         return 1
     fi
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
 ```python
 
@@ -9265,7 +8425,7 @@ validate_port() {
         log_error "Invalid port: $port"
         return 1
     fi
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
         return 1
 ```python
@@ -9294,7 +8454,7 @@ validate_port() {
         log_error "Invalid port: $port"
         return 1
     fi
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
         return 1
     fi
@@ -9323,7 +8483,7 @@ validate_port() {
 ```python
         return 1
     fi
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
         return 1
     fi
@@ -9352,7 +8512,7 @@ validate_port() {
 
 ```python
     fi
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
         return 1
     fi
@@ -9381,7 +8541,7 @@ validate_port() {
 ### Context
 
 ```python
-    if ((port < 0 || port > 65535)); then
+    if ((port  65535)); then
         log_error "Port out of range: $port"
         return 1
     fi
@@ -10557,187 +9717,7 @@ ensure_vnc_port() {
     audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
 
     if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 364
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_success "VNC port: $vnc_port for VM: $vm_name"
-    audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 365
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_success "VNC port: $vnc_port for VM: $vm_name"
-    audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 366
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    audit_log_entry "ensure_port" "$vm_name" "success" "port=$vnc_port"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "vm_name": "$vm_name",
-  "vnc_port": $vnc_port,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 373
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "status": "success"
-}
-EOF
-    fi
-}
-
-find_available_vnc_port() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 374
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-    fi
-}
-
-find_available_vnc_port() {
-    for port in $(seq "$MIN_VNC_PORT" "$MAX_VNC_PORT"); do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 375
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-    fi
-}
-
-find_available_vnc_port() {
-    for port in $(seq "$MIN_VNC_PORT" "$MAX_VNC_PORT"); do
-        if ! nc -z localhost "$port" 2>/dev/null; then
+        cat /dev/null; then
 ```python
 
 ### Proposal
@@ -12777,1027 +11757,7 @@ generate_console_token() {
         # Store token with metadata
         mkdir -p "$STATE_DIR"
         local token_file="$STATE_DIR/${token}.token"
-        cat > "$token_file" << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 444
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if [["$DRY_RUN" != "true"]]; then
-        # Store token with metadata
-        mkdir -p "$STATE_DIR"
-        local token_file="$STATE_DIR/${token}.token"
-        cat > "$token_file" << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 445
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [["$DRY_RUN" != "true"]]; then
-        # Store token with metadata
-        mkdir -p "$STATE_DIR"
-        local token_file="$STATE_DIR/${token}.token"
-        cat > "$token_file" << EOF
-{
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 446
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        # Store token with metadata
-        mkdir -p "$STATE_DIR"
-        local token_file="$STATE_DIR/${token}.token"
-        cat > "$token_file" << EOF
-{
-  "vm_name": "$vm_name",
-  "token": "$token",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 457
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "ip": "${SSH_CLIENT%% *}"
-}
-EOF
-        chmod 600 "$token_file"
-        audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 458
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-        chmod 600 "$token_file"
-        audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
-    fi
-
-    log_success "Console token generated for $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 459
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-        chmod 600 "$token_file"
-        audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
-    fi
-
-    log_success "Console token generated for $vm_name"
-    echo ""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 460
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        chmod 600 "$token_file"
-        audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
-    fi
-
-    log_success "Console token generated for $vm_name"
-    echo ""
-    echo "Token: $token"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 461
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        audit_log_entry "generate_token" "$vm_name" "success" "type=$token_type"
-    fi
-
-    log_success "Console token generated for $vm_name"
-    echo ""
-    echo "Token: $token"
-    echo "Type: $token_type"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 462
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    log_success "Console token generated for $vm_name"
-    echo ""
-    echo "Token: $token"
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 463
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_success "Console token generated for $vm_name"
-    echo ""
-    echo "Token: $token"
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 464
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_success "Console token generated for $vm_name"
-    echo ""
-    echo "Token: $token"
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 465
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo ""
-    echo "Token: $token"
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-    echo "Usage:"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 466
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "Token: $token"
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 467
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "Type: $token_type"
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 468
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "TTL: ${CONSOLE_TOKEN_TTL}s"
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 469
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "Expires: $(date -d @$expiration)"
-    echo ""
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 470
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo ""
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 471
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "Usage:"
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "token": "$token",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 472
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "  URL: vnc://$(hostname):5900?token=$token"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "token": "$token",
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 481
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "expires_at": "$(date -d @$expiration -Iseconds)"
-}
-EOF
-    fi
-}
-
-validate_console_token() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 482
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-    fi
-}
-
-validate_console_token() {
-    local token="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 483
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-    fi
-}
-
-validate_console_token() {
-    local token="$1"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 484
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-validate_console_token() {
-    local token="$1"
-
-    local token_file="$STATE_DIR/${token}.token"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 485
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-validate_console_token() {
-    local token="$1"
-
-    local token_file="$STATE_DIR/${token}.token"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 486
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-validate_console_token() {
-    local token="$1"
-
-    local token_file="$STATE_DIR/${token}.token"
-
-    if [[! -f "$token_file"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 487
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_console_token() {
-    local token="$1"
-
-    local token_file="$STATE_DIR/${token}.token"
-
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 488
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local token="$1"
-
-    local token_file="$STATE_DIR/${token}.token"
-
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 489
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    local token_file="$STATE_DIR/${token}.token"
-
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 490
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local token_file="$STATE_DIR/${token}.token"
-
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-        return 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 491
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-        return 1
-    fi
-
-    # Check if token is expired
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 492
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [[! -f "$token_file"]]; then
-        log_error "Token not found: $token"
-        return 1
-    fi
-
-    # Check if token is expired
-    local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 493
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Token not found: $token"
-        return 1
-    fi
-
-    # Check if token is expired
-    local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
-    local current_time=$(date -Iseconds)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 494
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-
-    # Check if token is expired
-    local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
-    local current_time=$(date -Iseconds)
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 495
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    # Check if token is expired
-    local expires_at=$(grep "expires_at" "$token_file" | cut -d'"' -f4)
-    local current_time=$(date -Iseconds)
-
-    if [["$current_time" > "$expires_at"]]; then
+        cat > "$token_file"  "$token_file"  "$token_file"  "$token_file"  "$expires_at" ]]; then
 ```python
 
 ### Proposal

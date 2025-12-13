@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_cost_optimization.py
 
-Generated: 2025-12-13T15:23:39.829763
+Generated: 2025-12-13T16:54:44.257834
 Source: tests\test_cost_optimization.py
 
 ## Issues Summary
@@ -35,9 +35,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -66,9 +64,7 @@ def test_report_generation(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -98,9 +94,7 @@ def test_report_generation(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -130,9 +124,7 @@ def test_report_generation(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -161,9 +153,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -192,9 +182,7 @@ def test_idle_detection(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -224,9 +212,7 @@ def test_idle_detection(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -255,9 +241,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -286,9 +270,7 @@ def test_rightsizing_detection(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -318,9 +300,7 @@ def test_rightsizing_detection(optimizer, sample_resources):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -349,9 +329,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -380,9 +358,7 @@ def test_pricing_update(optimizer):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -412,9 +388,7 @@ def test_pricing_update(optimizer):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

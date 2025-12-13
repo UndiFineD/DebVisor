@@ -13,9 +13,24 @@ Checks that each code file has:
 Generates .plan.md reports for each file with structure issues and fix proposals.
 """
 
+import subprocess
+import sys
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set
 from datetime import datetime
+
+
+def load_codeignore(root: Path) -> Set[str]:
+    """Load ignore patterns from .codeignore file."""
+    codeignore_path = root / ".codeignore"
+    if codeignore_path.exists():
+        try:
+            content = codeignore_path.read_text(encoding='utf-8')
+            return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
+        except Exception as e:
+            print(f"Warning: Could not read .codeignore file: {e}")
+    return set()
+
 
 # License header as comments (language-dependent)
 LICENSE_HEADER = [
@@ -70,6 +85,7 @@ class PlanningAgent:
     def __init__(self, repo_root: str = '.'):
         self.repo_root = Path(repo_root)
         self.issues: Dict[str, List[Dict[str, Any]]] = {}
+        self.ignored_patterns = load_codeignore(self.repo_root)
 
     def find_code_files(self) -> List[Path]:
         """Recursively find all supported code files."""
@@ -80,12 +96,7 @@ class PlanningAgent:
 
     def _is_ignored(self, path: Path) -> bool:
         """Check if path should be ignored."""
-        ignored_dirs = {
-            '.git', '__pycache__', 'node_modules', '.venv', 'venv',
-            '.venv-1', '.venv-2', 'build', 'dist', '.pytest_cache',
-            '.mypy_cache', 'tests', 'instance', '.idea', 'coverage'
-        }
-        return any(part in ignored_dirs for part in path.parts)
+        return any(part in self.ignored_patterns for part in path.parts)
 
     def validate_file_structure(self, file_path: Path) -> Dict[str, Any]:
         """Validate a code file's structure."""
@@ -380,6 +391,7 @@ class PlanningAgent:
 
         validated = 0
         with_issues = 0
+        wrote_markdown = False
 
         for file_path in code_files:
             print(f"[Planning] Validating {file_path.relative_to(self.repo_root)}...")
@@ -393,12 +405,25 @@ class PlanningAgent:
                 issues_count = len(validation['issues'])
                 relative_path = plan_path.relative_to(self.repo_root)
                 print(f"  -> {issues_count} issues found, wrote to {relative_path}")
+                wrote_markdown = True
             else:
                 validated += 1
                 print("  -> Structure is valid ✅")
 
         print("[Planning] Analysis complete!")
         print(f"[Planning] Summary: {validated} valid, {with_issues} with issues")
+
+        if wrote_markdown:
+            fixer_path = self.repo_root / 'fix_all_markdown.py'
+            if fixer_path.exists():
+                print("[Planning] Running fix_all_markdown.py to normalize reports...")
+                try:
+                    cmd = [sys.executable, str(fixer_path), "--quiet", "--max-line-length", "120"]
+                    subprocess.run(cmd, check=False, cwd=self.repo_root)
+                except Exception as exc:
+                    print(f"[Planning] Skipped markdown fixer: {exc}")
+            else:
+                print("[Planning] fix_all_markdown.py not found; skipping markdown normalization")
 
 
 if __name__ == '__main__':

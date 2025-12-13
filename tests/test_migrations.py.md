@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_migrations.py
 
-Generated: 2025-12-13T15:24:15.249697
+Generated: 2025-12-13T16:55:21.890960
 Source: tests\test_migrations.py
 
 ## Issues Summary

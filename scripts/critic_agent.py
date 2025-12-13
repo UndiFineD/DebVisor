@@ -6,10 +6,23 @@ Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.
 """
 
 import subprocess
+import sys
 import json
-from pathlib import Path
-from typing import List, Dict, Any
 from datetime import datetime
+from pathlib import Path
+from typing import List, Dict, Any, Set
+
+
+def load_codeignore(root: Path) -> Set[str]:
+    """Load ignore patterns from .codeignore file."""
+    codeignore_path = root / ".codeignore"
+    if codeignore_path.exists():
+        try:
+            content = codeignore_path.read_text(encoding='utf-8')
+            return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
+        except Exception as e:
+            print(f"Warning: Could not read .codeignore file: {e}")
+    return set()
 
 
 class CriticAgent:
@@ -33,6 +46,7 @@ class CriticAgent:
     def __init__(self, repo_root: str = '.'):
         self.repo_root = Path(repo_root)
         self.issues: Dict[str, List[Dict[str, Any]]] = {}
+        self.ignored_patterns = load_codeignore(self.repo_root)
 
     def find_code_files(self) -> List[Path]:
         """Recursively find all supported code files."""
@@ -43,20 +57,8 @@ class CriticAgent:
 
     def _is_ignored(self, path: Path) -> bool:
         """Check if path should be ignored."""
-        ignored_dirs = {
-            '.git',
-            '__pycache__',
-            '.mypy_cache',
-            '.pytest_cache',
-            'node_modules',
-            '.venv',
-            'venv',
-            'site-packages',
-            'build',
-            'dist',
-        }
         for part in path.parts:
-            if part in ignored_dirs:
+            if part in self.ignored_patterns:
                 return True
             if part.startswith('.venv'):
                 return True
@@ -267,6 +269,8 @@ class CriticAgent:
         code_files = self.find_code_files()
         print(f"[Critic] Found {len(code_files)} code files to analyze...")
 
+        wrote_markdown = False
+
         for file_path in code_files:
             print(f"[Critic] Analyzing {file_path.relative_to(self.repo_root)}...")
             issues = self.analyze_file(file_path)
@@ -276,8 +280,21 @@ class CriticAgent:
                 md_path = file_path.with_suffix(file_path.suffix + '.md')
                 md_path.write_text(md_report, encoding='utf-8')
                 print(f"  -> {len(issues)} issues found, wrote to {md_path.relative_to(self.repo_root)}")
+                wrote_markdown = True
 
         print("[Critic] Analysis complete!")
+
+        if wrote_markdown:
+            fixer_path = self.repo_root / 'fix_all_markdown.py'
+            if fixer_path.exists():
+                print("[Critic] Running fix_all_markdown.py to normalize reports...")
+                try:
+                    cmd = [sys.executable, str(fixer_path), "--quiet", "--max-line-length", "120"]
+                    subprocess.run(cmd, check=False, cwd=self.repo_root)
+                except Exception as exc:
+                    print(f"[Critic] Skipped markdown fixer: {exc}")
+            else:
+                print("[Critic] fix_all_markdown.py not found; skipping markdown normalization")
 
 
 if __name__ == '__main__':

@@ -2,122 +2,166 @@
 
 the
 
-Apache License, Version 2.0 (the "License");\n\n## you may not use this file except in
+Apache License, Version 2.0 (the "License");\n\n## you may not use this file
+except in
 compliance
 with the License.\n\n## You may obtain a copy of the License at\n\n##
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)>)\)n)\)n)#)#)
-Unless required by applicable law or agreed to in writing, software\n\n## distributed
+\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen](http://www.apache.org/licen)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)>)\)n)\)n)#)#)
+Unless required by applicable law or agreed to in writing, software\n\n##
+distributed
 under the
-License is distributed on an "AS IS" BASIS,\n\n## WITHOUT WARRANTIES OR CONDITIONS OF ANY
+License is distributed on an "AS IS" BASIS,\n\n## WITHOUT WARRANTIES OR
+CONDITIONS OF ANY
 KIND,
-either express or implied.\n\n## See the License for the specific language governing
+either express or implied.\n\n## See the License for the specific language
+governing
 permissions
-and\n\n## limitations under the License.\n\n"""\nPlanning Agent README\n\nComprehensive
+and\n\n## limitations under the License.\n\n"""\nPlanning Agent
+README\n\nComprehensive
 guide to the
-Planning Agent system.\n\n## Description\n\nThe Planning Agent validates code file
+Planning Agent system.\n\n## Description\n\nThe Planning Agent validates code
+file
 structure and
-enforces a consistent,\nprofessional organization standard across the DebVisor codebase.
+enforces a consistent,\nprofessional organization standard across the DebVisor
+codebase.
 Each file
-must\nfollow a specific structure with proper headers, documentation sections, and
-code\norganization.\n\n## Changelog\n\n- 1.0.0: Initial release with comprehensive file
+must\nfollow a specific structure with proper headers, documentation sections,
+and
+code\norganization.\n\n## Changelog\n\n- 1.0.0: Initial release with
+comprehensive file
 structure
-validation\n\n## Suggested Fixes\n\n- Support for additional file types (C, C++, Java)\n-
+validation\n\n## Suggested Fixes\n\n- Support for additional file types (C, C++,
+Java)\n-
 Custom
 section requirements per file type\n- Integration with CI/CD pipelines\n\n##
 Improvements\n\n- Add
-section content validation (not just presence)\n- Provide automated fix generation\n-
+section content validation (not just presence)\n- Provide automated fix
+generation\n-
 Support for
 different comment styles per language\n\n"""\n\n##
 =====================================================\n\n## Planning Agent
 Documentation\n\n##
-===================================================== (2)\n\n## ## Overview\n\n## The
+===================================================== (2)\n\n## ##
+Overview\n\n## The
 Planning Agent
-ensures every code file in DebVisor follows this structure:\n\n## 1. **Shebang**(for
+ensures every code file in DebVisor follows this structure:\n\n## 1.
+**Shebang**(for
 executable
-files)\n\n## ```\n\n## #!/usr/bin/env python3\n\n## ```(2)\n\n## 2.**License Header**(10
+files)\n\n## ```\n\n## #!/usr/bin/env python3\n\n## ```(2)\n\n## 2.**License
+Header**(10
 lines of
 Apache 2.0 license as comments)\n\n##```(3)\n\n## # Copyright (c) 2025 DebVisor
 contributors\n\n## #
 Licensed under the Apache License, Version 2.0 (the "License");\n\n## #
 ...\n\n##```(4)\n\n##
-3.**Module Docstring**(with required sections)\n\n## - Description: What the file
+3.**Module Docstring**(with required sections)\n\n## - Description: What the
+file
 does\n\n## -
-Changelog: Version history and changes\n\n## - Suggested Fixes: Known issues needing
+Changelog: Version history and changes\n\n## - Suggested Fixes: Known issues
+needing
 fixes\n\n## -
-Improvements: Future enhancement ideas\n\n## 4.**Code Organization**\n\n## - Separator
+Improvements: Future enhancement ideas\n\n## 4.**Code Organization**\n\n## -
+Separator
 comment
-block\n\n## - Implementation/code\n\n## ## Supported File Types\n\n## - Python (.py)\n\n##
+block\n\n## - Implementation/code\n\n## ## Supported File Types\n\n## - Python
+(.py)\n\n##
 
 - Shell
-(.sh)\n\n## - JavaScript (.js)\n\n## - TypeScript (.ts)\n\n## - Go (.go)\n\n## - Ruby
+(.sh)\n\n## - JavaScript (.js)\n\n## - TypeScript (.ts)\n\n## - Go (.go)\n\n## -
+Ruby
 (.rb)\n\n## ##
-Running the Planning Agent\n\n## ### Validate all files\n\n##```bash\n\n## python3
-scripts/planning_agent.py\n\n## ```(5)\n\n## This will:\n\n## 1. Scan all code files in
+Running the Planning Agent\n\n## ### Validate all files\n\n##```bash\n\n##
+python3
+scripts/planning_agent.py\n\n## ```(5)\n\n## This will:\n\n## 1. Scan all code
+files in
 the
-repository\n\n## 2. Validate each file's structure\n\n## 3. Generate .plan.md reports for
+repository\n\n## 2. Validate each file's structure\n\n## 3. Generate .plan.md
+reports for
 files with
-issues\n\n## 4. Print summary statistics\n\n## ### Output Files\n\n## For each file with
+issues\n\n## 4. Print summary statistics\n\n## ### Output Files\n\n## For each
+file with
 issues, a
 sibling .plan.md file is created containing:\n\n## - File structure validation
 results\n\n## -
-Issues found (missing header, sections, etc.)\n\n## - Required structure template\n\n## -
+Issues found (missing header, sections, etc.)\n\n## - Required structure
+template\n\n## -
 Fix
 proposals with example code\n\n## ## File Structure Template\n\n## ### Python
-Example\n\n##```python\n\n## #!/usr/bin/env python3 (2)\n\n## # Copyright (c) 2025
+Example\n\n##```python\n\n## #!/usr/bin/env python3 (2)\n\n## # Copyright (c)
+2025
 DebVisor
-contributors (2)\n\n## # Licensed under the Apache License, Version 2.0 (the "License");
+contributors (2)\n\n## # Licensed under the Apache License, Version 2.0 (the
+"License");
 (2)\n\n## #
-you may not use this file except in compliance with the License.\n\n## # You may obtain a
+you may not use this file except in compliance with the License.\n\n## # You may
+obtain a
 copy of
 the License at\n\n## #
-<[http://www.apache.org/licenses/LICENSE-2.0>\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)>)\)n)\)n)#)#)
+\n\n##]([http://www.apache.org/licenses/LICENSE-2.0>\n\n#]([http://www.apache.org/licenses/LICENSE-2.0>\n\n]([http://www.apache.org/licenses/LICENSE-2.0>\n\]([http://www.apache.org/licenses/LICENSE-2.0>\n]([http://www.apache.org/licenses/LICENSE-2.0>\]([http://www.apache.org/licenses/LICENSE-2.0>]([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen](http://www.apache.org/licen)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)>)\)n)\)n)#)#)
 
 ## Unless required by applicable law or agreed to in writing, software\n\n## # distributed
 
 under the
 
-License is distributed on an "AS IS" BASIS,\n\n## # WITHOUT WARRANTIES OR CONDITIONS OF
+License is distributed on an "AS IS" BASIS,\n\n## # WITHOUT WARRANTIES OR
+CONDITIONS OF
 ANY KIND,
-either express or implied.\n\n## # See the License for the specific language governing
+either express or implied.\n\n## # See the License for the specific language
+governing
 permissions
-and\n\n## # limitations under the License.\n\n#\n\n## """\n\n## Brief description of what
+and\n\n## # limitations under the License.\n\n#\n\n## """\n\n## Brief
+description of what
 this
-module does.\n\n#\n\n## ## Description\n\n## Detailed description of the module's purpose,
-functionality, and usage.\n\n## Include information about what problems it solves and how
+module does.\n\n#\n\n## ## Description\n\n## Detailed description of the
+module's purpose,
+functionality, and usage.\n\n## Include information about what problems it
+solves and how
 to use
-it.\n\n#\n\n## ## Changelog\n\n## - 1.0.0: Initial version\n\n## - 1.1.0: Added feature
+it.\n\n#\n\n## ## Changelog\n\n## - 1.0.0: Initial version\n\n## - 1.1.0: Added
+feature
 X\n\n#\n\n##
 
 ## Suggested Fixes\n\n## - Performance optimization needed for large datasets\n\n## - Add
 
 support
 
-for streaming input\n\n#\n\n## ## Improvements\n\n## - Add caching layer\n\n## - Implement
+for streaming input\n\n#\n\n## ## Improvements\n\n## - Add caching layer\n\n## -
+Implement
 parallel
 processing\n\n## - Add comprehensive logging\n\n## """ (2)\n\n## #
-=====================================================\n\n## # Implementation\n\n## #
-===================================================== (2)\n\n## import sys\n\n## from
+=====================================================\n\n## #
+Implementation\n\n## #
+===================================================== (2)\n\n## import sys\n\n##
+from
 pathlib import
-Path\n\n## def main():\n\n## """Main entry point."""\n\n## pass\n\n## if **name**==
-'**main**':\n\n## main()\n\n## ```(6)\n\n## ### Shell Script Example\n\n##```bash
+Path\n\n## def main():\n\n## """Main entry point."""\n\n## pass\n\n## if
+**name**==
+'**main**':\n\n## main()\n\n## ```(6)\n\n## ### Shell Script
+Example\n\n##```bash
 (2)\n\n##
 
 ## !/bin/bash\n\n## # Copyright (c) 2025 DebVisor contributors (3)\n\n## # Licensed under
 
 the Apache
 
-License, Version 2.0 (the "License"); (3)\n\n## # ... (rest of license header)\n\n#\n\n##
+License, Version 2.0 (the "License"); (3)\n\n## # ... (rest of license
+header)\n\n#\n\n##
 :
-<<'EOF'\n\n## Brief description of what this script does.\n\n#\n\n## ## Description
+<<'EOF'\n\n## Brief description of what this script does.\n\n#\n\n## ##
+Description
 (2)\n\n##
-Detailed description...\n\n#\n\n## ## Changelog (2)\n\n## - 1.0.0: Initial version
+Detailed description...\n\n#\n\n## ## Changelog (2)\n\n## - 1.0.0: Initial
+version
 (2)\n\n#\n\n## ##
-Suggested Fixes (2)\n\n## - Add error handling\n\n#\n\n## ## Improvements (2)\n\n## - Add
-logging\n\n## EOF\n\n## # ===================================================== (3)\n\n##
+Suggested Fixes (2)\n\n## - Add error handling\n\n#\n\n## ## Improvements
+(2)\n\n## - Add
+logging\n\n## EOF\n\n## # =====================================================
+(3)\n\n##
 
 ## 
 
-Implementation (2)\n\n## # ===================================================== (4)\n\n##
+Implementation (2)\n\n## # =====================================================
+(4)\n\n##
 set -euo
 pipefail\n\n## main() {\n\n## # Script implementation\n\n## :\n\n## }\n\n## main
 "$@"\n\n##

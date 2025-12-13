@@ -1,6 +1,6 @@
 # Code Issues Report: opt\security\hardening_scanner.py
 
-Generated: 2025-12-13T15:13:26.699090
+Generated: 2025-12-13T16:43:36.378696
 Source: opt\security\hardening_scanner.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

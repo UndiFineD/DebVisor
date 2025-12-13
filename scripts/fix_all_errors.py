@@ -69,12 +69,19 @@ logger = logging.getLogger(__name__)
 # Configuration & Constants
 # ===================================================================================
 
-SKIP_DIRS = {
-    ".git", ".github", ".benchmarks", ".hypothesis", ".import_linter_cache",
-    ".kube", ".mypy_cache", ".pytest_cache", ".ruff_cache", ".venv", ".vscode",
-    "node_modules", "dist", "build", "venv", "__pycache__", "target", ".idea",
-    "coverage", "tests", "instance"
-}
+def load_codeignore(root: Path) -> Set[str]:
+    """Load ignore patterns from .codeignore file."""
+    codeignore_path = root / ".codeignore"
+    if codeignore_path.exists():
+        try:
+            content = codeignore_path.read_text(encoding='utf-8')
+            return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
+        except Exception as e:
+            print(f"Warning: Could not read .codeignore file: {e}")
+    return set()
+
+
+SKIP_DIRS = load_codeignore(Path(__file__).parent.parent)
 
 LICENSE_HEADER = [
     "Copyright (c) 2025 DebVisor contributors",

@@ -1,6 +1,6 @@
 # Code Issues Report: opt\netcfg-tui\backends.py
 
-Generated: 2025-12-13T15:12:54.968815
+Generated: 2025-12-13T16:43:02.235897
 Source: opt\netcfg-tui\backends.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

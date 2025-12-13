@@ -1,6 +1,6 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-lib.sh
 
-Generated: 2025-12-13T15:25:23.614019
+Generated: 2025-12-13T16:56:35.409870
 Source: usr\DebVisor\bin\debvisor-lib.sh
 
 ## Issues Summary
@@ -909,7 +909,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -938,7 +938,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -967,7 +967,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -996,7 +996,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1025,7 +1025,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1054,7 +1054,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1083,7 +1083,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1269,7 +1269,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1298,7 +1298,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1327,7 +1327,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1356,7 +1356,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1385,7 +1385,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1414,7 +1414,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1443,7 +1443,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1629,7 +1629,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1658,7 +1658,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1687,7 +1687,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1716,7 +1716,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1745,7 +1745,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1774,7 +1774,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1803,7 +1803,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1989,7 +1989,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2018,7 +2018,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2047,7 +2047,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2076,7 +2076,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2105,7 +2105,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2134,7 +2134,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2163,7 +2163,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2349,7 +2349,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2378,7 +2378,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2407,7 +2407,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2436,7 +2436,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2465,7 +2465,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2494,7 +2494,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2523,7 +2523,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2709,7 +2709,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2738,7 +2738,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2767,7 +2767,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2796,7 +2796,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2825,7 +2825,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2854,7 +2854,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2883,7 +2883,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3069,7 +3069,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3098,7 +3098,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3127,7 +3127,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3156,7 +3156,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3185,7 +3185,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3214,7 +3214,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3243,7 +3243,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3429,7 +3429,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3458,7 +3458,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3487,7 +3487,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3516,7 +3516,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3545,7 +3545,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3574,7 +3574,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3603,7 +3603,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3789,7 +3789,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3818,7 +3818,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3847,7 +3847,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3876,7 +3876,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3905,7 +3905,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3934,7 +3934,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3963,7 +3963,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4149,7 +4149,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4178,7 +4178,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4207,7 +4207,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4236,7 +4236,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4265,7 +4265,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4294,7 +4294,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4323,7 +4323,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4509,7 +4509,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4538,7 +4538,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4567,7 +4567,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4596,7 +4596,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4625,7 +4625,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4654,7 +4654,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4683,7 +4683,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4869,7 +4869,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4898,7 +4898,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4927,7 +4927,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4956,7 +4956,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4985,7 +4985,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5014,7 +5014,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5043,7 +5043,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5229,7 +5229,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5258,7 +5258,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5287,7 +5287,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5316,7 +5316,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5345,7 +5345,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5374,7 +5374,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5403,7 +5403,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5589,7 +5589,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5618,7 +5618,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5647,7 +5647,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5676,7 +5676,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5705,7 +5705,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5734,7 +5734,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5763,7 +5763,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -8788,8 +8788,7 @@ audit_log() {
 
 **Tool:**shellcheck |**Code:**`2188` |**Severity:** WARNING
 
-**Message:** This redirection doesn't have a command. Move to its command (or use 'true'
-as no-op).
+**Message:** This redirection doesn't have a command. Move to its command (or use 'true' as no-op).
 
 ### Context
 
@@ -12670,1777 +12669,7 @@ validate_cidr() {
 
     # Validate IP octets
     local IFS='.'
-    read -ra octets <<< "$ip"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 396
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local ip="${cidr%/*}"
-    local prefix="${cidr#*/}"
-
-    # Validate IP octets
-    local IFS='.'
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 397
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local prefix="${cidr#*/}"
-
-    # Validate IP octets
-    local IFS='.'
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 398
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Validate IP octets
-    local IFS='.'
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 399
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Validate IP octets
-    local IFS='.'
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 400
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local IFS='.'
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-        fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 401
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    read -ra octets <<< "$ip"
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-        fi
-    done
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 402
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    for octet in "${octets[@]}"; do
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-        fi
-    done
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 403
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        if ["$octet" -gt 255]; then
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-        fi
-    done
-
-    # Validate prefix length
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 404
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            log_error "Invalid IP address in CIDR: $ip"
-            return 1
-        fi
-    done
-
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 405
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            return 1
-        fi
-    done
-
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 406
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        fi
-    done
-
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 407
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    done
-
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 408
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 409
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Validate prefix length
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-    fi
-
-    return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 410
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ["$prefix" -lt 0] || ["$prefix" -gt 32]; then
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-    fi
-
-    return 0
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 411
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Invalid prefix length in CIDR: $prefix"
-        return 1
-    fi
-
-    return 0
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 412
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-
-    return 0
-}
-
-## validate_pool_name: Validate ZFS pool name
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 413
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    return 0
-}
-
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 414
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    return 0
-}
-
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool_name() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 415
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    return 0
-}
-
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool_name() {
-    local pool="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 416
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool_name() {
-    local pool="$1"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 417
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool*name() {
-    local pool="$1"
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 418
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## validate_pool_name: Validate ZFS pool name
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool*name() {
-    local pool="$1"
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log_error "Invalid pool name: $pool"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 419
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Usage: validate_pool_name "tank" || die "Invalid pool name"
-validate_pool*name() {
-    local pool="$1"
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log_error "Invalid pool name: $pool"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 420
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_pool*name() {
-    local pool="$1"
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log*error "Invalid pool name: $pool"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 421
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local pool="$1"
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log*error "Invalid pool name: $pool"
-        return 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 422
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log*error "Invalid pool name: $pool"
-        return 1
-    fi
-
-    return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 423
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ! [["$pool" =~ ^[a-zA-Z][a-zA-Z0-9*:-]*$]]; then
-        log_error "Invalid pool name: $pool"
-        return 1
-    fi
-
-    return 0
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 424
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Invalid pool name: $pool"
-        return 1
-    fi
-
-    return 0
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 425
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-
-    return 0
-}
-
-################################################################################ 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 426
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    return 0
-}
-
-################################################################################ 
-## Retry & Transient Failure Handling
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 427
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    return 0
-}
-
-################################################################################ 
-## Retry & Transient Failure Handling
-################################################################################ 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 428
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    return 0
-}
-
-################################################################################ 
-## Retry & Transient Failure Handling
-################################################################################ 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 429
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-################################################################################ 
-## Retry & Transient Failure Handling
-################################################################################ 
-
-## retry: Retry command with exponential backoff
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 430
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-################################################################################ 
-## Retry & Transient Failure Handling
-################################################################################ 
-
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 431
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-################################################################################ 
-## Retry & Transient Failure Handling
-################################################################################ 
-
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 432
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Retry & Transient Failure Handling
-################################################################################ 
-
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 433
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-################################################################################ 
-
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-    local max_attempts="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 434
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-    local max_attempts="$1"
-    local initial_delay="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 435
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## retry: Retry command with exponential backoff
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-    local max_attempts="$1"
-    local initial_delay="$2"
-    shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 436
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Usage: retry 3 30 "ceph health" || die "Command failed"
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-    local max_attempts="$1"
-    local initial_delay="$2"
-    shift 2
-    local command=("$@")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 437
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Args: max_attempts initial_delay_seconds command [args...]
-retry() {
-    local max_attempts="$1"
-    local initial_delay="$2"
-    shift 2
-    local command=("$@")
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 438
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-retry() {
-    local max_attempts="$1"
-    local initial_delay="$2"
-    shift 2
-    local command=("$@")
-
-    local attempt=1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 439
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local max_attempts="$1"
-    local initial_delay="$2"
-    shift 2
-    local command=("$@")
-
-    local attempt=1
-    local delay="$initial_delay"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 440
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local initial_delay="$2"
-    shift 2
-    local command=("$@")
-
-    local attempt=1
-    local delay="$initial_delay"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 441
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    shift 2
-    local command=("$@")
-
-    local attempt=1
-    local delay="$initial_delay"
-
-    while [$attempt -le "$max_attempts"]; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 442
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local command=("$@")
-
-    local attempt=1
-    local delay="$initial_delay"
-
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 443
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    local attempt=1
-    local delay="$initial_delay"
-
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 444
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local attempt=1
-    local delay="$initial_delay"
-
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-        if "${command[@]}"; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 445
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local delay="$initial_delay"
-
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 446
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 447
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    while [$attempt -le "$max_attempts"]; do
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-        fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 448
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-        fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 449
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-        fi
-
-        if [$attempt -lt "$max_attempts"]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 450
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        if "${command[@]}"; then
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-        fi
-
-        if [$attempt -lt "$max_attempts"]; then
-            log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 451
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            log_debug "Command succeeded on attempt $attempt"
-            return 0
-        fi
-
-        if [$attempt -lt "$max_attempts"]; then
-            log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-            sleep "$delay"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 452
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            return 0
-        fi
-
-        if [$attempt -lt "$max_attempts"]; then
-            log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-            sleep "$delay"
-            # Exponential backoff: double delay, cap at 5 minutes
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 453
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        fi
-
-        if [$attempt -lt "$max_attempts"]; then
-            log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-            sleep "$delay"
-            # Exponential backoff: double delay, cap at 5 minutes
-            delay=$((delay * 2))
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 454
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-        if [$attempt -lt "$max_attempts"]; then
-            log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-            sleep "$delay"
-            # Exponential backoff: double delay, cap at 5 minutes
-            delay=$((delay * 2))
-            delay=$((delay > 300 ? 300 : delay))
+    read -ra octets  300 ? 300 : delay))
 ```python
 
 ### Proposal
@@ -18550,1837 +16779,7 @@ ceph_osds_ready() {
     log_debug "Checking Ceph OSD status..."
 
     local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 592
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    require_bin "ceph"
-
-    log_debug "Checking Ceph OSD status..."
-
-    local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 593
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_debug "Checking Ceph OSD status..."
-
-    local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 594
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_debug "Checking Ceph OSD status..."
-
-    local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 595
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-    fi
-
-    if ["$down_osds" -eq 0]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 596
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local down_osds
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-    fi
-
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 597
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?<=down )*'); then
-        down_osds=0
-    fi
-
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-        return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 598
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        down_osds=0
-    fi
-
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-        return 0
-    else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 599
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-        return 0
-    else
-        log_error "Some OSDs are down: $down_osds down"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 600
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-        return 0
-    else
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 601
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ["$down_osds" -eq 0]; then
-        log_debug "All OSDs are up and in"
-        return 0
-    else
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 602
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_debug "All OSDs are up and in"
-        return 0
-    else
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 603
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 0
-    else
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 604
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    else
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-    fi
-}
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 605
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Some OSDs are down: $down_osds down"
-        return 1
-    fi
-}
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 606
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-}
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 607
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-    require_bin "ceph"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 608
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-    require_bin "ceph"
-    require_root
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 609
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-    require_bin "ceph"
-    require_root
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 610
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Setting Ceph noout flag..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 611
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Usage: ceph_set_noout || die "Failed to set noout"
-ceph_set_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Setting Ceph noout flag..."
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 612
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-ceph_set_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Setting Ceph noout flag..."
-
-    if ceph osd set noout; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 613
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    require_bin "ceph"
-    require_root
-
-    log_info "Setting Ceph noout flag..."
-
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 614
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    require_root
-
-    log_info "Setting Ceph noout flag..."
-
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 615
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "Setting Ceph noout flag..."
-
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 616
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Setting Ceph noout flag..."
-
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-    else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 617
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-    else
-        log_error "Failed to set noout flag"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 618
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ceph osd set noout; then
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-    else
-        log_error "Failed to set noout flag"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 619
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_debug "Noout flag set"
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-    else
-        log_error "Failed to set noout flag"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 620
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        audit_log "ceph_set_noout" "Set noout flag for maintenance"
-        return 0
-    else
-        log_error "Failed to set noout flag"
-        return 1
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 621
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 0
-    else
-        log_error "Failed to set noout flag"
-        return 1
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 622
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    else
-        log_error "Failed to set noout flag"
-        return 1
-    fi
-}
-
-## ceph_unset_noout: Remove noout flag
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 623
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Failed to set noout flag"
-        return 1
-    fi
-}
-
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 624
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-}
-
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 625
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-    require_bin "ceph"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 626
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-    require_bin "ceph"
-    require_root
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 627
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-    require_bin "ceph"
-    require_root
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 628
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## ceph_unset_noout: Remove noout flag
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Removing Ceph noout flag..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 629
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Usage: ceph_unset_noout || die "Failed to unset noout"
-ceph_unset_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Removing Ceph noout flag..."
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 630
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-ceph_unset_noout() {
-    require_bin "ceph"
-    require_root
-
-    log_info "Removing Ceph noout flag..."
-
-    if ceph osd unset noout; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 631
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    require_bin "ceph"
-    require_root
-
-    log_info "Removing Ceph noout flag..."
-
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 632
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    require_root
-
-    log_info "Removing Ceph noout flag..."
-
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 633
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "Removing Ceph noout flag..."
-
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 634
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Removing Ceph noout flag..."
-
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-    else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 635
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-    else
-        log_error "Failed to unset noout flag"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 636
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ceph osd unset noout; then
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-    else
-        log_error "Failed to unset noout flag"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 637
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_debug "Noout flag removed"
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-    else
-        log_error "Failed to unset noout flag"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 638
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-        return 0
-    else
-        log_error "Failed to unset noout flag"
-        return 1
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 639
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 0
-    else
-        log_error "Failed to unset noout flag"
-        return 1
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 640
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    else
-        log_error "Failed to unset noout flag"
-        return 1
-    fi
-}
-
-################################################################################ 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 641
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Failed to unset noout flag"
-        return 1
-    fi
-}
-
-################################################################################ 
-## ZFS Operations
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 642
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-}
-
-################################################################################ 
-## ZFS Operations
-################################################################################ 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 643
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-################################################################################ 
-## ZFS Operations
-################################################################################ 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 644
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-################################################################################ 
-## ZFS Operations
-################################################################################ 
-
-## zpool_exists: Check if ZFS pool exists
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 645
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-################################################################################ 
-## ZFS Operations
-################################################################################ 
-
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 646
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-################################################################################ 
-## ZFS Operations
-################################################################################ 
-
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 647
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## ZFS Operations
-################################################################################ 
-
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-    local pool="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 648
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-################################################################################ 
-
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-    local pool="$1"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 649
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-    local pool="$1"
-
-    require_bin "zpool"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 650
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## zpool_exists: Check if ZFS pool exists
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-    local pool="$1"
-
-    require_bin "zpool"
-    validate_pool_name "$pool" || return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 651
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Usage: zpool_exists "tank" || die "Pool not found"
-zpool_exists() {
-    local pool="$1"
-
-    require_bin "zpool"
-    validate_pool_name "$pool" || return 1
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 652
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-zpool_exists() {
-    local pool="$1"
-
-    require_bin "zpool"
-    validate_pool_name "$pool" || return 1
-
-    if zpool list "$pool" &>/dev/null; then
+    if ! down_osds=$[^ ](ceph osd stat | grep -oP '(?/dev/null; then
 ```python
 
 ### Proposal

@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_property_based.py
 
-Generated: 2025-12-13T15:24:59.869534
+Generated: 2025-12-13T16:56:08.934350
 Source: tests\test_property_based.py
 
 ## Issues Summary
@@ -61,9 +61,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -93,9 +91,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -125,9 +121,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -157,9 +151,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -189,9 +181,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -200,65 +190,8 @@ byte code.
         balance = max(Decimal("0"), original - total_payments)
 
         assert balance >= 0
-        assert balance <= original
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 182
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        balance = max(Decimal("0"), original - total_payments)
-
-        assert balance >= 0
-        assert balance <= original
-
-class TestPaymentValidationProperties:
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 194
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-    def test_payment_has_required_fields(self, payment: Dict[str, Any]) -> None:
+        assert balance = 0
+        assert balance  None:
         """Property: All payments must have required fields."""
         required_fields = {"id", "debt_id", "amount", "method", "status"}
         assert required_fields.issubset(payment.keys())
@@ -283,9 +216,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -315,9 +246,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -346,9 +275,7 @@ class TestUserValidationProperties:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -378,9 +305,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -410,9 +335,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -441,9 +364,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -473,9 +394,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -505,9 +424,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -536,9 +453,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -549,165 +464,9 @@ byte code.
         assert "status" in response
         assert "success" in response
         assert isinstance(response["success"], bool)
-        assert response["success"] == (200 <= status_code < 300)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 309
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        }
-
-        assert "status" in response
-        assert "success" in response
-        assert isinstance(response["success"], bool)
-        assert response["success"] == (200 <= status_code < 300)
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 310
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-
-        assert "status" in response
-        assert "success" in response
-        assert isinstance(response["success"], bool)
-        assert response["success"] == (200 <= status_code < 300)
-
-    @given(
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 311
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        assert "status" in response
-        assert "success" in response
-        assert isinstance(response["success"], bool)
-        assert response["success"] == (200 <= status_code < 300)
-
-    @given(
-        items=st.lists(debt_record(), max_size=50),
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 333
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        page_items = items[start_idx:end_idx] if start_idx < total else []
-
-        # Invariants
-        assert len(page_items) <= per_page
-        if page <= total_pages and total > 0:
-            if page < total_pages:
-                assert len(page_items) == per_page
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 336
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        assert len(page_items) <= per_page
-        if page <= total_pages and total > 0:
-            if page < total_pages:
-                assert len(page_items) == per_page
-        assert start_idx >= 0
+        assert response["success"] == (200  0:
+            if page  0:
+            if page = 0
 
 ```python
 
@@ -727,17 +486,13 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
-        if page <= total_pages and total > 0:
-            if page < total_pages:
-                assert len(page_items) == per_page
-        assert start_idx >= 0
+        if page  0:
+            if page = 0
 
 ## =============================================================================
 ```python
@@ -758,9 +513,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -790,9 +543,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -801,103 +552,12 @@ byte code.
         fee = debt_amount * fee_percent
 
         assert fee >= 0
-        assert fee <= debt_amount * Decimal("0.50")    # Max 50% fee
-
-    @given(
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 377
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        fee = debt_amount * fee_percent
-
-        assert fee >= 0
-        assert fee <= debt_amount * Decimal("0.50")    # Max 50% fee
-
-    @given(
-        payments=st.lists(
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 394
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-
-        # Verify sorted
-        for i in range(len(sorted_payments) - 1):
-            assert sorted_payments[i][0] <= sorted_payments[i + 1][0]
-
-## =============================================================================
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 417
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        is_limited = requests > limit
+        assert fee = 0
+        assert fee  limit
         remaining = max(0, limit - requests)
 
         assert remaining >= 0
-        assert remaining <= limit
-        assert is_limited == (requests > limit)
+        assert remaining  limit)
 
 ```python
 
@@ -917,9 +577,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -927,8 +585,7 @@ byte code.
         remaining = max(0, limit - requests)
 
         assert remaining >= 0
-        assert remaining <= limit
-        assert is_limited == (requests > limit)
+        assert remaining  limit)
 
     @given(
 ```python
@@ -949,17 +606,14 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
 
         assert remaining >= 0
-        assert remaining <= limit
-        assert is_limited == (requests > limit)
+        assert remaining  limit)
 
     @given(
         burst_limit=st.integers(min_value=1, max_value=100),
@@ -981,9 +635,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -992,36 +644,7 @@ byte code.
         current_tokens = burst_limit    # Start full
 
         assert current_tokens >= 0
-        assert current_tokens <= burst_limit
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 437
-
-**Tool:**bandit |**Code:**`B101` |**Severity:** LOW
-
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
-
-### Context
-
-```python
-        current_tokens = burst_limit    # Start full
-
-        assert current_tokens >= 0
+        assert current_tokens = 0
         assert current_tokens <= burst_limit
 
 ## =============================================================================
@@ -1043,9 +666,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1075,9 +696,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1107,9 +726,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1139,9 +756,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1171,9 +786,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1203,9 +816,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1235,9 +846,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -1266,9 +875,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\test_fix_markdown_lint.py
 
-Generated: 2025-12-13T15:22:34.119715
+Generated: 2025-12-13T16:53:28.282870
 Source: scripts\test_fix_markdown_lint.py
 
 ## Issues Summary
@@ -23,9 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

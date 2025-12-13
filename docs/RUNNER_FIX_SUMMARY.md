@@ -2,558 +2,797 @@
 
 Portable Tool
 
-Installation Script\n\n- *File**: `scripts/setup-runner-tools.sh`\n\nCross-platform script
+Installation Script\n\n- *File**:
+`scripts/setup-runner-tools.sh`\n\nCross-platform script
 that
 installs:\n\n- **jq**: JSON processor (downloads portable binary for
 Windows/Linux/macOS)\n\n-
-**cosign**: Container signing tool (downloads portable binary)\n\n- **gpg**: Checks
+**cosign**: Container signing tool (downloads portable binary)\n\n- **gpg**:
+Checks
 availability and
-guides installation\n\n- *Usage in workflows**:\n\n```yaml\n\n- name: Setup Tools\n run:
+guides installation\n\n- *Usage in workflows**:\n\n```yaml\n\n- name: Setup
+Tools\n run:
 |\n chmod
-+x scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n- name:
++x scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n-
+name:
 Setup
 Tools\n\n run: |\n chmod +x scripts/setup-runner-tools.sh\n
 ./scripts/setup-runner-tools.sh\n```text\n\n- name: Setup Tools\n run: |\n chmod +x
-scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n- name: Setup
+scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n-
+name: Setup
 Tools\n\n
 run: |\n chmod +x scripts/setup-runner-tools.sh\n
 ./scripts/setup-runner-tools.sh\n```text\n\n-
 name: Setup Tools\n run: |\n chmod +x scripts/setup-runner-tools.sh\n
 ./scripts/setup-runner-tools.sh\n```text\n\n- name: Setup Tools\n\n run: |\n chmod +x
-scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n- name: Setup
+scripts/setup-runner-tools.sh\n ./scripts/setup-runner-tools.sh\n```text\n\n-
+name: Setup
 Tools\n
 run: |\n chmod +x scripts/setup-runner-tools.sh\n
 ./scripts/setup-runner-tools.sh\n```text\n\n-
 name: Setup Tools\n\n run: |\n chmod +x scripts/setup-runner-tools.sh\n
-./scripts/setup-runner-tools.sh\n```text\n### 2. Runner Smoke Test Workflow\n- *File**:
-`.github/workflows/runner-smoke-test.yml`\nValidates runner environment:\n\n- ✅ Bash
+./scripts/setup-runner-tools.sh\n```text\n### 2. Runner Smoke Test Workflow\n-
+*File**:
+`.github/workflows/runner-smoke-test.yml`\nValidates runner environment:\n\n- ✅
+Bash
 version and
-shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools (jq,
+shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools
+(jq,
 cosign,
-gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**: Manual
+gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+Manual
 dispatch or
 push to main\n### 3. Release Reverification Workflow Update\n- *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n### 4. Comprehensive Setup Guide\n-
 *File**:`RUNNER_SETUP_GUIDE.md`\nComplete documentation covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n###
 
-5. Workflow Audit & Remediation Plan\n- *File**: `WORKFLOW_AUDIT.md`\n\n- *Identified
+1. Workflow Audit & Remediation Plan\n- *File**: `WORKFLOW_AUDIT.md`\n\n-
+*Identified
 Issues**:\n\n-
-**Critical**: `blocklist-integration-tests.yml`uses nftables/iptables (Linux-only)\n\n-
+**Critical**: `blocklist-integration-tests.yml`uses nftables/iptables
+(Linux-only)\n\n-
 **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
 **Adaptable**:`lint.yml`uses
-apt-get for shellcheck (can use portable binary)\n\n- *Recommendations**:\n\n1. **Option
-1**(Recommended): Add Linux self-hosted runner for firewall/systemd tests\n\n1.**Option
+apt-get for shellcheck (can use portable binary)\n\n- *Recommendations**:\n\n1.
+**Option
+1**(Recommended): Add Linux self-hosted runner for firewall/systemd
+tests\n\n1.**Option
 2**: Adapt
-workflows to skip Linux-specific steps on Windows\n\n1. **Option 3**: Hybrid approach with
+workflows to skip Linux-specific steps on Windows\n\n1. **Option 3**: Hybrid
+approach with
 runner
-labels (`self-hosted,linux`vs`self-hosted,windows`)\n### 6. Strategic Shift: GitHub-Hosted
+labels (`self-hosted,linux`vs`self-hosted,windows`)\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025)\n- *Context**:\nSelf-hosted Windows runners proved problematic for
+(December 2025)\n- *Context**:\nSelf-hosted Windows runners proved problematic
+for
 Linux-centric
-workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools (`shellcheck`,
+workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(`shellcheck`,
 `kubeconform`)
-and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the following workflows to
+and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the following
+workflows to
 `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n## 🔧 Manual Steps Still Required\n###
+maintenance by using standard actions.\n\n- --\n## 🔧 Manual Steps Still
+Required\n###
 Priority 1:
-Install Runner as Service\n- *Current Issue**: Runner fails to start (exit code 1)
-because:\n\n- Not
-running with Administrator privileges\n\n- Configuration attempted without elevation\n\n-
+Install Runner as Service\n- *Current Issue**: Runner fails to start (exit code
+
+1. because:\n\n- Not
+running with Administrator privileges\n\n- Configuration attempted without
+elevation\n\n-
 *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n\n-
-*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner environment:\n\n- ✅
+*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner
+environment:\n\n- ✅
 Bash
-version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools
+version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅
+Installed tools
 (jq,
-cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n-
+*Trigger**:
 Manual
-dispatch or push to main\n\n### 3. Release Reverification Workflow Update (2)\n\n-
+dispatch or push to main\n\n### 3. Release Reverification Workflow Update
+(2)\n\n-
 *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (2)\n\n-
-*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation covering:\n\n-**Service
+*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation
+covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (2)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (2)\n\n- *Context**:\n\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (2)\n\n- *Context**:\n\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (2)\n\n###
-Priority 1: Install Runner as Service (2)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (2)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n### 2.
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n### 2.
 Runner
-Smoke Test Workflow (2)\n\n- *File**:`.github/workflows/runner-smoke-test.yml`\nValidates
+Smoke Test Workflow (2)\n\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\nValidates
 runner
-environment:\n\n- ✅ Bash version and shell features\n\n- ✅ Core tools (curl, git,
+environment:\n\n- ✅ Bash version and shell features\n\n- ✅ Core tools (curl,
+git,
 sha256sum)\n\n- ✅
 Installed tools (jq, cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token
 availability\n\n-
-*Trigger**: Manual dispatch or push to main\n\n### 3. Release Reverification Workflow
+*Trigger**: Manual dispatch or push to main\n\n### 3. Release Reverification
+Workflow
 Update
-(3)\n\n- *File**: `.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌
+(3)\n\n- *File**: `.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n-
+❌
 Removed: `apt-get
 install jq`and`gh CLI`dependency\n\n- ✅ Added: Portable tool setup using shared
 script\n\n- ✅ Added:
 GitHub REST API + curl + jq for release operations\n\n- ✅ Fixed:`id-token:
 write`permission for
-OIDC\n\n- ✅ Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+OIDC\n\n- ✅ Added:`defaults.run.shell: bash`for consistency\n\n- *Now
+cross-platform
 compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (3)\n\n-
 *File**:`RUNNER_SETUP_GUIDE.md`\nComplete documentation covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (3)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (3)\n\n- *Context**:\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (3)\n\n- *Context**:\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (3)\n\n###
-Priority 1: Install Runner as Service (3)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (3)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n\n-
-*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner environment:\n\n- ✅
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner
+environment:\n\n- ✅
 Bash
-version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools
+version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅
+Installed tools
 (jq,
-cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n-
+*Trigger**:
 Manual
-dispatch or push to main\n\n### 3. Release Reverification Workflow Update (4)\n\n-
+dispatch or push to main\n\n### 3. Release Reverification Workflow Update
+(4)\n\n-
 *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (4)\n\n-
-*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation covering:\n\n-**Service
+*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation
+covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (4)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (4)\n\n- *Context**:\n\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (4)\n\n- *Context**:\n\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (4)\n\n###
-Priority 1: Install Runner as Service (4)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (4)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n### 2.
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n### 2.
 Runner
-Smoke Test Workflow (3)\n- *File**:`.github/workflows/runner-smoke-test.yml`\nValidates
+Smoke Test Workflow (3)\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\nValidates
 runner
-environment:\n\n- ✅ Bash version and shell features\n\n- ✅ Core tools (curl, git,
+environment:\n\n- ✅ Bash version and shell features\n\n- ✅ Core tools (curl,
+git,
 sha256sum)\n\n- ✅
 Installed tools (jq, cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token
 availability\n\n-
-*Trigger**: Manual dispatch or push to main\n### 3. Release Reverification Workflow Update
+*Trigger**: Manual dispatch or push to main\n### 3. Release Reverification
+Workflow Update
 (5)\n-
-*File**: `.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+*File**: `.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌
+Removed:
 `apt-get install
-jq`and`gh CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+jq`and`gh CLI`dependency\n\n- ✅ Added: Portable tool setup using shared
+script\n\n- ✅
 Added: GitHub
-REST API + curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+REST API + curl + jq for release operations\n\n- ✅ Fixed:`id-token:
+write`permission for
 OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n### 4. Comprehensive Setup Guide (5)\n-
 *File**:`RUNNER_SETUP_GUIDE.md`\nComplete documentation covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n###
 
-5. Workflow Audit & Remediation Plan (5)\n- *File**: `WORKFLOW_AUDIT.md`\n\n- *Identified
-Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+1. Workflow Audit & Remediation Plan (5)\n- *File**: `WORKFLOW_AUDIT.md`\n\n-
+*Identified
+Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
+nftables/iptables
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (5)\n- *Context**:\nSelf-hosted Windows runners proved problematic for
+(December 2025) (5)\n- *Context**:\nSelf-hosted Windows runners proved
+problematic for
 Linux-centric
-workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools (`shellcheck`,
+workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(`shellcheck`,
 `kubeconform`)
-and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the following workflows to
+and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the following
+workflows to
 `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n## 🔧 Manual Steps Still Required (5)\n###
+maintenance by using standard actions.\n\n- --\n## 🔧 Manual Steps Still Required
+(5)\n###
 Priority
-1: Install Runner as Service (5)\n- *Current Issue**: Runner fails to start (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+1: Install Runner as Service (5)\n- *Current Issue**: Runner fails to start
+(exit code 1)
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n\n-
-*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner environment:\n\n- ✅
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner
+environment:\n\n- ✅
 Bash
-version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools
+version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅
+Installed tools
 (jq,
-cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n-
+*Trigger**:
 Manual
-dispatch or push to main\n\n### 3. Release Reverification Workflow Update (6)\n\n-
+dispatch or push to main\n\n### 3. Release Reverification Workflow Update
+(6)\n\n-
 *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (6)\n\n-
-*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation covering:\n\n-**Service
+*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation
+covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (6)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (6)\n\n- *Context**:\n\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (6)\n\n- *Context**:\n\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (6)\n\n###
-Priority 1: Install Runner as Service (6)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (6)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n\n-
-*File**:`.github/workflows/runner-smoke-test.yml`\nValidates runner environment:\n\n- ✅
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\nValidates runner
+environment:\n\n- ✅
 Bash version
-and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools (jq,
+and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed
+tools (jq,
 cosign,
-gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**: Manual
+gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+Manual
 dispatch or
 push to main\n\n### 3. Release Reverification Workflow Update (7)\n\n- *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (7)\n\n-
 *File**:`RUNNER_SETUP_GUIDE.md`\nComplete documentation covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (7)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (7)\n\n- *Context**:\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (7)\n\n- *Context**:\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (7)\n\n###
-Priority 1: Install Runner as Service (7)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (7)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n\n-
-*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner environment:\n\n- ✅
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n\n-
+*File**:`.github/workflows/runner-smoke-test.yml`\n\nValidates runner
+environment:\n\n- ✅
 Bash
-version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅ Installed tools
+version and shell features\n\n- ✅ Core tools (curl, git, sha256sum)\n\n- ✅
+Installed tools
 (jq,
-cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n- *Trigger**:
+cosign, gpg)\n\n- ✅ GitHub API access\n\n- ✅ OIDC token availability\n\n-
+*Trigger**:
 Manual
-dispatch or push to main\n\n### 3. Release Reverification Workflow Update (8)\n\n-
+dispatch or push to main\n\n### 3. Release Reverification Workflow Update
+(8)\n\n-
 *File**:
-`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed: `apt-get install
+`.github/workflows/release-reverify.yml`\n\n- *Changes**:\n\n- ❌ Removed:
+`apt-get install
 jq`and`gh
-CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅ Added: GitHub
+CLI`dependency\n\n- ✅ Added: Portable tool setup using shared script\n\n- ✅
+Added: GitHub
 REST API +
-curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for OIDC\n\n- ✅
-Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform compatible**for
+curl + jq for release operations\n\n- ✅ Fixed:`id-token: write`permission for
+OIDC\n\n- ✅
+Added:`defaults.run.shell: bash`for consistency\n\n- *Now cross-platform
+compatible**for
 Windows/Linux self-hosted runners.\n\n### 4. Comprehensive Setup Guide (8)\n\n-
-*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation covering:\n\n-**Service
+*File**:`RUNNER_SETUP_GUIDE.md`\n\nComplete documentation
+covering:\n\n-**Service
 Installation**:
-Step-by-step Windows service setup with SYSTEM account\n\n- **PATH Configuration**: Fixing
+Step-by-step Windows service setup with SYSTEM account\n\n- **PATH
+Configuration**: Fixing
 Git Bash
-precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n- Service
+precedence over WSL\n\n- **Troubleshooting**: Common issues and solutions\n\n-
+Service
 won't
-start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token errors\n\n-
-**Verification**: Testing steps and smoke test instructions\n\n- **Tool Dependencies**:
+start\n\n- Python symlink failures\n\n- Bash command failures\n\n- OIDC token
+errors\n\n-
+**Verification**: Testing steps and smoke test instructions\n\n- **Tool
+Dependencies**:
 What's
-needed and where to get it\n\n- **Quick Reference**: PowerShell commands for service
+needed and where to get it\n\n- **Quick Reference**: PowerShell commands for
+service
 management\n\n### 5. Workflow Audit & Remediation Plan (8)\n\n- *File**:
 `WORKFLOW_AUDIT.md`\n\n-
 *Identified Issues**:\n\n- **Critical**: `blocklist-integration-tests.yml`uses
 nftables/iptables
-(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd (Linux-only)\n\n-
-**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable binary)\n\n-
-*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted runner for
-firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific steps on
+(Linux-only)\n\n- **Critical**:`validate-syntax.yml`uses systemd
+(Linux-only)\n\n-
+**Adaptable**:`lint.yml`uses apt-get for shellcheck (can use portable
+binary)\n\n-
+*Recommendations**:\n\n1. **Option 1**(Recommended): Add Linux self-hosted
+runner for
+firewall/systemd tests\n\n1.**Option 2**: Adapt workflows to skip Linux-specific
+steps on
 Windows\n\n1. **Option 3**: Hybrid approach with runner labels
-(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift: GitHub-Hosted
+(`self-hosted,linux`vs`self-hosted,windows`)\n\n### 6. Strategic Shift:
+GitHub-Hosted
 Runners
-(December 2025) (8)\n\n- *Context**:\n\nSelf-hosted Windows runners proved problematic for
-Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing tools
+(December 2025) (8)\n\n- *Context**:\n\nSelf-hosted Windows runners proved
+problematic for
+Linux-centric workflows (`lint.yml`,`manifest-validation.yml`) due to missing
+tools
 (`shellcheck`,
-`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated the
+`kubeconform`) and OS differences (`tar`, `find`).\n\n- *Decision**:\n\nMigrated
+the
 following
-workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and standard tool
+workflows to `ubuntu-latest`(GitHub-hosted runners) to ensure stability and
+standard tool
 availability:\n\n-`lint.yml`(ShellCheck, Flake8,
 Black)\n\n-`manifest-validation.yml`(Kubeconform,
-Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated "End-of-central-directory"
+Kube-linter, Pluto, Helm Lint)\n\n- *Outcome**:\n\n- Eliminated
+"End-of-central-directory"
 unzip
-errors.\n\n- Eliminated path separator and command compatibility issues.\n\n- Simplified
+errors.\n\n- Eliminated path separator and command compatibility issues.\n\n-
+Simplified
 workflow
-maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still Required
+maintenance by using standard actions.\n\n- --\n\n## 🔧 Manual Steps Still
+Required
 (8)\n\n###
-Priority 1: Install Runner as Service (8)\n\n- *Current Issue**: Runner fails to start
+Priority 1: Install Runner as Service (8)\n\n- *Current Issue**: Runner fails to
+start
 (exit code 1)
-because:\n\n- Not running with Administrator privileges\n\n- Configuration attempted
+because:\n\n- Not running with Administrator privileges\n\n- Configuration
+attempted
 without
-elevation\n\n- *Solution**(Run in**Administrator PowerShell**):\n\n```powershell\n# Step
+elevation\n\n- *Solution**(Run in**Administrator
+PowerShell**):\n\n```powershell\n# Step
 1: Get new
 registration token\n# Visit:
-<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/](https://github.com/UndiFineD/DebVisor/settings/actions/runners/)n)e)w)>)\)n)#)
+\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act]([https://github.com/UndiFineD/DebVisor/settings/ac]([https://github.com/UndiFineD/DebVisor/settings/a](https://github.com/UndiFineD/DebVisor/settings/a)c)t)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)>)\)n)#)
 Step 2: Navigate to runner directory\ncd C:\actions-runner\n# Step 3: Remove old
 configuration (if
-needed)\n.\config.cmd remove --token <OLD_TOKEN>\n# Step 4: Configure as
+needed)\n.\config.cmd remove --token \n# Step 4: Configure as
 service\n.\config.cmd`\n\n-
 -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c](https://github.c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)>)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n#
 Step 5: Start service\n$serviceName = (Get-Service | Where-Object Name -Like
-'actions.runner*').Name\nStart-Service $serviceName\n# Step 6: Verify\nGet-Service
+'actions.runner*').Name\nStart-Service $serviceName\n# Step 6:
+Verify\nGet-Service
 $serviceName\n```text\n\n## Visit:
-<<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\n##]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>](https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>)>)\)n)\)n)#)#)
-Step 2: Navigate to runner directory\n\ncd C:\actions-runner\n\n## Step 3: Remove old
+
+>\n\n##]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio](https://github.com/UndiFineD/DebVisor/settings/actio)n)s)/)r)u)n)n)e)r)s)/)n)e)w)>)>)\)n)\)n)#)#)
+Step 2: Navigate to runner directory\n\ncd C:\actions-runner\n\n## Step 3:
+Remove old
 configuration
-(if needed)\n\n.\config.cmd remove --token <OLD_TOKEN>\n\n## Step 4: Configure as
+(if needed)\n\n.\config.cmd remove --token \n\n## Step 4: Configure as
 service\n\n.\config.cmd `\n\n- -url
-<<[https://github.com/UndiFineD/DebVisor>>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb](https://github.com/UndiFineD/Deb)V)i)s)o)r)>)>)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+
+>]([https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co](https://github.co)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)>)>)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6:
 Verify\n\nGet-Service
 $serviceName\n```text\n## Step 1: Get new registration token\n\n## Visit:
-[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n##]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne](https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne)w)\)n)\)n)#)#)
-Step 2: Navigate to runner directory (2)\n\ncd C:\actions-runner\n\n## Step 3: Remove old
-configuration (if needed) (2)\n\n.\config.cmd remove --token <OLD_TOKEN>\n\n## Step 4:
+[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n##]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n#]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new\]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act](https://github.com/UndiFineD/DebVisor/settings/act)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)\)n)\)n)#)#)
+Step 2: Navigate to runner directory (2)\n\ncd C:\actions-runner\n\n## Step 3:
+Remove old
+configuration (if needed) (2)\n\n.\config.cmd remove --token \n\n## Step 4:
 Configure as
 service (2)\n\n.\config.cmd `\n\n- -url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c]([https://github.](https://github.)c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service (2)\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6: Verify
 (2)\n\nGet-Service
 $serviceName\n```text\n\n## Visit:
-<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne](https://github.com/UndiFineD/DebVisor/settings/actions/runne)r)s)/)n)e)w)>)
-(2)\n\n## Step 2: Navigate to runner directory (3)\n\ncd C:\actions-runner\n\n## Step 3:
+]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act]([https://github.com/UndiFineD/DebVisor/settings/ac]([https://github.com/UndiFineD/DebVisor/settings/a]([https://github.com/UndiFineD/DebVisor/settings/]([https://github.com/UndiFineD/DebVisor/settings]([https://github.com/UndiFineD/DebVisor/setting](https://github.com/UndiFineD/DebVisor/setting)s)/)a)c)t)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)>)
+(2)\n\n## Step 2: Navigate to runner directory (3)\n\ncd C:\actions-runner\n\n##
+Step 3:
 Remove old
-configuration (if needed) (3)\n\n.\config.cmd remove --token <OLD_TOKEN>\n\n## Step 4:
+configuration (if needed) (3)\n\n.\config.cmd remove --token \n\n## Step 4:
 Configure as
 service (3)\n\n.\config.cmd `\n\n- -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c](https://github.c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)>)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service (3)\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6: Verify
 (3)\n\nGet-Service
 $serviceName\n```text\n## Step 1: Get new registration token (2)\n## Visit:
-[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn](https://github.com/UndiFineD/DebVisor/settings/actions/runn)e)r)s)/)n)e)w)
-(3)\n## Step 2: Navigate to runner directory (4)\ncd C:\actions-runner\n## Step 3: Remove
+[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act]([https://github.com/UndiFineD/DebVisor/settings/ac]([https://github.com/UndiFineD/DebVisor/settings/a]([https://github.com/UndiFineD/DebVisor/settings/]([https://github.com/UndiFineD/DebVisor/settings]([https://github.com/UndiFineD/DebVisor/setting]([https://github.com/UndiFineD/DebVisor/settin](https://github.com/UndiFineD/DebVisor/settin)g)s)/)a)c)t)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)
+(3)\n## Step 2: Navigate to runner directory (4)\ncd C:\actions-runner\n## Step
+3: Remove
 old
-configuration (if needed) (4)\n.\config.cmd remove --token <OLD_TOKEN>\n## Step 4:
+configuration (if needed) (4)\n.\config.cmd remove --token \n## Step 4:
 Configure as
 service (4)\n.\config.cmd `\n\n- -url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c]([https://github.](https://github.)c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n##
 Step 5: Start service (4)\n$serviceName = (Get-Service | Where-Object Name -Like
-'actions.runner*').Name\nStart-Service $serviceName\n## Step 6: Verify (4)\nGet-Service
+'actions.runner*').Name\nStart-Service $serviceName\n## Step 6: Verify
+(4)\nGet-Service
 $serviceName\n```text\n\n## Visit:
-<[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new>]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne](https://github.com/UndiFineD/DebVisor/settings/actions/runne)r)s)/)n)e)w)>)
-(4)\n\n## Step 2: Navigate to runner directory (5)\n\ncd C:\actions-runner\n\n## Step 3:
+]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act]([https://github.com/UndiFineD/DebVisor/settings/ac]([https://github.com/UndiFineD/DebVisor/settings/a]([https://github.com/UndiFineD/DebVisor/settings/]([https://github.com/UndiFineD/DebVisor/settings]([https://github.com/UndiFineD/DebVisor/setting](https://github.com/UndiFineD/DebVisor/setting)s)/)a)c)t)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)>)
+(4)\n\n## Step 2: Navigate to runner directory (5)\n\ncd C:\actions-runner\n\n##
+Step 3:
 Remove old
-configuration (if needed) (5)\n\n.\config.cmd remove --token <OLD_TOKEN>\n\n## Step 4:
+configuration (if needed) (5)\n\n.\config.cmd remove --token \n\n## Step 4:
 Configure as
 service (5)\n\n.\config.cmd `\n\n- -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c](https://github.c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)>)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service (5)\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6: Verify
 (5)\n\nGet-Service
 $serviceName\n```text\n## Visit:
-[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn](https://github.com/UndiFineD/DebVisor/settings/actions/runn)e)r)s)/)n)e)w)
-(5)\n\n## Step 2: Navigate to runner directory (6)\n\ncd C:\actions-runner\n\n## Step 3:
+[https://github.com/UndiFineD/DebVisor/settings/actions/runners/new]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/ne]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/n]([https://github.com/UndiFineD/DebVisor/settings/actions/runners/]([https://github.com/UndiFineD/DebVisor/settings/actions/runners]([https://github.com/UndiFineD/DebVisor/settings/actions/runner]([https://github.com/UndiFineD/DebVisor/settings/actions/runne]([https://github.com/UndiFineD/DebVisor/settings/actions/runn]([https://github.com/UndiFineD/DebVisor/settings/actions/run]([https://github.com/UndiFineD/DebVisor/settings/actions/ru]([https://github.com/UndiFineD/DebVisor/settings/actions/r]([https://github.com/UndiFineD/DebVisor/settings/actions/]([https://github.com/UndiFineD/DebVisor/settings/actions]([https://github.com/UndiFineD/DebVisor/settings/action]([https://github.com/UndiFineD/DebVisor/settings/actio]([https://github.com/UndiFineD/DebVisor/settings/acti]([https://github.com/UndiFineD/DebVisor/settings/act]([https://github.com/UndiFineD/DebVisor/settings/ac]([https://github.com/UndiFineD/DebVisor/settings/a]([https://github.com/UndiFineD/DebVisor/settings/]([https://github.com/UndiFineD/DebVisor/settings]([https://github.com/UndiFineD/DebVisor/setting]([https://github.com/UndiFineD/DebVisor/settin](https://github.com/UndiFineD/DebVisor/settin)g)s)/)a)c)t)i)o)n)s)/)r)u)n)n)e)r)s)/)n)e)w)
+(5)\n\n## Step 2: Navigate to runner directory (6)\n\ncd C:\actions-runner\n\n##
+Step 3:
 Remove old
-configuration (if needed) (6)\n\n.\config.cmd remove --token <OLD_TOKEN>\n\n## Step 4:
+configuration (if needed) (6)\n\n.\config.cmd remove --token \n\n## Step 4:
 Configure as
 service (6)\n\n.\config.cmd `\n\n- -url
-[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D](https://github.com/UndiFineD/D)e)b)V)i)s)o)r)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+[https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c]([https://github.](https://github.)c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service (6)\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6: Verify
@@ -561,96 +800,138 @@ Where-Object Name
 $serviceName\n```text\n\n## Step 2: Navigate to runner directory (7)\n\ncd
 C:\actions-runner\n\n##
 Step 3: Remove old configuration (if needed) (7)\n\n.\config.cmd remove --token
-<OLD_TOKEN>\n\n##
+\n\n##
 Step 4: Configure as service (7)\n\n.\config.cmd `\n\n- -url
-<[https://github.com/UndiFineD/DebVisor>]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De](https://github.com/UndiFineD/De)b)V)i)s)o)r)>)
-`\n\n- -token <NEW_TOKEN> `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
+]([https://github.com/UndiFineD/DebVisor]([https://github.com/UndiFineD/DebViso]([https://github.com/UndiFineD/DebVis]([https://github.com/UndiFineD/DebVi]([https://github.com/UndiFineD/DebV]([https://github.com/UndiFineD/Deb]([https://github.com/UndiFineD/De]([https://github.com/UndiFineD/D]([https://github.com/UndiFineD/]([https://github.com/UndiFineD]([https://github.com/UndiFine]([https://github.com/UndiFin]([https://github.com/UndiFi]([https://github.com/UndiF]([https://github.com/Undi]([https://github.com/Und]([https://github.com/Un]([https://github.com/U]([https://github.com/]([https://github.com]([https://github.co]([https://github.c](https://github.c)o)m)/)U)n)d)i)F)i)n)e)D)/)D)e)b)V)i)s)o)r)>)
+`\n\n- -token  `\n\n- -runasservice `\n\n- -windowslogonaccount "NT
 AUTHORITY\SYSTEM"\n\n## Step 5: Start service (7)\n\n$serviceName = (Get-Service |
 Where-Object Name
 -Like 'actions.runner*').Name\nStart-Service $serviceName\n\n## Step 6: Verify
 (7)\n\nGet-Service
-$serviceName\n```text\n\n- *Why This Fixes It**:\n\n- SYSTEM account has Administrator
+$serviceName\n```text\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+Administrator
 privileges
-(fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No user login
-required\n### Priority 2: Fix PATH Order\n- *Current Issue**: `jq`command fails in
+(fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+user login
+required\n### Priority 2: Fix PATH Order\n- *Current Issue**: `jq`command fails
+in
 terminal (seen in
-context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
-Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
-user login
-required\n\n### Priority 2: Fix PATH Order (2)\n\n- *Current Issue**:`jq`command fails in
-terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n\n### Priority 2: Fix PATH Order (3)\n\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (2)\n\n- *Current Issue**:`jq`command
+fails in
 terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n\n### Priority 2: Fix PATH Order (4)\n\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (3)\n\n- *Current Issue**:`jq`command
+fails in
 terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n### Priority 2: Fix PATH Order (5)\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (4)\n\n- *Current Issue**:`jq`command
+fails in
+terminal
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
+Bash\n\n-
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
+Administrator
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
+user login
+required\n### Priority 2: Fix PATH Order (5)\n- *Current Issue**:`jq`command
+fails in
 terminal (seen
-in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over
+Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n\n### Priority 2: Fix PATH Order (6)\n\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (6)\n\n- *Current Issue**:`jq`command
+fails in
 terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n\n### Priority 2: Fix PATH Order (7)\n\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (7)\n\n- *Current Issue**:`jq`command
+fails in
 terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account has
+*Verification**:\n\n```powershell\n\n- *Why This Fixes It**:\n\n- SYSTEM account
+has
 Administrator
-privileges (fixes Python symlink issues)\n\n- Service runs automatically at boot\n\n- No
+privileges (fixes Python symlink issues)\n\n- Service runs automatically at
+boot\n\n- No
 user login
-required\n\n### Priority 2: Fix PATH Order (8)\n\n- *Current Issue**:`jq`command fails in
+required\n\n### Priority 2: Fix PATH Order (8)\n\n- *Current Issue**:`jq`command
+fails in
 terminal
-(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence over Git
+(seen in context: exit code 1)\n\n- *Likely Cause**: WSL bash taking precedence
+over Git
 Bash\n\n-
-*Verification**:\n\n```powershell\nwhere.exe bash\n# Should show Git Bash FIRST:\n#
+*Verification**:\n\n```powershell\nwhere.exe bash\n# Should show Git Bash
+FIRST:\n#
 C:\Program
-Files\Git\bin\bash.exe\n# C:\Windows\System32\bash.exe (WSL)\n```text\n\n## Should show
+Files\Git\bin\bash.exe\n# C:\Windows\System32\bash.exe (WSL)\n```text\n\n##
+Should show
 Git Bash
-FIRST:\n\n## C:\Program Files\Git\bin\bash.exe\n\n## C:\Windows\System32\bash.exe
-(WSL)\n\n```text\nwhere.exe bash\n\n## Should show Git Bash FIRST: (2)\n\n## C:\Program
-Files\Git\bin\bash.exe (2)\n\n## C:\Windows\System32\bash.exe (WSL) (2)\n```text\n\n##
+FIRST:\n\n## C:\Program Files\Git\bin\bash.exe\n\n##
+C:\Windows\System32\bash.exe
+(WSL)\n\n```text\nwhere.exe bash\n\n## Should show Git Bash FIRST: (2)\n\n##
+C:\Program
+Files\Git\bin\bash.exe (2)\n\n## C:\Windows\System32\bash.exe (WSL)
+(2)\n```text\n\n##
 Should show
 Git Bash FIRST: (3)\n\n## C:\Program Files\Git\bin\bash.exe (3)\n\n##
 C:\Windows\System32\bash.exe
-(WSL) (3)\n\n```text\nwhere.exe bash\n## Should show Git Bash FIRST: (4)\n## C:\Program
-Files\Git\bin\bash.exe (4)\n## C:\Windows\System32\bash.exe (WSL) (4)\n```text\n\n##
+(WSL) (3)\n\n```text\nwhere.exe bash\n## Should show Git Bash FIRST: (4)\n##
+C:\Program
+Files\Git\bin\bash.exe (4)\n## C:\Windows\System32\bash.exe (WSL)
+(4)\n```text\n\n##
 Should show Git
 Bash FIRST: (5)\n\n## C:\Program Files\Git\bin\bash.exe (5)\n\n##
 C:\Windows\System32\bash.exe (WSL)
-(5)\n\n```text\n## Should show Git Bash FIRST: (6)\n\n## C:\Program Files\Git\bin\bash.exe
+(5)\n\n```text\n## Should show Git Bash FIRST: (6)\n\n## C:\Program
+Files\Git\bin\bash.exe
 (6)\n\n##
-C:\Windows\System32\bash.exe (WSL) (6)\n```text\n\n## C:\Program Files\Git\bin\bash.exe
+C:\Windows\System32\bash.exe (WSL) (6)\n```text\n\n## C:\Program
+Files\Git\bin\bash.exe
 (7)\n\n##
-C:\Windows\System32\bash.exe (WSL) (7)\n\n```text\n\n- *Solution**:\n\n1. Press`Win + X`→
+C:\Windows\System32\bash.exe (WSL) (7)\n\n```text\n\n- *Solution**:\n\n1.
+Press`Win + X`→
 System →
 Advanced system settings\n\n1. Environment Variables → System variables → Path →
 Edit\n\n1. Move
@@ -667,12 +948,16 @@ Edit\n\n1. Move these to **top of list**:\n\n -`C:\Program Files\Git\cmd`\n\n - 
 Files\Git\mingw64\bin`\n\n - `C:\Program Files\Git\usr\bin`\n\n1. Restart runner service:\n\n
 ```powershell\n\n- *Solution**:\n\n1. Press `Win + X`→ System → Advanced system settings\n\n1.
 
-Environment Variables → System variables → Path → Edit\n\n1. Move these to **top of
+Environment Variables → System variables → Path → Edit\n\n1. Move these to **top
+of
 list**:\n\n
--`C:\Program Files\Git\cmd`\n\n - `C:\Program Files\Git\mingw64\bin`\n\n - `C:\Program
-Files\Git\usr\bin`\n\n1. Restart runner service:\n\n ```powershell\n\n- *Solution**:\n\n1.
+-`C:\Program Files\Git\cmd`\n\n - `C:\Program Files\Git\mingw64\bin`\n\n -
+`C:\Program
+Files\Git\usr\bin`\n\n1. Restart runner service:\n\n ```powershell\n\n-
+*Solution**:\n\n1.
 Press
-`Win + X`→ System → Advanced system settings\n\n1. Environment Variables → System
+`Win + X`→ System → Advanced system settings\n\n1. Environment Variables →
+System
 variables → Path →
 Edit\n\n1. Move these to **top of list**:\n\n -`C:\Program Files\Git\cmd`\n\n -
 `C:\Program
@@ -688,93 +973,132 @@ Edit\n\n1. Move these to **top of list**:\n\n -`C:\Program Files\Git\cmd`\n\n - 
 Files\Git\mingw64\bin`\n\n - `C:\Program Files\Git\usr\bin`\n\n1. Restart runner service:\n\n
 ```powershell\n\n- *Solution**:\n\n1. Press `Win + X`→ System → Advanced system settings\n\n1.
 
-Environment Variables → System variables → Path → Edit\n\n1. Move these to **top of
+Environment Variables → System variables → Path → Edit\n\n1. Move these to **top
+of
 list**:\n\n
--`C:\Program Files\Git\cmd`\n\n - `C:\Program Files\Git\mingw64\bin`\n\n - `C:\Program
-Files\Git\usr\bin`\n\n1. Restart runner service:\n\n ```powershell\n Restart-Service
-actions.runner.*\n```text\n```text\n Restart-Service actions.runner.*\n```text\n```text\n
-Restart-Service actions.runner.*\n```text\n```text\n```text\n```text\n### Priority 3: Run
-Smoke
-Test\nAfter service install and PATH fix:\n\n```powershell\nAfter service install and PATH
-fix:\n\n```powershell\n### Priority 3: Run Smoke Test (2)\n\nAfter service install and
-PATH
-fix:\n\n```powershell\n\nAfter service install and PATH fix:\n\n```powershell\n###
+-`C:\Program Files\Git\cmd`\n\n - `C:\Program Files\Git\mingw64\bin`\n\n -
+`C:\Program
+Files\Git\usr\bin`\n\n1. Restart runner service:\n\n ```powershell\n
+Restart-Service
+actions.runner.*\n```text\n```text\n Restart-Service
+actions.runner.*\n```text\n```text\n
+Restart-Service actions.runner.*\n```text\n```text\n```text\n```text\n###
 Priority 3: Run
-Smoke Test (3)\nAfter service install and PATH fix:\n\n```powershell\n\nAfter service
+Smoke
+Test\nAfter service install and PATH fix:\n\n```powershell\nAfter service
+install and PATH
+fix:\n\n```powershell\n### Priority 3: Run Smoke Test (2)\n\nAfter service
+install and
+PATH
+fix:\n\n```powershell\n\nAfter service install and PATH
+fix:\n\n```powershell\n###
+Priority 3: Run
+Smoke Test (3)\nAfter service install and PATH fix:\n\n```powershell\n\nAfter
+service
 install and
 PATH fix:\n\n```powershell\nAfter service install and PATH
 fix:\n\n```powershell\n\n```powershell\n#
 Option A: Via GitHub UI\n# Navigate to:
-<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.)y)m)l)>)\)n)#)
+\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne]([https://github.com/UndiFineD/DebVisor/actions/workflows/runn]([https://github.com/UndiFineD/DebVisor/actions/workflows/run](https://github.com/UndiFineD/DebVisor/actions/workflows/run)n)e)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)>)\)n)#)
 Click "Run workflow"\n# Option B: Via gh CLI (if installed)\ngh workflow run
 runner-smoke-test.yml
---ref main\n# Option C: Push trigger (already enabled)\n# Workflow will run automatically
+--ref main\n# Option C: Push trigger (already enabled)\n# Workflow will run
+automatically
 on next
 push to main\n```text\n\n## Navigate to:
-<<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>)>)\)n)\)n)#)#)
-Click "Run workflow"\n\n## Option B: Via gh CLI (if installed)\n\ngh workflow run
-runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled)\n\n##
+
+>\n\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-)s)m)o)k)e)-)t)e)s)t).)y)m)l)>)>)\)n)\)n)#)#)
+Click "Run workflow"\n\n## Option B: Via gh CLI (if installed)\n\ngh workflow
+run
+runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already
+enabled)\n\n##
 Workflow will
-run automatically on next push to main\n\n```text\n## Option A: Via GitHub UI\n\n##
+run automatically on next push to main\n\n```text\n## Option A: Via GitHub
+UI\n\n##
 Navigate to:
-[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym)l)\)n)\)n)#)#)
-Click "Run workflow" (2)\n\n## Option B: Via gh CLI (if installed) (2)\n\ngh workflow run
-runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled) (2)\n\n##
+[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n##]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n#]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\n]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml\]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne](https://github.com/UndiFineD/DebVisor/actions/workflows/runne)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)\)n)\)n)#)#)
+Click "Run workflow" (2)\n\n## Option B: Via gh CLI (if installed) (2)\n\ngh
+workflow run
+runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled)
+(2)\n\n##
 Workflow
 will run automatically on next push to main (2)\n```text\n\n## Navigate to:
-<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te)s)t).)y)m)l)>)
-(2)\n\n## Click "Run workflow" (3)\n\n## Option B: Via gh CLI (if installed) (3)\n\ngh
+]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne]([https://github.com/UndiFineD/DebVisor/actions/workflows/runn]([https://github.com/UndiFineD/DebVisor/actions/workflows/run]([https://github.com/UndiFineD/DebVisor/actions/workflows/ru]([https://github.com/UndiFineD/DebVisor/actions/workflows/r]([https://github.com/UndiFineD/DebVisor/actions/workflows/](https://github.com/UndiFineD/DebVisor/actions/workflows/)r)u)n)n)e)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)>)
+(2)\n\n## Click "Run workflow" (3)\n\n## Option B: Via gh CLI (if installed)
+(3)\n\ngh
 workflow run
-runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled) (3)\n\n##
+runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled)
+(3)\n\n##
 Workflow
-will run automatically on next push to main (3)\n\n```text\n## Option A: Via GitHub UI
+will run automatically on next push to main (3)\n\n```text\n## Option A: Via
+GitHub UI
 (2)\n##
 Navigate to:
-[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t)e)s)t).)y)m)l)
-(3)\n## Click "Run workflow" (4)\n## Option B: Via gh CLI (if installed) (4)\ngh workflow
+[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne]([https://github.com/UndiFineD/DebVisor/actions/workflows/runn]([https://github.com/UndiFineD/DebVisor/actions/workflows/run]([https://github.com/UndiFineD/DebVisor/actions/workflows/ru]([https://github.com/UndiFineD/DebVisor/actions/workflows/r]([https://github.com/UndiFineD/DebVisor/actions/workflows/]([https://github.com/UndiFineD/DebVisor/actions/workflows](https://github.com/UndiFineD/DebVisor/actions/workflows)/)r)u)n)n)e)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)
+(3)\n## Click "Run workflow" (4)\n## Option B: Via gh CLI (if installed) (4)\ngh
+workflow
 run
-runner-smoke-test.yml --ref main\n## Option C: Push trigger (already enabled) (4)\n##
+runner-smoke-test.yml --ref main\n## Option C: Push trigger (already enabled)
+(4)\n##
 Workflow will
 run automatically on next push to main (4)\n```text\n\n## Navigate to:
-<[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml>]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te)s)t).)y)m)l)>)
-(4)\n\n## Click "Run workflow" (5)\n\n## Option B: Via gh CLI (if installed) (5)\n\ngh
+]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne]([https://github.com/UndiFineD/DebVisor/actions/workflows/runn]([https://github.com/UndiFineD/DebVisor/actions/workflows/run]([https://github.com/UndiFineD/DebVisor/actions/workflows/ru]([https://github.com/UndiFineD/DebVisor/actions/workflows/r]([https://github.com/UndiFineD/DebVisor/actions/workflows/](https://github.com/UndiFineD/DebVisor/actions/workflows/)r)u)n)n)e)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)>)
+(4)\n\n## Click "Run workflow" (5)\n\n## Option B: Via gh CLI (if installed)
+(5)\n\ngh
 workflow run
-runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled) (5)\n\n##
+runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled)
+(5)\n\n##
 Workflow
 will run automatically on next push to main (5)\n\n```text\n## Navigate to:
-[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t](https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t)e)s)t).)y)m)l)
-(5)\n\n## Click "Run workflow" (6)\n\n## Option B: Via gh CLI (if installed) (6)\n\ngh
+[https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.yml]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.ym]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.y]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test.]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-test]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-tes]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-te]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-t]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smoke]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smok]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-smo]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-sm]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-s]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner-]([https://github.com/UndiFineD/DebVisor/actions/workflows/runner]([https://github.com/UndiFineD/DebVisor/actions/workflows/runne]([https://github.com/UndiFineD/DebVisor/actions/workflows/runn]([https://github.com/UndiFineD/DebVisor/actions/workflows/run]([https://github.com/UndiFineD/DebVisor/actions/workflows/ru]([https://github.com/UndiFineD/DebVisor/actions/workflows/r]([https://github.com/UndiFineD/DebVisor/actions/workflows/]([https://github.com/UndiFineD/DebVisor/actions/workflows](https://github.com/UndiFineD/DebVisor/actions/workflows)/)r)u)n)n)e)r)-)s)m)o)k)e)-)t)e)s)t).)y)m)l)
+(5)\n\n## Click "Run workflow" (6)\n\n## Option B: Via gh CLI (if installed)
+(6)\n\ngh
 workflow run
-runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled) (6)\n\n##
+runner-smoke-test.yml --ref main\n\n## Option C: Push trigger (already enabled)
+(6)\n\n##
 Workflow
-will run automatically on next push to main (6)\n```text\n\n## Click "Run workflow"
+will run automatically on next push to main (6)\n```text\n\n## Click "Run
+workflow"
 (7)\n\n## Option
-B: Via gh CLI (if installed) (7)\n\ngh workflow run runner-smoke-test.yml --ref main\n\n##
+B: Via gh CLI (if installed) (7)\n\ngh workflow run runner-smoke-test.yml --ref
+main\n\n##
 Option C:
-Push trigger (already enabled) (7)\n\n## Workflow will run automatically on next push to
+Push trigger (already enabled) (7)\n\n## Workflow will run automatically on next
+push to
 main
-(7)\n\n```text\n\n- --\n## 📊 Current Runner Status\n- *Environment**:\n\n- Location:
+(7)\n\n```text\n\n- --\n## 📊 Current Runner Status\n- *Environment**:\n\n-
+Location:
 `C:\actions-runner`\n\n- Configuration: `.runner`file present (workFolder set
 to`_work`)\n\n-
 Status: **Not running as service**(manual execution exits with code 1)\n\n- *Git
 Environment**:\n\n-
-Git for Windows: ✅ Installed (`C:\Program Files\Git`)\n\n- Bash: ✅ Available (may have
+Git for Windows: ✅ Installed (`C:\Program Files\Git`)\n\n- Bash: ✅ Available
+(may have
 PATH
-precedence issue)\n\n- GPG: ✅ Available in Git for Windows (`usr/bin/gpg.exe`)\n\n-
+precedence issue)\n\n- GPG: ✅ Available in Git for Windows
+(`usr/bin/gpg.exe`)\n\n-
 *Workflow
-Status**:\n\n- Migration: ✅ All workflows use `runs-on: self-hosted`\n\n- Shell: ✅ All
+Status**:\n\n- Migration: ✅ All workflows use `runs-on: self-hosted`\n\n- Shell:
+✅ All
 workflows use
-`defaults.run.shell: bash`\n\n- Permissions: ✅ Fixed `id-token: write`for OIDC\n\n-
+`defaults.run.shell: bash`\n\n- Permissions: ✅ Fixed `id-token: write`for
+OIDC\n\n-
 Dependencies: ⚠️
-Some workflows still have Linux-only commands\n\n- --\n## 🎯 Next Actions (Ordered by
+Some workflows still have Linux-only commands\n\n- --\n## 🎯 Next Actions
+(Ordered by
 Priority)\n###
-Immediate (Blocks all workflow execution)\n1. ✅**Install runner as Windows service**(see
+Immediate (Blocks all workflow execution)\n1. ✅**Install runner as Windows
+service**(see
 Priority 1
-above)\n\n1. ✅**Fix PATH order**to prioritize Git Bash (see Priority 2 above)\n\n1. ✅**Run
+above)\n\n1. ✅**Fix PATH order**to prioritize Git Bash (see Priority 2
+above)\n\n1. ✅**Run
 smoke
-test**to validate environment (see Priority 3 above)\n### Short-term (Fixes specific
-workflows)\n1.**Decide on Linux runner strategy**:\n\n - Option A: Add Ubuntu VM as second
-self-hosted runner\n\n - Option B: Use WSL2 for Linux-specific jobs (advanced)\n\n -
+test**to validate environment (see Priority 3 above)\n### Short-term (Fixes
+specific
+workflows)\n1.**Decide on Linux runner strategy**:\n\n - Option A: Add Ubuntu VM
+as second
+self-hosted runner\n\n - Option B: Use WSL2 for Linux-specific jobs
+(advanced)\n\n -
 Option C:
 Disable Linux-only tests temporarily\n\n1. **Update`lint.yml`**to use portable
 shellcheck:\n\n
@@ -892,7 +1216,8 @@ ShellCheck\n\n run: |\n chmod +x scripts/install-shellcheck.sh\n
 ./scripts/install-shellcheck.sh\n```text\n\n1.**Add runner labels**(if using multiple runners):\n\n
 ```yaml\n\n1.**Add runner labels**(if using multiple runners):\n\n ```yaml\n\n1.**Add runner
 
-labels**(if using multiple runners):\n\n ```yaml\n\n1.**Add runner labels**(if using
+labels**(if using multiple runners):\n\n ```yaml\n\n1.**Add runner labels**(if
+using
 multiple
 runners):\n\n ```yaml\n\n1.**Add runner labels**(if using multiple runners):\n\n
 
@@ -1164,18 +1489,28 @@ debugging):\n\n
 
 ```powershell\n\n1.**Run Interactively**(for debugging):\n\n ```powershell\n cd C:\actions-runner\n
 
-.\run.cmd\n # Watch for error messages in console\n```text\n\n .\run.cmd\n # Watch for
+.\run.cmd\n # Watch for error messages in console\n```text\n\n .\run.cmd\n #
+Watch for
 error
-messages in console\n```text\n cd C:\actions-runner\n .\run.cmd\n # Watch for error
+messages in console\n```text\n cd C:\actions-runner\n .\run.cmd\n # Watch for
+error
 messages in
-console\n```text\n\n .\run.cmd\n # Watch for error messages in console\n```text\n cd
-C:\actions-runner\n .\run.cmd\n # Watch for error messages in console\n```text\n\n
+console\n```text\n\n .\run.cmd\n # Watch for error messages in
+console\n```text\n cd
+C:\actions-runner\n .\run.cmd\n # Watch for error messages in
+console\n```text\n\n
 .\run.cmd\n #
-Watch for error messages in console\n```text\n .\run.cmd\n # Watch for error messages in
-console\n```text\n # Watch for error messages in console\n```text\n\n1.**Verify Git Bash
-Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n ```powershell\n\n1.
+Watch for error messages in console\n```text\n .\run.cmd\n # Watch for error
+messages in
+console\n```text\n # Watch for error messages in console\n```text\n\n1.**Verify
+Git Bash
+Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n
+
+```powershell\n\n1.
 **Verify Git
-Bash Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n ```powershell\n\n1.
+Bash Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n
+```powershell\n\n1.
+
 **Verify
 Git Bash Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n
 
@@ -1183,66 +1518,83 @@ Git Bash Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n
 **Verify Git Bash Tools**:\n\n ```powershell\n\n1. **Verify Git Bash Tools**:\n\n
 ```powershell\n
 
-bash -c 'which curl git sha256sum gpg jq'\n```text\n```text\n bash -c 'which curl git
+bash -c 'which curl git sha256sum gpg jq'\n```text\n```text\n bash -c 'which
+curl git
 sha256sum gpg
 jq'\n```text\n```text\n bash -c 'which curl git sha256sum gpg
-jq'\n```text\n```text\n```text\n```text\n\n1. **Check GitHub Actions Documentation**:\n\n
+jq'\n```text\n```text\n```text\n```text\n\n1. **Check GitHub Actions
+Documentation**:\n\n
 
 - Runner
 docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
-activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner docs:
-[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn](https://docs.github.com/en/actions/hosting-your-own-runn)e)r)s)\)n)\)n)
+activate runner.\n\n1. **Check GitHub Actions Documentation**:\n\n - Runner
+docs:
+[https://docs.github.com/en/actions/hosting-your-own-runners\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners\n\]([https://docs.github.com/en/actions/hosting-your-own-runners\n]([https://docs.github.com/en/actions/hosting-your-own-runners\]([https://docs.github.com/en/actions/hosting-your-own-runners]([https://docs.github.com/en/actions/hosting-your-own-runner]([https://docs.github.com/en/actions/hosting-your-own-runne]([https://docs.github.com/en/actions/hosting-your-own-runn]([https://docs.github.com/en/actions/hosting-your-own-run]([https://docs.github.com/en/actions/hosting-your-own-ru]([https://docs.github.com/en/actions/hosting-your-own-r]([https://docs.github.com/en/actions/hosting-your-own-]([https://docs.github.com/en/actions/hosting-your-own]([https://docs.github.com/en/actions/hosting-your-ow]([https://docs.github.com/en/actions/hosting-your-o]([https://docs.github.com/en/actions/hosting-your-]([https://docs.github.com/en/actions/hosting-your]([https://docs.github.com/en/actions/hosting-you]([https://docs.github.com/en/actions/hosting-yo]([https://docs.github.com/en/actions/hosting-y]([https://docs.github.com/en/actions/hosting-]([https://docs.github.com/en/actions/hosting]([https://docs.github.com/en/actions/hostin](https://docs.github.com/en/actions/hostin)g)-)y)o)u)r)-)o)w)n)-)r)u)n)n)e)r)s)\)n)\)n)
 
 - Windows service:
-[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi)c)e)\)n)\)n)-)
---\n\n- *Status**: All code fixes completed and pushed. Manual service installation
+[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\n]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service\]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servic]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-servi]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-serv]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-ser]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-se]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-s]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-a]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicatio]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicati]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applicat]([https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-applica)t)i)o)n)-)a)s)-)a)-)s)e)r)v)i)c)e)\)n)\)n)-)
+--\n\n- *Status**: All code fixes completed and pushed. Manual service
+installation
 required to
 activate runner.\n\n

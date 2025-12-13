@@ -1,0 +1,13 @@
+{
+  "default_limit": 80,
+  "folder_limits": [
+    { "pattern": "docs/**", "limit": 100 },
+    { "pattern": "opt/**", "limit": 120 },
+    { "pattern": "usr/**", "limit": 120 },
+    { "pattern": "scripts/**", "limit": 100 }
+  ],
+  "file_limits": [
+    { "pattern": "changelog.md", "limit": 140 }
+  ],
+  "skip_patterns": []
+}

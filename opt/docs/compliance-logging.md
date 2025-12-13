@@ -4,66 +4,92 @@ configurations
 
 for enterprise-grade compliance logging with immutable audit trails.\n\n##
 Architecture\n\n VM Hosts
--> Fluent Bit -> Kafka -> Logstash -> {Elasticsearch, S3}\n v v\n Grafana Immutable
+-> Fluent Bit -> Kafka -> Logstash -> {Elasticsearch, S3}\n v v\n Grafana
+Immutable
 Archive\n\n##
 Components\n\n### Fluent Bit Agent\n\n- **Location**:
-`config/fluent-bit/debvisor-compliance.conf`\n\n- **Purpose**: Tails VM logs and ships to
+`config/fluent-bit/debvisor-compliance.conf`\n\n- **Purpose**: Tails VM logs and
+ships to
 Kafka\n\n-
 **Features**: JSON parsing, tenant tagging, retry logic\n\n### Kafka Topic\n\n
 kafka-topics.sh
---create \\n\n - -topic debvisor-compliance-logs \\n\n - -bootstrap-server kafka01:9092
+--create \\n\n - -topic debvisor-compliance-logs \\n\n - -bootstrap-server
+kafka01:9092
 \\n\n -
--replication-factor 3 \\n\n - -partitions 12\n\n### Logstash Pipeline\n\n- **Location**:
-`config/logstash/debvisor-compliance-pipeline.conf`\n\n- **Purpose**: Dual-path output
+-replication-factor 3 \\n\n - -partitions 12\n\n### Logstash Pipeline\n\n-
+**Location**:
+`config/logstash/debvisor-compliance-pipeline.conf`\n\n- **Purpose**: Dual-path
+output
 (Elasticsearch + S3)\n\n- **Features**:\n\n- Real-time indexing for Grafana
 dashboards\n\n-
-Immutable S3 archive with object lock\n\n### S3 Bucket Configuration\n\n## Enable object
+Immutable S3 archive with object lock\n\n### S3 Bucket Configuration\n\n##
+Enable object
 lock for
-WORM compliance\n\n aws s3api create-bucket \\n\n - -bucket debvisor-compliance-archive
+WORM compliance\n\n aws s3api create-bucket \\n\n - -bucket
+debvisor-compliance-archive
 \\n\n -
 -object-lock-enabled-for-bucket\n\n## Set default retention\n\n aws s3api
-put-object-lock-configuration \\n\n - -bucket debvisor-compliance-archive \\n\n -
+put-object-lock-configuration \\n\n - -bucket debvisor-compliance-archive \\n\n
+-
 -object-lock-configuration \\n\n
-'ObjectLockEnabled=Enabled,Rule={DefaultRetention={Mode=COMPLIANCE,Years=7}}'\n\n## Log
-Schema\n\n### MFA Enforcement Event\n\n {\n "timestamp": "2025-11-23T07:59:00Z",\n "host":
+'ObjectLockEnabled=Enabled,Rule={DefaultRetention={Mode=COMPLIANCE,Years=7}}'\n\n##
+Log
+Schema\n\n### MFA Enforcement Event\n\n {\n "timestamp":
+"2025-11-23T07:59:00Z",\n "host":
 "vm-prod-001.debvisor.local",\n "tenant": "tenant1.local",\n "service": "ssh",\n
 "event_type":
-"mfa_enforcement",\n "action": "enabled",\n "initiator": "automation_playbook",\n
+"mfa_enforcement",\n "action": "enabled",\n "initiator":
+"automation_playbook",\n
 "details": {\n
-"pam_module": "libpam-google-authenticator",\n "sshd_config": "AuthenticationMethods
+"pam_module": "libpam-google-authenticator",\n "sshd_config":
+"AuthenticationMethods
 publickey,keyboard-interactive"\n },\n "method": "ansible",\n "reason": "Grafana
 compliance alert:
-MFA drift detected",\n "severity": "critical",\n "compliance_tag": "MFA",\n "audit_id":
-"MFA-20251123-001",\n "immutable_archive": true,\n "signature": "sha256:8f3a9c2e..."\n
+MFA drift detected",\n "severity": "critical",\n "compliance_tag": "MFA",\n
+"audit_id":
+"MFA-20251123-001",\n "immutable_archive": true,\n "signature":
+"sha256:8f3a9c2e..."\n
 }\n\n###
 Privileged Command Audit\n\n {\n "timestamp": "2025-11-23T08:15:30Z",\n "host":
-"node1.debvisor.local",\n "user": "admin",\n "event_type": "privileged_command",\n
+"node1.debvisor.local",\n "user": "admin",\n "event_type":
+"privileged_command",\n
 "command":
 "/usr/bin/systemctl restart bind9",\n "audit_id": "EXEC-20251123-042",\n
 "immutable_archive": true\n
-}\n\n## Grafana Integration\n\nCompliance logs are queryable via:\n\n- **Elasticsearch
+}\n\n## Grafana Integration\n\nCompliance logs are queryable via:\n\n-
+**Elasticsearch
 datasource**:
-Real-time dashboards\n\n- **Loki datasource**: Log search and analysis\n\n## Security
+Real-time dashboards\n\n- **Loki datasource**: Log search and analysis\n\n##
+Security
 Features\n\n1.**Tamper Resistance**: S3 object lock prevents log
-deletion/modification\n1.**Cryptographic Signatures**: Each log entry hashed for integrity
+deletion/modification\n1.**Cryptographic Signatures**: Each log entry hashed for
+integrity
 verification\n1.**Multi-Tenant Isolation**: Tenant tags separate compliance
 evidence\n1.**Audit
-Trail**: Complete chain from alert -> remediation -> verification\n\n## Deployment\n\n1.
+Trail**: Complete chain from alert -> remediation -> verification\n\n##
+Deployment\n\n1.
 Deploy
-Fluent Bit config to all VM hosts\n\n1. Create Kafka topic with replication\n\n1. Deploy
+Fluent Bit config to all VM hosts\n\n1. Create Kafka topic with
+replication\n\n1. Deploy
 Logstash
-pipeline with credentials\n\n1. Configure S3 bucket with object lock\n\n1. Import Grafana
+pipeline with credentials\n\n1. Configure S3 bucket with object lock\n\n1.
+Import Grafana
 compliance
-dashboard\n\n## Retrieval for Auditors\n\n## Query Elasticsearch for specific audit ID\n\n
+dashboard\n\n## Retrieval for Auditors\n\n## Query Elasticsearch for specific
+audit ID\n\n
 curl -X
 GET
-"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/_se]([http://es01:9200/debvisor-compliance-*/*s]([http://es01:9200/debvisor-compliance-*/*]([http://es01:9200/debvisor-compliance-*/](http://es01:9200/debvisor-compliance-*/)_)s)e)a)r)c)h)")
-\\n\n - H 'Content-Type: application/json' \\n\n - d '{"query": {"term": {"audit_id":
+"[http://es01:9200/debvisor-compliance-*/_search"]([http://es01:9200/debvisor-compliance-*/_search]([http://es01:9200/debvisor-compliance-*/_searc]([http://es01:9200/debvisor-compliance-*/_sear]([http://es01:9200/debvisor-compliance-*/_sea]([http://es01:9200/debvisor-compliance-*/*se]([http://es01:9200/debvisor-compliance-*/*s]([http://es01:9200/debvisor-compliance-*/*]([http://es01:9200/debvisor-compliance-*/]([http://es01:9200/debvisor-compliance-*]([http://es01:9200/debvisor-compliance-]([http://es01:9200/debvisor-compliance]([http://es01:9200/debvisor-complianc]([http://es01:9200/debvisor-complian]([http://es01:9200/debvisor-complia]([http://es01:9200/debvisor-compli]([http://es01:9200/debvisor-compl]([http://es01:9200/debvisor-comp]([http://es01:9200/debvisor-com]([http://es01:9200/debvisor-co]([http://es01:9200/debvisor-c]([http://es01:9200/debvisor-]([http://es01:9200/debvisor]([http://es01:9200/debviso](http://es01:9200/debviso)r)-)c)o)m)p)l)i)a)n)c)e)-)*)/)*)s)e)a)r)c)h)")
+\\n\n - H 'Content-Type: application/json' \\n\n - d '{"query": {"term":
+{"audit_id":
 "MFA-20251123-001"}}}'\n\n## Download from S3 immutable archive\n\n aws s3 cp
-s3://debvisor-compliance-archive/logs/2025/11/23/ . --recursive\n\n## Compliance Tags\n\n-
+s3://debvisor-compliance-archive/logs/2025/11/23/ . --recursive\n\n## Compliance
+Tags\n\n-
 `MFA`:
-Multi-factor authentication events\n\n- `Audit`: Configuration changes tracked by
+Multi-factor authentication events\n\n- `Audit`: Configuration changes tracked
+by
 auditd\n\n-
-`ImmutableLogs`: Log storage status verification\n\n- `PrivilegedCommands`: Root/sudo
+`ImmutableLogs`: Log storage status verification\n\n- `PrivilegedCommands`:
+Root/sudo
 command
 execution\n\n- `AuthFailures`: Failed authentication attempts\n\n

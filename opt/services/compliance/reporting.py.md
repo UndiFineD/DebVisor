@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\compliance\reporting.py
 
-Generated: 2025-12-13T15:14:48.184916
+Generated: 2025-12-13T16:45:20.344669
 Source: opt\services\compliance\reporting.py
 
 ## Issues Summary

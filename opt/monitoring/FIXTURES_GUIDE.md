@@ -4,90 +4,132 @@ synthetic
 
 metrics fixtures for testing DebVisor monitoring, dashboards, and alerting in
 non-production or demo
-environments.\n\n## What Are Fixtures\n\nFixtures are synthetic (generated) metrics data
+environments.\n\n## What Are Fixtures\n\nFixtures are synthetic (generated)
+metrics data
 that
-simulate realistic workload patterns without requiring actual workloads. They're useful
+simulate realistic workload patterns without requiring actual workloads. They're
+useful
 for:\n\n-
-**Dashboard Development**: Test dashboard panels without live clusters\n\n- **Alert
+**Dashboard Development**: Test dashboard panels without live clusters\n\n-
+**Alert
 Tuning**:
-Validate alert thresholds and notification channels\n\n- **Training**: Demonstrate
+Validate alert thresholds and notification channels\n\n- **Training**:
+Demonstrate
 monitoring
-capabilities to operators\n\n- **CI/CD Testing**: Validate monitoring pipelines in test
-environments\n\n- **Demo/PoC Environments**: Create convincing demos without real
-infrastructure\n\n## Important Caveat\n\n[warn]?**Production Warning:**Synthetic fixtures
+capabilities to operators\n\n- **CI/CD Testing**: Validate monitoring pipelines
+in test
+environments\n\n- **Demo/PoC Environments**: Create convincing demos without
+real
+infrastructure\n\n## Important Caveat\n\n[warn]?**Production Warning:**Synthetic
+fixtures
 are NEVER
-appropriate for production environments. They mask real signals and can hide actual
+appropriate for production environments. They mask real signals and can hide
+actual
 problems. Use
-only in:\n\n- Lab environments\n\n- Testing/QA clusters\n\n- Development setups\n\n- Demos
+only in:\n\n- Lab environments\n\n- Testing/QA clusters\n\n- Development
+setups\n\n- Demos
 and
-POCs\n\n- Training environments\n\n## Fixture Types\n\n### Type 1: ConfigMap-Based
+POCs\n\n- Training environments\n\n## Fixture Types\n\n### Type 1:
+ConfigMap-Based
 Fixtures\n\nSimple Kubernetes ConfigMaps containing metric definitions.\n\n-
-*Files:**`edge-lab.yaml`, etc.\n\n### Characteristics\n\n- No deployment; passive
+*Files:**`edge-lab.yaml`, etc.\n\n### Characteristics\n\n- No deployment;
+passive
 data\n\n- Can be
-consumed by Prometheus `static_configs`\n\n- Good for small test scenarios\n\n- Minimal
+consumed by Prometheus `static_configs`\n\n- Good for small test scenarios\n\n-
+Minimal
 resource
-overhead\n\n### Usage\n\n kubectl apply -f monitoring/fixtures/edge-lab.yaml\n\n### Type
+overhead\n\n### Usage\n\n kubectl apply -f
+monitoring/fixtures/edge-lab.yaml\n\n### Type
 2:
 Generator-Based Fixtures\n\nActive generator Deployments that produce synthetic
 metrics.\n\n-
-*Files:**`edge-lab-deployment.yaml`, etc.\n\n### Characteristics [2]\n\n- Active Pods
+*Files:**`edge-lab-deployment.yaml`, etc.\n\n### Characteristics [2]\n\n- Active
+Pods
 generating
-metrics\n\n- Exposed via Service with `/metrics`endpoint\n\n- Prometheus can scrape
+metrics\n\n- Exposed via Service with `/metrics`endpoint\n\n- Prometheus can
+scrape
 directly\n\n-
-Configurable via environment variables\n\n- More realistic time-series generation\n\n###
+Configurable via environment variables\n\n- More realistic time-series
+generation\n\n###
 Usage
-[2]\n\n kubectl apply -f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Prometheus
+[2]\n\n kubectl apply -f monitoring/fixtures/edge-lab-deployment.yaml\n\n##
+Prometheus
 scrapes:
-[http://synthetic-metrics:8080/metrics]([http://synthetic-metrics:8080/metric]([http://synthetic-metrics:8080/metri]([http://synthetic-metrics:8080/metr]([http://synthetic-metrics:8080/met]([http://synthetic-metrics:8080/me]([http://synthetic-metrics:8080/m]([http://synthetic-metrics:8080/]([http://synthetic-metrics:8080](http://synthetic-metrics:8080)/)m)e)t)r)i)c)s)\n\n##
-Environment Classifications\n\n### Lab Environment\n\n- *When:**Local development,
+[http://synthetic-metrics:8080/metrics]([http://synthetic-metrics:8080/metric]([http://synthetic-metrics:8080/metri]([http://synthetic-metrics:8080/metr]([http://synthetic-metrics:8080/met]([http://synthetic-metrics:8080/me]([http://synthetic-metrics:8080/m]([http://synthetic-metrics:8080/]([http://synthetic-metrics:8080]([http://synthetic-metrics:808]([http://synthetic-metrics:80]([http://synthetic-metrics:8]([http://synthetic-metrics:]([http://synthetic-metrics]([http://synthetic-metric]([http://synthetic-metri]([http://synthetic-metr]([http://synthetic-met]([http://synthetic-me]([http://synthetic-m]([http://synthetic-]([http://synthetic]([http://syntheti]([http://synthet](http://synthet)i)c)-)m)e)t)r)i)c)s):)8)0)8)0)/)m)e)t)r)i)c)s)\n\n##
+Environment Classifications\n\n### Lab Environment\n\n- *When:**Local
+development,
 learning, small
-test clusters\n\n### Characteristics [3]\n\n- Single-node or 2-3 node clusters\n\n-
+test clusters\n\n### Characteristics [3]\n\n- Single-node or 2-3 node
+clusters\n\n-
 Minimal real
 workloads\n\n- Fast iteration and testing\n\n- No SLA requirements\n\n-
-*Fixture:**`edge-lab.yaml`,`edge-lab-deployment.yaml`\n\n### Metrics Included\n\n- Node
+*Fixture:**`edge-lab.yaml`,`edge-lab-deployment.yaml`\n\n### Metrics
+Included\n\n- Node
 CPU/memory/disk (realistic single-node profile)\n\n- Network I/O (low traffic
 patterns)\n\n-
-Container metrics (few running containers)\n\n- Ceph metrics (if enabled, minimal
+Container metrics (few running containers)\n\n- Ceph metrics (if enabled,
+minimal
 pool)\n\n-
-Kubernetes API latency\n\n### Testing/QA Environment\n\n- *When:**CI/CD pipelines,
+Kubernetes API latency\n\n### Testing/QA Environment\n\n- *When:**CI/CD
+pipelines,
 automated
-testing, staging\n\n### Characteristics [4]\n\n- 3-5 node test clusters\n\n- Mixed
+testing, staging\n\n### Characteristics [4]\n\n- 3-5 node test clusters\n\n-
+Mixed
 workloads (some
-containers, some VMs)\n\n- Realistic but compressed time scales\n\n- Alert testing and
-validation\n\n- *Fixture:**Create custom fixture or use parametrized generator\n\n###
+containers, some VMs)\n\n- Realistic but compressed time scales\n\n- Alert
+testing and
+validation\n\n- *Fixture:**Create custom fixture or use parametrized
+generator\n\n###
 Typical
-Metrics\n\n- Multi-node host metrics with variance\n\n- Various pod states (running,
+Metrics\n\n- Multi-node host metrics with variance\n\n- Various pod states
+(running,
 pending,
-failed)\n\n- Storage pool operations (snapshots, writes)\n\n- API request patterns\n\n###
+failed)\n\n- Storage pool operations (snapshots, writes)\n\n- API request
+patterns\n\n###
 Demo/PoC
-Environment\n\n- *When:**Customer demos, sales POCs, training\n\n### Characteristics
+Environment\n\n- *When:**Customer demos, sales POCs, training\n\n###
+Characteristics
 [5]\n\n-
-Simulated production-like cluster\n\n- Realistic metric shapes and thresholds\n\n-
+Simulated production-like cluster\n\n- Realistic metric shapes and
+thresholds\n\n-
 Time-shifted data
-(compress hours into minutes)\n\n- Convincing visualizations\n\n- *Fixture:**Deploy
+(compress hours into minutes)\n\n- Convincing visualizations\n\n-
+*Fixture:**Deploy
 dedicated
-generator with realistic patterns\n\n### Key Metrics\n\n- Multi-hour dashboard history
+generator with realistic patterns\n\n### Key Metrics\n\n- Multi-hour dashboard
+history
 (compressed
-to 10-15 min demo)\n\n- Alert firing and resolution patterns\n\n- Anomalies and incident
-scenarios\n\n- Remediation impact visualization\n\n## Generator Implementation\n\n###
+to 10-15 min demo)\n\n- Alert firing and resolution patterns\n\n- Anomalies and
+incident
+scenarios\n\n- Remediation impact visualization\n\n## Generator
+Implementation\n\n###
 Location\n\n`monitoring/fixtures/generator/`- Python Prometheus client-based
 generator\n\n###
 Components\n\n generator/\n +-- Dockerfile # Build synthetic metrics image\n +--
 requirements.txt #
-Python dependencies\n +-- app.py # Generator application\n +-- metrics/\n +--**init**.py\n
+Python dependencies\n +-- app.py # Generator application\n +-- metrics/\n
++--**init**.py\n
 +--
-node_metrics.py # Host-level metrics\n +-- container_metrics.py # Pod/container metrics\n
+node_metrics.py # Host-level metrics\n +-- container_metrics.py # Pod/container
+metrics\n
 +--
-storage_metrics.py # Ceph/ZFS metrics\n +-- network_metrics.py # Network I/O metrics\n +--
-patterns.py # Realistic time-series patterns\n\n### Building\n\n### Local Build\n\n cd
-monitoring/fixtures/generator\n docker build -t debvisor/synthetic-metrics:local .\n\n###
+storage_metrics.py # Ceph/ZFS metrics\n +-- network_metrics.py # Network I/O
+metrics\n +--
+patterns.py # Realistic time-series patterns\n\n### Building\n\n### Local
+Build\n\n cd
+monitoring/fixtures/generator\n docker build -t debvisor/synthetic-metrics:local
+.\n\n###
 With
-Custom Repository\n\n docker build -t your-registry/synthetic-metrics:v1.0 .\n docker push
-your-registry/synthetic-metrics:v1.0\n\n### Multi-Architecture Build (with buildx)\n\n
+Custom Repository\n\n docker build -t your-registry/synthetic-metrics:v1.0 .\n
+docker push
+your-registry/synthetic-metrics:v1.0\n\n### Multi-Architecture Build (with
+buildx)\n\n
 docker buildx
-build --platform linux/amd64,linux/arm64 \\n\n - t your-registry/synthetic-metrics:latest
+build --platform linux/amd64,linux/arm64 \\n\n - t
+your-registry/synthetic-metrics:latest
 \\n\n -
--push monitoring/fixtures/generator\n\n### Environment Variables\n\nConfigure generator
+-push monitoring/fixtures/generator\n\n### Environment Variables\n\nConfigure
+generator
 behavior via
 environment variables:\n| Variable | Default | Description
 |\n|----------|---------|-------------|\n|`METRICS_PORT`|`8080`| Port to expose`/metrics`on
@@ -98,157 +140,209 @@ testing, demo |\n|`COMPRESSION_FACTOR`|`1`| Time compression (>1 for compressed 
 rate (0.0-1.0) |\n|`ALERT_SCENARIO`|`none`| Trigger alert: none, high_cpu, disk_full,
 mem_pressure
 |\n\n### Example with Parameters\n\n docker run -e SCENARIO=demo -e COMPRESSION_FACTOR=10 \\n\n - e
-ALERT_SCENARIO=high_cpu -p 8080:8080 \\n\n debvisor/synthetic-metrics:local\n\n## Metric
-Categories\n\n### 1. Node/Host Metrics\n\n### Metrics\n\n-`node_cpu_seconds_total`- CPU
+ALERT_SCENARIO=high_cpu -p 8080:8080 \\n\n
+debvisor/synthetic-metrics:local\n\n## Metric
+Categories\n\n### 1. Node/Host Metrics\n\n###
+Metrics\n\n-`node_cpu_seconds_total`- CPU
 time per
-CPU\n\n-`node_memory_MemTotal_bytes`- Total memory\n\n-`node_memory_MemAvailable_bytes`-
+CPU\n\n-`node_memory_MemTotal_bytes`- Total
+memory\n\n-`node_memory_MemAvailable_bytes`-
 Available
-memory\n\n-`node_disk_read_bytes_total`- Disk read I/O\n\n-`node_disk_write_bytes_total`-
+memory\n\n-`node_disk_read_bytes_total`- Disk read
+I/O\n\n-`node_disk_write_bytes_total`-
 Disk write
 I/O\n\n-`node_network_receive_bytes_total`- Network
 received\n\n-`node_network_transmit_bytes_total`- Network
-transmitted\n\n-`node_filesystem_avail_bytes`- Filesystem space available\n\n### Generated
-Patterns\n\n- CPU: Realistic multi-core utilization with periodic spikes\n\n- Memory:
+transmitted\n\n-`node_filesystem_avail_bytes`- Filesystem space available\n\n###
+Generated
+Patterns\n\n- CPU: Realistic multi-core utilization with periodic spikes\n\n-
+Memory:
 Gradual
-increase with periodic drops (GC events)\n\n- Disk: Steady writes with occasional
+increase with periodic drops (GC events)\n\n- Disk: Steady writes with
+occasional
 bursts\n\n-
-Network: Bursty traffic patterns\n\n### 2. Container/Pod Metrics (cAdvisor)\n\n### Metrics
+Network: Bursty traffic patterns\n\n### 2. Container/Pod Metrics
+(cAdvisor)\n\n### Metrics
 [2]\n\n-`container_cpu_usage_seconds_total`- CPU per
 container\n\n-`container_memory_usage_bytes`-
-Memory per container\n\n-`container_network_receive_bytes_total`- Per-container network
+Memory per container\n\n-`container_network_receive_bytes_total`- Per-container
+network
 in\n\n-`container_network_transmit_bytes_total`- Per-container network
-out\n\n-`container_last_seen`- Container alive/dead indicator\n\n### Pod Distribution\n\n-
+out\n\n-`container_last_seen`- Container alive/dead indicator\n\n### Pod
+Distribution\n\n-
 Running:
-70-80% of pods\n\n- Pending: 5-10% of pods\n\n- Failed/CrashLoop: 1-5% of pods (variable
+70-80% of pods\n\n- Pending: 5-10% of pods\n\n- Failed/CrashLoop: 1-5% of pods
+(variable
 based on
 scenario)\n\n### 3. Storage Metrics (Ceph)\n\n### Metrics
 [3]\n\n-`ceph_cluster_used_bytes`- Used
 storage\n\n-`ceph_cluster_capacity_bytes`- Total capacity\n\n-`ceph_osd_up`- OSD
-online/offline\n\n-`ceph_pg_active`- Placement group status\n\n-`ceph_pool_objects_total`-
+online/offline\n\n-`ceph_pg_active`- Placement group
+status\n\n-`ceph_pool_objects_total`-
 Objects
-in pool\n\n-`ceph_pool_used_bytes`- Pool usage\n\n### Scenarios\n\n- Lab: 1-2 objects,
+in pool\n\n-`ceph_pool_used_bytes`- Pool usage\n\n### Scenarios\n\n- Lab: 1-2
+objects,
 minimal
-usage\n\n- Testing: 100-1000 objects, realistic usage\n\n- Demo: Complex pool dynamics,
+usage\n\n- Testing: 100-1000 objects, realistic usage\n\n- Demo: Complex pool
+dynamics,
 rebalancing
-events\n\n### 4. Kubernetes Metrics\n\n### Metrics [4]\n\n-`kube_node_status_condition`-
+events\n\n### 4. Kubernetes Metrics\n\n### Metrics
+[4]\n\n-`kube_node_status_condition`-
 Node
 ready/not ready\n\n-`kube_pod_status_phase`- Pod phase (Running, Pending,
 Failed)\n\n-`kube_pod_container_status_restarts_total`- Pod
 restarts\n\n-`kube_deployment_status_replicas`- Deployment
-replicas\n\n-`apiserver_request_duration_seconds`- API latency\n\n### Patterns\n\n- Node
+replicas\n\n-`apiserver_request_duration_seconds`- API latency\n\n###
+Patterns\n\n- Node
 status:
-Occasional "NotReady" events (auto-recovery)\n\n- Pod restarts: Realistic restart
+Occasional "NotReady" events (auto-recovery)\n\n- Pod restarts: Realistic
+restart
 patterns\n\n- API
-latency: Variable with occasional spikes\n\n### 5. Custom DebVisor Metrics\n\n### Metrics
+latency: Variable with occasional spikes\n\n### 5. Custom DebVisor
+Metrics\n\n### Metrics
 [5]\n\n-`debvisor_cluster_health`- Cluster health score
 (0-100)\n\n-`debvisor_remediation_total`-
 Security remediations performed\n\n-`debvisor_vm_migrations_total`- VM
-migrations\n\n-`debvisor_alert_firing_total`- Active alerts\n\n## Usage Scenarios\n\n###
+migrations\n\n-`debvisor_alert_firing_total`- Active alerts\n\n## Usage
+Scenarios\n\n###
 Scenario 1:
 Dashboard Testing (Lab)\n\n## Apply lab fixture\n\n kubectl apply -f
-monitoring/fixtures/edge-lab.yaml\n\n## Prometheus scrapes ConfigMap data\n\n## Grafana
+monitoring/fixtures/edge-lab.yaml\n\n## Prometheus scrapes ConfigMap data\n\n##
+Grafana
 renders
 dashboards with synthetic data\n\n## Remove when done\n\n kubectl delete -f
 monitoring/fixtures/edge-lab.yaml\n\n- *Duration:**Few minutes of testing\n\n-
 *Cleanup:**Manual
 removal\n\n## Scenario 2: Alert Validation (Testing)\n\n## Deploy parametrized
 generator\n\n kubectl
-apply -f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Manually trigger alert
+apply -f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Manually trigger
+alert
 scenario\n\n
 kubectl set env deployment/synthetic-metrics \\n ALERT_SCENARIO=high_cpu -n
 monitoring\n\n## Monitor
-alert firing via Prometheus/Grafana\n\n## Alert should fire within 1-2 minutes\n\n##
+alert firing via Prometheus/Grafana\n\n## Alert should fire within 1-2
+minutes\n\n##
 Verify
 notification channels receive alert\n\n## Cleanup\n\n kubectl delete -f
 monitoring/fixtures/edge-lab-deployment.yaml\n\n- *Duration:**5-15 minutes\n\n-
 *Metrics:**Realistic
-patterns with configurable anomalies\n\n## Scenario 3: Time-Compressed Demo (POC)\n\n##
+patterns with configurable anomalies\n\n## Scenario 3: Time-Compressed Demo
+(POC)\n\n##
 Deploy demo
 generator with 10x time compression\n\n kubectl apply -f
 monitoring/fixtures/edge-lab-deployment.yaml\n kubectl set env
 deployment/synthetic-metrics \\n
-SCENARIO=demo COMPRESSION_FACTOR=10 -n monitoring\n\n## Demo shows 10 hours of metrics in
+SCENARIO=demo COMPRESSION_FACTOR=10 -n monitoring\n\n## Demo shows 10 hours of
+metrics in
 ~1
-hour\n\n## Dashboards show full day cycle, anomalies, recovery\n\n## Perfect for 1-hour
+hour\n\n## Dashboards show full day cycle, anomalies, recovery\n\n## Perfect for
+1-hour
 sales
 demos\n\n## Cleanup after demo\n\n kubectl delete -f
-monitoring/fixtures/edge-lab-deployment.yaml\n\n- *Duration:**45-60 minutes demo\n\n-
-*Metrics:**Compressed time-series with realistic patterns\n\n## Best Practices\n\n### ?
+monitoring/fixtures/edge-lab-deployment.yaml\n\n- *Duration:**45-60 minutes
+demo\n\n-
+*Metrics:**Compressed time-series with realistic patterns\n\n## Best
+Practices\n\n### ?
 DO\n\n- Use
 fixtures in**non-production environments only**\n\n- **Label fixtures
 clearly**(e.g.,`fixture:
-"true"`,`scenario: lab`)\n\n- **Auto-cleanup**: Use Kubernetes Job or timer to remove
+"true"`,`scenario: lab`)\n\n- **Auto-cleanup**: Use Kubernetes Job or timer to
+remove
 fixtures\n\n-
-**Document intent**: Comment why fixtures are applied, when to remove them\n\n- **Compress
+**Document intent**: Comment why fixtures are applied, when to remove them\n\n-
+**Compress
 time**for
-demos: Use`COMPRESSION_FACTOR`> 1 for speed\n\n- **Test alert thresholds**before moving to
+demos: Use`COMPRESSION_FACTOR`> 1 for speed\n\n- **Test alert thresholds**before
+moving to
 production\n\n- **Preserve fixture definitions**: Keep generator code in version
 control\n\n### ?
-DON'T\n\n- **Never apply to production**- Synthetic data masks real problems\n\n- **Don't
+DON'T\n\n- **Never apply to production**- Synthetic data masks real
+problems\n\n- **Don't
 rely on
-fixture data**for capacity planning or billing\n\n- **Don't forget cleanup**- Fixtures
+fixture data**for capacity planning or billing\n\n- **Don't forget cleanup**-
+Fixtures
 left running
-waste resources\n\n- **Don't modify thresholds**based solely on fixture behavior\n\n-
+waste resources\n\n- **Don't modify thresholds**based solely on fixture
+behavior\n\n-
 **Don't
-publish fixture images**without version tags\n\n- **Don't hardcode fixture data**in
+publish fixture images**without version tags\n\n- **Don't hardcode fixture
+data**in
 dashboards or
-alerts\n\n## Cleanup [2]\n\n### Manual Cleanup\n\n## Remove generator deployment\n\n
+alerts\n\n## Cleanup [2]\n\n### Manual Cleanup\n\n## Remove generator
+deployment\n\n
 kubectl delete
--f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Remove ConfigMap fixture\n\n kubectl
+-f monitoring/fixtures/edge-lab-deployment.yaml\n\n## Remove ConfigMap
+fixture\n\n kubectl
 delete -f
-monitoring/fixtures/edge-lab.yaml\n\n## Automated Cleanup\n\nCreate a timer or CronJob for
+monitoring/fixtures/edge-lab.yaml\n\n## Automated Cleanup\n\nCreate a timer or
+CronJob for
 automatic
 fixture cleanup:\n apiVersion: batch/v1\n kind: CronJob\n metadata:\n name:
 fixture-cleanup\n
-namespace: monitoring\n spec:\n schedule: "0 22 ***" # 10 PM daily\n jobTemplate:\n
+namespace: monitoring\n spec:\n schedule: "0 22 ***" # 10 PM daily\n
+jobTemplate:\n
 spec:\n
 template:\n spec:\n serviceAccountName: fixture-cleanup\n containers:\n\n- name:
 cleanup\n\n image:
 bitnami/kubectl:latest\n command:\n\n- /bin/sh\n\n- -c\n\n- |\n\n kubectl delete
 deployment -l
-fixture=true -n monitoring\n kubectl delete configmap -l fixture=true -n monitoring\n
+fixture=true -n monitoring\n kubectl delete configmap -l fixture=true -n
+monitoring\n
 restartPolicy:
-OnFailure\n\n### Time-Based Cleanup\n\nUse labels with expiry logic:\n apiVersion: v1\n
+OnFailure\n\n### Time-Based Cleanup\n\nUse labels with expiry logic:\n
+apiVersion: v1\n
 kind:
-ConfigMap\n metadata:\n name: edge-lab-fixture\n namespace: monitoring\n labels:\n
+ConfigMap\n metadata:\n name: edge-lab-fixture\n namespace: monitoring\n
+labels:\n
 fixture: "true"\n
 fixture-expiry: "2025-11-27T22:00:00Z" # Expires tomorrow 10 PM\n data:\n
 cleanup-instructions: |\n
-This fixture expires at 2025-11-27T22:00:00Z\n Check back daily for auto-cleanup\n\n##
-Troubleshooting\n\n### Generator Not Producing Metrics\n\n1. Check pod status:`kubectl get
+This fixture expires at 2025-11-27T22:00:00Z\n Check back daily for
+auto-cleanup\n\n##
+Troubleshooting\n\n### Generator Not Producing Metrics\n\n1. Check pod
+status:`kubectl get
 pods -n
 monitoring -l app=synthetic-metrics`\n\n1. Check logs: `kubectl logs -f
 deployment/synthetic-metrics
--n monitoring`\n\n1. Verify endpoint: `kubectl port-forward svc/synthetic-metrics
+-n monitoring`\n\n1. Verify endpoint: `kubectl port-forward
+svc/synthetic-metrics
 8080:8080`\n\n1.
 Test endpoint: `curl
-[http://localhost:8080/metrics]([http://localhost:8080/metric]([http://localhost:8080/metri]([http://localhost:8080/metr]([http://localhost:8080/met]([http://localhost:8080/me]([http://localhost:8080/m]([http://localhost:8080/]([http://localhost:8080](http://localhost:8080)/)m)e)t)r)i)c)s)\n\n###
-Prometheus Not Scraping\n\n1. Verify ServiceMonitor or scrape config exists\n\n1. Check
+[http://localhost:8080/metrics]([http://localhost:8080/metric]([http://localhost:8080/metri]([http://localhost:8080/metr]([http://localhost:8080/met]([http://localhost:8080/me]([http://localhost:8080/m]([http://localhost:8080/]([http://localhost:8080]([http://localhost:808]([http://localhost:80]([http://localhost:8]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh]([http://local]([http://loca]([http://loc]([http://lo]([http://l](http://l)o)c)a)l)h)o)s)t):)8)0)8)0)/)m)e)t)r)i)c)s)\n\n###
+Prometheus Not Scraping\n\n1. Verify ServiceMonitor or scrape config
+exists\n\n1. Check
 Prometheus
 targets:
-[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/]([http://prometheus:9090](http://prometheus:9090)/)t)a)r)g)e)t)s)\n\n1.
-Look for scrape errors in Prometheus logs\n\n### Dashboards Showing No Data\n\n1. Confirm
+[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)t)a)r)g)e)t)s)\n\n1.
+Look for scrape errors in Prometheus logs\n\n### Dashboards Showing No
+Data\n\n1. Confirm
 metrics
 are arriving:
-[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)g)r)a)p)h)\n\n1.
+[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)g)r)a)p)h)\n\n1.
 Check query syntax in dashboard JSON\n\n1. Verify metric names match generator
 output\n\n### Alert
-Not Triggering\n\n1. Confirm metric value exceeds threshold\n\n1. Check Prometheus rule
+Not Triggering\n\n1. Confirm metric value exceeds threshold\n\n1. Check
+Prometheus rule
 evaluation:
-[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)r)u)l)e)s)\n\n1.
-Verify Alertmanager is running: `kubectl get pods -n monitoring`\n\n1. Check notification
+[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)r)u)l)e)s)\n\n1.
+Verify Alertmanager is running: `kubectl get pods -n monitoring`\n\n1. Check
+notification
 channel
-configuration\n\n## Reference\n\n### Files in this directory\n\n- `README.md`- Quick start
-guide\n\n-`FIXTURES_GUIDE.md`- This detailed guide\n\n-`edge-lab.yaml`- Lab environment
+configuration\n\n## Reference\n\n### Files in this directory\n\n- `README.md`-
+Quick start
+guide\n\n-`FIXTURES_GUIDE.md`- This detailed guide\n\n-`edge-lab.yaml`- Lab
+environment
 fixture
 (ConfigMap)\n\n-`edge-lab-deployment.yaml`- Lab environment generator
 (Deployment)\n\n-`generator/`-
-Source code for synthetic metrics generator\n\n-`kustomize/`- Kustomize overlays for
+Source code for synthetic metrics generator\n\n-`kustomize/`- Kustomize overlays
+for
 environment-specific customization\n\n## Contributing\n\nTo add new fixtures or
 scenarios:\n\n1.
 Create new fixture YAML in this directory\n\n1. Document intended use and metric
 types\n\n1. Add
-scenario to`generator/metrics/patterns.py`\n\n1. Test locally before committing\n\n1.
+scenario to`generator/metrics/patterns.py`\n\n1. Test locally before
+committing\n\n1.
 Update this
 guide with scenario description\n\n- --\n\n- *Last Updated:**2025-11-26\n\n-
 *Classification:**Development/Testing/Demo Only - NOT FOR PRODUCTION\n\n

@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\fix_all_errors.py
 
-Generated: 2025-12-13T15:21:05.503636
+Generated: 2025-12-13T16:51:46.337401
 Source: scripts\fix_all_errors.py
 
 ## Issues Summary
@@ -10,23 +10,23 @@ Total: 18 issues found
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
 | 52 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 750 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 750 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 771 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 771 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 779 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 779 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 831 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 1149 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1187 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1228 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1313 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1376 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1405 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
-| 1800 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 1800 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 1845 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 1845 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 757 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 757 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 778 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 778 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 786 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 786 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 838 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 1156 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1194 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1235 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1320 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1383 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1412 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
+| 1807 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 1807 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 1852 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 1852 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
 
@@ -40,8 +40,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 
@@ -67,7 +66,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 750
+### Issue at Line 757
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -97,7 +96,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 750
+### Issue at Line 757
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -127,7 +126,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 771
+### Issue at Line 778
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -157,7 +156,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 771
+### Issue at Line 778
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -187,7 +186,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 779
+### Issue at Line 786
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -217,7 +216,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 779
+### Issue at Line 786
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -247,7 +246,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 831
+### Issue at Line 838
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -277,7 +276,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1149
+### Issue at Line 1156
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -307,7 +306,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1187
+### Issue at Line 1194
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -337,7 +336,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1228
+### Issue at Line 1235
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -367,7 +366,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1313
+### Issue at Line 1320
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -397,7 +396,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1376
+### Issue at Line 1383
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -427,7 +426,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1405
+### Issue at Line 1412
 
 **Tool:**bandit |**Code:**`B110` |**Severity:** LOW
 
@@ -457,7 +456,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1800
+### Issue at Line 1807
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -487,7 +486,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1800
+### Issue at Line 1807
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -517,7 +516,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1845
+### Issue at Line 1852
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -547,7 +546,7 @@ from collections import defaultdict
 
 ---
 
-### Issue at Line 1845
+### Issue at Line 1852
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 

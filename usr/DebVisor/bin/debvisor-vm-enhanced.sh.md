@@ -1,6 +1,6 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-vm-enhanced.sh
 
-Generated: 2025-12-13T15:25:24.919248
+Generated: 2025-12-13T16:56:36.859724
 Source: usr\DebVisor\bin\debvisor-vm-enhanced.sh
 
 ## Issues Summary
@@ -740,7 +740,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -769,7 +769,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -798,7 +798,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -827,7 +827,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -856,7 +856,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -885,7 +885,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -914,7 +914,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1100,7 +1100,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1129,7 +1129,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1158,7 +1158,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1187,7 +1187,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1216,7 +1216,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1245,7 +1245,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1274,7 +1274,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1460,7 +1460,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1489,7 +1489,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1518,7 +1518,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1547,7 +1547,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1576,7 +1576,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1605,7 +1605,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1634,7 +1634,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1820,7 +1820,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1849,7 +1849,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1878,7 +1878,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1907,7 +1907,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1936,7 +1936,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1965,7 +1965,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1994,7 +1994,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2180,7 +2180,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2209,7 +2209,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2238,7 +2238,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2267,7 +2267,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2296,7 +2296,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2325,7 +2325,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2354,7 +2354,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2540,7 +2540,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2569,7 +2569,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2598,7 +2598,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2627,7 +2627,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2656,7 +2656,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2685,7 +2685,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2714,7 +2714,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2900,7 +2900,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2929,7 +2929,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2958,7 +2958,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2987,7 +2987,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3016,7 +3016,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3045,7 +3045,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3074,7 +3074,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3260,7 +3260,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3289,7 +3289,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3318,7 +3318,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3347,7 +3347,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3376,7 +3376,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3405,7 +3405,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3434,7 +3434,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3620,7 +3620,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3649,7 +3649,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3678,7 +3678,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3707,7 +3707,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3736,7 +3736,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3765,7 +3765,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3794,7 +3794,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3980,7 +3980,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4009,7 +4009,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4038,7 +4038,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4067,7 +4067,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4096,7 +4096,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4125,7 +4125,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4154,7 +4154,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4340,7 +4340,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4369,7 +4369,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4398,7 +4398,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4427,7 +4427,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4456,7 +4456,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4485,7 +4485,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4514,7 +4514,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4700,7 +4700,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4729,7 +4729,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4758,7 +4758,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4787,7 +4787,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4816,7 +4816,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4845,7 +4845,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4874,7 +4874,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5060,7 +5060,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5089,7 +5089,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5118,7 +5118,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5147,7 +5147,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5176,7 +5176,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5205,7 +5205,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5234,7 +5234,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5420,7 +5420,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5449,7 +5449,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5478,7 +5478,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5507,7 +5507,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5536,7 +5536,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5565,7 +5565,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5594,7 +5594,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -8030,427 +8030,7 @@ print_usage() {
 ############################################################################### 
 
 print_usage() {
-    cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 247
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 248
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 249
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME COMMAND [OPTIONS]
-
-${BLUE}Commands:${NC}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 270
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  $SCRIPT_NAME convert myvm
-  $SCRIPT_NAME health-check
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 271
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  $SCRIPT_NAME health-check
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 272
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 273
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-acquire_lock() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 274
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-acquire_lock() {
-    local lock_name="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 275
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-acquire_lock() {
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 276
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-acquire_lock() {
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 277
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-acquire_lock() {
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-
-    mkdir -p "$LOCK_DIR"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 278
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-acquire_lock() {
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-
-    mkdir -p "$LOCK_DIR"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 279
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-acquire_lock() {
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-
-    mkdir -p "$LOCK_DIR"
-
-    # Try to acquire lock
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 280
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local lock_name="$1"
-    local lock_file="$LOCK_DIR/$lock_name.lock"
-
-    mkdir -p "$LOCK_DIR"
-
-    # Try to acquire lock
-    if ! mkdir "$lock_file" 2>/dev/null; then
+    cat /dev/null; then
 ```python
 
 ### Proposal
@@ -9200,997 +8780,12 @@ is_idempotent() {
         local elapsed=$((now - last_run))
 
         # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 306
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        local last_run=$(stat -c %Y "$state_file" 2>/dev/null || stat -f %m "$state_file" 2>/dev/null)
+        if ((elapsed /dev/null || stat -f %m "$state_file" 2>/dev/null)
         local now=$(date +%s)
         local elapsed=$((now - last_run))
 
         # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 307
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        local now=$(date +%s)
-        local elapsed=$((now - last_run))
-
-        # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 308
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        local elapsed=$((now - last_run))
-
-        # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-        fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 309
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-        # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-        fi
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 310
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        # Consider successful if run within last 24 hours
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-        fi
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 311
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        if ((elapsed < 86400)); then
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-        fi
-    fi
-
-    return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 312
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            log_info "Operation already completed (cached): $operation for $vm_name"
-            return 0
-        fi
-    fi
-
-    return 1
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 313
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            return 0
-        fi
-    fi
-
-    return 1
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 314
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        fi
-    fi
-
-    return 1
-}
-
-save_state() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 315
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    return 1
-}
-
-save_state() {
-    local operation="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 316
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    return 1
-}
-
-save_state() {
-    local operation="$1"
-    local vm_name="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 317
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    return 1
-}
-
-save_state() {
-    local operation="$1"
-    local vm_name="$2"
-    local status="$3"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 318
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-save_state() {
-    local operation="$1"
-    local vm_name="$2"
-    local status="$3"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 319
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-save_state() {
-    local operation="$1"
-    local vm_name="$2"
-    local status="$3"
-
-    mkdir -p "$STATE_DIR"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 320
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-save_state() {
-    local operation="$1"
-    local vm_name="$2"
-    local status="$3"
-
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 321
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local operation="$1"
-    local vm_name="$2"
-    local status="$3"
-
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 322
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_name="$2"
-    local status="$3"
-
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-
-    cat > "$state_file" << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 323
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local status="$3"
-
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-
-    cat > "$state_file" << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 324
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-
-    cat > "$state_file" << EOF
-{
-  "operation": "$operation",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 325
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    mkdir -p "$STATE_DIR"
-    local state_file="$STATE_DIR/${vm_name}.${operation}.state"
-
-    cat > "$state_file" << EOF
-{
-  "operation": "$operation",
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 334
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "user": "${SUDO_USER:-${USER:-unknown}}"
-}
-EOF
-
-    debug_log "State saved: $state_file"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 335
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-
-    debug_log "State saved: $state_file"
-}
-
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 336
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-
-    debug_log "State saved: $state_file"
-}
-
-############################################################################### 
-## Pre-check Functions
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 337
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    debug_log "State saved: $state_file"
-}
-
-############################################################################### 
-## Pre-check Functions
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 338
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    debug_log "State saved: $state_file"
-}
-
-############################################################################### 
-## Pre-check Functions
-############################################################################### 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 339
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-############################################################################### 
-## Pre-check Functions
-############################################################################### 
-
-check_prerequisites() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 340
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-############################################################################### 
-## Pre-check Functions
-############################################################################### 
-
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 341
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Pre-check Functions
-############################################################################### 
-
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 342
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Pre-check Functions
-############################################################################### 
-
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-
-    # Check required commands
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 343
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-
-    # Check required commands
-    local required_commands=("virsh" "qemu-img" "ssh")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 344
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-
-    # Check required commands
-    local required_commands=("virsh" "qemu-img" "ssh")
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 345
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-check_prerequisites() {
-    log_info "Checking prerequisites..."
-
-    # Check required commands
-    local required_commands=("virsh" "qemu-img" "ssh")
-
-    for cmd in "${required_commands[@]}"; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 346
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Checking prerequisites..."
-
-    # Check required commands
-    local required_commands=("virsh" "qemu-img" "ssh")
-
-    for cmd in "${required_commands[@]}"; do
-        if ! command -v "$cmd" &>/dev/null; then
+        if ((elapsed  "$state_file"  "$state_file"  "$state_file"  "$state_file" /dev/null; then
 ```python
 
 ### Proposal
@@ -10400,37 +8995,7 @@ check_prerequisites() {
 
     # Check disk space
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 354
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        fi
-    done
-
-    # Check disk space
-    local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
 ```python
 
 ### Proposal
@@ -10458,8 +9023,7 @@ check_prerequisites() {
 
     # Check disk space
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
     fi
 ```python
 
@@ -10487,8 +9051,7 @@ check_prerequisites() {
 
     # Check disk space
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
     fi
 
 ```python
@@ -10516,8 +9079,7 @@ check_prerequisites() {
 ```python
     # Check disk space
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
     fi
 
     log_success "Prerequisites check completed"
@@ -10545,8 +9107,7 @@ check_prerequisites() {
 
 ```python
     local available_space=$(df /var/lib/libvirt | awk 'NR==2 {print $4}')
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
     fi
 
     log_success "Prerequisites check completed"
@@ -10574,8 +9135,7 @@ check_prerequisites() {
 ### Context
 
 ```python
-    if ((available_space < 10485760)); then  # 10 GB
-        log_warn "Low disk space: $(numfmt --to=iec-i --suffix=B "$available_space" 2>/dev/null || echo "$available_space KB")"
+    if ((available_space /dev/null || echo "$available_space KB")"
     fi
 
     log_success "Prerequisites check completed"
@@ -12380,1387 +10940,7 @@ register_vm() {
     mkdir -p "$STATE_DIR"
     local reg_file="$STATE_DIR/${vm_name}.registration"
 
-    cat > "$reg_file" << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 420
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Create registration metadata
-    mkdir -p "$STATE_DIR"
-    local reg_file="$STATE_DIR/${vm_name}.registration"
-
-    cat > "$reg_file" << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 421
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Create registration metadata
-    mkdir -p "$STATE_DIR"
-    local reg_file="$STATE_DIR/${vm_name}.registration"
-
-    cat > "$reg_file" << EOF
-{
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 422
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    mkdir -p "$STATE_DIR"
-    local reg_file="$STATE_DIR/${vm_name}.registration"
-
-    cat > "$reg_file" << EOF
-{
-  "vm_name": "$vm_name",
-  "registered_at": "$(date -Iseconds)",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 432
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "management_enabled": true
-}
-EOF
-
-    chmod 600 "$reg_file"
-
-    log_success "VM registered: $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 433
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-
-    chmod 600 "$reg_file"
-
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 434
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-
-    chmod 600 "$reg_file"
-
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 435
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    chmod 600 "$reg_file"
-
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 436
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    chmod 600 "$reg_file"
-
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 437
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 438
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_success "VM registered: $vm_name"
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 439
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    save_state "register" "$vm_name" "success"
-    audit_log_entry "register" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 440
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    audit_log_entry "register" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 441
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-    fi
-}
-
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 442
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat "$reg_file"
-    fi
-}
-
-############################################################################### 
-## VM Disk Conversion
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 443
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        cat "$reg_file"
-    fi
-}
-
-############################################################################### 
-## VM Disk Conversion
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 444
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-############################################################################### 
-## VM Disk Conversion
-############################################################################### 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 445
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-############################################################################### 
-## VM Disk Conversion
-############################################################################### 
-
-convert_vm_disk() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 446
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-############################################################################### 
-## VM Disk Conversion
-############################################################################### 
-
-convert_vm_disk() {
-    local vm_name="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 447
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## VM Disk Conversion
-############################################################################### 
-
-convert_vm_disk() {
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 448
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## VM Disk Conversion
-############################################################################### 
-
-convert_vm_disk() {
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 449
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-convert_vm_disk() {
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 450
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-convert_vm_disk() {
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 451
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-convert_vm_disk() {
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-    # Acquire lock
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 452
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_name="$1"
-    local target_format="${2:-qcow2}"
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 453
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local target_format="${2:-qcow2}"
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 454
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-
-    # Pre-flight checks
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 455
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Converting VM disk: $vm_name to $target_format"
-
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 456
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 457
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Acquire lock
-    acquire_lock "convert-$vm_name" || return 1
-
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 458
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    acquire_lock "convert-$vm_name" || return 1
-
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 459
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 460
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Pre-flight checks
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 461
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ! check_vm_exists "$vm_name"; then
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-    fi
-
-    if check_vm_running "$vm_name"; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 462
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "VM not found: $vm_name"
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-    fi
-
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 463
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        audit_log_entry "convert" "$vm_name" "failed" "vm_not_found"
-        return 1
-    fi
-
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 464
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 465
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 466
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-        fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 467
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if check_vm_running "$vm_name"; then
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-        fi
-        log_warn "Force flag set, shutting down VM"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 468
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        if [["${FORCE:-false}" != "true"]]; then
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-        fi
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 469
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            log_error "VM is running, must shut down first"
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-        fi
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 470
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            audit_log_entry "convert" "$vm_name" "failed" "vm_running"
-            return 1
-        fi
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 471
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            return 1
-        fi
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 472
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        fi
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-    fi
-
-    # Get disk path - robustly parse virsh domblklist output
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 473
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_warn "Force flag set, shutting down VM"
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-    fi
-
-    # Get disk path - robustly parse virsh domblklist output
-    local disk_path
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 474
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        virsh shutdown "$vm_name" --mode acpi
-        sleep 10
-    fi
-
-    # Get disk path - robustly parse virsh domblklist output
-    local disk_path
-    disk_path=$(virsh domblklist "$vm_name" | awk 'NR>1 && NF>1 {print $2; exit}')
+    cat > "$reg_file"  "$reg_file"  "$reg_file"  "$reg_file" 1 && NF>1 {print $2; exit}')
 ```python
 
 ### Proposal
@@ -15710,1207 +12890,7 @@ convert_vm_disk() {
     audit_log_entry "convert" "$vm_name" "success"
 
     if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 540
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_success "Disk conversion completed: $vm_name"
-    save_state "convert" "$vm_name" "success"
-    audit_log_entry "convert" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 541
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    save_state "convert" "$vm_name" "success"
-    audit_log_entry "convert" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "vm_name": "$vm_name",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 542
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    audit_log_entry "convert" "$vm_name" "success"
-
-    if [["${JSON_OUTPUT:-false}" == "true"]]; then
-        cat << EOF
-{
-  "vm_name": "$vm_name",
-  "original_format": "$current_format",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 552
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "status": "success"
-}
-EOF
-    fi
-}
-
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 553
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-    fi
-}
-
-############################################################################### 
-## Health Check
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 554
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-    fi
-}
-
-############################################################################### 
-## Health Check
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 555
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-############################################################################### 
-## Health Check
-############################################################################### 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 556
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-############################################################################### 
-## Health Check
-############################################################################### 
-
-health_check() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 557
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-############################################################################### 
-## Health Check
-############################################################################### 
-
-health_check() {
-    local vm_name="${1:-all}"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 558
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Health Check
-############################################################################### 
-
-health_check() {
-    local vm_name="${1:-all}"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 559
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Health Check
-############################################################################### 
-
-health_check() {
-    local vm_name="${1:-all}"
-
-    log_info "Performing health check..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 560
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-health_check() {
-    local vm_name="${1:-all}"
-
-    log_info "Performing health check..."
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 561
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-health_check() {
-    local vm_name="${1:-all}"
-
-    log_info "Performing health check..."
-
-    if [["$vm_name" == "all"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 562
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-health_check() {
-    local vm_name="${1:-all}"
-
-    log_info "Performing health check..."
-
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 563
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_name="${1:-all}"
-
-    log_info "Performing health check..."
-
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-        local vm_list
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 564
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "Performing health check..."
-
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 565
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Performing health check..."
-
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 566
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-        for vm in $vm_list; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 567
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [["$vm_name" == "all"]]; then
-        log_info "Checking all VMs..."
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 568
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_info "Checking all VMs..."
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-        done
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 569
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        local vm_list
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-        done
-    else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 570
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        vm_list=$(virsh list --all | tail -n +3 | awk '{print $2}' | grep -v "^$")
-
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-        done
-    else
-        check_single_vm "$vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 571
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-        done
-    else
-        check_single_vm "$vm_name"
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 572
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        for vm in $vm_list; do
-            check_single_vm "$vm" || true
-        done
-    else
-        check_single_vm "$vm_name"
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 573
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            check_single_vm "$vm" || true
-        done
-    else
-        check_single_vm "$vm_name"
-    fi
-
-    log_success "Health check completed"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 574
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        done
-    else
-        check_single_vm "$vm_name"
-    fi
-
-    log_success "Health check completed"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 575
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    else
-        check_single_vm "$vm_name"
-    fi
-
-    log_success "Health check completed"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 576
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        check_single_vm "$vm_name"
-    fi
-
-    log_success "Health check completed"
-}
-
-check_single_vm() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 577
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    log_success "Health check completed"
-}
-
-check_single_vm() {
-    local vm_name="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 578
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_success "Health check completed"
-}
-
-check_single_vm() {
-    local vm_name="$1"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 579
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_success "Health check completed"
-}
-
-check_single_vm() {
-    local vm_name="$1"
-
-    log_info "Checking VM: $vm_name"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 580
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-check_single_vm() {
-    local vm_name="$1"
-
-    log_info "Checking VM: $vm_name"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 581
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-check_single_vm() {
-    local vm_name="$1"
-
-    log_info "Checking VM: $vm_name"
-
-    # Check if running
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 582
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-check_single_vm() {
-    local vm_name="$1"
-
-    log_info "Checking VM: $vm_name"
-
-    # Check if running
-    local vm_state
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 583
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_name="$1"
-
-    log_info "Checking VM: $vm_name"
-
-    # Check if running
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 584
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "Checking VM: $vm_name"
-
-    # Check if running
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-    log_info "  State: $vm_state"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 585
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Checking VM: $vm_name"
-
-    # Check if running
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-    log_info "  State: $vm_state"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 586
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Check if running
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-    log_info "  State: $vm_state"
-
-    # Check disk usage
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 587
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Check if running
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-    log_info "  State: $vm_state"
-
-    # Check disk usage
-    local disk_path
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 588
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local vm_state
-    vm_state=$(virsh domstate "$vm_name")
-    log_info "  State: $vm_state"
-
-    # Check disk usage
-    local disk_path
-    disk_path=$(virsh domblklist "$vm_name" 2>/dev/null | tail -1 | awk '{print $2}')
+        cat /dev/null | tail -1 | awk '{print $2}')
 ```python
 
 ### Proposal

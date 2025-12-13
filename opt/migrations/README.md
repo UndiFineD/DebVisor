@@ -5,10 +5,13 @@ done):\n\n```bash\nflask db init
 -d opt/migrations\n```text\n```text\nflask db init -d
 opt/migrations\n```text\n```text\nflask db
 init -d opt/migrations\n```text\n```text\n```text\n```text\nGenerate a
-migration:\n\n```bash\n\n```bash\nGenerate a migration:\n\n```bash\n\n```bash\nGenerate a
-migration:\n\n```bash\n\n```bash\n\n```bash\n\n```bash\nflask db migrate -m "Description
+migration:\n\n```bash\n\n```bash\nGenerate a
+migration:\n\n```bash\n\n```bash\nGenerate a
+migration:\n\n```bash\n\n```bash\n\n```bash\n\n```bash\nflask db migrate -m
+"Description
 of change"
--d opt/migrations\n```text\n```text\nflask db migrate -m "Description of change" -d
+-d opt/migrations\n```text\n```text\nflask db migrate -m "Description of change"
+-d
 opt/migrations\n```text\n```text\nflask db migrate -m "Description of change" -d
 opt/migrations\n```text\n```text\n```text\n```text\nApply
 migrations:\n\n```bash\n\n```bash\nApply

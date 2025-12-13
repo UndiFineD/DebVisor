@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\observability\cardinality_controller.py
 
-Generated: 2025-12-13T15:16:21.771685
+Generated: 2025-12-13T16:46:53.771810
 Source: opt\services\observability\cardinality_controller.py
 
 ## Issues Summary
@@ -25,8 +25,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -34,40 +33,7 @@ purposes.
         # Check service-specific rules
         for rule in self.rules:
             if self._match_rule(rule, trace_context):
-                return random.random() < rule.sample_rate
-
-        return random.random() < self.base_sample_rate
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 904
-
-**Tool:**bandit |**Code:**`B311` |**Severity:** LOW
-
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
-
-### Context
-
-```python
-            if self._match_rule(rule, trace_context):
-                return random.random() < rule.sample_rate
-
-        return random.random() < self.base_sample_rate
-
-    def _evaluate_rules(self, ctx: TraceContext) -> SamplingDecision:
+                return random.random()  SamplingDecision:
         """Evaluate sampling rules against trace context."""
 ```python
 
@@ -87,8 +53,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 

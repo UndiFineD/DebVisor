@@ -1,0 +1,15 @@
+__pycache__
+.benchmarks
+.git
+.github
+.hypothesis
+.import_linter_cache
+.kube
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.venv
+.venv-1
+.venv-2
+.venv-3
+.vscode

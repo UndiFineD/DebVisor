@@ -1,6 +1,6 @@
 # Planning Report: scripts\critic_workflow.py
 
-Generated: 2025-12-13T15:10:42.915805
+Generated: 2025-12-13T17:06:28.853749
 Status: INVALID
 
 ## File Structure Validation
@@ -13,7 +13,7 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got '"""', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got 'Critic + Coding Expert Workflow Driver', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got '1. Critic agent detects issues and writes .md reports', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got '2. Coding expert agent reads reports and proposes fixes', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/](http://www.apache.org/licenses/)L)I)C)E)N)S)E)-)2).)0)') |
+| incorrect_header | 5 | Header line incorrect: got '2. Coding expert agent reads reports and proposes fixes', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)') |
 | incorrect_header | 6 | Header line incorrect: got '3. Both agents are aware of markdown linting standards', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got '"""', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got '', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
@@ -58,126 +58,98 @@ Each code file should have the following structure:
 
 ```python
 ## !/usr/bin/env python3  (shebang for .py files)
-
 ## [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
 
 """
 Module description and purpose.
 
 ## Description
-
 Detailed description of what this file does.
 
 ## Changelog
-
 - Version X.X.X: Description of changes
-
 - Version X.X.Y: Description of changes
 
 ## Suggested Fixes
-
 - Improvement 1
-
 - Improvement 2
 
 ## Improvements
-
 - Enhancement 1
-
 - Enhancement 2
 """
 
 ## =====================================================
-
 ## [Actual code starts here]
-
 ## =====================================================
-
 ```python
 
 ## Fix Proposals
 
 ### To Fix This File
 
-1. Add shebang at line 1: `#!/usr/bin/env python3`
+- Add shebang at line 1: `#!/usr/bin/env python3`
 
-1. Add license header (lines 2-11)
+- Add license header (lines 2-11)
 
-1. Add module docstring with required sections:
+- Add module docstring with required sections:
 
-    - Description
+  - Description
 
-    - Changelog
+  - Changelog
 
-    - Suggested Fixes
+  - Suggested Fixes
 
-    - Improvements
+  - Improvements
 
-1. Separate docstring from code with blank line and comment divider
+- Separate docstring from code with blank line and comment divider
 
-1. Ensure generated .md reports comply with markdown linting rules:
+- Ensure generated .md reports comply with markdown linting rules:
 
-    - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+  - **MD034**: Wrap bare URLs in links: `[URL](URL)`
 
-    - **MD047**: Add trailing newline at end of file
+  - **MD047**: Add trailing newline at end of file
 
-    - **MD022**: Add blank lines around headings
+  - **MD022**: Add blank lines around headings
 
-    - **MD038**: Remove spaces in code spans: ```code```not```code```
+  - **MD038**: Remove spaces in code spans: ```code```not```code```
 
 ### Example Template
 
 ```python
 ## !/usr/bin/env python3
-
 ## Copyright (c) 2025 DebVisor contributors
-
 ## Licensed under the Apache License, Version 2.0 (the "License");
-
 ## you may not use this file except in compliance with the License.
-
 ## You may obtain a copy of the License at
-
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license](http://www.apache.org/license)s)/)L)I)C)E)N)S)E)-)2).)0)
-
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-
 ## distributed under the License is distributed on an "AS IS" BASIS,
-
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-
 ## See the License for the specific language governing permissions and
-
 ## limitations under the License.
 
 """
 Brief description of module.
 
 ## Description
-
 Longer description of what this module does.
 
 ## Changelog
-
 - 1.0.0: Initial version
 
 ## Suggested Fixes
-
 - None currently identified
 
 ## Improvements
-
 - Future enhancements
 """
 
 ## =====================================================
-
 ## Implementation
-
 ## =====================================================
 
 ## Your code here...
-
 ```python
 
 ## Implementation Status

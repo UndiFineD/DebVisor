@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_oidc_oauth2.py
 
-Generated: 2025-12-13T15:24:38.341795
+Generated: 2025-12-13T16:55:43.870600
 Source: tests\test_oidc_oauth2.py
 
 ## Issues Summary
@@ -9,9 +9,9 @@ Total: 3 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
-| 244 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)') |
-| 298 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)') |
-| 355 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)') |
+| 244 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
+| 298 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
+| 355 | 0 | bandit | `B106` | LOW | Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)') |
 
 ## Implementation Status
 
@@ -25,8 +25,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password:
-'[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)')
+**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
 
 ### Context
 
@@ -36,8 +35,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",]([https://example.com"]([https://example.com]([https://example.co]([https://example.c](https://example.c)o)m)"),)
-            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"]([https://example.com/authorize]([https://example.com/authoriz]([https://example.com/authori](https://example.com/authori)z)e)"),)
+            _issuer = "[https://example.com",](https://example.com",)
+            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
 ```python
 
 ### Proposal
@@ -56,8 +55,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password:
-'[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)')
+**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
 
 ### Context
 
@@ -67,8 +65,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",]([https://example.com"]([https://example.com]([https://example.co]([https://example.c](https://example.c)o)m)"),)
-            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"]([https://example.com/authorize]([https://example.com/authoriz]([https://example.com/authori](https://example.com/authori)z)e)"),)
+            _issuer = "[https://example.com",](https://example.com",)
+            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
 ```python
 
 ### Proposal
@@ -87,8 +85,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B106` |**Severity:** LOW
 
-**Message:** Possible hardcoded password:
-'[https://example.com/token']([https://example.com/token]([https://example.com/toke]([https://example.com/tok]([https://example.com/to]([https://example.com/t](https://example.com/t)o)k)e)n)')
+**Message:** Possible hardcoded password: '[https://example.com/token']([https://example.com/token](https://example.com/token)')
 
 ### Context
 
@@ -98,8 +95,8 @@ Items marked below as fixed:
         """Set up test fixtures."""
         self.config = OIDCConfig(
             _provider_name = "TestProvider",
-            _issuer = "[https://example.com",]([https://example.com"]([https://example.com]([https://example.co]([https://example.c](https://example.c)o)m)"),)
-            _authorization_endpoint = "[https://example.com/authorize",]([https://example.com/authorize"]([https://example.com/authorize]([https://example.com/authoriz]([https://example.com/authori](https://example.com/authori)z)e)"),)
+            _issuer = "[https://example.com",](https://example.com",)
+            _authorization_endpoint = "[https://example.com/authorize",](https://example.com/authorize",)
 ```python
 
 ### Proposal

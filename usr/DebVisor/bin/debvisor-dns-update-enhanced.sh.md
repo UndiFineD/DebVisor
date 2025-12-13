@@ -1,6 +1,6 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-dns-update-enhanced.sh
 
-Generated: 2025-12-13T15:25:22.437339
+Generated: 2025-12-13T16:56:33.981496
 Source: usr\DebVisor\bin\debvisor-dns-update-enhanced.sh
 
 ## Issues Summary
@@ -823,7 +823,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -852,7 +852,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -881,7 +881,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -910,7 +910,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -939,7 +939,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -968,7 +968,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -997,7 +997,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1183,7 +1183,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1212,7 +1212,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1241,7 +1241,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1270,7 +1270,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1299,7 +1299,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1328,7 +1328,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1357,7 +1357,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1543,7 +1543,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1572,7 +1572,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1601,7 +1601,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1630,7 +1630,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1659,7 +1659,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1688,7 +1688,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1717,7 +1717,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1903,7 +1903,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -1932,7 +1932,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1961,7 +1961,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1990,7 +1990,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2019,7 +2019,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2048,7 +2048,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2077,7 +2077,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2263,7 +2263,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2292,7 +2292,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2321,7 +2321,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2350,7 +2350,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2379,7 +2379,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2408,7 +2408,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2437,7 +2437,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2623,7 +2623,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -2652,7 +2652,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2681,7 +2681,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2710,7 +2710,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2739,7 +2739,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2768,7 +2768,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2797,7 +2797,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2983,7 +2983,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3012,7 +3012,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3041,7 +3041,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3070,7 +3070,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3099,7 +3099,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3128,7 +3128,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3157,7 +3157,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3343,7 +3343,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3372,7 +3372,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3401,7 +3401,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3430,7 +3430,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3459,7 +3459,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3488,7 +3488,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3517,7 +3517,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3703,7 +3703,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -3732,7 +3732,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3761,7 +3761,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3790,7 +3790,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3819,7 +3819,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3848,7 +3848,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3877,7 +3877,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4063,7 +4063,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4092,7 +4092,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4121,7 +4121,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4150,7 +4150,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4179,7 +4179,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4208,7 +4208,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4237,7 +4237,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4423,7 +4423,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4452,7 +4452,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4481,7 +4481,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4510,7 +4510,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4539,7 +4539,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4568,7 +4568,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4597,7 +4597,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4783,7 +4783,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -4812,7 +4812,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4841,7 +4841,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4870,7 +4870,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4899,7 +4899,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4928,7 +4928,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4957,7 +4957,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5143,7 +5143,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5172,7 +5172,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5201,7 +5201,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5230,7 +5230,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5259,7 +5259,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5288,7 +5288,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5317,7 +5317,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5503,7 +5503,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -5532,7 +5532,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5561,7 +5561,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5590,7 +5590,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5619,7 +5619,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5648,7 +5648,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5677,7 +5677,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -8293,757 +8293,7 @@ print_usage() {
 ############################################################################### 
 
 print_usage() {
-    cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 253
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 254
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Utility Functions
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 255
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-print_usage() {
-    cat << EOF
-${BLUE}Usage:${NC} $SCRIPT_NAME [OPTIONS] HOSTNAME IP_ADDRESS
-
-${BLUE}Description:${NC}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 298
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  # With DNSSEC validation
-  $SCRIPT_NAME --dnssec-validate vm.example.com 192.168.1.100
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 299
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  $SCRIPT_NAME --dnssec-validate vm.example.com 192.168.1.100
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 300
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 301
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-validate_hostname() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 302
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-validate_hostname() {
-    local hostname="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 303
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-print_version() {
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-validate_hostname() {
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 304
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    echo "$SCRIPT_NAME version $SCRIPT_VERSION"
-}
-
-validate_hostname() {
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 305
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-validate_hostname() {
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-        return 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 306
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-validate_hostname() {
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-        return 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 307
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_hostname() {
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-        return 1
-    fi
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 308
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local hostname="$1"
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-        return 1
-    fi
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 309
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ! [["$hostname" =~ ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$]]; then
-        log_error "Invalid hostname: $hostname"
-        return 1
-    fi
-}
-
-validate_ip_address() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 310
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Invalid hostname: $hostname"
-        return 1
-    fi
-}
-
-validate_ip_address() {
-    local ip="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 311
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        return 1
-    fi
-}
-
-validate_ip_address() {
-    local ip="$1"
-    # IPv4 validation
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 312
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-}
-
-validate_ip_address() {
-    local ip="$1"
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 313
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-validate_ip_address() {
-    local ip="$1"
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 314
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-validate_ip_address() {
-    local ip="$1"
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-        # shellcheck disable=SC2206
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 315
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-validate_ip_address() {
-    local ip="$1"
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-        # shellcheck disable=SC2206
-        # Use read with IFS for robust splitting while preserving intent
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 316
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local ip="$1"
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-        # shellcheck disable=SC2206
-        # Use read with IFS for robust splitting while preserving intent
-        local -a octets
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 317
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # IPv4 validation
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-        # shellcheck disable=SC2206
-        # Use read with IFS for robust splitting while preserving intent
-        local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 318
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [["$ip" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$]]; then
-        local IFS='.'
-        # shellcheck disable=SC2206
-        # Use read with IFS for robust splitting while preserving intent
-        local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 319
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        local IFS='.'
-        # shellcheck disable=SC2206
-        # Use read with IFS for robust splitting while preserving intent
-        local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-            if ((octet > 255)); then
+    cat  255)); then
 ```python
 
 ### Proposal
@@ -9070,9 +8320,7 @@ validate_ip_address() {
         # shellcheck disable=SC2206
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-            if ((octet > 255)); then
+        IFS='.' read -r -a octets  255)); then
                 log_error "Invalid IPv4 address: $ip"
 ```python
 
@@ -9099,9 +8347,7 @@ validate_ip_address() {
 ```python
         # Use read with IFS for robust splitting while preserving intent
         local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-            if ((octet > 255)); then
+        IFS='.' read -r -a octets  255)); then
                 log_error "Invalid IPv4 address: $ip"
                 return 1
 ```python
@@ -9128,9 +8374,7 @@ validate_ip_address() {
 
 ```python
         local -a octets
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-            if ((octet > 255)); then
+        IFS='.' read -r -a octets  255)); then
                 log_error "Invalid IPv4 address: $ip"
                 return 1
             fi
@@ -9157,9 +8401,7 @@ validate_ip_address() {
 ### Context
 
 ```python
-        IFS='.' read -r -a octets <<< "$ip"
-        for octet in "${octets[@]}"; do
-            if ((octet > 255)); then
+        IFS='.' read -r -a octets  255)); then
                 log_error "Invalid IPv4 address: $ip"
                 return 1
             fi
@@ -13723,157 +12965,7 @@ check_propagation() {
         DNS_SERVERS=("8.8.8.8")
     fi
 
-    while ((elapsed < timeout)); do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 476
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if ((total_servers == 0)); then
-        total_servers=1
-        DNS_SERVERS=("8.8.8.8")
-    fi
-
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 477
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        total_servers=1
-        DNS_SERVERS=("8.8.8.8")
-    fi
-
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 478
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        DNS_SERVERS=("8.8.8.8")
-    fi
-
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-
-        for server in "${DNS_SERVERS[@]}"; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 479
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-
-        for server in "${DNS_SERVERS[@]}"; do
-            local resolved_ip
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 480
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-
-        for server in "${DNS_SERVERS[@]}"; do
-            local resolved_ip
-            resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
+    while ((elapsed /dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 ```python
 
 ### Proposal
@@ -13897,12 +12989,7 @@ check_propagation() {
 ### Context
 
 ```python
-    while ((elapsed < timeout)); do
-        propagated_servers=0
-
-        for server in "${DNS_SERVERS[@]}"; do
-            local resolved_ip
-            resolved_ip=$(dig +short @"$server" "$hostname" A 2>/dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
+    while ((elapsed /dev/null | grep -E '^[0-9.]+$' | head -1 || echo "")
 
 ```python
 
@@ -17503,3667 +16590,7 @@ output_json() {
     local ip="$2"
     local status="$3"
 
-    cat << EOF
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 602
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-output_json() {
-    local hostname="$1"
-    local ip="$2"
-    local status="$3"
-
-    cat << EOF
-{
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 603
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local hostname="$1"
-    local ip="$2"
-    local status="$3"
-
-    cat << EOF
-{
-  "hostname": "$hostname",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 604
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local ip="$2"
-    local status="$3"
-
-    cat << EOF
-{
-  "hostname": "$hostname",
-  "ip_address": "$ip",
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 616
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  "dry_run": $(["$DRY_RUN" == "true"] && echo "true" || echo "false")
-}
-EOF
-}
-
-############################################################################### 
-## Main Function
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 617
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-EOF
-}
-
-############################################################################### 
-## Main Function
-############################################################################### 
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 618
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-EOF
-}
-
-############################################################################### 
-## Main Function
-############################################################################### 
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 619
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-############################################################################### 
-## Main Function
-############################################################################### 
-
-main() {
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 620
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-############################################################################### 
-## Main Function
-############################################################################### 
-
-main() {
-    # Parse arguments
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 621
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-## Main Function
-############################################################################### 
-
-main() {
-    # Parse arguments
-    local hostname=""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 622
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Main Function
-############################################################################### 
-
-main() {
-    # Parse arguments
-    local hostname=""
-    local ip_address=""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 623
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-############################################################################### 
-
-main() {
-    # Parse arguments
-    local hostname=""
-    local ip_address=""
-    local output_format="text"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 624
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-main() {
-    # Parse arguments
-    local hostname=""
-    local ip_address=""
-    local output_format="text"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 625
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-main() {
-    # Parse arguments
-    local hostname=""
-    local ip_address=""
-    local output_format="text"
-
-    while [[$# -gt 0]]; do
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 626
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Parse arguments
-    local hostname=""
-    local ip_address=""
-    local output_format="text"
-
-    while [[$# -gt 0]]; do
-        case "$1" in
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 627
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local hostname=""
-    local ip_address=""
-    local output_format="text"
-
-    while [[$# -gt 0]]; do
-        case "$1" in
-            --help|-h)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 628
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local ip_address=""
-    local output_format="text"
-
-    while [[$# -gt 0]]; do
-        case "$1" in
-            --help|-h)
-                print_usage
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 629
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    local output_format="text"
-
-    while [[$# -gt 0]]; do
-        case "$1" in
-            --help|-h)
-                print_usage
-                exit 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 630
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    while [[$# -gt 0]]; do
-        case "$1" in
-            --help|-h)
-                print_usage
-                exit 0
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 631
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    while [[$# -gt 0]]; do
-        case "$1" in
-            --help|-h)
-                print_usage
-                exit 0
-                ;;
-            --version)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 632
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        case "$1" in
-            --help|-h)
-                print_usage
-                exit 0
-                ;;
-            --version)
-                print_version
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 633
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --help|-h)
-                print_usage
-                exit 0
-                ;;
-            --version)
-                print_version
-                exit 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 634
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                print_usage
-                exit 0
-                ;;
-            --version)
-                print_version
-                exit 0
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 635
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                exit 0
-                ;;
-            --version)
-                print_version
-                exit 0
-                ;;
-            --server|-s)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 636
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --version)
-                print_version
-                exit 0
-                ;;
-            --server|-s)
-                DNS_SERVERS+=("$2")
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 637
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --version)
-                print_version
-                exit 0
-                ;;
-            --server|-s)
-                DNS_SERVERS+=("$2")
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 638
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                print_version
-                exit 0
-                ;;
-            --server|-s)
-                DNS_SERVERS+=("$2")
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 639
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                exit 0
-                ;;
-            --server|-s)
-                DNS_SERVERS+=("$2")
-                shift 2
-                ;;
-            --tsig-key|-k)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 640
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --server|-s)
-                DNS_SERVERS+=("$2")
-                shift 2
-                ;;
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 641
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --server|-s)
-                DNS_SERVERS+=("$2")
-                shift 2
-                ;;
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 642
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                DNS_SERVERS+=("$2")
-                shift 2
-                ;;
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 643
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-                shift 2
-                ;;
-            --tsig-algo|-a)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 644
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-                shift 2
-                ;;
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 645
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --tsig-key|-k)
-                TSIG_KEY_FILE="$2"
-                shift 2
-                ;;
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 646
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                TSIG_KEY_FILE="$2"
-                shift 2
-                ;;
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 647
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-                shift 2
-                ;;
-            --ttl)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 648
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-                shift 2
-                ;;
-            --ttl)
-                TTL_DEFAULT="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 649
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --tsig-algo|-a)
-                TSIG_ALGORITHM="$2"
-                shift 2
-                ;;
-            --ttl)
-                TTL_DEFAULT="$2"
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 650
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                TSIG_ALGORITHM="$2"
-                shift 2
-                ;;
-            --ttl)
-                TTL_DEFAULT="$2"
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 651
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --ttl)
-                TTL_DEFAULT="$2"
-                shift 2
-                ;;
-            --update-ttl)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 652
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --ttl)
-                TTL_DEFAULT="$2"
-                shift 2
-                ;;
-            --update-ttl)
-                TTL_UPDATE="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 653
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --ttl)
-                TTL_DEFAULT="$2"
-                shift 2
-                ;;
-            --update-ttl)
-                TTL_UPDATE="$2"
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 654
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                TTL_DEFAULT="$2"
-                shift 2
-                ;;
-            --update-ttl)
-                TTL_UPDATE="$2"
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 655
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --update-ttl)
-                TTL_UPDATE="$2"
-                shift 2
-                ;;
-            --dry-run)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 656
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --update-ttl)
-                TTL_UPDATE="$2"
-                shift 2
-                ;;
-            --dry-run)
-                DRY_RUN="true"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 657
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --update-ttl)
-                TTL_UPDATE="$2"
-                shift 2
-                ;;
-            --dry-run)
-                DRY_RUN="true"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 658
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                TTL_UPDATE="$2"
-                shift 2
-                ;;
-            --dry-run)
-                DRY_RUN="true"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 659
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --dry-run)
-                DRY_RUN="true"
-                shift
-                ;;
-            --verbose)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 660
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --dry-run)
-                DRY_RUN="true"
-                shift
-                ;;
-            --verbose)
-                VERBOSE="true"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 661
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --dry-run)
-                DRY_RUN="true"
-                shift
-                ;;
-            --verbose)
-                VERBOSE="true"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 662
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                DRY_RUN="true"
-                shift
-                ;;
-            --verbose)
-                VERBOSE="true"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 663
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --verbose)
-                VERBOSE="true"
-                shift
-                ;;
-            --rollback)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 664
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --verbose)
-                VERBOSE="true"
-                shift
-                ;;
-            --rollback)
-                ROLLBACK_ENABLED="true"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 665
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --verbose)
-                VERBOSE="true"
-                shift
-                ;;
-            --rollback)
-                ROLLBACK_ENABLED="true"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 666
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                VERBOSE="true"
-                shift
-                ;;
-            --rollback)
-                ROLLBACK_ENABLED="true"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 667
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --rollback)
-                ROLLBACK_ENABLED="true"
-                shift
-                ;;
-            --no-rollback)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 668
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --rollback)
-                ROLLBACK_ENABLED="true"
-                shift
-                ;;
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 669
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --rollback)
-                ROLLBACK_ENABLED="true"
-                shift
-                ;;
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 670
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ROLLBACK_ENABLED="true"
-                shift
-                ;;
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 671
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-                shift
-                ;;
-            --check-propagation)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 672
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-                shift
-                ;;
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 673
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --no-rollback)
-                ROLLBACK_ENABLED="false"
-                shift
-                ;;
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 674
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ROLLBACK_ENABLED="false"
-                shift
-                ;;
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 675
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-                shift
-                ;;
-            --timeout)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 676
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-                shift
-                ;;
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 677
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --check-propagation)
-                CHECK_PROPAGATION="true"
-                shift
-                ;;
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 678
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                CHECK_PROPAGATION="true"
-                shift
-                ;;
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 679
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-                ;;
-            --dnssec-validate)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 680
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-                ;;
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 681
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --timeout)
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-                ;;
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 682
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                PROPAGATION_CHECK_TIMEOUT="$2"
-                shift 2
-                ;;
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 683
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift 2
-                ;;
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-                shift
-                ;;
-            --no-dnssec)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 684
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-                shift
-                ;;
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 685
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --dnssec-validate)
-                DNSSEC_VALIDATE="true"
-                shift
-                ;;
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 686
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                DNSSEC_VALIDATE="true"
-                shift
-                ;;
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 687
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-                shift
-                ;;
-            --json)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 688
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-                shift
-                ;;
-            --json)
-                output_format="json"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 689
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --no-dnssec)
-                DNSSEC_VALIDATE="false"
-                shift
-                ;;
-            --json)
-                output_format="json"
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 690
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                DNSSEC_VALIDATE="false"
-                shift
-                ;;
-            --json)
-                output_format="json"
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 691
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            --json)
-                output_format="json"
-                shift
-                ;;
-            -*)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 692
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            --json)
-                output_format="json"
-                shift
-                ;;
-            -*)
-                log_error "Unknown option: $1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 693
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            --json)
-                output_format="json"
-                shift
-                ;;
-            -*)
-                log_error "Unknown option: $1"
-                print_usage
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 694
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                output_format="json"
-                shift
-                ;;
-            -*)
-                log_error "Unknown option: $1"
-                print_usage
-                exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 695
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-            -*)
-                log_error "Unknown option: $1"
-                print_usage
-                exit 1
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 696
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            -*)
-                log_error "Unknown option: $1"
-                print_usage
-                exit 1
-                ;;
-            *)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 697
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            -*)
-                log_error "Unknown option: $1"
-                print_usage
-                exit 1
-                ;;
-            *)
-                if [[-z "$hostname"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 698
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                log_error "Unknown option: $1"
-                print_usage
-                exit 1
-                ;;
-            *)
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 699
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                print_usage
-                exit 1
-                ;;
-            *)
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 700
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                exit 1
-                ;;
-            *)
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 701
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-            *)
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-                else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 702
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-            *)
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-                else
-                    log_error "Too many arguments"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 703
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                if [[-z "$hostname"]]; then
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-                else
-                    log_error "Too many arguments"
-                    print_usage
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 704
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                    hostname="$1"
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-                else
-                    log_error "Too many arguments"
-                    print_usage
-                    exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 705
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                elif [[-z "$ip_address"]]; then
-                    ip_address="$1"
-                else
-                    log_error "Too many arguments"
-                    print_usage
-                    exit 1
-                fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 706
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                    ip_address="$1"
-                else
-                    log_error "Too many arguments"
-                    print_usage
-                    exit 1
-                fi
-                shift
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 707
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                else
-                    log_error "Too many arguments"
-                    print_usage
-                    exit 1
-                fi
-                shift
-                ;;
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 708
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                    log_error "Too many arguments"
-                    print_usage
-                    exit 1
-                fi
-                shift
-                ;;
-        esac
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 709
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                    print_usage
-                    exit 1
-                fi
-                shift
-                ;;
-        esac
-    done
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 710
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                    exit 1
-                fi
-                shift
-                ;;
-        esac
-    done
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 711
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                fi
-                shift
-                ;;
-        esac
-    done
-
-    # Validate required arguments
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 712
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                shift
-                ;;
-        esac
-    done
-
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 713
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-                ;;
-        esac
-    done
-
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 714
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        esac
-    done
-
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 715
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    done
-
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-        exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 716
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-        exit 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 717
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Validate required arguments
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-        exit 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 718
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    if [[-z "$hostname"]] || [[-z "$ip_address"]]; then
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-        exit 1
-    fi
-
-    # Initialize log file
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 719
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        log_error "Missing required arguments: HOSTNAME and IP_ADDRESS"
-        print_usage
-        exit 1
-    fi
-
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 720
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        print_usage
-        exit 1
-    fi
-
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 721
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-        exit 1
-    fi
-
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 722
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    fi
-
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 723
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 724
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Initialize log file
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 725
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    mkdir -p "$(dirname "$LOG_FILE")"
-    touch "$LOG_FILE"
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-    # Perform validation
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 726
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    touch "$LOG_FILE"
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-    # Perform validation
-    log_info "Validating inputs..."
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 727
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-    # Perform validation
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 728
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "DNS Update Script v$SCRIPT_VERSION started"
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-    # Perform validation
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 729
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Hostname: $hostname, IP: $ip_address"
-
-    # Perform validation
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 730
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-    # Perform validation
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 731
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Perform validation
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
-        validate_tsig_key "$TSIG_KEY_FILE" || exit 1
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 732
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log_info "Validating inputs..."
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
-        validate_tsig_key "$TSIG_KEY_FILE" || exit 1
-    fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 733
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    validate_hostname "$hostname" || exit 1
-    validate_ip_address "$ip_address" || exit 1
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
-        validate_tsig_key "$TSIG_KEY_FILE" || exit 1
-    fi
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 734
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    validate_ip_address "$ip_address" || exit 1
-
-    if [[-n "$TSIG_KEY_FILE"]]; then
-        validate_tsig_key "$TSIG_KEY_FILE" || exit 1
-    fi
-
-    if ((${#DNS_SERVERS[@]} > 0)); then
+    cat  0)); then
 ```python
 
 ### Proposal

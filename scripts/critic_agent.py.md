@@ -1,27 +1,28 @@
 # Code Issues Report: scripts\critic_agent.py
 
-Generated: 2025-12-13T15:20:53.157512
+Generated: 2025-12-13T16:51:32.178306
 Source: scripts\critic_agent.py
 
 ## Issues Summary
 
-Total: 13 issues found
+Total: 14 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
 |------|--------|------|------|----------|---------|
 | 8 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
-| 71 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 71 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 90 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 90 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 109 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 109 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 140 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 140 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 164 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 164 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
-| 195 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
-| 195 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 73 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 73 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 92 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 92 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 111 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 111 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 142 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 142 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 166 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 166 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 197 | 0 | bandit | `B607` | LOW | Starting a process with a partial executable path |
+| 197 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
+| 293 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
 
@@ -29,14 +30,13 @@ Items marked below as fixed:
 
 ## Fix Proposals
 
-### 13 issues to fix
+### 14 issues to fix
 
 ### Issue at Line 8
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 
@@ -45,9 +45,9 @@ Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.
 """
 
 import subprocess
+import sys
 import json
-from pathlib import Path
-from typing import List, Dict, Any
+from datetime import datetime
 ```python
 
 ### Proposal
@@ -62,7 +62,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 71
+### Issue at Line 73
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -92,7 +92,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 71
+### Issue at Line 73
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -122,7 +122,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 90
+### Issue at Line 92
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -152,7 +152,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 90
+### Issue at Line 92
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -182,7 +182,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 109
+### Issue at Line 111
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -212,7 +212,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 109
+### Issue at Line 111
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -242,7 +242,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 140
+### Issue at Line 142
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -272,7 +272,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 140
+### Issue at Line 142
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -302,7 +302,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 164
+### Issue at Line 166
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -332,7 +332,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 164
+### Issue at Line 166
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -362,7 +362,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 195
+### Issue at Line 197
 
 **Tool:**bandit |**Code:**`B607` |**Severity:** LOW
 
@@ -392,7 +392,7 @@ from typing import List, Dict, Any
 
 ---
 
-### Issue at Line 195
+### Issue at Line 197
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
@@ -408,6 +408,36 @@ from typing import List, Dict, Any
                 ['golangci-lint', 'run', str(file_path), '--out-format=json'],
                 capture_output=True, text=True, timeout=20
             )
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 293
+
+**Tool:**bandit |**Code:**`B603` |**Severity:** LOW
+
+**Message:** subprocess call - check for execution of untrusted input.
+
+### Context
+
+```python
+                print("[Critic] Running fix_all_markdown.py to normalize reports...")
+                try:
+                    cmd = [sys.executable, str(fixer_path), "--quiet", "--max-line-length", "120"]
+                    subprocess.run(cmd, check=False, cwd=self.repo_root)
+                except Exception as exc:
+                    print(f"[Critic] Skipped markdown fixer: {exc}")
+            else:
 ```python
 
 ### Proposal

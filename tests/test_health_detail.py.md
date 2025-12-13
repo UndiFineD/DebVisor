@@ -1,6 +1,6 @@
 # Code Issues Report: tests\test_health_detail.py
 
-Generated: 2025-12-13T15:24:03.515401
+Generated: 2025-12-13T16:55:09.073694
 Source: tests\test_health_detail.py
 
 ## Issues Summary
@@ -33,14 +33,12 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local](https://local)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost](https://localhost)")
     if resp.status_code == 301:
         print(f"Redirecting to: {resp.headers.get('Location')}")
     assert resp.status_code in (200, 503)
@@ -65,9 +63,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -97,9 +93,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -129,9 +123,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -161,9 +153,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -193,9 +183,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -224,9 +212,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -255,16 +241,14 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
     monkeypatch.setenv("SMTP_STARTTLS", "true")
 
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local](https://local)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost](https://localhost)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data
@@ -287,14 +271,12 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
 ```python
-    resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local](https://local)h)o)s)t)")
+    resp = app_client.get("/health/detail", base_url="[https://localhost](https://localhost)")
     assert resp.status_code in (200, 503)
     data = resp.get_json()
     assert "checks" in data
@@ -318,9 +300,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -348,9 +328,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

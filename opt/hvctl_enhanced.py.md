@@ -1,6 +1,6 @@
 # Code Issues Report: opt\hvctl_enhanced.py
 
-Generated: 2025-12-13T15:12:19.949157
+Generated: 2025-12-13T16:42:24.622738
 Source: opt\hvctl_enhanced.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

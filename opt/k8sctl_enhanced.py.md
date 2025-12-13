@@ -1,6 +1,6 @@
 # Code Issues Report: opt\k8sctl_enhanced.py
 
-Generated: 2025-12-13T15:12:27.317173
+Generated: 2025-12-13T16:42:32.543860
 Source: opt\k8sctl_enhanced.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

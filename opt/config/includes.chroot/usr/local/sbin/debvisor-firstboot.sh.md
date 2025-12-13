@@ -1,6 +1,6 @@
 # Code Issues Report: opt\config\includes.chroot\usr\local\sbin\debvisor-firstboot.sh
 
-Generated: 2025-12-13T15:11:16.313450
+Generated: 2025-12-13T16:41:18.236876
 Source: opt\config\includes.chroot\usr\local\sbin\debvisor-firstboot.sh
 
 ## Issues Summary
@@ -745,7 +745,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ```python
 
 ### Proposal
@@ -774,7 +774,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -803,7 +803,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -832,7 +832,7 @@ Items marked below as fixed:
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -861,7 +861,7 @@ Items marked below as fixed:
 ```python
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -890,7 +890,7 @@ Items marked below as fixed:
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -919,7 +919,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -955,7 +955,6 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
 ```python
 
 ### Proposal
@@ -984,8 +983,7 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
+set -euo pipefail
 ```python
 
 ### Proposal
@@ -1013,9 +1011,8 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
+set -euo pipefail
+
 ```python
 
 ### Proposal
@@ -1042,10 +1039,9 @@ Items marked below as fixed:
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+set -euo pipefail
+
+log(){ echo "[debvisor-firstboot] $*"; }
 ```python
 
 ### Proposal
@@ -1071,11 +1067,10 @@ Items marked below as fixed:
 ```python
 ## limitations under the License.
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
+set -euo pipefail
+
+log(){ echo "[debvisor-firstboot] $*"; }
+
 ```python
 
 ### Proposal
@@ -1100,12 +1095,11 @@ Items marked below as fixed:
 
 ```python
 
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
+set -euo pipefail
+
+log(){ echo "[debvisor-firstboot] $*"; }
+
+MODE="lab"
 ```python
 
 ### Proposal
@@ -1129,13 +1123,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
+
+set -euo pipefail
+
+log(){ echo "[debvisor-firstboot] $*"; }
+
+MODE="lab"
+PROFILE="ceph"
 ```python
 
 ### Proposal
@@ -1159,13 +1153,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+set -euo pipefail
+
+log(){ echo "[debvisor-firstboot] $*"; }
+
+MODE="lab"
+PROFILE="ceph"
+OS_DISK=""
 ```python
 
 ### Proposal
@@ -1189,13 +1183,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+log(){ echo "[debvisor-firstboot] $*"; }
+
+MODE="lab"
+PROFILE="ceph"
+OS_DISK=""
+STORAGE_DISKS=()
 ```python
 
 ### Proposal
@@ -1219,13 +1213,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
+log(){ echo "[debvisor-firstboot] $*"; }
+
+MODE="lab"
+PROFILE="ceph"
+OS_DISK=""
+STORAGE_DISKS=()
+USB_DISKS=()
 ```python
 
 ### Proposal
@@ -1249,13 +1243,13 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+
+MODE="lab"
+PROFILE="ceph"
+OS_DISK=""
+STORAGE_DISKS=()
+USB_DISKS=()
+DRY_RUN="false"
 ```python
 
 ### Proposal
@@ -1279,12 +1273,12 @@ Items marked below as fixed:
 ### Context
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+MODE="lab"
+PROFILE="ceph"
+OS_DISK=""
+STORAGE_DISKS=()
+USB_DISKS=()
+DRY_RUN="false"
 
 ```python
 
@@ -1301,6816 +1295,6 @@ Items marked below as fixed:
 ---
 
 ### Issue at Line 22
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 23
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 24
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 25
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 26
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 27
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 28
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 29
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 30
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 31
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 32
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 33
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 34
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 35
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 36
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 37
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 38
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 39
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 40
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 41
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 42
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 43
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 44
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 45
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 46
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 47
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 48
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 49
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 50
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 51
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 52
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 53
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 54
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 55
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 56
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 57
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 58
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 59
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 60
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 61
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 62
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 63
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 64
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 65
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 66
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 67
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 68
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 69
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 70
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 71
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 72
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 73
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 74
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 75
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 76
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 77
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 78
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 79
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 80
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 81
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 82
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 83
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 84
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 85
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 86
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 87
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 88
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 89
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 90
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 91
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 92
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 93
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 94
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 95
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 96
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 97
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 98
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 99
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 100
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 101
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 102
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 103
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 104
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 105
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 106
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 107
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 108
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 109
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 110
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 111
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 112
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 113
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 114
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 115
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 116
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 117
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 118
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 119
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 120
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 121
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 122
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 123
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 124
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 125
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 126
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 127
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 128
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 129
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 130
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 131
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 132
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 133
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 134
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 135
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 136
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 137
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 138
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 139
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 140
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 141
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 142
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 143
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 144
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 145
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 146
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 147
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 148
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 149
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 150
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 151
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 152
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 153
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 154
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 155
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 156
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 157
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 158
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 159
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 160
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 161
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 162
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 163
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 164
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 165
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 166
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 167
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 168
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 169
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 170
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 171
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 172
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 173
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 174
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 175
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 176
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 177
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 178
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 179
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 180
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 181
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 182
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 183
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 184
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 185
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 186
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 187
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 188
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 189
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 190
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 191
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 192
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 193
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 194
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 195
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 196
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 197
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 198
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 199
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 200
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 201
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 202
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 203
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 204
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 205
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 206
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 207
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 208
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 209
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 210
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 211
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 212
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 213
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 214
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 215
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 216
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 217
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 218
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 219
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 220
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/bin/bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 221
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 222
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 223
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 224
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 225
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 226
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/usr/bin/env bash
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 227
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 228
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 229
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 230
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 231
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 232
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## !/usr/bin/env bash
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 233
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 234
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 235
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 236
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 237
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE](http://www.apache.org/licenses/LICENSE)-)2).)0)
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 238
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-set -euo pipefail
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 239
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-set -euo pipefail
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 240
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-set -euo pipefail
-
-log(){ echo "[debvisor-firstboot] $*"; }
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 241
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-set -euo pipefail
-
-log(){ echo "[debvisor-firstboot] $*"; }
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 242
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-## limitations under the License.
-
-set -euo pipefail
-
-log(){ echo "[debvisor-firstboot] $*"; }
-
-MODE="lab"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 243
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-set -euo pipefail
-
-log(){ echo "[debvisor-firstboot] $*"; }
-
-MODE="lab"
-PROFILE="ceph"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 244
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-set -euo pipefail
-
-log(){ echo "[debvisor-firstboot] $*"; }
-
-MODE="lab"
-PROFILE="ceph"
-OS_DISK=""
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 245
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-log(){ echo "[debvisor-firstboot] $*"; }
-
-MODE="lab"
-PROFILE="ceph"
-OS_DISK=""
-STORAGE_DISKS=()
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 246
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-log(){ echo "[debvisor-firstboot] $*"; }
-
-MODE="lab"
-PROFILE="ceph"
-OS_DISK=""
-STORAGE_DISKS=()
-USB_DISKS=()
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 247
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-MODE="lab"
-PROFILE="ceph"
-OS_DISK=""
-STORAGE_DISKS=()
-USB_DISKS=()
-DRY_RUN="false"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 248
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-MODE="lab"
-PROFILE="ceph"
-OS_DISK=""
-STORAGE_DISKS=()
-USB_DISKS=()
-DRY_RUN="false"
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 249
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8140,7 +1324,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 250
+### Issue at Line 23
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8170,7 +1354,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 251
+### Issue at Line 24
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8200,7 +1384,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 252
+### Issue at Line 25
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8230,7 +1414,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 253
+### Issue at Line 26
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8260,7 +1444,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 254
+### Issue at Line 27
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8290,7 +1474,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 255
+### Issue at Line 28
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8320,7 +1504,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 256
+### Issue at Line 29
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8350,7 +1534,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 257
+### Issue at Line 30
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8380,7 +1564,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 258
+### Issue at Line 31
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8410,7 +1594,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 259
+### Issue at Line 32
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8440,7 +1624,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 260
+### Issue at Line 33
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8470,7 +1654,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 261
+### Issue at Line 34
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8500,7 +1684,7 @@ parse_args(){
 
 ---
 
-### Issue at Line 262
+### Issue at Line 35
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
@@ -8514,6 +1698,5912 @@ parse_args(){
   if [["$DRY_RUN" == "true"]]; then
     log "Running in DRY-RUN mode: no destructive actions will be taken"
   fi
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 36
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  done
+  if [["$DRY_RUN" == "true"]]; then
+    log "Running in DRY-RUN mode: no destructive actions will be taken"
+  fi
+}
+
+load_profile_and_mode(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 37
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "Running in DRY-RUN mode: no destructive actions will be taken"
+  fi
+}
+
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 38
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "Running in DRY-RUN mode: no destructive actions will be taken"
+  fi
+}
+
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 39
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+}
+
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 40
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 41
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+  fi
+  PROFILE=${PROFILE:-ceph}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 42
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+load_profile_and_mode(){
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+  fi
+  PROFILE=${PROFILE:-ceph}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 43
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-f /etc/debvisor-profile]]; then
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+  fi
+  PROFILE=${PROFILE:-ceph}
+
+  if [[-f /etc/debvisor-mode]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 44
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    # shellcheck disable=SC1091
+    source /etc/debvisor-profile || true
+  fi
+  PROFILE=${PROFILE:-ceph}
+
+  if [[-f /etc/debvisor-mode]]; then
+    MODE=$(tr '[:upper:]' '[:lower:]'  
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 63
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+init_logging(){
+  mkdir -p /var/log/debvisor
+}
+
+mark_step(){
+  # mark_step  
+  local name="$1" status="$2"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 64
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  mkdir -p /var/log/debvisor
+}
+
+mark_step(){
+  # mark_step  
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 65
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+mark_step(){
+  # mark_step  
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 66
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+mark_step(){
+  # mark_step  
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 67
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+mark_step(){
+  # mark_step  
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+
+ensure_base_services(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 68
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  # mark_step  
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 69
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  local name="$1" status="$2"
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 70
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  echo "${status}" >"/var/log/debvisor/${name}.status" || true
+}
+
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 71
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 72
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+  fi
+  systemctl enable --now cockpit.socket || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 73
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+ensure_base_services(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+  fi
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 74
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+  fi
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 75
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
+    return 0
+  fi
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 76
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 77
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 78
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  systemctl enable --now cockpit.socket || true
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+}
+
+ensure_webpanel_user(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 79
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  modprobe kvm || true
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+}
+
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 80
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  modprobe kvm_intel || modprobe kvm_amd || true
+  systemctl enable --now libvirtd || true
+}
+
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 81
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  systemctl enable --now libvirtd || true
+}
+
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 82
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 83
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 84
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+ensure_webpanel_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+  fi
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 85
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+  fi
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 86
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    return 0
+  fi
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 87
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 88
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 89
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 90
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 91
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    debvisor-setup-webpanel-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 92
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 93
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+}
+
+ensure_rpc_user(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 94
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  else
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+}
+
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 95
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  fi
+}
+
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 96
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+}
+
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 97
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 98
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 99
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+ensure_rpc_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+  fi
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 100
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+  fi
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 101
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+    return 0
+  fi
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 102
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 103
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 104
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 105
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 106
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    debvisor-setup-rpc-user.sh || true
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 107
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 108
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+}
+
+ensure_tsig_rotator_user(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 109
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  else
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+}
+
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 110
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+}
+
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 111
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+}
+
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 112
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 113
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 114
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+ensure_tsig_rotator_user(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+  fi
+
+  if id tsig-rotator &>/dev/null; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 115
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+  fi
+
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 116
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    return 0
+  fi
+
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 117
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 118
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 119
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+    return 0
+  fi
+
+  log "Creating tsig-rotator system user"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 120
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if id tsig-rotator &>/dev/null; then
+    log "tsig-rotator user already exists"
+    return 0
+  fi
+
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 121
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "tsig-rotator user already exists"
+    return 0
+  fi
+
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 122
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 123
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+
+generate_keys(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 124
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 125
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  log "Creating tsig-rotator system user"
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 126
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  adduser --system --group --no-create-home tsig-rotator || true
+}
+
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 127
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 128
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 129
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+generate_keys(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+  fi
+
+  log "Generating cryptographic keys and secrets..."
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 130
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+  fi
+
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 131
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+    return 0
+  fi
+
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 132
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 133
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 134
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 135
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  log "Generating cryptographic keys and secrets..."
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+  mark_step keys success
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 136
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-f /opt/tools/first_boot_keygen.py]]; then
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+  mark_step keys success
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 137
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+  mark_step keys success
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 138
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  else
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+  mark_step keys success
+}
+
+configure_ups(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 139
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  fi
+  mark_step keys success
+}
+
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 140
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  mark_step keys success
+}
+
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 141
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  mark_step keys success
+}
+
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 142
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 143
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 144
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+configure_ups(){
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 145
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  # Enable NUT services only if a UPS configuration exists.
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 146
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 147
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    if [[-s /etc/nut/ups.conf]]; then
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 148
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+    return 0
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 149
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    else
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+    return 0
+  fi
+
+  if [[-s /etc/nut/ups.conf]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 150
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+    fi
+    return 0
+  fi
+
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 151
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    fi
+    return 0
+  fi
+
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 152
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 153
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 154
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 155
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-s /etc/nut/ups.conf]]; then
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 156
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "UPS configuration detected; enabling NUT services"
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 157
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    systemctl enable --now nut-server.service || true
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 158
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    systemctl enable --now nut-monitor.service || true
+    mark_step ups enabled
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+  fi
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 159
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    mark_step ups enabled
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+  fi
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 160
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  else
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+  fi
+}
+
+configure_locale_time(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 161
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    mark_step ups skipped
+  fi
+}
+
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 162
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    mark_step ups skipped
+  fi
+}
+
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 163
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+}
+
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 164
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 165
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 166
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+configure_locale_time(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 167
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 168
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would configure locale and timezone"
+    return 0
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 169
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+}
+
+configure_accounts(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 170
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+}
+
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 171
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  localectl set-locale LANG=en_US.UTF-8 || true
+  timedatectl set-timezone UTC || true
+}
+
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 172
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  timedatectl set-timezone UTC || true
+}
+
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 173
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 174
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 175
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+configure_accounts(){
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+  fi
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 176
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+  fi
+
+  for u in "${users[@]}"; do
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 177
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  local users=(root)
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+  fi
+
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 178
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$MODE" == "lab"]]; then
+    users=(root node monitor)
+  fi
+
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 179
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    users=(root node monitor)
+  fi
+
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 180
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+      else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 181
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+      else
+        log "Creating missing user: $u"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 182
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  for u in "${users[@]}"; do
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+      else
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 183
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    if ! id "$u" &>/dev/null; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+      else
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+      fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 184
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would create missing user: $u"
+      else
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+      fi
+    fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 185
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        log "[dry-run] Would create missing user: $u"
+      else
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+      fi
+    fi
+    if [["$u" != "root"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 186
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      else
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+      fi
+    fi
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 187
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        log "Creating missing user: $u"
+        adduser --disabled-password --gecos "" "$u"
+      fi
+    fi
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 188
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        adduser --disabled-password --gecos "" "$u"
+      fi
+    fi
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+      else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 189
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      fi
+    fi
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+      else
+        usermod -L "$u" || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 190
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    fi
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+      else
+        usermod -L "$u" || true
+      fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 191
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    if [["$u" != "root"]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+      else
+        usermod -L "$u" || true
+      fi
+    fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 192
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would lock user: $u"
+      else
+        usermod -L "$u" || true
+      fi
+    fi
+  done
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 193
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        log "[dry-run] Would lock user: $u"
+      else
+        usermod -L "$u" || true
+      fi
+    fi
+  done
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 194
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      else
+        usermod -L "$u" || true
+      fi
+    fi
+  done
+
+  if [["$MODE" == "lab"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 195
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        usermod -L "$u" || true
+      fi
+    fi
+  done
+
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 196
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      fi
+    fi
+  done
+
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 197
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    fi
+  done
+
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 198
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  done
+
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 199
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 200
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$MODE" == "lab"]]; then
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 201
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+}
+
+configure_networking(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 202
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  else
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+}
+
+configure_networking(){
+  local PRIMARY_DEV
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 203
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  fi
+}
+
+configure_networking(){
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 204
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+}
+
+configure_networking(){
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 205
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+configure_networking(){
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 206
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+configure_networking(){
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 207
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+configure_networking(){
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 208
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  local PRIMARY_DEV
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+  fi
+  if ! ip link show br0 &>/dev/null; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 209
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+  fi
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 210
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+  fi
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 211
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
+    return 0
+  fi
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 212
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    return 0
+  fi
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 213
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 214
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if ! ip link show br0 &>/dev/null; then
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 215
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    ip link add name br0 type bridge || true
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 216
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    # Disable STP to prevent topology change notifications and singing
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 217
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    ip link set br0 type bridge stp_state 0 || true
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 218
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    # Set ageing time and forward delay for stability
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 219
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    ip link set br0 type bridge ageing_time 30000 || true
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+  ip link set br0 up || true
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 220
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    ip link set br0 type bridge forward_delay 0 || true
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 221
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 222
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-n "${PRIMARY_DEV:-}"]]; then
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 223
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    ip link set "$PRIMARY_DEV" master br0 || true
+  fi
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+
+detect_disks(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 224
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+
+detect_disks(){
+  # Prefer stable by-id names where available
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 225
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  ip link set br0 up || true
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+
+detect_disks(){
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 226
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
+}
+
+detect_disks(){
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 227
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+detect_disks(){
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 228
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+
+detect_disks(){
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 229
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+detect_disks(){
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 230
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  # Prefer stable by-id names where available
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 231
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  local root_dev byid_root
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 232
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  root_dev=$(findmnt -no SOURCE / || true)
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 233
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-n "$root_dev"]]; then
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 234
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    root_dev=${root_dev#/dev/}
+    root_dev=${root_dev%%[0-9]*}
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 235
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    root_dev=${root_dev%%[0-9]*}
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+  if [[-n "$byid_root"]]; then
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 236
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+  if [[-n "$byid_root"]]; then
+    OS_DISK="/dev/disk/by-id/$byid_root"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 237
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+  if [[-n "$byid_root"]]; then
+    OS_DISK="/dev/disk/by-id/$byid_root"
+  else
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 238
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    # shellcheck disable=SC2010
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+  if [[-n "$byid_root"]]; then
+    OS_DISK="/dev/disk/by-id/$byid_root"
+  else
+    OS_DISK="/dev/${root_dev:-}"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 239
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
+  fi
+  if [[-n "$byid_root"]]; then
+    OS_DISK="/dev/disk/by-id/$byid_root"
+  else
+    OS_DISK="/dev/${root_dev:-}"
+  fi
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 240
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  if [[-n "$byid_root"]]; then
+    OS_DISK="/dev/disk/by-id/$byid_root"
+  else
+    OS_DISK="/dev/${root_dev:-}"
+  fi
+  mapfile -t STORAGE_DISKS }"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 245
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  mapfile -t STORAGE_DISKS }"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 246
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  mapfile -t STORAGE_DISKS }"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 247
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  if [[-n "$root_dev"]]; then
+    mapfile -t STORAGE_DISKS }"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 248
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+    mapfile -t STORAGE_DISKS }"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+
+detect_usb_disks(){
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 249
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  fi
+  log "OS disk: ${OS_DISK:-}"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+
+detect_usb_disks(){
+  USB_DISKS=()
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 250
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  log "OS disk: ${OS_DISK:-}"
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+
+detect_usb_disks(){
+  USB_DISKS=()
+  # A disk is considered USB/removable if /sys/block//removable == 1
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 251
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
+}
+
+detect_usb_disks(){
+  USB_DISKS=()
+  # A disk is considered USB/removable if /sys/block//removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 252
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+}
+
+detect_usb_disks(){
+  USB_DISKS=()
+  # A disk is considered USB/removable if /sys/block//removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    if [[-f "/sys/block/${dev}/removable"]] && [[ "$(/removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    if [[-f "/sys/block/${dev}/removable"]] && [[ "$(/removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    if [[-f "/sys/block/${dev}/removable"]] && [[ "$(/removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    if [[-f "/sys/block/${dev}/removable"]] && [[ "$(/removable == 1
+  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    if [[-f "/sys/block/${dev}/removable"]] && [[ "$(}"
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 261
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+        continue
+      fi
+      USB_DISKS+=("$dev")
+    fi
+  done
+  log "USB disks: ${USB_DISKS[*]:-}"
+}
+```python
+
+### Proposal
+
+- Review the issue message above
+
+- Consider the context code
+
+- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
+- Ensure the fix aligns with the codebase style and the context.md guidelines
+
+---
+
+### Issue at Line 262
+
+**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
+
+**Message:** Literal carriage return. Run script through tr -d '\r' .
+
+### Context
+
+```python
+      fi
+      USB_DISKS+=("$dev")
+    fi
+  done
+  log "USB disks: ${USB_DISKS[*]:-}"
 }
 
 ```python
@@ -8539,13 +7629,13 @@ parse_args(){
 ### Context
 
 ```python
+      USB_DISKS+=("$dev")
+    fi
   done
-  if [["$DRY_RUN" == "true"]]; then
-    log "Running in DRY-RUN mode: no destructive actions will be taken"
-  fi
+  log "USB disks: ${USB_DISKS[*]:-}"
 }
 
-load_profile_and_mode(){
+ceph_provision(){
 ```python
 
 ### Proposal
@@ -8569,13 +7659,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "Running in DRY-RUN mode: no destructive actions will be taken"
-  fi
+    fi
+  done
+  log "USB disks: ${USB_DISKS[*]:-}"
 }
 
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
 ```python
 
 ### Proposal
@@ -8599,13 +7689,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    log "Running in DRY-RUN mode: no destructive actions will be taken"
-  fi
+  done
+  log "USB disks: ${USB_DISKS[*]:-}"
 }
 
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
 ```python
 
 ### Proposal
@@ -8629,13 +7719,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  fi
+  log "USB disks: ${USB_DISKS[*]:-}"
 }
 
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -8661,11 +7751,11 @@ load_profile_and_mode(){
 ```python
 }
 
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
   fi
+
 ```python
 
 ### Proposal
@@ -8690,12 +7780,12 @@ load_profile_and_mode(){
 
 ```python
 
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
   fi
-  PROFILE=${PROFILE:-ceph}
+
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
 ```python
 
 ### Proposal
@@ -8719,13 +7809,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-load_profile_and_mode(){
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+ceph_provision(){
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
   fi
-  PROFILE=${PROFILE:-ceph}
 
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
 ```python
 
 ### Proposal
@@ -8749,13 +7839,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  if [[-f /etc/debvisor-profile]]; then
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+    return 0
   fi
-  PROFILE=${PROFILE:-ceph}
 
-  if [[-f /etc/debvisor-mode]]; then
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
 ```python
 
 ### Proposal
@@ -8779,13 +7869,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    # shellcheck disable=SC1091
-    source /etc/debvisor-profile || true
+    return 0
   fi
-  PROFILE=${PROFILE:-ceph}
 
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
+    return 0
 ```python
 
 ### Proposal
@@ -8809,12 +7899,12 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    source /etc/debvisor-profile || true
   fi
-  PROFILE=${PROFILE:-ceph}
 
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
+    return 0
   fi
 ```python
 
@@ -8839,13 +7929,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  fi
-  PROFILE=${PROFILE:-ceph}
 
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
+    return 0
   fi
-  MODE=${MODE:-lab}
+
 ```python
 
 ### Proposal
@@ -8869,13 +7959,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  PROFILE=${PROFILE:-ceph}
-
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
+    return 0
   fi
-  MODE=${MODE:-lab}
-  case "$MODE" in
+
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -8899,13 +7989,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+    log "Ceph already appears configured; skipping provisioning."
+    mark_step ceph success
+    return 0
   fi
-  MODE=${MODE:-lab}
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
 ```python
 
 ### Proposal
@@ -8929,13 +8019,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  if [[-f /etc/debvisor-mode]]; then
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+    mark_step ceph success
+    return 0
   fi
-  MODE=${MODE:-lab}
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
 ```python
 
 ### Proposal
@@ -8959,13 +8049,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    MODE=$(tr '[:upper:]' '[:lower:]' </etc/debvisor-mode | awk 'NF{print $1; exit}')
+    return 0
   fi
-  MODE=${MODE:-lab}
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
+    return 0
 ```python
 
 ### Proposal
@@ -8990,12 +8080,12 @@ load_profile_and_mode(){
 
 ```python
   fi
-  MODE=${MODE:-lab}
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
-  esac
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -9019,12 +8109,12 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  MODE=${MODE:-lab}
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
-  esac
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
+    return 0
+  fi
 
 ```python
 
@@ -9049,13 +8139,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-  case "$MODE" in
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
-  esac
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
+    return 0
+  fi
 
-  log "Using profile: $PROFILE"
+  log "Provisioning Ceph single-node"
 ```python
 
 ### Proposal
@@ -9079,13 +8169,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    prod|production) MODE="prod" ;;
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
-  esac
+    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step ceph skipped
+    return 0
+  fi
 
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
+  log "Provisioning Ceph single-node"
+  mkdir -p /var/lib/ceph
 ```python
 
 ### Proposal
@@ -9109,13 +8199,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    lab|dev|development) MODE="lab" ;;
-    *) MODE="lab" ;;
-  esac
+    mark_step ceph skipped
+    return 0
+  fi
 
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
-}
+  log "Provisioning Ceph single-node"
+  mkdir -p /var/lib/ceph
+  FSID=$(uuidgen)
 ```python
 
 ### Proposal
@@ -9139,553 +8229,13 @@ load_profile_and_mode(){
 ### Context
 
 ```python
-    *) MODE="lab" ;;
-  esac
-
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 284
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  esac
-
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
-}
-
-init_logging(){
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 285
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
-}
-
-init_logging(){
-  mkdir -p /var/log/debvisor
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 286
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  log "Using profile: $PROFILE"
-  log "Using mode: $MODE"
-}
-
-init_logging(){
-  mkdir -p /var/log/debvisor
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 287
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  log "Using mode: $MODE"
-}
-
-init_logging(){
-  mkdir -p /var/log/debvisor
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 288
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-init_logging(){
-  mkdir -p /var/log/debvisor
-}
-
-mark_step(){
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 289
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-init_logging(){
-  mkdir -p /var/log/debvisor
-}
-
-mark_step(){
-  # mark_step <name> <status>
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 290
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-init_logging(){
-  mkdir -p /var/log/debvisor
-}
-
-mark_step(){
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 291
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  mkdir -p /var/log/debvisor
-}
-
-mark_step(){
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 292
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-mark_step(){
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 293
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-mark_step(){
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 294
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-mark_step(){
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-
-ensure_base_services(){
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 295
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  # mark_step <name> <status>
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 296
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  local name="$1" status="$2"
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 297
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  echo "${status}" >"/var/log/debvisor/${name}.status" || true
-}
-
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-    return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 298
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
     return 0
   fi
-```python
 
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 299
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-    return 0
-  fi
-  systemctl enable --now cockpit.socket || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 300
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-ensure_base_services(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-    return 0
-  fi
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 301
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-    return 0
-  fi
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
+  log "Provisioning Ceph single-node"
+  mkdir -p /var/lib/ceph
+  FSID=$(uuidgen)
+  cat >/etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /dev/null; then
 ```python
 
 ### Proposal
@@ -9709,13 +8259,13 @@ ensure_base_services(){
 ### Context
 
 ```python
-    log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
-    return 0
-  fi
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
+  systemctl enable --now ceph-mon@"$HOSTNAME" || true
+  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
+
+  for dev in "${STORAGE_DISKS[@]}"; do
+    # Skip disks that already have a filesystem or partition table
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
 ```python
 
 ### Proposal
@@ -9739,13 +8289,13 @@ ensure_base_services(){
 ### Context
 
 ```python
-    return 0
-  fi
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
-}
+  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
+
+  for dev in "${STORAGE_DISKS[@]}"; do
+    # Skip disks that already have a filesystem or partition table
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
 ```python
 
 ### Proposal
@@ -9769,13 +8319,13 @@ ensure_base_services(){
 ### Context
 
 ```python
-  fi
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
-}
 
+  for dev in "${STORAGE_DISKS[@]}"; do
+    # Skip disks that already have a filesystem or partition table
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
+    fi
 ```python
 
 ### Proposal
@@ -9799,13 +8349,13 @@ ensure_base_services(){
 ### Context
 
 ```python
-  systemctl enable --now cockpit.socket || true
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
-}
-
-ensure_webpanel_user(){
+  for dev in "${STORAGE_DISKS[@]}"; do
+    # Skip disks that already have a filesystem or partition table
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$dev" || true
 ```python
 
 ### Proposal
@@ -9829,13 +8379,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  modprobe kvm || true
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
-}
-
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
+    # Skip disks that already have a filesystem or partition table
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
 ```python
 
 ### Proposal
@@ -9859,13 +8409,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  modprobe kvm_intel || modprobe kvm_amd || true
-  systemctl enable --now libvirtd || true
-}
-
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
+    if blkid "/dev/$dev" &>/dev/null; then
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 ```python
 
 ### Proposal
@@ -9889,13 +8439,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  systemctl enable --now libvirtd || true
-}
+      log "Skipping /dev/$dev (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
 ```python
 
 ### Proposal
@@ -9919,13 +8469,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-}
+      continue
+    fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
-  fi
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
 ```python
 
 ### Proposal
@@ -9949,13 +8499,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
+    fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
-  fi
-
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
 ```python
 
 ### Proposal
@@ -9979,13 +8529,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-ensure_webpanel_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
-  fi
+    wipefs -a "/dev/$dev" || true
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
 ```python
 
 ### Proposal
@@ -10009,13 +8559,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
-  fi
+    ceph-volume lvm create --data "/dev/$dev" || true
+  done
 
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
 ```python
 
 ### Proposal
@@ -10039,13 +8589,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-    log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
-    return 0
-  fi
+  done
 
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
 ```python
 
 ### Proposal
@@ -10069,13 +8619,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
 ```python
 
 ### Proposal
@@ -10099,13 +8649,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  fi
-
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
+  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
 ```python
 
 ### Proposal
@@ -10129,13 +8679,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
+  ceph osd pool create rbd 64 || true
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
 ```python
 
 ### Proposal
@@ -10159,13 +8709,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
+  rbd pool init rbd || true
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
 ```python
 
 ### Proposal
@@ -10189,13 +8739,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-    debvisor-setup-webpanel-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
-}
+  ceph osd pool create cephfs.data 64 || true
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
 ```python
 
 ### Proposal
@@ -10219,13 +8769,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-  elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
-}
-
+  ceph osd pool create cephfs.meta 32 || true
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
 ```python
 
 ### Proposal
@@ -10249,13 +8799,13 @@ ensure_webpanel_user(){
 ### Context
 
 ```python
-    /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
-}
-
-ensure_rpc_user(){
+  ceph fs new cephfs cephfs.meta cephfs.data || true
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
 ```python
 
 ### Proposal
@@ -10279,13 +8829,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-  else
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
+  mkdir -p /srv/cephfs
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
 }
-
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -10309,13 +8859,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-    log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
-  fi
+  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
 }
 
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
 ```python
 
 ### Proposal
@@ -10339,13 +8889,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-  fi
+  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
 }
 
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
-    return 0
+zfs_provision(){
 ```python
 
 ### Proposal
@@ -10369,13 +8919,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
+  mount -a || true
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
 }
 
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
-    return 0
-  fi
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
 ```python
 
 ### Proposal
@@ -10399,13 +8949,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
+  log "CephFS mounted at /srv/cephfs"
+  mark_step ceph success
+}
 
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
     return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -10429,13 +8979,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-ensure_rpc_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+  mark_step ceph success
+}
+
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
     return 0
   fi
-
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
 ```python
 
 ### Proposal
@@ -10459,13 +9009,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+}
+
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
     return 0
   fi
 
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
 ```python
 
 ### Proposal
@@ -10489,13 +9039,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-    log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
+
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
     return 0
   fi
 
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
 ```python
 
 ### Proposal
@@ -10519,13 +9069,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
+zfs_provision(){
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
     return 0
   fi
 
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
 ```python
 
 ### Proposal
@@ -10549,13 +9099,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
+  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
+    return 0
   fi
 
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
 ```python
 
 ### Proposal
@@ -10579,13 +9129,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
+    return 0
+  fi
 
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
+    return 0
 ```python
 
 ### Proposal
@@ -10609,12 +9159,12 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-  if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  fi
+
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
+    return 0
   fi
 ```python
 
@@ -10639,13 +9189,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-    debvisor-setup-rpc-user.sh || true
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
+    return 0
   fi
-}
+
 ```python
 
 ### Proposal
@@ -10669,13 +9219,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-  elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
+    return 0
   fi
-}
 
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
 ```python
 
 ### Proposal
@@ -10699,13 +9249,13 @@ ensure_rpc_user(){
 ### Context
 
 ```python
-    /usr/local/sbin/debvisor-setup-rpc-user.sh || true
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+    log "ZFS pool 'tank' already exists; skipping provisioning."
+    mark_step zfs success
+    return 0
   fi
-}
 
-ensure_tsig_rotator_user(){
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
 ```python
 
 ### Proposal
@@ -10729,13 +9279,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-  else
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+    mark_step zfs success
+    return 0
   fi
-}
 
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -10759,13 +9309,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-    log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
+    return 0
   fi
-}
 
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
+    return 0
 ```python
 
 ### Proposal
@@ -10790,12 +9340,12 @@ ensure_tsig_rotator_user(){
 
 ```python
   fi
-}
 
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
     return 0
+  fi
 ```python
 
 ### Proposal
@@ -10819,13 +9369,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-}
 
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
     return 0
   fi
+
 ```python
 
 ### Proposal
@@ -10849,13 +9399,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
     return 0
   fi
 
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -10879,13 +9429,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-ensure_tsig_rotator_user(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    log "No extra disks for ZFS"
+    mark_step zfs skipped
     return 0
   fi
 
-  if id tsig-rotator &>/dev/null; then
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
 ```python
 
 ### Proposal
@@ -10909,13 +9459,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
+    mark_step zfs skipped
     return 0
   fi
 
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -10939,12 +9489,12 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-    log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
     return 0
   fi
 
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
 ```python
 
@@ -10969,11 +9519,11 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-    return 0
   fi
 
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
 ```python
@@ -10999,10 +9549,10 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-  fi
 
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
 
@@ -11029,13 +9579,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
 
-  log "Creating tsig-rotator system user"
+  log "Provisioning ZFS pool"
 ```python
 
 ### Proposal
@@ -11059,13 +9609,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-  if id tsig-rotator &>/dev/null; then
-    log "tsig-rotator user already exists"
+    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
 
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
 ```python
 
 ### Proposal
@@ -11089,13 +9639,13 @@ ensure_tsig_rotator_user(){
 ### Context
 
 ```python
-    log "tsig-rotator user already exists"
+    mark_step zfs skipped
     return 0
   fi
 
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
-}
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
+  local WIPED=()
 ```python
 
 ### Proposal
@@ -11122,10 +9672,10 @@ ensure_tsig_rotator_user(){
     return 0
   fi
 
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
-}
-
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
 ```python
 
 ### Proposal
@@ -11151,11 +9701,11 @@ ensure_tsig_rotator_user(){
 ```python
   fi
 
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
-}
-
-generate_keys(){
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
 ```python
 
 ### Proposal
@@ -11180,12 +9730,12 @@ generate_keys(){
 
 ```python
 
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
-}
-
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
 ```python
 
 ### Proposal
@@ -11209,13 +9759,13 @@ generate_keys(){
 ### Context
 
 ```python
-  log "Creating tsig-rotator system user"
-  adduser --system --group --no-create-home tsig-rotator || true
-}
-
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
+  log "Provisioning ZFS pool"
+  modprobe zfs || true
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
 ```python
 
 ### Proposal
@@ -11239,13 +9789,13 @@ generate_keys(){
 ### Context
 
 ```python
-  adduser --system --group --no-create-home tsig-rotator || true
-}
-
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
+  modprobe zfs || true
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
+    fi
 ```python
 
 ### Proposal
@@ -11269,13 +9819,13 @@ generate_keys(){
 ### Context
 
 ```python
-}
-
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
-  fi
+  local WIPED=()
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
 ```python
 
 ### Proposal
@@ -11299,13 +9849,13 @@ generate_keys(){
 ### Context
 
 ```python
-
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
-  fi
-
+  for d in "${STORAGE_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
 ```python
 
 ### Proposal
@@ -11329,13 +9879,13 @@ generate_keys(){
 ### Context
 
 ```python
-generate_keys(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
-  fi
-
-  log "Generating cryptographic keys and secrets..."
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
+  done
 ```python
 
 ### Proposal
@@ -11359,13 +9909,13 @@ generate_keys(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
-  fi
+      log "Skipping /dev/$d for ZFS (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
+  done
 
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
 ```python
 
 ### Proposal
@@ -11389,13 +9939,13 @@ generate_keys(){
 ### Context
 
 ```python
-    log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
-    return 0
-  fi
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
+  done
 
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
+  if [[${#WIPED[@]} -eq 0]]; then
 ```python
 
 ### Proposal
@@ -11419,13 +9969,13 @@ generate_keys(){
 ### Context
 
 ```python
-    return 0
-  fi
+    fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
+  done
 
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
 ```python
 
 ### Proposal
@@ -11449,13 +9999,13 @@ generate_keys(){
 ### Context
 
 ```python
-  fi
+    wipefs -a "/dev/$d" || true
+    WIPED+=("/dev/$d")
+  done
 
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -11479,13 +10029,13 @@ generate_keys(){
 ### Context
 
 ```python
+    WIPED+=("/dev/$d")
+  done
 
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
-  fi
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
+    return 0
 ```python
 
 ### Proposal
@@ -11509,13 +10059,13 @@ generate_keys(){
 ### Context
 
 ```python
-  log "Generating cryptographic keys and secrets..."
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  done
+
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
+    return 0
   fi
-  mark_step keys success
 ```python
 
 ### Proposal
@@ -11539,13 +10089,13 @@ generate_keys(){
 ### Context
 
 ```python
-  if [[-f /opt/tools/first_boot_keygen.py]]; then
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
+    return 0
   fi
-  mark_step keys success
-}
+
 ```python
 
 ### Proposal
@@ -11569,13 +10119,13 @@ generate_keys(){
 ### Context
 
 ```python
-    python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+  if [[${#WIPED[@]} -eq 0]]; then
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
+    return 0
   fi
-  mark_step keys success
-}
 
+  zpool create -f tank "${WIPED[@]}" || true
 ```python
 
 ### Proposal
@@ -11599,13 +10149,13 @@ generate_keys(){
 ### Context
 
 ```python
-  else
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+    log "No suitable empty disks for ZFS; skipping pool creation."
+    mark_step zfs skipped
+    return 0
   fi
-  mark_step keys success
-}
 
-configure_ups(){
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
 ```python
 
 ### Proposal
@@ -11629,13 +10179,13 @@ configure_ups(){
 ### Context
 
 ```python
-    log "Key generation script not found at /opt/tools/first_boot_keygen.py"
+    mark_step zfs skipped
+    return 0
   fi
-  mark_step keys success
-}
 
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
 ```python
 
 ### Proposal
@@ -11659,13 +10209,13 @@ configure_ups(){
 ### Context
 
 ```python
+    return 0
   fi
-  mark_step keys success
-}
 
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
 ### Proposal
@@ -11689,13 +10239,13 @@ configure_ups(){
 ### Context
 
 ```python
-  mark_step keys success
-}
+  fi
 
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
 ```python
 
 ### Proposal
@@ -11719,13 +10269,13 @@ configure_ups(){
 ### Context
 
 ```python
-}
 
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS pool tank ready"
 ```python
 
 ### Proposal
@@ -11749,13 +10299,13 @@ configure_ups(){
 ### Context
 
 ```python
-
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
+  zpool create -f tank "${WIPED[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS pool tank ready"
+  mark_step zfs success
 ```python
 
 ### Proposal
@@ -11779,13 +10329,13 @@ configure_ups(){
 ### Context
 
 ```python
-configure_ups(){
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS pool tank ready"
+  mark_step zfs success
+}
 ```python
 
 ### Proposal
@@ -11809,13 +10359,13 @@ configure_ups(){
 ### Context
 
 ```python
-  # Enable NUT services only if a UPS configuration exists.
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS pool tank ready"
+  mark_step zfs success
+}
+
 ```python
 
 ### Proposal
@@ -11839,13 +10389,13 @@ configure_ups(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
-    return 0
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS pool tank ready"
+  mark_step zfs success
+}
+
+zfs_provision_usb_pool(){
 ```python
 
 ### Proposal
@@ -11869,13 +10419,13 @@ configure_ups(){
 ### Context
 
 ```python
-    if [[-s /etc/nut/ups.conf]]; then
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
-    return 0
-  fi
+  done
+  log "ZFS pool tank ready"
+  mark_step zfs success
+}
+
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
 ```python
 
 ### Proposal
@@ -11899,13 +10449,13 @@ configure_ups(){
 ### Context
 
 ```python
-      log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
-    return 0
-  fi
+  log "ZFS pool tank ready"
+  mark_step zfs success
+}
 
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
 ```python
 
 ### Proposal
@@ -11929,13 +10479,13 @@ configure_ups(){
 ### Context
 
 ```python
-    else
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
-    return 0
-  fi
+  mark_step zfs success
+}
 
-  if [[-s /etc/nut/ups.conf]]; then
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
+    return 0
 ```python
 
 ### Proposal
@@ -11959,13 +10509,13 @@ configure_ups(){
 ### Context
 
 ```python
-      log "[dry-run] No UPS configuration found; NUT services remain disabled"
-    fi
+}
+
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
     return 0
   fi
-
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
 ```python
 
 ### Proposal
@@ -11989,13 +10539,13 @@ configure_ups(){
 ### Context
 
 ```python
-    fi
+
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
     return 0
   fi
 
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
 ```python
 
 ### Proposal
@@ -12019,13 +10569,13 @@ configure_ups(){
 ### Context
 
 ```python
+zfs_provision_usb_pool(){
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
     return 0
   fi
 
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
 ```python
 
 ### Proposal
@@ -12049,13 +10599,13 @@ configure_ups(){
 ### Context
 
 ```python
+  # usb-zfs profile: build a ZFS pool across removable USB disks only.
+  if [["$PROFILE" != "usb-zfs"]]; then
+    return 0
   fi
 
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
 ```python
 
 ### Proposal
@@ -12079,13 +10629,13 @@ configure_ups(){
 ### Context
 
 ```python
+  if [["$PROFILE" != "usb-zfs"]]; then
+    return 0
+  fi
 
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
-  else
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
 ```python
 
 ### Proposal
@@ -12109,13 +10659,13 @@ configure_ups(){
 ### Context
 
 ```python
-  if [[-s /etc/nut/ups.conf]]; then
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
+    return 0
+  fi
+
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
+    return 0
 ```python
 
 ### Proposal
@@ -12139,13 +10689,13 @@ configure_ups(){
 ### Context
 
 ```python
-    log "UPS configuration detected; enabling NUT services"
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+  fi
+
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -12169,13 +10719,13 @@ configure_ups(){
 ### Context
 
 ```python
-    systemctl enable --now nut-server.service || true
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
+    return 0
   fi
+
 ```python
 
 ### Proposal
@@ -12199,13 +10749,13 @@ configure_ups(){
 ### Context
 
 ```python
-    systemctl enable --now nut-monitor.service || true
-    mark_step ups enabled
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
+    return 0
   fi
-}
+
+  if [[${#USB_DISKS[@]} -lt 3]]; then
 ```python
 
 ### Proposal
@@ -12229,13 +10779,13 @@ configure_ups(){
 ### Context
 
 ```python
-    mark_step ups enabled
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+    log "ZFS pool 'tank' already exists; skipping USB provisioning."
+    mark_step zfs success
+    return 0
   fi
-}
 
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
 ```python
 
 ### Proposal
@@ -12259,13 +10809,13 @@ configure_ups(){
 ### Context
 
 ```python
-  else
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+    mark_step zfs success
+    return 0
   fi
-}
 
-configure_locale_time(){
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -12289,13 +10839,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-    log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
-    mark_step ups skipped
+    return 0
   fi
-}
 
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
+    return 0
 ```python
 
 ### Proposal
@@ -12319,13 +10869,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-    mark_step ups skipped
   fi
-}
 
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -12349,13 +10899,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-  fi
-}
 
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
+  fi
+
 ```python
 
 ### Proposal
@@ -12379,13 +10929,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-}
-
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
+  if [[${#USB_DISKS[@]} -lt 3]]; then
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
+
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -12409,13 +10959,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
+    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
+    mark_step zfs skipped
     return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
 ### Proposal
@@ -12439,13 +10989,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-configure_locale_time(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
+    mark_step zfs skipped
     return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -12469,13 +11019,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure locale and timezone"
     return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
-}
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
+    return 0
 ```python
 
 ### Proposal
@@ -12499,13 +11049,13 @@ configure_locale_time(){
 ### Context
 
 ```python
-    log "[dry-run] Would configure locale and timezone"
+  fi
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
     return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
-}
-
 ```python
 
 ### Proposal
@@ -12529,13 +11079,13 @@ configure_locale_time(){
 ### Context
 
 ```python
+
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
     return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
-}
 
-configure_accounts(){
 ```python
 
 ### Proposal
@@ -12559,13 +11109,13 @@ configure_accounts(){
 ### Context
 
 ```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
+    return 0
   fi
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
-}
 
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
 ### Proposal
@@ -12589,13 +11139,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  localectl set-locale LANG=en_US.UTF-8 || true
-  timedatectl set-timezone UTC || true
-}
+    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
+    mark_step zfs skipped
+    return 0
+  fi
 
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
 ```python
 
 ### Proposal
@@ -12619,13 +11169,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  timedatectl set-timezone UTC || true
-}
+    mark_step zfs skipped
+    return 0
+  fi
 
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
+
 ```python
 
 ### Proposal
@@ -12649,13 +11199,13 @@ configure_accounts(){
 ### Context
 
 ```python
-}
+    return 0
+  fi
 
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
+
+  local CANDIDATES=()
 ```python
 
 ### Proposal
@@ -12679,13 +11229,13 @@ configure_accounts(){
 ### Context
 
 ```python
-
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
   fi
+
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
+
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
 ```python
 
 ### Proposal
@@ -12709,13 +11259,13 @@ configure_accounts(){
 ### Context
 
 ```python
-configure_accounts(){
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
-  fi
 
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
+
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
 ```python
 
 ### Proposal
@@ -12739,13 +11289,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  # In prod mode, do not auto-create node/monitor; only ensure root exists.
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
-  fi
+  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
+  modprobe zfs || true
 
-  for u in "${users[@]}"; do
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
 ```python
 
 ### Proposal
@@ -12769,13 +11319,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  local users=(root)
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
-  fi
+  modprobe zfs || true
 
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
 ```python
 
 ### Proposal
@@ -12799,13 +11349,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  if [["$MODE" == "lab"]]; then
-    users=(root node monitor)
-  fi
 
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
+    fi
 ```python
 
 ### Proposal
@@ -12829,13 +11379,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    users=(root node monitor)
-  fi
-
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
+  local CANDIDATES=()
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
 ```python
 
 ### Proposal
@@ -12859,13 +11409,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  fi
-
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
-      else
+  for d in "${USB_DISKS[@]}"; do
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
 ```python
 
 ### Proposal
@@ -12889,13 +11439,13 @@ configure_accounts(){
 ### Context
 
 ```python
-
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
-      else
-        log "Creating missing user: $u"
+    if blkid "/dev/$d" &>/dev/null; then
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
+  done
 ```python
 
 ### Proposal
@@ -12919,13 +11469,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  for u in "${users[@]}"; do
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
-      else
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
+      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
+  done
+
 ```python
 
 ### Proposal
@@ -12949,13 +11499,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    if ! id "$u" &>/dev/null; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
-      else
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
-      fi
+      continue
+    fi
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
+  done
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
 ```python
 
 ### Proposal
@@ -12979,13 +11529,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would create missing user: $u"
-      else
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
-      fi
     fi
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
+  done
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
 ```python
 
 ### Proposal
@@ -13009,13 +11559,13 @@ configure_accounts(){
 ### Context
 
 ```python
-        log "[dry-run] Would create missing user: $u"
-      else
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
-      fi
-    fi
-    if [["$u" != "root"]]; then
+    wipefs -a "/dev/$d" || true
+    CANDIDATES+=("/dev/$d")
+  done
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -13039,13 +11589,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      else
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
-      fi
-    fi
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
+    CANDIDATES+=("/dev/$d")
+  done
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
+    return 0
 ```python
 
 ### Proposal
@@ -13069,13 +11619,13 @@ configure_accounts(){
 ### Context
 
 ```python
-        log "Creating missing user: $u"
-        adduser --disabled-password --gecos "" "$u"
-      fi
-    fi
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
+  done
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -13099,13 +11649,13 @@ configure_accounts(){
 ### Context
 
 ```python
-        adduser --disabled-password --gecos "" "$u"
-      fi
-    fi
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
-      else
+
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
+    return 0
+  fi
+
 ```python
 
 ### Proposal
@@ -13129,13 +11679,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      fi
-    fi
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
-      else
-        usermod -L "$u" || true
+  if [[${#CANDIDATES[@]} -lt 3]]; then
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
+    return 0
+  fi
+
+  # Use raidz1 across all candidate USB sticks
 ```python
 
 ### Proposal
@@ -13159,13 +11709,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    fi
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
-      else
-        usermod -L "$u" || true
-      fi
+    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
+    mark_step zfs skipped
+    return 0
+  fi
+
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
 ```python
 
 ### Proposal
@@ -13189,13 +11739,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    if [["$u" != "root"]]; then
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
-      else
-        usermod -L "$u" || true
-      fi
-    fi
+    mark_step zfs skipped
+    return 0
+  fi
+
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
 ```python
 
 ### Proposal
@@ -13219,13 +11769,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      if [["$DRY_RUN" == "true"]]; then
-        log "[dry-run] Would lock user: $u"
-      else
-        usermod -L "$u" || true
-      fi
-    fi
-  done
+    return 0
+  fi
+
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
 ```python
 
 ### Proposal
@@ -13249,13 +11799,13 @@ configure_accounts(){
 ### Context
 
 ```python
-        log "[dry-run] Would lock user: $u"
-      else
-        usermod -L "$u" || true
-      fi
-    fi
-  done
+  fi
 
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
 ### Proposal
@@ -13279,13 +11829,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      else
-        usermod -L "$u" || true
-      fi
-    fi
-  done
 
-  if [["$MODE" == "lab"]]; then
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
 ```python
 
 ### Proposal
@@ -13309,13 +11859,13 @@ configure_accounts(){
 ### Context
 
 ```python
-        usermod -L "$u" || true
-      fi
-    fi
+  # Use raidz1 across all candidate USB sticks
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
   done
-
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
 ```python
 
 ### Proposal
@@ -13339,13 +11889,13 @@ configure_accounts(){
 ### Context
 
 ```python
-      fi
-    fi
+  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
   done
-
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
 ```python
 
 ### Proposal
@@ -13369,13 +11919,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    fi
+  zfs set compression=lz4 tank || true
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
   done
-
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
+}
 ```python
 
 ### Proposal
@@ -13399,13 +11949,13 @@ configure_accounts(){
 ### Context
 
 ```python
+  for ds in vm docker k8s; do
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
   done
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
+}
 
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
 ```python
 
 ### Proposal
@@ -13429,13 +11979,13 @@ configure_accounts(){
 ### Context
 
 ```python
-
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
+    zfs create -o mountpoint=/srv/$ds tank/$ds || true
+  done
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
 }
+
+configure_docker(){
 ```python
 
 ### Proposal
@@ -13459,13 +12009,13 @@ configure_accounts(){
 ### Context
 
 ```python
-  if [["$MODE" == "lab"]]; then
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
+  done
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
 }
 
+configure_docker(){
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -13489,13 +12039,13 @@ configure_accounts(){
 ### Context
 
 ```python
-    log "Lab mode: node/monitor created and locked; set passwords as needed."
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
+  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+  mark_step zfs success
 }
 
-configure_networking(){
+configure_docker(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
 ```python
 
 ### Proposal
@@ -13519,13 +12069,13 @@ configure_networking(){
 ### Context
 
 ```python
-  else
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
+  mark_step zfs success
 }
 
-configure_networking(){
-  local PRIMARY_DEV
+configure_docker(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
+    return 0
 ```python
 
 ### Proposal
@@ -13549,13 +12099,13 @@ configure_networking(){
 ### Context
 
 ```python
-    log "Prod mode: only root ensured; create additional accounts via your workflow."
-  fi
 }
 
-configure_networking(){
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+configure_docker(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -13579,13 +12129,13 @@ configure_networking(){
 ### Context
 
 ```python
-  fi
-}
 
-configure_networking(){
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+configure_docker(){
   if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
+    return 0
+  fi
+  mkdir -p /etc/docker /srv/docker
 ```python
 
 ### Proposal
@@ -13609,1063 +12159,13 @@ configure_networking(){
 ### Context
 
 ```python
-}
-
-configure_networking(){
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
+configure_docker(){
   if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 433
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-configure_networking(){
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-    return 0
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 434
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-configure_networking(){
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
+    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
     return 0
   fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 435
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  local PRIMARY_DEV
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-    return 0
-  fi
-  if ! ip link show br0 &>/dev/null; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 436
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-    return 0
-  fi
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 437
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-    return 0
-  fi
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 438
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-<none>} with STP disabled"
-    return 0
-  fi
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 439
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    return 0
-  fi
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 440
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  fi
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 441
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if ! ip link show br0 &>/dev/null; then
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 442
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    ip link add name br0 type bridge || true
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 443
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Disable STP to prevent topology change notifications and singing
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 444
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    ip link set br0 type bridge stp_state 0 || true
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 445
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # Set ageing time and forward delay for stability
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 446
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    ip link set br0 type bridge ageing_time 30000 || true
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-  ip link set br0 up || true
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 447
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    ip link set br0 type bridge forward_delay 0 || true
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 448
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  fi
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 449
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if [[-n "${PRIMARY_DEV:-}"]]; then
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 450
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    ip link set "$PRIMARY_DEV" master br0 || true
-  fi
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-
-detect_disks(){
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 451
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  fi
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-
-detect_disks(){
-  # Prefer stable by-id names where available
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 452
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  ip link set br0 up || true
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-
-detect_disks(){
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 453
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
-}
-
-detect_disks(){
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 454
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-}
-
-detect_disks(){
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 455
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-
-detect_disks(){
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 456
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-detect_disks(){
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 457
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  # Prefer stable by-id names where available
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-  fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 458
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  local root_dev byid_root
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 459
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  root_dev=$(findmnt -no SOURCE / || true)
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 460
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if [[-n "$root_dev"]]; then
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 461
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    root_dev=${root_dev#/dev/}
-    root_dev=${root_dev%%[0-9]*}
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 462
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    root_dev=${root_dev%%[0-9]*}
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-  if [[-n "$byid_root"]]; then
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 463
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  fi
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 464
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-  else
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 465
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    # shellcheck disable=SC2010
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-  else
-    OS_DISK="/dev/${root_dev:-}"
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 466
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-    byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
-  fi
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-  else
-    OS_DISK="/dev/${root_dev:-}"
-  fi
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 467
-
-**Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
-
-**Message:** Literal carriage return. Run script through tr -d '\r' .
-
-### Context
-
-```python
-  fi
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-  else
-    OS_DISK="/dev/${root_dev:-}"
-  fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
+  mkdir -p /etc/docker /srv/docker
+  cat >/etc/docker/daemon.json /etc/docker/daemon.json /etc/docker/daemon.json /etc/docker/daemon.json /etc/docker/daemon.json /etc/docker/daemon.json /etc/docker/daemon.json /tmp/calico.yaml 2>/dev/null; then
 ```python
 
 ### Proposal
@@ -14689,13 +12189,13 @@ detect_disks(){
 ### Context
 
 ```python
-  if [[-n "$byid_root"]]; then
-    OS_DISK="/dev/disk/by-id/$byid_root"
-  else
-    OS_DISK="/dev/${root_dev:-}"
   fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
+
+  mkdir -p /root/.kube
+  cp -f /etc/kubernetes/admin.conf /root/.kube/config || true
+
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
 ```python
 
 ### Proposal
@@ -14719,13 +12219,13 @@ detect_disks(){
 ### Context
 
 ```python
-    OS_DISK="/dev/disk/by-id/$byid_root"
+
+  mkdir -p /root/.kube
+  cp -f /etc/kubernetes/admin.conf /root/.kube/config || true
+
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
   else
-    OS_DISK="/dev/${root_dev:-}"
-  fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
 ```python
 
 ### Proposal
@@ -14749,13 +12249,13 @@ detect_disks(){
 ### Context
 
 ```python
+  mkdir -p /root/.kube
+  cp -f /etc/kubernetes/admin.conf /root/.kube/config || true
+
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
   else
-    OS_DISK="/dev/${root_dev:-}"
-  fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
-  fi
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
 ```python
 
 ### Proposal
@@ -14779,13 +12279,13 @@ detect_disks(){
 ### Context
 
 ```python
-    OS_DISK="/dev/${root_dev:-}"
+  cp -f /etc/kubernetes/admin.conf /root/.kube/config || true
+
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
+  else
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
-  fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
 ```python
 
 ### Proposal
@@ -14809,13 +12309,13 @@ detect_disks(){
 ### Context
 
 ```python
+
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
+  else
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
-  fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
+
 ```python
 
 ### Proposal
@@ -14839,13 +12339,13 @@ detect_disks(){
 ### Context
 
 ```python
-  mapfile -t STORAGE_DISKS < <(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}')
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
+  if curl -fsSL [https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml](https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml) >/tmp/calico.yaml 2>/dev/null; then
+    kubectl apply -f /tmp/calico.yaml || true
+  else
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
-}
+
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
 ```python
 
 ### Proposal
@@ -14869,13 +12369,13 @@ detect_disks(){
 ### Context
 
 ```python
-  if [[-n "$root_dev"]]; then
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
+    kubectl apply -f /tmp/calico.yaml || true
+  else
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
-}
 
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
 ```python
 
 ### Proposal
@@ -14899,13 +12399,13 @@ detect_disks(){
 ### Context
 
 ```python
-    mapfile -t STORAGE_DISKS < <(printf '%s\n' "${STORAGE_DISKS[@]}" | grep -v "^${root_dev}$" || true)
+  else
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
-}
 
-detect_usb_disks(){
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
+  mark_step kubernetes success
 ```python
 
 ### Proposal
@@ -14929,13 +12429,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
+    log "Calico manifest fetch failed (offline or GitHub unavailable); skipping network plugin apply"
   fi
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
-}
 
-detect_usb_disks(){
-  USB_DISKS=()
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
+  mark_step kubernetes success
+}
 ```python
 
 ### Proposal
@@ -14959,13 +12459,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-  log "OS disk: ${OS_DISK:-<unknown>}"
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
+  fi
+
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
+  mark_step kubernetes success
 }
 
-detect_usb_disks(){
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
 ```python
 
 ### Proposal
@@ -14989,13 +12489,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-  log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-<none>}"
+
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
+  mark_step kubernetes success
 }
 
-detect_usb_disks(){
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+configure_firewall(){
 ```python
 
 ### Proposal
@@ -15019,13 +12519,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
+  log "Kubernetes initialized"
+  mark_step kubernetes success
 }
 
-detect_usb_disks(){
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -15049,13 +12549,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
+  log "Kubernetes initialized"
+  mark_step kubernetes success
+}
 
-detect_usb_disks(){
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
 ```python
 
 ### Proposal
@@ -15079,13 +12579,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-detect_usb_disks(){
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
+  mark_step kubernetes success
+}
+
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
 ```python
 
 ### Proposal
@@ -15109,13 +12609,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-  USB_DISKS=()
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
+}
+
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
+  fi
 ```python
 
 ### Proposal
@@ -15139,13 +12639,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-  # A disk is considered USB/removable if /sys/block/<dev>/removable == 1
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
-      fi
+
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
+  fi
+  ufw default deny incoming || true
 ```python
 
 ### Proposal
@@ -15169,13 +12669,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-  for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
-      fi
-      USB_DISKS+=("$dev")
+configure_firewall(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
+  fi
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
 ```python
 
 ### Proposal
@@ -15199,13 +12699,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-    if [[-f "/sys/block/${dev}/removable"]] && [["$(<"/sys/block/${dev}/removable")" == "1"]]; then
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
-      fi
-      USB_DISKS+=("$dev")
-    fi
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
+  fi
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
 ```python
 
 ### Proposal
@@ -15229,13 +12729,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-      # Skip the OS disk if it happens to be removable
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
-      fi
-      USB_DISKS+=("$dev")
-    fi
-  done
+    log "[dry-run] Would configure ufw firewall for mode: $MODE (22, 9090, 6443)"
+    return 0
+  fi
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
 ```python
 
 ### Proposal
@@ -15259,13 +12759,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-      if [[-n "$OS_DISK" && "$dev" == "$OS_DISK"]]; then
-        continue
-      fi
-      USB_DISKS+=("$dev")
-    fi
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
+    return 0
+  fi
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
 ```python
 
 ### Proposal
@@ -15289,13 +12789,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-        continue
-      fi
-      USB_DISKS+=("$dev")
-    fi
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  fi
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
+
 ```python
 
 ### Proposal
@@ -15319,13 +12819,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-      fi
-      USB_DISKS+=("$dev")
-    fi
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  ufw default deny incoming || true
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
 
+  # In prod mode you might want to tighten further later; for now
 ```python
 
 ### Proposal
@@ -15349,13 +12849,13 @@ detect_usb_disks(){
 ### Context
 
 ```python
-      USB_DISKS+=("$dev")
-    fi
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  ufw default allow outgoing || true
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
 
-ceph_provision(){
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
 ```python
 
 ### Proposal
@@ -15379,13 +12879,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    fi
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  ufw allow 22/tcp || true
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
 
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
 ```python
 
 ### Proposal
@@ -15409,13 +12909,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  done
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  ufw allow 9090/tcp || true
+  ufw allow 6443/tcp || true
 
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
+
 ```python
 
 ### Proposal
@@ -15439,13 +12939,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  log "USB disks: ${USB_DISKS[*]:-<none>}"
-}
+  ufw allow 6443/tcp || true
 
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
+
+  ufw --force enable || true
 ```python
 
 ### Proposal
@@ -15469,13 +12969,13 @@ ceph_provision(){
 ### Context
 
 ```python
-}
 
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
 
+  ufw --force enable || true
+  log "Firewall rules applied"
 ```python
 
 ### Proposal
@@ -15499,13 +12999,13 @@ ceph_provision(){
 ### Context
 
 ```python
+  # In prod mode you might want to tighten further later; for now
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
 
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
-
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
+  ufw --force enable || true
+  log "Firewall rules applied"
+}
 ```python
 
 ### Proposal
@@ -15529,13 +13029,13 @@ ceph_provision(){
 ### Context
 
 ```python
-ceph_provision(){
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
+  # we just log the mode so behavior is visible.
+  log "Firewall configured for mode: $MODE"
 
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
+  ufw --force enable || true
+  log "Firewall rules applied"
+}
+
 ```python
 
 ### Proposal
@@ -15559,13 +13059,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
+  log "Firewall configured for mode: $MODE"
 
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
+  ufw --force enable || true
+  log "Firewall rules applied"
+}
+
+configure_libvirt_storage(){
 ```python
 
 ### Proposal
@@ -15589,13 +13089,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
-    return 0
+  ufw --force enable || true
+  log "Firewall rules applied"
+}
+
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -15619,13 +13119,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  fi
+  ufw --force enable || true
+  log "Firewall rules applied"
+}
 
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
-    return 0
-  fi
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
 ```python
 
 ### Proposal
@@ -15649,13 +13149,13 @@ ceph_provision(){
 ### Context
 
 ```python
+  log "Firewall rules applied"
+}
 
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -15679,13 +13179,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  if command -v ceph &>/dev/null && ceph status &>/dev/null; then
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
+}
+
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
   fi
-
-  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -15709,13 +13209,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    log "Ceph already appears configured; skipping provisioning."
-    mark_step ceph success
+
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
   fi
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
 ```python
 
 ### Proposal
@@ -15739,13 +13239,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    mark_step ceph success
+configure_libvirt_storage(){
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
   fi
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
 ```python
 
 ### Proposal
@@ -15769,13 +13269,13 @@ ceph_provision(){
 ### Context
 
 ```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
   fi
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
-    return 0
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
+  virsh pool-autostart default || true
 ```python
 
 ### Proposal
@@ -15799,13 +13299,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  fi
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
+    log "[dry-run] Would configure libvirt default storage pool at /var/lib/libvirt/images"
     return 0
   fi
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
 ```python
 
 ### Proposal
@@ -15829,13 +13329,13 @@ ceph_provision(){
 ### Context
 
 ```python
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
     return 0
   fi
-
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
+}
 ```python
 
 ### Proposal
@@ -15859,13 +13359,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
-    return 0
   fi
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
+}
 
-  log "Provisioning Ceph single-node"
 ```python
 
 ### Proposal
@@ -15889,13 +13389,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step ceph skipped
-    return 0
-  fi
+  virsh pool-define-as default dir - - - - /var/lib/libvirt/images || true
+  virsh pool-start default || true
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
+}
 
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
+run_addons(){
 ```python
 
 ### Proposal
@@ -15919,13 +13419,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    mark_step ceph skipped
-    return 0
-  fi
+  virsh pool-start default || true
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
+}
 
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
-  FSID=$(uuidgen)
+run_addons(){
+  if command -v ansible-playbook &>/dev/null; then
 ```python
 
 ### Proposal
@@ -15949,13 +13449,13 @@ ceph_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
+  virsh pool-autostart default || true
+  log "Libvirt default pool configured"
+}
 
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
-  FSID=$(uuidgen)
-  cat >/etc/ceph/ceph.conf <<EOF
+run_addons(){
+  if command -v ansible-playbook &>/dev/null; then
+    if [[! -f /etc/debvisor-addons.conf]]; then
 ```python
 
 ### Proposal
@@ -15979,13 +13479,13 @@ ceph_provision(){
 ### Context
 
 ```python
-  fi
+  log "Libvirt default pool configured"
+}
 
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
-  FSID=$(uuidgen)
-  cat >/etc/ceph/ceph.conf <<EOF
-[global]
+run_addons(){
+  if command -v ansible-playbook &>/dev/null; then
+    if [[! -f /etc/debvisor-addons.conf]]; then
+      # If no explicit addons config, try a profile-based default.
 ```python
 
 ### Proposal
@@ -16009,13 +13509,13 @@ ceph_provision(){
 ### Context
 
 ```python
+}
 
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
-  FSID=$(uuidgen)
-  cat >/etc/ceph/ceph.conf <<EOF
-[global]
-fsid = $FSID
+run_addons(){
+  if command -v ansible-playbook &>/dev/null; then
+    if [[! -f /etc/debvisor-addons.conf]]; then
+      # If no explicit addons config, try a profile-based default.
+      if [[-f "/etc/debvisor-addons.d/${PROFILE}.conf"]]; then
 ```python
 
 ### Proposal
@@ -16039,13 +13539,13 @@ fsid = $FSID
 ### Context
 
 ```python
-  log "Provisioning Ceph single-node"
-  mkdir -p /var/lib/ceph
-  FSID=$(uuidgen)
-  cat >/etc/ceph/ceph.conf <<EOF
-[global]
-fsid = $FSID
-mon_allow_pool_delete = true
+
+run_addons(){
+  if command -v ansible-playbook &>/dev/null; then
+    if [[! -f /etc/debvisor-addons.conf]]; then
+      # If no explicit addons config, try a profile-based default.
+      if [[-f "/etc/debvisor-addons.d/${PROFILE}.conf"]]; then
+        cp "/etc/debvisor-addons.d/${PROFILE}.conf" /etc/debvisor-addons.conf || true
 ```python
 
 ### Proposal
@@ -16069,13 +13569,13 @@ mon_allow_pool_delete = true
 ### Context
 
 ```python
-public_network = 0.0.0.0/0
-cluster_network = 0.0.0.0/0
-EOF
-  HOSTNAME=$(hostnamectl --static)
-  ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
+    fi
+
+    if [[-f /etc/debvisor-addons.conf && -f /usr/local/share/debvisor/ansible/bootstrap-addons.yml]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would run addons bootstrap via Ansible with /etc/debvisor-addons.conf"
+        mark_step addons skipped
+      else
 ```python
 
 ### Proposal
@@ -16099,13 +13599,13 @@ EOF
 ### Context
 
 ```python
-cluster_network = 0.0.0.0/0
-EOF
-  HOSTNAME=$(hostnamectl --static)
-  ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
+
+    if [[-f /etc/debvisor-addons.conf && -f /usr/local/share/debvisor/ansible/bootstrap-addons.yml]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would run addons bootstrap via Ansible with /etc/debvisor-addons.conf"
+        mark_step addons skipped
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
 ```python
 
 ### Proposal
@@ -16129,13 +13629,13 @@ EOF
 ### Context
 
 ```python
-EOF
-  HOSTNAME=$(hostnamectl --static)
-  ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
+    if [[-f /etc/debvisor-addons.conf && -f /usr/local/share/debvisor/ansible/bootstrap-addons.yml]]; then
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would run addons bootstrap via Ansible with /etc/debvisor-addons.conf"
+        mark_step addons skipped
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
 ```python
 
 ### Proposal
@@ -16159,13 +13659,13 @@ EOF
 ### Context
 
 ```python
-  HOSTNAME=$(hostnamectl --static)
-  ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
+      if [["$DRY_RUN" == "true"]]; then
+        log "[dry-run] Would run addons bootstrap via Ansible with /etc/debvisor-addons.conf"
+        mark_step addons skipped
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
 ```python
 
 ### Proposal
@@ -16189,13 +13689,13 @@ EOF
 ### Context
 
 ```python
-  ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *' || true
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
-  for dev in "${STORAGE_DISKS[@]}"; do
+        log "[dry-run] Would run addons bootstrap via Ansible with /etc/debvisor-addons.conf"
+        mark_step addons skipped
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
+        else
 ```python
 
 ### Proposal
@@ -16219,13 +13719,13 @@ EOF
 ### Context
 
 ```python
-  mkdir -p "/var/lib/ceph/mon/ceph-$HOSTNAME"
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
+        mark_step addons skipped
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
+        else
+          log "Addons bootstrap failed (non-fatal)"
 ```python
 
 ### Proposal
@@ -16249,13 +13749,13 @@ EOF
 ### Context
 
 ```python
-  ceph-mon --mkfs -i "$HOSTNAME" --keyring /etc/ceph/ceph.mon.keyring || true
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
+      else
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
+        else
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
 ```python
 
 ### Proposal
@@ -16279,13 +13779,13 @@ EOF
 ### Context
 
 ```python
-  systemctl enable --now ceph-mon@"$HOSTNAME" || true
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
+        log "Running DebVisor addons bootstrap via Ansible (flags from /etc/debvisor-addons.conf; defaults are all 'no' for a minimal core)"
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
+        else
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
+        fi
 ```python
 
 ### Proposal
@@ -16309,13 +13809,13 @@ EOF
 ### Context
 
 ```python
-  systemctl enable --now ceph-mgr@"$HOSTNAME" || true
-
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
+        if ansible-playbook /usr/local/share/debvisor/ansible/bootstrap-addons.yml; then
+          mark_step addons success
+        else
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
+        fi
+      fi
 ```python
 
 ### Proposal
@@ -16339,13 +13839,13 @@ EOF
 ### Context
 
 ```python
-
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
-    fi
+          mark_step addons success
+        else
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
+        fi
+      fi
+    else
 ```python
 
 ### Proposal
@@ -16369,13 +13869,13 @@ EOF
 ### Context
 
 ```python
-  for dev in "${STORAGE_DISKS[@]}"; do
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$dev" || true
+        else
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
+        fi
+      fi
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
 ```python
 
 ### Proposal
@@ -16399,13 +13899,13 @@ EOF
 ### Context
 
 ```python
-    # Skip disks that already have a filesystem or partition table
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
+          log "Addons bootstrap failed (non-fatal)"
+          mark_step addons failed
+        fi
+      fi
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
 ```python
 
 ### Proposal
@@ -16429,13 +13929,13 @@ EOF
 ### Context
 
 ```python
-    if blkid "/dev/$dev" &>/dev/null; then
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
+          mark_step addons failed
+        fi
+      fi
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
     fi
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
 ```python
 
 ### Proposal
@@ -16459,13 +13959,13 @@ EOF
 ### Context
 
 ```python
-      log "Skipping /dev/$dev (appears to contain data)"
-      continue
+        fi
+      fi
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
     fi
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
-
+  else
 ```python
 
 ### Proposal
@@ -16489,13 +13989,13 @@ EOF
 ### Context
 
 ```python
-      continue
+      fi
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
     fi
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
-
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
 ```python
 
 ### Proposal
@@ -16519,13 +14019,13 @@ EOF
 ### Context
 
 ```python
+    else
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
     fi
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
-
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
 ```python
 
 ### Proposal
@@ -16549,13 +14049,13 @@ EOF
 ### Context
 
 ```python
-    wipefs -a "/dev/$dev" || true
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
-
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
+      log "Addons config or playbook missing; skipping addons bootstrap"
+      mark_step addons skipped
+    fi
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
+  fi
 ```python
 
 ### Proposal
@@ -16579,13 +14079,13 @@ EOF
 ### Context
 
 ```python
-    ceph-volume lvm create --data "/dev/$dev" || true
-  done
-
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
+      mark_step addons skipped
+    fi
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
+  fi
+}
 ```python
 
 ### Proposal
@@ -16609,13 +14109,13 @@ EOF
 ### Context
 
 ```python
-  done
+    fi
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
+  fi
+}
 
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
 ```python
 
 ### Proposal
@@ -16639,13 +14139,13 @@ EOF
 ### Context
 
 ```python
+  else
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
+  fi
+}
 
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
+main(){
 ```python
 
 ### Proposal
@@ -16669,13 +14169,13 @@ EOF
 ### Context
 
 ```python
-  systemctl enable --now ceph-mds@"$HOSTNAME" || true
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
+    log "ansible-playbook not found; skipping addons bootstrap"
+    mark_step addons skipped
+  fi
+}
+
+main(){
+  init_logging
 ```python
 
 ### Proposal
@@ -16699,13 +14199,13 @@ EOF
 ### Context
 
 ```python
-  ceph osd pool create rbd 64 || true
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
+    mark_step addons skipped
+  fi
+}
+
+main(){
+  init_logging
+  parse_args "$@"
 ```python
 
 ### Proposal
@@ -16729,13 +14229,13 @@ EOF
 ### Context
 
 ```python
-  rbd pool init rbd || true
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
+  fi
+}
+
+main(){
+  init_logging
+  parse_args "$@"
+  load_profile_and_mode
 ```python
 
 ### Proposal
@@ -16759,13 +14259,13 @@ EOF
 ### Context
 
 ```python
-  ceph osd pool create cephfs.data 64 || true
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
+}
+
+main(){
+  init_logging
+  parse_args "$@"
+  load_profile_and_mode
+  ensure_base_services
 ```python
 
 ### Proposal
@@ -16789,13 +14289,13 @@ EOF
 ### Context
 
 ```python
-  ceph osd pool create cephfs.meta 32 || true
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
+
+main(){
+  init_logging
+  parse_args "$@"
+  load_profile_and_mode
+  ensure_base_services
+  ensure_webpanel_user
 ```python
 
 ### Proposal
@@ -16819,13 +14319,13 @@ EOF
 ### Context
 
 ```python
-  ceph fs new cephfs cephfs.meta cephfs.data || true
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
+main(){
+  init_logging
+  parse_args "$@"
+  load_profile_and_mode
+  ensure_base_services
+  ensure_webpanel_user
+  ensure_rpc_user
 ```python
 
 ### Proposal
@@ -16849,13 +14349,13 @@ EOF
 ### Context
 
 ```python
-  mkdir -p /srv/cephfs
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
-}
+  init_logging
+  parse_args "$@"
+  load_profile_and_mode
+  ensure_base_services
+  ensure_webpanel_user
+  ensure_rpc_user
+  ensure_tsig_rotator_user
 ```python
 
 ### Proposal
@@ -16879,13 +14379,13 @@ EOF
 ### Context
 
 ```python
-  ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
-}
-
+  parse_args "$@"
+  load_profile_and_mode
+  ensure_base_services
+  ensure_webpanel_user
+  ensure_rpc_user
+  ensure_tsig_rotator_user
+  generate_keys
 ```python
 
 ### Proposal
@@ -16909,13 +14409,13 @@ EOF
 ### Context
 
 ```python
-  echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
-}
-
-zfs_provision(){
+  load_profile_and_mode
+  ensure_base_services
+  ensure_webpanel_user
+  ensure_rpc_user
+  ensure_tsig_rotator_user
+  generate_keys
+  configure_ups
 ```python
 
 ### Proposal
@@ -16939,13 +14439,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  mount -a || true
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
-}
-
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
+  ensure_base_services
+  ensure_webpanel_user
+  ensure_rpc_user
+  ensure_tsig_rotator_user
+  generate_keys
+  configure_ups
+  configure_locale_time
 ```python
 
 ### Proposal
@@ -16969,13 +14469,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  log "CephFS mounted at /srv/cephfs"
-  mark_step ceph success
-}
-
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
+  ensure_webpanel_user
+  ensure_rpc_user
+  ensure_tsig_rotator_user
+  generate_keys
+  configure_ups
+  configure_locale_time
+  configure_accounts
 ```python
 
 ### Proposal
@@ -16999,13 +14499,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  mark_step ceph success
-}
-
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
+  ensure_rpc_user
+  ensure_tsig_rotator_user
+  generate_keys
+  configure_ups
+  configure_locale_time
+  configure_accounts
+  configure_networking
 ```python
 
 ### Proposal
@@ -17029,13 +14529,13 @@ zfs_provision(){
 ### Context
 
 ```python
-}
-
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
-
+  ensure_tsig_rotator_user
+  generate_keys
+  configure_ups
+  configure_locale_time
+  configure_accounts
+  configure_networking
+  detect_disks
 ```python
 
 ### Proposal
@@ -17059,13 +14559,13 @@ zfs_provision(){
 ### Context
 
 ```python
-
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
+  generate_keys
+  configure_ups
+  configure_locale_time
+  configure_accounts
+  configure_networking
+  detect_disks
+  detect_usb_disks
 ```python
 
 ### Proposal
@@ -17089,13 +14589,13 @@ zfs_provision(){
 ### Context
 
 ```python
-zfs_provision(){
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
+  configure_ups
+  configure_locale_time
+  configure_accounts
+  configure_networking
+  detect_disks
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
 ```python
 
 ### Proposal
@@ -17119,13 +14619,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
-    return 0
-  fi
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
+  configure_locale_time
+  configure_accounts
+  configure_networking
+  detect_disks
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
 ```python
 
 ### Proposal
@@ -17149,13 +14649,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
-    return 0
+  configure_accounts
+  configure_networking
+  detect_disks
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
 ```python
 
 ### Proposal
@@ -17179,13 +14679,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  fi
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
-    return 0
-  fi
+  configure_networking
+  detect_disks
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
 ```python
 
 ### Proposal
@@ -17209,13 +14709,13 @@ zfs_provision(){
 ### Context
 
 ```python
-
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
-    return 0
-  fi
-
+  detect_disks
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
 ```python
 
 ### Proposal
@@ -17239,13 +14739,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
-    return 0
-  fi
-
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
+  detect_usb_disks
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
 ```python
 
 ### Proposal
@@ -17269,13 +14769,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    log "ZFS pool 'tank' already exists; skipping provisioning."
-    mark_step zfs success
-    return 0
-  fi
-
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
+  ceph_provision || mark_step ceph failed
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
+  configure_libvirt_storage
 ```python
 
 ### Proposal
@@ -17299,13 +14799,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    mark_step zfs success
-    return 0
-  fi
-
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
+  zfs_provision || mark_step zfs failed
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
+  configure_libvirt_storage
+  run_addons
 ```python
 
 ### Proposal
@@ -17329,13 +14829,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
+  zfs_provision_usb_pool || mark_step zfs failed
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
+  configure_libvirt_storage
+  run_addons
 
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
-    return 0
 ```python
 
 ### Proposal
@@ -17359,13 +14859,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  fi
+  configure_docker
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
+  configure_libvirt_storage
+  run_addons
 
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
-    return 0
-  fi
+  log "DebVisor first boot complete"
 ```python
 
 ### Proposal
@@ -17389,13 +14889,13 @@ zfs_provision(){
 ### Context
 
 ```python
+  kubernetes_init || mark_step kubernetes failed
+  configure_firewall
+  configure_libvirt_storage
+  run_addons
 
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
-    return 0
-  fi
-
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
 ```python
 
 ### Proposal
@@ -17419,13 +14919,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  if [[${#STORAGE_DISKS[@]} -eq 0]]; then
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
-    return 0
-  fi
+  configure_firewall
+  configure_libvirt_storage
+  run_addons
 
-  if [["$DRY_RUN" == "true"]]; then
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
 ```python
 
 ### Proposal
@@ -17449,13 +14949,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    log "No extra disks for ZFS"
-    mark_step zfs skipped
-    return 0
-  fi
+  configure_libvirt_storage
+  run_addons
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
 ```python
 
 ### Proposal
@@ -17479,13 +14979,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
-  fi
+  run_addons
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
+  fi
 ```python
 
 ### Proposal
@@ -17509,13 +15009,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
+  fi
+  # Disable service so it does not re-run
 ```python
 
 ### Proposal
@@ -17539,13 +15039,13 @@ zfs_provision(){
 ### Context
 
 ```python
+  log "DebVisor first boot complete"
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
   fi
-
+  # Disable service so it does not re-run
   if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -17569,13 +15069,13 @@ zfs_provision(){
 ### Context
 
 ```python
-
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
+  # Generate profile observability summary if helper is available
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
   fi
-
+  # Disable service so it does not re-run
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
 ```python
 
 ### Proposal
@@ -17599,13 +15099,13 @@ zfs_provision(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
+  if command -v debvisor-profile-summary.sh >/dev/null 2>&1; then
+    debvisor-profile-summary.sh || true
   fi
-
-  log "Provisioning ZFS pool"
+  # Disable service so it does not re-run
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
 ```python
 
 ### Proposal
@@ -17629,13 +15129,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
+    debvisor-profile-summary.sh || true
   fi
-
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
+  # Disable service so it does not re-run
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
+    systemctl disable debvisor-firstboot.service || true
 ```python
 
 ### Proposal
@@ -17659,13 +15159,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
   fi
-
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
-  local WIPED=()
+  # Disable service so it does not re-run
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
+    systemctl disable debvisor-firstboot.service || true
+  fi
 ```python
 
 ### Proposal
@@ -17689,13 +15189,13 @@ zfs_provision(){
 ### Context
 
 ```python
-    return 0
+  # Disable service so it does not re-run
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
+    systemctl disable debvisor-firstboot.service || true
   fi
-
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
+}
 ```python
 
 ### Proposal
@@ -17719,13 +15219,13 @@ zfs_provision(){
 ### Context
 
 ```python
+  if [["$DRY_RUN" == "true"]]; then
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
+    systemctl disable debvisor-firstboot.service || true
   fi
+}
 
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
 ```python
 
 ### Proposal
@@ -17749,13 +15249,13 @@ zfs_provision(){
 ### Context
 
 ```python
+    log "[dry-run] Would disable debvisor-firstboot.service to avoid re-running"
+  else
+    systemctl disable debvisor-firstboot.service || true
+  fi
+}
 
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
+main "$@"
 ```python
 
 ### Proposal
@@ -17779,13 +15279,12 @@ zfs_provision(){
 ### Context
 
 ```python
-  log "Provisioning ZFS pool"
-  modprobe zfs || true
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
+  else
+    systemctl disable debvisor-firstboot.service || true
+  fi
+}
+
+main "$@"
 ```python
 
 ### Proposal
@@ -17809,13 +15308,11 @@ zfs_provision(){
 ### Context
 
 ```python
-  modprobe zfs || true
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
-    fi
+    systemctl disable debvisor-firstboot.service || true
+  fi
+}
+
+main "$@"
 ```python
 
 ### Proposal
@@ -17839,13 +15336,10 @@ zfs_provision(){
 ### Context
 
 ```python
-  local WIPED=()
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
+  fi
+}
+
+main "$@"
 ```python
 
 ### Proposal
@@ -17869,13 +15363,9 @@ zfs_provision(){
 ### Context
 
 ```python
-  for d in "${STORAGE_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
+}
+
+main "$@"
 ```python
 
 ### Proposal
@@ -17899,13 +15389,8 @@ zfs_provision(){
 ### Context
 
 ```python
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
-  done
+
+main "$@"
 ```python
 
 ### Proposal
@@ -17929,13 +15414,7 @@ zfs_provision(){
 ### Context
 
 ```python
-      log "Skipping /dev/$d for ZFS (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
-  done
-
+main "$@"
 ```python
 
 ### Proposal
@@ -17959,13 +15438,7 @@ zfs_provision(){
 ### Context
 
 ```python
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
-  done
 
-  if [[${#WIPED[@]} -eq 0]]; then
 ```python
 
 ### Proposal
@@ -17989,13 +15462,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    fi
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
-  done
 
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
 ```python
 
 ### Proposal
@@ -18019,13 +15486,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    wipefs -a "/dev/$d" || true
-    WIPED+=("/dev/$d")
-  done
 
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -18049,13 +15510,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    WIPED+=("/dev/$d")
-  done
 
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
-    return 0
 ```python
 
 ### Proposal
@@ -18079,13 +15534,7 @@ zfs_provision(){
 ### Context
 
 ```python
-  done
 
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -18110,12 +15559,6 @@ zfs_provision(){
 
 ```python
 
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -18139,13 +15582,7 @@ zfs_provision(){
 ### Context
 
 ```python
-  if [[${#WIPED[@]} -eq 0]]; then
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
-    return 0
-  fi
 
-  zpool create -f tank "${WIPED[@]}" || true
 ```python
 
 ### Proposal
@@ -18169,13 +15606,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    log "No suitable empty disks for ZFS; skipping pool creation."
-    mark_step zfs skipped
-    return 0
-  fi
 
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
 ```python
 
 ### Proposal
@@ -18199,13 +15630,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
-  fi
 
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
 ```python
 
 ### Proposal
@@ -18229,13 +15654,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
 ### Proposal
@@ -18259,13 +15678,7 @@ zfs_provision(){
 ### Context
 
 ```python
-  fi
 
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
 ```python
 
 ### Proposal
@@ -18290,12 +15703,6 @@ zfs_provision(){
 
 ```python
 
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS pool tank ready"
 ```python
 
 ### Proposal
@@ -18319,13 +15726,7 @@ zfs_provision(){
 ### Context
 
 ```python
-  zpool create -f tank "${WIPED[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS pool tank ready"
-  mark_step zfs success
+
 ```python
 
 ### Proposal
@@ -18349,13 +15750,7 @@ zfs_provision(){
 ### Context
 
 ```python
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS pool tank ready"
-  mark_step zfs success
-}
+
 ```python
 
 ### Proposal
@@ -18379,12 +15774,6 @@ zfs_provision(){
 ### Context
 
 ```python
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS pool tank ready"
-  mark_step zfs success
-}
 
 ```python
 
@@ -18409,13 +15798,7 @@ zfs_provision(){
 ### Context
 
 ```python
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS pool tank ready"
-  mark_step zfs success
-}
 
-zfs_provision_usb_pool(){
 ```python
 
 ### Proposal
@@ -18439,13 +15822,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  done
-  log "ZFS pool tank ready"
-  mark_step zfs success
-}
 
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
 ```python
 
 ### Proposal
@@ -18469,13 +15846,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  log "ZFS pool tank ready"
-  mark_step zfs success
-}
 
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
 ```python
 
 ### Proposal
@@ -18499,13 +15870,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  mark_step zfs success
-}
 
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
 ```python
 
 ### Proposal
@@ -18529,13 +15894,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-}
 
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -18560,12 +15919,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -18589,13 +15942,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-zfs_provision_usb_pool(){
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
-  fi
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
 ```python
 
 ### Proposal
@@ -18619,13 +15966,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  # usb-zfs profile: build a ZFS pool across removable USB disks only.
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
-  fi
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
 ```python
 
 ### Proposal
@@ -18649,13 +15990,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  if [["$PROFILE" != "usb-zfs"]]; then
-    return 0
-  fi
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
 ```python
 
 ### Proposal
@@ -18679,13 +16014,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
-    return 0
 ```python
 
 ### Proposal
@@ -18709,13 +16038,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  fi
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -18740,12 +16063,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -18769,13 +16086,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
-    return 0
-  fi
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
 ```python
 
 ### Proposal
@@ -18799,13 +16110,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    log "ZFS pool 'tank' already exists; skipping USB provisioning."
-    mark_step zfs success
-    return 0
-  fi
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
 ```python
 
 ### Proposal
@@ -18829,13 +16134,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    mark_step zfs success
-    return 0
-  fi
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -18859,13 +16158,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
 ```python
 
 ### Proposal
@@ -18889,13 +16182,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  fi
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -18920,12 +16207,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -18949,13 +16230,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  if [[${#USB_DISKS[@]} -lt 3]]; then
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -18979,13 +16254,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
 ### Proposal
@@ -19009,13 +16278,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -19039,13 +16302,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
-    return 0
 ```python
 
 ### Proposal
@@ -19069,13 +16326,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  fi
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -19100,12 +16351,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -19129,13 +16374,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
 ### Proposal
@@ -19159,13 +16398,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
 ```python
 
 ### Proposal
@@ -19189,12 +16422,6 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
-  fi
-
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
 
 ```python
 
@@ -19219,13 +16446,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
-
-  local CANDIDATES=()
 ```python
 
 ### Proposal
@@ -19249,13 +16470,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  fi
 
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
-
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
 ```python
 
 ### Proposal
@@ -19280,12 +16495,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
-
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
 ```python
 
 ### Proposal
@@ -19309,13 +16518,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
-  modprobe zfs || true
 
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
 ```python
 
 ### Proposal
@@ -19339,13 +16542,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  modprobe zfs || true
 
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
 ```python
 
 ### Proposal
@@ -19370,12 +16567,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
-    fi
 ```python
 
 ### Proposal
@@ -19399,13 +16590,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  local CANDIDATES=()
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
+
 ```python
 
 ### Proposal
@@ -19429,13 +16614,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  for d in "${USB_DISKS[@]}"; do
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
+
 ```python
 
 ### Proposal
@@ -19459,13 +16638,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    if blkid "/dev/$d" &>/dev/null; then
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
-  done
+
 ```python
 
 ### Proposal
@@ -19489,12 +16662,6 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-      log "Skipping /dev/$d for usb-zfs (appears to contain data)"
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
-  done
 
 ```python
 
@@ -19519,13 +16686,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-      continue
-    fi
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
-  done
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
 ```python
 
 ### Proposal
@@ -19549,13 +16710,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    fi
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
-  done
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
 ```python
 
 ### Proposal
@@ -19579,13 +16734,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    wipefs -a "/dev/$d" || true
-    CANDIDATES+=("/dev/$d")
-  done
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
 ```python
 
 ### Proposal
@@ -19609,13 +16758,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    CANDIDATES+=("/dev/$d")
-  done
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
 ```python
 
 ### Proposal
@@ -19639,13 +16782,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  done
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -19670,12 +16807,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
-
 ```python
 
 ### Proposal
@@ -19699,13 +16830,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  if [[${#CANDIDATES[@]} -lt 3]]; then
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  # Use raidz1 across all candidate USB sticks
 ```python
 
 ### Proposal
@@ -19729,13 +16854,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-<none>}"
-    mark_step zfs skipped
-    return 0
-  fi
 
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
 ```python
 
 ### Proposal
@@ -19759,13 +16878,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    mark_step zfs skipped
-    return 0
-  fi
 
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
 ```python
 
 ### Proposal
@@ -19789,13 +16902,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    return 0
-  fi
 
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
 ```python
 
 ### Proposal
@@ -19819,13 +16926,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  fi
 
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
 ### Proposal
@@ -19850,12 +16951,6 @@ zfs_provision_usb_pool(){
 
 ```python
 
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
 ```python
 
 ### Proposal
@@ -19879,13 +16974,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  # Use raidz1 across all candidate USB sticks
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
+
 ```python
 
 ### Proposal
@@ -19909,13 +16998,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
+
 ```python
 
 ### Proposal
@@ -19939,13 +17022,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  zfs set compression=lz4 tank || true
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
-}
+
 ```python
 
 ### Proposal
@@ -19969,12 +17046,6 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-  for ds in vm docker k8s; do
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
-}
 
 ```python
 
@@ -19999,13 +17070,7 @@ zfs_provision_usb_pool(){
 ### Context
 
 ```python
-    zfs create -o mountpoint=/srv/$ds tank/$ds || true
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
-}
 
-configure_docker(){
 ```python
 
 ### Proposal
@@ -20029,13 +17094,7 @@ configure_docker(){
 ### Context
 
 ```python
-  done
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
-}
 
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
 ```python
 
 ### Proposal
@@ -20059,13 +17118,7 @@ configure_docker(){
 ### Context
 
 ```python
-  log "ZFS usb-zfs pool 'tank' ready on USB sticks"
-  mark_step zfs success
-}
 
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
 ```python
 
 ### Proposal
@@ -20089,13 +17142,7 @@ configure_docker(){
 ### Context
 
 ```python
-  mark_step zfs success
-}
 
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
 ```python
 
 ### Proposal
@@ -20119,13 +17166,7 @@ configure_docker(){
 ### Context
 
 ```python
-}
 
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
-  fi
 ```python
 
 ### Proposal
@@ -20150,12 +17191,6 @@ configure_docker(){
 
 ```python
 
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
 ```python
 
 ### Proposal
@@ -20179,13 +17214,7 @@ configure_docker(){
 ### Context
 
 ```python
-configure_docker(){
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
+
 ```python
 
 ### Proposal
@@ -20209,13 +17238,7 @@ configure_docker(){
 ### Context
 
 ```python
-  if [["$DRY_RUN" == "true"]]; then
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
+
 ```python
 
 ### Proposal
@@ -20239,13 +17262,7 @@ configure_docker(){
 ### Context
 
 ```python
-    log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
-  "log-driver": "json-file",
+
 ```python
 
 ### Proposal
@@ -20269,13 +17286,7 @@ configure_docker(){
 ### Context
 
 ```python
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
-  "log-driver": "json-file",
-  "log-opts": { "max-size": "100m", "max-file": "3" },
+
 ```python
 
 ### Proposal
@@ -20299,13 +17310,7 @@ configure_docker(){
 ### Context
 
 ```python
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
-  "log-driver": "json-file",
-  "log-opts": { "max-size": "100m", "max-file": "3" },
+
 ```python
 
 ### Proposal
@@ -20329,13 +17334,7 @@ configure_docker(){
 ### Context
 
 ```python
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
-  "log-driver": "json-file",
-  "log-opts": { "max-size": "100m", "max-file": "3" },
+
 ```python
 
 ### Proposal
@@ -20359,13 +17358,7 @@ configure_docker(){
 ### Context
 
 ```python
-    return 0
-  fi
-  mkdir -p /etc/docker /srv/docker
-  cat >/etc/docker/daemon.json <<'JSON'
-{
-  "log-driver": "json-file",
-  "log-opts": { "max-size": "100m", "max-file": "3" },
+
 ```python
 
 ### Proposal
@@ -20384,15 +17377,12 @@ configure_docker(){
 
 **Tool:**shellcheck |**Code:**`1072` |**Severity:** ERROR
 
-**Message:** Here document was not correctly terminated. Fix any mentioned problems and
-try again.
+**Message:** Here document was not correctly terminated. Fix any mentioned problems and try again.
 
 ### Context
 
 ```python
-}
 
-main "$@"
 ```python
 
 ### Proposal

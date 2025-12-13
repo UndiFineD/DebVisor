@@ -10,7 +10,8 @@ restoration and system recovery |\n| [Performance Tuning](PERFORMANCE_TUNING.md)
 Guidelines for
 optimizing system performance |\n\n## Usage\n\nThese runbooks are intended for:\n\n-
 System
-Administrators\n\n- DevOps Engineers\n\n- Support Staff\n\nAlways follow the escalation
+Administrators\n\n- DevOps Engineers\n\n- Support Staff\n\nAlways follow the
+escalation
 path defined
 in the [Troubleshooting Guide](TROUBLESHOOTING_GUIDE.md) if an issue cannot be
 resolved.\n\n

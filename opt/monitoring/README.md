@@ -2,14 +2,17 @@
 
 monitoring,
 
-observability, and synthetic testing infrastructure.\n\n## Directory Structure\n\n
+observability, and synthetic testing infrastructure.\n\n## Directory
+Structure\n\n
 monitoring/\n +--
-README.md # This file\n +-- FIXTURES_GUIDE.md # Synthetic metrics fixtures guide\n +--
+README.md # This file\n +-- FIXTURES_GUIDE.md # Synthetic metrics fixtures
+guide\n +--
 fixtures/ #
 Optional synthetic metrics (labs only)\n | +-- README.md\n | +-- FIXTURES_GUIDE.md\n | +--
 edge-lab.yaml # Lab environment fixture\n | +-- edge-lab-deployment.yaml # Lab environment
 generator\n | +-- generator/ # Synthetic metrics generator source\n | +-- kustomize/ #
-Environment-specific customization\n +-- grafana/ # Grafana dashboards and provisioning\n
+Environment-specific customization\n +-- grafana/ # Grafana dashboards and
+provisioning\n
 +--
 README.md\n +-- dashboards/ # Dashboard JSON files\n +-- provisioning/\n | +-- dashboards/
 
@@ -20,20 +23,25 @@ manifests/ #
 Kubernetes manifests (optional)\n\n## Core Components\n\n### 1. Prometheus\n\n-
 *Purpose:**Time-series metrics collection, storage, and querying\n\n### DebVisor
 Integration\n\n-
-Scrapes metrics from all cluster nodes (Node Exporter)\n\n- Scrapes Kubernetes metrics
-(kube-state-metrics)\n\n- Scrapes container metrics (cAdvisor)\n\n- Scrapes Ceph cluster
+Scrapes metrics from all cluster nodes (Node Exporter)\n\n- Scrapes Kubernetes
 metrics
-(Ceph Exporter)\n\n- Scrapes custom DebVisor metrics (RPC service, web panel)\n\n###
+(kube-state-metrics)\n\n- Scrapes container metrics (cAdvisor)\n\n- Scrapes Ceph
+cluster
+metrics
+(Ceph Exporter)\n\n- Scrapes custom DebVisor metrics (RPC service, web
+panel)\n\n###
 Default
 Configuration\n\n- URL:
-[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s]([http://prometheus.debvisor-monitoring.](http://prometheus.debvisor-monitoring.)s)v)c):)9)0)9)0)\n\n-
-Retention: 30 days (configurable)\n\n- Global scrape interval: 30 seconds\n\n- Evaluation
+[http://prometheus.debvisor-monitoring.svc:9090]([http://prometheus.debvisor-monitoring.svc:909]([http://prometheus.debvisor-monitoring.svc:90]([http://prometheus.debvisor-monitoring.svc:9]([http://prometheus.debvisor-monitoring.svc:]([http://prometheus.debvisor-monitoring.svc]([http://prometheus.debvisor-monitoring.sv]([http://prometheus.debvisor-monitoring.s]([http://prometheus.debvisor-monitoring.]([http://prometheus.debvisor-monitoring]([http://prometheus.debvisor-monitorin]([http://prometheus.debvisor-monitori]([http://prometheus.debvisor-monitor]([http://prometheus.debvisor-monito]([http://prometheus.debvisor-monit]([http://prometheus.debvisor-moni]([http://prometheus.debvisor-mon]([http://prometheus.debvisor-mo]([http://prometheus.debvisor-m]([http://prometheus.debvisor-]([http://prometheus.debvisor]([http://prometheus.debviso]([http://prometheus.debvis]([http://prometheus.debvi](http://prometheus.debvi)s)o)r)-)m)o)n)i)t)o)r)i)n)g).)s)v)c):)9)0)9)0)\n\n-
+Retention: 30 days (configurable)\n\n- Global scrape interval: 30 seconds\n\n-
+Evaluation
 interval:
 1 minute for alert rules\n\n### Key Queries\n\n## Node CPU usage\n\n 100 *(1 -
 avg(rate(node_cpu_seconds_total{mode="idle"}[5m])))\n\n## Pod memory usage\n\n
 sum(container_memory_usage_bytes) by (pod_name)\n\n## Ceph cluster usage\n\n
 ceph_cluster_used_bytes
-/ ceph_cluster_capacity_bytes\n\n## API latency (p95)\n\n histogram_quantile(0.95,
+/ ceph_cluster_capacity_bytes\n\n## API latency (p95)\n\n
+histogram_quantile(0.95,
 rate(apiserver_request_duration_seconds_bucket[5m]))\n\n## 2.
 Grafana\n\n-*Purpose:**Visualization
 and dashboarding for Prometheus data\n\n### DebVisor Dashboards\n\n| Dashboard | Purpose |
@@ -47,12 +55,14 @@ tenant |\n|`dns-dhcp-overview`| DNS/DHCP operations | Zone transfers, DHCP lease
 |\n|`multi-tenant-isolation`| Tenant network isolation | Traffic patterns, boundaries
 |\n|`security-overview`| Security events and alerts | Alert firing, remediation status |\n\n###
 Default Configuration [2]\n\n- URL:
-[http://grafana.debvisor-monitoring.svc:3000]([http://grafana.debvisor-monitoring.svc:300]([http://grafana.debvisor-monitoring.svc:30]([http://grafana.debvisor-monitoring.svc:3]([http://grafana.debvisor-monitoring.svc:]([http://grafana.debvisor-monitoring.svc]([http://grafana.debvisor-monitoring.sv]([http://grafana.debvisor-monitoring.s]([http://grafana.debvisor-monitoring.](http://grafana.debvisor-monitoring.)s)v)c):)3)0)0)0)\n\n-
+[http://grafana.debvisor-monitoring.svc:3000]([http://grafana.debvisor-monitoring.svc:300]([http://grafana.debvisor-monitoring.svc:30]([http://grafana.debvisor-monitoring.svc:3]([http://grafana.debvisor-monitoring.svc:]([http://grafana.debvisor-monitoring.svc]([http://grafana.debvisor-monitoring.sv]([http://grafana.debvisor-monitoring.s]([http://grafana.debvisor-monitoring.]([http://grafana.debvisor-monitoring]([http://grafana.debvisor-monitorin]([http://grafana.debvisor-monitori]([http://grafana.debvisor-monitor]([http://grafana.debvisor-monito]([http://grafana.debvisor-monit]([http://grafana.debvisor-moni]([http://grafana.debvisor-mon]([http://grafana.debvisor-mo]([http://grafana.debvisor-m]([http://grafana.debvisor-]([http://grafana.debvisor]([http://grafana.debviso]([http://grafana.debvis]([http://grafana.debvi](http://grafana.debvi)s)o)r)-)m)o)n)i)t)o)r)i)n)g).)s)v)c):)3)0)0)0)\n\n-
 Datasource: Prometheus (UID:`prometheus-debvisor`)\n\n- Default admin:
 `admin`/`admin`(change in
 production)\n\n### Dashboard Provisioning\n\n- Dashboards auto-loaded
-from`provisioning/dashboards/`on startup\n\n- No manual import needed\n\n- Compatible with
-dashboard-as-code workflows\n\n### 3. Alertmanager\n\n- *Purpose:**Alert routing,
+from`provisioning/dashboards/`on startup\n\n- No manual import needed\n\n-
+Compatible with
+dashboard-as-code workflows\n\n### 3. Alertmanager\n\n- *Purpose:**Alert
+routing,
 grouping, and
 notification\n\n### DebVisor Alert Receivers\n\n| Receiver | Notification | Use Case
 |\n|----------|--------------|----------|\n|`email-ops`| Email to ops team | Critical infrastructure
@@ -64,7 +74,8 @@ slack-security\n | +-- match: alertname ~= "Security.*"\n +-- route: remediation
 | +--
 receiver: webhook-remediation\n | +-- match: alertname ~= ".*Remediation.*"\n +-- route:
 critical\n
-+-- receiver: pagerduty\n +-- match: severity="critical"\n\n### 4. Prometheus Alerting
++-- receiver: pagerduty\n +-- match: severity="critical"\n\n### 4. Prometheus
+Alerting
 Rules\n\n-
 *Location:**`grafana/provisioning/alerting/`\n\n### Rule Categories\n\n| Category |
 Examples |
@@ -78,56 +89,78 @@ failures, connectivity issues | Warning/Info |\n| Security | MFA violations, una
 access
 attempts | Critical |\n| Performance | API latency high, request rate high | Warning
 |\n\n### Alert
-Propagation\n\n Metric Value Exceeds Threshold\n v\n Prometheus Evaluates Rule\n v\n Alert
+Propagation\n\n Metric Value Exceeds Threshold\n v\n Prometheus Evaluates Rule\n
+v\n Alert
 Fires
-(active for duration threshold)\n v\n Alertmanager Receives Alert\n v\n Alertmanager
+(active for duration threshold)\n v\n Alertmanager Receives Alert\n v\n
+Alertmanager
 Routes to
-Receiver(s)\n v\n Notification Sent (email, Slack, webhook, etc.)\n v\n Optional:
+Receiver(s)\n v\n Notification Sent (email, Slack, webhook, etc.)\n v\n
+Optional:
 Auto-Remediation
-Triggered (via webhook to Argo Workflows)\n\n## Monitoring Setup Paths\n\n### Path 1:
-DebVisor-Provided Stack (Recommended for Labs)\n\nUse DebVisor's Prometheus + Grafana +
+Triggered (via webhook to Argo Workflows)\n\n## Monitoring Setup Paths\n\n###
+Path 1:
+DebVisor-Provided Stack (Recommended for Labs)\n\nUse DebVisor's Prometheus +
+Grafana +
 Alertmanager:\n\n## Apply DebVisor monitoring stack\n\n kubectl apply -f
 opt/monitoring/manifests/prometheus.yaml\n kubectl apply -f
 opt/monitoring/manifests/grafana.yaml\n
-kubectl apply -f opt/monitoring/manifests/alertmanager.yaml\n\n## Access Grafana\n\n
+kubectl apply -f opt/monitoring/manifests/alertmanager.yaml\n\n## Access
+Grafana\n\n
 kubectl
 port-forward svc/grafana 3000:3000 -n monitoring\n\n## Open
-[http://localhost:3000,]([http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho](http://localho)s)t):)3)0)0)0),)
-login as admin/admin\n\n## Pros\n\n- Integrated with DebVisor dashboards out-of-box\n\n-
+[http://localhost:3000,]([http://localhost:3000]([http://localhost:300]([http://localhost:30]([http://localhost:3]([http://localhost:]([http://localhost]([http://localhos]([http://localho]([http://localh]([http://local]([http://loca]([http://loc]([http://lo]([http://l](http://l)o)c)a)l)h)o)s)t):)3)0)0)0),)
+login as admin/admin\n\n## Pros\n\n- Integrated with DebVisor dashboards
+out-of-box\n\n-
 Minimal
-configuration needed\n\n- Pre-configured alert rules\n\n### Cons\n\n- Single-node
+configuration needed\n\n- Pre-configured alert rules\n\n### Cons\n\n-
+Single-node
 deployment (OK for
-labs)\n\n- Limited to Prometheus (no multi-metrics backends)\n\n- Requires Kubernetes
+labs)\n\n- Limited to Prometheus (no multi-metrics backends)\n\n- Requires
+Kubernetes
 cluster\n\n###
 Path 2: External Prometheus/Grafana\n\nIntegrate with existing monitoring
 infrastructure:\n\n##
-Configure Prometheus to scrape DebVisor targets\n\n## Add scrape job\n\n- job_name:
-'debvisor-cluster'\n\n static_configs:\n\n- targets:\n\n- 'debvisor-prometheus:9090'\n\n-
-'debvisor-grafana:3000'\n\n## Import DebVisor dashboards into your Grafana\n\n## 1.
+Configure Prometheus to scrape DebVisor targets\n\n## Add scrape job\n\n-
+job_name:
+'debvisor-cluster'\n\n static_configs:\n\n- targets:\n\n-
+'debvisor-prometheus:9090'\n\n-
+'debvisor-grafana:3000'\n\n## Import DebVisor dashboards into your Grafana\n\n##
+1.
 Download JSON
-from opt/monitoring/grafana/dashboards/*.json\n\n## 2. Import via Grafana UI: Home ->
+from opt/monitoring/grafana/dashboards/*.json\n\n## 2. Import via Grafana UI:
+Home ->
 Import ->
-Paste JSON\n\n## 3. Select datasource (your existing Prometheus)\n\n## Pros [2]\n\n-
+Paste JSON\n\n## 3. Select datasource (your existing Prometheus)\n\n## Pros
+[2]\n\n-
 Centralized
-monitoring\n\n- Integrates with existing tools\n\n- Scalable to multiple clusters\n\n###
+monitoring\n\n- Integrates with existing tools\n\n- Scalable to multiple
+clusters\n\n###
 Cons
-[2]\n\n- Manual setup and configuration\n\n- Must sync dashboards manually\n\n- Requires
-coordination with existing monitoring\n\n### Path 3: Hybrid (DebVisor + External)\n\nRun
+[2]\n\n- Manual setup and configuration\n\n- Must sync dashboards manually\n\n-
+Requires
+coordination with existing monitoring\n\n### Path 3: Hybrid (DebVisor +
+External)\n\nRun
 DebVisor
-monitoring, but integrate into central stack:\n\n## Deploy DebVisor monitoring\n\n kubectl
+monitoring, but integrate into central stack:\n\n## Deploy DebVisor
+monitoring\n\n kubectl
 apply -f
 opt/monitoring/manifests/\n\n## Configure central Prometheus to scrape DebVisor
 Prometheus\n\n##
-Central Alertmanager routes to same channels\n\n## Central Grafana queries DebVisor
+Central Alertmanager routes to same channels\n\n## Central Grafana queries
+DebVisor
 Prometheus\n\n##
 Synthetic Testing (Labs Only)\n\nFor dashboard and alert testing without real
 workloads:\n\n##
 Deploy synthetic metrics generator\n\n kubectl apply -f
-opt/monitoring/fixtures/edge-lab-deployment.yaml\n\n## Generate high CPU scenario for 5
+opt/monitoring/fixtures/edge-lab-deployment.yaml\n\n## Generate high CPU
+scenario for 5
 minutes\n\n
-kubectl set env deployment/synthetic-metrics \\n ALERT_SCENARIO=high_cpu -n monitoring\n
+kubectl set env deployment/synthetic-metrics \\n ALERT_SCENARIO=high_cpu -n
+monitoring\n
 sleep 300\n
-kubectl set env deployment/synthetic-metrics \\n ALERT_SCENARIO=none -n monitoring\n\n##
+kubectl set env deployment/synthetic-metrics \\n ALERT_SCENARIO=none -n
+monitoring\n\n##
 Cleanup\n\n
 kubectl delete -f opt/monitoring/fixtures/edge-lab-deployment.yaml\nSee
 [FIXTURES_GUIDE.md](FIXTURES_GUIDE.md) for detailed scenarios.\n\n## Metrics
@@ -136,97 +169,129 @@ Standard Prometheus Metrics\n\n### Node Exporter (Host Metrics)\n\n
 node_cpu_seconds_total\n
 node_memory_MemTotal_bytes\n node_memory_MemAvailable_bytes\n
 node_disk_io_time_seconds_total\n
-node_network_receive_bytes_total\n node_filesystem_avail_bytes\n\n### cAdvisor (Container
+node_network_receive_bytes_total\n node_filesystem_avail_bytes\n\n### cAdvisor
+(Container
 Metrics)\n\n container_cpu_usage_seconds_total\n container_memory_usage_bytes\n
 container_network_receive_bytes_total\n container_last_seen\n\n### Kubernetes
 (kube-state-metrics)\n\n kube_node_status_ready\n kube_pod_status_phase\n
-kube_deployment_status_replicas_ready\n kube_statefulset_status_ready_replicas\n\n###
+kube_deployment_status_replicas_ready\n
+kube_statefulset_status_ready_replicas\n\n###
 DebVisor-Specific Metrics\n\n### RPC Service\n\n debvisor_rpc_requests_total\n
 debvisor_rpc_request_duration_seconds\n debvisor_rpc_errors_total\n
 debvisor_rpc_auth_failures_total\n\n### Remediation (from Argo Workflows)\n\n
 debvisor_remediation_total\n debvisor_remediation_duration_seconds\n
-debvisor_remediation_failed_total\n debvisor_remediation_alerts_received_total\n\n###
+debvisor_remediation_failed_total\n
+debvisor_remediation_alerts_received_total\n\n###
 Cluster
 Health\n\n debvisor_cluster_health_score\n debvisor_cluster_nodes_ready\n
 debvisor_cluster_storage_available_bytes\n\n### Security\n\n
 debvisor_security_violations_total\n
-debvisor_audit_events_total\n debvisor_rbac_denials_total\n\n## Best Practices\n\n###
-Configuration\n\n1.**Retention:**Set appropriate retention for your use case\n\n- Labs: 7
+debvisor_audit_events_total\n debvisor_rbac_denials_total\n\n## Best
+Practices\n\n###
+Configuration\n\n1.**Retention:**Set appropriate retention for your use
+case\n\n- Labs: 7
 days
-(minimize disk usage)\n\n- Production: 30-90 days (regulatory requirements)\n\n1.**Scrape
-Intervals:**Balance between granularity and load\n\n- Default: 30 seconds (good for most
+(minimize disk usage)\n\n- Production: 30-90 days (regulatory
+requirements)\n\n1.**Scrape
+Intervals:**Balance between granularity and load\n\n- Default: 30 seconds (good
+for most
 cases)\n\n-
-High-frequency: 10-15 seconds (more granular, higher load)\n\n- Low-frequency: 1-2 minutes
+High-frequency: 10-15 seconds (more granular, higher load)\n\n- Low-frequency:
+1-2 minutes
 (minimum
-load, less granular)\n\n1.**Alert Thresholds:**Tune based on your environment\n\n- Don't
+load, less granular)\n\n1.**Alert Thresholds:**Tune based on your
+environment\n\n- Don't
 copy
-thresholds from other clusters\n\n- Start with defaults, adjust based on baselines\n\n-
+thresholds from other clusters\n\n- Start with defaults, adjust based on
+baselines\n\n-
 Document why
-each threshold is set\n\n### Alerting\n\n1.**Alert Severity:**Use consistent severity
+each threshold is set\n\n### Alerting\n\n1.**Alert Severity:**Use consistent
+severity
 levels\n\n-
-Critical: Immediate action required\n\n- Warning: Action needed within hours\n\n- Info:
+Critical: Immediate action required\n\n- Warning: Action needed within
+hours\n\n- Info:
 Informational, no immediate action\n\n1.**Alert Routing:**Send to appropriate
 receivers\n\n-
-Critical -> On-call PagerDuty\n\n- Security -> Security team Slack\n\n- Infrastructure ->
+Critical -> On-call PagerDuty\n\n- Security -> Security team Slack\n\n-
+Infrastructure ->
 Ops team
-email\n\n1.**Avoid Alert Fatigue:**\n\n- Adjust thresholds to reduce false positives\n\n-
+email\n\n1.**Avoid Alert Fatigue:**\n\n- Adjust thresholds to reduce false
+positives\n\n-
 Group
-related alerts\n\n- Use silence rules for known maintenance windows\n\n### Dashboard
-Design\n\n1.**Clarity:**Each panel should be self-explanatory\n\n- Use descriptive
+related alerts\n\n- Use silence rules for known maintenance windows\n\n###
+Dashboard
+Design\n\n1.**Clarity:**Each panel should be self-explanatory\n\n- Use
+descriptive
 titles\n\n-
 Include units (e.g., "%", "MB/s")\n\n- Document non-obvious panels in
 comments\n\n1.**Hierarchy:**Organize panels logically\n\n- Top: Overall cluster
 health\n\n- Middle:
 Component status\n\n- Bottom: Detailed metrics\n\n1.**Updates:**Keep dashboards
 current\n\n- Review
-quarterly for stale or missing metrics\n\n- Update when new services added\n\n- Archive
+quarterly for stale or missing metrics\n\n- Update when new services added\n\n-
+Archive
 outdated
-dashboards\n\n## Troubleshooting\n\n### No Data in Grafana\n\n1.**Check Prometheus
-targets:**[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/]([http://prometheus:9090](http://prometheus:9090)/)t)a)r)g)e)t)s)\n1.**Check
+dashboards\n\n## Troubleshooting\n\n### No Data in Grafana\n\n1.**Check
+Prometheus
+targets:**[http://prometheus:9090/targets]([http://prometheus:9090/target]([http://prometheus:9090/targe]([http://prometheus:9090/targ]([http://prometheus:9090/tar]([http://prometheus:9090/ta]([http://prometheus:9090/t]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)t)a)r)g)e)t)s)\n1.**Check
 scrape
-errors:**[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)g)r)a)p)h)
--> query`up`\n1.**Verify datasource:**Grafana -> Configuration -> Datasources\n1.**Check
+errors:**[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)g)r)a)p)h)
+-> query`up`\n1.**Verify datasource:**Grafana -> Configuration ->
+Datasources\n1.**Check
 dashboard
-JSON:**Ensure metric names are correct\n\n### High Prometheus Memory Usage\n\n1.**Check
+JSON:**Ensure metric names are correct\n\n### High Prometheus Memory
+Usage\n\n1.**Check
 cardinality:**High-cardinality metrics use more memory\n\n- Use`promtool analyze
 cardinality`to
-identify culprits\n\n- Consider dropping labels or rewriting queries\n\n1.**Reduce
-retention:**Lower`--storage.tsdb.retention.time`\n1.**Disable unused scrape jobs:**Comment
+identify culprits\n\n- Consider dropping labels or rewriting
+queries\n\n1.**Reduce
+retention:**Lower`--storage.tsdb.retention.time`\n1.**Disable unused scrape
+jobs:**Comment
 out
 unused targets\n\n### Alert Not Firing\n\n1.**Check rule
-evaluation:**[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)r)u)l)e)s)\n1.**Verify
+evaluation:**[http://prometheus:9090/rules]([http://prometheus:9090/rule]([http://prometheus:9090/rul]([http://prometheus:9090/ru]([http://prometheus:9090/r]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)r)u)l)e)s)\n1.**Verify
 metric
-exists:**[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90](http://prometheus:90)9)0)/)g)r)a)p)h)
+exists:**[http://prometheus:9090/graph]([http://prometheus:9090/grap]([http://prometheus:9090/gra]([http://prometheus:9090/gr]([http://prometheus:9090/g]([http://prometheus:9090/]([http://prometheus:9090]([http://prometheus:909]([http://prometheus:90]([http://prometheus:9]([http://prometheus:]([http://prometheus]([http://prometheu]([http://promethe]([http://prometh]([http://promet]([http://prome]([http://prom]([http://pro]([http://pr]([http://p](http://p)r)o)m)e)t)h)e)u)s):)9)0)9)0)/)g)r)a)p)h)
 -> query metric name\n1.**Check threshold:**Ensure current value exceeds alert
 threshold\n1.**Check
-duration:**Alert must exceed `for:`duration before firing\n\n### Alertmanager Not Sending
+duration:**Alert must exceed `for:`duration before firing\n\n### Alertmanager
+Not Sending
 Notifications\n\n1.**Check Alertmanager
-status:**[http://alertmanager:9093]([http://alertmanager:909]([http://alertmanager:90]([http://alertmanager:9]([http://alertmanager:]([http://alertmanager]([http://alertmanage]([http://alertmanag]([http://alertmana](http://alertmana)g)e)r):)9)0)9)3)\n1.**Verify
-receiver config:**Check`alertmanager.yml`syntax\n1.**Test webhook:**Use`curl`to post test
+status:**[http://alertmanager:9093]([http://alertmanager:909]([http://alertmanager:90]([http://alertmanager:9]([http://alertmanager:]([http://alertmanager]([http://alertmanage]([http://alertmanag]([http://alertmana]([http://alertman]([http://alertma]([http://alertm]([http://alert]([http://aler]([http://ale]([http://al]([http://a](http://a)l)e)r)t)m)a)n)a)g)e)r):)9)0)9)3)\n1.**Verify
+receiver config:**Check`alertmanager.yml`syntax\n1.**Test webhook:**Use`curl`to
+post test
 alert to
 webhook receiver\n1.**Check logs:**`kubectl logs deployment/alertmanager -n
 monitoring`\n\n##
-Related Documentation\n\n- [Grafana README](grafana/README.md) - Dashboard setup and
-datasources\n\n- [Fixtures Guide](FIXTURES_GUIDE.md) - Synthetic metrics for testing\n\n-
+Related Documentation\n\n- [Grafana README](grafana/README.md) - Dashboard setup
+and
+datasources\n\n- [Fixtures Guide](FIXTURES_GUIDE.md) - Synthetic metrics for
+testing\n\n-
 [Prometheus
-Docs]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/]([https://prometheus.io]([https://prometheus.i]([https://prometheus.](https://prometheus.)i)o)/)d)o)c)s)/)
+Docs]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/]([https://prometheus.io]([https://prometheus.i]([https://prometheus.]([https://prometheus]([https://prometheu]([https://promethe]([https://prometh]([https://promet]([https://prome]([https://prom]([https://pro]([https://pr]([https://p](https://p)r)o)m)e)t)h)e)u)s).)i)o)/)d)o)c)s)/)
 
 - Official Prometheus documentation\n\n- [Grafana
-Docs]([https://grafana.com/docs/grafana/latest]([https://grafana.com/docs/grafana/lates]([https://grafana.com/docs/grafana/late]([https://grafana.com/docs/grafana/lat]([https://grafana.com/docs/grafana/la]([https://grafana.com/docs/grafana/l]([https://grafana.com/docs/grafana/]([https://grafana.com/docs/grafana](https://grafana.com/docs/grafana)/)l)a)t)e)s)t)/)
+Docs]([https://grafana.com/docs/grafana/latest]([https://grafana.com/docs/grafana/lates]([https://grafana.com/docs/grafana/late]([https://grafana.com/docs/grafana/lat]([https://grafana.com/docs/grafana/la]([https://grafana.com/docs/grafana/l]([https://grafana.com/docs/grafana/]([https://grafana.com/docs/grafana]([https://grafana.com/docs/grafan]([https://grafana.com/docs/grafa]([https://grafana.com/docs/graf]([https://grafana.com/docs/gra]([https://grafana.com/docs/gr]([https://grafana.com/docs/g]([https://grafana.com/docs/]([https://grafana.com/docs]([https://grafana.com/doc]([https://grafana.com/do]([https://grafana.com/d]([https://grafana.com/]([https://grafana.com]([https://grafana.co]([https://grafana.c](https://grafana.c)o)m)/)d)o)c)s)/)g)r)a)f)a)n)a)/)l)a)t)e)s)t)/)
 
 - Official Grafana documentation\n\n- [Alerting Best
-Practices]([https://prometheus.io/docs/alerting/latest/best_practices]([https://prometheus.io/docs/alerting/latest/best_practice]([https://prometheus.io/docs/alerting/latest/best_practic]([https://prometheus.io/docs/alerting/latest/best_practi]([https://prometheus.io/docs/alerting/latest/best_pract]([https://prometheus.io/docs/alerting/latest/best_prac]([https://prometheus.io/docs/alerting/latest/best_pra]([https://prometheus.io/docs/alerting/latest/best_pr](https://prometheus.io/docs/alerting/latest/best_pr)a)c)t)i)c)e)s)/)
+Practices]([https://prometheus.io/docs/alerting/latest/best_practices]([https://prometheus.io/docs/alerting/latest/best_practice]([https://prometheus.io/docs/alerting/latest/best_practic]([https://prometheus.io/docs/alerting/latest/best_practi]([https://prometheus.io/docs/alerting/latest/best_pract]([https://prometheus.io/docs/alerting/latest/best_prac]([https://prometheus.io/docs/alerting/latest/best_pra]([https://prometheus.io/docs/alerting/latest/best*pr]([https://prometheus.io/docs/alerting/latest/best*p]([https://prometheus.io/docs/alerting/latest/best*]([https://prometheus.io/docs/alerting/latest/best]([https://prometheus.io/docs/alerting/latest/bes]([https://prometheus.io/docs/alerting/latest/be]([https://prometheus.io/docs/alerting/latest/b]([https://prometheus.io/docs/alerting/latest/]([https://prometheus.io/docs/alerting/latest]([https://prometheus.io/docs/alerting/lates]([https://prometheus.io/docs/alerting/late]([https://prometheus.io/docs/alerting/lat]([https://prometheus.io/docs/alerting/la]([https://prometheus.io/docs/alerting/l]([https://prometheus.io/docs/alerting/]([https://prometheus.io/docs/alerting](https://prometheus.io/docs/alerting)/)l)a)t)e)s)t)/)b)e)s)t)*)p)r)a)c)t)i)c)e)s)/)
 
-- Alert design guidance\n\n## Support\n\n- **Issue:**File in main DebVisor repository\n\n-
-**Documentation:**Check this README and linked guides\n\n- **Dashboards:**See Grafana
+- Alert design guidance\n\n## Support\n\n- **Issue:**File in main DebVisor
+repository\n\n-
+**Documentation:**Check this README and linked guides\n\n- **Dashboards:**See
+Grafana
 folder
-structure under`dashboards/`\n\n- **Fixtures:**See `FIXTURES_GUIDE.md` for synthetic
+structure under`dashboards/`\n\n- **Fixtures:**See `FIXTURES_GUIDE.md` for
+synthetic
 metrics
-testing\n\n- --\n\n- *Last Updated:**2025-11-26\n\n- *Status:**Monitoring infrastructure
+testing\n\n- --\n\n- *Last Updated:**2025-11-26\n\n- *Status:**Monitoring
+infrastructure
 documented
 and ready for deployment\n\n### Next Steps\n\n1. Deploy monitoring stack to your
 cluster\n\n1.
-Verify all targets are scraping successfully\n\n1. Test Grafana dashboards with real or
+Verify all targets are scraping successfully\n\n1. Test Grafana dashboards with
+real or
 synthetic
-data\n\n1. Configure alert notification channels\n\n1. Test alert firing and remediation
+data\n\n1. Configure alert notification channels\n\n1. Test alert firing and
+remediation
 workflows\n\n

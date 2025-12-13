@@ -2,68 +2,102 @@
 
 Detection System
 
-is a comprehensive monitoring and alerting framework designed to identify irregularities
+is a comprehensive monitoring and alerting framework designed to identify
+irregularities
 in system
-performance and resource usage. It utilizes a multi-layered approach combining statistical
+performance and resource usage. It utilizes a multi-layered approach combining
+statistical
 methods
 and machine learning to provide accurate, actionable insights with minimal false
 positives.\n\n##
-Core Features\n\n- **Multi-Method Detection**: Combines Z-Score, IQR, EWMA, and LSTM
+Core Features\n\n- **Multi-Method Detection**: Combines Z-Score, IQR, EWMA, and
+LSTM
 neural
-networks.\n\n- **Automatic Baselines**: Self-learning baselines that adapt to system
+networks.\n\n- **Automatic Baselines**: Self-learning baselines that adapt to
+system
 behavior over
-time.\n\n- **Trend Analysis**: Linear regression for forecasting and trend direction
-identification.\n\n- **Confidence Scoring**: Every alert includes a confidence score
+time.\n\n- **Trend Analysis**: Linear regression for forecasting and trend
+direction
+identification.\n\n- **Confidence Scoring**: Every alert includes a confidence
+score
 (0-100%) to
-help prioritize responses.\n\n- **Severity Classification**: INFO, WARNING, and CRITICAL
+help prioritize responses.\n\n- **Severity Classification**: INFO, WARNING, and
+CRITICAL
 levels
-based on deviation magnitude and confidence.\n\n## Detection Methods\n\n### 1. Z-Score
+based on deviation magnitude and confidence.\n\n## Detection Methods\n\n### 1.
+Z-Score
 (Standard
-Deviation)\n\n- **Best for**: Normally distributed data (e.g., steady memory usage).\n\n-
-**Mechanism**: Measures how many standard deviations a data point is from the mean.\n\n-
-**Threshold**: Default > 3.0 sigma.\n\n### 2. Interquartile Range (IQR)\n\n- **Best for**:
-Non-normal distributions and filtering outliers.\n\n- **Mechanism**: Uses the 25th and
+Deviation)\n\n- **Best for**: Normally distributed data (e.g., steady memory
+usage).\n\n-
+**Mechanism**: Measures how many standard deviations a data point is from the
+mean.\n\n-
+**Threshold**: Default > 3.0 sigma.\n\n### 2. Interquartile Range (IQR)\n\n-
+**Best for**:
+Non-normal distributions and filtering outliers.\n\n- **Mechanism**: Uses the
+25th and
 75th
-percentiles to define a "normal" range.\n\n- **Robustness**: Highly resistant to extreme
+percentiles to define a "normal" range.\n\n- **Robustness**: Highly resistant to
+extreme
 outliers
-affecting the baseline.\n\n### 3. Exponential Weighted Moving Average (EWMA)\n\n- **Best
+affecting the baseline.\n\n### 3. Exponential Weighted Moving Average
+(EWMA)\n\n- **Best
 for**:
-Detecting sudden shifts in trends or noisy data.\n\n- **Mechanism**: Gives more weight to
+Detecting sudden shifts in trends or noisy data.\n\n- **Mechanism**: Gives more
+weight to
 recent
-data points, allowing it to react faster to changes than simple averages.\n\n### 4. LSTM
+data points, allowing it to react faster to changes than simple averages.\n\n###
+
+1. LSTM
 Neural
-Networks (New in Phase 12)\n\n- **Best for**: Complex, non-linear patterns and time-series
-prediction.\n\n- **Mechanism**: A Recurrent Neural Network (RNN) that learns temporal
-dependencies.\n\n- **Usage**: Predicts the *next*expected value based on a sequence of
+Networks (New in Phase 12)\n\n- **Best for**: Complex, non-linear patterns and
+time-series
+prediction.\n\n- **Mechanism**: A Recurrent Neural Network (RNN) that learns
+temporal
+dependencies.\n\n- **Usage**: Predicts the *next*expected value based on a
+sequence of
 previous
-values. If the actual value deviates significantly from the prediction, an anomaly is
-flagged.\n\n-**Training**: Models are trained online using historical metric data.\n\n##
+values. If the actual value deviates significantly from the prediction, an
+anomaly is
+flagged.\n\n-**Training**: Models are trained online using historical metric
+data.\n\n##
 Supported
 Metrics\n\nThe system monitors the following metric types:\n\n- `cpu_usage`: CPU
 utilization
-percentage.\n\n- `memory_usage`: RAM usage percentage.\n\n- `disk_io`: Disk read/write
-operations.\n\n- `network_io`: Network throughput.\n\n- `disk_usage`: Storage capacity
+percentage.\n\n- `memory_usage`: RAM usage percentage.\n\n- `disk_io`: Disk
+read/write
+operations.\n\n- `network_io`: Network throughput.\n\n- `disk_usage`: Storage
+capacity
 usage.\n\n-
-`temperature`: System temperature sensors.\n\n- `latency`: Service response times.\n\n-
-`error_rate`: Application or system error counts.\n\n## Configuration\n\nConfiguration is
+`temperature`: System temperature sensors.\n\n- `latency`: Service response
+times.\n\n-
+`error_rate`: Application or system error counts.\n\n##
+Configuration\n\nConfiguration is
 managed
-via `/etc/debvisor/anomaly/`.\n\n### Key Parameters\n\n- `baseline_window`: 7 days
+via `/etc/debvisor/anomaly/`.\n\n### Key Parameters\n\n- `baseline_window`: 7
+days
 (default).\n\n-
-`z_score_threshold`: 3.0.\n\n- `confidence_threshold`: 0.65.\n\n- `max_history`: 10,000
+`z_score_threshold`: 3.0.\n\n- `confidence_threshold`: 0.65.\n\n- `max_history`:
+10,000
 data points
-per metric.\n\n## Alerting\n\nAlerts are generated with the following structure:\n\n-
+per metric.\n\n## Alerting\n\nAlerts are generated with the following
+structure:\n\n-
 **ID**: Unique
-UUID.\n\n- **Severity**: INFO, WARNING, CRITICAL.\n\n- **Type**: SPIKE, DIP, TREND,
+UUID.\n\n- **Severity**: INFO, WARNING, CRITICAL.\n\n- **Type**: SPIKE, DIP,
+TREND,
 SEASONAL,
-OUTLIER.\n\n- **Message**: Human-readable description.\n\n- **Details**: Technical context
+OUTLIER.\n\n- **Message**: Human-readable description.\n\n- **Details**:
+Technical context
 (e.g.,
-Z-score value, expected range).\n\n## Integration\n\nThe anomaly detection engine is
+Z-score value, expected range).\n\n## Integration\n\nThe anomaly detection
+engine is
 integrated into
-the DebVisor RPC service and Web Panel.\n\n- **RPC**: `GetAnomalies`endpoint.\n\n- **Web
+the DebVisor RPC service and Web Panel.\n\n- **RPC**:
+`GetAnomalies`endpoint.\n\n- **Web
 Panel**:
 "Analytics" dashboard widget.\n\n## Troubleshooting\n\n-
 *Logs**:`/var/log/DebVisor/anomaly.log`(or
-configured path).\n\n- *Common Issues**:\n\n- *Insufficient Data*: Baselines require at
+configured path).\n\n- *Common Issues**:\n\n- *Insufficient Data*: Baselines
+require at
 least 10
 data points. LSTM requires 50+.\n\n- *False Positives*:
 Adjust`z_score_threshold`or`confidence_threshold` in config.\n\n

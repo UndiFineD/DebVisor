@@ -1,6 +1,6 @@
 # Code Issues Report: opt\ansible\validate-inventory.py
 
-Generated: 2025-12-13T15:11:07.352178
+Generated: 2025-12-13T16:41:04.220507
 Source: opt\ansible\validate-inventory.py
 
 ## Issues Summary
@@ -23,19 +23,18 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 
 ```python
-
-import argparse
-import re
-import subprocess
-import sys
-import yaml
-from pathlib import Path
+            "dns_primaries": ["bind_role", "dns_zones"],
+            "dns_secondaries": ["bind_role", "primary_nameserver"],
+            "ceph_mons": ["mon_role", "ceph_address"],
+            "ceph_osds": ["osd_role", "osd_devices"],
+            "k8s_controlplane": ["kube_role", "kube_apiserver_advertise_address"],
+            "k8s_workers": ["kube_role"],
+            "hypervisors": ["libvirt_uri", "vm_disk_pool"],
 ```python
 
 ### Proposal

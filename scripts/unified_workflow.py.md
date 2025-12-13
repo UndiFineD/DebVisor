@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\unified_workflow.py
 
-Generated: 2025-12-13T15:22:37.296500
+Generated: 2025-12-13T16:53:30.940037
 Source: scripts\unified_workflow.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

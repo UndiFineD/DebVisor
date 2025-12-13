@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\backup\backup_intelligence.py
 
-Generated: 2025-12-13T15:14:02.191765
+Generated: 2025-12-13T16:44:14.685160
 Source: opt\services\backup\backup_intelligence.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 

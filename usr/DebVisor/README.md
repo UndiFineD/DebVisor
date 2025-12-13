@@ -2,13 +2,17 @@
 
 `usr/`directory
 
-contains runtime binaries, systemd services, and operational helper scripts deployed on
+contains runtime binaries, systemd services, and operational helper scripts
+deployed on
 DebVisor
-systems. This directory provides the day-2 management interface: operational CLIs,
+systems. This directory provides the day-2 management interface: operational
+CLIs,
 automation
-scripts, and system daemons that operators interact with to manage clusters, VMs,
+scripts, and system daemons that operators interact with to manage clusters,
+VMs,
 networking, and
-storage.\n\n- *Key Responsibility:**Provide reliable, well-documented operational tools
+storage.\n\n- *Key Responsibility:**Provide reliable, well-documented
+operational tools
 with
 comprehensive error handling, logging, and safety mechanisms.\n\n## Directory
 Structure\n\n usr/\n
@@ -59,224 +63,331 @@ Default configuration values\n | +-- examples/ # Example configs\n |\n +--
 share/hypervisor/ #
 Hypervisor documentation\n +-- README.md # Quick reference guide\n\n## Component
 Descriptions\n\n###
-usr/local/bin/ - Operational Scripts\n\n### General Script Improvements (applies to
+usr/local/bin/ - Operational Scripts\n\n### General Script Improvements (applies
+to
 all)\n\n####
-Error Handling\n\n## All scripts should have\n\n set -eEuo pipefail # Exit on error,
+Error Handling\n\n## All scripts should have\n\n set -eEuo pipefail # Exit on
+error,
 undefined vars,
-pipe failures\n\n## Trap errors with context\n\n trap 'echo "ERROR at line $LINENO"; exit
+pipe failures\n\n## Trap errors with context\n\n trap 'echo "ERROR at line
+$LINENO"; exit
 1'
-ERR\n\n## Validate preconditions\n\n if ! command -v ceph &> /dev/null; then\n echo
+ERR\n\n## Validate preconditions\n\n if ! command -v ceph &> /dev/null; then\n
+echo
 "ERROR: ceph
 command not found"\n exit 1\n fi\n\n## Logging & Diagnostics\n\n- Prefix output
-with`[INFO]`,`[WARN]`,`[ERROR]`\n\n- Add `--verbose`flag for detailed output\n\n-
-Add`--log-file`option for capturing output\n\n- Support`--json`for machine parsing\n\n###
+with`[INFO]`,`[WARN]`,`[ERROR]`\n\n- Add `--verbose`flag for detailed
+output\n\n-
+Add`--log-file`option for capturing output\n\n- Support`--json`for machine
+parsing\n\n###
 Dry-Run
-Mode\n\n-`--dry-run`shows what would happen without making changes\n\n-`--check`validates
-prerequisites without executing\n\n#### Documentation\n\n-`--help`prints usage and
+Mode\n\n-`--dry-run`shows what would happen without making
+changes\n\n-`--check`validates
+prerequisites without executing\n\n#### Documentation\n\n-`--help`prints usage
+and
 examples\n\n- Man
-pages for major tools\n\n- Inline comments in code\n\n- Documented preconditions and
+pages for major tools\n\n- Inline comments in code\n\n- Documented preconditions
+and
 rollback
-procedures\n\n#### Testing\n\n- Unit tests via`bats`(bash test framework)\n\n- Integration
+procedures\n\n#### Testing\n\n- Unit tests via`bats`(bash test framework)\n\n-
+Integration
 tests in
-containers\n\n- CI matrix for different scenarios\n\n- --\n\n#### debvisor-join.sh\n\n-
+containers\n\n- CI matrix for different scenarios\n\n- --\n\n####
+debvisor-join.sh\n\n-
 *Purpose:**Join a new node to DebVisor cluster (Ceph OSDs, K8s workers, storage
 tiers).\n\n###
-Features (Join)\n\n- Disk discovery and provisioning\n\n- Ceph OSD initialization\n\n-
+Features (Join)\n\n- Disk discovery and provisioning\n\n- Ceph OSD
+initialization\n\n-
 Kubernetes
-node joining\n\n- Idempotence check (node already joined)\n\n- Pre-flight checks (network
-connectivity to monitors/control plane)\n\n- Safer disk discovery (confirm user selection
+node joining\n\n- Idempotence check (node already joined)\n\n- Pre-flight checks
+(network
+connectivity to monitors/control plane)\n\n- Safer disk discovery (confirm user
+selection
 before
-provisioning)\n\n- Ceph CRUSH map updates (proper placement, weight)\n\n- K8s node
+provisioning)\n\n- Ceph CRUSH map updates (proper placement, weight)\n\n- K8s
+node
 labeling and
-taint verification\n\n- Log OSD/node IDs created\n\n- Rollback support (graceful node
+taint verification\n\n- Log OSD/node IDs created\n\n- Rollback support (graceful
+node
 removal if
-join fails)\n\n- Cluster health pre-check\n\n### Usage (Join)\n\n debvisor-join.sh
+join fails)\n\n- Cluster health pre-check\n\n### Usage (Join)\n\n
+debvisor-join.sh
 --mode=ceph #
-Join as Ceph OSD\n debvisor-join.sh --mode=k8s # Join as K8s worker\n debvisor-join.sh
+Join as Ceph OSD\n debvisor-join.sh --mode=k8s # Join as K8s worker\n
+debvisor-join.sh
 --dry-run #
 Preview changes\n debvisor-join.sh --verbose # Detailed output\n\n####
 debvisor-upgrade.sh\n\n-
-*Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph, Kubernetes).\n\n###
+*Purpose:**Orchestrated cluster-wide upgrades (APT packages, Ceph,
+Kubernetes).\n\n###
 Features
-(Upgrade)\n\n- APT update orchestration\n\n- Service restarts\n\n- Pre-upgrade validation
+(Upgrade)\n\n- APT update orchestration\n\n- Service restarts\n\n- Pre-upgrade
+validation
 (cluster
-health, no degraded PGs, K8s ready)\n\n- Ceph noout during upgrades (protect against
-rebalancing)\n\n- K8s drain verification (pods can be rescheduled)\n\n- Rollback guidance
+health, no degraded PGs, K8s ready)\n\n- Ceph noout during upgrades (protect
+against
+rebalancing)\n\n- K8s drain verification (pods can be rescheduled)\n\n- Rollback
+guidance
 (undo if
-something fails)\n\n- Kernel upgrade handling (verify new kernel boots)\n\n- ZFS/Ceph
+something fails)\n\n- Kernel upgrade handling (verify new kernel boots)\n\n-
+ZFS/Ceph
 version
-compatibility checks\n\n-`--pause`flag for manual verification points\n\n- Detailed timing
+compatibility checks\n\n-`--pause`flag for manual verification points\n\n-
+Detailed timing
 (log
-duration per phase)\n\n- Log before/after cluster snapshots\n\n### Usage (Upgrade)\n\n
-debvisor-upgrade.sh # Upgrade entire cluster\n debvisor-upgrade.sh --node=node1 # Upgrade
+duration per phase)\n\n- Log before/after cluster snapshots\n\n### Usage
+(Upgrade)\n\n
+debvisor-upgrade.sh # Upgrade entire cluster\n debvisor-upgrade.sh --node=node1
+
+## Upgrade
+
 single
-node\n debvisor-upgrade.sh --check --diff # Preview changes\n debvisor-upgrade.sh --pause
+node\n debvisor-upgrade.sh --check --diff # Preview changes\n
+debvisor-upgrade.sh --pause
 
 ## Pause at
 
 checkpoints\n\n#### debvisor-migrate.sh\n\n- *Purpose:**Live migrate VMs between
 hypervisor nodes
-(with downtime optimization).\n\n### Features (Migrate)\n\n- Pre-migration checks
+(with downtime optimization).\n\n### Features (Migrate)\n\n- Pre-migration
+checks
 (source/target
 healthy, sufficient resources)\n\n- Bandwidth rate limiting (prevent network
 saturation)\n\n-
-Progress monitoring (% transferred, ETA)\n\n- Rollback support (abort and recover if
+Progress monitoring (% transferred, ETA)\n\n- Rollback support (abort and
+recover if
 fails)\n\n-
-Post-migration validation (runs on target, reachable)\n\n- Downtime estimation (warn if
-noticeable)\n\n- Document connection requirements (TLS/auth material)\n\n- Support shared
+Post-migration validation (runs on target, reachable)\n\n- Downtime estimation
+(warn if
+noticeable)\n\n- Document connection requirements (TLS/auth material)\n\n-
+Support shared
 storage vs
-NAS scenarios\n\n### Usage (Migrate)\n\n debvisor-migrate.sh vm-name target-node # Migrate
+NAS scenarios\n\n### Usage (Migrate)\n\n debvisor-migrate.sh vm-name target-node
+
+## Migrate
+
 VM\n
-debvisor-migrate.sh --bandwidth=100Mbps ... # Rate limit\n debvisor-migrate.sh --dry-run
+debvisor-migrate.sh --bandwidth=100Mbps ... # Rate limit\n debvisor-migrate.sh
+--dry-run
 ... #
-Preview\n\n#### debvisor-dns-update.sh\n\n- *Purpose:**Dynamic DNS record updates with
+Preview\n\n#### debvisor-dns-update.sh\n\n- *Purpose:**Dynamic DNS record
+updates with
 TSIG
-authentication.\n\n### Features (DNS)\n\n- TSIG validation (key/secret loaded)\n\n- DNS
+authentication.\n\n### Features (DNS)\n\n- TSIG validation (key/secret
+loaded)\n\n- DNS
 propagation
-verification (poll servers)\n\n- TTL considerations (lower TTL before update)\n\n-
+verification (poll servers)\n\n- TTL considerations (lower TTL before
+update)\n\n-
 Rollback (log old
 values, restore if needed)\n\n- Support multiple DNS servers (primaries +
 secondaries)\n\n- DNSSEC
-validation\n\n- Audit logging (changes with timestamp, operator, old/new)\n\n### Usage
+validation\n\n- Audit logging (changes with timestamp, operator, old/new)\n\n###
+Usage
 (DNS)\n\n
-debvisor-dns-update.sh vm-name 192.168.1.100 # Register A record\n debvisor-dns-update.sh
+debvisor-dns-update.sh vm-name 192.168.1.100 # Register A record\n
+debvisor-dns-update.sh
 --ttl=300
 ... # Short TTL\n debvisor-dns-update.sh --rollback # Rollback changes\n\n####
 debvisor-cloudinit-iso.sh\n\n- *Purpose:**Generate cloud-init ISOs for VM
 provisioning.\n\n###
-Features (ISO)\n\n- Validation (user-data/meta-data syntax)\n\n- Size constraints (warn if
+Features (ISO)\n\n- Validation (user-data/meta-data syntax)\n\n- Size
+constraints (warn if
 too
-large)\n\n- Support vendor-data and network-config\n\n- Template library (common user-data
-examples)\n\n- Document ISO usage during provisioning\n\n#### VNC & Console Tools\n\n-
-*debvisor-vnc-ensure.sh:**Ensure VNC ports are listening\n\n- Consistency checks (ports
+large)\n\n- Support vendor-data and network-config\n\n- Template library (common
+user-data
+examples)\n\n- Document ISO usage during provisioning\n\n#### VNC & Console
+Tools\n\n-
+*debvisor-vnc-ensure.sh:**Ensure VNC ports are listening\n\n- Consistency checks
+(ports
 actually
 listening)\n\n- Document TLS/auth options\n\n- Security hardening\n\n-
-*debvisor-vnc-target.sh:**Configure VNC targets\n\n- Validation (VNC reachable)\n\n-
+*debvisor-vnc-target.sh:**Configure VNC targets\n\n- Validation (VNC
+reachable)\n\n-
 Document port
-assignment\n\n- Firewall integration\n\n- *debvisor-vm-register.sh:**Register VMs for
+assignment\n\n- Firewall integration\n\n- *debvisor-vm-register.sh:**Register
+VMs for
 management\n\n- Registration validation\n\n- Document verification steps\n\n-
-*debvisor-console-ticket.sh:**Generate console access tokens\n\n- Token verification
+*debvisor-console-ticket.sh:**Generate console access tokens\n\n- Token
+verification
 (print token,
-show usage)\n\n- TTL enforcement\n\n- Audit logging (VM, requester, TTL)\n\n- Support
+show usage)\n\n- TTL enforcement\n\n- Audit logging (VM, requester, TTL)\n\n-
+Support
 read-only vs
-admin tickets\n\n- *debvisor-vm-convert.sh:**Convert VM disk formats\n\n- Auto-detect
+admin tickets\n\n- *debvisor-vm-convert.sh:**Convert VM disk formats\n\n-
+Auto-detect
 source
 format\n\n- Progress indication\n\n- Compression options\n\n- Integrity checks
 (checksums)\n\n-
-Support resume for interrupted conversions\n\n- Document performance tuning\n\n####
+Support resume for interrupted conversions\n\n- Document performance
+tuning\n\n####
 Management
-CLIs\n\n- *cephctl**- Ceph cluster management\n\n cephctl status # Cluster health
+CLIs\n\n- *cephctl**- Ceph cluster management\n\n cephctl status # Cluster
+health
 summary\n cephctl
-osd list # OSD status with suggestions\n cephctl pool capacity # Capacity planning\n
+osd list # OSD status with suggestions\n cephctl pool capacity # Capacity
+planning\n
 cephctl pg
-balance # PG balancing recommendations\n cephctl alerts # Show critical alerts\n\n-
+balance # PG balancing recommendations\n cephctl alerts # Show critical
+alerts\n\n-
 *hvctl**-
-Hypervisor management\n\n hvctl list # List VMs (running, stopped)\n hvctl list --filter
+Hypervisor management\n\n hvctl list # List VMs (running, stopped)\n hvctl list
+--filter
 running #
-Filter by state\n hvctl migrate vm1 node2 # Live migration\n hvctl snapshot vm1 create #
+Filter by state\n hvctl migrate vm1 node2 # Live migration\n hvctl snapshot vm1
+create #
 Create
 snapshot\n hvctl console vm1 # Access VM console\n hvctl resources vm1 # Show
 CPU/RAM/I/O\n\n-
-*k8sctl**- Kubernetes management\n\n k8sctl nodes # Node health & resources\n k8sctl
+*k8sctl**- Kubernetes management\n\n k8sctl nodes # Node health & resources\n
+k8sctl
 workloads #
-Workload status\n k8sctl logs pod-name # Pod log tailing\n k8sctl debug pod-name # Debug
+Workload status\n k8sctl logs pod-name # Pod log tailing\n k8sctl debug pod-name
+
+## Debug
+
 pod\n
-k8sctl addon list # Available addons\n k8sctl addon enable monitoring # Enable addon\n\n-
-*debvisor-netcfg**- Network configuration\n\n debvisor-netcfg interactive # Interactive
+k8sctl addon list # Available addons\n k8sctl addon enable monitoring # Enable
+addon\n\n-
+*debvisor-netcfg**- Network configuration\n\n debvisor-netcfg interactive #
+Interactive
 TUI\n
-debvisor-netcfg --apply # Apply with confirmation\n debvisor-netcfg --rollback # Rollback
+debvisor-netcfg --apply # Apply with confirmation\n debvisor-netcfg --rollback #
+Rollback
 to
-previous\n\n#### debvisor-lib.sh - Shared Library\n\nReusable bash functions for all
+previous\n\n#### debvisor-lib.sh - Shared Library\n\nReusable bash functions for
+all
 scripts:\n\n##
-Logging functions\n\n log_info "Message" # Info level\n log_warn "Warning" # Warning
+Logging functions\n\n log_info "Message" # Info level\n log_warn "Warning" #
+Warning
 level\n
-log_error "Error" # Error level\n\n## Error handling [2]\n\n die "Error message" # Exit
+log_error "Error" # Error level\n\n## Error handling [2]\n\n die "Error message"
+
+## Exit
+
 with error\n
-trap_error # Error trap handler\n\n## Validation\n\n require_bin "ceph" # Verify binary
+trap_error # Error trap handler\n\n## Validation\n\n require_bin "ceph" # Verify
+binary
 exists\n
-require_env "ZFS_POOL" # Verify env variable\n require_root # Verify running as root\n\n##
+require_env "ZFS_POOL" # Verify env variable\n require_root # Verify running as
+root\n\n##
 Retry
-logic\n\n retry 3 "command" # Retry command up to 3 times\n\n## Output formatting\n\n
+logic\n\n retry 3 "command" # Retry command up to 3 times\n\n## Output
+formatting\n\n
 json_output
 '{"key": "value"}' # JSON output\n table_output # Table formatting\n\n##
 usr/lib/systemd/system/ -
 Service Units\n\n### debvisor-firstboot.service\n\n- *Purpose:**Run first-boot
 provisioning on
-system startup.\n\n### Features (Firstboot)\n\n- Runs once on first boot\n\n- Sets up
+system startup.\n\n### Features (Firstboot)\n\n- Runs once on first boot\n\n-
+Sets up
 networking,
-storage, services\n\n- Disables itself after completion\n\n-`Restart=on-failure`with
-RetartSec=10\n\n- TimeoutSec=3600 (prevent infinite hangs)\n\n- Structured logging
+storage, services\n\n- Disables itself after
+completion\n\n-`Restart=on-failure`with
+RetartSec=10\n\n- TimeoutSec=3600 (prevent infinite hangs)\n\n- Structured
+logging
 (StandardOutput=journal)\n\n- RemainAfterExit=yes (service stays active)\n\n-
 ConditionFirstBoot=yes
-verification\n\n- Generate status report (`/var/log/debvisor/firstboot-report.json`)\n\n-
-Pre-firstboot checks\n\n#### debvisor-rpcd.service\n\n- *Purpose:**gRPC RPC service daemon
+verification\n\n- Generate status report
+(`/var/log/debvisor/firstboot-report.json`)\n\n-
+Pre-firstboot checks\n\n#### debvisor-rpcd.service\n\n- *Purpose:**gRPC RPC
+service daemon
 for API
-access.\n\n### Features (RPC)\n\n- Python-based gRPC service\n\n- Listens on network
+access.\n\n### Features (RPC)\n\n- Python-based gRPC service\n\n- Listens on
+network
 socket\n\n-
-Authentication (OAuth2, mTLS, API keys)\n\n- Authorization (RBAC per method)\n\n- TLS by
-default\n\n- Request validation (schema, rate limiting, timeout)\n\n- Audit logging
+Authentication (OAuth2, mTLS, API keys)\n\n- Authorization (RBAC per
+method)\n\n- TLS by
+default\n\n- Request validation (schema, rate limiting, timeout)\n\n- Audit
+logging
 (caller,
-timestamp)\n\n- Security sandboxing (ProtectSystem=strict, etc.)\n\n- Resource limits
+timestamp)\n\n- Security sandboxing (ProtectSystem=strict, etc.)\n\n- Resource
+limits
 (memory,
-CPU)\n\n- Health check endpoint\n\n#### debvisor-panel.service.example\n\n- *Purpose:**Web
-management UI service template.\n\n### Features (Panel)\n\n- Same security recommendations
+CPU)\n\n- Health check endpoint\n\n#### debvisor-panel.service.example\n\n-
+*Purpose:**Web
+management UI service template.\n\n### Features (Panel)\n\n- Same security
+recommendations
 as
-debvisor-rpcd.service\n\n- After=debvisor-rpcd.service dependency\n\n- Document HTTPS/TLS
+debvisor-rpcd.service\n\n- After=debvisor-rpcd.service dependency\n\n- Document
+HTTPS/TLS
 certificate configuration\n\n- Resource limits\n\n###
 usr/share/hypervisor/README.md\n\nQuick
-reference guide for operators.\n\n### Features (Docs)\n\n- Quick-reference for each helper
-command\n\n- Cluster state prerequisites\n\n- Troubleshooting section\n\n- Architecture
-overview\n\n## Operational Patterns\n\n### Health Checking\n\n## Quick cluster health
+reference guide for operators.\n\n### Features (Docs)\n\n- Quick-reference for
+each helper
+command\n\n- Cluster state prerequisites\n\n- Troubleshooting section\n\n-
+Architecture
+overview\n\n## Operational Patterns\n\n### Health Checking\n\n## Quick cluster
+health
 check\n\n
 debvisor-health-check.sh\n\n## Verbose diagnostics\n\n debvisor-health-check.sh
 --verbose\n\n##
 Collect diagnostics (logs, configs)\n\n debvisor-health-check.sh
 --collect-diagnostics\n\n## Safe
-Operations Pattern\n\n## 1. Dry-run to preview\n\n command --dry-run\n\n## 2. Check
+Operations Pattern\n\n## 1. Dry-run to preview\n\n command --dry-run\n\n## 2.
+Check
 prerequisites\n\n command --check\n\n## 3. Execute with confirmation\n\n command
 --confirm\n\n## 4.
-Verify result\n\n command status\n\n## 5. Rollback if needed\n\n command --rollback\n\n##
+Verify result\n\n command status\n\n## 5. Rollback if needed\n\n command
+--rollback\n\n##
 Maintenance Mode\n\n## Enable maintenance mode (prevents new operations)\n\n
 debvisor-maintenance.sh
-enable\n\n## Perform maintenance\n\n## Section\n\n## Disable maintenance mode\n\n
-debvisor-maintenance.sh disable\n\n## Production Deployment Checklist\n\n- [] Test all
+enable\n\n## Perform maintenance\n\n## Section\n\n## Disable maintenance
+mode\n\n
+debvisor-maintenance.sh disable\n\n## Production Deployment Checklist\n\n- []
+Test all
 operational
-scripts in staging environment\n\n- [] Verify`--help`works for all scripts\n\n- []
+scripts in staging environment\n\n- [] Verify`--help`works for all scripts\n\n-
+[]
 Test`--dry-run`
-mode for destructive operations\n\n- [] Enable and test all systemd services\n\n- []
+mode for destructive operations\n\n- [] Enable and test all systemd
+services\n\n- []
 Verify logging
-to systemd journal\n\n- [] Set up log aggregation (fluentd, logstash, etc.)\n\n- []
+to systemd journal\n\n- [] Set up log aggregation (fluentd, logstash, etc.)\n\n-
+[]
 Configure
-monitoring for service failures\n\n- [] Create runbooks for common operations\n\n- []
+monitoring for service failures\n\n- [] Create runbooks for common
+operations\n\n- []
 Document
-custom scripts/extensions\n\n- [] Set up audit logging for state-changing operations\n\n##
+custom scripts/extensions\n\n- [] Set up audit logging for state-changing
+operations\n\n##
 Testing
-[2]\n\n### Unit Tests\n\n## Using bats (bash test framework)\n\n bats tests/*.bats\n\n##
+[2]\n\n### Unit Tests\n\n## Using bats (bash test framework)\n\n bats
+tests/*.bats\n\n##
 Test
-specific script\n\n bats tests/debvisor-join.bats\n\n## Integration Tests\n\n## Full
+specific script\n\n bats tests/debvisor-join.bats\n\n## Integration Tests\n\n##
+Full
 cluster
-operation\n\n docker-compose -f tests/integration.yml up\n\n## Dry-Run Testing\n\n##
+operation\n\n docker-compose -f tests/integration.yml up\n\n## Dry-Run
+Testing\n\n##
 Preview without
-changes\n\n debvisor-join.sh --dry-run\n debvisor-upgrade.sh --check --diff\n\n## Security
+changes\n\n debvisor-join.sh --dry-run\n debvisor-upgrade.sh --check
+--diff\n\n## Security
 &
-Safety\n\n### Audit Logging\n\nAll operational scripts should log:\n\n- Who (user) ran the
-command\n\n- When (timestamp) it ran\n\n- What (command, arguments) was executed\n\n-
+Safety\n\n### Audit Logging\n\nAll operational scripts should log:\n\n- Who
+(user) ran the
+command\n\n- When (timestamp) it ran\n\n- What (command, arguments) was
+executed\n\n-
 Result
-(success/failure)\n\n### Privilege Requirements\n\nDocument which scripts require
+(success/failure)\n\n### Privilege Requirements\n\nDocument which scripts
+require
 sudo/special
-permissions:\n\n- debvisor-join.sh: root (disk provisioning)\n\n- debvisor-upgrade.sh:
+permissions:\n\n- debvisor-join.sh: root (disk provisioning)\n\n-
+debvisor-upgrade.sh:
 root (system
 updates)\n\n- debvisor-dns-update.sh: ceph/dns group (TSIG keys)\n\n### Rollback
 Procedures\n\nEach
-operational script should document:\n\n- What changes it makes\n\n- How to undo them if
+operational script should document:\n\n- What changes it makes\n\n- How to undo
+them if
 something
 goes wrong\n\n- Recovery procedures\n\n## References\n\n- [systemd
-Documentation]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy]([https://www.freedesktop.org/wiki/Software/s]([https://www.freedesktop.org/wiki/Software/](https://www.freedesktop.org/wiki/Software/)s)y)s)t)e)m)d)/)\n\n-
+Documentation]([https://www.freedesktop.org/wiki/Software/systemd]([https://www.freedesktop.org/wiki/Software/system]([https://www.freedesktop.org/wiki/Software/syste]([https://www.freedesktop.org/wiki/Software/syst]([https://www.freedesktop.org/wiki/Software/sys]([https://www.freedesktop.org/wiki/Software/sy]([https://www.freedesktop.org/wiki/Software/s]([https://www.freedesktop.org/wiki/Software/]([https://www.freedesktop.org/wiki/Software]([https://www.freedesktop.org/wiki/Softwar]([https://www.freedesktop.org/wiki/Softwa]([https://www.freedesktop.org/wiki/Softw]([https://www.freedesktop.org/wiki/Soft]([https://www.freedesktop.org/wiki/Sof]([https://www.freedesktop.org/wiki/So]([https://www.freedesktop.org/wiki/S]([https://www.freedesktop.org/wiki/]([https://www.freedesktop.org/wiki]([https://www.freedesktop.org/wik]([https://www.freedesktop.org/wi]([https://www.freedesktop.org/w]([https://www.freedesktop.org/]([https://www.freedesktop.org](https://www.freedesktop.org)/)w)i)k)i)/)S)o)f)t)w)a)r)e)/)s)y)s)t)e)m)d)/)\n\n-
 [Bash Strict
-Mode]([http://redsymbol.net/articles/unofficial-bash-strict-mode]([http://redsymbol.net/articles/unofficial-bash-strict-mod]([http://redsymbol.net/articles/unofficial-bash-strict-mo]([http://redsymbol.net/articles/unofficial-bash-strict-m]([http://redsymbol.net/articles/unofficial-bash-strict-]([http://redsymbol.net/articles/unofficial-bash-strict]([http://redsymbol.net/articles/unofficial-bash-stric]([http://redsymbol.net/articles/unofficial-bash-stri](http://redsymbol.net/articles/unofficial-bash-stri)c)t)-)m)o)d)e)/)\n\n-
+Mode]([http://redsymbol.net/articles/unofficial-bash-strict-mode]([http://redsymbol.net/articles/unofficial-bash-strict-mod]([http://redsymbol.net/articles/unofficial-bash-strict-mo]([http://redsymbol.net/articles/unofficial-bash-strict-m]([http://redsymbol.net/articles/unofficial-bash-strict-]([http://redsymbol.net/articles/unofficial-bash-strict]([http://redsymbol.net/articles/unofficial-bash-stric]([http://redsymbol.net/articles/unofficial-bash-stri]([http://redsymbol.net/articles/unofficial-bash-str]([http://redsymbol.net/articles/unofficial-bash-st]([http://redsymbol.net/articles/unofficial-bash-s]([http://redsymbol.net/articles/unofficial-bash-]([http://redsymbol.net/articles/unofficial-bash]([http://redsymbol.net/articles/unofficial-bas]([http://redsymbol.net/articles/unofficial-ba]([http://redsymbol.net/articles/unofficial-b]([http://redsymbol.net/articles/unofficial-]([http://redsymbol.net/articles/unofficial]([http://redsymbol.net/articles/unofficia]([http://redsymbol.net/articles/unoffici]([http://redsymbol.net/articles/unoffic]([http://redsymbol.net/articles/unoffi]([http://redsymbol.net/articles/unoff](http://redsymbol.net/articles/unoff)i)c)i)a)l)-)b)a)s)h)-)s)t)r)i)c)t)-)m)o)d)e)/)\n\n-
 [BATS Testing
-Framework]([https://github.com/bats-core/bats-cor]([https://github.com/bats-core/bats-co]([https://github.com/bats-core/bats-c]([https://github.com/bats-core/bats-]([https://github.com/bats-core/bats]([https://github.com/bats-core/bat]([https://github.com/bats-core/ba]([https://github.com/bats-core/b](https://github.com/bats-core/b)a)t)s)-)c)o)r)e)\n\n##
-Related Documentation\n\n- See [/etc/README.md](../etc/README.md) for system maintenance
-services\n\n- See [/opt/README.md](../opt/README.md) for build and automation tools\n\n-
+Framework]([https://github.com/bats-core/bats-cor]([https://github.com/bats-core/bats-co]([https://github.com/bats-core/bats-c]([https://github.com/bats-core/bats-]([https://github.com/bats-core/bats]([https://github.com/bats-core/bat]([https://github.com/bats-core/ba]([https://github.com/bats-core/b]([https://github.com/bats-core/]([https://github.com/bats-core]([https://github.com/bats-cor]([https://github.com/bats-co]([https://github.com/bats-c]([https://github.com/bats-]([https://github.com/bats]([https://github.com/bat]([https://github.com/ba]([https://github.com/b]([https://github.com/]([https://github.com]([https://github.co]([https://github.c]([https://github.](https://github.)c)o)m)/)b)a)t)s)-)c)o)r)e)/)b)a)t)s)-)c)o)r)e)\n\n##
+Related Documentation\n\n- See [/etc/README.md](../etc/README.md) for system
+maintenance
+services\n\n- See [/opt/README.md](../opt/README.md) for build and automation
+tools\n\n-
 See
 [README.md](../README.md) for project overview\n\n

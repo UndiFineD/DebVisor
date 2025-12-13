@@ -1,6 +1,6 @@
 # Code Issues Report: opt\testing\test_e2e_comprehensive.py
 
-Generated: 2025-12-13T15:18:50.939209
+Generated: 2025-12-13T16:49:24.076075
 Source: opt\testing\test_e2e_comprehensive.py
 
 ## Issues Summary
@@ -24,9 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 
@@ -56,9 +54,7 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to
-optimised
-byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
 ### Context
 

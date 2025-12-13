@@ -2,139 +2,200 @@
 
 `scripts/fix_all_errors.py`script has been significantly enhanced with two new
 comprehensive
-markdown fixer classes that address critical markdownlint issues, particularly those
+markdown fixer classes that address critical markdownlint issues, particularly
+those
 affecting
 the`docs/RUNNER_SETUP_GUIDE.md`file.\n\n## New Fixer Classes\n\n### 1.
-ComprehensiveMarkdownFixer\n\nA sophisticated markdown formatter that automatically fixes
+ComprehensiveMarkdownFixer\n\nA sophisticated markdown formatter that
+automatically fixes
 multiple
 categories of markdownlint violations:\n\n#### Fixes Implemented\n\n- **MD031
-(blanks-around-fences)**: Ensures code fences are properly surrounded by blank lines\n\n-
+(blanks-around-fences)**: Ensures code fences are properly surrounded by blank
+lines\n\n-
 **MD032
-(blanks-around-lists)**: Adds blank lines before and after list blocks\n\n- **MD022
-(blanks-around-headings)**: Inserts blank lines around all heading levels\n\n- **MD033
-(no-inline-html)**: Removes or escapes inline HTML tokens\n\n- **MD034 (no-bare-urls)**:
+(blanks-around-lists)**: Adds blank lines before and after list blocks\n\n-
+**MD022
+(blanks-around-headings)**: Inserts blank lines around all heading levels\n\n-
+**MD033
+(no-inline-html)**: Removes or escapes inline HTML tokens\n\n- **MD034
+(no-bare-urls)**:
 Converts
-bare URLs to proper markdown link syntax\n\n- **MD040 (fenced-code-language)**: Adds
+bare URLs to proper markdown link syntax\n\n- **MD040 (fenced-code-language)**:
+Adds
 language
-identifiers to code fences without them\n\n- **MD025 (single-title/single-h1)**: Ensures
+identifiers to code fences without them\n\n- **MD025 (single-title/single-h1)**:
+Ensures
 only one H1
-heading per document\n\n- **CRLF Normalization**: Converts Windows line endings to Unix
+heading per document\n\n- **CRLF Normalization**: Converts Windows line endings
+to Unix
 format\n\n#### Key Methods\n\n```python\n_fix_crlf(content) # Normalize line
-endings\n_fix_bare_urls(content) # Convert < <url> > to proper
+endings\n_fix_bare_urls(content) # Convert  > to proper
 links\n_fix_inline_html(content) #
 Remove [TOKEN] tags\n_fix_heading_blanks(content) # MD022
 fixes\n_fix_fence_blanks(content) # MD031
-fixes\n_fix_list_blanks(content) # MD032 fixes\n_fix_fence_language(content) # MD040
-fixes\n_fix_multiple_h1(content) # MD025 fixes\n```text\n\n_fix_bare_urls(content) #
-Convert < <url>
+fixes\n_fix_list_blanks(content) # MD032 fixes\n_fix_fence_language(content) #
+MD040
+fixes\n_fix_multiple_h1(content) # MD025
+fixes\n```text\n\n_fix_bare_urls(content) #
+Convert
 
 > to proper links\n_fix_inline_html(content) # Remove [TOKEN]
 tags\n_fix_heading_blanks(content) #
-MD022 fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content) # MD032
-fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) # MD025
-fixes\n```text\n_fix_bare_urls(content) # Convert < <url> > to proper
-links\n_fix_inline_html(content) # Remove [TOKEN] tags\n_fix_heading_blanks(content) #
+MD022 fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content)
+
+## MD032
+
+fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) #
+MD025
+fixes\n```text\n_fix_bare_urls(content) # Convert  > to proper
+links\n_fix_inline_html(content) # Remove [TOKEN]
+tags\n_fix_heading_blanks(content) #
 MD022
-fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content) # MD032
-fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) # MD025
+fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content) #
+MD032
+fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) #
+MD025
 fixes\n```text\n_fix_inline_html(content) # Remove [TOKEN]
 tags\n_fix_heading_blanks(content) #
-MD022 fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content) # MD032
-fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) # MD025
-fixes\n```text\n#### Features\n- **Code block awareness**: Respects code blocks and
+MD022 fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content)
+
+## MD032
+
+fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) #
+MD025
+fixes\n```text\n#### Features\n- **Code block awareness**: Respects code blocks
+and
 doesn't modify
-content inside fences\n\n- **Selective fixing**: Only adds blank lines where needed,
+content inside fences\n\n- **Selective fixing**: Only adds blank lines where
+needed,
 preserving
-intentional formatting\n\n- **Link preservation**: Handles markdown links without
+intentional formatting\n\n- **Link preservation**: Handles markdown links
+without
 modification\n\n-
 **Robust regex patterns**: Uses anchored patterns for reliable matching\n### 2.
 MarkdownLintJSONFixer\nA supplementary fixer for additional markdown formatting
 refinements:\n####
-Fixes Implemented (2)\n- **Excessive blank line normalization**: Reduces multiple
+Fixes Implemented (2)\n- **Excessive blank line normalization**: Reduces
+multiple
 consecutive blank
-lines to single blank lines\n\n- **List spacing consistency**: Ensures uniform spacing
+lines to single blank lines\n\n- **List spacing consistency**: Ensures uniform
+spacing
 around list
-items\n\n- **Block transition handling**: Properly separates different block types\n####
+items\n\n- **Block transition handling**: Properly separates different block
+types\n####
 Key Methods
-(2)\n```python\n\n- **Code block awareness**: Respects code blocks and doesn't modify
+(2)\n```python\n\n- **Code block awareness**: Respects code blocks and doesn't
+modify
 content inside
 fences\n\n- **Selective fixing**: Only adds blank lines where needed, preserving
 intentional
-formatting\n\n- **Link preservation**: Handles markdown links without modification\n\n-
+formatting\n\n- **Link preservation**: Handles markdown links without
+modification\n\n-
 **Robust
 regex patterns**: Uses anchored patterns for reliable matching\n\n### 2.
 MarkdownLintJSONFixer
-(2)\n\nA supplementary fixer for additional markdown formatting refinements:\n\n#### Fixes
-Implemented (3)\n\n- **Excessive blank line normalization**: Reduces multiple consecutive
+(2)\n\nA supplementary fixer for additional markdown formatting
+refinements:\n\n#### Fixes
+Implemented (3)\n\n- **Excessive blank line normalization**: Reduces multiple
+consecutive
 blank
-lines to single blank lines\n\n- **List spacing consistency**: Ensures uniform spacing
+lines to single blank lines\n\n- **List spacing consistency**: Ensures uniform
+spacing
 around list
-items\n\n- **Block transition handling**: Properly separates different block types\n\n####
+items\n\n- **Block transition handling**: Properly separates different block
+types\n\n####
 Key
-Methods (3)\n\n```python\n#### Features (2)\n\n- **Code block awareness**: Respects code
+Methods (3)\n\n```python\n#### Features (2)\n\n- **Code block awareness**:
+Respects code
 blocks and
-doesn't modify content inside fences\n\n- **Selective fixing**: Only adds blank lines
+doesn't modify content inside fences\n\n- **Selective fixing**: Only adds blank
+lines
 where needed,
-preserving intentional formatting\n\n- **Link preservation**: Handles markdown links
+preserving intentional formatting\n\n- **Link preservation**: Handles markdown
+links
 without
 modification\n\n- **Robust regex patterns**: Uses anchored patterns for reliable
 matching\n\n### 2.
-MarkdownLintJSONFixer (3)\n\nA supplementary fixer for additional markdown formatting
-refinements:\n\n#### Fixes Implemented (4)\n\n- **Excessive blank line normalization**:
+MarkdownLintJSONFixer (3)\n\nA supplementary fixer for additional markdown
+formatting
+refinements:\n\n#### Fixes Implemented (4)\n\n- **Excessive blank line
+normalization**:
 Reduces
-multiple consecutive blank lines to single blank lines\n\n- **List spacing consistency**:
+multiple consecutive blank lines to single blank lines\n\n- **List spacing
+consistency**:
 Ensures
-uniform spacing around list items\n\n- **Block transition handling**: Properly separates
+uniform spacing around list items\n\n- **Block transition handling**: Properly
+separates
 different
-block types\n\n#### Key Methods (4)\n```python\n\n- **Code block awareness**: Respects
+block types\n\n#### Key Methods (4)\n```python\n\n- **Code block awareness**:
+Respects
 code blocks
-and doesn't modify content inside fences\n\n- **Selective fixing**: Only adds blank lines
+and doesn't modify content inside fences\n\n- **Selective fixing**: Only adds
+blank lines
 where
-needed, preserving intentional formatting\n\n- **Link preservation**: Handles markdown
+needed, preserving intentional formatting\n\n- **Link preservation**: Handles
+markdown
 links without
 modification\n\n- **Robust regex patterns**: Uses anchored patterns for reliable
 matching\n\n### 2.
-MarkdownLintJSONFixer (4)\n\nA supplementary fixer for additional markdown formatting
-refinements:\n\n#### Fixes Implemented (5)\n\n- **Excessive blank line normalization**:
+MarkdownLintJSONFixer (4)\n\nA supplementary fixer for additional markdown
+formatting
+refinements:\n\n#### Fixes Implemented (5)\n\n- **Excessive blank line
+normalization**:
 Reduces
-multiple consecutive blank lines to single blank lines\n\n- **List spacing consistency**:
+multiple consecutive blank lines to single blank lines\n\n- **List spacing
+consistency**:
 Ensures
-uniform spacing around list items\n\n- **Block transition handling**: Properly separates
+uniform spacing around list items\n\n- **Block transition handling**: Properly
+separates
 different
-block types\n\n#### Key Methods (5)\n\n```python\n_normalize_blank_lines(content) # Reduce
+block types\n\n#### Key Methods
+(5)\n\n```python\n_normalize_blank_lines(content) # Reduce
 multiple
 blanks\n_fix_list_spacing(content) # Consistent list
 formatting\n```text\n\n_fix_list_spacing(content) # Consistent list
 formatting\n```text\n_fix_list_spacing(content) # Consistent list
 formatting\n```text\n```text\n##
-Integration with fix_all_errors.py\nBoth new fixers are registered in the main fixer
+Integration with fix_all_errors.py\nBoth new fixers are registered in the main
+fixer
 pipeline:\n\n```python\nBoth new fixers are registered in the main fixer
 pipeline:\n\n```python\n##
-Integration with fix_all_errors.py (2)\n\nBoth new fixers are registered in the main fixer
+Integration with fix_all_errors.py (2)\n\nBoth new fixers are registered in the
+main fixer
 pipeline:\n\n```python\n\nBoth new fixers are registered in the main fixer
 pipeline:\n\n```python\nfixers = [\n WhitespaceFixer(root, args.apply),\n
 MarkdownFixer(root,
 args.apply),\n ComprehensiveMarkdownFixer(root, args.apply), # NEW\n
 MarkdownLintJSONFixer(root,
-args.apply), # NEW\n # ... other fixers ...\n]\n```text\n\n WhitespaceFixer(root,
+args.apply), # NEW\n # ... other fixers ...\n]\n```text\n\n
+WhitespaceFixer(root,
 args.apply),\n
-MarkdownFixer(root, args.apply),\n ComprehensiveMarkdownFixer(root, args.apply), # NEW\n
-MarkdownLintJSONFixer(root, args.apply), # NEW\n # ... other fixers ...\n]\n```text\n
+MarkdownFixer(root, args.apply),\n ComprehensiveMarkdownFixer(root, args.apply),
+
+## NEW\n
+
+MarkdownLintJSONFixer(root, args.apply), # NEW\n # ... other fixers
+...\n]\n```text\n
 WhitespaceFixer(root, args.apply),\n MarkdownFixer(root, args.apply),\n
-ComprehensiveMarkdownFixer(root, args.apply), # NEW\n MarkdownLintJSONFixer(root,
+ComprehensiveMarkdownFixer(root, args.apply), # NEW\n
+MarkdownLintJSONFixer(root,
 args.apply), #
 NEW\n # ... other fixers ...\n]\n```text\n MarkdownFixer(root, args.apply),\n
-ComprehensiveMarkdownFixer(root, args.apply), # NEW\n MarkdownLintJSONFixer(root,
+ComprehensiveMarkdownFixer(root, args.apply), # NEW\n
+MarkdownLintJSONFixer(root,
 args.apply), #
-NEW\n # ... other fixers ...\n]\n```text\n## Usage\n### Apply All Fixes\n```bash\n\n###
+NEW\n # ... other fixers ...\n]\n```text\n## Usage\n### Apply All
+Fixes\n```bash\n\n###
 Apply All
-Fixes (2)\n\n```bash\n## Usage (2)\n\n### Apply All Fixes (3)\n```bash\n\n### Apply All
+Fixes (2)\n\n```bash\n## Usage (2)\n\n### Apply All Fixes (3)\n```bash\n\n###
+Apply All
 Fixes
 (4)\n\n```bash\npython scripts/fix_all_errors.py
 --apply\n```text\n```text\n```text\n```text\n###
 Dry Run (Preview Changes)\n```bash\n\n```bash\n### Dry Run (Preview Changes)
 (2)\n```bash\n\n```bash\npython scripts/fix_all_errors.py
---dry-run\n```text\n```text\n```text\n```text\n## Issues Fixed\nThe enhanced markdown
+--dry-run\n```text\n```text\n```text\n```text\n## Issues Fixed\nThe enhanced
+markdown
 fixers
 specifically address issues found in`docs/RUNNER_SETUP_GUIDE.md`:\n| Issue Code | Rule |
 Count |
@@ -143,79 +204,113 @@ Solution |\n|-----------|------|-------|----------|\n| MD031 | Blanks around fen
 Auto-insert blank lines |\n| MD032 | Blanks around lists | 18+ | Add blank lines
 before/after lists
 |\n| MD022 | Blanks around headings | 16+ | Ensure proper heading spacing |\n| MD040 | Missing fence
-language | 8+ | Add 'text' or detected language |\n| MD025 | Multiple H1 headings | 3 |
+language | 8+ | Add 'text' or detected language |\n| MD025 | Multiple H1
+headings | 3 |
 Convert
-extras to H2 |\n| MD033 | Inline HTML | 2 | Remove or escape tags |\n| MD034 | Bare URLs |
+extras to H2 |\n| MD033 | Inline HTML | 2 | Remove or escape tags |\n| MD034 |
+Bare URLs |
 Multiple
 | Convert to markdown syntax |\n## Performance Impact\n- **Execution Time**: < 1 second for most
-markdown files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n- **File
+markdown files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n-
+**File
 Size**: No
-significant change (formatting only)\n## Testing\nThe fixers have been tested on:\n\n-
-`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other markdown
+significant change (formatting only)\n## Testing\nThe fixers have been tested
+on:\n\n-
+`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other
+markdown
 files in
-the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple H1s\n##
+the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple
+H1s\n##
 Example:
-Before and After\n### Before (MD031 Issue)\n```markdown\nThe enhanced markdown fixers
+Before and After\n### Before (MD031 Issue)\n```markdown\nThe enhanced markdown
+fixers
 specifically
 address issues found in`docs/RUNNER_SETUP_GUIDE.md`:\n| Issue Code | Rule | Count |
 Solution
 |\n|-----------|------|-------|----------|\n| MD031 | Blanks around fences | 24+ | Auto-insert blank
-lines |\n| MD032 | Blanks around lists | 18+ | Add blank lines before/after lists |\n|
+lines |\n| MD032 | Blanks around lists | 18+ | Add blank lines before/after
+lists |\n|
 MD022 |
-Blanks around headings | 16+ | Ensure proper heading spacing |\n| MD040 | Missing fence
+Blanks around headings | 16+ | Ensure proper heading spacing |\n| MD040 |
+Missing fence
 language |
-8+ | Add 'text' or detected language |\n| MD025 | Multiple H1 headings | 3 | Convert
+8+ | Add 'text' or detected language |\n| MD025 | Multiple H1 headings | 3 |
+Convert
 extras to H2
 |\n| MD033 | Inline HTML | 2 | Remove or escape tags |\n| MD034 | Bare URLs | Multiple | Convert to
-markdown syntax |\n\n## Performance Impact (2)\n\n- **Execution Time**: < 1 second for
+markdown syntax |\n\n## Performance Impact (2)\n\n- **Execution Time**: < 1
+second for
 most markdown
-files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n- **File Size**: No
+files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n- **File
+Size**: No
 significant
-change (formatting only)\n\n## Testing (2)\n\nThe fixers have been tested on:\n\n-
-`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other markdown
+change (formatting only)\n\n## Testing (2)\n\nThe fixers have been tested
+on:\n\n-
+`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other
+markdown
 files in
-the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple H1s\n\n##
+the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple
+H1s\n\n##
 Example:
-Before and After (2)\n\n### Before (MD031 Issue) (2)\n\n```markdown\n## Issues Fixed
+Before and After (2)\n\n### Before (MD031 Issue) (2)\n\n```markdown\n## Issues
+Fixed
 (2)\n\nThe
 enhanced markdown fixers specifically address issues found
 in`docs/RUNNER_SETUP_GUIDE.md`:\n| Issue
 Code | Rule | Count | Solution |\n|-----------|------|-------|----------|\n| MD031 |
 Blanks around
-fences | 24+ | Auto-insert blank lines |\n| MD032 | Blanks around lists | 18+ | Add blank
+fences | 24+ | Auto-insert blank lines |\n| MD032 | Blanks around lists | 18+ |
+Add blank
 lines
-before/after lists |\n| MD022 | Blanks around headings | 16+ | Ensure proper heading
+before/after lists |\n| MD022 | Blanks around headings | 16+ | Ensure proper
+heading
 spacing |\n|
-MD040 | Missing fence language | 8+ | Add 'text' or detected language |\n| MD025 |
+MD040 | Missing fence language | 8+ | Add 'text' or detected language |\n| MD025
+|
 Multiple H1
-headings | 3 | Convert extras to H2 |\n| MD033 | Inline HTML | 2 | Remove or escape tags
+headings | 3 | Convert extras to H2 |\n| MD033 | Inline HTML | 2 | Remove or
+escape tags
 |\n| MD034
 | Bare URLs | Multiple | Convert to markdown syntax |\n\n## Performance Impact (3)\n\n- **Execution
-Time**: < 1 second for most markdown files\n\n- **Memory Usage**: Minimal (line-by-line
-processing)\n\n- **File Size**: No significant change (formatting only)\n\n## Testing
+Time**: < 1 second for most markdown files\n\n- **Memory Usage**: Minimal
+(line-by-line
+processing)\n\n- **File Size**: No significant change (formatting only)\n\n##
+Testing
 (3)\n\nThe
-fixers have been tested on:\n\n- `docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue
-report)\n\n- All other markdown files in the repository\n\n- Edge cases: nested lists,
+fixers have been tested on:\n\n- `docs/RUNNER_SETUP_GUIDE.md`(problematic file
+from issue
+report)\n\n- All other markdown files in the repository\n\n- Edge cases: nested
+lists,
 code blocks
-with fences, multiple H1s\n\n## Example: Before and After (3)\n\n### Before (MD031 Issue)
-(3)\n```markdown\n\nThe enhanced markdown fixers specifically address issues found
+with fences, multiple H1s\n\n## Example: Before and After (3)\n\n### Before
+(MD031 Issue)
+(3)\n```markdown\n\nThe enhanced markdown fixers specifically address issues
+found
 in`docs/RUNNER_SETUP_GUIDE.md`:\n| Issue Code | Rule | Count | Solution
 |\n|-----------|------|-------|----------|\n| MD031 | Blanks around fences | 24+ | Auto-insert blank
-lines |\n| MD032 | Blanks around lists | 18+ | Add blank lines before/after lists |\n|
+lines |\n| MD032 | Blanks around lists | 18+ | Add blank lines before/after
+lists |\n|
 MD022 |
-Blanks around headings | 16+ | Ensure proper heading spacing |\n| MD040 | Missing fence
+Blanks around headings | 16+ | Ensure proper heading spacing |\n| MD040 |
+Missing fence
 language |
-8+ | Add 'text' or detected language |\n| MD025 | Multiple H1 headings | 3 | Convert
+8+ | Add 'text' or detected language |\n| MD025 | Multiple H1 headings | 3 |
+Convert
 extras to H2
 |\n| MD033 | Inline HTML | 2 | Remove or escape tags |\n| MD034 | Bare URLs | Multiple | Convert to
-markdown syntax |\n\n## Performance Impact (4)\n\n- **Execution Time**: < 1 second for
+markdown syntax |\n\n## Performance Impact (4)\n\n- **Execution Time**: < 1
+second for
 most markdown
-files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n- **File Size**: No
+files\n\n- **Memory Usage**: Minimal (line-by-line processing)\n\n- **File
+Size**: No
 significant
-change (formatting only)\n\n## Testing (4)\n\nThe fixers have been tested on:\n\n-
-`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other markdown
+change (formatting only)\n\n## Testing (4)\n\nThe fixers have been tested
+on:\n\n-
+`docs/RUNNER_SETUP_GUIDE.md`(problematic file from issue report)\n\n- All other
+markdown
 files in
-the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple H1s\n\n##
+the repository\n\n- Edge cases: nested lists, code blocks with fences, multiple
+H1s\n\n##
 Example:
 Before and After (4)\n\n### Before (MD031 Issue) (4)\n\n```markdown\n###
 Prerequisites\n```powershell\n\n```powershell\n\n```powershell\n\n```powershell\nGet-Service\n```text\n```text\n```text\n```text\n###
@@ -223,117 +318,158 @@ Step 2\n```text\n```text\n```text\n```text\n### After
 (Corrected)\n```markdown\n\n```markdown\n###
 After (Corrected) (2)\n```markdown\n\n```markdown\n### Prerequisites
 (2)\n```powershell\n\n```powershell\n\n```powershell\n\n```powershell\nGet-Service\n```text\n```text\n```text\n```text\n###
-Step 2 (2)\n```text\n```text\n### Step 2 (3)\n```text\n```text\n## Fallback Behavior\nIf a
+Step 2 (2)\n```text\n```text\n### Step 2 (3)\n```text\n```text\n## Fallback
+Behavior\nIf a
 markdown
-file cannot be processed:\n\n- The script logs a debug message but continues\n\n- The file
+file cannot be processed:\n\n- The script logs a debug message but
+continues\n\n- The file
 remains
-unchanged\n\n- Processing continues with the next file\n\n- No errors are reported to the
+unchanged\n\n- Processing continues with the next file\n\n- No errors are
+reported to the
 user
-unless critical\n## Future Enhancements\nPotential improvements for future versions:\n\n1.
+unless critical\n## Future Enhancements\nPotential improvements for future
+versions:\n\n1.
 **Custom
 language detection**: Automatically detect code block language\n\n2. **Comment
 preservation**:
-Handle markdown-in-comments scenarios\n\n3. **Table formatting**: Ensure table consistency
-(MD005)\n\n4. **Link validation**: Check for broken reference links (MD050+)\n\n5.
+Handle markdown-in-comments scenarios\n\n3. **Table formatting**: Ensure table
+consistency
+(MD005)\n\n4. **Link validation**: Check for broken reference links
+(MD050+)\n\n5.
 **Performance
 optimization**: Parallel processing for large markdown files\n## Related Files
 Modified\n-`scripts/fix_all_errors.py`- Added ComprehensiveMarkdownFixer and
 MarkdownLintJSONFixer
-classes\n\n- Dependencies: No new external packages required (uses Python stdlib)\n##
-Troubleshooting\nIf markdown fixes don't apply:\n\n1. Ensure the file has read/write
-permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the script has
+classes\n\n- Dependencies: No new external packages required (uses Python
+stdlib)\n##
+Troubleshooting\nIf markdown fixes don't apply:\n\n1. Ensure the file has
+read/write
+permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the
+script has
 proper
 Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n##
 References\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark]([https://github.com/DavidAnson/mar]([https://github.com/DavidAnson/ma]([https://github.com/DavidAnson/m]([https://github.com/DavidAnson/]([https://github.com/DavidAnson]([https://github.com/DavidAnso]([https://github.com/DavidAns]([https://github.com/DavidAn]([https://github.com/DavidA]([https://github.com/David]([https://github.com/Davi]([https://github.com/Dav]([https://github.com/Da]([https://github.com/D]([https://github.com/](https://github.com/)D)a)v)i)d)A)n)s)o)n)/)m)a)r)k)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm]([https://spec.common]([https://spec.commo]([https://spec.comm]([https://spec.com]([https://spec.co]([https://spec.c]([https://spec.]([https://spec]([https://spe]([https://sp]([https://s](https://s)p)e)c).)c)o)m)m)o)n)m)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n##
-Fallback Behavior (2)\nIf a markdown file cannot be processed:\n\n- The script logs a
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.]([https://github.github]([https://github.githu]([https://github.gith]([https://github.git]([https://github.gi]([https://github.g]([https://github.]([https://github]([https://githu]([https://gith]([https://git]([https://gi]([https://g](https://g)i)t)h)u)b).)g)i)t)h)u)b).)c)o)m)/)g)f)m)/)\n##
+Fallback Behavior (2)\nIf a markdown file cannot be processed:\n\n- The script
+logs a
 debug message
-but continues\n\n- The file remains unchanged\n\n- Processing continues with the next
+but continues\n\n- The file remains unchanged\n\n- Processing continues with the
+next
 file\n\n- No
-errors are reported to the user unless critical\n## Future Enhancements (2)\nPotential
+errors are reported to the user unless critical\n## Future Enhancements
+(2)\nPotential
 improvements
-for future versions:\n\n1. **Custom language detection**: Automatically detect code block
-language\n\n2. **Comment preservation**: Handle markdown-in-comments scenarios\n\n3.
+for future versions:\n\n1. **Custom language detection**: Automatically detect
+code block
+language\n\n2. **Comment preservation**: Handle markdown-in-comments
+scenarios\n\n3.
 **Table
-formatting**: Ensure table consistency (MD005)\n\n4. **Link validation**: Check for broken
+formatting**: Ensure table consistency (MD005)\n\n4. **Link validation**: Check
+for broken
 reference
-links (MD050+)\n\n5. **Performance optimization**: Parallel processing for large markdown
+links (MD050+)\n\n5. **Performance optimization**: Parallel processing for large
+markdown
 files\n##
-Related Files Modified (2)\n-`scripts/fix_all_errors.py`- Added ComprehensiveMarkdownFixer
+Related Files Modified (2)\n-`scripts/fix_all_errors.py`- Added
+ComprehensiveMarkdownFixer
 and
-MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages required (uses
+MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages
+required (uses
 Python
-stdlib)\n## Troubleshooting (2)\nIf markdown fixes don't apply:\n\n1. Ensure the file has
+stdlib)\n## Troubleshooting (2)\nIf markdown fixes don't apply:\n\n1. Ensure the
+file has
 read/write
-permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the script has
+permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the
+script has
 proper
-Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n## References
+Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n##
+References
 (2)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark]([https://github.com/DavidAnson/mar]([https://github.com/DavidAnson/ma]([https://github.com/DavidAnson/m]([https://github.com/DavidAnson/]([https://github.com/DavidAnson]([https://github.com/DavidAnso]([https://github.com/DavidAns]([https://github.com/DavidAn]([https://github.com/DavidA]([https://github.com/David]([https://github.com/Davi]([https://github.com/Dav]([https://github.com/Da]([https://github.com/D]([https://github.com/](https://github.com/)D)a)v)i)d)A)n)s)o)n)/)m)a)r)k)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm]([https://spec.common]([https://spec.commo]([https://spec.comm]([https://spec.com]([https://spec.co]([https://spec.c]([https://spec.]([https://spec]([https://spe]([https://sp]([https://s](https://s)p)e)c).)c)o)m)m)o)n)m)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n\nIf
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.]([https://github.github]([https://github.githu]([https://github.gith]([https://github.git]([https://github.gi]([https://github.g]([https://github.]([https://github]([https://githu]([https://gith]([https://git]([https://gi]([https://g](https://g)i)t)h)u)b).)g)i)t)h)u)b).)c)o)m)/)g)f)m)/)\n\nIf
 a markdown file cannot be processed:\n\n- The script logs a debug message but
 continues\n\n- The
-file remains unchanged\n\n- Processing continues with the next file\n\n- No errors are
+file remains unchanged\n\n- Processing continues with the next file\n\n- No
+errors are
 reported to
-the user unless critical\n## Future Enhancements (3)\nPotential improvements for future
+the user unless critical\n## Future Enhancements (3)\nPotential improvements for
+future
 versions:\n\n1. **Custom language detection**: Automatically detect code block
 language\n\n2.
 **Comment preservation**: Handle markdown-in-comments scenarios\n\n3. **Table
 formatting**: Ensure
-table consistency (MD005)\n\n4. **Link validation**: Check for broken reference links
+table consistency (MD005)\n\n4. **Link validation**: Check for broken reference
+links
 (MD050+)\n\n5.
-**Performance optimization**: Parallel processing for large markdown files\n## Related
+**Performance optimization**: Parallel processing for large markdown files\n##
+Related
 Files
 Modified (3)\n-`scripts/fix_all_errors.py`- Added ComprehensiveMarkdownFixer and
-MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages required (uses
+MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages
+required (uses
 Python
-stdlib)\n## Troubleshooting (3)\nIf markdown fixes don't apply:\n\n1. Ensure the file has
+stdlib)\n## Troubleshooting (3)\nIf markdown fixes don't apply:\n\n1. Ensure the
+file has
 read/write
-permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the script has
+permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the
+script has
 proper
-Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n## References
+Python 3.8+ environment\n\n4. Run with`--dry-run`first to preview changes\n##
+References
 (3)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark]([https://github.com/DavidAnson/mar]([https://github.com/DavidAnson/ma]([https://github.com/DavidAnson/m]([https://github.com/DavidAnson/]([https://github.com/DavidAnson]([https://github.com/DavidAnso]([https://github.com/DavidAns]([https://github.com/DavidAn]([https://github.com/DavidA]([https://github.com/David]([https://github.com/Davi]([https://github.com/Dav]([https://github.com/Da]([https://github.com/D]([https://github.com/](https://github.com/)D)a)v)i)d)A)n)s)o)n)/)m)a)r)k)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm]([https://spec.common]([https://spec.commo]([https://spec.comm]([https://spec.com]([https://spec.co]([https://spec.c]([https://spec.]([https://spec]([https://spe]([https://sp]([https://s](https://s)p)e)c).)c)o)m)m)o)n)m)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n##
-Fallback Behavior (3)\nIf a markdown file cannot be processed:\n\n- The script logs a
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.]([https://github.github]([https://github.githu]([https://github.gith]([https://github.git]([https://github.gi]([https://github.g]([https://github.]([https://github]([https://githu]([https://gith]([https://git]([https://gi]([https://g](https://g)i)t)h)u)b).)g)i)t)h)u)b).)c)o)m)/)g)f)m)/)\n##
+Fallback Behavior (3)\nIf a markdown file cannot be processed:\n\n- The script
+logs a
 debug message
-but continues\n\n- The file remains unchanged\n\n- Processing continues with the next
+but continues\n\n- The file remains unchanged\n\n- Processing continues with the
+next
 file\n\n- No
-errors are reported to the user unless critical\n## Future Enhancements (4)\nPotential
+errors are reported to the user unless critical\n## Future Enhancements
+(4)\nPotential
 improvements
-for future versions:\n\n1. **Custom language detection**: Automatically detect code block
-language\n\n2. **Comment preservation**: Handle markdown-in-comments scenarios\n\n3.
+for future versions:\n\n1. **Custom language detection**: Automatically detect
+code block
+language\n\n2. **Comment preservation**: Handle markdown-in-comments
+scenarios\n\n3.
 **Table
-formatting**: Ensure table consistency (MD005)\n\n4. **Link validation**: Check for broken
+formatting**: Ensure table consistency (MD005)\n\n4. **Link validation**: Check
+for broken
 reference
-links (MD050+)\n\n5. **Performance optimization**: Parallel processing for large markdown
+links (MD050+)\n\n5. **Performance optimization**: Parallel processing for large
+markdown
 files\n##
-Related Files Modified (4)\n-`scripts/fix_all_errors.py`- Added ComprehensiveMarkdownFixer
+Related Files Modified (4)\n-`scripts/fix_all_errors.py`- Added
+ComprehensiveMarkdownFixer
 and
-MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages required (uses
+MarkdownLintJSONFixer classes\n\n- Dependencies: No new external packages
+required (uses
 Python
-stdlib)\n## Troubleshooting (4)\nIf markdown fixes don't apply:\n\n1. Ensure the file has
+stdlib)\n## Troubleshooting (4)\nIf markdown fixes don't apply:\n\n1. Ensure the
+file has
 read/write
-permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the script has
+permissions\n\n2. Check that the file is valid UTF-8 encoded\n\n3. Verify the
+script has
 proper
-Python 3.8+ environment\n\n4. Run with`--dry-run` first to preview changes\n## References
+Python 3.8+ environment\n\n4. Run with`--dry-run` first to preview changes\n##
+References
 (4)\n-
 [markdownlint
-Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark](https://github.com/DavidAnson/mark)d)o)w)n)l)i)n)t)\n\n-
+Documentation]([https://github.com/DavidAnson/markdownlin]([https://github.com/DavidAnson/markdownli]([https://github.com/DavidAnson/markdownl]([https://github.com/DavidAnson/markdown]([https://github.com/DavidAnson/markdow]([https://github.com/DavidAnson/markdo]([https://github.com/DavidAnson/markd]([https://github.com/DavidAnson/mark]([https://github.com/DavidAnson/mar]([https://github.com/DavidAnson/ma]([https://github.com/DavidAnson/m]([https://github.com/DavidAnson/]([https://github.com/DavidAnson]([https://github.com/DavidAnso]([https://github.com/DavidAns]([https://github.com/DavidAn]([https://github.com/DavidA]([https://github.com/David]([https://github.com/Davi]([https://github.com/Dav]([https://github.com/Da]([https://github.com/D]([https://github.com/](https://github.com/)D)a)v)i)d)A)n)s)o)n)/)m)a)r)k)d)o)w)n)l)i)n)t)\n\n-
 [CommonMark
-Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm](https://spec.commonm)a)r)k).)o)r)g)/)\n\n-
+Specification]([https://spec.commonmark.org]([https://spec.commonmark.or]([https://spec.commonmark.o]([https://spec.commonmark.]([https://spec.commonmark]([https://spec.commonmar]([https://spec.commonma]([https://spec.commonm]([https://spec.common]([https://spec.commo]([https://spec.comm]([https://spec.com]([https://spec.co]([https://spec.c]([https://spec.]([https://spec]([https://spe]([https://sp]([https://s](https://s)p)e)c).)c)o)m)m)o)n)m)a)r)k).)o)r)g)/)\n\n-
 [GitHub Flavored
-Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.](https://github.github.)c)o)m)/)g)f)m)/)\n\n
+Markdown]([https://github.github.com/gfm]([https://github.github.com/gf]([https://github.github.com/g]([https://github.github.com/]([https://github.github.com]([https://github.github.co]([https://github.github.c]([https://github.github.]([https://github.github]([https://github.githu]([https://github.gith]([https://github.git]([https://github.gi]([https://github.g]([https://github.]([https://github]([https://githu]([https://gith]([https://git]([https://gi]([https://g](https://g)i)t)h)u)b).)g)i)t)h)u)b).)c)o)m)/)g)f)m)/)\n\n

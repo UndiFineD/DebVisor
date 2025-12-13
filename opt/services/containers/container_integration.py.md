@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\containers\container_integration.py
 
-Generated: 2025-12-13T15:14:55.368242
+Generated: 2025-12-13T16:45:27.863122
 Source: opt\services\containers\container_integration.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

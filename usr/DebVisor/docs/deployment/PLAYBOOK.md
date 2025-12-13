@@ -2,16 +2,22 @@
 
 **Code
 
-Review**: Ensure all PRs are approved and merged to `main`.\n\n- [] **Tests**: Verify CI
+Review**: Ensure all PRs are approved and merged to `main`.\n\n- [] **Tests**:
+Verify CI
 pipeline
-passed (Unit, Integration, E2E).\n\n- [] **Backup**: Trigger a manual backup of the
+passed (Unit, Integration, E2E).\n\n- [] **Backup**: Trigger a manual backup of
+the
 production
 database.\n\n ```bash\n debvisor-cli backup create --type full --tag
-pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full --tag
-pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full --tag
-pre-deploy-vX.Y.Z\n```text\n```text\n```text\n```text\n\n- [] **Migrations**: Check for
+pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full
+--tag
+pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full
+--tag
+pre-deploy-vX.Y.Z\n```text\n```text\n```text\n```text\n\n- [] **Migrations**:
+Check for
 pending
-database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending database
+database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending
+database
 migrations.\n\n
 
 ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n ```bash\n\n- []
@@ -20,8 +26,10 @@ pending database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pendi
 migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n
 ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n ```bash\n debvisor-cli db
 
-check\n```text\n```text\n debvisor-cli db check\n```text\n```text\n debvisor-cli db
-check\n```text\n```text\n```text\n```text\n### Deployment Steps\n1. **Pull Latest
+check\n```text\n```text\n debvisor-cli db check\n```text\n```text\n debvisor-cli
+db
+check\n```text\n```text\n```text\n```text\n### Deployment Steps\n1. **Pull
+Latest
 Image/Code**:\n\n
 
 ```bash\n\n1. **Pull Latest Image/Code**:\n\n ```bash\n\n### Deployment Steps (2)\n\n1. **Pull
@@ -41,12 +49,16 @@ pull debvisor/debvisor:latest\n```text\n\n1. **Apply Migrations**:\n\n ```bash\n
 Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n
 ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1.
 
-**Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n debvisor-cli
+**Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n
+debvisor-cli
 db
-upgrade\n```text\n```text\n debvisor-cli db upgrade\n```text\n```text\n debvisor-cli db
-upgrade\n```text\n```text\n```text\n```text\n\n1. **Restart Services**(Rolling update if
+upgrade\n```text\n```text\n debvisor-cli db upgrade\n```text\n```text\n
+debvisor-cli db
+upgrade\n```text\n```text\n```text\n```text\n\n1. **Restart Services**(Rolling
+update if
 K8s,
-otherwise restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise
+otherwise restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s,
+otherwise
 restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise
 restart):\n\n
 
@@ -63,49 +75,61 @@ restart debvisor\n```text\n```text\n```text\n```text\n\n1.**Verify Health**:\n\n
 ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify
 
 Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n curl -f
-<[http://localhost:8080/health/live>\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv]([http://localhost:8080/health/li]([http://localhost:8080/health/l]([http://localhost:8080/health/](http://localhost:8080/health/)l)i)v)e)>)\)n)
+\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv]([http://localhost:8080/health/li]([http://localhost:8080/health/l]([http://localhost:8080/health/]([http://localhost:8080/health]([http://localhost:8080/healt]([http://localhost:8080/heal]([http://localhost:8080/hea]([http://localhost:8080/he]([http://localhost:8080/h]([http://localhost:8080/]([http://localhost:8080]([http://localhost:808]([http://localhost:80]([http://localhost:8]([http://localhost:]([http://localhost]([http://localhos]([http://localho](http://localho)s)t):)8)0)8)0)/)h)e)a)l)t)h)/)l)i)v)e)>)\)n)
 curl -f
-<[http://localhost:8080/health/ready>\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text]([http://localhost:8080/health/ready>\n```tex]([http://localhost:8080/health/ready>\n```te]([http://localhost:8080/health/ready>\n```t](http://localhost:8080/health/ready>\n```t)e)x)t)\)n)\)n)
+\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text]([http://localhost:8080/health/ready>\n```tex]([http://localhost:8080/health/ready>\n```te]([http://localhost:8080/health/ready>\n```t]([http://localhost:8080/health/ready>\n```]([http://localhost:8080/health/ready>\n``]([http://localhost:8080/health/ready>\n`]([http://localhost:8080/health/ready>\n]([http://localhost:8080/health/ready>\]([http://localhost:8080/health/ready>]([http://localhost:8080/health/ready]([http://localhost:8080/health/read]([http://localhost:8080/health/rea]([http://localhost:8080/health/re]([http://localhost:8080/health/r]([http://localhost:8080/health/]([http://localhost:8080/health]([http://localhost:8080/healt]([http://localhost:8080/heal](http://localhost:8080/heal)t)h)/)r)e)a)d)y)>)\)n)`)`)`)t)e)x)t)\)n)\)n)
 curl -f
-<<[http://localhost:8080/health/ready>>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te]([http://localhost:8080/health/ready>>\n```t]([http://localhost:8080/health/ready>>\n```]([http://localhost:8080/health/ready>>\n``](http://localhost:8080/health/ready>>\n``)`)t)e)x)t)\)n)
+
+>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te]([http://localhost:8080/health/ready>>\n```t]([http://localhost:8080/health/ready>>\n```]([http://localhost:8080/health/ready>>\n``]([http://localhost:8080/health/ready>>\n`]([http://localhost:8080/health/ready>>\n]([http://localhost:8080/health/ready>>\]([http://localhost:8080/health/ready>>]([http://localhost:8080/health/ready>]([http://localhost:8080/health/ready]([http://localhost:8080/health/read]([http://localhost:8080/health/rea]([http://localhost:8080/health/re]([http://localhost:8080/health/r]([http://localhost:8080/health/]([http://localhost:8080/health]([http://localhost:8080/healt]([http://localhost:8080/heal]([http://localhost:8080/hea](http://localhost:8080/hea)l)t)h)/)r)e)a)d)y)>)>)\)n)`)`)`)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/]([https://localhost:8080/health](https://localhost:8080/health)/)l)i)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea]([https://localhost:8080/he]([https://localhost:8080/h]([https://localhost:8080/]([https://localhost:8080]([https://localhost:808]([https://localhost:80]([https://localhost:8]([https://localhost:]([https://localhost]([https://localhos]([https://localho]([https://localh](https://localh)o)s)t):)8)0)8)0)/)h)e)a)l)t)h)/)l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te]([https://localhost:8080/health/ready\n```t](https://localhost:8080/health/ready\n```t)e)x)t)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te]([https://localhost:8080/health/ready\n```t]([https://localhost:8080/health/ready\n```]([https://localhost:8080/health/ready\n``]([https://localhost:8080/health/ready\n`]([https://localhost:8080/health/ready\n]([https://localhost:8080/health/ready\]([https://localhost:8080/health/ready]([https://localhost:8080/health/read]([https://localhost:8080/health/rea]([https://localhost:8080/health/re]([https://localhost:8080/health/r]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea](https://localhost:8080/hea)l)t)h)/)r)e)a)d)y)\)n)`)`)`)t)e)x)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```]([https://localhost:8080/health/ready>\n``](https://localhost:8080/health/ready>\n``)`)t)e)x)t)\)n)
+\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```]([https://localhost:8080/health/ready>\n``]([https://localhost:8080/health/ready>\n`]([https://localhost:8080/health/ready>\n]([https://localhost:8080/health/ready>\]([https://localhost:8080/health/ready>]([https://localhost:8080/health/ready]([https://localhost:8080/health/read]([https://localhost:8080/health/rea]([https://localhost:8080/health/re]([https://localhost:8080/health/r]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea]([https://localhost:8080/he](https://localhost:8080/he)a)l)t)h)/)r)e)a)d)y)>)\)n)`)`)`)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/]([https://localhost:8080/health](https://localhost:8080/health)/)l)i)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea]([https://localhost:8080/he]([https://localhost:8080/h]([https://localhost:8080/]([https://localhost:8080]([https://localhost:808]([https://localhost:80]([https://localhost:8]([https://localhost:]([https://localhost]([https://localhos]([https://localho]([https://localh](https://localh)o)s)t):)8)0)8)0)/)h)e)a)l)t)h)/)l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te]([https://localhost:8080/health/ready\n```t](https://localhost:8080/health/ready\n```t)e)x)t)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te]([https://localhost:8080/health/ready\n```t]([https://localhost:8080/health/ready\n```]([https://localhost:8080/health/ready\n``]([https://localhost:8080/health/ready\n`]([https://localhost:8080/health/ready\n]([https://localhost:8080/health/ready\]([https://localhost:8080/health/ready]([https://localhost:8080/health/read]([https://localhost:8080/health/rea]([https://localhost:8080/health/re]([https://localhost:8080/health/r]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea](https://localhost:8080/hea)l)t)h)/)r)e)a)d)y)\)n)`)`)`)t)e)x)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```]([https://localhost:8080/health/ready>\n``](https://localhost:8080/health/ready>\n``)`)t)e)x)t)\)n)
+\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```]([https://localhost:8080/health/ready>\n``]([https://localhost:8080/health/ready>\n`]([https://localhost:8080/health/ready>\n]([https://localhost:8080/health/ready>\]([https://localhost:8080/health/ready>]([https://localhost:8080/health/ready]([https://localhost:8080/health/read]([https://localhost:8080/health/rea]([https://localhost:8080/health/re]([https://localhost:8080/health/r]([https://localhost:8080/health/]([https://localhost:8080/health]([https://localhost:8080/healt]([https://localhost:8080/heal]([https://localhost:8080/hea]([https://localhost:8080/he](https://localhost:8080/he)a)l)t)h)/)r)e)a)d)y)>)\)n)`)`)`)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\]([https://localhost:8080/health/ready\n```text\n```text]([https://localhost:8080/health/ready\n```text\n```tex]([https://localhost:8080/health/ready\n```text\n```te](https://localhost:8080/health/ready\n```text\n```te)x)t)\)n)#)#)#)
-Post-Deployment\n- [] **Smoke Test**: Log in to the Web Panel and verify dashboard
+[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\]([https://localhost:8080/health/ready\n```text\n```text]([https://localhost:8080/health/ready\n```text\n```tex]([https://localhost:8080/health/ready\n```text\n```te]([https://localhost:8080/health/ready\n```text\n```t]([https://localhost:8080/health/ready\n```text\n```]([https://localhost:8080/health/ready\n```text\n``]([https://localhost:8080/health/ready\n```text\n`]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te]([https://localhost:8080/health/ready\n```t]([https://localhost:8080/health/ready\n```]([https://localhost:8080/health/ready\n``]([https://localhost:8080/health/ready\n`]([https://localhost:8080/health/ready\n]([https://localhost:8080/health/ready\](https://localhost:8080/health/ready\)n)`)`)`)t)e)x)t)\)n)`)`)`)t)e)x)t)\)n)#)#)#)
+Post-Deployment\n- [] **Smoke Test**: Log in to the Web Panel and verify
+dashboard
 loads.\n\n- []
 **Monitor**: Watch error rates and latency for 15 minutes.\n\n- --\n## Rollback
 Procedures\nIf
-critical issues are detected:\n\n1. **Revert Code/Image**:\n\n ```bash\n\n- [] **Smoke
+critical issues are detected:\n\n1. **Revert Code/Image**:\n\n ```bash\n\n- []
+**Smoke
 Test**: Log
-in to the Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and
+in to the Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error
+rates and
 latency
 for 15 minutes.\n\n- --\n\n## Rollback Procedures (2)\n\nIf critical issues are
 detected:\n\n1.
-**Revert Code/Image**:\n\n ```bash\n\n### Post-Deployment (2)\n\n- [] **Smoke Test**: Log
+**Revert Code/Image**:\n\n ```bash\n\n### Post-Deployment (2)\n\n- [] **Smoke
+Test**: Log
 in to the
-Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency
+Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and
+latency
 for 15
-minutes.\n\n- --\n\n## Rollback Procedures (3)\n\nIf critical issues are detected:\n\n1.
+minutes.\n\n- --\n\n## Rollback Procedures (3)\n\nIf critical issues are
+detected:\n\n1.
 **Revert
-Code/Image**:\n\n ```bash\n\n### Post-Deployment (3)\n\n- [] **Smoke Test**: Log in to the
+Code/Image**:\n\n ```bash\n\n### Post-Deployment (3)\n\n- [] **Smoke Test**: Log
+in to the
 Web Panel
-and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15
+and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency
+for 15
 minutes.\n\n-
---\n\n## Rollback Procedures (4)\n\nIf critical issues are detected:\n\n1. **Revert
-Code/Image**:\n\n ```bash\n### Post-Deployment (4)\n- [] **Smoke Test**: Log in to the Web
+--\n\n## Rollback Procedures (4)\n\nIf critical issues are detected:\n\n1.
+**Revert
+Code/Image**:\n\n ```bash\n### Post-Deployment (4)\n- [] **Smoke Test**: Log in
+to the Web
 Panel and
-verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15
+verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for
+15
 minutes.\n\n-
 --\n## Rollback Procedures (5)\nIf critical issues are detected:\n\n1. **Revert
 Code/Image**:\n\n
@@ -142,34 +166,54 @@ is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n
 downgrade if data loss is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n
 ```bash\n\n- Note: Only downgrade if data loss is acceptable or necessary.*\n\n1.**Restore
 
-Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if data loss is acceptable or
-necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if
+Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if data loss is
+acceptable or
+necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note: Only
+downgrade if
 data loss
-is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note:
+is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n
+
+```bash\n\n- Note:
 Only
 downgrade if data loss is acceptable or necessary.*\n\n1.**Restore Backup**(Last
 Resort):\n\n
 
 ```bash\n\n- Note: Only downgrade if data loss is acceptable or necessary.*\n\n1.**Restore
+
 Backup**(Last Resort):\n\n ```bash\n debvisor-cli backup restore --tag
 pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup restore --tag
 pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup restore --tag
 pre-deploy-vX.Y.Z\n```text\n```text\n```text\n```text\n\n- --\n## Health Check
-Validation\n-**Liveness Probe**: `/health/live`- Returns 200 OK if process is running.\n\n-
-**Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache are connected.\n\n- --\n##
-Health Check Validation (2)\n- **Liveness Probe**:`/health/live`- Returns 200 OK if process is
-running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache are
-connected.\n\n- --\n## Health Check Validation (3)\n- **Liveness Probe**:`/health/live`- Returns 200
-OK if process is running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache
-are connected.\n\n- --\n## Health Check Validation (4)\n- **Liveness Probe**:`/health/live`- Returns
-200 OK if process is running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200 OK if DB and
-Cache are connected.\n\n- --\n## Health Check Validation (5)\n- **Liveness Probe**:`/health/live`-
-Returns 200 OK if process is running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200 OK if DB
+Validation\n-**Liveness Probe**: `/health/live`- Returns 200 OK if process is
+running.\n\n-
+**Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache are
+connected.\n\n- --\n##
+Health Check Validation (2)\n- **Liveness Probe**:`/health/live`- Returns 200 OK
+if process is
+running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200 OK if DB and
+Cache are
+connected.\n\n- --\n## Health Check Validation (3)\n- **Liveness
+Probe**:`/health/live`- Returns 200
+OK if process is running.\n\n- **Readiness Probe**:`/health/ready`- Returns 200
+OK if DB and Cache
+are connected.\n\n- --\n## Health Check Validation (4)\n- **Liveness
+Probe**:`/health/live`- Returns
+200 OK if process is running.\n\n- **Readiness Probe**:`/health/ready`- Returns
+200 OK if DB and
+Cache are connected.\n\n- --\n## Health Check Validation (5)\n- **Liveness
+Probe**:`/health/live`-
+Returns 200 OK if process is running.\n\n- **Readiness Probe**:`/health/ready`-
+Returns 200 OK if DB
 and Cache are connected.\n\n- --\n## Health Check Validation (6)\n- **Liveness
 Probe**:`/health/live`- Returns 200 OK if process is running.\n\n- **Readiness
-Probe**:`/health/ready`- Returns 200 OK if DB and Cache are connected.\n\n- --\n## Health Check
-Validation (7)\n- **Liveness Probe**:`/health/live`- Returns 200 OK if process is running.\n\n-
-**Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache are connected.\n\n- --\n##
-Health Check Validation (8)\n- **Liveness Probe**:`/health/live`- Returns 200 OK if process is
-running.\n\n- **Readiness Probe**:`/health/ready` - Returns 200 OK if DB and Cache are
+Probe**:`/health/ready`- Returns 200 OK if DB and Cache are connected.\n\n-
+--\n## Health Check
+Validation (7)\n- **Liveness Probe**:`/health/live`- Returns 200 OK if process
+is running.\n\n-
+**Readiness Probe**:`/health/ready`- Returns 200 OK if DB and Cache are
+connected.\n\n- --\n##
+Health Check Validation (8)\n- **Liveness Probe**:`/health/live`- Returns 200 OK
+if process is
+running.\n\n- **Readiness Probe**:`/health/ready` - Returns 200 OK if DB and
+Cache are
 connected.\n\n

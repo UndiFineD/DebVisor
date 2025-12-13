@@ -2,15 +2,21 @@
 
 recommended kernel
 
-options for building a custom kernel optimized for DebVisor.\n\n## Overview\n\nDebVisor
+options for building a custom kernel optimized for DebVisor.\n\n##
+Overview\n\nDebVisor
 requires
-specific kernel features for virtualization, storage, and networking. This guide covers
+specific kernel features for virtualization, storage, and networking. This guide
+covers
 options
-needed for:\n\n- KVM/Xen hypervisor support\n\n- Ceph storage integration\n\n- ZFS
-compatibility\n\n- Container isolation (namespaces, cgroups v2)\n\n- Hardware passthrough
+needed for:\n\n- KVM/Xen hypervisor support\n\n- Ceph storage integration\n\n-
+ZFS
+compatibility\n\n- Container isolation (namespaces, cgroups v2)\n\n- Hardware
+passthrough
 (IOMMU,
-VFIO)\n\n- Advanced networking (VXLAN, eBPF, nftables)\n\n## Base Kernel Version\n\n-
-*Minimum:**Linux 5.15 LTS\n\n-*Recommended:** Linux 6.1 LTS or newer\n\n## Required Kernel
+VFIO)\n\n- Advanced networking (VXLAN, eBPF, nftables)\n\n## Base Kernel
+Version\n\n-
+*Minimum:**Linux 5.15 LTS\n\n-*Recommended:** Linux 6.1 LTS or newer\n\n##
+Required Kernel
 Options\n\n### Virtualization (KVM)\n\n```kconfig\n# KVM
 Core\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m # For Intel
 CPUs\nCONFIG_KVM_AMD=m #
@@ -28,10 +34,12 @@ Optional but recommended\n\n## virtio
 Devices\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
 vhost for
 performance\n\nCONFIG_VHOST=m\nCONFIG_VHOST_NET=m\nCONFIG_VHOST_SCSI=m\nCONFIG_VHOST_VSOCK=m\n```text\n##
-KVM Core\n\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m # For Intel
+KVM Core\n\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m # For
+Intel
 CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
 (2)\n\nCONFIG_KVM_INTEL_NESTED=y #
-Optional but recommended\nCONFIG_KVM_AMD_NESTED=y # Optional but recommended\n\n## virtio
+Optional but recommended\nCONFIG_KVM_AMD_NESTED=y # Optional but
+recommended\n\n## virtio
 Devices
 (2)\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
 vhost for performance
@@ -39,16 +47,19 @@ vhost for performance
 
 ## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
 
-(3)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but recommended\nCONFIG_KVM_AMD_NESTED=y #
+(3)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
+recommended\nCONFIG_KVM_AMD_NESTED=y #
 Optional but
 recommended\n\n## virtio Devices
 (3)\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
 vhost for performance
 (3)\n\nCONFIG_VHOST=m\nCONFIG_VHOST_NET=m\nCONFIG_VHOST_SCSI=m\nCONFIG_VHOST_VSOCK=m\n```text\n##
-KVM Core (2)\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m # For Intel
+KVM Core (2)\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m # For
+Intel
 CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n## Nested Virtualization
 (4)\nCONFIG_KVM_INTEL_NESTED=y #
-Optional but recommended\nCONFIG_KVM_AMD_NESTED=y # Optional but recommended\n## virtio
+Optional but recommended\nCONFIG_KVM_AMD_NESTED=y # Optional but recommended\n##
+virtio
 Devices
 (4)\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n##
 vhost for performance
@@ -56,7 +67,8 @@ vhost for performance
 
 ## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
 
-(5)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but recommended\nCONFIG_KVM_AMD_NESTED=y #
+(5)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
+recommended\nCONFIG_KVM_AMD_NESTED=y #
 Optional but
 recommended\n\n## virtio Devices
 (5)\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
@@ -65,7 +77,8 @@ vhost for performance
 
 ## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
 
-(6)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but recommended\nCONFIG_KVM_AMD_NESTED=y #
+(6)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
+recommended\nCONFIG_KVM_AMD_NESTED=y #
 Optional but
 recommended\n\n## virtio Devices
 (6)\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
@@ -74,7 +87,8 @@ vhost for performance
 
 ## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
 
-(7)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but recommended\nCONFIG_KVM_AMD_NESTED=y #
+(7)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
+recommended\nCONFIG_KVM_AMD_NESTED=y #
 Optional but
 recommended\n\n## virtio Devices
 (7)\n\nCONFIG_VIRTIO=y\nCONFIG_VIRTIO_PCI=y\nCONFIG_VIRTIO_MMIO=y\nCONFIG_VIRTIO_BLK=m\nCONFIG_VIRTIO_NET=m\nCONFIG_VIRTIO_CONSOLE=m\nCONFIG_VIRTIO_BALLOON=m\nCONFIG_VIRTIO_INPUT=m\nCONFIG_VIRTIO_FS=m\n\n##
@@ -83,11 +97,14 @@ vhost for performance
 Xen Support (Optional)\n```kconfig\n\n```kconfig\n### Xen Support (Optional)
 (2)\n```kconfig\n\n```kconfig\n### Xen Support (Optional)
 (3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\nCONFIG_XEN=y\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\n\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\nCONFIG_XEN=y\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\n\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\nCONFIG_XEN=y\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\n\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\nCONFIG_XEN_PV=y\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\nCONFIG_XEN_PVHVM=y\nCONFIG_XEN_512GB=y\nCONFIG_XEN_SAVE_RESTORE=y\nCONFIG_XEN_BALLOON=y\nCONFIG_XEN_BLKDEV_FRONTEND=m\nCONFIG_XEN_NETDEV_FRONTEND=m\nCONFIG_XEN_PCIDEV_FRONTEND=m\n```text\n###
-IOMMU & Hardware Passthrough\n```kconfig\n\n```kconfig\n### IOMMU & Hardware Passthrough
+IOMMU & Hardware Passthrough\n```kconfig\n\n```kconfig\n### IOMMU & Hardware
+Passthrough
 (2)\n```kconfig\n\n```kconfig\n### IOMMU & Hardware Passthrough
 (3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# IOMMU
-Support\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y # Intel
-VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n# VFIO
+Support\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y #
+Intel
+VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n# VFIO
 for
 Device
 Passthrough\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
@@ -107,8 +124,10 @@ Passthrough\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONF
 
 IOMMU
 
-Support\n\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y # Intel
-VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
+Support\n\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y #
+Intel
+VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
 VFIO for
 Device Passthrough
 (2)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
@@ -128,8 +147,10 @@ VFIO for Device Passthrough
 
 (3)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\n## IOMMU
 
-Support (2)\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y # Intel
-VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n##
+Support (2)\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y #
+Intel
+VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n##
 VFIO for
 Device Passthrough
 (4)\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
@@ -162,7 +183,8 @@ VFIO for Device Passthrough
 
 ## Intel
 
-VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
+VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
 VFIO for
 Device Passthrough
 (7)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
@@ -238,7 +260,10 @@ Block Device\n\n## Ceph Messenger
 (3)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n##
 
 Ceph Distributed Storage
-(2)\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m #
+(2)\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
+
+## 
+
 RADOS Block
 Device\n## Ceph Messenger
 (4)\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
@@ -255,9 +280,11 @@ Device\n## Ceph Messenger
 
 (7)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n###
 
-Storage - ZFS Compatibility\n```kconfig\n\n```kconfig\n### Storage - ZFS Compatibility
+Storage - ZFS Compatibility\n```kconfig\n\n```kconfig\n### Storage - ZFS
+Compatibility
 (2)\n```kconfig\n\n```kconfig\n### Storage - ZFS Compatibility
-(3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# Required for ZFS (DKMS builds
+(3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# Required for ZFS
+(DKMS builds
 against
 these)\nCONFIG_MODULES=y\nCONFIG_MODULE_UNLOAD=y\nCONFIG_ZLIB_DEFLATE=y\nCONFIG_ZLIB_INFLATE=y\nCONFIG_CRYPTO_DEFLATE=y\n#
 Filesystem features ZFS benefits
@@ -298,12 +325,15 @@ Filesystem features ZFS benefits from
 (7)\n\nCONFIG_BLOCK=y\nCONFIG_BLK_DEV=y\nCONFIG_BLK_DEV_LOOP=m\nCONFIG_BLK_DEV_NVME=m\nCONFIG_ATA=y\n\n##
 Encryption for ZFS native encryption
 (7)\n\nCONFIG_CRYPTO_AES=y\nCONFIG_CRYPTO_SHA256=y\nCONFIG_CRYPTO_GCM=y\n```text\n###
-Networking\n```kconfig\n\n```kconfig\n### Networking (2)\n```kconfig\n\n```kconfig\n###
+Networking\n```kconfig\n\n```kconfig\n### Networking
+(2)\n```kconfig\n\n```kconfig\n###
 Networking
 (3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# Core
-Networking\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n# Bridge &
+Networking\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n#
+Bridge &
 VLAN\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n#
-Overlay Networks (VXLAN/Geneve)\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n# nftables
+Overlay Networks
+(VXLAN/Geneve)\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n# nftables
 Firewall\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n#
 eBPF for Cilium
 CNI\nCONFIG_BPF=y\nCONFIG_BPF_SYSCALL=y\nCONFIG_BPF_JIT=y\nCONFIG_BPF_JIT_ALWAYS_ON=y\nCONFIG_CGROUP_BPF=y\nCONFIG_NET_CLS_BPF=m\nCONFIG_NET_ACT_BPF=m\nCONFIG_BPF_STREAM_PARSER=y\nCONFIG_XDP_SOCKETS=y\n#
@@ -312,18 +342,22 @@ Control\nCONFIG_NET_SCHED=y\nCONFIG_NET_CLS=y\nCONFIG_NET_SCH_HTB=m\nCONFIG_NET_
 SR-IOV\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
 Bridge &
 VLAN\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks
+(VXLAN/Geneve)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
 eBPF for Cilium
 CNI\n\nCONFIG_BPF=y\nCONFIG_BPF_SYSCALL=y\nCONFIG_BPF_JIT=y\nCONFIG_BPF_JIT_ALWAYS_ON=y\nCONFIG_CGROUP_BPF=y\nCONFIG_NET_CLS_BPF=m\nCONFIG_NET_ACT_BPF=m\nCONFIG_BPF_STREAM_PARSER=y\nCONFIG_XDP_SOCKETS=y\n\n##
 Traffic
 Control\n\nCONFIG_NET_SCHED=y\nCONFIG_NET_CLS=y\nCONFIG_NET_SCH_HTB=m\nCONFIG_NET_SCH_INGRESS=m\n\n##
-SR-IOV\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n## Core
-Networking\n\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n## Bridge
+SR-IOV\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n##
+Core
+Networking\n\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
+Bridge
 & VLAN
 (2)\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve) (2)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks (VXLAN/Geneve)
+(2)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall
 (2)\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
@@ -335,7 +369,8 @@ SR-IOV
 (2)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
 Bridge & VLAN
 (3)\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve) (3)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks (VXLAN/Geneve)
+(3)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall
 (3)\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
@@ -343,11 +378,14 @@ eBPF for Cilium CNI
 (3)\n\nCONFIG_BPF=y\nCONFIG_BPF_SYSCALL=y\nCONFIG_BPF_JIT=y\nCONFIG_BPF_JIT_ALWAYS_ON=y\nCONFIG_CGROUP_BPF=y\nCONFIG_NET_CLS_BPF=m\nCONFIG_NET_ACT_BPF=m\nCONFIG_BPF_STREAM_PARSER=y\nCONFIG_XDP_SOCKETS=y\n\n##
 Traffic Control
 (3)\n\nCONFIG_NET_SCHED=y\nCONFIG_NET_CLS=y\nCONFIG_NET_SCH_HTB=m\nCONFIG_NET_SCH_INGRESS=m\n\n##
-SR-IOV (3)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n## Core
+SR-IOV
+(3)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n## Core
 Networking
-(2)\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n## Bridge & VLAN
+(2)\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n## Bridge &
+VLAN
 (4)\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n##
-Overlay Networks (VXLAN/Geneve) (4)\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n##
+Overlay Networks (VXLAN/Geneve)
+(4)\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n##
 nftables
 Firewall
 (4)\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n##
@@ -359,7 +397,8 @@ SR-IOV
 (4)\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
 Bridge & VLAN
 (5)\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve) (5)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks (VXLAN/Geneve)
+(5)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall
 (5)\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
@@ -371,7 +410,8 @@ SR-IOV
 (5)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\nCONFIG_NET=y\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
 Bridge & VLAN
 (6)\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve) (6)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks (VXLAN/Geneve)
+(6)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall
 (6)\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
@@ -383,7 +423,8 @@ SR-IOV
 (6)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\nCONFIG_INET=y\nCONFIG_IPV6=y\nCONFIG_NETFILTER=y\n\n##
 Bridge & VLAN
 (7)\n\nCONFIG_BRIDGE=m\nCONFIG_BRIDGE_NETFILTER=y\nCONFIG_VLAN_8021Q=m\nCONFIG_VLAN_8021Q_GVRP=y\n\n##
-Overlay Networks (VXLAN/Geneve) (7)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
+Overlay Networks (VXLAN/Geneve)
+(7)\n\nCONFIG_VXLAN=m\nCONFIG_GENEVE=m\nCONFIG_GRE=m\n\n##
 nftables
 Firewall
 (7)\n\nCONFIG_NF_TABLES=m\nCONFIG_NF_TABLES_INET=y\nCONFIG_NF_TABLES_NETDEV=y\nCONFIG_NFT_CT=m\nCONFIG_NFT_MASQ=m\nCONFIG_NFT_NAT=m\nCONFIG_NFT_REJECT=m\nCONFIG_NFT_LOG=m\nCONFIG_NFT_LIMIT=m\n\n##
@@ -391,11 +432,14 @@ eBPF for Cilium CNI
 (7)\n\nCONFIG_BPF=y\nCONFIG_BPF_SYSCALL=y\nCONFIG_BPF_JIT=y\nCONFIG_BPF_JIT_ALWAYS_ON=y\nCONFIG_CGROUP_BPF=y\nCONFIG_NET_CLS_BPF=m\nCONFIG_NET_ACT_BPF=m\nCONFIG_BPF_STREAM_PARSER=y\nCONFIG_XDP_SOCKETS=y\n\n##
 Traffic Control
 (7)\n\nCONFIG_NET_SCHED=y\nCONFIG_NET_CLS=y\nCONFIG_NET_SCH_HTB=m\nCONFIG_NET_SCH_INGRESS=m\n\n##
-SR-IOV (7)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n###
-Security\n```kconfig\n\n```kconfig\n### Security (2)\n```kconfig\n\n```kconfig\n###
+SR-IOV
+(7)\n\nCONFIG_PCI_IOV=y\nCONFIG_PCI_PRI=y\nCONFIG_PCI_PASID=y\n```text\n###
+Security\n```kconfig\n\n```kconfig\n### Security
+(2)\n```kconfig\n\n```kconfig\n###
 Security
 (3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# Kernel
-Hardening\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n# AppArmor
+Hardening\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n#
+AppArmor
 (recommended for
 containers)\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n#
 SELinux (alternative)\nCONFIG_SECURITY_SELINUX=y\n# Secure
@@ -412,7 +456,8 @@ Integrity\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n## Kernel
 Hardening\n\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n\n##
 AppArmor
 (recommended for containers)
-(2)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n## SELinux
+(2)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n##
+SELinux
 (alternative)
 (2)\n\nCONFIG_SECURITY_SELINUX=y\n\n## Secure Computing
 (2)\n\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n\n## TPM Support
@@ -420,16 +465,20 @@ AppArmor
 Integrity
 (2)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n\n##
 AppArmor (recommended for containers)
-(3)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n## SELinux
+(3)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n##
+SELinux
 (alternative)
 (3)\n\nCONFIG_SECURITY_SELINUX=y\n\n## Secure Computing
 (3)\n\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n\n## TPM Support
 (3)\n\nCONFIG_TCG_TPM=m\nCONFIG_TCG_TIS=m\nCONFIG_TCG_TIS_CORE=m\nCONFIG_TCG_CRB=m\nCONFIG_TCG_VTPM_PROXY=m\n\n##
-Integrity (3)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n## Kernel
+Integrity (3)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n##
+Kernel
 Hardening
-(2)\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n## AppArmor
+(2)\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n##
+AppArmor
 (recommended for
-containers) (4)\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n##
+containers)
+(4)\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n##
 SELinux
 (alternative) (4)\nCONFIG_SECURITY_SELINUX=y\n## Secure Computing
 (4)\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n## TPM Support
@@ -437,7 +486,8 @@ SELinux
 Integrity
 (4)\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n\n##
 AppArmor (recommended for containers)
-(5)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n## SELinux
+(5)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n##
+SELinux
 (alternative)
 (5)\n\nCONFIG_SECURITY_SELINUX=y\n\n## Secure Computing
 (5)\n\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n\n## TPM Support
@@ -445,7 +495,8 @@ AppArmor (recommended for containers)
 Integrity
 (5)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\nCONFIG_SECURITY=y\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n\n##
 AppArmor (recommended for containers)
-(6)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n## SELinux
+(6)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n##
+SELinux
 (alternative)
 (6)\n\nCONFIG_SECURITY_SELINUX=y\n\n## Secure Computing
 (6)\n\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n\n## TPM Support
@@ -453,18 +504,22 @@ AppArmor (recommended for containers)
 Integrity
 (6)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\nCONFIG_SECURITYFS=y\nCONFIG_SECURITY_NETWORK=y\n\n##
 AppArmor (recommended for containers)
-(7)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n## SELinux
+(7)\n\nCONFIG_SECURITY_APPARMOR=y\nCONFIG_DEFAULT_SECURITY_APPARMOR=y\n\n##
+SELinux
 (alternative)
 (7)\n\nCONFIG_SECURITY_SELINUX=y\n\n## Secure Computing
 (7)\n\nCONFIG_SECCOMP=y\nCONFIG_SECCOMP_FILTER=y\n\n## TPM Support
 (7)\n\nCONFIG_TCG_TPM=m\nCONFIG_TCG_TIS=m\nCONFIG_TCG_TIS_CORE=m\nCONFIG_TCG_CRB=m\nCONFIG_TCG_VTPM_PROXY=m\n\n##
-Integrity (7)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n### Hardware
-Support\n```kconfig\n\n```kconfig\n### Hardware Support (2)\n```kconfig\n\n```kconfig\n###
+Integrity (7)\n\nCONFIG_INTEGRITY=y\nCONFIG_IMA=y\nCONFIG_EVM=y\n```text\n###
+Hardware
+Support\n```kconfig\n\n```kconfig\n### Hardware Support
+(2)\n```kconfig\n\n```kconfig\n###
 Hardware
 Support (3)\n```kconfig\n\n```kconfig\n\n```kconfig\n\n```kconfig\n# NUMA
 Support\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n# Huge
 Pages\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n#
-NVMe\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n# IPMI for
+NVMe\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n# IPMI
+for
 Hardware
 Management\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n#
 Hardware
@@ -472,10 +527,12 @@ Watchdog\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCON
 
 ## 
 
-Intel TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
+Intel
+TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
 Huge
 Pages\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
-NVMe\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+NVMe\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
 Hardware
@@ -484,9 +541,12 @@ Watchdog\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nC
 ## 
 
 Intel TCO\n```text\n## NUMA
-Support\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge Pages
-(2)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n## NVMe
-(2)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+Support\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
+Huge Pages
+(2)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
+NVMe
+(2)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management
 (2)\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
@@ -495,10 +555,13 @@ Hardware Watchdog
 
 ## Intel
 
-TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge
+TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
+Huge
 Pages
-(3)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n## NVMe
-(3)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+(3)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
+NVMe
+(3)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management
 (3)\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
@@ -510,8 +573,10 @@ Hardware Watchdog
 TCO\n```text\n## NUMA Support
 (2)\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n##
 Huge Pages
-(4)\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n## NVMe
-(4)\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n## IPMI for
+(4)\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n##
+NVMe
+(4)\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n## IPMI
+for
 Hardware
 Management
 (4)\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n##
@@ -520,10 +585,13 @@ Hardware Watchdog
 
 ## Intel
 
-TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge
+TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
+Huge
 Pages
-(5)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n## NVMe
-(5)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+(5)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
+NVMe
+(5)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management
 (5)\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
@@ -532,10 +600,13 @@ Hardware Watchdog
 
 ## Intel
 
-TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge
+TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
+Huge
 Pages
-(6)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n## NVMe
-(6)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+(6)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
+NVMe
+(6)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management
 (6)\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
@@ -545,8 +616,10 @@ Hardware Watchdog
 ## Intel
 
 TCO\n```text\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge Pages
-(7)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n## NVMe
-(7)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n## IPMI for
+(7)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
+NVMe
+(7)\n\nCONFIG_BLK_DEV_NVME=m\nCONFIG_NVME_CORE=m\nCONFIG_NVME_MULTIPATH=y\n\n##
+IPMI for
 Hardware
 Management
 (7)\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_SI=m\nCONFIG_IPMI_SSIF=m\nCONFIG_IPMI_WATCHDOG=m\n\n##
@@ -557,203 +630,292 @@ Hardware Watchdog
 
 TCO\n```text\n## Kernel Command Line Parameters\nAdd to GRUB
 (`/etc/default/grub`):\n\n```bash\nAdd
-to GRUB (`/etc/default/grub`):\n\n```bash\n## Kernel Command Line Parameters (2)\n\nAdd to
+to GRUB (`/etc/default/grub`):\n\n```bash\n## Kernel Command Line Parameters
+(2)\n\nAdd to
 GRUB
-(`/etc/default/grub`):\n\n```bash\n\nAdd to GRUB (`/etc/default/grub`):\n\n```bash\n##
+(`/etc/default/grub`):\n\n```bash\n\nAdd to GRUB
+(`/etc/default/grub`):\n\n```bash\n##
 Kernel
-Command Line Parameters (3)\nAdd to GRUB (`/etc/default/grub`):\n\n```bash\n\nAdd to GRUB
+Command Line Parameters (3)\nAdd to GRUB
+(`/etc/default/grub`):\n\n```bash\n\nAdd to GRUB
 (`/etc/default/grub`):\n\n```bash\nAdd to GRUB
 (`/etc/default/grub`):\n\n```bash\n\n```bash\n# Intel
-systems\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
+systems\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
 hugepages=16"\n# AMD systems\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt
 default_hugepagesz=1G
-hugepagesz=1G hugepages=16"\n# Common additions\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
-kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\nGRUB_CMDLINE_LINUX="intel_iommu=on
+hugepagesz=1G hugepages=16"\n# Common
+additions\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
+kvm.ignore_msrs=1
+kvm.report_ignored_msrs=0"\n```text\nGRUB_CMDLINE_LINUX="intel_iommu=on
 iommu=pt
 default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD
-systems\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
+systems\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
 hugepages=16"\n\n## Common additions\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
 kvm.ignore_msrs=1
 kvm.report_ignored_msrs=0"\n```text\n## Intel
 systems\n\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt
 default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
-(2)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n\n## Common additions (2)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
-kvm.ignore_msrs=1
-kvm.report_ignored_msrs=0"\n```text\n\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt
-default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
-(3)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n\n## Common additions (3)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
-kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\n## Intel systems
-(2)\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n## AMD systems (4)\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt
-default_hugepagesz=1G
-hugepagesz=1G hugepages=16"\n## Common additions (4)\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+(2)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n\n## Common additions (2)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
 splash
 kvm.ignore_msrs=1
-kvm.report_ignored_msrs=0"\n```text\n\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt
-default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
-(5)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n\n## Common additions (5)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
-kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\nGRUB_CMDLINE_LINUX="intel_iommu=on
+kvm.report_ignored_msrs=0"\n```text\n\nGRUB_CMDLINE_LINUX="intel_iommu=on
 iommu=pt
 default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
-(6)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n\n## Common additions (6)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
+(3)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n\n## Common additions (3)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+splash
+kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\n## Intel systems
+(2)\nGRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n## AMD systems (4)\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt
+default_hugepagesz=1G
+hugepagesz=1G hugepages=16"\n## Common additions
+(4)\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+splash
+kvm.ignore_msrs=1
+kvm.report_ignored_msrs=0"\n```text\n\nGRUB_CMDLINE_LINUX="intel_iommu=on
+iommu=pt
+default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
+(5)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n\n## Common additions (5)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+splash
+kvm.ignore_msrs=1
+kvm.report_ignored_msrs=0"\n```text\nGRUB_CMDLINE_LINUX="intel_iommu=on
+iommu=pt
+default_hugepagesz=1G hugepagesz=1G hugepages=16"\n\n## AMD systems
+(6)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n\n## Common additions (6)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+splash
 kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\n\n## AMD systems
-(7)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G
-hugepages=16"\n\n## Common additions (7)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet splash
-kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\n## Building the Kernel\n### From
-Source\n```bash\n\n### From Source (2)\n\n```bash\n## Building the Kernel (2)\n\n### From
+(7)\n\nGRUB_CMDLINE_LINUX="amd_iommu=on iommu=pt default_hugepagesz=1G
+hugepagesz=1G
+hugepages=16"\n\n## Common additions (7)\n\nGRUB_CMDLINE_LINUX_DEFAULT="quiet
+splash
+kvm.ignore_msrs=1 kvm.report_ignored_msrs=0"\n```text\n## Building the
+Kernel\n### From
+Source\n```bash\n\n### From Source (2)\n\n```bash\n## Building the Kernel
+(2)\n\n### From
 Source
-(3)\n```bash\n\n### From Source (4)\n\n```bash\n## Building the Kernel (3)\n### From
+(3)\n```bash\n\n### From Source (4)\n\n```bash\n## Building the Kernel (3)\n###
+From
 Source
-(5)\n```bash\n\n### From Source (6)\n\n```bash\n### From Source (7)\n```bash\n\n```bash\n#
+(5)\n```bash\n\n### From Source (6)\n\n```bash\n### From Source
+(7)\n```bash\n\n```bash\n#
 Install
-build dependencies\napt install build-essential libncurses-dev bison flex libssl-dev
+build dependencies\napt install build-essential libncurses-dev bison flex
+libssl-dev
 libelf-dev\n#
 Download kernel source\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x)z)>)\)n)t)a)r)
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin](https://cdn.kernel.org/pub/linux/kernel/v6.x/lin)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n# Start with distribution config\ncp
 /boot/config-$(uname
--r) .config\n# Apply DebVisor requirements\nscripts/config --enable KVM\nscripts/config
+-r) .config\n# Apply DebVisor requirements\nscripts/config --enable
+KVM\nscripts/config
 --module
-KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable VFIO\nscripts/config
+KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config --enable
+VFIO\nscripts/config
 --module
-VFIO_PCI\n# ... (apply all required options)\n# Update config\nmake olddefconfig\n#
+VFIO_PCI\n# ... (apply all required options)\n# Update config\nmake
+olddefconfig\n#
 Build\nmake
 -j$(nproc)\nmake modules_install\nmake install\n# Update
 bootloader\nupdate-grub\n```text\napt
-install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download
+install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n##
+Download
 kernel
 source\n\nwget
-<<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz)>)>)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements\n\nscripts/config
+
+>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu](https://cdn.kernel.org/pub/linux/kernel/v6.x/linu)x)-)6).)1).)x)x).)t)a)r).)x)z)>)>)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution
+config\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor
+requirements\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)\n\n## Update
-config\n\nmake olddefconfig\n\n## Build\n\nmake -j$(nproc)\nmake modules_install\nmake
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required
+options)\n\n## Update
+config\n\nmake olddefconfig\n\n## Build\n\nmake -j$(nproc)\nmake
+modules_install\nmake
 install\n\n##
-Update bootloader\n\nupdate-grub\n```text\n## Install build dependencies\n\napt install
-build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel
+Update bootloader\n\nupdate-grub\n```text\n## Install build dependencies\n\napt
+install
+build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download
+kernel
 source
 (2)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.)x)z)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (2)\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (2)\n\nscripts/config
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li](https://cdn.kernel.org/pub/linux/kernel/v6.x/li)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
+(2)\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
+(2)\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (2)\n\n##
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)
+(2)\n\n##
 Update
 config (2)\n\nmake olddefconfig\n\n## Build (2)\n\nmake -j$(nproc)\nmake
 modules_install\nmake
-install\n\n## Update bootloader (2)\n\nupdate-grub\n```text\n\napt install build-essential
-libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source (3)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x)z)>)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (3)\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (3)\n\nscripts/config
+install\n\n## Update bootloader (2)\n\nupdate-grub\n```text\n\napt install
+build-essential
+libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source
+(3)\n\nwget
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin](https://cdn.kernel.org/pub/linux/kernel/v6.x/lin)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
+(3)\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
+(3)\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (3)\n\n##
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)
+(3)\n\n##
 Update
 config (3)\n\nmake olddefconfig\n\n## Build (3)\n\nmake -j$(nproc)\nmake
 modules_install\nmake
-install\n\n## Update bootloader (3)\n\nupdate-grub\n```text\n## Install build dependencies
+install\n\n## Update bootloader (3)\n\nupdate-grub\n```text\n## Install build
+dependencies
 (2)\napt
-install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n## Download
+install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n##
+Download
 kernel source
 (4)\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.)x)z)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n## Start with distribution config (4)\ncp
-/boot/config-$(uname -r) .config\n## Apply DebVisor requirements (4)\nscripts/config
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li](https://cdn.kernel.org/pub/linux/kernel/v6.x/li)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n## Start with distribution config
+(4)\ncp
+/boot/config-$(uname -r) .config\n## Apply DebVisor requirements
+(4)\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n## ... (apply all required options) (4)\n## Update
+VFIO\nscripts/config --module VFIO_PCI\n## ... (apply all required options)
+(4)\n## Update
 config
-(4)\nmake olddefconfig\n## Build (4)\nmake -j$(nproc)\nmake modules_install\nmake
+(4)\nmake olddefconfig\n## Build (4)\nmake -j$(nproc)\nmake
+modules_install\nmake
 install\n## Update
-bootloader (4)\nupdate-grub\n```text\n\napt install build-essential libncurses-dev bison
+bootloader (4)\nupdate-grub\n```text\n\napt install build-essential
+libncurses-dev bison
 flex
 libssl-dev libelf-dev\n\n## Download kernel source (5)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x)z)>)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (5)\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (5)\n\nscripts/config
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin](https://cdn.kernel.org/pub/linux/kernel/v6.x/lin)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
+(5)\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
+(5)\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (5)\n\n##
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)
+(5)\n\n##
 Update
 config (5)\n\nmake olddefconfig\n\n## Build (5)\n\nmake -j$(nproc)\nmake
 modules_install\nmake
-install\n\n## Update bootloader (5)\n\nupdate-grub\n```text\napt install build-essential
-libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source (6)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.)x)z)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (6)\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (6)\n\nscripts/config
+install\n\n## Update bootloader (5)\n\nupdate-grub\n```text\napt install
+build-essential
+libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source
+(6)\n\nwget
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li](https://cdn.kernel.org/pub/linux/kernel/v6.x/li)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
+(6)\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
+(6)\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (6)\n\n##
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)
+(6)\n\n##
 Update
 config (6)\n\nmake olddefconfig\n\n## Build (6)\n\nmake -j$(nproc)\nmake
 modules_install\nmake
-install\n\n## Update bootloader (6)\n\nupdate-grub\n```text\n\n## Download kernel source
+install\n\n## Update bootloader (6)\n\nupdate-grub\n```text\n\n## Download
+kernel source
 (7)\n\nwget
-<[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x](https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x)z)>)\)n)t)a)r)
-xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config (7)\n\ncp
-/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements (7)\n\nscripts/config
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin](https://cdn.kernel.org/pub/linux/kernel/v6.x/lin)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
+(7)\n\ncp
+/boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
+(7)\n\nscripts/config
 --enable
-KVM\nscripts/config --module KVM_INTEL\nscripts/config --module KVM_AMD\nscripts/config
+KVM\nscripts/config --module KVM_INTEL\nscripts/config --module
+KVM_AMD\nscripts/config
 --enable
-VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options) (7)\n\n##
+VFIO\nscripts/config --module VFIO_PCI\n\n## ... (apply all required options)
+(7)\n\n##
 Update
 config (7)\n\nmake olddefconfig\n\n## Build (7)\n\nmake -j$(nproc)\nmake
 modules*install\nmake
 install\n\n## Update bootloader (7)\n\nupdate-grub\n```text\n### Verification
 Script\n```bash\n\n```bash\n### Verification Script (2)\n```bash\n\n```bash\n###
 Verification Script
-(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# !/bin/bash\n# verify-kernel-config.sh -
+(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# !/bin/bash\n#
+verify-kernel-config.sh -
 Verify
-kernel has required features\ncheck*config() {\n local opt=$1\n local required=$2\n if
+kernel has required features\ncheck*config() {\n local opt=$1\n local
+required=$2\n if
 grep -q
-"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG*${opt}"\n else\n
+"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK]
+CONFIG*${opt}"\n else\n
 if
-["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n else\n echo
+["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n
+else\n echo
 "[WARN]
-CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel Configuration Check
+CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
+Configuration Check
 ==="\necho
 "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization ---"\ncheck_config KVM
-required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho ""\necho "---
+required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
+""\necho "---
 Storage
----"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD required\necho ""\necho "---
+---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD required\necho
+""\necho "---
 Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
 required\ncheck_config
 NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config NAMESPACES
-required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
+required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+""\necho
 "---
 Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features\n\ncheck*config() {\n local
+verify-kernel-config.sh - Verify kernel has required features\n\ncheck*config()
+{\n local
 opt=$1\n
-local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo
+local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+then\n echo
 "[OK]
-CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} -
-REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "===
+CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
+CONFIG*${opt} -
+REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho
+"===
 DebVisor Kernel
-Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
----"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
+Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
+Virtualization
+---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+VFIO_PCI
 required\necho
-""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
+""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+BLK_DEV_RBD
 required\necho
-""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
+""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n##
@@ -761,40 +923,55 @@ optional\n```text\n##
 (2)\n\ncheck*config()
 {\n local opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]"
 /boot/config-$(uname -r);
-then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo
+then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n
+echo
 "[FAIL]
-CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n
+CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n
+fi\n
 fi\n}\necho "===
-DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
-Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho
+""\necho "---
+Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO
+required\ncheck_config
 VFIO_PCI
-required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS
+required\ncheck_config
 BLK_DEV_RBD
-required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN
+required\ncheck_config
 BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features (3)\n\ncheck*config() {\n
+verify-kernel-config.sh - Verify kernel has required features
+(3)\n\ncheck*config() {\n
 local
-opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]"
+/boot/config-$(uname -r);
 then\n echo
 "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
 CONFIG*${opt} -
-REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "===
+REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho
+"===
 DebVisor Kernel
-Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
----"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
+Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
+Virtualization
+---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+VFIO_PCI
 required\necho
-""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
+""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+BLK_DEV_RBD
 required\necho
-""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
+""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n##
@@ -802,186 +979,262 @@ optional\n```text\n##
 (4)\ncheck*config()
 {\n local opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]"
 /boot/config-$(uname -r);
-then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo
+then\n echo "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n
+echo
 "[FAIL]
-CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n
+CONFIG*${opt} - REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n
+fi\n
 fi\n}\necho "===
-DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
-Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+DebVisor Kernel Configuration Check ==="\necho "Kernel: $(uname -r)"\necho
+""\necho "---
+Virtualization ---"\ncheck_config KVM required\ncheck_config VFIO
+required\ncheck_config
 VFIO_PCI
-required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+required\necho ""\necho "--- Storage ---"\ncheck_config CEPH_FS
+required\ncheck_config
 BLK_DEV_RBD
-required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+required\necho ""\necho "--- Networking ---"\ncheck_config VXLAN
+required\ncheck_config
 BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n\n##
-verify-kernel-config.sh - Verify kernel has required features (5)\n\ncheck*config() {\n
+verify-kernel-config.sh - Verify kernel has required features
+(5)\n\ncheck*config() {\n
 local
-opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]"
+/boot/config-$(uname -r);
 then\n echo
 "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
 CONFIG*${opt} -
-REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "===
+REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho
+"===
 DebVisor Kernel
-Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
----"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
+Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
+Virtualization
+---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+VFIO_PCI
 required\necho
-""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
+""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+BLK_DEV_RBD
 required\necho
-""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
+""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
 optional\n```text\n##
-verify-kernel-config.sh - Verify kernel has required features (6)\n\ncheck*config() {\n
+verify-kernel-config.sh - Verify kernel has required features
+(6)\n\ncheck*config() {\n
 local
-opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]" /boot/config-$(uname -r);
+opt=$1\n local required=$2\n if grep -q "CONFIG*${opt}=[ym]"
+/boot/config-$(uname -r);
 then\n echo
 "[OK] CONFIG*${opt}"\n else\n if ["$required" = "required"]; then\n echo "[FAIL]
 CONFIG*${opt} -
-REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "===
+REQUIRED"\n else\n echo "[WARN] CONFIG*${opt} - recommended"\n fi\n fi\n}\necho
+"===
 DebVisor Kernel
-Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization
----"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config VFIO_PCI
+Configuration Check ==="\necho "Kernel: $(uname -r)"\necho ""\necho "---
+Virtualization
+---"\ncheck_config KVM required\ncheck_config VFIO required\ncheck_config
+VFIO_PCI
 required\necho
-""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD
+""\necho "--- Storage ---"\ncheck_config CEPH_FS required\ncheck_config
+BLK_DEV_RBD
 required\necho
-""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
+""\necho "--- Networking ---"\ncheck_config VXLAN required\ncheck_config
+BPF_SYSCALL
 required\ncheck_config NF_TABLES required\necho ""\necho "--- Containers
 ---"\ncheck_config
-NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+NAMESPACES required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS
+required\necho
 ""\necho
 "--- Security ---"\ncheck_config SECCOMP required\ncheck*config INTEGRITY
-optional\n```text\n\ncheck*config() {\n local opt=$1\n local required=$2\n if grep -q
-"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK] CONFIG*${opt}"\n else\n
+optional\n```text\n\ncheck*config() {\n local opt=$1\n local required=$2\n if
+grep -q
+"CONFIG*${opt}=[ym]" /boot/config-$(uname -r); then\n echo "[OK]
+CONFIG*${opt}"\n else\n
 if
-["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n else\n echo
+["$required" = "required"]; then\n echo "[FAIL] CONFIG*${opt} - REQUIRED"\n
+else\n echo
 "[WARN]
-CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel Configuration Check
+CONFIG*${opt} - recommended"\n fi\n fi\n}\necho "=== DebVisor Kernel
+Configuration Check
 ==="\necho
 "Kernel: $(uname -r)"\necho ""\necho "--- Virtualization ---"\ncheck_config KVM
-required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho ""\necho "---
+required\ncheck_config VFIO required\ncheck_config VFIO_PCI required\necho
+""\necho "---
 Storage
----"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD required\necho ""\necho "---
+---"\ncheck_config CEPH_FS required\ncheck_config BLK_DEV_RBD required\necho
+""\necho "---
 Networking ---"\ncheck_config VXLAN required\ncheck_config BPF_SYSCALL
 required\ncheck_config
 NF_TABLES required\necho ""\necho "--- Containers ---"\ncheck_config NAMESPACES
-required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho ""\necho
+required\ncheck_config CGROUPS required\ncheck_config OVERLAY_FS required\necho
+""\necho
 "---
-Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY optional\n```text\n##
+Security ---"\ncheck_config SECCOMP required\ncheck_config INTEGRITY
+optional\n```text\n##
 Module
-Loading\nEnsure required modules are loaded at boot:\n\n```bash\nEnsure required modules
+Loading\nEnsure required modules are loaded at boot:\n\n```bash\nEnsure required
+modules
 are loaded
-at boot:\n\n```bash\n## Module Loading (2)\n\nEnsure required modules are loaded at
-boot:\n\n```bash\n\nEnsure required modules are loaded at boot:\n\n```bash\n## Module
+at boot:\n\n```bash\n## Module Loading (2)\n\nEnsure required modules are loaded
+at
+boot:\n\n```bash\n\nEnsure required modules are loaded at boot:\n\n```bash\n##
+Module
 Loading
-(3)\nEnsure required modules are loaded at boot:\n\n```bash\n\nEnsure required modules are
+(3)\nEnsure required modules are loaded at boot:\n\n```bash\n\nEnsure required
+modules are
 loaded at
-boot:\n\n```bash\nEnsure required modules are loaded at boot:\n\n```bash\n\n```bash\n#
+boot:\n\n```bash\nEnsure required modules are loaded at
+boot:\n\n```bash\n\n```bash\n#
 /etc/modules-load.d/debvisor.conf\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\n##
 /etc/modules-load.d/debvisor.conf\n\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\n\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\n##
 /etc/modules-load.d/debvisor.conf
 (2)\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\n\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\nvfio\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\nvfio_iommu_type1\nvfio_pci\nvhost_net\nbr_netfilter\noverlay\n```text\n##
-sysctl Tuning\n```bash\n\n```bash\n## sysctl Tuning (2)\n```bash\n\n```bash\n## sysctl
+sysctl Tuning\n```bash\n\n```bash\n## sysctl Tuning (2)\n```bash\n\n```bash\n##
+sysctl
 Tuning
-(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# /etc/sysctl.d/99-debvisor.conf\n# Enable
+(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n#
+/etc/sysctl.d/99-debvisor.conf\n# Enable
 IP
 forwarding\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n# Bridge
-netfilter\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables =
+netfilter\nnet.bridge.bridge-nf-call-iptables =
+1\nnet.bridge.bridge-nf-call-ip6tables =
 1\n# Memory
 overcommit for VMs\nvm.overcommit_memory = 1\n# Increase inotify limits for
-containers\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n#
+containers\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n#
 Network
-tuning\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n# File handles
+tuning\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n# File
+handles
 for many
-VMs\nfs.file-max = 2097152\n```text\n\n## Enable IP forwarding\n\nnet.ipv4.ip_forward =
+VMs\nfs.file-max = 2097152\n```text\n\n## Enable IP
+forwarding\n\nnet.ipv4.ip_forward =
 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge
 netfilter\n\nnet.bridge.bridge-nf-call-iptables =
 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n\n## Memory overcommit for
 VMs\n\nvm.overcommit_memory =
-1\n\n## Increase inotify limits for containers\n\nfs.inotify.max_user_instances =
-8192\nfs.inotify.max_user_watches = 524288\n\n## Network tuning\n\nnet.core.somaxconn =
-32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File handles for many VMs\n\nfs.file-max
+1\n\n## Increase inotify limits for containers\n\nfs.inotify.max_user_instances
+=
+8192\nfs.inotify.max_user_watches = 524288\n\n## Network
+tuning\n\nnet.core.somaxconn =
+32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File handles for many
+VMs\n\nfs.file-max
 =
 2097152\n```text\n## /etc/sysctl.d/99-debvisor.conf\n\n## Enable IP forwarding
-(2)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
-(2)\n\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables =
+(2)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge
+netfilter
+(2)\n\nnet.bridge.bridge-nf-call-iptables =
+1\nnet.bridge.bridge-nf-call-ip6tables =
 1\n\n## Memory
-overcommit for VMs (2)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits for
+overcommit for VMs (2)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits
+for
 containers
-(2)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n\n##
+(2)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n\n##
 Network
-tuning (2)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File
+tuning (2)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog =
+32768\n\n## File
 handles
 for many VMs (2)\n\nfs.file-max = 2097152\n```text\n\n## Enable IP forwarding
-(3)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
-(3)\n\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables =
-1\n\n## Memory
-overcommit for VMs (3)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits for
-containers
-(3)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n\n##
-Network
-tuning (3)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File
-handles
-for many VMs (3)\n\nfs.file-max = 2097152\n```text\n## /etc/sysctl.d/99-debvisor.conf
-(2)\n## Enable
-IP forwarding (4)\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n## Bridge
+(3)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge
 netfilter
-(4)\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n##
+(3)\n\nnet.bridge.bridge-nf-call-iptables =
+1\nnet.bridge.bridge-nf-call-ip6tables =
+1\n\n## Memory
+overcommit for VMs (3)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits
+for
+containers
+(3)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n\n##
+Network
+tuning (3)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog =
+32768\n\n## File
+handles
+for many VMs (3)\n\nfs.file-max = 2097152\n```text\n##
+/etc/sysctl.d/99-debvisor.conf
+(2)\n## Enable
+IP forwarding (4)\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n##
+Bridge
+netfilter
+(4)\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables
+= 1\n##
 Memory
 overcommit for VMs (4)\nvm.overcommit_memory = 1\n## Increase inotify limits for
 containers
-(4)\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n##
+(4)\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n##
 Network tuning
-(4)\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n## File handles for
+(4)\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n## File
+handles for
 many VMs
-(4)\nfs.file-max = 2097152\n```text\n\n## Enable IP forwarding (5)\n\nnet.ipv4.ip_forward
+(4)\nfs.file-max = 2097152\n```text\n\n## Enable IP forwarding
+(5)\n\nnet.ipv4.ip_forward
 =
 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
 (5)\n\nnet.bridge.bridge-nf-call-iptables
 = 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n\n## Memory overcommit for VMs
 (5)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits for containers
-(5)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n\n##
+(5)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n\n##
 Network
-tuning (5)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File
+tuning (5)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog =
+32768\n\n## File
 handles
 for many VMs (5)\n\nfs.file-max = 2097152\n```text\n## Enable IP forwarding
-(6)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
-(6)\n\nnet.bridge.bridge-nf-call-iptables = 1\nnet.bridge.bridge-nf-call-ip6tables =
+(6)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge
+netfilter
+(6)\n\nnet.bridge.bridge-nf-call-iptables =
+1\nnet.bridge.bridge-nf-call-ip6tables =
 1\n\n## Memory
-overcommit for VMs (6)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits for
+overcommit for VMs (6)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits
+for
 containers
-(6)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n\n##
+(6)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n\n##
 Network
-tuning (6)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File
+tuning (6)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog =
+32768\n\n## File
 handles
 for many VMs (6)\n\nfs.file-max = 2097152\n```text\n\nnet.ipv4.ip_forward =
 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
 (7)\n\nnet.bridge.bridge-nf-call-iptables
 = 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n\n## Memory overcommit for VMs
 (7)\n\nvm.overcommit_memory = 1\n\n## Increase inotify limits for containers
-(7)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches = 524288\n\n##
+(7)\n\nfs.inotify.max_user_instances = 8192\nfs.inotify.max_user_watches =
+524288\n\n##
 Network
-tuning (7)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File
+tuning (7)\n\nnet.core.somaxconn = 32768\nnet.ipv4.tcp_max_syn_backlog =
+32768\n\n## File
 handles
-for many VMs (7)\n\nfs.file-max = 2097152\n```text\n## Troubleshooting\n### IOMMU Not
-Enabled\n```bash\n\n### IOMMU Not Enabled (2)\n\n```bash\n## Troubleshooting (2)\n\n###
+for many VMs (7)\n\nfs.file-max = 2097152\n```text\n## Troubleshooting\n###
 IOMMU Not
-Enabled (3)\n```bash\n\n### IOMMU Not Enabled (4)\n\n```bash\n## Troubleshooting (3)\n###
+Enabled\n```bash\n\n### IOMMU Not Enabled (2)\n\n```bash\n## Troubleshooting
+(2)\n\n###
 IOMMU Not
-Enabled (5)\n```bash\n\n### IOMMU Not Enabled (6)\n\n```bash\n### IOMMU Not Enabled
+Enabled (3)\n```bash\n\n### IOMMU Not Enabled (4)\n\n```bash\n## Troubleshooting
+(3)\n###
+IOMMU Not
+Enabled (5)\n```bash\n\n### IOMMU Not Enabled (6)\n\n```bash\n### IOMMU Not
+Enabled
 (7)\n```bash\n\n```bash\n# Check IOMMU groups\nfind /sys/kernel/iommu_groups/ -type l |
 head -20\n#
-If empty, verify BIOS settings:\n# - Intel: VT-d enabled\n# - AMD: AMD-Vi / IOMMU
+If empty, verify BIOS settings:\n# - Intel: VT-d enabled\n# - AMD: AMD-Vi /
+IOMMU
 enabled\n```text\nfind /sys/kernel/iommu_groups/ -type l | head -20\n\n## If empty, verify
 BIOS
-settings:\n\n## - Intel: VT-d enabled\n\n## - AMD: AMD-Vi / IOMMU enabled\n\n```text\n##
+settings:\n\n## - Intel: VT-d enabled\n\n## - AMD: AMD-Vi / IOMMU
+enabled\n\n```text\n##
 Check IOMMU
 groups\n\nfind /sys/kernel/iommu_groups/ -type l | head -20\n\n## If empty, verify BIOS
 settings:
@@ -989,7 +1242,8 @@ settings:
 (2)\n```text\n\nfind
 /sys/kernel/iommu_groups/ -type l | head -20\n\n## If empty, verify BIOS settings:
 (3)\n\n## -
-Intel: VT-d enabled (3)\n\n## - AMD: AMD-Vi / IOMMU enabled (3)\n\n```text\n## Check IOMMU
+Intel: VT-d enabled (3)\n\n## - AMD: AMD-Vi / IOMMU enabled (3)\n\n```text\n##
+Check IOMMU
 groups
 (2)\nfind /sys/kernel/iommu_groups/ -type l | head -20\n## If empty, verify BIOS settings:
 (4)\n## -
@@ -999,34 +1253,47 @@ Intel: VT-d enabled (4)\n## - AMD: AMD-Vi / IOMMU enabled (4)\n```text\n\nfind
 Intel: VT-d enabled (5)\n\n## - AMD: AMD-Vi / IOMMU enabled (5)\n\n```text\nfind
 /sys/kernel/iommu_groups/ -type l | head -20\n\n## If empty, verify BIOS settings:
 (6)\n\n## -
-Intel: VT-d enabled (6)\n\n## - AMD: AMD-Vi / IOMMU enabled (6)\n```text\n\n## If empty,
+Intel: VT-d enabled (6)\n\n## - AMD: AMD-Vi / IOMMU enabled (6)\n```text\n\n##
+If empty,
 verify BIOS
-settings: (7)\n\n## - Intel: VT-d enabled (7)\n\n## - AMD: AMD-Vi / IOMMU enabled
-(7)\n\n```text\n### KVM Performance Issues\n```bash\n\n```bash\n### KVM Performance Issues
+settings: (7)\n\n## - Intel: VT-d enabled (7)\n\n## - AMD: AMD-Vi / IOMMU
+enabled
+(7)\n\n```text\n### KVM Performance Issues\n```bash\n\n```bash\n### KVM
+Performance Issues
 (2)\n```bash\n\n```bash\n### KVM Performance Issues
 (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n#
-Verify nested virtualization\ncat /sys/module/kvm_intel/parameters/nested # Should be Y\n#
+Verify nested virtualization\ncat /sys/module/kvm_intel/parameters/nested #
+Should be Y\n#
 Check MSR
 handling\ncat /sys/module/kvm/parameters/ignore_msrs\n```text\ncat
-/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR handling\n\ncat
-/sys/module/kvm/parameters/ignore_msrs\n```text\n## Verify nested virtualization\n\ncat
-/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR handling (2)\n\ncat
+/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR
+handling\n\ncat
+/sys/module/kvm/parameters/ignore_msrs\n```text\n## Verify nested
+virtualization\n\ncat
+/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR handling
+(2)\n\ncat
 /sys/module/kvm/parameters/ignore_msrs\n```text\n\ncat
 /sys/module/kvm_intel/parameters/nested #
 Should be Y\n\n## Check MSR handling (3)\n\ncat
 /sys/module/kvm/parameters/ignore_msrs\n```text\n##
-Verify nested virtualization (2)\ncat /sys/module/kvm_intel/parameters/nested # Should be
+Verify nested virtualization (2)\ncat /sys/module/kvm_intel/parameters/nested #
+Should be
 Y\n##
-Check MSR handling (4)\ncat /sys/module/kvm/parameters/ignore_msrs\n```text\n\ncat
-/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR handling (5)\n\ncat
+Check MSR handling (4)\ncat
+/sys/module/kvm/parameters/ignore_msrs\n```text\n\ncat
+/sys/module/kvm_intel/parameters/nested # Should be Y\n\n## Check MSR handling
+(5)\n\ncat
 /sys/module/kvm/parameters/ignore_msrs\n```text\ncat
 /sys/module/kvm_intel/parameters/nested #
 Should be Y\n\n## Check MSR handling (6)\n\ncat
-/sys/module/kvm/parameters/ignore_msrs\n```text\n\n## Check MSR handling (7)\n\ncat
+/sys/module/kvm/parameters/ignore_msrs\n```text\n\n## Check MSR handling
+(7)\n\ncat
 /sys/module/kvm/parameters/ignore_msrs\n```text\n### Container Networking
-Issues\n```bash\n\n```bash\n### Container Networking Issues (2)\n```bash\n\n```bash\n###
+Issues\n```bash\n\n```bash\n### Container Networking Issues
+(2)\n```bash\n\n```bash\n###
 Container
-Networking Issues (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# Verify eBPF\nbpftool
+Networking Issues (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# Verify
+eBPF\nbpftool
 feature
 probe\n# Check cgroup v2\nmount | grep cgroup2\n```text\nbpftool feature probe\n\n## Check
 cgroup
@@ -1034,72 +1301,73 @@ v2\n\nmount | grep cgroup2\n```text\n## Verify eBPF\n\nbpftool feature probe\n\n
 cgroup v2
 (2)\n\nmount | grep cgroup2\n```text\n\nbpftool feature probe\n\n## Check cgroup v2
 (3)\n\nmount |
-grep cgroup2\n```text\n## Verify eBPF (2)\nbpftool feature probe\n## Check cgroup v2
+grep cgroup2\n```text\n## Verify eBPF (2)\nbpftool feature probe\n## Check
+cgroup v2
 (4)\nmount |
 grep cgroup2\n```text\n\nbpftool feature probe\n\n## Check cgroup v2 (5)\n\nmount | grep
 cgroup2\n```text\nbpftool feature probe\n\n## Check cgroup v2 (6)\n\nmount | grep
 cgroup2\n```text\n\n## Check cgroup v2 (7)\n\nmount | grep cgroup2\n```text\n##
 References\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (2)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (3)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (4)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n\n-
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n\n-
 [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (5)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (6)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n##
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n##
 References (7)\n- [KVM
-Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D](https://www.linux-kvm.org/page/D)o)c)u)m)e)n)t)s)\n\n-
+Documentation]([https://www.linux-kvm.org/page/Document]([https://www.linux-kvm.org/page/Documen]([https://www.linux-kvm.org/page/Docume]([https://www.linux-kvm.org/page/Docum]([https://www.linux-kvm.org/page/Docu]([https://www.linux-kvm.org/page/Doc]([https://www.linux-kvm.org/page/Do]([https://www.linux-kvm.org/page/D]([https://www.linux-kvm.org/page/]([https://www.linux-kvm.org/page]([https://www.linux-kvm.org/pag]([https://www.linux-kvm.org/pa]([https://www.linux-kvm.org/p]([https://www.linux-kvm.org/]([https://www.linux-kvm.org]([https://www.linux-kvm.or]([https://www.linux-kvm.o]([https://www.linux-kvm.]([https://www.linux-kvm]([https://www.linux-kv]([https://www.linux-k]([https://www.linux-]([https://www.linux](https://www.linux)-)k)v)m).)o)r)g)/)p)a)g)e)/)D)o)c)u)m)e)n)t)s)\n\n-
 [Ceph Kernel
-Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs](https://docs.ceph.com/en/latest/cephfs)/)k)e)r)n)e)l)/)\n\n-
+Client]([https://docs.ceph.com/en/latest/cephfs/kernel]([https://docs.ceph.com/en/latest/cephfs/kerne]([https://docs.ceph.com/en/latest/cephfs/kern]([https://docs.ceph.com/en/latest/cephfs/ker]([https://docs.ceph.com/en/latest/cephfs/ke]([https://docs.ceph.com/en/latest/cephfs/k]([https://docs.ceph.com/en/latest/cephfs/]([https://docs.ceph.com/en/latest/cephfs]([https://docs.ceph.com/en/latest/cephf]([https://docs.ceph.com/en/latest/ceph]([https://docs.ceph.com/en/latest/cep]([https://docs.ceph.com/en/latest/ce]([https://docs.ceph.com/en/latest/c]([https://docs.ceph.com/en/latest/]([https://docs.ceph.com/en/latest]([https://docs.ceph.com/en/lates]([https://docs.ceph.com/en/late]([https://docs.ceph.com/en/lat]([https://docs.ceph.com/en/la]([https://docs.ceph.com/en/l]([https://docs.ceph.com/en/]([https://docs.ceph.com/en]([https://docs.ceph.com/e](https://docs.ceph.com/e)n)/)l)a)t)e)s)t)/)c)e)p)h)f)s)/)k)e)r)n)e)l)/)\n\n-
 [ZFS on
-Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz](https://openzfs.github.io/openz)f)s)-)d)o)c)s)/)\n\n-
+Linux]([https://openzfs.github.io/openzfs-docs]([https://openzfs.github.io/openzfs-doc]([https://openzfs.github.io/openzfs-do]([https://openzfs.github.io/openzfs-d]([https://openzfs.github.io/openzfs-]([https://openzfs.github.io/openzfs]([https://openzfs.github.io/openzf]([https://openzfs.github.io/openz]([https://openzfs.github.io/open]([https://openzfs.github.io/ope]([https://openzfs.github.io/op]([https://openzfs.github.io/o]([https://openzfs.github.io/]([https://openzfs.github.io]([https://openzfs.github.i]([https://openzfs.github.]([https://openzfs.github]([https://openzfs.githu]([https://openzfs.gith]([https://openzfs.git]([https://openzfs.gi]([https://openzfs.g]([https://openzfs.](https://openzfs.)g)i)t)h)u)b).)i)o)/)o)p)e)n)z)f)s)-)d)o)c)s)/)\n\n-
 [Cilium
-Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi](https://docs.cilium.io/en/stable/operations/system_requi)r)e)m)e)n)t)s)/)\n\n
+Requirements]([https://docs.cilium.io/en/stable/operations/system_requirements]([https://docs.cilium.io/en/stable/operations/system_requirement]([https://docs.cilium.io/en/stable/operations/system_requiremen]([https://docs.cilium.io/en/stable/operations/system_requireme]([https://docs.cilium.io/en/stable/operations/system_requirem]([https://docs.cilium.io/en/stable/operations/system_require]([https://docs.cilium.io/en/stable/operations/system_requir]([https://docs.cilium.io/en/stable/operations/system_requi]([https://docs.cilium.io/en/stable/operations/system_requ]([https://docs.cilium.io/en/stable/operations/system_req]([https://docs.cilium.io/en/stable/operations/system*re]([https://docs.cilium.io/en/stable/operations/system*r]([https://docs.cilium.io/en/stable/operations/system*]([https://docs.cilium.io/en/stable/operations/system]([https://docs.cilium.io/en/stable/operations/syste]([https://docs.cilium.io/en/stable/operations/syst]([https://docs.cilium.io/en/stable/operations/sys]([https://docs.cilium.io/en/stable/operations/sy]([https://docs.cilium.io/en/stable/operations/s]([https://docs.cilium.io/en/stable/operations/]([https://docs.cilium.io/en/stable/operations]([https://docs.cilium.io/en/stable/operation]([https://docs.cilium.io/en/stable/operatio](https://docs.cilium.io/en/stable/operatio)n)s)/)s)y)s)t)e)m)*)r)e)q)u)i)r)e)m)e)n)t)s)/)\n\n

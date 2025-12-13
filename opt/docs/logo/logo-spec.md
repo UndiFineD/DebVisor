@@ -2,65 +2,89 @@
 
 band
 
-across the top third and a stack of 2-3 VM blocks in the lower area.\n\n- Primary lockup:
+across the top third and a stack of 2-3 VM blocks in the lower area.\n\n-
+Primary lockup:
 mark
-(left) + wordmark "DebVisor" (right).\n\n- Compact lockup: mark above, wordmark centered
+(left) + wordmark "DebVisor" (right).\n\n- Compact lockup: mark above, wordmark
+centered
 below.\n\n-
-Tiny icon: just the rounded rectangle with visor band.\n\nColors (hex)\n\n- Dark charcoal
+Tiny icon: just the rounded rectangle with visor band.\n\nColors (hex)\n\n- Dark
+charcoal
 (primary
-background / outline): #1E1E21\n\n- Visor (accent): #D70A53\n\n- VM light: #E5E5E8\n\n- VM
+background / outline): #1E1E21\n\n- Visor (accent): #D70A53\n\n- VM light:
+
+## E5E5E8\n\n- VM
+
 accent
-(optional): #4FC3F7\n\n- White (for monochrome inverted): #FFFFFF\n\nWordmark\n\n-
+(optional): #4FC3F7\n\n- White (for monochrome inverted):
+
+## FFFFFF\n\nWordmark\n\n-
+
 Typeface:
-Geometric rounded sans (Rubik or Montserrat recommended)\n\n- Treatment: "DebVisor" with
+Geometric rounded sans (Rubik or Montserrat recommended)\n\n- Treatment:
+"DebVisor" with
 capital D
-and V, rest lowercase.\n\n- Subtle custom tweak: extend the arms of the "V" slightly
+and V, rest lowercase.\n\n- Subtle custom tweak: extend the arms of the "V"
+slightly
 outward (2-4%
-of type height) to visually echo the visor band. For precise control, convert wordmark to
+of type height) to visually echo the visor band. For precise control, convert
+wordmark to
 outlines
-and nudge V arms.\n\n- Suggested weights: Semi-Bold (600) for web; Bold or converted
+and nudge V arms.\n\n- Suggested weights: Semi-Bold (600) for web; Bold or
+converted
 outlines for
-print.\n\nSpacing & padding\n\n- Mark clearspace: at minimum, equal to the height of the
+print.\n\nSpacing & padding\n\n- Mark clearspace: at minimum, equal to the
+height of the
 VM block in
-the mark (base unit). Keep all clear space around the mark equal to that unit.\n\n- Lockup
+the mark (base unit). Keep all clear space around the mark equal to that
+unit.\n\n- Lockup
 spacing
-(mark to wordmark horizontally): 1.5? mark width's base unit (visually balanced).\n\n- For
+(mark to wordmark horizontally): 1.5? mark width's base unit (visually
+balanced).\n\n- For
 compact
-vertical lockup, vertical gap mark-to-wordmark: 0.75? base unit.\n\nGeometry\n\n- Mark
+vertical lockup, vertical gap mark-to-wordmark: 0.75? base
+unit.\n\nGeometry\n\n- Mark
 shape:
-rounded rectangle, slightly wider than tall.\n\n- Visor height: ~24-33% of mark height
+rounded rectangle, slightly wider than tall.\n\n- Visor height: ~24-33% of mark
+height
 (top
 third).\n\n- VM area: lower ~60% of mark height; use 2-3 equally sized rounded
 squares/bars. Align
-them horizontally with even spacing; optionally stagger for depth.\n\nExport sizes\n\n-
+them horizontally with even spacing; optionally stagger for depth.\n\nExport
+sizes\n\n-
 Vector
-(source): SVG / PDF / EPS (preferred).\n\n- Raster exports: 16?16 (tiny icon), 24?24,
+(source): SVG / PDF / EPS (preferred).\n\n- Raster exports: 16?16 (tiny icon),
+24?24,
 32?32, 48?48,
-64?64, 128?128, 256?256, 512?512, 1024?1024.\n\n- For favicons: generate multi-resolution
-favicon.ico or separate PNGs (16, 32, 48 px).\n\nMonochrome / one-color\n\n- Provide two
+64?64, 128?128, 256?256, 512?512, 1024?1024.\n\n- For favicons: generate
+multi-resolution
+favicon.ico or separate PNGs (16, 32, 48 px).\n\nMonochrome / one-color\n\n-
+Provide two
 monochrome
-versions:\n\n- White-on-dark (for dark backgrounds).\n\n- Dark-on-white (for light
-backgrounds).\n\n- Ensure high contrast and remove small VM details for the smallest sizes
-(<=24px)
--- use only server + visor.\n\nTiny icon guidance\n\n- For 16?16 and 32?32, simplify to
-server shape
-
-- visor band only (no VM blocks).\n\n- Use solid shapes; avoid
-strokes.\n\nAccessibility\n\n- Ensure
-contrast ratio >4.5:1 for small text and UI uses.\n\n- Provide alt text: "DebVisor logo"
+versions:\n\n- White-on-dark (for dark backgrounds).\n\n- Dark-on-white (for
+light
+backgrounds).\n\n- Ensure high contrast and remove small VM details for the
+smallest sizes
+(4.5:1 for small text and UI uses.\n\n- Provide alt text: "DebVisor logo"
 and role
 attributes in SVGs as needed.\n\nDeliverables checklist\n\n- SVG master (mark +
 wordmark)\n\n- SVG
-mark-only\n\n- SVG monochrome variants\n\n- 16/32/64/128/256/512 PNGs (transparent
+mark-only\n\n- SVG monochrome variants\n\n- 16/32/64/128/256/512 PNGs
+(transparent
 background)\n\n-
-Favicon set (multi-res .ico + pngs)\n\n- Wordmark converted to outlines (PDF or SVG
-paths)\n\nLicense / usage\n\n- Default: include a statement clarifying allowed uses (e.g.,
+Favicon set (multi-res .ico + pngs)\n\n- Wordmark converted to outlines (PDF or
+SVG
+paths)\n\nLicense / usage\n\n- Default: include a statement clarifying allowed
+uses (e.g.,
 repository/project icon and branding). If needed I can add an explicit license
 file.\n\nNotes\n\n-
-For pixel-perfect reproduction on the web, convert the wordmark to outlines and embed it
+For pixel-perfect reproduction on the web, convert the wordmark to outlines and
+embed it
 in the
-final SVG; otherwise specify webfont (Rubik/Montserrat) in the page CSS.\n\n- If you want
+final SVG; otherwise specify webfont (Rubik/Montserrat) in the page CSS.\n\n- If
+you want
 the V-arm
-tweak exactly, I can produce an outlined wordmark SVG where the V arms are extended and
+tweak exactly, I can produce an outlined wordmark SVG where the V arms are
+extended and
 kerned
 precisely.\n\n

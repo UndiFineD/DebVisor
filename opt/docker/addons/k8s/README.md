@@ -2,49 +2,71 @@
 
 enabled on a
 
-DebVisor cluster.\n\n## Included addons\n\n- **Monitoring stack**(`monitoring/`):\n\n-
-`prometheus.yaml`,`grafana.yaml`, and\n\n `prometheus-grafana-placeholder.yaml`provide
+DebVisor cluster.\n\n## Included addons\n\n- **Monitoring
+stack**(`monitoring/`):\n\n-
+`prometheus.yaml`,`grafana.yaml`, and\n\n
+`prometheus-grafana-placeholder.yaml`provide
 minimal,
-non-production\n examples of a monitoring namespace and core components.\n\n- For real
+non-production\n examples of a monitoring namespace and core components.\n\n-
+For real
 deployments,
 use Helm charts such as`kube-prometheus-stack`\n\n and follow
 `docs/monitoring-automation.md`.\n\n-
 **Ingress**(`ingress/`):\n\n- `nginx-ingress.yaml`sketches a very small ingress
 controller\n\n
-deployment and namespace. It is a placeholder only; use the official\n ingress-nginx Helm
+deployment and namespace. It is a placeholder only; use the official\n
+ingress-nginx Helm
 chart in
-production.\n\n- **Storage CSI**(`csi/`):\n\n-`ceph-csi-rbd.yaml`,`ceph-csi-cephfs.yaml`,
-and`zfs-localpv.yaml`\n\n reserve namespaces and CSIDriver objects for Ceph RBD/CephFS and
+production.\n\n- **Storage
+CSI**(`csi/`):\n\n-`ceph-csi-rbd.yaml`,`ceph-csi-cephfs.yaml`,
+and`zfs-localpv.yaml`\n\n reserve namespaces and CSIDriver objects for Ceph
+RBD/CephFS and
 ZFS\n
 LocalPV. Real clusters should apply upstream CSI manifests.\n\n-
 **Security**(`security/`):\n\n-
-`require-signed-images.yaml`demonstrates how to enforce image\n\n signing/verification for
-Kubernetes workloads.\n\n- **Other examples**: Additional sample manifests used for
+`require-signed-images.yaml`demonstrates how to enforce image\n\n
+signing/verification for
+Kubernetes workloads.\n\n- **Other examples**: Additional sample manifests used
+for
 validation\n\n
-or experimentation.\n\n## Enabling addons\n\nFrom a management shell on a DebVisor node
-with`kubectl`configured:\n\n- Enable an addon group (for example monitoring) with:\n\n
+or experimentation.\n\n## Enabling addons\n\nFrom a management shell on a
+DebVisor node
+with`kubectl`configured:\n\n- Enable an addon group (for example monitoring)
+with:\n\n
 kubectl apply
--f docker\addons\k8s\monitoring\\n\n- Ensure cluster networking (Calico) is healthy and
+-f docker\addons\k8s\monitoring\\n\n- Ensure cluster networking (Calico) is
+healthy and
 that any
-required\n\n storage backends (Ceph, ZFS) are online before applying storage CSI\n
+required\n\n storage backends (Ceph, ZFS) are online before applying storage
+CSI\n
 manifests.\n\n##
-Disabling / rolling back\n\n- Remove an addon by deleting the resources it created, for
+Disabling / rolling back\n\n- Remove an addon by deleting the resources it
+created, for
 example:\n\n
-kubectl delete -f docker\addons\k8s\monitoring\\n\n- Before removing storage-related
+kubectl delete -f docker\addons\k8s\monitoring\\n\n- Before removing
+storage-related
 addons, check
-for associated\n\n PersistentVolumeClaims, StorageClasses, and running pods that depend\n
+for associated\n\n PersistentVolumeClaims, StorageClasses, and running pods that
+depend\n
 on
-them.\n\n- For ingress-related addons, ensure that services are either moved to a\n\n
+them.\n\n- For ingress-related addons, ensure that services are either moved to
+a\n\n
 different
-ingress implementation or have alternative access paths.\n\n## Interaction with DebVisor
+ingress implementation or have alternative access paths.\n\n## Interaction with
+DebVisor
 networking,
-DNS, and monitoring\n\n- Many addons expose Services that should be reachable via the
+DNS, and monitoring\n\n- Many addons expose Services that should be reachable
+via the
 DebVisor\n\n
-bridge network and HA DNS; use appropriate Service types and, where\n needed, Ingress
+bridge network and HA DNS; use appropriate Service types and, where\n needed,
+Ingress
 objects.\n\n-
-Monitoring-related addons should reuse existing label conventions so\n\n they integrate
+Monitoring-related addons should reuse existing label conventions so\n\n they
+integrate
 cleanly with
 the DebVisor Grafana dashboards and\n Prometheus alerting described
-in`docs/monitoring-automation.md`.\n\n- When in doubt, prefer running addons on nodes
+in`docs/monitoring-automation.md`.\n\n- When in doubt, prefer running addons on
+nodes
 sized for\n\n
-control-plane/monitoring workloads rather than general-purpose\n hypervisors.\n\n
+control-plane/monitoring workloads rather than general-purpose\n
+hypervisors.\n\n

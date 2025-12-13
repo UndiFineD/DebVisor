@@ -1,6 +1,6 @@
 # Code Issues Report: opt\tools\first_boot_keygen.py
 
-Generated: 2025-12-13T15:19:03.618453
+Generated: 2025-12-13T16:49:38.472101
 Source: opt\tools\first_boot_keygen.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

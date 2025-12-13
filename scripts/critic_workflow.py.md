@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\critic_workflow.py
 
-Generated: 2025-12-13T15:20:56.139586
+Generated: 2025-12-13T16:51:35.376273
 Source: scripts\critic_workflow.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

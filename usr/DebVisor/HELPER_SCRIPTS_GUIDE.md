@@ -2,7 +2,8 @@
 
 `usr/`directory contains
 
-runtime tools, systemd services, and helper scripts for operational use.\n\n## Quick Tool
+runtime tools, systemd services, and helper scripts for operational use.\n\n##
+Quick Tool
 Reference\n\n| Tool | Purpose | Example |\n|------|---------|---------|\n|`cephctl`| Ceph
 cluster
 management |`cephctl status`|\n|`hvctl`| Hypervisor/VM management |`hvctl
@@ -12,66 +13,94 @@ Kubernetes operations |`k8sctl nodes`|\n|`debvisor-migrate.sh`| VM migration
 vm1 hvr-02`|\n|`debvisor-dns-update.sh`| DNS records |`debvisor-dns-update.sh host1
 192.168.1.100`|\n|`debvisor-netcfg`| Network configuration |`debvisor-netcfg`|\n\n##
 Script
-Improvements\n\n### Universal Features (All Scripts)\n\n- **Documentation**:`--help`
+Improvements\n\n### Universal Features (All Scripts)\n\n-
+**Documentation**:`--help`
 prints
 comprehensive usage\n\n- **Error Handling**: Consistent error reporting and exit
 codes\n\n-
-**Logging**: Audit trail of all operations\n\n- **Validation**: Pre-flight checks before
-execution\n\n- **Rollback**: Recovery procedures on failure\n\n- **Examples**: Common
+**Logging**: Audit trail of all operations\n\n- **Validation**: Pre-flight
+checks before
+execution\n\n- **Rollback**: Recovery procedures on failure\n\n- **Examples**:
+Common
 usage examples
 in help text\n\n### Helper Script Documentation\n\n### debvisor-migrate.sh\n\n-
 Pre-migration
 validation\n\n- Bandwidth rate limiting\n\n- Progress monitoring\n\n- Rollback
 support\n\n-
-Post-migration validation\n\n### debvisor-dns-update.sh\n\n- TSIG validation\n\n- DNS
+Post-migration validation\n\n### debvisor-dns-update.sh\n\n- TSIG
+validation\n\n- DNS
 propagation
-verification\n\n- TTL management\n\n- Rollback capability\n\n- Multiple DNS server
+verification\n\n- TTL management\n\n- Rollback capability\n\n- Multiple DNS
+server
 support\n\n###
-debvisor-cloudinit-iso.sh\n\n- cloud-init syntax validation\n\n- Size constraints
+debvisor-cloudinit-iso.sh\n\n- cloud-init syntax validation\n\n- Size
+constraints
 warnings\n\n-
-Template library\n\n- Provisioning documentation\n\n### debvisor-netcfg\n\n- Interactive
-validation\n\n- Rollback mechanism\n\n- Multiple backend support\n\n- VLAN/bonding
+Template library\n\n- Provisioning documentation\n\n### debvisor-netcfg\n\n-
+Interactive
+validation\n\n- Rollback mechanism\n\n- Multiple backend support\n\n-
+VLAN/bonding
 templates\n\n-
-IPv6 support\n\n### CLI Wrapper Tools\n\n### cephctl\n\n- Cluster health summary\n\n- OSD
+IPv6 support\n\n### CLI Wrapper Tools\n\n### cephctl\n\n- Cluster health
+summary\n\n- OSD
 status and
-management\n\n- Pool operations\n\n- PG statistics\n\n- Performance metrics\n\n- Alert
-integration\n\n### hvctl\n\n- VM resource tracking\n\n- Migration helpers\n\n- Snapshot
-management\n\n- Console access\n\n- Resource validation\n\n### k8sctl\n\n- Node health
+management\n\n- Pool operations\n\n- PG statistics\n\n- Performance metrics\n\n-
+Alert
+integration\n\n### hvctl\n\n- VM resource tracking\n\n- Migration helpers\n\n-
+Snapshot
+management\n\n- Console access\n\n- Resource validation\n\n### k8sctl\n\n- Node
+health
 summary\n\n-
-Workload status\n\n- Pod log access\n\n- Debug capabilities\n\n- Addon management\n\n##
+Workload status\n\n- Pod log access\n\n- Debug capabilities\n\n- Addon
+management\n\n##
 Output
-Formatting\n\nAll tools support multiple output formats:\n cephctl status --format json\n
+Formatting\n\nAll tools support multiple output formats:\n cephctl status
+--format json\n
 cephctl
-status --format yaml\n cephctl status --format table # default\n\n## Health Check\n\n-
+status --format yaml\n cephctl status --format table # default\n\n## Health
+Check\n\n-
 *debvisor-health-check.sh**(NEW)\n\nUniversal pre-flight validation:\n
-debvisor-health-check.sh\n\n## Checks: binaries, services, connectivity, filesystem\n\n##
+debvisor-health-check.sh\n\n## Checks: binaries, services, connectivity,
+filesystem\n\n##
 Systemd
 Services\n\n### debvisor-firstboot.service\n\n- Initial node setup\n\n- Retry on
 failure\n\n- Status
-reporting\n\n- Pre-flight checks\n\n### debvisor-rpcd.service\n\n- RPC service\n\n-
+reporting\n\n- Pre-flight checks\n\n### debvisor-rpcd.service\n\n- RPC
+service\n\n-
 Security
-hardening\n\n- Resource limits\n\n- Health monitoring\n\n### debvisor-panel.service\n\n-
+hardening\n\n- Resource limits\n\n- Health monitoring\n\n###
+debvisor-panel.service\n\n-
 Web UI
-service\n\n- Dependency on RPC\n\n- TLS configuration\n\n- Log aggregation\n\n## Audit
+service\n\n- Dependency on RPC\n\n- TLS configuration\n\n- Log aggregation\n\n##
+Audit
 Logging\n\nAll operational scripts log to audit trail:\n\n## View audit logs\n\n
 journalctl --grep
 debvisor -o json | jq '.MESSAGE'\n\n## Error Codes\n\nStandardized exit codes:\n\n- 0:
 Success\n\n-
-1: General error\n\n- 2: Invalid arguments\n\n- 3: Resource not found\n\n- 4: Connection
+1: General error\n\n- 2: Invalid arguments\n\n- 3: Resource not found\n\n- 4:
+Connection
 failed\n\n-
 5: Operation failed\n\n- 6: Validation failed\n\n## Troubleshooting\n\n- *Common
 Issues**:\n\n-
-Connectivity: Check SSH keys and network access\n\n- Permissions: Verify sudo privileges
+Connectivity: Check SSH keys and network access\n\n- Permissions: Verify sudo
+privileges
 and file
-permissions\n\n- Services: Check systemd status and logs\n\n- Configuration: Validate
+permissions\n\n- Services: Check systemd status and logs\n\n- Configuration:
+Validate
 preseed and
-inventory files\n\n## Safety Features\n\n- Pre-flight validation before destructive
+inventory files\n\n## Safety Features\n\n- Pre-flight validation before
+destructive
 operations\n\n-
-Dry-run/check mode support\n\n- Rollback procedures documented\n\n- Mutex/lock mechanisms
+Dry-run/check mode support\n\n- Rollback procedures documented\n\n- Mutex/lock
+mechanisms
 to prevent
-concurrent conflicts\n\n- Maintenance mode support\n\n## Documentation\n\nEach script
+concurrent conflicts\n\n- Maintenance mode support\n\n## Documentation\n\nEach
+script
 includes:\n\n-
-Usage examples\n\n- Common scenarios\n\n- Troubleshooting guide\n\n- Man pages (select
-scripts)\n\n## Integration\n\nAll tools integrate with:\n\n- Ceph cluster status\n\n-
+Usage examples\n\n- Common scenarios\n\n- Troubleshooting guide\n\n- Man pages
+(select
+scripts)\n\n## Integration\n\nAll tools integrate with:\n\n- Ceph cluster
+status\n\n-
 Kubernetes
-API\n\n- libvirt hypervisor\n\n- systemd services\n\n- Audit logging framework\n\n
+API\n\n- libvirt hypervisor\n\n- systemd services\n\n- Audit logging
+framework\n\n

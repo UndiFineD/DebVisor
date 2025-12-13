@@ -1,205 +1,283 @@
 # DebVisor RPC Service Implementation Examples\n\n## Complete Server Implementation\n\n##
 
-services/rpc/server.py\n\n import grpc\n import json\n import logging\n import os\n import
+services/rpc/server.py\n\n import grpc\n import json\n import logging\n import
+os\n import
 sys\n
-from concurrent import futures\n from datetime import datetime, timedelta\n from enum
+from concurrent import futures\n from datetime import datetime, timedelta\n from
+enum
 import
-Enum\n\n## Generated protobuf modules (from make protoc)\n\n import debvisor_pb2\n import
-debvisor_pb2_grpc\n\n## Local modules\n\n from auth import AuthenticationInterceptor,
-extract_identity\n from authz import AuthorizationInterceptor, check_permission\n from
+Enum\n\n## Generated protobuf modules (from make protoc)\n\n import
+debvisor_pb2\n import
+debvisor_pb2_grpc\n\n## Local modules\n\n from auth import
+AuthenticationInterceptor,
+extract_identity\n from authz import AuthorizationInterceptor,
+check_permission\n from
 audit import
-AuditInterceptor\n from rate_limiting import RateLimitingInterceptor, RateLimiter\n from
+AuditInterceptor\n from rate_limiting import RateLimitingInterceptor,
+RateLimiter\n from
 validators
-import RequestValidator\n from key_manager import ApiKeyManager\n from cert_manager import
+import RequestValidator\n from key_manager import ApiKeyManager\n from
+cert_manager import
 CertificateMonitor\n\n## Configure logging\n\n logging.basicConfig(\n
 level=logging.INFO,\n
 format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',\n )\n logger =
-logging.getLogger(**name**)\n class StatusCode(Enum):\n UNKNOWN = 0\n OK = 1\n WARN = 2\n
+logging.getLogger(**name**)\n class StatusCode(Enum):\n UNKNOWN = 0\n OK = 1\n
+WARN = 2\n
 ERROR =
-3\n class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):\n """Implementation of
+3\n class NodeServiceImpl(debvisor_pb2_grpc.NodeServiceServicer):\n
+"""Implementation of
 NodeService
-RPC calls"""\n def**init**(self, backend):\n self.backend = backend\n self.nodes = {} #
+RPC calls"""\n def**init**(self, backend):\n self.backend = backend\n self.nodes
+= {} #
 In-memory
-store (use persistent storage in production)\n def RegisterNode(self, request, context):\n
-"""Register a new node or update existing"""\n try:\n\n## Validate inputs\n\n hostname =
+store (use persistent storage in production)\n def RegisterNode(self, request,
+context):\n
+"""Register a new node or update existing"""\n try:\n\n## Validate inputs\n\n
+hostname =
 RequestValidator.validate_hostname(request.hostname)\n ip =
-RequestValidator.validate_ipv4(request.ip)\n\n## Check authorization\n\n context.principal
+RequestValidator.validate_ipv4(request.ip)\n\n## Check authorization\n\n
+context.principal
 =
-extract_identity(context)\n check_permission(context, 'node:register')\n\n## Register with
-backend\n\n node_id = self.backend.register_node(\n hostname=hostname,\n ip=ip,\n
+extract_identity(context)\n check_permission(context, 'node:register')\n\n##
+Register with
+backend\n\n node_id = self.backend.register_node(\n hostname=hostname,\n
+ip=ip,\n
 version=request.version,\n )\n logger.info(f'Node registered: {hostname} ({ip}),
-node_id={node_id}')\n return debvisor_pb2.NodeAck(\n status=StatusCode.OK.value,\n
+node_id={node_id}')\n return debvisor_pb2.NodeAck(\n
+status=StatusCode.OK.value,\n
 message=f'Node
-{hostname} registered successfully',\n node_id=node_id,\n )\n except ValueError as e:\n
+{hostname} registered successfully',\n node_id=node_id,\n )\n except ValueError
+as e:\n
 logger.warning(f'Invalid RegisterNode request: {e}')\n
-context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n except PermissionError as e:\n
+context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n except PermissionError
+as e:\n
 logger.warning(f'RegisterNode permission denied: {e}')\n
-context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as e:\n
+context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as
+e:\n
 logger.error(f'RegisterNode error: {e}', exc_info=True)\n
 context.abort(grpc.StatusCode.INTERNAL,
-'Registration failed')\n def Heartbeat(self, request, context):\n """Send heartbeat from
+'Registration failed')\n def Heartbeat(self, request, context):\n """Send
+heartbeat from
 node"""\n
-try:\n node_id = RequestValidator.validate_uuid(request.node_id)\n context.principal =
-extract_identity(context)\n check_permission(context, 'node:heartbeat')\n\n## Update node
+try:\n node_id = RequestValidator.validate_uuid(request.node_id)\n
+context.principal =
+extract_identity(context)\n check_permission(context, 'node:heartbeat')\n\n##
+Update node
 state\n\n
 self.backend.update_node_heartbeat(node_id, request.health)\n return
 debvisor_pb2.HealthAck(\n
 status=StatusCode.OK.value,\n timestamp=debvisor_pb2.Timestamp(\n
-seconds=int(datetime.utcnow().timestamp()),\n nanos=0,\n ),\n )\n except ValueError as
+seconds=int(datetime.utcnow().timestamp()),\n nanos=0,\n ),\n )\n except
+ValueError as
 e:\n
-context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n except PermissionError as e:\n
-context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as e:\n
+context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n except PermissionError
+as e:\n
+context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as
+e:\n
 logger.error(f'Heartbeat error: {e}', exc_info=True)\n
 context.abort(grpc.StatusCode.INTERNAL,
-'Heartbeat failed')\n def ListNodes(self, request, context):\n """List all registered
+'Heartbeat failed')\n def ListNodes(self, request, context):\n """List all
+registered
 nodes"""\n
 try:\n context.principal = extract_identity(context)\n check_permission(context,
 'node:list')\n
-nodes = self.backend.list_nodes()\n node_summaries = [\n debvisor_pb2.NodeSummary(\n
+nodes = self.backend.list_nodes()\n node_summaries = [\n
+debvisor_pb2.NodeSummary(\n
 node_id=n['id'],\n hostname=n['hostname'],\n ip=n['ip'],\n status=n['status'],\n
-last_heartbeat=debvisor_pb2.Timestamp(\n seconds=int(n['last_heartbeat'].timestamp()),\n
+last_heartbeat=debvisor_pb2.Timestamp(\n
+seconds=int(n['last_heartbeat'].timestamp()),\n
 ),\n )\n
 for n in nodes\n ]\n return debvisor_pb2.NodeList(nodes=node_summaries)\n except
 PermissionError as
-e:\n context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as e:\n
+e:\n context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception
+as e:\n
 logger.error(f'ListNodes error: {e}', exc_info=True)\n
 context.abort(grpc.StatusCode.INTERNAL, 'List
 failed')\n class StorageServiceImpl(debvisor_pb2_grpc.StorageServiceServicer):\n
 """Implementation
-of StorageService RPC calls"""\n def**init**(self, backend):\n self.backend = backend\n
+of StorageService RPC calls"""\n def**init**(self, backend):\n self.backend =
+backend\n
 def
-CreateSnapshot(self, request, context):\n """Create a ZFS or RBD snapshot"""\n try:\n\n##
+CreateSnapshot(self, request, context):\n """Create a ZFS or RBD snapshot"""\n
+try:\n\n##
 Validate
 inputs [2]\n\n pool = RequestValidator.validate_label(request.pool)\n snapshot =
 RequestValidator.validate_label(request.snapshot)\n context.principal =
 extract_identity(context)\n
-check_permission(context, 'storage:snapshot:create')\n\n## Create snapshot\n\n snapshot_id
+check_permission(context, 'storage:snapshot:create')\n\n## Create snapshot\n\n
+snapshot_id
 =
 self.backend.create_snapshot(\n backend=request.backend,\n pool=pool,\n
 snapshot=snapshot,\n
-tags=dict(request.tags),\n )\n logger.info(\n f'Snapshot created: {pool}@{snapshot}, '\n
+tags=dict(request.tags),\n )\n logger.info(\n f'Snapshot created:
+{pool}@{snapshot}, '\n
 f'snapshot_id={snapshot_id}, principal={context.principal}'\n )\n return
-debvisor_pb2.SnapshotStatus(\n snapshot_id=snapshot_id,\n status=StatusCode.OK.value,\n
-created_at=debvisor_pb2.Timestamp(\n seconds=int(datetime.utcnow().timestamp()),\n ),\n
+debvisor_pb2.SnapshotStatus(\n snapshot_id=snapshot_id,\n
+status=StatusCode.OK.value,\n
+created_at=debvisor_pb2.Timestamp(\n
+seconds=int(datetime.utcnow().timestamp()),\n ),\n
 )\n except
-ValueError as e:\n context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n except
+ValueError as e:\n context.abort(grpc.StatusCode.INVALID_ARGUMENT, str(e))\n
+except
 PermissionError
-as e:\n context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as
+as e:\n context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except
+Exception as
 e:\n
 logger.error(f'CreateSnapshot error: {e}', exc_info=True)\n
 context.abort(grpc.StatusCode.INTERNAL,
-'Snapshot creation failed')\n def ListSnapshots(self, request, context):\n """List
+'Snapshot creation failed')\n def ListSnapshots(self, request, context):\n
+"""List
 snapshots"""\n
 try:\n context.principal = extract_identity(context)\n check_permission(context,
 'storage:snapshot:list')\n snapshots = self.backend.list_snapshots(\n
 backend=request.backend,\n
 pool=request.pool if request.pool else None,\n )\n return
 debvisor_pb2.SnapshotList(snapshots=snapshots)\n except PermissionError as e:\n
-context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as e:\n
+context.abort(grpc.StatusCode.PERMISSION_DENIED, str(e))\n except Exception as
+e:\n
 logger.error(f'ListSnapshots error: {e}', exc_info=True)\n
 context.abort(grpc.StatusCode.INTERNAL,
-'List failed')\n class RPCServer:\n """Main RPC server orchestrator"""\n def**init**(self,
+'List failed')\n class RPCServer:\n """Main RPC server orchestrator"""\n
+def**init**(self,
 config_file):\n self.config = self._load_config(config_file)\n self.backend =
 self._init_backend()\n
-self.rate_limiter = RateLimiter(\n global_rps=self.config.get('global_rps', 1000),\n
-per_principal_rps=self.config.get('per_principal_rps', 100),\n )\n self.cert_monitor =
+self.rate_limiter = RateLimiter(\n global_rps=self.config.get('global_rps',
+1000),\n
+per_principal_rps=self.config.get('per_principal_rps', 100),\n )\n
+self.cert_monitor =
 None\n def
 _load_config(self, config_file):\n """Load configuration from file"""\n with
 open(config_file, 'r')
-as f:\n return json.load(f)\n def _init_backend(self):\n """Initialize backend (Ceph,
+as f:\n return json.load(f)\n def _init_backend(self):\n """Initialize backend
+(Ceph,
 libvirt, K8s,
 etc)"""\n\n## Implementation depends on backend\n\n pass\n def
 _load_tls_credentials(self):\n
-"""Load TLS certificates for server"""\n cert_file = self.config['tls_cert_file']\n
+"""Load TLS certificates for server"""\n cert_file =
+self.config['tls_cert_file']\n
 key_file =
 self.config['tls_key_file']\n ca_file = self.config.get('tls_ca_file')\n with
 open(key_file, 'rb')
-as f:\n private_key = f.read()\n with open(cert_file, 'rb') as f:\n certificate_chain =
+as f:\n private_key = f.read()\n with open(cert_file, 'rb') as f:\n
+certificate_chain =
 f.read()\n
-ca_cert = None\n if ca_file:\n with open(ca_file, 'rb') as f:\n ca_cert = f.read()\n
+ca_cert = None\n if ca_file:\n with open(ca_file, 'rb') as f:\n ca_cert =
+f.read()\n
 return
 grpc.ssl_server_credentials(\n [(private_key, certificate_chain)],\n
 root_certificates=ca_cert,\n
-require_client_auth=self.config.get('require_client_auth', True),\n )\n def start(self):\n
+require_client_auth=self.config.get('require_client_auth', True),\n )\n def
+start(self):\n
 """Start
-the RPC server"""\n logger.info('Starting DebVisor RPC service')\n\n## Create server with
+the RPC server"""\n logger.info('Starting DebVisor RPC service')\n\n## Create
+server with
 interceptors\n\n interceptors = [\n AuthenticationInterceptor(self.config),\n
-AuthorizationInterceptor(self.config),\n RateLimitingInterceptor(self.rate_limiter),\n
+AuthorizationInterceptor(self.config),\n
+RateLimitingInterceptor(self.rate_limiter),\n
 AuditInterceptor(self.config),\n ]\n server = grpc.server(\n
-futures.ThreadPoolExecutor(max_workers=10),\n interceptors=interceptors,\n )\n\n##
+futures.ThreadPoolExecutor(max_workers=10),\n interceptors=interceptors,\n
+)\n\n##
 Register
 services\n\n debvisor_pb2_grpc.add_NodeServiceServicer_to_server(\n
 NodeServiceImpl(self.backend),\n
 server,\n )\n debvisor_pb2_grpc.add_StorageServiceServicer_to_server(\n
-StorageServiceImpl(self.backend),\n server,\n )\n\n## Add MigrationService implementation
-similarly\n\n## Load TLS credentials\n\n tls_creds = self._load_tls_credentials()\n\n##
+StorageServiceImpl(self.backend),\n server,\n )\n\n## Add MigrationService
+implementation
+similarly\n\n## Load TLS credentials\n\n tls_creds =
+self._load_tls_credentials()\n\n##
 Bind to
-port\n\n host = self.config.get('host', '127.0.0.1')\n port = self.config.get('port',
+port\n\n host = self.config.get('host', '127.0.0.1')\n port =
+self.config.get('port',
 7443)\n
-server.add_secure_port(f'{host}:{port}', tls_creds)\n logger.info(f'RPC server listening
+server.add_secure_port(f'{host}:{port}', tls_creds)\n logger.info(f'RPC server
+listening
 on
 {host}:{port}')\n\n## Start certificate monitor in background\n\n if
-self.config.get('auto_renew_certificates'):\n cert_path = self.config['tls_cert_file']\n
+self.config.get('auto_renew_certificates'):\n cert_path =
+self.config['tls_cert_file']\n
 self.cert_monitor = CertificateMonitor(\n cert_path=cert_path,\n
 ca_path=self.config.get('tls_ca_file'),\n
 renewal_script=self.config.get('cert_renewal_script'),\n
 )\n\n## Run monitor in separate thread\n\n import threading\n monitor_thread =
 threading.Thread(\n
-target=self.cert_monitor.monitor_loop,\n daemon=True,\n )\n monitor_thread.start()\n
-server.start()\n try:\n\n## Block while serving\n\n while True:\n time.sleep(86400) #
+target=self.cert_monitor.monitor_loop,\n daemon=True,\n )\n
+monitor_thread.start()\n
+server.start()\n try:\n\n## Block while serving\n\n while True:\n
+time.sleep(86400) #
 Sleep for a
-day\n except KeyboardInterrupt:\n logger.info('Shutting down RPC server')\n server.stop(5)
+day\n except KeyboardInterrupt:\n logger.info('Shutting down RPC server')\n
+server.stop(5)
 
 ## 5
 
-seconds graceful shutdown\n if**name**== '**main**':\n import time\n config_file =
+seconds graceful shutdown\n if**name**== '**main**':\n import time\n config_file
+=
 os.environ.get('RPC_CONFIG_FILE', '/etc/debvisor/rpc/config.json')\n server =
-RPCServer(config_file)\n server.start()\n\n## Authentication Implementation\n\n##
-services/rpc/auth.py\n\n import grpc\n import jwt\n import json\n import hashlib\n import
+RPCServer(config_file)\n server.start()\n\n## Authentication
+Implementation\n\n##
+services/rpc/auth.py\n\n import grpc\n import jwt\n import json\n import
+hashlib\n import
 base64\n
 from datetime import datetime\n from cryptography import x509\n from
 cryptography.hazmat.backends
-import default_backend\n class Identity:\n """Represents authenticated identity"""\n
-def**init**(self, principal_id, auth_method, permissions=None):\n self.principal_id =
+import default_backend\n class Identity:\n """Represents authenticated
+identity"""\n
+def**init**(self, principal_id, auth_method, permissions=None):\n
+self.principal_id =
 principal_id\n
-self.auth_method = auth_method # 'mtls', 'api-key', 'jwt'\n self.permissions = permissions
+self.auth_method = auth_method # 'mtls', 'api-key', 'jwt'\n self.permissions =
+permissions
 or []\n
-self.auth_time = datetime.utcnow()\n def extract_identity(context):\n """Extract identity
+self.auth_time = datetime.utcnow()\n def extract_identity(context):\n """Extract
+identity
 from gRPC
 context"""\n\n## Identity should be set by AuthenticationInterceptor\n\n return
 getattr(context,
 '_identity', None)\n class AuthenticationInterceptor(grpc.ServerInterceptor):\n
 """Authenticate
-requests using mTLS, API keys, or JWT"""\n def**init**(self, config):\n self.config =
+requests using mTLS, API keys, or JWT"""\n def**init**(self, config):\n
+self.config =
 config\n
-self.jwt_public_key = self._load_jwt_public_key()\n def _load_jwt_public_key(self):\n
+self.jwt_public_key = self._load_jwt_public_key()\n def
+_load_jwt_public_key(self):\n
 """Load JWT
-public key for verification"""\n key_path = self.config.get('jwt_public_key_file')\n if
+public key for verification"""\n key_path =
+self.config.get('jwt_public_key_file')\n if
 not
-key_path:\n return None\n try:\n with open(key_path, 'r') as f:\n return f.read()\n except
+key_path:\n return None\n try:\n with open(key_path, 'r') as f:\n return
+f.read()\n except
 Exception
 as e:\n print(f"Failed to load JWT public key: {e}")\n return None\n def
 intercept_service(self,
-continuation, handler_call_details):\n """Intercept RPC call and authenticate"""\n\n## Try
+continuation, handler_call_details):\n """Intercept RPC call and
+authenticate"""\n\n## Try
 to
-authenticate\n\n identity = self._authenticate(handler_call_details)\n if not identity:\n
+authenticate\n\n identity = self._authenticate(handler_call_details)\n if not
+identity:\n
 return
-grpc.unary_unary_rpc_terminator(\n grpc.StatusCode.UNAUTHENTICATED,\n 'Authentication
+grpc.unary_unary_rpc_terminator(\n grpc.StatusCode.UNAUTHENTICATED,\n
+'Authentication
 failed',\n
-)\n\n## Store identity in context for handler\n\n def new_handler(request):\n context =
+)\n\n## Store identity in context for handler\n\n def new_handler(request):\n
+context =
 handler_call_details.context\n context._identity = identity\n return
-continuation(handler_call_details)\n return new_handler\n def _authenticate(self,
-handler_call_details):\n """Try all authentication methods"""\n\n## Method 1: Try mTLS\n\n
+continuation(handler_call_details)\n return new_handler\n def
+_authenticate(self,
+handler_call_details):\n """Try all authentication methods"""\n\n## Method 1:
+Try mTLS\n\n
 identity
-= self._authenticate_mtls(handler_call_details)\n if identity:\n return identity\n\n##
+= self._authenticate_mtls(handler_call_details)\n if identity:\n return
+identity\n\n##
 Method 2: Try
 API key or JWT in metadata\n\n identity =
 self._authenticate_metadata(handler_call_details)\n if
 identity:\n return identity\n return None\n def _authenticate_mtls(self,
 handler_call_details):\n
-"""Authenticate using mTLS certificates"""\n\n## gRPC provides client certificate info in
+"""Authenticate using mTLS certificates"""\n\n## gRPC provides client
+certificate info in
 peer
-metadata\n\n peer_metadata = handler_call_details.invocation_metadata or []\n\n## Look for
+metadata\n\n peer_metadata = handler_call_details.invocation_metadata or
+[]\n\n## Look for
 x509
 certificate in peer metadata\n\n for key, value in peer_metadata:\n if key ==
 'x509-subject':\n\n##
@@ -208,102 +286,98 @@ Extract CN from certificate subject\n\n## Example:
 try:\n subject_parts = value.split('/')\n for part in subject_parts:\n if
 part.startswith('CN='):\n
 cn = part[3:]\n\n## Load permissions for this principal\n\n permissions =
-self._load_permissions(cn)\n return Identity(cn, 'mtls', permissions)\n except:\n pass\n
+self._load_permissions(cn)\n return Identity(cn, 'mtls', permissions)\n
+except:\n pass\n
 return
-None\n def _authenticate_metadata(self, handler_call_details):\n """Authenticate using API
+None\n def _authenticate_metadata(self, handler_call_details):\n """Authenticate
+using API
 key or
-JWT in metadata"""\n metadata = dict(handler_call_details.invocation_metadata or [])\n
+JWT in metadata"""\n metadata = dict(handler_call_details.invocation_metadata or
+[])\n
 auth_header =
-metadata.get('authorization', '')\n if not auth_header.startswith('Bearer '):\n return
+metadata.get('authorization', '')\n if not auth_header.startswith('Bearer '):\n
+return
 None\n token
-= auth_header[7:] # Remove 'Bearer ' prefix\n\n## Try JWT\n\n if self.jwt_public_key:\n
+= auth_header[7:] # Remove 'Bearer ' prefix\n\n## Try JWT\n\n if
+self.jwt_public_key:\n
 identity =
-self._verify_jwt(token)\n if identity:\n return identity\n\n## Try API key\n\n identity =
+self._verify_jwt(token)\n if identity:\n return identity\n\n## Try API key\n\n
+identity =
 self._verify_api_key(token)\n if identity:\n return identity\n return None\n def
 _verify_jwt(self,
-token):\n """Verify JWT token"""\n if not self.jwt_public_key:\n return None\n try:\n
+token):\n """Verify JWT token"""\n if not self.jwt_public_key:\n return None\n
+try:\n
 payload =
-jwt.decode(\n token,\n self.jwt_public_key,\n algorithms=['RS256'],\n )\n\n## Check
+jwt.decode(\n token,\n self.jwt_public_key,\n algorithms=['RS256'],\n )\n\n##
+Check
 expiration\n\n
 if 'exp' in payload:\n from datetime import datetime\n if
 datetime.utcfromtimestamp(payload['exp'])
-< datetime.utcnow():\n return None\n\n## Check issuer and audience\n\n issuer =
-self.config.get('jwt_issuer')\n if issuer and payload.get('iss') != issuer:\n return
-None\n audience
-= self.config.get('jwt_audience')\n if audience and payload.get('aud') != audience:\n
-return None\n
-principal_id = payload.get('sub') or payload.get('user_id')\n permissions =
-payload.get('permissions', [])\n return Identity(principal_id, 'jwt', permissions)\n
-except
-jwt.InvalidTokenError:\n return None\n def _verify_api_key(self, api_key):\n """Verify API
-key"""\n\n## Hash the key for comparison\n\n key_hash =
-hashlib.sha256(api_key.encode()).hexdigest()\n\n## Look up in key storage\n\n key_data =
-self._lookup_key_hash(key_hash)\n if not key_data:\n return None\n\n## Check expiration
-[2]\n\n from
-datetime import datetime\n if 'expires_at' in key_data:\n if
-datetime.fromisoformat(key_data['expires_at']) < datetime.utcnow():\n return None\n
-principal_id =
-key_data['principal_id']\n permissions = key_data.get('permissions', [])\n return
-Identity(principal_id, 'api-key', permissions)\n def _lookup_key_hash(self, key_hash):\n
-"""Look up
-API key hash in storage"""\n\n## Implementation depends on storage backend (etcd,
-database, etc)\n\n
-pass\n def _load_permissions(self, principal_id):\n """Load permissions for principal from
-RBAC"""\n\n## Implementation depends on RBAC backend\n\n## Returns list of permission
-strings like
-['node:*', 'storage:snapshot:list']\n\n pass\n\n## Authorization Implementation\n\n##
-services/rpc/authz.py\n\n import grpc\n import logging\n logger =
-logging.getLogger(**name**)\n
-class PermissionMatcher:\n """Match permission specs with wildcards"""\n @staticmethod\n
-def
-matches(required_permission, caller_permissions):\n """Check if caller has required
-permission"""\n\n## Examples\n\n## required: 'storage:snapshot:create'\n\n## caller has:
-'storage:*'
--> MATCH\n\n## caller has: 'storage:snapshot:*' -> MATCH\n\n## caller has:
+ MATCH\n\n## caller has: 'storage:snapshot:*' -> MATCH\n\n## caller has:
 'storage:snapshot:create'
--> MATCH\n\n## caller has: 'node:*' -> NO MATCH\n\n for perm in caller_permissions:\n if
-PermissionMatcher._perm_matches(required_permission, perm):\n return True\n return False\n
-@staticmethod\n def _perm_matches(required, pattern):\n """Check if required permission
+-> MATCH\n\n## caller has: 'node:*' -> NO MATCH\n\n for perm in
+caller_permissions:\n if
+PermissionMatcher._perm_matches(required_permission, perm):\n return True\n
+return False\n
+@staticmethod\n def _perm_matches(required, pattern):\n """Check if required
+permission
 matches
 wildcard pattern"""\n if pattern == '*':\n return True\n required_parts =
 required.split(':')\n
-pattern_parts = pattern.split(':')\n\n## Pattern can't have more parts than required\n\n
+pattern_parts = pattern.split(':')\n\n## Pattern can't have more parts than
+required\n\n
 if
-len(pattern_parts) > len(required_parts):\n return False\n for i, pattern_part in
-enumerate(pattern_parts):\n if pattern_part == '*':\n\n## Wildcard matches remaining\n\n
+len(pattern_parts) > len(required_parts):\n return False\n for i, pattern_part
+in
+enumerate(pattern_parts):\n if pattern_part == '*':\n\n## Wildcard matches
+remaining\n\n
 return
-True\n if pattern_part != required_parts[i]:\n return False\n return len(pattern_parts) ==
-len(required_parts)\n def check_permission(context, required_permission):\n """Check if
+True\n if pattern_part != required_parts[i]:\n return False\n return
+len(pattern_parts) ==
+len(required_parts)\n def check_permission(context, required_permission):\n
+"""Check if
 context
-principal has permission"""\n identity = getattr(context, '_identity', None)\n if not
+principal has permission"""\n identity = getattr(context, '_identity', None)\n
+if not
 identity:\n
-logger.warning('check_permission called without identity')\n raise PermissionError('Not
+logger.warning('check_permission called without identity')\n raise
+PermissionError('Not
 authenticated')\n if PermissionMatcher.matches(required_permission,
 identity.permissions):\n return
-True\n logger.warning(\n f'Permission denied: principal={identity.principal_id}, '\n
+True\n logger.warning(\n f'Permission denied: principal={identity.principal_id},
+'\n
 f'permission={required_permission}'\n )\n raise PermissionError(\n f'Principal
 {identity.principal_id} lacks permission: {required_permission}'\n )\n class
-AuthorizationInterceptor(grpc.ServerInterceptor):\n """Log authorization checks"""\n
+AuthorizationInterceptor(grpc.ServerInterceptor):\n """Log authorization
+checks"""\n
 def**init**(self, config):\n self.config = config\n def intercept_service(self,
 continuation,
-handler_call_details):\n\n## Authorization is checked per-operation in handlers\n\n return
+handler_call_details):\n\n## Authorization is checked per-operation in
+handlers\n\n return
 continuation(handler_call_details)\n\n## Audit Logging Implementation\n\n##
-services/rpc/audit.py\n\n import json\n import logging\n import grpc\n from datetime
+services/rpc/audit.py\n\n import json\n import logging\n import grpc\n from
+datetime
 import
-datetime\n class AuditLogger:\n """Structured audit logging"""\n def**init**(self,
+datetime\n class AuditLogger:\n """Structured audit logging"""\n
+def**init**(self,
 log_file):\n
-self.logger = logging.getLogger('audit')\n handler = logging.FileHandler(log_file)\n
-handler.setFormatter(logging.Formatter('%(message)s'))\n self.logger.addHandler(handler)\n
-self.logger.setLevel(logging.INFO)\n def log_event(self, event_type,**kwargs):\n """Log
+self.logger = logging.getLogger('audit')\n handler =
+logging.FileHandler(log_file)\n
+handler.setFormatter(logging.Formatter('%(message)s'))\n
+self.logger.addHandler(handler)\n
+self.logger.setLevel(logging.INFO)\n def log_event(self, event_type,**kwargs):\n
+"""Log
 audit
 event"""\n event = {\n 'timestamp': datetime.utcnow().isoformat(),\n 'event':
 event_type,\n
 **kwargs,\n }\n self.logger.info(json.dumps(event))\n class
-AuditInterceptor(grpc.ServerInterceptor):\n """Audit all RPC calls"""\n def**init**(self,
+AuditInterceptor(grpc.ServerInterceptor):\n """Audit all RPC calls"""\n
+def**init**(self,
 config):\n
 self.audit = AuditLogger(config.get('audit_log_file',
 '/var/log/debvisor/rpc-audit.log'))\n def
-intercept_service(self, continuation, handler_call_details):\n """Wrap handler to log
+intercept_service(self, continuation, handler_call_details):\n """Wrap handler
+to log
 calls"""\n def
 audit_handler(request):\n\n## Extract info\n\n service, method =
 self._extract_service_method(handler_call_details)\n identity =
@@ -315,45 +389,59 @@ auth_method=identity.auth_method if
 identity else None,\n )\n try:\n\n## Execute handler\n\n response =
 continuation(handler_call_details)\n\n## Log success\n\n self.audit.log_event(\n
 'rpc_success',\n
-principal=principal,\n service=service,\n method=method,\n )\n return response\n except
+principal=principal,\n service=service,\n method=method,\n )\n return response\n
+except
 Exception as
-e:\n\n## Log error\n\n self.audit.log_event(\n 'rpc_error',\n principal=principal,\n
-service=service,\n method=method,\n error=str(e),\n )\n raise\n return audit_handler\n def
-_extract_service_method(self, handler_call_details):\n """Extract service and method from
+e:\n\n## Log error\n\n self.audit.log_event(\n 'rpc_error',\n
+principal=principal,\n
+service=service,\n method=method,\n error=str(e),\n )\n raise\n return
+audit_handler\n def
+_extract_service_method(self, handler_call_details):\n """Extract service and
+method from
 RPC
 path"""\n\n## Path format: /package.Service/Method\n\n path =
-handler_call_details.invocation_metadata\n\n## Extraction logic\n\n return 'service',
+handler_call_details.invocation_metadata\n\n## Extraction logic\n\n return
+'service',
 'method'\n\n##
-Configuration Example\n\n {\n "host": "127.0.0.1",\n "port": 7443,\n "tls_cert_file":
+Configuration Example\n\n {\n "host": "127.0.0.1",\n "port": 7443,\n
+"tls_cert_file":
 "/etc/debvisor/rpc/server-cert.pem",\n "tls_key_file":
 "/etc/debvisor/rpc/server-key.pem",\n
 "tls_ca_file": "/etc/debvisor/rpc/ca-cert.pem",\n "require_client_auth": true,\n
 "auto_renew_certificates": true,\n "cert_renewal_script":
 "/usr/local/sbin/generate-rpc-certificates.sh",\n "jwt_public_key_file":
 "/etc/debvisor/rpc/jwt-public.pem",\n "jwt_issuer":
-"[https://auth.debvisor.local",]([https://auth.debvisor.local"]([https://auth.debvisor.local]([https://auth.debvisor.loca]([https://auth.debvisor.loc]([https://auth.debvisor.lo]([https://auth.debvisor.l]([https://auth.debvisor.]([https://auth.debvisor](https://auth.debvisor).)l)o)c)a)l)"),)\n
+"[https://auth.debvisor.local",]([https://auth.debvisor.local"]([https://auth.debvisor.local]([https://auth.debvisor.loca]([https://auth.debvisor.loc]([https://auth.debvisor.lo]([https://auth.debvisor.l]([https://auth.debvisor.]([https://auth.debvisor]([https://auth.debviso]([https://auth.debvis]([https://auth.debvi]([https://auth.debv]([https://auth.deb]([https://auth.de]([https://auth.d]([https://auth.]([https://auth]([https://aut]([https://au]([https://a](https://a)u)t)h).)d)e)b)v)i)s)o)r).)l)o)c)a)l)"),)\n
 "jwt_audience": "rpc.debvisor.local",\n "audit_log_file":
 "/var/log/debvisor/rpc-audit.log",\n
-"global_rps": 1000,\n "per_principal_rps": 100,\n "request_size_limit": 1048576,\n
-"response_size_limit": 10485760,\n "request_timeout_seconds": 300,\n "rbac_storage":
+"global_rps": 1000,\n "per_principal_rps": 100,\n "request_size_limit":
+1048576,\n
+"response_size_limit": 10485760,\n "request_timeout_seconds": 300,\n
+"rbac_storage":
 "etcd",\n
 "etcd_endpoints":
-["[http://127.0.0.1:2379"]]([http://127.0.0.1:2379"]([http://127.0.0.1:2379]([http://127.0.0.1:237]([http://127.0.0.1:23]([http://127.0.0.1:2]([http://127.0.0.1:]([http://127.0.0.1]([http://127.0.0.](http://127.0.0.)1):)2)3)7)9)")])\n
+["[http://127.0.0.1:2379"]]([http://127.0.0.1:2379"]([http://127.0.0.1:2379]([http://127.0.0.1:237]([http://127.0.0.1:23]([http://127.0.0.1:2]([http://127.0.0.1:]([http://127.0.0.1]([http://127.0.0.]([http://127.0.0]([http://127.0.]([http://127.0]([http://127.]([http://127]([http://12]([http://1](http://1)2)7).)0).)0).)1):)2)3)7)9)")])\n
 }\n\n## Client Usage Examples\n\n## Example: CLI client\n\n import grpc\n import
 debvisor_pb2\n
-import debvisor_pb2_grpc\n\n## Load client credentials\n\n with open('client-cert.pem',
+import debvisor_pb2_grpc\n\n## Load client credentials\n\n with
+open('client-cert.pem',
 'rb') as
-f:\n client_cert = f.read()\n with open('client-key.pem', 'rb') as f:\n client_key =
+f:\n client_cert = f.read()\n with open('client-key.pem', 'rb') as f:\n
+client_key =
 f.read()\n with
-open('ca-cert.pem', 'rb') as f:\n ca_cert = f.read()\n\n## Create secure channel\n\n creds
+open('ca-cert.pem', 'rb') as f:\n ca_cert = f.read()\n\n## Create secure
+channel\n\n creds
 =
-grpc.ssl_channel_credentials(\n root_certificates=ca_cert,\n private_key=client_key,\n
-certificate_chain=client_cert,\n )\n channel = grpc.secure_channel('127.0.0.1:7443',
+grpc.ssl_channel_credentials(\n root_certificates=ca_cert,\n
+private_key=client_key,\n
+certificate_chain=client_cert,\n )\n channel =
+grpc.secure_channel('127.0.0.1:7443',
 creds)\n stub =
 debvisor_pb2_grpc.NodeServiceStub(channel)\n\n## Make RPC call\n\n response =
 stub.ListNodes(debvisor_pb2.Empty())\n for node in response.nodes:\n
 print(f"{node.hostname}
-({node.ip}) - {node.status}")\n channel.close()\n\n## References\n\n- Proto definitions:
+({node.ip}) - {node.status}")\n channel.close()\n\n## References\n\n- Proto
+definitions:
 `proto/debvisor.proto`\n\n- Design documentation: `DESIGN.md`\n\n- Security
 implementation:
 `SECURITY_IMPLEMENTATION.md`\n\n

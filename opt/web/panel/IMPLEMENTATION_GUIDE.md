@@ -2,17 +2,21 @@
 
 implementation
 
-guidance for the DebVisor web panel (`opt/web/panel/app.py`), including Flask application
+guidance for the DebVisor web panel (`opt/web/panel/app.py`), including Flask
+application
 structure,
 RPC integration, authentication, authorization, and deployment.\n\n## Table of
 Contents\n\n1.
-Project Structure\n\n1. Flask Application Setup\n\n1. RPC Service Integration\n\n1.
+Project Structure\n\n1. Flask Application Setup\n\n1. RPC Service
+Integration\n\n1.
 Authentication &
-Authorization\n\n1. API Endpoints\n\n1. Frontend Templates\n\n1. Deployment\n\n1.
+Authorization\n\n1. API Endpoints\n\n1. Frontend Templates\n\n1.
+Deployment\n\n1.
 Testing\n\n##
 Project Structure\n\n opt/web/panel/\n +-- app.py # Main Flask application\n +--
 requirements.txt #
-Python dependencies\n +-- config.py # Configuration (dev/prod)\n +-- wsgi.py # WSGI entry
+Python dependencies\n +-- config.py # Configuration (dev/prod)\n +-- wsgi.py #
+WSGI entry
 point
 (gunicorn)\n +-- README.md # Overview\n +-- SECURITY.md # Security guide\n +--
 INPUT_VALIDATION.md #
@@ -20,7 +24,8 @@ Input validation guide\n +-- IMPLEMENTATION_GUIDE.md # This file\n |\n +-- debvi
 
 ## 
 
-Generated RPC protocol buffers\n +-- debvisor_pb2_grpc.py # Generated RPC service stubs\n
+Generated RPC protocol buffers\n +-- debvisor_pb2_grpc.py # Generated RPC
+service stubs\n
 |\n +--
 core/ # Core application logic\n | +--**init**.py\n | +-- rpc_client.py # RPC service
 client
@@ -49,20 +54,27 @@ images/\n |\n +-- tests/ # Unit and integration tests\n +--**init**.py\n +-- tes
 
 ## 
 
-Authentication tests\n +-- test_nodes.py # Node endpoint tests\n +-- test_validators.py #
+Authentication tests\n +-- test_nodes.py # Node endpoint tests\n +--
+test_validators.py #
 Validator
-tests\n\n## Flask Application Setup\n\n### Basic Flask Application (app.py)\n\n """\n
+tests\n\n## Flask Application Setup\n\n### Basic Flask Application (app.py)\n\n
+"""\n
 DebVisor Web
-Panel - Flask Application\n Main entry point for the web panel serving cluster management
+Panel - Flask Application\n Main entry point for the web panel serving cluster
+management
 UI.\n
-"""\n import os\n import logging\n from datetime import timedelta\n from pathlib import
+"""\n import os\n import logging\n from datetime import timedelta\n from pathlib
+import
 Path\n from
-flask import Flask, render_template, redirect, url_for, session\n from flask_login import
-LoginManager\n from flask_sqlalchemy import SQLAlchemy\n from flask_wtf.csrf import
+flask import Flask, render_template, redirect, url_for, session\n from
+flask_login import
+LoginManager\n from flask_sqlalchemy import SQLAlchemy\n from flask_wtf.csrf
+import
 CSRFProtect\n
 from flask_limiter import Limiter\n from flask_limiter.util import
 get_remote_address\n\n##
-Initialize extensions\n\n db = SQLAlchemy()\n login_manager = LoginManager()\n csrf =
+Initialize extensions\n\n db = SQLAlchemy()\n login_manager = LoginManager()\n
+csrf =
 CSRFProtect()\n limiter = Limiter(key_func=get_remote_address)\n def
 create_app(config_name='production'):\n """Application factory"""\n app =
 Flask(**name**)\n\n##
@@ -70,13 +82,16 @@ Configuration\n\n from config import config\n
 app.config.from_object(config[config_name])\n\n##
 Initialize extensions [2]\n\n db.init_app(app)\n login_manager.init_app(app)\n
 csrf.init_app(app)\n
-limiter.init_app(app)\n\n## Session security\n\n app.config['SESSION_COOKIE_SECURE'] =
+limiter.init_app(app)\n\n## Session security\n\n
+app.config['SESSION_COOKIE_SECURE'] =
 True\n
-app.config['SESSION_COOKIE_HTTPONLY'] = True\n app.config['SESSION_COOKIE_SAMESITE'] =
+app.config['SESSION_COOKIE_HTTPONLY'] = True\n
+app.config['SESSION_COOKIE_SAMESITE'] =
 'Lax'\n
 app.config['SESSION_COOKIE_NAME'] = '**Host-debvisor_session'\n
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=8)\n\n## Logging\n\n
-setup_logging(app)\n\n## Middleware\n\n @app.before_request\n def enforce_https():\n
+setup_logging(app)\n\n## Middleware\n\n @app.before_request\n def
+enforce_https():\n
 """Enforce
 HTTPS in production"""\n if not app.debug and not request.is_secure:\n url =
 request.url.replace('[http://',]([http://'](http://'),)
@@ -86,181 +101,248 @@ set_security_headers(response):\n """Set
 security headers"""\n response.headers['X-Frame-Options'] = 'DENY'\n
 response.headers['X-Content-Type-Options'] = 'nosniff'\n
 response.headers['X-XSS-Protection'] = '1;
-mode=block'\n response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'\n
-response.headers['Content-Security-Policy'] = (\n "default-src 'self'; "\n "script-src
+mode=block'\n response.headers['Referrer-Policy'] =
+'strict-origin-when-cross-origin'\n
+response.headers['Content-Security-Policy'] = (\n "default-src 'self'; "\n
+"script-src
 'self'; "\n
-"style-src 'self' 'unsafe-inline'; "\n "img-src 'self' data:; "\n "font-src 'self'; "\n
+"style-src 'self' 'unsafe-inline'; "\n "img-src 'self' data:; "\n "font-src
+'self'; "\n
 "connect-src
-'self'; "\n "frame-ancestors 'none'; "\n "base-uri 'self'; "\n "form-action 'self'"\n )\n
+'self'; "\n "frame-ancestors 'none'; "\n "base-uri 'self'; "\n "form-action
+'self'"\n )\n
 return
-response\n\n## Error handlers\n\n @app.errorhandler(400)\n def bad_request(error):\n
+response\n\n## Error handlers\n\n @app.errorhandler(400)\n def
+bad_request(error):\n
 return
 render_template('error.html', code=400,\n message='Bad Request'), 400\n
 @app.errorhandler(403)\n def
-forbidden(error):\n return render_template('error.html', code=403,\n message='Forbidden'),
+forbidden(error):\n return render_template('error.html', code=403,\n
+message='Forbidden'),
 403\n
-@app.errorhandler(404)\n def not_found(error):\n return render_template('error.html',
+@app.errorhandler(404)\n def not_found(error):\n return
+render_template('error.html',
 code=404,\n
-message='Not Found'), 404\n @app.errorhandler(500)\n def internal_error(error):\n
+message='Not Found'), 404\n @app.errorhandler(500)\n def
+internal_error(error):\n
 logging.error(f'Internal error: {error}')\n return render_template('error.html',
 code=500,\n
 message='Internal Server Error'), 500\n @app.errorhandler(503)\n def
 service_unavailable(error):\n
-return render_template('error.html', code=503,\n message='RPC Service Unavailable'),
+return render_template('error.html', code=503,\n message='RPC Service
+Unavailable'),
 503\n\n##
-Register blueprints\n\n from routes.auth import auth_bp\n from routes.nodes import
+Register blueprints\n\n from routes.auth import auth_bp\n from routes.nodes
+import
 nodes_bp\n from
 routes.storage import storage_bp\n from routes.compute import compute_bp\n
 app.register_blueprint(auth_bp)\n app.register_blueprint(nodes_bp)\n
-app.register_blueprint(storage_bp)\n app.register_blueprint(compute_bp)\n\n## Health
+app.register_blueprint(storage_bp)\n app.register_blueprint(compute_bp)\n\n##
+Health
 check\n\n
-@app.route('/health')\n def health_check():\n """Health check endpoint"""\n try:\n from
-core.rpc_client import rpc_client\n rpc_client.health_check()\n return {'status':
+@app.route('/health')\n def health_check():\n """Health check endpoint"""\n
+try:\n from
+core.rpc_client import rpc_client\n rpc_client.health_check()\n return
+{'status':
 'healthy'}, 200\n
-except Exception as e:\n return {'status': 'unhealthy', 'error': str(e)}, 503\n\n## Root
+except Exception as e:\n return {'status': 'unhealthy', 'error': str(e)},
+503\n\n## Root
 redirect\n\n @app.route('/')\n def index():\n """Root path redirect"""\n if
-current_user.is_authenticated:\n return redirect(url_for('nodes.dashboard'))\n return
-redirect(url_for('auth.login'))\n\n## Context processors\n\n @app.context_processor\n def
-inject_user():\n """Inject current user into templates"""\n from flask_login import
+current_user.is_authenticated:\n return redirect(url_for('nodes.dashboard'))\n
+return
+redirect(url_for('auth.login'))\n\n## Context processors\n\n
+@app.context_processor\n def
+inject_user():\n """Inject current user into templates"""\n from flask_login
+import
 current_user\n
-return dict(current_user=current_user)\n\n## Create tables\n\n with app.app_context():\n
-db.create_all()\n return app\n def setup_logging(app):\n """Configure application
+return dict(current_user=current_user)\n\n## Create tables\n\n with
+app.app_context():\n
+db.create_all()\n return app\n def setup_logging(app):\n """Configure
+application
 logging"""\n
-log_dir = Path('/var/log/debvisor')\n log_dir.mkdir(exist_ok=True, parents=True)\n\n##
+log_dir = Path('/var/log/debvisor')\n log_dir.mkdir(exist_ok=True,
+parents=True)\n\n##
 Application
 log\n\n app_handler = logging.FileHandler(log_dir / 'panel.log')\n
-app_handler.setFormatter(logging.Formatter(\n '%(asctime)s - %(name)s - %(levelname)s -
+app_handler.setFormatter(logging.Formatter(\n '%(asctime)s - %(name)s -
+%(levelname)s -
 %(message)s'\n ))\n app.logger.addHandler(app_handler)\n
 app.logger.setLevel(logging.INFO)\n\n##
 Audit log\n\n audit_handler = logging.FileHandler(log_dir / 'panel-audit.log')\n
 audit_handler.setFormatter(logging.Formatter('%(message)s'))\n audit_logger =
 logging.getLogger('debvisor.audit')\n audit_logger.addHandler(audit_handler)\n
-audit_logger.setLevel(logging.INFO)\n if**name**== '**main**':\n from pathlib import
+audit_logger.setLevel(logging.INFO)\n if**name**== '**main**':\n from pathlib
+import
 Path\n import
 ssl\n app = create_app(os.getenv('FLASK_ENV', 'production'))\n\n## Load SSL
 certificates\n\n
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)\n ssl_context.load_cert_chain(\n
-'/etc/debvisor/panel/tls/server.crt',\n '/etc/debvisor/panel/tls/server.key'\n )\n
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)\n
+ssl_context.load_cert_chain(\n
+'/etc/debvisor/panel/tls/server.crt',\n '/etc/debvisor/panel/tls/server.key'\n
+)\n
 ssl_context.minimum_version = ssl.TLSVersion.TLSv1_3\n
 ssl_context.set_ciphers('TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256')\n
 app.run(\n
 host='0.0.0.0',\n port=443,\n ssl_context=ssl_context,\n debug=False,\n )\n\n##
 Configuration File
-(config.py)\n\n """\n Flask application configuration\n """\n import os\n from datetime
+(config.py)\n\n """\n Flask application configuration\n """\n import os\n from
+datetime
 import
-timedelta\n class Config:\n """Base configuration"""\n\n## Flask settings\n\n SECRET_KEY =
-os.getenv('SECRET_KEY', 'dev-key-change-in-production')\n DEBUG = False\n TESTING =
+timedelta\n class Config:\n """Base configuration"""\n\n## Flask settings\n\n
+SECRET_KEY =
+os.getenv('SECRET_KEY', 'dev-key-change-in-production')\n DEBUG = False\n
+TESTING =
 False\n\n##
 Session settings\n\n PERMANENT_SESSION_LIFETIME = timedelta(hours=8)\n
 SESSION_REFRESH_EACH_REQUEST
-= True\n\n## Database\n\n SQLALCHEMY_DATABASE_URI = os.getenv(\n 'DATABASE_URL',\n
-'sqlite:////var/lib/debvisor/panel/panel.db'\n )\n SQLALCHEMY_TRACK_MODIFICATIONS =
+= True\n\n## Database\n\n SQLALCHEMY_DATABASE_URI = os.getenv(\n
+'DATABASE_URL',\n
+'sqlite:////var/lib/debvisor/panel/panel.db'\n )\n
+SQLALCHEMY_TRACK_MODIFICATIONS =
 False\n\n## RPC
 Service\n\n RPC_HOST = os.getenv('RPC_HOST', 'localhost')\n RPC_PORT =
 int(os.getenv('RPC_PORT',
-'50051'))\n RPC_CA_CERT = os.getenv('RPC_CA_CERT', '/etc/debvisor/panel/tls/ca.crt')\n
-RPC_CLIENT_CERT = os.getenv('RPC_CLIENT_CERT', '/etc/debvisor/panel/tls/client.crt')\n
-RPC_CLIENT_KEY = os.getenv('RPC_CLIENT_KEY', '/etc/debvisor/panel/tls/client.key')\n\n##
+'50051'))\n RPC_CA_CERT = os.getenv('RPC_CA_CERT',
+'/etc/debvisor/panel/tls/ca.crt')\n
+RPC_CLIENT_CERT = os.getenv('RPC_CLIENT_CERT',
+'/etc/debvisor/panel/tls/client.crt')\n
+RPC_CLIENT_KEY = os.getenv('RPC_CLIENT_KEY',
+'/etc/debvisor/panel/tls/client.key')\n\n##
 TLS\n\n
 TLS_CERT = '/etc/debvisor/panel/tls/server.crt'\n TLS_KEY =
-'/etc/debvisor/panel/tls/server.key'\n\n## Rate limiting\n\n RATELIMIT_STORAGE_URL =
-os.getenv('REDIS_URL', 'redis://localhost:6379/0')\n class DevelopmentConfig(Config):\n
-"""Development configuration"""\n DEBUG = True\n TESTING = False\n SQLALCHEMY_ECHO =
+'/etc/debvisor/panel/tls/server.key'\n\n## Rate limiting\n\n
+RATELIMIT_STORAGE_URL =
+os.getenv('REDIS_URL', 'redis://localhost:6379/0')\n class
+DevelopmentConfig(Config):\n
+"""Development configuration"""\n DEBUG = True\n TESTING = False\n
+SQLALCHEMY_ECHO =
 True\n class
 TestingConfig(Config):\n """Testing configuration"""\n TESTING = True\n
 SQLALCHEMY_DATABASE_URI =
-'sqlite:///:memory:'\n WTF_CSRF_ENABLED = False\n class ProductionConfig(Config):\n
+'sqlite:///:memory:'\n WTF_CSRF_ENABLED = False\n class
+ProductionConfig(Config):\n
 """Production
 configuration"""\n DEBUG = False\n TESTING = False\n config = {\n 'development':
-DevelopmentConfig,\n 'testing': TestingConfig,\n 'production': ProductionConfig,\n
+DevelopmentConfig,\n 'testing': TestingConfig,\n 'production':
+ProductionConfig,\n
 'default':
 ProductionConfig,\n }\n\n## RPC Service Integration\n\n### RPC Client Wrapper
-(core/rpc_client.py)\n\n """\n RPC Service Client Wrapper\n Provides high-level interface
+(core/rpc_client.py)\n\n """\n RPC Service Client Wrapper\n Provides high-level
+interface
 to
-debvisor-rpcd service with\n automatic error handling and connection management.\n """\n
+debvisor-rpcd service with\n automatic error handling and connection
+management.\n """\n
 import
 grpc\n import logging\n from contextlib import contextmanager\n from ssl import
 SSLContext\n import
-debvisor_pb2\n import debvisor_pb2_grpc\n logger = logging.getLogger(**name**)\n class
+debvisor_pb2\n import debvisor_pb2_grpc\n logger = logging.getLogger(**name**)\n
+class
 RPCClient:\n
-"""Wrapper for RPC service client"""\n def**init**(self, host, port, ca_cert, client_cert,
+"""Wrapper for RPC service client"""\n def**init**(self, host, port, ca_cert,
+client_cert,
 client_key):\n self.host = host\n self.port = port\n self.ca_cert = ca_cert\n
 self.client_cert =
 client_cert\n self.client_key = client_key\n self._channel = None\n def
 _get_channel(self):\n """Get
-or create gRPC channel with mTLS"""\n if self._channel is None:\n\n## Load credentials\n\n
+or create gRPC channel with mTLS"""\n if self._channel is None:\n\n## Load
+credentials\n\n
 with
-open(self.ca_cert, 'rb') as f:\n ca_pem = f.read()\n with open(self.client_cert, 'rb') as
+open(self.ca_cert, 'rb') as f:\n ca_pem = f.read()\n with open(self.client_cert,
+'rb') as
 f:\n
-client_cert_pem = f.read()\n with open(self.client_key, 'rb') as f:\n client_key_pem =
-f.read()\n\n## Create credentials\n\n credentials = grpc.ssl_channel_credentials(\n
+client_cert_pem = f.read()\n with open(self.client_key, 'rb') as f:\n
+client_key_pem =
+f.read()\n\n## Create credentials\n\n credentials =
+grpc.ssl_channel_credentials(\n
 root_certificates=ca_pem,\n private_key=client_key_pem,\n
 certificate_chain=client_cert_pem\n
 )\n\n## Create channel\n\n self._channel = grpc.secure_channel(\n
 f'{self.host}:{self.port}',\n
-credentials\n )\n return self._channel\n def health_check(self):\n """Check RPC service
+credentials\n )\n return self._channel\n def health_check(self):\n """Check RPC
+service
 health"""\n
-try:\n channel = self._get_channel()\n stub = debvisor_pb2_grpc.NodeServiceStub(channel)\n
+try:\n channel = self._get_channel()\n stub =
+debvisor_pb2_grpc.NodeServiceStub(channel)\n
 response
-= stub.HealthCheck(debvisor_pb2.HealthCheckRequest())\n return response.status ==
-debvisor_pb2.HealthCheckResponse.SERVING\n except Exception as e:\n logger.error(f'Health
+= stub.HealthCheck(debvisor_pb2.HealthCheckRequest())\n return response.status
+==
+debvisor_pb2.HealthCheckResponse.SERVING\n except Exception as e:\n
+logger.error(f'Health
 check
-failed: {e}')\n raise\n\n## Node Service methods\n\n def list_nodes(self):\n """List all
+failed: {e}')\n raise\n\n## Node Service methods\n\n def list_nodes(self):\n
+"""List all
 cluster
 nodes"""\n channel = self._get_channel()\n stub =
 debvisor_pb2_grpc.NodeServiceStub(channel)\n
-request = debvisor_pb2.ListNodesRequest()\n response = stub.ListNodes(request)\n return
-[self._proto_to_dict(node) for node in response.nodes]\n def get_node(self, node_id):\n
+request = debvisor_pb2.ListNodesRequest()\n response = stub.ListNodes(request)\n
+return
+[self._proto_to_dict(node) for node in response.nodes]\n def get_node(self,
+node_id):\n
 """Get node
 details"""\n channel = self._get_channel()\n stub =
 debvisor_pb2_grpc.NodeServiceStub(channel)\n
 request = debvisor_pb2.GetNodeRequest(node_id=node_id)\n response =
 stub.GetNode(request)\n return
-self._proto_to_dict(response.node)\n def create_node(self, hostname, management_ip,
+self._proto_to_dict(response.node)\n def create_node(self, hostname,
+management_ip,
 mac_address):\n
 """Create node"""\n channel = self._get_channel()\n stub =
 debvisor_pb2_grpc.NodeServiceStub(channel)\n node = debvisor_pb2.Node(\n
 hostname=hostname,\n
 management_ip=management_ip,\n mac_address=mac_address,\n )\n request =
-debvisor_pb2.CreateNodeRequest(node=node)\n response = stub.CreateNode(request)\n return
-self._proto_to_dict(response.node)\n def shutdown_node(self, node_id):\n """Shutdown
+debvisor_pb2.CreateNodeRequest(node=node)\n response =
+stub.CreateNode(request)\n return
+self._proto_to_dict(response.node)\n def shutdown_node(self, node_id):\n
+"""Shutdown
 node"""\n
-channel = self._get_channel()\n stub = debvisor_pb2_grpc.NodeServiceStub(channel)\n
+channel = self._get_channel()\n stub =
+debvisor_pb2_grpc.NodeServiceStub(channel)\n
 request =
 debvisor_pb2.ShutdownNodeRequest(node_id=node_id)\n response =
 stub.ShutdownNode(request)\n return
-response.success\n\n## Storage Service methods\n\n def list_pools(self):\n """List storage
+response.success\n\n## Storage Service methods\n\n def list_pools(self):\n
+"""List storage
 pools"""\n channel = self._get_channel()\n stub =
 debvisor_pb2_grpc.StorageServiceStub(channel)\n
-request = debvisor_pb2.ListPoolsRequest()\n response = stub.ListPools(request)\n return
-[self._proto_to_dict(pool) for pool in response.pools]\n def create_snapshot(self,
+request = debvisor_pb2.ListPoolsRequest()\n response = stub.ListPools(request)\n
+return
+[self._proto_to_dict(pool) for pool in response.pools]\n def
+create_snapshot(self,
 pool_id,
-snapshot_name):\n """Create storage snapshot"""\n channel = self._get_channel()\n stub =
+snapshot_name):\n """Create storage snapshot"""\n channel =
+self._get_channel()\n stub =
 debvisor_pb2_grpc.StorageServiceStub(channel)\n request =
 debvisor_pb2.CreateSnapshotRequest(\n
 pool_id=pool_id,\n snapshot_name=snapshot_name\n )\n response =
 stub.CreateSnapshot(request)\n
 return self._proto_to_dict(response.snapshot)\n @staticmethod\n def
 _proto_to_dict(proto_obj):\n
-"""Convert protobuf message to dict"""\n return {\n field.name: getattr(proto_obj,
+"""Convert protobuf message to dict"""\n return {\n field.name:
+getattr(proto_obj,
 field.name)\n for
-field in proto_obj.DESCRIPTOR.fields\n }\n\n## Singleton instance\n\n _rpc_client = None\n
+field in proto_obj.DESCRIPTOR.fields\n }\n\n## Singleton instance\n\n
+_rpc_client = None\n
 def
-get_rpc_client():\n """Get RPC client singleton"""\n global _rpc_client\n if _rpc_client
+get_rpc_client():\n """Get RPC client singleton"""\n global _rpc_client\n if
+_rpc_client
 is None:\n
 from flask import current_app\n _rpc_client = RPCClient(\n
 host=current_app.config['RPC_HOST'],\n
-port=current_app.config['RPC_PORT'],\n ca_cert=current_app.config['RPC_CA_CERT'],\n
+port=current_app.config['RPC_PORT'],\n
+ca_cert=current_app.config['RPC_CA_CERT'],\n
 client_cert=current_app.config['RPC_CLIENT_CERT'],\n
 client_key=current_app.config['RPC_CLIENT_KEY'],\n )\n return _rpc_client\n\n##
 Convenience
-alias\n\n rpc_client = get_rpc_client()\n\n## Authentication & Authorization\n\n### User
+alias\n\n rpc_client = get_rpc_client()\n\n## Authentication &
+Authorization\n\n### User
 Model
-(models/user.py)\n\n """\n User model for authentication\n """\n from datetime import
+(models/user.py)\n\n """\n User model for authentication\n """\n from datetime
+import
 datetime\n
 from werkzeug.security import generate_password_hash, check_password_hash\n from
 flask_login import
-UserMixin\n from app import db\n class User(UserMixin, db.Model):\n """User model with
+UserMixin\n from app import db\n class User(UserMixin, db.Model):\n """User
+model with
 secure
 password handling"""\n\n - *tablename**= 'users'\n\n id = db.Column(db.Integer,
 primary_key=True)\n
@@ -268,68 +350,93 @@ username = db.Column(db.String(80), unique=True, nullable=False, index=True)\n
 password_hash =
 db.Column(db.String(255), nullable=False)\n role = db.Column(db.String(20),
 nullable=False,
-default='viewer') # admin, operator, developer, viewer\n email = db.Column(db.String(120),
-unique=True)\n\n## MFA\n\n mfa_enabled = db.Column(db.Boolean, default=False)\n mfa_secret
+default='viewer') # admin, operator, developer, viewer\n email =
+db.Column(db.String(120),
+unique=True)\n\n## MFA\n\n mfa_enabled = db.Column(db.Boolean, default=False)\n
+mfa_secret
 =
-db.Column(db.String(32)) # Base32 encoded TOTP secret\n\n## Account status\n\n active =
+db.Column(db.String(32)) # Base32 encoded TOTP secret\n\n## Account status\n\n
+active =
 db.Column(db.Boolean, default=True)\n created_at = db.Column(db.DateTime,
 default=datetime.utcnow)\n
-updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)\n
+updated_at = db.Column(db.DateTime, default=datetime.utcnow,
+onupdate=datetime.utcnow)\n
 last_login
 = db.Column(db.DateTime)\n def set_password(self, password):\n """Hash and set
 password"""\n
 self.password_hash = generate_password_hash(password, method='argon2')\n def
 check_password(self,
-password):\n """Verify password"""\n return check_password_hash(self.password_hash,
+password):\n """Verify password"""\n return
+check_password_hash(self.password_hash,
 password)\n def
-has_permission(self, permission):\n """Check if user has permission"""\n from core.authz
+has_permission(self, permission):\n """Check if user has permission"""\n from
+core.authz
 import
-check_permission\n return check_permission(self, permission)\n def**repr**(self):\n return
-f''\n\n### Authorization Module (core/authz.py)\n\n """\n Authorization framework - RBAC
+check_permission\n return check_permission(self, permission)\n
+def**repr**(self):\n return
+f''\n\n### Authorization Module (core/authz.py)\n\n """\n Authorization
+framework - RBAC
 with
 wildcard matching\n """\n ROLES = {\n 'admin': {\n 'description': 'Full cluster
 administration',\n
-'permissions': ['*']\n },\n 'operator': {\n 'description': 'Cluster operations',\n
+'permissions': ['*']\n },\n 'operator': {\n 'description': 'Cluster
+operations',\n
 'permissions':
-[\n 'nodes:*',\n 'storage:*',\n 'compute:*',\n 'network:*',\n ]\n },\n 'developer': {\n
+[\n 'nodes:*',\n 'storage:*',\n 'compute:*',\n 'network:*',\n ]\n },\n
+'developer': {\n
 'description': 'Application deployment',\n 'permissions': [\n 'nodes:read',\n
 'compute:*',\n
 'storage:read',\n ]\n },\n 'viewer': {\n 'description': 'Read-only access',\n
 'permissions': [\n
 'nodes:read',\n 'storage:read',\n 'compute:read',\n ]\n },\n }\n def
 check_permission(user,
-permission):\n """Check if user has permission"""\n if user.role not in ROLES:\n return
+permission):\n """Check if user has permission"""\n if user.role not in ROLES:\n
+return
 False\n
 permissions = ROLES[user.role]['permissions']\n\n## Wildcard: admin has all
 permissions\n\n if '*'
-in permissions:\n return True\n\n## Exact match\n\n if permission in permissions:\n return
+in permissions:\n return True\n\n## Exact match\n\n if permission in
+permissions:\n return
 True\n\n## Prefix match (e.g., 'nodes:*' matches 'nodes:read')\n\n for perm in
 permissions:\n if
-perm.endswith(':*'):\n prefix = perm[:-2]\n if permission.startswith(prefix + ':'):\n
+perm.endswith(':*'):\n prefix = perm[:-2]\n if permission.startswith(prefix +
+':'):\n
 return True\n
 return False\n def require_permission(permission):\n """Decorator to require
 permission"""\n from
-functools import wraps\n from flask import abort\n from flask_login import current_user\n
+functools import wraps\n from flask import abort\n from flask_login import
+current_user\n
 from
 models.audit_log import audit_log\n def decorator(f):\n @wraps(f)\n def
-decorated_function(*args,**kwargs):\n if not current_user.has_permission(permission):\n
+decorated_function(*args,**kwargs):\n if not
+current_user.has_permission(permission):\n
 audit_log('AUTHZ_DENIED',\n f'Access denied for {current_user.username}',\n
-extra={'required*permission': permission})\n abort(403)\n return f(*args,*_kwargs)\n
+extra={'required*permission': permission})\n abort(403)\n return
+f(*args,*_kwargs)\n
 return
-decorated_function\n return decorator\n\n### Audit Logging (models/audit_log.py)\n\n """\n
+decorated_function\n return decorator\n\n### Audit Logging
+(models/audit_log.py)\n\n """\n
 Audit
-logging for compliance and security monitoring\n """\n import json\n import logging\n from
+logging for compliance and security monitoring\n """\n import json\n import
+logging\n from
 datetime
-import datetime\n from flask import request\n from flask_login import current_user\n
+import datetime\n from flask import request\n from flask_login import
+current_user\n
 audit_logger =
-logging.getLogger('debvisor.audit')\n def audit_log(event_type, action, result='success',
-extra=None):\n """Log audit event"""\n try:\n username = current_user.username if
-current_user.is_authenticated else 'anonymous'\n except RuntimeError:\n username =
+logging.getLogger('debvisor.audit')\n def audit_log(event_type, action,
+result='success',
+extra=None):\n """Log audit event"""\n try:\n username = current_user.username
+if
+current_user.is_authenticated else 'anonymous'\n except RuntimeError:\n username
+=
 'anonymous'\n
-event = {\n 'timestamp': datetime.utcnow().isoformat(),\n 'event_type': event_type,\n
+event = {\n 'timestamp': datetime.utcnow().isoformat(),\n 'event_type':
+event_type,\n
 'user':
-username,\n 'action': action,\n 'result': result,\n 'source_ip': request.remote_addr,\n
-'user_agent': request.headers.get('User-Agent', ''),\n }\n if extra:\n event['extra'] =
+username,\n 'action': action,\n 'result': result,\n 'source_ip':
+request.remote_addr,\n
+'user_agent': request.headers.get('User-Agent', ''),\n }\n if extra:\n
+event['extra'] =
 extra\n\n##
 Redact sensitive data\n\n event_str = json.dumps(event)\n event_str =
 event_str.replace('"password"', '"password":"***"')\n event_str =
@@ -337,83 +444,108 @@ event_str.replace('"token"',
 '"token":"***"')\n event_str = event_str.replace('"key"', '"key":"***"')\n
 audit_logger.info(event_str)\n\n## API Endpoints\n\n### Node Management Routes
 (routes/nodes.py)\n\n
-"""\n Node management API endpoints\n """\n from flask import Blueprint, render_template,
+"""\n Node management API endpoints\n """\n from flask import Blueprint,
+render_template,
 request,
 jsonify, abort\n from flask_login import login_required, current_user\n from
 core.rpc_client import
-get_rpc_client\n from core.authz import require_permission\n from core.validators import
+get_rpc_client\n from core.authz import require_permission\n from
+core.validators import
 Validators\n from models.audit_log import audit_log\n nodes_bp =
 Blueprint('nodes',**name**,
 url_prefix='/nodes')\n rpc_client = get_rpc_client()\n @nodes_bp.route('/')\n
 @login_required\n
-@require_permission('nodes:read')\n def list_nodes():\n """List nodes page"""\n nodes =
-rpc_client.list_nodes()\n return render_template('nodes/list.html', nodes=nodes)\n
+@require_permission('nodes:read')\n def list_nodes():\n """List nodes page"""\n
+nodes =
+rpc_client.list_nodes()\n return render_template('nodes/list.html',
+nodes=nodes)\n
 @nodes_bp.route('/api', methods=['GET'])\n @login_required\n
 @require_permission('nodes:read')\n def
-api_list_nodes():\n """API: List nodes"""\n try:\n nodes = rpc_client.list_nodes()\n
-audit_log('AUDIT', f'Listed {len(nodes)} nodes')\n return jsonify({'nodes': nodes})\n
+api_list_nodes():\n """API: List nodes"""\n try:\n nodes =
+rpc_client.list_nodes()\n
+audit_log('AUDIT', f'Listed {len(nodes)} nodes')\n return jsonify({'nodes':
+nodes})\n
 except
-Exception as e:\n audit_log('ERROR', f'Failed to list nodes: {e}', result='failed')\n
+Exception as e:\n audit_log('ERROR', f'Failed to list nodes: {e}',
+result='failed')\n
 return
-jsonify({'error': 'Failed to list nodes'}), 503\n @nodes_bp.route('/')\n @login_required\n
-@require_permission('nodes:read')\n def node_detail(node_id):\n """Node detail page"""\n
+jsonify({'error': 'Failed to list nodes'}), 503\n @nodes_bp.route('/')\n
+@login_required\n
+@require_permission('nodes:read')\n def node_detail(node_id):\n """Node detail
+page"""\n
 try:\n
-node_id = Validators.validate_uuid(node_id)\n node = rpc_client.get_node(node_id)\n return
-render_template('nodes/detail.html', node=node)\n except ValueError as e:\n abort(400)\n
+node_id = Validators.validate_uuid(node_id)\n node =
+rpc_client.get_node(node_id)\n return
+render_template('nodes/detail.html', node=node)\n except ValueError as e:\n
+abort(400)\n
 except
 Exception as e:\n abort(503)\n @nodes_bp.route('//shutdown', methods=['POST'])\n
 @login_required\n
-@require_permission('nodes:modify')\n def shutdown_node(node_id):\n """API: Shutdown
+@require_permission('nodes:modify')\n def shutdown_node(node_id):\n """API:
+Shutdown
 node"""\n
 try:\n node_id = Validators.validate_uuid(node_id)\n result =
 rpc_client.shutdown_node(node_id)\n
-audit_log('AUDIT', f'Shutdown node {node_id}', extra={'node_id': node_id})\n return
-jsonify({'success': result})\n except ValueError as e:\n return jsonify({'error':
+audit_log('AUDIT', f'Shutdown node {node_id}', extra={'node_id': node_id})\n
+return
+jsonify({'success': result})\n except ValueError as e:\n return
+jsonify({'error':
 str(e)}), 400\n
 except Exception as e:\n audit_log('ERROR', f'Failed to shutdown node: {e}',
 result='failed')\n
 return jsonify({'error': 'RPC service error'}), 503\n @nodes_bp.route('/api',
 methods=['POST'])\n
-@login_required\n @require_permission('nodes:create')\n def api_create_node():\n """API:
+@login_required\n @require_permission('nodes:create')\n def api_create_node():\n
+"""API:
 Create
 node"""\n try:\n\n## Validate input\n\n hostname =
 Validators.validate_hostname(request.json.get('hostname', ''))\n mgmt_ip =
 Validators.validate_ipv4(request.json.get('mgmt_ip', ''))\n mac_addr =
-Validators.validate_mac_address(request.json.get('mac_address', ''))\n\n## Create node\n\n
+Validators.validate_mac_address(request.json.get('mac_address', ''))\n\n##
+Create node\n\n
 node =
-rpc_client.create_node(hostname, mgmt_ip, mac_addr)\n audit_log('AUDIT', f'Created node
+rpc_client.create_node(hostname, mgmt_ip, mac_addr)\n audit_log('AUDIT',
+f'Created node
 {hostname}',\n extra={'node_id': node.get('id'), 'hostname': hostname})\n return
 jsonify(node),
-201\n except ValueError as e:\n return jsonify({'error': str(e)}), 400\n except Exception
+201\n except ValueError as e:\n return jsonify({'error': str(e)}), 400\n except
+Exception
 as e:\n
 audit_log('ERROR', f'Failed to create node: {e}', result='failed')\n return
 jsonify({'error': 'RPC
 service error'}), 503\n\n## Frontend Templates\n\n### Base Template
 (templates/base.html)\n\n {%
-block title %}DebVisor{% endblock %}\n {% block extra_css %}{% endblock %}\n DebVisor\n {%
+block title %}DebVisor{% endblock %}\n {% block extra_css %}{% endblock %}\n
+DebVisor\n {%
 if
-current_user.is_authenticated %}\n Nodes\n Storage\n Compute\n <a class="nav-link
-dropdown-toggle"
-href="#" id="userMenu" role="button"\n data-bs-toggle="dropdown" aria-expanded="false">\n
+current_user.is_authenticated %}\n Nodes\n Storage\n Compute\n \n
 {{
-current_user.username }}\n Profile\n Settings\n Logout\n {% endif %}\n {% with messages =
-get_flashed_messages(with_categories=true) %}\n {% if messages %}\n {% for category,
+current_user.username }}\n Profile\n Settings\n Logout\n {% endif %}\n {% with
+messages =
+get_flashed_messages(with_categories=true) %}\n {% if messages %}\n {% for
+category,
 message in
-messages %}\n \n {{ message }}\n {% endfor %}\n {% endif %}\n {% endwith %}\n {% block
+messages %}\n \n {{ message }}\n {% endfor %}\n {% endif %}\n {% endwith %}\n {%
+block
 content %}{%
-endblock %}\n &copy; 2025 DebVisor Cluster Management. All rights reserved.\n // CSRF
+endblock %}\n &copy; 2025 DebVisor Cluster Management. All rights reserved.\n //
+CSRF
 token for AJAX
-requests\n const csrfToken = document.querySelector('input[name=csrf_token]')?.value;\n if
-(csrfToken) {\n $.ajaxSetup({\n headers: {'X-CSRFToken': csrfToken}\n });\n }\n {% block
+requests\n const csrfToken =
+document.querySelector('input[name=csrf_token]')?.value;\n if
+(csrfToken) {\n $.ajaxSetup({\n headers: {'X-CSRFToken': csrfToken}\n });\n }\n
+{% block
 extra_js
-%}{% endblock %}\n\n### Login Template (templates/login.html)\n\n {% extends "base.html"
+%}{% endblock %}\n\n### Login Template (templates/login.html)\n\n {% extends
+"base.html"
 %}\n {%
 block title %}Login - DebVisor{% endblock %}\n {% block content %}\n Login\n {{
 form.hidden_tag()
 }}\n {{ form.username.label(class="form-label") }}\n {{
 form.username(class="form-control") }}\n {%
 if form.username.errors %}\n {{ form.username.errors[0] }}\n {% endif %}\n {{
-form.password.label(class="form-label") }}\n {{ form.password(class="form-control") }}\n
+form.password.label(class="form-label") }}\n {{
+form.password(class="form-control") }}\n
 {% if
 form.password.errors %}\n {{ form.password.errors[0] }}\n {% endif %}\n {{
 form.remember_me(class="form-check-input") }}\n {{
@@ -422,17 +554,23 @@ form.remember_me.label(class="form-check-label")
 (requirements.txt)\n\n
 Flask>=3.0.3\n Flask-Login>=0.6.3\n Flask-SQLAlchemy>=3.1.1\n Flask-WTF>=1.2.1\n
 Flask-Limiter>=3.7.0\n Werkzeug>=3.0.3\n SQLAlchemy>=2.0.30\n WTForms>=3.1.2\n
-python-dotenv>=1.0.1\n grpcio>=1.64.0\n grpcio-tools>=1.64.0\n protobuf>=5.27.0\n
+python-dotenv>=1.0.1\n grpcio>=1.64.0\n grpcio-tools>=1.64.0\n
+protobuf>=5.27.0\n
 pyotp>=2.9.0\n
-qrcode>=7.4.2\n Pillow>=10.3.0\n redis>=5.0.4\n gunicorn>=22.0.0\n bleach>=6.1.0\n
+qrcode>=7.4.2\n Pillow>=10.3.0\n redis>=5.0.4\n gunicorn>=22.0.0\n
+bleach>=6.1.0\n
 markdown>=3.6.0\n
-requests>=2.32.3\n pip-audit>=2.7.3\n\n### WSGI Entry Point (wsgi.py)\n\n """\n WSGI entry
+requests>=2.32.3\n pip-audit>=2.7.3\n\n### WSGI Entry Point (wsgi.py)\n\n """\n
+WSGI entry
 point for
 gunicorn\n """\n import os\n from app import create_app\n app =
 create_app(os.getenv('FLASK_ENV',
-'production'))\n if**name**== '**main**':\n app.run()\n\n### Systemd Service\n\n [Unit]\n
-Description=DebVisor Web Panel\n After=network-online.target debvisor-rpcd.service\n
-Wants=network-online.target\n [Service]\n Type=notify\n User=www-data\n Group=www-data\n
+'production'))\n if**name**== '**main**':\n app.run()\n\n### Systemd Service\n\n
+[Unit]\n
+Description=DebVisor Web Panel\n After=network-online.target
+debvisor-rpcd.service\n
+Wants=network-online.target\n [Service]\n Type=notify\n User=www-data\n
+Group=www-data\n
 WorkingDirectory=/opt/web/panel\n Environment="FLASK_ENV=production"\n
 Environment="SECRET_KEY=..."
 
@@ -440,42 +578,53 @@ Environment="SECRET_KEY=..."
 
 ExecStart=/usr/bin/python3 -m
 
-gunicorn \\n\n - -workers 4 \\n\n - -worker-class sync \\n\n - -bind 127.0.0.1:8000 \\n\n
+gunicorn \\n\n - -workers 4 \\n\n - -worker-class sync \\n\n - -bind
+127.0.0.1:8000 \\n\n
 
 - -timeout
-30 \\n\n - -access-logfile /var/log/debvisor/panel-access.log \\n\n - -error-logfile
+30 \\n\n - -access-logfile /var/log/debvisor/panel-access.log \\n\n -
+-error-logfile
 /var/log/debvisor/panel-error.log \\n\n wsgi:app\n ProtectSystem=strict\n
 ProtectHome=yes\n
 NoNewPrivileges=yes\n PrivateDevices=yes\n MemoryLimit=512M\n CPUQuota=200%\n
 Restart=on-failure\n
 RestartSec=10\n StandardOutput=journal\n StandardError=journal\n [Install]\n
-WantedBy=multi-user.target\n\n### Nginx Reverse Proxy\n\n upstream debvisor_panel {\n
+WantedBy=multi-user.target\n\n### Nginx Reverse Proxy\n\n upstream
+debvisor_panel {\n
 server
 127.0.0.1:8000;\n }\n server {\n listen 443 ssl http2;\n server_name
 cluster.example.com;\n\n## SSL
-certificates\n\n ssl_certificate /etc/debvisor/panel/tls/server.crt;\n ssl_certificate_key
+certificates\n\n ssl_certificate /etc/debvisor/panel/tls/server.crt;\n
+ssl_certificate_key
 /etc/debvisor/panel/tls/server.key;\n\n## SSL settings\n\n ssl_protocols TLSv1.3
 TLSv1.2;\n
-ssl_ciphers HIGH:!aNULL:!MD5;\n ssl_prefer_server_ciphers on;\n\n## Security headers\n\n
+ssl_ciphers HIGH:!aNULL:!MD5;\n ssl_prefer_server_ciphers on;\n\n## Security
+headers\n\n
 add_header
-Strict-Transport-Security "max-age=31536000; includeSubDomains" always;\n add_header
+Strict-Transport-Security "max-age=31536000; includeSubDomains" always;\n
+add_header
 X-Frame-Options
-"DENY" always;\n add_header X-Content-Type-Options "nosniff" always;\n add_header
+"DENY" always;\n add_header X-Content-Type-Options "nosniff" always;\n
+add_header
 X-XSS-Protection
 "1; mode=block" always;\n\n## Proxy settings\n\n proxy_pass
-[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor*pa]([http://debvisor*p]([http://debvisor*]([http://debvisor]([http://debviso](http://debviso)r)*)p)a)n)e)l);)\n
-proxy_set_header Host $host;\n proxy_set_header X-Real-IP $remote_addr;\n proxy_set_header
+[http://debvisor_panel;]([http://debvisor_panel]([http://debvisor_pane]([http://debvisor_pan]([http://debvisor*pa]([http://debvisor*p]([http://debvisor*]([http://debvisor]([http://debviso]([http://debvis]([http://debvi]([http://debv]([http://deb]([http://de]([http://d](http://d)e)b)v)i)s)o)r)*)p)a)n)e)l);)\n
+proxy_set_header Host $host;\n proxy_set_header X-Real-IP $remote_addr;\n
+proxy_set_header
 X-Forwarded-For $proxy_add_x_forwarded_for;\n proxy_set_header X-Forwarded-Proto
 $scheme;\n\n##
-Request limits\n\n client_max_body_size 10M;\n proxy_read_timeout 30s;\n\n## WebSocket
+Request limits\n\n client_max_body_size 10M;\n proxy_read_timeout 30s;\n\n##
+WebSocket
 support (if
 needed)\n\n proxy_http_version 1.1;\n proxy_set_header Upgrade $http_upgrade;\n
 proxy_set_header
-Connection "upgrade";\n }\n\n## Redirect HTTP to HTTPS\n\n server {\n listen 80;\n
+Connection "upgrade";\n }\n\n## Redirect HTTP to HTTPS\n\n server {\n listen
+80;\n
 server_name
 cluster.example.com;\n return 301
-[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque]([https://$server*name$requ](https://$server*name$requ)e)s)t)*)u)r)i);)\n
-}\n\n## Testing\n\n### Test Structure (tests/test_nodes.py)\n\n """\n Tests for node
+[https://$server_name$request_uri;]([https://$server_name$request_uri]([https://$server_name$request_ur]([https://$server_name$request_u]([https://$server*name$request*]([https://$server_name$request]([https://$server*name$reques]([https://$server*name$reque]([https://$server*name$requ]([https://$server*name$req]([https://$server*name$re]([https://$server*name$r]([https://$server*name$]([https://$server*name]([https://$server*nam]([https://$server*na]([https://$server*n]([https://$server*]([https://$server]([https://$serve]([https://$serv]([https://$ser]([https://$se]([https://$s](https://$s)e)r)v)e)r)*)n)a)m)e)$)r)e)q)u)e)s)t)*)u)r)i);)\n
+}\n\n## Testing\n\n### Test Structure (tests/test_nodes.py)\n\n """\n Tests for
+node
 management
 endpoints\n """\n import pytest\n from flask_login import FlaskLoginClient\n
 @pytest.fixture\n def
@@ -483,36 +632,48 @@ client(app):\n """Authenticated test client"""\n return
 app.test_client(use_cookies=True)\n
 @pytest.fixture\n def auth_client(client):\n """Login test client"""\n
 client.post('/login',
-json={\n 'username': 'testuser',\n 'password': 'TestPassword123!',\n })\n return client\n
+json={\n 'username': 'testuser',\n 'password': 'TestPassword123!',\n })\n return
+client\n
 def
 test_list_nodes_requires_auth(client):\n """Test that listing nodes requires
 authentication"""\n
-response = client.get('/nodes/api')\n assert response.status_code == 302 # Redirect to
+response = client.get('/nodes/api')\n assert response.status_code == 302 #
+Redirect to
 login\n def
-test_list_nodes(auth_client, mocker):\n """Test listing nodes"""\n\n## Mock RPC call\n\n
-mocker.patch('core.rpc_client.get_rpc_client').return_value.list_nodes.return_value = [\n
+test_list_nodes(auth_client, mocker):\n """Test listing nodes"""\n\n## Mock RPC
+call\n\n
+mocker.patch('core.rpc_client.get_rpc_client').return_value.list_nodes.return_value
+= [\n
 {'id':
-'node-1', 'hostname': 'node-001', 'status': 'online'},\n {'id': 'node-2', 'hostname':
+'node-1', 'hostname': 'node-001', 'status': 'online'},\n {'id': 'node-2',
+'hostname':
 'node-002',
 'status': 'offline'},\n ]\n response = auth_client.get('/nodes/api')\n assert
 response.status_code
 == 200\n data = response.get_json()\n assert len(data['nodes']) == 2\n def
-test_shutdown_node_requires_permission(auth_client, mocker):\n """Test that shutdown
+test_shutdown_node_requires_permission(auth_client, mocker):\n """Test that
+shutdown
 requires
-permission"""\n\n## Mock user with viewer role (no modify permission)\n\n response =
-auth_client.post('/nodes/node-1/shutdown', json={})\n assert response.status_code == 403\n
+permission"""\n\n## Mock user with viewer role (no modify permission)\n\n
+response =
+auth_client.post('/nodes/node-1/shutdown', json={})\n assert
+response.status_code == 403\n
 def
-test_input_validation(auth_client):\n """Test input validation"""\n\n## Invalid UUID
+test_input_validation(auth_client):\n """Test input validation"""\n\n## Invalid
+UUID
 format\n\n
 response = auth_client.post('/nodes/invalid-id/shutdown', json={})\n assert
 response.status_code ==
-400\n\n- --\n\n### Deployment Checklist\n\n- [] Generate SECRET_KEY: `python -c 'import
+400\n\n- --\n\n### Deployment Checklist\n\n- [] Generate SECRET_KEY: `python -c
+'import
 secrets;
-print(secrets.token_hex(32))'`\n\n- [] Create database: `flask db upgrade`\n\n- [] Create
+print(secrets.token_hex(32))'`\n\n- [] Create database: `flask db upgrade`\n\n-
+[] Create
 admin
 user: `flask create-user --username admin --role admin`\n\n- [] Generate TLS
 certificates\n\n- []
-Configure nginx reverse proxy\n\n- [] Set environment variables (RPC_HOST, RPC_PORT,
+Configure nginx reverse proxy\n\n- [] Set environment variables (RPC_HOST,
+RPC_PORT,
 etc)\n\n- []
 Run tests: `pytest tests/`\n\n- [] Deploy systemd service\n\n- [] Configure log
 rotation\n\n- []

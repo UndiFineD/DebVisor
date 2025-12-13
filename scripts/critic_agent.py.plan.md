@@ -1,6 +1,6 @@
 # Planning Report: scripts\critic_agent.py
 
-Generated: 2025-12-13T15:10:42.913177
+Generated: 2025-12-13T17:06:28.852245
 Status: INVALID
 
 ## File Structure Validation
@@ -13,12 +13,12 @@ Status: INVALID
 | incorrect_header | 2 | Header line incorrect: got '"""', expected '# Licensed under the Apache License, Version 2.0 (the "License");' |
 | incorrect_header | 3 | Header line incorrect: got 'Critic Testing Agent: Detects code issues and logs them to sibling .md files.', expected '# you may not use this file except in compliance with the License.' |
 | incorrect_header | 4 | Header line incorrect: got 'Supports: py, sh, js, css, html, go files.', expected '# You may obtain a copy of the License at' |
-| incorrect_header | 5 | Header line incorrect: got 'Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L](http://www.apache.org/licenses/L)I)C)E)N)S)E)-)2).)0)') |
+| incorrect_header | 5 | Header line incorrect: got 'Uses: flake8, mypy, shellcheck, bandit, eslint, golangci-lint, htmlhint, etc.', expected '#     [http://www.apache.org/licenses/LICENSE-2.0']([http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)') |
 | incorrect_header | 6 | Header line incorrect: got '"""', expected '# Unless required by applicable law or agreed to in writing, software' |
 | incorrect_header | 7 | Header line incorrect: got '', expected '# distributed under the License is distributed on an "AS IS" BASIS,' |
 | incorrect_header | 8 | Header line incorrect: got 'import subprocess', expected '# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.' |
-| incorrect_header | 9 | Header line incorrect: got 'import json', expected '# See the License for the specific language governing permissions and' |
-| incorrect_header | 10 | Header line incorrect: got 'from pathlib import Path', expected '# limitations under the License.' |
+| incorrect_header | 9 | Header line incorrect: got 'import sys', expected '# See the License for the specific language governing permissions and' |
+| incorrect_header | 10 | Header line incorrect: got 'import json', expected '# limitations under the License.' |
 | missing_section | - | Missing 'Description' section. Should be in docstring after license header. |
 | missing_section | - | Missing 'Changelog' section. Should be in docstring after license header. |
 | missing_section | - | Missing 'Suggested Fixes' section. Should be in docstring after license header. |
@@ -88,31 +88,31 @@ Detailed description of what this file does.
 
 ### To Fix This File
 
-1. Add shebang at line 1: `#!/usr/bin/env python3`
+- Add shebang at line 1: `#!/usr/bin/env python3`
 
-2. Add license header (lines 2-11)
+- Add license header (lines 2-11)
 
-3. Add module docstring with required sections:
+- Add module docstring with required sections:
 
-    - Description
+  - Description
 
-    - Changelog
+  - Changelog
 
-    - Suggested Fixes
+  - Suggested Fixes
 
-    - Improvements
+  - Improvements
 
-4. Separate docstring from code with blank line and comment divider
+- Separate docstring from code with blank line and comment divider
 
-5. Ensure generated .md reports comply with markdown linting rules:
+- Ensure generated .md reports comply with markdown linting rules:
 
-    - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+  - **MD034**: Wrap bare URLs in links: `[URL](URL)`
 
-    - **MD047**: Add trailing newline at end of file
+  - **MD047**: Add trailing newline at end of file
 
-    - **MD022**: Add blank lines around headings
+  - **MD022**: Add blank lines around headings
 
-    - **MD038**: Remove spaces in code spans: ```code```not```code```
+  - **MD038**: Remove spaces in code spans: ```code```not```code```
 
 ### Example Template
 
@@ -122,7 +122,7 @@ Detailed description of what this file does.
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses](http://www.apache.org/licenses)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.

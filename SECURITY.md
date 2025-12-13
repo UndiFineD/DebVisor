@@ -2,13 +2,18 @@
 
 versions
 
-of your project are\ncurrently being supported with security updates.\n| Version |
+of your project are\ncurrently being supported with security updates.\n| Version
+|
 Supported |\n|
-------- | ------------------ |\n| 5.1.x | :white_check_mark: |\n| 5.0.x | :x: |\n| 4.0.x |
-:white_check_mark: |\n| < 4.0 | :x: |\n\n## Reporting a Vulnerability\n\nUse this section
+------- | ------------------ |\n| 5.1.x | :white_check_mark: |\n| 5.0.x | :x:
+|\n| 4.0.x |
+:white_check_mark: |\n| < 4.0 | :x: |\n\n## Reporting a Vulnerability\n\nUse
+this section
 to tell
-people how to report a vulnerability.\nTell them where to go, how often they can expect to
+people how to report a vulnerability.\nTell them where to go, how often they can
+expect to
 get an
-update on a\nreported vulnerability, what to expect if the vulnerability is accepted
+update on a\nreported vulnerability, what to expect if the vulnerability is
+accepted
 or\ndeclined,
 etc.\n\n

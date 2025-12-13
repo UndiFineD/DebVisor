@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\rpc\cert_manager.py
 
-Generated: 2025-12-13T15:17:02.880484
+Generated: 2025-12-13T16:47:32.081941
 Source: opt\services\rpc\cert_manager.py
 
 ## Issues Summary
@@ -23,8 +23,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

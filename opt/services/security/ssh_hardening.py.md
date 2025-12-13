@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\security\ssh_hardening.py
 
-Generated: 2025-12-13T15:18:09.763252
+Generated: 2025-12-13T16:48:40.371273
 Source: opt\services\security\ssh_hardening.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

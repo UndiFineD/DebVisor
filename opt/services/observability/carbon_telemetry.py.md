@@ -1,6 +1,6 @@
 # Code Issues Report: opt\services\observability\carbon_telemetry.py
 
-Generated: 2025-12-13T15:16:19.231503
+Generated: 2025-12-13T16:46:51.089210
 Source: opt\services\observability\carbon_telemetry.py
 
 ## Issues Summary
@@ -26,8 +26,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

@@ -1,6 +1,6 @@
 # Code Issues Report: tests\benchmarks\test_performance.py
 
-Generated: 2025-12-13T15:22:44.348716
+Generated: 2025-12-13T16:53:36.236804
 Source: tests\benchmarks\test_performance.py
 
 ## Issues Summary
@@ -39,8 +39,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -70,8 +69,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -101,8 +99,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -132,8 +129,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -163,8 +159,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -194,8 +189,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -225,8 +219,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -256,13 +249,12 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
 ```python
-        "disk*gb": random.randint(10, 500),
+        "disk_gb": random.randint(10, 500),
         "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
@@ -287,8 +279,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -296,7 +287,7 @@ purposes.
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for * in range(random.randint(1, 4))
+            for _ in range(random.randint(1, 4))
         ],
         "created*at": datetime.now(timezone.utc).isoformat(),
         "hypervisor": random.choice(["kvm", "xen"]),
@@ -318,8 +309,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -349,8 +339,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -380,8 +369,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -411,8 +399,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -442,8 +429,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -473,8 +459,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -504,8 +489,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 
@@ -535,8 +519,7 @@ purposes.
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
-purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
 ### Context
 

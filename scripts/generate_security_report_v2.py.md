@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\generate_security_report_v2.py
 
-Generated: 2025-12-13T15:22:17.289348
+Generated: 2025-12-13T16:53:07.956955
 Source: scripts\generate_security_report_v2.py
 
 ## Issues Summary
@@ -24,8 +24,7 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess
-module.
+**Message:** Consider possible security implications associated with the subprocess module.
 
 ### Context
 

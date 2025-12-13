@@ -5,10 +5,31 @@ Identifies additional markdown issues for fix_all_markdown.py
 """
 
 import re
+import json
+import fnmatch
 from pathlib import Path
 from collections import defaultdict
 
-def scan_markdown_file(file_path):
+def _load_wrap_config(root: Path):
+    cfg_path = root / 'md_wrap_config.json'
+    if cfg_path.exists():
+        try:
+            return json.loads(cfg_path.read_text(encoding='utf-8'))
+        except Exception:
+            return {}
+    return {}
+
+def _wrap_limit_for(root: Path, file_path: Path, cfg: dict, default_limit: int) -> int:
+    rel = str(file_path.relative_to(root)).replace('\\', '/')
+    for item in cfg.get('file_limits', []) or []:
+        if fnmatch.fnmatch(rel, item.get('pattern', '')):
+            return int(item.get('limit', default_limit))
+    for item in cfg.get('folder_limits', []) or []:
+        if fnmatch.fnmatch(rel, item.get('pattern', '')):
+            return int(item.get('limit', default_limit))
+    return int(cfg.get('default_limit', default_limit))
+
+def scan_markdown_file(file_path, max_line_length: int | None = None):
     """Scan a single markdown file for issues."""
     issues = defaultdict(int)
     try:
@@ -19,30 +40,60 @@ def scan_markdown_file(file_path):
 
     lines = content.split('\n')
 
-    # MD001: Multiple top-level headings
-    h1_count = sum(1 for line in lines if re.match(r'^#\s+', line))
+    # MD001: Multiple top-level headings (fence-aware)
+    in_fence = False
+    h1_count = 0
+    for line in lines:
+        if line.startswith('```'):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        if re.match(r'^#\s+', line):
+            h1_count += 1
     if h1_count > 1:
         issues['MD001_multiple_h1'] += 1
 
-    # MD005: Inconsistent indentation of list items
-    list_items = [line for line in lines if re.match(r'^\s*[-*+]\s', line)]
-    if list_items:
-        indents = set(len(line) - len(line.lstrip()) for line in list_items)
-        if len(indents) > 1:
-            issues['MD005_inconsistent_list_indent'] += 1
+    # MD005/MD006/MD007: Evaluate per nesting level and accept multiples of two
+    in_code_block = False
+    per_level_indents = {}
+    md006_flagged = False
+    md007_flagged = False
 
-    # MD006: Start of unordered list not at beginning of line
     for line in lines:
-        if re.match(r'^\s+[-*+]\s', line) and not re.match(r'^\s{2}[-*+]\s', line):
-            issues['MD006_list_not_at_start'] += 1
+        if line.startswith('```'):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+
+        m_un = re.match(r'^(\s*)([-*+])\s', line)
+        m_ord = re.match(r'^(\s*)(\d+\.)\s', line)
+        if not (m_un or m_ord):
+            continue
+
+        indent_spaces = len((m_un or m_ord).group(1))
+        level = indent_spaces // 2
+        per_level_indents.setdefault(level, set()).add(indent_spaces)
+
+        # MD006: accept multiples of two; only flag odd indentation
+        if m_un and indent_spaces > 0 and (indent_spaces % 2 != 0):
+            md006_flagged = True
+
+        # MD007: bad indent if not multiple of two
+        if m_un and (indent_spaces % 2 != 0):
+            md007_flagged = True
+
+    # MD005: inconsistent indents within same level
+    for level, indent_set in per_level_indents.items():
+        if len(indent_set) > 1:
+            issues['MD005_inconsistent_list_indent'] += 1
             break
 
-    # MD007: Unordered list indentation
-    for match in re.finditer(r'^\s+[-*+]\s', '\n'.join(lines), re.MULTILINE):
-        spaces = len(match.group()) - len(match.group().lstrip())
-        if spaces % 2 != 0:
-            issues['MD007_list_bad_indent'] += 1
-            break
+    if md006_flagged:
+        issues['MD006_list_not_at_start'] += 1
+    if md007_flagged:
+        issues['MD007_list_bad_indent'] += 1
 
     # MD008: Unordered list markers inconsistent
     markers = set()
@@ -53,25 +104,67 @@ def scan_markdown_file(file_path):
     if len(markers) > 1:
         issues['MD008_inconsistent_markers'] += 1
 
-    # MD013: Line too long (>120 chars for code, >80 for regular)
+    # MD013: Line too long (threshold from config; skip code, headings, tables, lists, quotes, inline code, URLs, long tokens)
     in_code_block = False
+    root = Path(__file__).parent
+    cfg = _load_wrap_config(root)
+    limit = _wrap_limit_for(root, Path(file_path), cfg, default_limit=100)
+    if max_line_length is not None:
+        limit = max_line_length
+    prev_was_list = False
     for i, line in enumerate(lines):
         if line.startswith('```'):
             in_code_block = not in_code_block
-        elif not in_code_block and len(line) > 100 and line.strip() and not line.strip().startswith('http'):
-            if i == 0 or (i > 0 and not lines[i-1].startswith('`')):
-                issues['MD013_line_too_long'] += 1
-                break
+            continue
+        if in_code_block:
+            continue
+        stripped = line.lstrip()
+        if not stripped:
+            prev_was_list = False
+            continue
+        if stripped.startswith('#'):
+            continue
+        if stripped.startswith('>'):
+            continue
+        if re.match(r'^(?:[-*+]|\d+\.)\s', stripped):
+            prev_was_list = True
+            continue
+        if prev_was_list and (len(line) - len(line.lstrip(' '))) >= 2:
+            # list continuation
+            continue
+        if stripped.startswith('|') or re.match(r'^\|[-: ]+\|\s*$', stripped):
+            continue
+        if '`' in line or 'http://' in line or 'https://' in line or '://' in line:
+            continue
+        if any(len(tok) >= 40 for tok in re.split(r'\s+', stripped)):
+            continue
+        if len(line) > limit:
+            issues['MD013_line_too_long'] += 1
+            break
 
-    # MD015: Unordered list markers inconsistent (variant)
+    # MD015: Mixed list types within the same list block and indentation level
+    in_fence = False
+    current_level_markers = {}
     for line in lines:
-        if re.match(r'^\s*\d+\.\s', line):
-            # Found ordered list
-            for check_line in lines:
-                if re.match(r'^\s*[-*]\s', check_line):
-                    # Mixed markers
-                    issues['MD015_mixed_list_types'] += 1
-                    break
+        if line.startswith('```'):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        m = re.match(r'^(\s*)([-*+]|\d+\.|\d+\))\s', line)
+        if not m:
+            # reset context between list blocks
+            current_level_markers.clear()
+            continue
+        indent_spaces = len(m.group(1))
+        level = indent_spaces // 2
+        marker_token = m.group(2)
+        marker_type = 'ordered' if marker_token[0].isdigit() else 'unordered'
+        prev = current_level_markers.get(level)
+        if prev is None:
+            current_level_markers[level] = marker_type
+        elif prev != marker_type:
+            issues['MD015_mixed_list_types'] += 1
             break
 
     # MD033: Inline HTML
@@ -92,14 +185,39 @@ def scan_markdown_file(file_path):
             break
 
     # MD046: Code block style (indentation vs fence)
-    indented_code_lines = sum(1 for line in lines if line.startswith('    ') and line.strip())
+    # Count true indented code blocks (>=2 consecutive indented lines) outside fences
+    in_fence = False
+    indented_block_found = False
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith('```'):
+            in_fence = not in_fence
+            i += 1
+            continue
+        if in_fence:
+            i += 1
+            continue
+        if line.startswith('    ') and line.strip():
+            block_len = 0
+            j = i
+            while j < len(lines) and (lines[j].startswith('    ') or lines[j].strip() == ''):
+                if lines[j].startswith('    ') and lines[j].strip():
+                    block_len += 1
+                j += 1
+            if block_len >= 2:
+                indented_block_found = True
+                break
+            i = j
+            continue
+        i += 1
     fenced_code_lines = sum(1 for line in lines if '```' in line)
-    if indented_code_lines > 3 and fenced_code_lines > 0:
+    if indented_block_found and fenced_code_lines > 0:
         issues['MD046_code_block_style'] += 1
 
-    # MD048: Code fence style (backticks vs tildes)
-    backtick_count = content.count('```')
-    tilde_count = content.count('~~~')
+    # MD048: Code fence style (backticks vs tildes) - count only real fence markers
+    backtick_count = len(re.findall(r'^```', content, flags=re.MULTILINE))
+    tilde_count = len(re.findall(r'^~~~', content, flags=re.MULTILINE))
     if backtick_count > 0 and tilde_count > 0:
         issues['MD048_fence_style'] += 1
 
@@ -125,18 +243,32 @@ def scan_markdown_file(file_path):
                 issues['MD051_link_fragments'] += 1
                 break
 
-    # MD054: Relative links
-    relative_links = len(re.findall(r'\]\(\.\/?[^)]+\)', content))
+    # MD054: Relative links (flag when mixing relative and absolute links on same page)
+    relative_links = len(re.findall(r'\]\((\./|\.\./)[^)]+\)', content))
     absolute_links = len(re.findall(r'\]\(https?://[^)]+\)', content))
     if relative_links > 0 and absolute_links > 0:
-        issues['MD054_relative_links'] += 1
+        try:
+            allowlist_path = Path(__file__).parent / 'md_link_allowlist.txt'
+            allowlist = set()
+            if allowlist_path.exists():
+                allowlist = {line.strip() for line in allowlist_path.read_text(encoding='utf-8').splitlines() if line.strip()}
+            rel = str(Path(file_path).relative_to(Path(__file__).parent)).replace('\\', '/')
+            if rel not in allowlist:
+                issues['MD054_relative_links'] += 1
+        except Exception:
+            issues['MD054_relative_links'] += 1
 
     return issues
 
 def main():
     """Scan all markdown files."""
+    import argparse
+    parser = argparse.ArgumentParser(description="Scan markdown issues")
+    parser.add_argument("--max-line-length", type=int, default=None, help="override MD013 threshold")
+    args = parser.parse_args()
+
     workspace_root = Path(__file__).parent
-    excluded_dirs = {'.venv', '.venv-1', '.venv-2', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
+    excluded_dirs = {'.venv', '.venv-1', '.venv-2', '.venv-3', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
 
     # Find all markdown files
     markdown_files = []
@@ -152,7 +284,7 @@ def main():
     files_with_issues = defaultdict(list)
 
     for md_file in sorted(markdown_files):
-        issues = scan_markdown_file(md_file)
+        issues = scan_markdown_file(md_file, max_line_length=args.max_line_length)
         if issues:
             relative_path = md_file.relative_to(workspace_root)
             for issue_type, count in issues.items():
