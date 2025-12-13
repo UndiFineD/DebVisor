@@ -169,7 +169,9 @@ class APIKeyManager:
         """Hash API key for secure storage using PBKDF2-HMAC-SHA256."""
         # Use static salt since keys are randomly generated and unique
         salt = b"debvisor_api_key_salt_v1"
-        return hashlib.pbkdf2_hmac('sha256', key.encode(), salt, 600000).hex()    def create_key(
+        return hashlib.pbkdf2_hmac('sha256', key.encode(), salt, 600000).hex()
+
+    def create_key(
         self,
         principal_id: str,
         description: str="",
