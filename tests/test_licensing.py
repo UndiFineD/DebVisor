@@ -21,6 +21,8 @@ from opt.services.licensing.licensing_server import (
     ECDSAVerifier,
     HardwareFingerprint,
 )
+
+
 class TestLicenseFeatures(unittest.TestCase):
     """Tests for LicenseFeatures logic."""
 
