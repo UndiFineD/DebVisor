@@ -70,7 +70,7 @@ def _fetch_notifications() -> List[Dict[str, str]]:
         print(f"Failed to decode JSON: {exc}")
         return []
 
-    return [n for n in data if n.get("unread") and REPO in n.get("repository", "")]
+    return [n for n in data if n.get("unread") and n.get("repository", "") == REPO]
 
 
 def _api_url_to_html(api_url: str, subject_type: str, repository: str, title: str) -> str:
