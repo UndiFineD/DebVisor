@@ -5,12 +5,9 @@ from opt.services.cost_optimization.core import CostOptimizer
 @pytest.fixture
 def optimizer() -> CostOptimizer:
     return CostOptimizer()
+
+
 @pytest.fixture
-def sample_resources() -> list[dict]:
-
-@pytest.fixture
-
-
 def sample_resources() -> list[dict]:
     return [
         {

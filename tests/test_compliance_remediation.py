@@ -9,8 +9,6 @@ from opt.services.compliance.remediation import RemediationManager
 
 
 @pytest.fixture
-
-
 def compliance_engine() -> None:
     return ComplianceEngine()  # type: ignore[return-value]
 
@@ -21,8 +19,6 @@ def test_remediation_manager_init() -> None:
 
 
 @patch("opt.services.compliance.remediation.SSHHardeningManager")
-
-
 def test_remediate_ssh_root_login(mock_ssh_manager_cls):
     manager = RemediationManager()
     # Mock the instance
