@@ -1,185 +1,313 @@
-# Safe Type: Ignore Management\n\n## Overview\n\nThe `update_type_ignore.py`script has been
+# Safe Type: Ignore Management\n\n## Overview\n\nThe `update_type_ignore.py`script has
 
-redesigned to prevent silent suppression of real type errors while enabling safe, auditable handling
-of non-critical typing issues.\n\n## Key Improvements\n\n### 1. **Safe-by-Default Approach**\n\n-
-**No destructive changes without review**: The script now generates review-ready output files
-instead of immediately modifying source code\n\n- **Explicit opt-in required**: Use`--apply`flag to
-modify files after manual review\n\n- **Default behavior**: Generates JSON or patch file for human
+been
+
+redesigned to prevent silent suppression of real type errors while enabling safe,
+auditable handling
+of non-critical typing issues.\n\n## Key Improvements\n\n### 1. **Safe-by-Default
+Approach**\n\n-
+**No destructive changes without review**: The script now generates review-ready output
+files
+instead of immediately modifying source code\n\n- **Explicit opt-in required**:
+Use`--apply`flag to
+modify files after manual review\n\n- **Default behavior**: Generates JSON or patch file
+for human
 review\n\n### 2. **Whitelist/Blocklist System**\n\n#### Critical Error Codes (Never
 Auto-Suppressed)\n\n```python\nCRITICAL_ERROR_CODES = {\n "assignment", # Type mismatch in
-assignment (real bugs)\n "return-value", # Return type mismatch (real bugs)\n "func-returns-value",
+assignment (real bugs)\n "return-value", # Return type mismatch (real bugs)\n
+"func-returns-value",
 
-# Function returns wrong type\n "arg-type", # Function argument type mismatch\n "union-attr", #
+## Function returns wrong type\n "arg-type", # Function argument type mismatch\n
 
-Accessing attribute that doesn't exist on some union members\n "attr-defined", # Accessing undefined
-attribute\n}\n```text\n\n "assignment", # Type mismatch in assignment (real bugs)\n "return-value",
+"union-attr", #
 
-# Return type mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n
+Accessing attribute that doesn't exist on some union members\n "attr-defined", # Accessing
+undefined
+attribute\n}\n```text\n\n "assignment", # Type mismatch in assignment (real bugs)\n
+"return-value",
 
-"arg-type", # Function argument type mismatch\n "union-attr", # Accessing attribute that doesn't
-exist on some union members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n
-"assignment", # Type mismatch in assignment (real bugs)\n "return-value", # Return type mismatch
-(real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", # Function argument
-type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union members\n
-"attr-defined", # Accessing undefined attribute\n}\n```text\n\n "return-value", # Return type
-mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", # Function
-argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union
-members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n "assignment", # Type
+## Return type mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n
+
+"arg-type", # Function argument type mismatch\n "union-attr", # Accessing attribute that
+doesn't
+exist on some union members\n "attr-defined", # Accessing undefined
+attribute\n}\n```text\n
+"assignment", # Type mismatch in assignment (real bugs)\n "return-value", # Return type
+mismatch
+(real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", # Function
+argument
+type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union
+members\n
+"attr-defined", # Accessing undefined attribute\n}\n```text\n\n "return-value", # Return
+type
+mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", #
+Function
+argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some
+union
+members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n "assignment", #
+Type
 mismatch in assignment (real bugs)\n "return-value", # Return type mismatch (real bugs)\n
 "func-returns-value", # Function returns wrong type\n "arg-type", # Function argument type
 mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union members\n
-"attr-defined", # Accessing undefined attribute\n}\n```text\n\n "return-value", # Return type
-mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", # Function
-argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union
-members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n "return-value", # Return
-type mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", #
-Function argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some
-union members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n "func-returns-value",
+"attr-defined", # Accessing undefined attribute\n}\n```text\n\n "return-value", # Return
+type
+mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n "arg-type", #
+Function
+argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist on some
+union
+members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n "return-value", #
+Return
+type mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n
+"arg-type", #
+Function argument type mismatch\n "union-attr", # Accessing attribute that doesn't exist
+on some
+union members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n
+"func-returns-value",
 
-# Function returns wrong type\n "arg-type", # Function argument type mismatch\n "union-attr", #
+## Function returns wrong type\n "arg-type", # Function argument type mismatch\n
 
-Accessing attribute that doesn't exist on some union members\n "attr-defined", # Accessing undefined
-attribute\n}\n```text\n#### Critical File Patterns (Never Auto-Suppressed)\n-`cert_manager.py`-
-Cryptography/security critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication
-code\n#### Allowlist (Safe to Suppress)\n```python\n\n-`cert_manager.py`- Cryptography/security
-critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist
+"union-attr", #
+
+Accessing attribute that doesn't exist on some union members\n "attr-defined", # Accessing
+undefined
+attribute\n}\n```text\n#### Critical File Patterns (Never
+Auto-Suppressed)\n-`cert_manager.py`-
+Cryptography/security critical\n\n-`security/`- Security-related modules\n\n-`auth`-
+Authentication
+code\n#### Allowlist (Safe to Suppress)\n```python\n\n-`cert_manager.py`-
+Cryptography/security
+critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication code\n\n####
+Allowlist
 (Safe to Suppress) (2)\n\n```python\n#### Critical File Patterns (Never Auto-Suppressed)
-(2)\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`- Security-related
+(2)\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`-
+Security-related
 modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to Suppress)
 (3)\n```python\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`-
-Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to Suppress)
-(4)\n\n```python\n#### Critical File Patterns (Never Auto-Suppressed) (3)\n-`cert_manager.py`-
-Cryptography/security critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication
-code\n#### Allowlist (Safe to Suppress) (5)\n```python\n\n-`cert_manager.py`- Cryptography/security
-critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist
+Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to
+Suppress)
+(4)\n\n```python\n#### Critical File Patterns (Never Auto-Suppressed)
+(3)\n-`cert_manager.py`-
+Cryptography/security critical\n\n-`security/`- Security-related modules\n\n-`auth`-
+Authentication
+code\n#### Allowlist (Safe to Suppress) (5)\n```python\n\n-`cert_manager.py`-
+Cryptography/security
+critical\n\n-`security/`- Security-related modules\n\n-`auth`- Authentication code\n\n####
+Allowlist
 (Safe to Suppress) (6)\n\n```python\n#### Critical File Patterns (Never Auto-Suppressed)
-(4)\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`- Security-related
+(4)\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`-
+Security-related
 modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to Suppress)
 (7)\n```python\n\n-`cert_manager.py`- Cryptography/security critical\n\n-`security/`-
-Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to Suppress)
+Security-related modules\n\n-`auth`- Authentication code\n\n#### Allowlist (Safe to
+Suppress)
 (8)\n\n```python\nALLOWLIST_CODES = {\n "var-annotated", # Non-critical annotation style\n
-"name-defined", # Often false positives\n "annotation-unchecked", # Untyped function bodies\n
-"unused-ignore", # Redundant suppressions\n}\n```text\n\n "var-annotated", # Non-critical annotation
-style\n "name-defined", # Often false positives\n "annotation-unchecked", # Untyped function
-bodies\n "unused-ignore", # Redundant suppressions\n}\n```text\n "var-annotated", # Non-critical
-annotation style\n "name-defined", # Often false positives\n "annotation-unchecked", # Untyped
-function bodies\n "unused-ignore", # Redundant suppressions\n}\n```text\n\n "name-defined", # Often
-false positives\n "annotation-unchecked", # Untyped function bodies\n "unused-ignore", # Redundant
-suppressions\n}\n```text\n "var-annotated", # Non-critical annotation style\n "name-defined", #
-Often false positives\n "annotation-unchecked", # Untyped function bodies\n "unused-ignore", #
+"name-defined", # Often false positives\n "annotation-unchecked", # Untyped function
+bodies\n
+"unused-ignore", # Redundant suppressions\n}\n```text\n\n "var-annotated", # Non-critical
+annotation
+style\n "name-defined", # Often false positives\n "annotation-unchecked", # Untyped
+function
+bodies\n "unused-ignore", # Redundant suppressions\n}\n```text\n "var-annotated", #
+Non-critical
+annotation style\n "name-defined", # Often false positives\n "annotation-unchecked", #
+Untyped
+function bodies\n "unused-ignore", # Redundant suppressions\n}\n```text\n\n
+"name-defined", # Often
+false positives\n "annotation-unchecked", # Untyped function bodies\n "unused-ignore", #
+Redundant
+suppressions\n}\n```text\n "var-annotated", # Non-critical annotation style\n
+"name-defined", #
+Often false positives\n "annotation-unchecked", # Untyped function bodies\n
+"unused-ignore", #
 Redundant suppressions\n}\n```text\n\n "name-defined", # Often false positives\n
 "annotation-unchecked", # Untyped function bodies\n "unused-ignore", # Redundant
-suppressions\n}\n```text\n "name-defined", # Often false positives\n "annotation-unchecked", #
+suppressions\n}\n```text\n "name-defined", # Often false positives\n
+"annotation-unchecked", #
 Untyped function bodies\n "unused-ignore", # Redundant suppressions\n}\n```text\n
 "annotation-unchecked", # Untyped function bodies\n "unused-ignore", # Redundant
-suppressions\n}\n```text\n### 3. **Rich Context in Suggestions**\nEach suggestion includes:\n\n-
-Line number and file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error
-codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
-justification\nExample JSON output:\n\n```json\nEach suggestion includes:\n\n- Line number and file
-path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error codes (critical vs
-suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human justification\n\nExample
-JSON output:\n\n```json\n### 3. **Rich Context in Suggestions**(2)\n\nEach suggestion includes:\n\n-
-Line number and file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error
-codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
-justification\nExample JSON output:\n\n```json\n\nEach suggestion includes:\n\n- Line number and
-file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error codes (critical
+suppressions\n}\n```text\n### 3. **Rich Context in Suggestions**\nEach suggestion
+includes:\n\n-
+Line number and file path\n\n- Original error line\n\n- Code before and after
+(context)\n\n- Error
+codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for
+human
+justification\nExample JSON output:\n\n```json\nEach suggestion includes:\n\n- Line number
+and file
+path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error codes
+(critical vs
+suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
+justification\n\nExample
+JSON output:\n\n```json\n### 3. **Rich Context in Suggestions**(2)\n\nEach suggestion
+includes:\n\n-
+Line number and file path\n\n- Original error line\n\n- Code before and after
+(context)\n\n- Error
+codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for
+human
+justification\nExample JSON output:\n\n```json\n\nEach suggestion includes:\n\n- Line
+number and
+file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error codes
+(critical
 vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
-justification\n\nExample JSON output:\n\n```json\n### 3.**Rich Context in Suggestions**(3)\nEach
-suggestion includes:\n\n- Line number and file path\n\n- Original error line\n\n- Code before and
-after (context)\n\n- Error codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n-
-Template for human justification\nExample JSON output:\n\n```json\nEach suggestion includes:\n\n-
-Line number and file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error
-codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
-justification\n\nExample JSON output:\n\n```json\n### 3.**Rich Context in Suggestions**(4)\n\nEach
-suggestion includes:\n\n- Line number and file path\n\n- Original error line\n\n- Code before and
-after (context)\n\n- Error codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n-
-Template for human justification\nExample JSON output:\n\n```json\n\nEach suggestion includes:\n\n-
-Line number and file path\n\n- Original error line\n\n- Code before and after (context)\n\n- Error
-codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for human
-justification\n\nExample JSON output:\n\n```json\n{\n "filepath": "opt/services/cert_manager.py",\n
+justification\n\nExample JSON output:\n\n```json\n### 3.**Rich Context in
+Suggestions**(3)\nEach
+suggestion includes:\n\n- Line number and file path\n\n- Original error line\n\n- Code
+before and
+after (context)\n\n- Error codes (critical vs suppressible)\n\n- Blocklist reason if
+applicable\n\n-
+Template for human justification\nExample JSON output:\n\n```json\nEach suggestion
+includes:\n\n-
+Line number and file path\n\n- Original error line\n\n- Code before and after
+(context)\n\n- Error
+codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for
+human
+justification\n\nExample JSON output:\n\n```json\n### 3.**Rich Context in
+Suggestions**(4)\n\nEach
+suggestion includes:\n\n- Line number and file path\n\n- Original error line\n\n- Code
+before and
+after (context)\n\n- Error codes (critical vs suppressible)\n\n- Blocklist reason if
+applicable\n\n-
+Template for human justification\nExample JSON output:\n\n```json\n\nEach suggestion
+includes:\n\n-
+Line number and file path\n\n- Original error line\n\n- Code before and after
+(context)\n\n- Error
+codes (critical vs suppressible)\n\n- Blocklist reason if applicable\n\n- Template for
+human
+justification\n\nExample JSON output:\n\n```json\n{\n "filepath":
+"opt/services/cert_manager.py",\n
 "line_num": 92,\n "codes": [],\n "line_text": " return timedelta(seconds=expires_in)",\n
-"context_before": "def get_expiry():",\n "context_after": "# ... rest of code",\n "is_critical":
+"context_before": "def get_expiry():",\n "context_after": "# ... rest of code",\n
+"is_critical":
 true,\n "blocklisted_reason": "File 'cert_manager.py' contains critical patterns",\n
-"justification_required": false,\n "suggested_justification": "..."\n}\n```text\n\n "filepath":
+"justification_required": false,\n "suggested_justification": "..."\n}\n```text\n\n
+"filepath":
 "opt/services/cert_manager.py",\n "line_num": 92,\n "codes": [],\n "line_text": " return
-timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n "context_after": "# ...
-rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py' contains
+timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
+"context_after": "# ...
+rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py'
+contains
 critical patterns",\n "justification_required": false,\n "suggested_justification":
-"..."\n}\n```text\n "filepath": "opt/services/cert_manager.py",\n "line_num": 92,\n "codes": [],\n
-"line_text": " return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
-"context_after": "# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File
+"..."\n}\n```text\n "filepath": "opt/services/cert_manager.py",\n "line_num": 92,\n
+"codes": [],\n
+"line_text": " return timedelta(seconds=expires_in)",\n "context_before": "def
+get_expiry():",\n
+"context_after": "# ... rest of code",\n "is_critical": true,\n "blocklisted_reason":
+"File
 'cert_manager.py' contains critical patterns",\n "justification_required": false,\n
-"suggested_justification": "..."\n}\n```text\n\n "line_num": 92,\n "codes": [],\n "line_text": "
-return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n "context_after":
-"# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py'
-contains critical patterns",\n "justification_required": false,\n "suggested_justification":
-"..."\n}\n```text\n "filepath": "opt/services/cert_manager.py",\n "line_num": 92,\n "codes": [],\n
-"line_text": " return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
-"context_after": "# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File
+"suggested_justification": "..."\n}\n```text\n\n "line_num": 92,\n "codes": [],\n
+"line_text": "
+return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
+"context_after":
+"# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File
+'cert_manager.py'
+contains critical patterns",\n "justification_required": false,\n
+"suggested_justification":
+"..."\n}\n```text\n "filepath": "opt/services/cert_manager.py",\n "line_num": 92,\n
+"codes": [],\n
+"line_text": " return timedelta(seconds=expires_in)",\n "context_before": "def
+get_expiry():",\n
+"context_after": "# ... rest of code",\n "is_critical": true,\n "blocklisted_reason":
+"File
 'cert_manager.py' contains critical patterns",\n "justification_required": false,\n
-"suggested_justification": "..."\n}\n```text\n\n "line_num": 92,\n "codes": [],\n "line_text": "
-return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n "context_after":
-"# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py'
-contains critical patterns",\n "justification_required": false,\n "suggested_justification":
+"suggested_justification": "..."\n}\n```text\n\n "line_num": 92,\n "codes": [],\n
+"line_text": "
+return timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
+"context_after":
+"# ... rest of code",\n "is_critical": true,\n "blocklisted_reason": "File
+'cert_manager.py'
+contains critical patterns",\n "justification_required": false,\n
+"suggested_justification":
 "..."\n}\n```text\n "line_num": 92,\n "codes": [],\n "line_text": " return
-timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n "context_after": "# ...
-rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py' contains
+timedelta(seconds=expires_in)",\n "context_before": "def get_expiry():",\n
+"context_after": "# ...
+rest of code",\n "is_critical": true,\n "blocklisted_reason": "File 'cert_manager.py'
+contains
 critical patterns",\n "justification_required": false,\n "suggested_justification":
 "..."\n}\n```text\n "codes": [],\n "line_text": " return timedelta(seconds=expires_in)",\n
-"context_before": "def get_expiry():",\n "context_after": "# ... rest of code",\n "is_critical":
+"context_before": "def get_expiry():",\n "context_after": "# ... rest of code",\n
+"is_critical":
 true,\n "blocklisted_reason": "File 'cert_manager.py' contains critical patterns",\n
-"justification_required": false,\n "suggested_justification": "..."\n}\n```text\n### 4.**Mandatory
+"justification_required": false,\n "suggested_justification": "..."\n}\n```text\n###
+4.**Mandatory
 Justification Option**\nUse`--require-comment`to enforce human-written
 justifications:\n\n```bash\nUse`--require-comment`to enforce human-written
-justifications:\n\n```bash\n### 4. **Mandatory Justification Option**(2)\n\nUse`--require-comment`to
-enforce human-written justifications:\n\n```bash\n\nUse`--require-comment`to enforce human-written
-justifications:\n\n```bash\n### 4.**Mandatory Justification Option**(3)\nUse`--require-comment`to
-enforce human-written justifications:\n\n```bash\nUse`--require-comment`to enforce human-written
-justifications:\n\n```bash\n### 4.**Mandatory Justification Option**(4)\n\nUse`--require-comment`to
-enforce human-written justifications:\n\n```bash\n\nUse`--require-comment`to enforce human-written
+justifications:\n\n```bash\n### 4. **Mandatory Justification
+Option**(2)\n\nUse`--require-comment`to
+enforce human-written justifications:\n\n```bash\n\nUse`--require-comment`to enforce
+human-written
+justifications:\n\n```bash\n### 4.**Mandatory Justification
+Option**(3)\nUse`--require-comment`to
+enforce human-written justifications:\n\n```bash\nUse`--require-comment`to enforce
+human-written
+justifications:\n\n```bash\n### 4.**Mandatory Justification
+Option**(4)\n\nUse`--require-comment`to
+enforce human-written justifications:\n\n```bash\n\nUse`--require-comment`to enforce
+human-written
 justifications:\n\n```bash\npython scripts/update_type_ignore.py --apply
---require-comment\n```text\n```text\n```text\n```text\n```text\n```text\n```text\n```text\nThis adds
-comment blocks alongside suppressions:\n\n```python\n\n```python\nThis adds comment blocks alongside
+--require-comment\n```text\n```text\n```text\n```text\n```text\n```text\n```text\n```text\nThis
+adds
+comment blocks alongside suppressions:\n\n```python\n\n```python\nThis adds comment blocks
+alongside
 suppressions:\n\n```python\n\n```python\nThis adds comment blocks alongside
 suppressions:\n\n```python\n\n```python\nThis adds comment blocks alongside
-suppressions:\n\n```python\n\n```python\nx = some_func() # type: ignore[return-value] # BUG-1234:
+suppressions:\n\n```python\n\n```python\nx = some_func() # type: ignore[return-value] #
+BUG-1234:
 Temporary until
 refactor\n```text\n```text\n```text\n```text\n```text\n```text\n```text\n```text\n###
-5.**Review-Ready Output Formats**\n#### JSON Format (Default)\n```bash\n\n#### JSON Format (Default)
+5.**Review-Ready Output Formats**\n#### JSON Format (Default)\n```bash\n\n#### JSON Format
+(Default)
 (2)\n\n```bash\n### 5. **Review-Ready Output Formats**(2)\n\n#### JSON Format (Default)
 (3)\n```bash\n\n#### JSON Format (Default) (4)\n\n```bash\n### 5.**Review-Ready Output
 Formats**(3)\n#### JSON Format (Default) (5)\n```bash\n\n#### JSON Format (Default)
 (6)\n\n```bash\n### 5.**Review-Ready Output Formats**(4)\n\n#### JSON Format (Default)
-(7)\n```bash\n\n#### JSON Format (Default) (8)\n\n```bash\npython scripts/update_type_ignore.py
+(7)\n```bash\n\n#### JSON Format (Default) (8)\n\n```bash\npython
+scripts/update_type_ignore.py
 --output-format json\n# Generates: type_ignore_review.json\n```text\n\n## Generates:
-type_ignore_review.json\n\n```text\n## Generates: type_ignore_review.json (2)\n```text\n```text\n##
-Generates: type_ignore_review.json (3)\n```text\n```text\n```text\n```text\nOrganized by file/line
+type_ignore_review.json\n\n```text\n## Generates: type_ignore_review.json
+(2)\n```text\n```text\n##
+Generates: type_ignore_review.json (3)\n```text\n```text\n```text\n```text\nOrganized by
+file/line
 with full context for systematic review.\n#### Patch Format\n```bash\n\n#### Patch Format
-(2)\n\n```bash\nOrganized by file/line with full context for systematic review.\n\n#### Patch Format
-(3)\n```bash\n\n#### Patch Format (4)\n\n```bash\nOrganized by file/line with full context for
-systematic review.\n#### Patch Format (5)\n```bash\n\n#### Patch Format (6)\n\n```bash\nOrganized by
-file/line with full context for systematic review.\n\n#### Patch Format (7)\n```bash\n\n#### Patch
-Format (8)\n\n```bash\npython scripts/update_type_ignore.py --output-format patch\n# Generates:
+(2)\n\n```bash\nOrganized by file/line with full context for systematic review.\n\n####
+Patch Format
+(3)\n```bash\n\n#### Patch Format (4)\n\n```bash\nOrganized by file/line with full context
+for
+systematic review.\n#### Patch Format (5)\n```bash\n\n#### Patch Format
+(6)\n\n```bash\nOrganized by
+file/line with full context for systematic review.\n\n#### Patch Format
+(7)\n```bash\n\n#### Patch
+Format (8)\n\n```bash\npython scripts/update_type_ignore.py --output-format patch\n#
+Generates:
 type_ignore_review.patch\n```text\n\n## Generates: type_ignore_review.patch\n\n```text\n##
-Generates: type_ignore_review.patch (2)\n```text\n```text\n## Generates: type_ignore_review.patch
-(3)\n```text\n```text\n```text\n```text\nUnified diff format that can be reviewed and applied
+Generates: type_ignore_review.patch (2)\n```text\n```text\n## Generates:
+type_ignore_review.patch
+(3)\n```text\n```text\n```text\n```text\nUnified diff format that can be reviewed and
+applied
 manually:\n\n```bash\n\n```bash\nUnified diff format that can be reviewed and applied
 manually:\n\n```bash\n\n```bash\nUnified diff format that can be reviewed and applied
-manually:\n\n```bash\n\n```bash\n\n```bash\n\n```bash\n# After review and approval:\npatch -p0 <
-type_ignore_review.patch\n```text\n\npatch -p0 < type_ignore_review.patch\n```text\npatch -p0 <
+manually:\n\n```bash\n\n```bash\n\n```bash\n\n```bash\n# After review and approval:\npatch
+-p0 <
+type_ignore_review.patch\n```text\n\npatch -p0 < type_ignore_review.patch\n```text\npatch
+-p0 <
 type_ignore_review.patch\n```text\n```text\npatch -p0 <
-type_ignore_review.patch\n```text\n```text\n```text\n```text\n## Usage Workflows\n### Workflow 1:
+type_ignore_review.patch\n```text\n```text\n```text\n```text\n## Usage Workflows\n###
+Workflow 1:
 Review Before Applying (Recommended)\n```bash\n\n### Workflow 1: Review Before Applying
-(Recommended) (2)\n\n```bash\n## Usage Workflows (2)\n\n### Workflow 1: Review Before Applying
+(Recommended) (2)\n\n```bash\n## Usage Workflows (2)\n\n### Workflow 1: Review Before
+Applying
 (Recommended) (3)\n```bash\n\n### Workflow 1: Review Before Applying (Recommended)
-(4)\n\n```bash\n## Usage Workflows (3)\n### Workflow 1: Review Before Applying (Recommended)
-(5)\n```bash\n\n### Workflow 1: Review Before Applying (Recommended) (6)\n\n```bash\n### Workflow 1:
-Review Before Applying (Recommended) (7)\n```bash\n\n```bash\n# Generate review file without
+(4)\n\n```bash\n## Usage Workflows (3)\n### Workflow 1: Review Before Applying
+(Recommended)
+(5)\n```bash\n\n### Workflow 1: Review Before Applying (Recommended) (6)\n\n```bash\n###
+Workflow 1:
+Review Before Applying (Recommended) (7)\n```bash\n\n```bash\n# Generate review file
+without
 modifying anything\npython scripts/update_type_ignore.py\n# Open and review:
-type_ignore_review.json\n# After approval, apply with:\npython scripts/update_type_ignore.py
+type_ignore_review.json\n# After approval, apply with:\npython
+scripts/update_type_ignore.py
 --apply\n# Or with required comments:\npython scripts/update_type_ignore.py --apply
 --require-comment\n```text\n\npython scripts/update_type_ignore.py\n\n## Open and review:
-type_ignore_review.json\n\n## After approval, apply with:\n\npython scripts/update_type_ignore.py
+type_ignore_review.json\n\n## After approval, apply with:\n\npython
+scripts/update_type_ignore.py
 --apply\n\n## Or with required comments:\n\npython scripts/update_type_ignore.py --apply
 --require-comment\n```text\npython scripts/update_type_ignore.py\n\n## Open and review:
 type_ignore_review.json (2)\n\n## After approval, apply with: (2)\n\npython
@@ -188,182 +316,302 @@ scripts/update_type_ignore.py --apply --require-comment\n```text\n\n## Open and 
 type_ignore_review.json (3)\n\n## After approval, apply with: (3)\n\npython
 scripts/update_type_ignore.py --apply\n\n## Or with required comments: (3)\n\npython
 scripts/update_type_ignore.py --apply --require-comment\n```text\npython
-scripts/update_type_ignore.py\n## Open and review: type_ignore_review.json (4)\n## After approval,
-apply with: (4)\npython scripts/update_type_ignore.py --apply\n## Or with required comments:
-(4)\npython scripts/update_type_ignore.py --apply --require-comment\n```text\n\n## Open and review:
+scripts/update_type_ignore.py\n## Open and review: type_ignore_review.json (4)\n## After
+approval,
+apply with: (4)\npython scripts/update_type_ignore.py --apply\n## Or with required
+comments:
+(4)\npython scripts/update_type_ignore.py --apply --require-comment\n```text\n\n## Open
+and review:
 type_ignore_review.json (5)\n\n## After approval, apply with: (5)\n\npython
 scripts/update_type_ignore.py --apply\n\n## Or with required comments: (5)\n\npython
 scripts/update_type_ignore.py --apply --require-comment\n```text\n## Open and review:
 type_ignore_review.json (6)\n\n## After approval, apply with: (6)\n\npython
 scripts/update_type_ignore.py --apply\n\n## Or with required comments: (6)\n\npython
-scripts/update_type_ignore.py --apply --require-comment\n```text\n\n## After approval, apply with:
-(7)\n\npython scripts/update_type_ignore.py --apply\n\n## Or with required comments: (7)\n\npython
-scripts/update_type_ignore.py --apply --require-comment\n```text\n### Workflow 2: Strict Mode (Only
-Whitelisted Codes)\n```bash\n\n```bash\n### Workflow 2: Strict Mode (Only Whitelisted Codes)
+scripts/update_type_ignore.py --apply --require-comment\n```text\n\n## After approval,
+apply with:
+(7)\n\npython scripts/update_type_ignore.py --apply\n\n## Or with required comments:
+(7)\n\npython
+scripts/update_type_ignore.py --apply --require-comment\n```text\n### Workflow 2: Strict
+Mode (Only
+Whitelisted Codes)\n```bash\n\n```bash\n### Workflow 2: Strict Mode (Only Whitelisted
+Codes)
 (2)\n```bash\n\n```bash\n### Workflow 2: Strict Mode (Only Whitelisted Codes)
 (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# Only suppress known-safe codes (safer for
 CI)\npython scripts/update_type_ignore.py --require-allowlist\n# Force human review and
 approval:\npython scripts/update_type_ignore.py --require-allowlist --apply
---require-comment\n```text\n\npython scripts/update_type_ignore.py --require-allowlist\n\n## Force
-human review and approval:\n\npython scripts/update_type_ignore.py --require-allowlist --apply
---require-comment\n```text\npython scripts/update_type_ignore.py --require-allowlist\n\n## Force
-human review and approval: (2)\n\npython scripts/update_type_ignore.py --require-allowlist --apply
+--require-comment\n```text\n\npython scripts/update_type_ignore.py
+--require-allowlist\n\n## Force
+human review and approval:\n\npython scripts/update_type_ignore.py --require-allowlist
+--apply
+--require-comment\n```text\npython scripts/update_type_ignore.py --require-allowlist\n\n##
+Force
+human review and approval: (2)\n\npython scripts/update_type_ignore.py --require-allowlist
+--apply
 --require-comment\n```text\n\n## Force human review and approval: (3)\n\npython
-scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\npython
-scripts/update_type_ignore.py --require-allowlist\n## Force human review and approval: (4)\npython
-scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\n\n## Force
-human review and approval: (5)\n\npython scripts/update_type_ignore.py --require-allowlist --apply
+scripts/update_type_ignore.py --require-allowlist --apply
+--require-comment\n```text\npython
+scripts/update_type_ignore.py --require-allowlist\n## Force human review and approval:
+(4)\npython
+scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\n\n##
+Force
+human review and approval: (5)\n\npython scripts/update_type_ignore.py --require-allowlist
+--apply
 --require-comment\n```text\n## Force human review and approval: (6)\n\npython
-scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\n\npython
-scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\n### Workflow
-3: Run MyPy and Review Together\n```bash\n\n```bash\n### Workflow 3: Run MyPy and Review Together
+scripts/update_type_ignore.py --require-allowlist --apply
+--require-comment\n```text\n\npython
+scripts/update_type_ignore.py --require-allowlist --apply --require-comment\n```text\n###
+Workflow
+3: Run MyPy and Review Together\n```bash\n\n```bash\n### Workflow 3: Run MyPy and Review
+Together
 (2)\n```bash\n\n```bash\n### Workflow 3: Run MyPy and Review Together
 (3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# Generate fresh mypy output and build
-suggestions\npython scripts/update_type_ignore.py --run-mypy\n# Review type_ignore_review.json then
+suggestions\npython scripts/update_type_ignore.py --run-mypy\n# Review
+type_ignore_review.json then
 apply if approved\npython scripts/update_type_ignore.py --apply\n```text\n\npython
-scripts/update_type_ignore.py --run-mypy\n\n## Review type_ignore_review.json then apply if
+scripts/update_type_ignore.py --run-mypy\n\n## Review type_ignore_review.json then apply
+if
 approved\n\npython scripts/update_type_ignore.py --apply\n```text\npython
-scripts/update_type_ignore.py --run-mypy\n\n## Review type_ignore_review.json then apply if approved
-(2)\n\npython scripts/update_type_ignore.py --apply\n```text\n\n## Review type_ignore_review.json
-then apply if approved (3)\n\npython scripts/update_type_ignore.py --apply\n```text\npython
-scripts/update_type_ignore.py --run-mypy\n## Review type_ignore_review.json then apply if approved
-(4)\npython scripts/update_type_ignore.py --apply\n```text\n\n## Review type_ignore_review.json then
+scripts/update_type_ignore.py --run-mypy\n\n## Review type_ignore_review.json then apply
+if approved
+(2)\n\npython scripts/update_type_ignore.py --apply\n```text\n\n## Review
+type_ignore_review.json
+then apply if approved (3)\n\npython scripts/update_type_ignore.py
+--apply\n```text\npython
+scripts/update_type_ignore.py --run-mypy\n## Review type_ignore_review.json then apply if
+approved
+(4)\npython scripts/update_type_ignore.py --apply\n```text\n\n## Review
+type_ignore_review.json then
 apply if approved (5)\n\npython scripts/update_type_ignore.py --apply\n```text\n## Review
 type_ignore_review.json then apply if approved (6)\n\npython scripts/update_type_ignore.py
---apply\n```text\n\npython scripts/update_type_ignore.py --apply\n```text\n## Preventing Real
-Bugs\n### Example: cert_manager.py:92\n- *Before**(blind suppression):\n\n```python\n\n### Example:
-cert_manager.py:92 (2)\n\n-*Before**(blind suppression):\n\n```python\n## Preventing Real Bugs
-(2)\n\n### Example: cert_manager.py:92 (3)\n\n-*Before**(blind suppression):\n\n```python\n\n###
-Example: cert_manager.py:92 (4)\n\n-*Before**(blind suppression):\n\n```python\n## Preventing Real
-Bugs (3)\n### Example: cert_manager.py:92 (5)\n-*Before**(blind suppression):\n\n```python\n\n###
-Example: cert_manager.py:92 (6)\n\n-*Before**(blind suppression):\n\n```python\n## Preventing Real
+--apply\n```text\n\npython scripts/update_type_ignore.py --apply\n```text\n## Preventing
+Real
+Bugs\n### Example: cert_manager.py:92\n- *Before**(blind suppression):\n\n```python\n\n###
+Example:
+cert_manager.py:92 (2)\n\n-*Before**(blind suppression):\n\n```python\n## Preventing Real
+Bugs
+(2)\n\n### Example: cert_manager.py:92 (3)\n\n-*Before**(blind
+suppression):\n\n```python\n\n###
+Example: cert_manager.py:92 (4)\n\n-*Before**(blind suppression):\n\n```python\n##
+Preventing Real
+Bugs (3)\n### Example: cert_manager.py:92 (5)\n-*Before**(blind
+suppression):\n\n```python\n\n###
+Example: cert_manager.py:92 (6)\n\n-*Before**(blind suppression):\n\n```python\n##
+Preventing Real
 Bugs (4)\n\n### Example: cert_manager.py:92 (7)\n\n-*Before**(blind
 suppression):\n\n```python\n\n### Example: cert_manager.py:92 (8)\n\n-*Before**(blind
-suppression):\n\n```python\ndef get_expiry_time() -> datetime: # Wrong annotation!\n expires_in =
-get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns timedelta, not
+suppression):\n\n```python\ndef get_expiry_time() -> datetime: # Wrong annotation!\n
+expires_in =
+get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns
+timedelta, not
 datetime!\n # type: ignore[return-value] ← Hides the real bug\n```text\n\n expires_in =
-get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns timedelta, not
+get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns
+timedelta, not
 datetime!\n # type: ignore[return-value] ← Hides the real bug\n```text\n expires_in =
-get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns timedelta, not
+get_ttl_seconds() # Returns int\n return timedelta(seconds=expires_in) # Returns
+timedelta, not
 datetime!\n # type: ignore[return-value] ← Hides the real bug\n```text\n\n return
-timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type: ignore[return-value] ←
+timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type:
+ignore[return-value] ←
 Hides the real bug\n```text\n expires_in = get_ttl_seconds() # Returns int\n return
-timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type: ignore[return-value] ←
-Hides the real bug\n```text\n\n return timedelta(seconds=expires_in) # Returns timedelta, not
+timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type:
+ignore[return-value] ←
+Hides the real bug\n```text\n\n return timedelta(seconds=expires_in) # Returns timedelta,
+not
 datetime!\n # type: ignore[return-value] ← Hides the real bug\n```text\n return
-timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type: ignore[return-value] ←
+timedelta(seconds=expires_in) # Returns timedelta, not datetime!\n # type:
+ignore[return-value] ←
 Hides the real bug\n```text\n # type: ignore[return-value] ← Hides the real
 bug\n```text\n\n-*After**(safe with our script):\n```text\n\n-*After**(safe with our
 script):\n```text\n\n-*After**(safe with our script):\n```text\n\n-*After**(safe with our
 script):\n```text\n\n-*After**(safe with our script):\n```text\n\n-*After**(safe with our
 script):\n```text\n\n-*After**(safe with our script):\n```text\n\n-*After**(safe with our
-script):\n```text\nReview file shows:\n\n- File: cert_manager.py (CRITICAL FILE - blocked from
-auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n- Reason: Must
-fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py (CRITICAL FILE -
-blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n-
-Reason: Must fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py
-(CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always
-requires fix)\n\n- Reason: Must fix the actual type mismatch, not suppress it\n```text\n\n- File:
-cert_manager.py (CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value (CRITICAL
+script):\n```text\nReview file shows:\n\n- File: cert_manager.py (CRITICAL FILE - blocked
+from
+auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n-
+Reason: Must
+fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py
+(CRITICAL FILE -
+blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires
+fix)\n\n-
+Reason: Must fix the actual type mismatch, not suppress it\n```text\n\n- File:
+cert_manager.py
+(CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR -
+always
+requires fix)\n\n- Reason: Must fix the actual type mismatch, not suppress
+it\n```text\n\n- File:
+cert_manager.py (CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value
+(CRITICAL
 ERROR - always requires fix)\n\n- Reason: Must fix the actual type mismatch, not suppress
-it\n```text\n\n- File: cert_manager.py (CRITICAL FILE - blocked from auto-suppression)\n\n- Error:
-return-value (CRITICAL ERROR - always requires fix)\n\n- Reason: Must fix the actual type mismatch,
+it\n```text\n\n- File: cert_manager.py (CRITICAL FILE - blocked from
+auto-suppression)\n\n- Error:
+return-value (CRITICAL ERROR - always requires fix)\n\n- Reason: Must fix the actual type
+mismatch,
 not suppress it\n```text\n\n- File: cert_manager.py (CRITICAL FILE - blocked from
-auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n- Reason: Must
-fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py (CRITICAL FILE -
-blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n-
-Reason: Must fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py
-(CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always
-requires fix)\n\n- Reason: Must fix the actual type mismatch, not suppress it\n```text\nThe
-developer MUST fix the real bug:\n\n```python\n\n```python\nThe developer MUST fix the real
-bug:\n\n```python\n\n```python\nThe developer MUST fix the real bug:\n\n```python\n\n```python\nThe
-developer MUST fix the real bug:\n\n```python\n\n```python\ndef get_expiry_time() -> timedelta: #
-Correct annotation\n expires_in = get_ttl_seconds()\n return timedelta(seconds=expires_in) # Now
+auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires fix)\n\n-
+Reason: Must
+fix the actual type mismatch, not suppress it\n```text\n\n- File: cert_manager.py
+(CRITICAL FILE -
+blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR - always requires
+fix)\n\n-
+Reason: Must fix the actual type mismatch, not suppress it\n```text\n\n- File:
+cert_manager.py
+(CRITICAL FILE - blocked from auto-suppression)\n\n- Error: return-value (CRITICAL ERROR -
+always
+requires fix)\n\n- Reason: Must fix the actual type mismatch, not suppress
+it\n```text\nThe
+developer MUST fix the real bug:\n\n```python\n\n```python\nThe developer MUST fix the
+real
+bug:\n\n```python\n\n```python\nThe developer MUST fix the real
+bug:\n\n```python\n\n```python\nThe
+developer MUST fix the real bug:\n\n```python\n\n```python\ndef get_expiry_time() ->
+timedelta: #
+Correct annotation\n expires_in = get_ttl_seconds()\n return timedelta(seconds=expires_in)
+
+## Now
+
 correctly returns timedelta\n```text\n\n expires_in = get_ttl_seconds()\n return
 timedelta(seconds=expires_in) # Now correctly returns timedelta\n```text\n expires_in =
 get_ttl_seconds()\n return timedelta(seconds=expires_in) # Now correctly returns
 timedelta\n```text\n\n return timedelta(seconds=expires_in) # Now correctly returns
-timedelta\n```text\n expires_in = get_ttl_seconds()\n return timedelta(seconds=expires_in) # Now
-correctly returns timedelta\n```text\n\n return timedelta(seconds=expires_in) # Now correctly
+timedelta\n```text\n expires_in = get_ttl_seconds()\n return timedelta(seconds=expires_in)
+
+## Now
+
+correctly returns timedelta\n```text\n\n return timedelta(seconds=expires_in) # Now
+correctly
 returns timedelta\n```text\n return timedelta(seconds=expires_in) # Now correctly returns
 timedelta\n```text\n```text\n## CI/CD Integration\n### Safe Default for Automated
-Checks\n```bash\n\n### Safe Default for Automated Checks (2)\n\n```bash\n## CI/CD Integration
-(2)\n\n### Safe Default for Automated Checks (3)\n```bash\n\n### Safe Default for Automated Checks
-(4)\n\n```bash\n## CI/CD Integration (3)\n### Safe Default for Automated Checks (5)\n```bash\n\n###
+Checks\n```bash\n\n### Safe Default for Automated Checks (2)\n\n```bash\n## CI/CD
+Integration
+(2)\n\n### Safe Default for Automated Checks (3)\n```bash\n\n### Safe Default for
+Automated Checks
+(4)\n\n```bash\n## CI/CD Integration (3)\n### Safe Default for Automated Checks
+(5)\n```bash\n\n###
 Safe Default for Automated Checks (6)\n\n```bash\n### Safe Default for Automated Checks
 (7)\n```bash\n\n```bash\n# In CI: Never auto-suppress anything without review\npython
-scripts/update_type_ignore.py --require-allowlist\n# Exit code indicates issues that need manual
-review\n```text\n\npython scripts/update_type_ignore.py --require-allowlist\n\n## Exit code
+scripts/update_type_ignore.py --require-allowlist\n# Exit code indicates issues that need
+manual
+review\n```text\n\npython scripts/update_type_ignore.py --require-allowlist\n\n## Exit
+code
 indicates issues that need manual review\n\n```text\npython scripts/update_type_ignore.py
---require-allowlist\n\n## Exit code indicates issues that need manual review (2)\n```text\n\n## Exit
-code indicates issues that need manual review (3)\n\n```text\npython scripts/update_type_ignore.py
---require-allowlist\n## Exit code indicates issues that need manual review (4)\n```text\n\n## Exit
-code indicates issues that need manual review (5)\n\n```text\n## Exit code indicates issues that
-need manual review (6)\n```text\n```text\n### Prevent Regressions\n```bash\n\n```bash\n### Prevent
+--require-allowlist\n\n## Exit code indicates issues that need manual review
+(2)\n```text\n\n## Exit
+code indicates issues that need manual review (3)\n\n```text\npython
+scripts/update_type_ignore.py
+--require-allowlist\n## Exit code indicates issues that need manual review
+(4)\n```text\n\n## Exit
+code indicates issues that need manual review (5)\n\n```text\n## Exit code indicates
+issues that
+need manual review (6)\n```text\n```text\n### Prevent Regressions\n```bash\n\n```bash\n###
+Prevent
 Regressions (2)\n```bash\n\n```bash\n### Prevent Regressions
-(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# In pull requests: flag any new suppressions\npython
-scripts/update_type_ignore.py --require-allowlist --require-comment\n# Requires human justification
+(3)\n```bash\n\n```bash\n\n```bash\n\n```bash\n# In pull requests: flag any new
+suppressions\npython
+scripts/update_type_ignore.py --require-allowlist --require-comment\n# Requires human
+justification
 for each suppression\n```text\n\npython scripts/update_type_ignore.py --require-allowlist
---require-comment\n\n## Requires human justification for each suppression\n\n```text\npython
+--require-comment\n\n## Requires human justification for each
+suppression\n\n```text\npython
 scripts/update_type_ignore.py --require-allowlist --require-comment\n\n## Requires human
-justification for each suppression (2)\n```text\n\n## Requires human justification for each
+justification for each suppression (2)\n```text\n\n## Requires human justification for
+each
 suppression (3)\n\n```text\npython scripts/update_type_ignore.py --require-allowlist
---require-comment\n## Requires human justification for each suppression (4)\n```text\n\n## Requires
-human justification for each suppression (5)\n\n```text\n## Requires human justification for each
+--require-comment\n## Requires human justification for each suppression (4)\n```text\n\n##
+Requires
+human justification for each suppression (5)\n\n```text\n## Requires human justification
+for each
 suppression (6)\n```text\n```text\n## Configuration\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits\n1.**Transparency**: Every suppression is documented with
-context and justification\n\n1.**Safety**: Critical files and error codes are never silently
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits\n1.**Transparency**: Every suppression is
+documented with
+context and justification\n\n1.**Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (2)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (2)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (2)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (2)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (3)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (3)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (3)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (3)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (4)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (4)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (4)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (4)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
 errors aren't hidden by blanket suppressions\n\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (5)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (5)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (5)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (6)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (5)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (6)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (6)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to customize
-behavior for your project.\n## Benefits (7)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (6)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py`to
+customize
+behavior for your project.\n## Benefits (7)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
-errors aren't hidden by blanket suppressions\n## Configuration (7)\nEdit the CRITICAL_ERROR_CODES,
-CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py` to customize
-behavior for your project.\n## Benefits (8)\n1. **Transparency**: Every suppression is documented
-with context and justification\n\n1. **Safety**: Critical files and error codes are never silently
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
+errors aren't hidden by blanket suppressions\n## Configuration (7)\nEdit the
+CRITICAL_ERROR_CODES,
+CRITICAL_FILE_PATTERNS, and ALLOWLIST_CODES sets at the top of`update_type_ignore.py` to
+customize
+behavior for your project.\n## Benefits (8)\n1. **Transparency**: Every suppression is
+documented
+with context and justification\n\n1. **Safety**: Critical files and error codes are never
+silently
 suppressed\n\n1. **Auditability**: Review files provide a complete audit trail\n\n1.
 **Flexibility**: Support for whitelist, blocklist, and override options\n\n1. **Developer
-Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**: Real type
+Experience**: Clear guidance on which errors to fix vs suppress\n\n1. **No Silent Bugs**:
+Real type
 errors aren't hidden by blanket suppressions\n\n

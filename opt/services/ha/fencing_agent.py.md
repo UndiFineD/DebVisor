@@ -25,7 +25,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess module.
+**Message:** Consider possible security implications associated with the subprocess
+module.
 
 ### Context
 
@@ -92,7 +93,7 @@ import hashlib
 ```python
 
         try:
-            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/](https://{host}/redfish/v1/Systems/)1)")
+            url=f"[https://{host}/redfish/v1/Systems/1"]([https://{host}/redfish/v1/Systems/1]([https://{host}/redfish/v1/Systems/]([https://{host}/redfish/v1/Systems](https://{host}/redfish/v1/Systems)/)1)")
             response=requests.get(
                 url,
                 _auth=(params.get("user", "admin"), params.get("password", "")),

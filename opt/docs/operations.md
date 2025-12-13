@@ -1,311 +1,557 @@
 # Operations & Safeguards\n\n## Resilience\n\n- ZFS weekly scrub (systemd timer) when ZFS
 
-present\n\n- Ceph OSD scrubs staggered (future enhancement)\n\n- Snapshots: ZFS datasets (vm,
-docker); CephFS backup policy (Implemented)\n\n## Networking\n\n- Bridge `br0`preconfigured on
-primary NIC\n\n- Firewall: nftables with default-deny inbound; SSH allowed by default, other
-services enabled via explicit rules in`debvisor.nft`/`debvisor-local.nft`(including RPC on`rpc_port
-= 9443`)\n\n- Calico pod subnet: 192.168.0.0/16 (adjustable)\n\n### Hostname Registration & DNS\n\n-
+present\n\n- Ceph OSD scrubs staggered (future enhancement)\n\n- Snapshots: ZFS datasets
+(vm,
+docker); CephFS backup policy (Implemented)\n\n## Networking\n\n- Bridge
+`br0`preconfigured on
+primary NIC\n\n- Firewall: nftables with default-deny inbound; SSH allowed by default,
+other
+services enabled via explicit rules in`debvisor.nft`/`debvisor-local.nft`(including RPC
+on`rpc_port
+= 9443`)\n\n- Calico pod subnet: 192.168.0.0/16 (adjustable)\n\n### Hostname Registration
+& DNS\n\n-
 `hostname-register.service`runs once after`network-online.target`and
-calls`/usr/local/bin/hostname-register.sh`\n\n- The script writes the node's primary IP and FQDN
-into a per-host file under `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`\n\n- Cluster-aware behavior
+calls`/usr/local/bin/hostname-register.sh`\n\n- The script writes the node's primary IP
+and FQDN
+into a per-host file under `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`\n\n- Cluster-aware
+behavior
 (when etcd is reachable and `/debvisor/self/node_id`is set):\n\n-
-If`/debvisor/nodes//info/fqdn`exists and is non-empty, that FQDN overrides the local one for DNS
-registration\n\n- This allows centrally-assigned names in multi-node clusters while still working if
+If`/debvisor/nodes//info/fqdn`exists and is non-empty, that FQDN overrides the local one
+for DNS
+registration\n\n- This allows centrally-assigned names in multi-node clusters while still
+working if
 etcd is down or absent\n\n- The Ansible`node-register`role is a non-operational stub;
-its\n\n`dns-register.sh.j2`script template is kept as a**reference-only\n example**of how a
-TSIG-based`nsupdate`flow might look. It is not\n deployed or executed in normal DebVisor installs,
-to avoid\n conflicting with the built-in hostname registration and TSIG\n rotation tooling.\n\n###
+its\n\n`dns-register.sh.j2`script template is kept as a**reference-only\n example**of how
+a
+TSIG-based`nsupdate`flow might look. It is not\n deployed or executed in normal DebVisor
+installs,
+to avoid\n conflicting with the built-in hostname registration and TSIG\n rotation
+tooling.\n\n###
 Helper Scripts and Control Points\n\n- TSIG key generation is performed on-node
 by\n\n`/usr/local/bin/tsig-keygen.sh`, which creates Bind9 include files\n (for example
 `/etc/bind/tsig-debvisor.conf`) and a client key under\n `/etc/debvisor/`with strict
-permissions.\n\n- TSIG rotation is coordinated by`tsig-rotate.service`and\n\n`tsig-rotate.timer`,
-which invoke the helper\n `/usr/local/bin/run-tsig-rotation.sh`. That script delegates to the\n
-Ansible playbook `ansible/rotate-tsig-ha.yml`when present, and logs\n a clear message and exits
-cleanly when no playbook or inventory is\n available.\n\n- Node hostname registration is handled
-by\n\n`/usr/local/bin/hostname-register.sh`(via\n`hostname-register.service`), which writes per-host
-entries under\n `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`.\n\n- VM DNS registration on lifecycle
+permissions.\n\n- TSIG rotation is coordinated
+by`tsig-rotate.service`and\n\n`tsig-rotate.timer`,
+which invoke the helper\n `/usr/local/bin/run-tsig-rotation.sh`. That script delegates to
+the\n
+Ansible playbook `ansible/rotate-tsig-ha.yml`when present, and logs\n a clear message and
+exits
+cleanly when no playbook or inventory is\n available.\n\n- Node hostname registration is
+handled
+by\n\n`/usr/local/bin/hostname-register.sh`(via\n`hostname-register.service`), which
+writes per-host
+entries under\n `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`.\n\n- VM DNS registration on
+lifecycle
 events is driven by the libvirt\n\n hook `/etc/libvirt/hooks/qemu`and the
-helper\n`/usr/local/sbin/debvisor-vm-register.sh`(installed by the\n`vm-register`Ansible role),
-which both rely on on-node TSIG\n configuration rather than embedding any secrets in Ansible.\n\n-
-The`node-register`,`mfa`, and`rpc-service`Ansible roles are\n\n deliberately kept as non-operational
-stubs so that enabling them is\n safe and cannot partially configure critical services; operators\n
-should instead use the documented playbooks and systemd units as the\n authoritative control
-points.\n\n### DNS update clients\n\nDebVisor has a few different entrypoints for updating DNS
-records;\nonly some of them are intended for day-to-day use:\n\n- **Hostnames (nodes)**:\n\n- The
-canonical path is`/usr/local/bin/hostname-register.sh`, run\n\n via `hostname-register.service`. It
-writes per-host entries under\n `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`as needed.\n\n- **VM
+helper\n`/usr/local/sbin/debvisor-vm-register.sh`(installed by the\n`vm-register`Ansible
+role),
+which both rely on on-node TSIG\n configuration rather than embedding any secrets in
+Ansible.\n\n-
+The`node-register`,`mfa`, and`rpc-service`Ansible roles are\n\n deliberately kept as
+non-operational
+stubs so that enabling them is\n safe and cannot partially configure critical services;
+operators\n
+should instead use the documented playbooks and systemd units as the\n authoritative
+control
+points.\n\n### DNS update clients\n\nDebVisor has a few different entrypoints for updating
+DNS
+records;\nonly some of them are intended for day-to-day use:\n\n- **Hostnames
+(nodes)**:\n\n- The
+canonical path is`/usr/local/bin/hostname-register.sh`, run\n\n via
+`hostname-register.service`. It
+writes per-host entries under\n `/etc/dnsmasq.d/hosts/`and reloads`dnsmasq`as needed.\n\n-
+**VM
 lifecycle updates**:\n\n- The preferred flow is the libvirt`qemu`hook
-calling\n\n`/usr/local/sbin/debvisor-vm-register.sh`(when installed by the\n`vm-register`role). That
-helper is responsible for performing any\n TSIG-authenticated updates using the on-node TSIG key
+calling\n\n`/usr/local/sbin/debvisor-vm-register.sh`(when installed by
+the\n`vm-register`role). That
+helper is responsible for performing any\n TSIG-authenticated updates using the on-node
+TSIG key
 material and\n logs its actions for auditing.\n\n- **Low-level DNS
-helper**:\n\n-`/usr/local/bin/debvisor-dns-update.sh`is a low-level wrapper\n\n around`nsupdate`that
+helper**:\n\n-`/usr/local/bin/debvisor-dns-update.sh`is a low-level wrapper\n\n
+around`nsupdate`that
 can add/remove A and PTR records for a\n given host/IP. It expects TSIG keys to be present
-in\n`/etc/debvisor/dns.update.key`and is primarily intended for\n advanced automation or tooling
+in\n`/etc/debvisor/dns.update.key`and is primarily intended for\n advanced automation or
+tooling
 that already manages TSIG material.\nMost operators should not
-call`debvisor-dns-update.sh`directly.\nInstead, prefer the hostname and VM registration paths above,
-which\nintegrate cleanly with DebVisor's TSIG rotation and logging.\n\n## Security\n\n- SSH password
-auth disabled (first?boot) unless explicitly retained\n\n- Kubernetes PodSecurity admission (future
-tightening)\n\n### SSH MFA\n\n- DebVisor supports SSH multi-factor authentication using Google\n\n
-Authenticator (`libpam-google-authenticator`).\n\n- The canonical way to enable and enforce MFA is
-via the\n\n`ansible/playbooks/enforce-mfa.yml`playbook, which:\n\n- Installs the PAM module
-(expecting the package to be available from\n\n the DebVisor image or local repositories, not the
+call`debvisor-dns-update.sh`directly.\nInstead, prefer the hostname and VM registration
+paths above,
+which\nintegrate cleanly with DebVisor's TSIG rotation and logging.\n\n## Security\n\n-
+SSH password
+auth disabled (first?boot) unless explicitly retained\n\n- Kubernetes PodSecurity
+admission (future
+tightening)\n\n### SSH MFA\n\n- DebVisor supports SSH multi-factor authentication using
+Google\n\n
+Authenticator (`libpam-google-authenticator`).\n\n- The canonical way to enable and
+enforce MFA is
+via the\n\n`ansible/playbooks/enforce-mfa.yml`playbook, which:\n\n- Installs the PAM
+module
+(expecting the package to be available from\n\n the DebVisor image or local repositories,
+not the
 public internet).\n\n- Configures`/etc/pam.d/sshd`to
 require\n\n`pam_google_authenticator.so`(without`nullok`).\n\n- Ensures
-`ChallengeResponseAuthentication yes`and`UsePAM yes`in\n\n`sshd_config`.\n\n- Installs a small
-enrollment helper script so users can initialize\n\n their TOTP secrets.\n\n- The `mfa`Ansible role
-is a non-operational stub that only ensures the\n\n package is present and then fails with a message
-pointing to\n`enforce-mfa.yml`, to avoid partially configuring MFA by mistake.\n\n### Firewall
-blocklists and whitelists\n\n- DebVisor uses `nftables`as the host firewall. Core rules live
-in\n\n`/etc/nftables.conf`and include DebVisor-specific snippets from\n`/etc/nftables.d/`.\n\n-
-Dynamic IP blocking is managed by the `blocklist`Ansible role, which\n\n parses simple text-based
-blocklists (and optional whitelists) into an\n nftables set.\n\n- Blocklist/whitelist files are
-plain text with one IPv4 address or CIDR\n\n per non-comment line; lines starting with`#`are
+`ChallengeResponseAuthentication yes`and`UsePAM yes`in\n\n`sshd_config`.\n\n- Installs a
+small
+enrollment helper script so users can initialize\n\n their TOTP secrets.\n\n- The
+`mfa`Ansible role
+is a non-operational stub that only ensures the\n\n package is present and then fails with
+a message
+pointing to\n`enforce-mfa.yml`, to avoid partially configuring MFA by mistake.\n\n###
+Firewall
+blocklists and whitelists\n\n- DebVisor uses `nftables`as the host firewall. Core rules
+live
+in\n\n`/etc/nftables.conf`and include DebVisor-specific snippets
+from\n`/etc/nftables.d/`.\n\n-
+Dynamic IP blocking is managed by the `blocklist`Ansible role, which\n\n parses simple
+text-based
+blocklists (and optional whitelists) into an\n nftables set.\n\n- Blocklist/whitelist
+files are
+plain text with one IPv4 address or CIDR\n\n per non-comment line; lines starting
+with`#`are
 ignored.\n\n- The role computes an effective list`blocklist ? whitelist`and\n\n
-renders`/etc/nftables.d/10-blocklist.conf`, defining:\n\n- `table inet debvisor_blocklist`\n\n- `set
-blocked_ips { ? }`with all effective entries\n\n- a`debvisor_blocklist_input`chain that drops`ip
-saddr @blocked_ips`.\n\n- The main `input`chain in your nftables policy should jump to this\n\n
-chain, for example:\n chain input {\n type filter hook input priority 0;\n\n## ... your existing
-rules\n\n jump debvisor_blocklist_input\n }\n\n- Operators can configure source files via inventory
-or`group_vars`,\n\n for example:\n debvisor_blocklist_sources:\n\n- /etc/debvisor/blocklist.txt\n\n
-debvisor_whitelist_sources:\n\n- /etc/debvisor/blocklist-whitelist.txt\n\n- Example templates are
+renders`/etc/nftables.d/10-blocklist.conf`, defining:\n\n- `table inet
+debvisor_blocklist`\n\n- `set
+blocked_ips { ? }`with all effective entries\n\n- a`debvisor_blocklist_input`chain that
+drops`ip
+saddr @blocked_ips`.\n\n- The main `input`chain in your nftables policy should jump to
+this\n\n
+chain, for example:\n chain input {\n type filter hook input priority 0;\n\n## ... your
+existing
+rules\n\n jump debvisor_blocklist_input\n }\n\n- Operators can configure source files via
+inventory
+or`group_vars`,\n\n for example:\n debvisor_blocklist_sources:\n\n-
+/etc/debvisor/blocklist.txt\n\n
+debvisor_whitelist_sources:\n\n- /etc/debvisor/blocklist-whitelist.txt\n\n- Example
+templates are
 provided (not active by default):\n\n- `/etc/debvisor/blocklist-example.txt`\n\n-
-`/etc/debvisor/blocklist-whitelist-example.txt`\n\n## Updates\n\n- DKMS handles ZFS module rebuild
-on kernel upgrades\n\n- Version pinning recommended for Ceph & Kubernetes\n\n## Admin & Service
-Accounts\n\n- Service: `webpanel`(DebVisor web UI),`debvisor-rpc`(RPC daemon),`tsig-rotator`(TSIG
-rotation helper); created on first boot via helper scripts and not intended for interactive
-login\n\n### TSIG key generation & rotation\n\n- On first boot, DebVisor tooling generates TSIG keys
-for DNS updates\n\n (for example,`/etc/bind/tsig-node.conf`and`/etc/bind/tsig-vm.conf`)\n using
-strong random secrets and strict file permissions.\n\n- A dedicated `tsig-rotate.service`(with a
+`/etc/debvisor/blocklist-whitelist-example.txt`\n\n## Updates\n\n- DKMS handles ZFS module
+rebuild
+on kernel upgrades\n\n- Version pinning recommended for Ceph & Kubernetes\n\n## Admin &
+Service
+Accounts\n\n- Service: `webpanel`(DebVisor web UI),`debvisor-rpc`(RPC
+daemon),`tsig-rotator`(TSIG
+rotation helper); created on first boot via helper scripts and not intended for
+interactive
+login\n\n### TSIG key generation & rotation\n\n- On first boot, DebVisor tooling generates
+TSIG keys
+for DNS updates\n\n (for example,`/etc/bind/tsig-node.conf`and`/etc/bind/tsig-vm.conf`)\n
+using
+strong random secrets and strict file permissions.\n\n- A dedicated
+`tsig-rotate.service`(with a
 corresponding timer) is\n\n responsible for periodically rotating these keys and reloading
-Bind9.\n\n- Ansible templates`tsig-node.conf.j2`and`tsig-vm.conf.j2`are kept as\n\n reference-only
-examples of the expected file format; they do not embed\n secrets and are not normally rendered over
+Bind9.\n\n- Ansible templates`tsig-node.conf.j2`and`tsig-vm.conf.j2`are kept as\n\n
+reference-only
+examples of the expected file format; they do not embed\n secrets and are not normally
+rendered over
 the real key files.\n\n## Logging &
-Observability\n\n-`hostname-register.service`uses`SyslogIdentifier=hostname-register`and logs
-successful registrations via`logger`\n\n## UPS Integration (Optional)\n\n- Network UPS Tools (NUT)
-templates are shipped in `/etc/nut/`(`ups.conf`,`upsd.conf`,`upsmon.conf`), mostly commented\n\n-
-Enables and starts `nut-server`and`nut-monitor`if`/etc/nut/ups.conf`is non-empty\n\n- Leaves NUT
-services disabled otherwise\n\n## Monitoring\n\nDebVisor includes a comprehensive monitoring stack
-based on Prometheus and Grafana.\n\n- **Prometheus**: Collects metrics from Node Exporter, Ceph,
+Observability\n\n-`hostname-register.service`uses`SyslogIdentifier=hostname-register`and
+logs
+successful registrations via`logger`\n\n## UPS Integration (Optional)\n\n- Network UPS
+Tools (NUT)
+templates are shipped in `/etc/nut/`(`ups.conf`,`upsd.conf`,`upsmon.conf`), mostly
+commented\n\n-
+Enables and starts `nut-server`and`nut-monitor`if`/etc/nut/ups.conf`is non-empty\n\n-
+Leaves NUT
+services disabled otherwise\n\n## Monitoring\n\nDebVisor includes a comprehensive
+monitoring stack
+based on Prometheus and Grafana.\n\n- **Prometheus**: Collects metrics from Node Exporter,
+Ceph,
 ZFS, and Kubernetes.\n\n- **Grafana**: Visualizes metrics with pre-built dashboards.\n\n-
 **Alerting**: Configured for critical system events (disk failure, high usage).\n\nSee
-[opt/monitoring/README.md](../monitoring/README.md) for details.\n\n## First-boot runbook and
-idempotency\n\n DebVisor uses a single, opinionated first-boot script,\n`debvisor-firstboot.sh`,
+[opt/monitoring/README.md](../monitoring/README.md) for details.\n\n## First-boot runbook
+and
+idempotency\n\n DebVisor uses a single, opinionated first-boot
+script,\n`debvisor-firstboot.sh`,
 invoked by the`debvisor-firstboot.service`\n systemd unit. It is designed to be**mostly
-idempotent**but there are\n some operations that are intentionally one-time and potentially\n
-destructive.\n\n### What first-boot does\n\n At a high level, first-boot is responsible for:\n\n-
+idempotent**but there are\n some operations that are intentionally one-time and
+potentially\n
+destructive.\n\n### What first-boot does\n\n At a high level, first-boot is responsible
+for:\n\n-
 Reading `/etc/debvisor-profile`(set by the installer) to choose the\n\n storage profile
-(CephFS-first, ZFS, or mixed).\n\n- Creating and hardening core users and service accounts.\n\n-
-Bringing up the primary bridge (`br0`) on the main NIC.\n\n- Bootstrapping Ceph MON/MGR/MDS or
-creating ZFS pools/datasets based\n\n on detected extra disks.\n\n- Enabling and wiring Cockpit,
-libvirt, and base firewall rules.\n\n- Optionally seeding Docker/Kubernetes configuration for\n\n
+(CephFS-first, ZFS, or mixed).\n\n- Creating and hardening core users and service
+accounts.\n\n-
+Bringing up the primary bridge (`br0`) on the main NIC.\n\n- Bootstrapping Ceph
+MON/MGR/MDS or
+creating ZFS pools/datasets based\n\n on detected extra disks.\n\n- Enabling and wiring
+Cockpit,
+libvirt, and base firewall rules.\n\n- Optionally seeding Docker/Kubernetes configuration
+for\n\n
 containers-first workloads.\n The systemd unit disables itself once the script completes\n
-successfully.\n\n### When it is safe to re-run\n\n Re-running`debvisor-firstboot.sh`manually (for
-example via:\nsudo /usr/local/sbin/debvisor-firstboot.sh\n is generally safe**only**for operations
+successfully.\n\n### When it is safe to re-run\n\n
+Re-running`debvisor-firstboot.sh`manually (for
+example via:\nsudo /usr/local/sbin/debvisor-firstboot.sh\n is generally safe**only**for
+operations
 that are explicitly\n idempotent, such as:\n\n- Re-creating or verifying system users and
-groups.\n\n- Re-applying systemd enablement for Cockpit, libvirt, and helper\n\n services.\n\n-
-Re-writing configuration files that are generated from the current\n\n profile without destroying
+groups.\n\n- Re-applying systemd enablement for Cockpit, libvirt, and helper\n\n
+services.\n\n-
+Re-writing configuration files that are generated from the current\n\n profile without
+destroying
 underlying data (for example some\n kubeadm or daemon JSON templates).\n Before re-running
-first-boot, ensure that:\n\n- Any storage pools (Ceph or ZFS) are in a healthy state.\n\n- You have
-backups or snapshots for critical datasets.\n\n### Operations that should**not**be repeated
-lightly\n\n Some parts of first-boot are intentionally destructive when they run\n the first time,
-for example:\n\n- Wiping and partitioning "extra" disks for Ceph OSDs or ZFS pools.\n\n- Creating
+first-boot, ensure that:\n\n- Any storage pools (Ceph or ZFS) are in a healthy state.\n\n-
+You have
+backups or snapshots for critical datasets.\n\n### Operations that should**not**be
+repeated
+lightly\n\n Some parts of first-boot are intentionally destructive when they run\n the
+first time,
+for example:\n\n- Wiping and partitioning "extra" disks for Ceph OSDs or ZFS pools.\n\n-
+Creating
 new Ceph OSDs on disks that do not yet belong to a cluster.\n\n- Creating fresh ZFS zpools
-with`ashift`/feature flags.\n\n Re-running those sections on a node that is already in service can\n
-result in**data loss**if the script re-detects disks as\n "available". In particular:\n\n- Do not
-re-run first-boot to "change" storage profiles; instead,\n\n follow the documented Ceph/ZFS
-migration paths.\n\n- Avoid re-running first-boot on a node that already has production\n\n VMs or
-containers unless you understand precisely which blocks of the\n script will execute.\n\n###
-Recommended practice\n\n- Treat first-boot as a**build-time step for a node**, not a general\n\n
-configuration tool.\n\n- For correcting misconfigurations or changing policies on an existing\n\n
-node, prefer:\n\n- Targeted Ansible playbooks.\n\n- Manual adjustment of specific systemd units or
-configs.\n\n- If a first-boot run failed part-way through and left the node in an\n\n unknown state,
-it is often safer to:\n\n- Wipe and reinstall the node with a fresh ISO, or\n\n- Restore from
+with`ashift`/feature flags.\n\n Re-running those sections on a node that is already in
+service can\n
+result in**data loss**if the script re-detects disks as\n "available". In particular:\n\n-
+Do not
+re-run first-boot to "change" storage profiles; instead,\n\n follow the documented
+Ceph/ZFS
+migration paths.\n\n- Avoid re-running first-boot on a node that already has
+production\n\n VMs or
+containers unless you understand precisely which blocks of the\n script will
+execute.\n\n###
+Recommended practice\n\n- Treat first-boot as a**build-time step for a node**, not a
+general\n\n
+configuration tool.\n\n- For correcting misconfigurations or changing policies on an
+existing\n\n
+node, prefer:\n\n- Targeted Ansible playbooks.\n\n- Manual adjustment of specific systemd
+units or
+configs.\n\n- If a first-boot run failed part-way through and left the node in an\n\n
+unknown state,
+it is often safer to:\n\n- Wipe and reinstall the node with a fresh ISO, or\n\n- Restore
+from
 known-good ZFS or Ceph snapshots,\n\n rather than trying to "partially" re-run the entire
 script.\n\n## Build vs runtime changes\n\n DebVisor intentionally separates**image
-build-time**from\n\n- *runtime/day-2**changes.\n\n As a rule of thumb:\n\n- Change things under
-`config/`+`build/`when you need a**different\n\n OS image**(for example to change what is on the
-ISO, how the\n installer behaves, or what packages are present on *every*fresh\n node).\n\n-
-Use`debvisor-firstboot.sh`and Ansible roles/playbooks when you need\n\n to**configure or reconfigure
-running nodes**.\n Some concrete examples from this repository:\n\n- Ceph/ZFS base packages and
-kernel modules:\n\n- Build-time: the presence of Ceph/ZFS packages in the image is\n\n controlled
-via package lists under`config/`and the`build/`\n tooling.\n\n- Runtime: Ceph cluster layout, pools,
-and ZFS datasets are managed\n\n by first-boot logic and Ansible, not by rebuilding the ISO.\n\n-
-DNS HA vs secondary DNS behavior:\n\n- Build-time: shipping the DNS tooling and any default
-resolver\n\n config lives in `config/`.\n\n- Runtime: enabling `dns-ha`vs`dns-secondary`, rotating
-TSIG keys,\n\n and wiring zones to actual upstreams is done via Ansible playbooks\n and roles.\n\n-
-Firewall blocklists and security hardening:\n\n- Build-time: if a package needed for firewall
-management is missing\n\n entirely, add it to the image via `config/`and rebuild.\n\n- Runtime: the
-actual blocklists, allowlists, and host-specific rules\n\n are maintained by Ansible roles such as
+build-time**from\n\n- *runtime/day-2**changes.\n\n As a rule of thumb:\n\n- Change things
+under
+`config/`+`build/`when you need a**different\n\n OS image**(for example to change what is
+on the
+ISO, how the\n installer behaves, or what packages are present on *every*fresh\n
+node).\n\n-
+Use`debvisor-firstboot.sh`and Ansible roles/playbooks when you need\n\n to**configure or
+reconfigure
+running nodes**.\n Some concrete examples from this repository:\n\n- Ceph/ZFS base
+packages and
+kernel modules:\n\n- Build-time: the presence of Ceph/ZFS packages in the image is\n\n
+controlled
+via package lists under`config/`and the`build/`\n tooling.\n\n- Runtime: Ceph cluster
+layout, pools,
+and ZFS datasets are managed\n\n by first-boot logic and Ansible, not by rebuilding the
+ISO.\n\n-
+DNS HA vs secondary DNS behavior:\n\n- Build-time: shipping the DNS tooling and any
+default
+resolver\n\n config lives in `config/`.\n\n- Runtime: enabling `dns-ha`vs`dns-secondary`,
+rotating
+TSIG keys,\n\n and wiring zones to actual upstreams is done via Ansible playbooks\n and
+roles.\n\n-
+Firewall blocklists and security hardening:\n\n- Build-time: if a package needed for
+firewall
+management is missing\n\n entirely, add it to the image via `config/`and rebuild.\n\n-
+Runtime: the
+actual blocklists, allowlists, and host-specific rules\n\n are maintained by Ansible roles
+such as
 the`blocklist`role and by\n security automation (for example the Argo/AWX remediation\n
-workflow).\n\n- Monitoring and dashboards:\n\n- Build-time: whether the base image includes
-Helm,`kubectl`, or\n\n other bootstrap tools is decided in `config/`.\n\n- Runtime: which Prometheus
-rules, Grafana dashboards, and synthetic\n\n jobs are deployed is driven by Kubernetes manifests
-in\n `monitoring/`and any associated automation described in\n`docs/monitoring-automation.md`.\n\n-
-Web panel and RPC service:\n\n- Build-time: placeholder directories and any future packages for\n\n
+workflow).\n\n- Monitoring and dashboards:\n\n- Build-time: whether the base image
+includes
+Helm,`kubectl`, or\n\n other bootstrap tools is decided in `config/`.\n\n- Runtime: which
+Prometheus
+rules, Grafana dashboards, and synthetic\n\n jobs are deployed is driven by Kubernetes
+manifests
+in\n `monitoring/`and any associated automation described
+in\n`docs/monitoring-automation.md`.\n\n-
+Web panel and RPC service:\n\n- Build-time: placeholder directories and any future
+packages for\n\n
 these services will be added via `config/`and`build/`when they\n are ready.\n\n- Runtime:
-enabling/disabling the web panel or RPC daemon, and\n\n configuring their endpoints and access
-controls, will be handled by\n the corresponding Ansible roles once implemented.\n If you are unsure
-whether a change belongs to the image or to\n runtime:\n\n- Prefer Ansible or first-boot if the
+enabling/disabling the web panel or RPC daemon, and\n\n configuring their endpoints and
+access
+controls, will be handled by\n the corresponding Ansible roles once implemented.\n If you
+are unsure
+whether a change belongs to the image or to\n runtime:\n\n- Prefer Ansible or first-boot
+if the
 change is per-cluster or\n\n per-node and might differ between environments.\n\n- Prefer
-updating`config/`+`build/`if the change should apply to\n\n every fresh DebVisor installation in
-exactly the same way.\n\n### Checking the installed profile on a node\n\n During installation, the
-chosen storage/profile is written to\n`/etc/debvisor-profile`on the target system. To see which
-profile a\n node was installed with, run:\ncat /etc/debvisor-profile\n In future revisions, DebVisor
-may also drop a small summary file under\n`/var/log/debvisor/install-profile.log`or a similar path
-so that\n configuration management and monitoring systems can discover the\n profile without shell
-access.\n\n## Monitoring Stack Addon (monitoring-stack role)\n\n- DebVisor can enable a basic
-monitoring stack using Debian packages\n\n for Prometheus, node_exporter, and Grafana.\n\n-
-The`monitoring-stack`Ansible role installs:\n\n-`prometheus`and`prometheus-node-exporter`.\n\n-
-`grafana`(Grafana server).\n\n- A base directory`/opt/debvisor-monitoring`with a README\n\n
-describing the stack and its offline expectations.\n\n- Packages are expected to be provided by the
+updating`config/`+`build/`if the change should apply to\n\n every fresh DebVisor
+installation in
+exactly the same way.\n\n### Checking the installed profile on a node\n\n During
+installation, the
+chosen storage/profile is written to\n`/etc/debvisor-profile`on the target system. To see
+which
+profile a\n node was installed with, run:\ncat /etc/debvisor-profile\n In future
+revisions, DebVisor
+may also drop a small summary file under\n`/var/log/debvisor/install-profile.log`or a
+similar path
+so that\n configuration management and monitoring systems can discover the\n profile
+without shell
+access.\n\n## Monitoring Stack Addon (monitoring-stack role)\n\n- DebVisor can enable a
+basic
+monitoring stack using Debian packages\n\n for Prometheus, node_exporter, and
+Grafana.\n\n-
+The`monitoring-stack`Ansible role
+installs:\n\n-`prometheus`and`prometheus-node-exporter`.\n\n-
+`grafana`(Grafana server).\n\n- A base directory`/opt/debvisor-monitoring`with a
+README\n\n
+describing the stack and its offline expectations.\n\n- Packages are expected to be
+provided by the
 DebVisor image or local\n\n repositories; the role does not attempt to reach the public\n
-internet.\n\n- After applying the role on a node:\n\n- Prometheus and node_exporter run with their
+internet.\n\n- After applying the role on a node:\n\n- Prometheus and node_exporter run
+with their
 default Debian\n\n configurations (Prometheus typically scraping node_exporter
-on\n`localhost:9100`).\n\n- Grafana runs as `grafana-server`and is enabled at boot, but data\n\n
-sources and dashboards must be provisioned separately (for example\n using the existing DebVisor
-Grafana provisioning under\n`monitoring/grafana/provisioning/`).\n\n- Operators can point a central
-Grafana instance at the Prometheus\n\n endpoint on DebVisor nodes or use local Grafana on each
+on\n`localhost:9100`).\n\n- Grafana runs as `grafana-server`and is enabled at boot, but
+data\n\n
+sources and dashboards must be provisioned separately (for example\n using the existing
+DebVisor
+Grafana provisioning under\n`monitoring/grafana/provisioning/`).\n\n- Operators can point
+a central
+Grafana instance at the Prometheus\n\n endpoint on DebVisor nodes or use local Grafana on
+each
 node,\n depending on their aggregation model.\n\n## Containers vs VMs\n\n- DebVisor
-is**containers-first**: the default is to run\n\n applications, microservices, and most workloads as
-Docker\n containers or Kubernetes pods on the hypervisor.\n\n- Use**containers**when:\n\n- You are
+is**containers-first**: the default is to run\n\n applications, microservices, and most
+workloads as
+Docker\n containers or Kubernetes pods on the hypervisor.\n\n- Use**containers**when:\n\n-
+You are
 deploying new or refactored applications.\n\n- The workload is stateless or horizontally
-scalable.\n\n- You already build container images in CI/CD.\n\n- Use**VMs**when:\n\n- You must run a
-legacy OS or appliance that only ships as a VM\n\n image.\n\n- You need strong OS-level isolation or
-custom kernels/modules that\n\n do not fit the host.\n\n- You are integrating with environments that
-still expect VM\n\n formats (qcow2, raw, vmdk) and cloud-init.\n For how these choices map onto the
-storage profiles (`usb-zfs`,\n `ceph`,`zfs`,`mixed`), see the matrix in`profiles.md`and the\n
-examples in`workloads.md`.\n\n### VM conversion helper (`debvisor-vm-convert.sh`)\n\n- DebVisor
-ships a small helper script\n\n `scripts/debvisor-vm-convert.sh`to convert VM disk images between\n
-common formats using`qemu-img`.\n\n- Supported formats today are:\n\n- `qcow2`\n\n- `raw`\n\n-
-`vmdk`\n\n- The script is intentionally conservative: it only runs when\n\n `qemu-img`is installed
-and the source file exists, and it creates\n the destination directory if needed.\n\n- Basic
+scalable.\n\n- You already build container images in CI/CD.\n\n- Use**VMs**when:\n\n- You
+must run a
+legacy OS or appliance that only ships as a VM\n\n image.\n\n- You need strong OS-level
+isolation or
+custom kernels/modules that\n\n do not fit the host.\n\n- You are integrating with
+environments that
+still expect VM\n\n formats (qcow2, raw, vmdk) and cloud-init.\n For how these choices map
+onto the
+storage profiles (`usb-zfs`,\n `ceph`,`zfs`,`mixed`), see the matrix in`profiles.md`and
+the\n
+examples in`workloads.md`.\n\n### VM conversion helper (`debvisor-vm-convert.sh`)\n\n-
+DebVisor
+ships a small helper script\n\n `scripts/debvisor-vm-convert.sh`to convert VM disk images
+between\n
+common formats using`qemu-img`.\n\n- Supported formats today are:\n\n- `qcow2`\n\n-
+`raw`\n\n-
+`vmdk`\n\n- The script is intentionally conservative: it only runs when\n\n `qemu-img`is
+installed
+and the source file exists, and it creates\n the destination directory if needed.\n\n-
+Basic
 usage:\n\n debvisor-vm-convert.sh \\n\n - -from vmdk \\n\n - -to qcow2 \\n\n - -in
-/path/to/source.vmdk \\n\n - -out /var/lib/libvirt/images/source.qcow2\n\n- Typical workflows
+/path/to/source.vmdk \\n\n - -out /var/lib/libvirt/images/source.qcow2\n\n- Typical
+workflows
 include:\n\n- Importing an existing appliance from another hypervisor by\n\n converting
-its`vmdk`or`raw`disk into`qcow2`before creating a\n libvirt domain.\n\n- Exporting a DebVisor VM
-disk into a different format for use in an\n\n external platform.\n\n## VM storage model\n\n-
-DebVisor supports multiple storage backends for VMs; the exact\n\n choices depend on whether you are
+its`vmdk`or`raw`disk into`qcow2`before creating a\n libvirt domain.\n\n- Exporting a
+DebVisor VM
+disk into a different format for use in an\n\n external platform.\n\n## VM storage
+model\n\n-
+DebVisor supports multiple storage backends for VMs; the exact\n\n choices depend on
+whether you are
 running a single-node hypervisor\n or a multi-node cluster.\n\n- Common patterns and
 formats:\n\n-**Local/ZFS-backed storage**:\n\n- VM disks are typically`qcow2`or`raw`files
 under\n\n`/var/lib/libvirt/images`(for example ZFS datasets such as\n`tank/vm`mounted
-at`/srv/vm`with a bind-mount into\n`/var/lib/libvirt/images`).\n\n- `qcow2`is recommended for most
-cases (supports snapshots and\n\n thin provisioning);`raw`is useful for maximum simplicity or\n when
-passing through entire devices.\n\n- **Ceph RBD**:\n\n- When using Ceph profiles, VM root disks live
-in a dedicated RBD\n\n pool (for example`vm-pool`) and are attached as block devices\n to libvirt
-guests.\n\n- The guest sees a block device (for example `vda`), while Ceph\n\n handles redundancy
-and distribution across the cluster.\n\n- **Plain files on ext4/xfs**:\n\n- Suitable for very small
-or lab setups; VM disks are usually\n\n `qcow2`files under`/var/lib/libvirt/images`on a simple\n
+at`/srv/vm`with a bind-mount into\n`/var/lib/libvirt/images`).\n\n- `qcow2`is recommended
+for most
+cases (supports snapshots and\n\n thin provisioning);`raw`is useful for maximum simplicity
+or\n when
+passing through entire devices.\n\n- **Ceph RBD**:\n\n- When using Ceph profiles, VM root
+disks live
+in a dedicated RBD\n\n pool (for example`vm-pool`) and are attached as block devices\n to
+libvirt
+guests.\n\n- The guest sees a block device (for example `vda`), while Ceph\n\n handles
+redundancy
+and distribution across the cluster.\n\n- **Plain files on ext4/xfs**:\n\n- Suitable for
+very small
+or lab setups; VM disks are usually\n\n `qcow2`files under`/var/lib/libvirt/images`on a
+simple\n
 filesystem.\n\n- Recommended defaults:\n\n- For single-node or small lab deployments, use
-ZFS-backed`qcow2`\n\n images under `/var/lib/libvirt/images`so you can snapshot and\n replicate at
-the ZFS layer.\n\n- For clusters, prefer Ceph RBD for VM root disks and use ZFS for\n\n local
-scratch and container storage.\n\n- Backups and replication:\n\n- ZFS datasets holding VM images
-should be snapshotted regularly and\n\n replicated off-node using`zfs send | zfs receive`or
-equivalent\n tooling.\n\n- Ceph-based VMs can rely on Ceph's own redundancy; additional\n\n
-off-cluster backup (for example via RBD export) is encouraged for\n critical workloads.\n\n- When
+ZFS-backed`qcow2`\n\n images under `/var/lib/libvirt/images`so you can snapshot and\n
+replicate at
+the ZFS layer.\n\n- For clusters, prefer Ceph RBD for VM root disks and use ZFS for\n\n
+local
+scratch and container storage.\n\n- Backups and replication:\n\n- ZFS datasets holding VM
+images
+should be snapshotted regularly and\n\n replicated off-node using`zfs send | zfs
+receive`or
+equivalent\n tooling.\n\n- Ceph-based VMs can rely on Ceph's own redundancy;
+additional\n\n
+off-cluster backup (for example via RBD export) is encouraged for\n critical
+workloads.\n\n- When
 mixing containers and VMs:\n\n- Keep container image storage (for
-example`/var/lib/containerd`or\n\n`/var/lib/docker`) on its own ZFS dataset or Ceph pool, separate\n
+example`/var/lib/containerd`or\n\n`/var/lib/docker`) on its own ZFS dataset or Ceph pool,
+separate\n
 from VM disks.\n\n- Apply consistent naming for datasets and pools (for example\n\n
-`zroot/vm`,`zroot/containers`) so that automation and monitoring\n can distinguish them.\n\n###
+`zroot/vm`,`zroot/containers`) so that automation and monitoring\n can distinguish
+them.\n\n###
 Cloud-init workflow for imported images\n\n- Many cloud images (for example Ubuntu Cloud,
-GenericCloud) expect a\n\n `cidata`ISO providing cloud-init`user-data`and`meta-data`.\n\n- DebVisor
-includes `scripts/debvisor-cloudinit-iso.sh`to build such\n\n an ISO so imported images behave like
-they would in a cloud.\n\n- Basic workflow:\n\n 1. Download or otherwise obtain a cloud image (for
-example\n\n`ubuntu-22.04-server-cloudimg-amd64.img`) into your VM storage\n pool.\n\n 1. Create a
+GenericCloud) expect a\n\n `cidata`ISO providing cloud-init`user-data`and`meta-data`.\n\n-
+DebVisor
+includes `scripts/debvisor-cloudinit-iso.sh`to build such\n\n an ISO so imported images
+behave like
+they would in a cloud.\n\n- Basic workflow:\n\n 1. Download or otherwise obtain a cloud
+image (for
+example\n\n`ubuntu-22.04-server-cloudimg-amd64.img`) into your VM storage\n pool.\n\n 1.
+Create a
 cloud-init ISO for the VM:\n\n debvisor-cloudinit-iso.sh \\n\n - -name vm1 \\n\n - -out
-/var/lib/libvirt/images/vm1-seed.iso\n\n 1. Define a libvirt domain that attaches both the cloud
+/var/lib/libvirt/images/vm1-seed.iso\n\n 1. Define a libvirt domain that attaches both the
+cloud
 image (as\n\n the primary disk) and the generated `vm1-seed.iso`as a CD-ROM\n
-with`bus=virtio`or`sata`.\n\n 1. Boot the VM; cloud-init will configure hostname, SSH and other\n\n
-settings from the ISO.\n\n- Operators can pass custom `--user-data`and`--meta-data`files to\n\n the
+with`bus=virtio`or`sata`.\n\n 1. Boot the VM; cloud-init will configure hostname, SSH and
+other\n\n
+settings from the ISO.\n\n- Operators can pass custom `--user-data`and`--meta-data`files
+to\n\n the
 helper when more advanced cloud-init configuration is needed.\n\n## RPC Service Addon
-(Placeholder)\n\n- DebVisor reserves an RPC/sync service addon to support future\n\n remote
+(Placeholder)\n\n- DebVisor reserves an RPC/sync service addon to support future\n\n
+remote
 management and orchestration workflows between DebVisor nodes\n and external tools.\n\n-
 The`rpc-service`Ansible role is currently a non-operational stub:\n\n it
-creates`/opt/debvisor-rpc`and a README only; it does**not**\n deploy or start any RPC daemon
-yet.\n\n- When implemented, the RPC service and its systemd units and\n\n configuration files are
-expected to live under`/opt/debvisor-rpc`\n and to be managed by this role. Until then, enabling the
-addon is a\n no-risk marker for future expansion.\n\n## VNC/noVNC Console (vnc-console role)\n\n-
-DebVisor can expose per-VM consoles via a VNC backend and an HTML5\n\n noVNC frontend, similar to
+creates`/opt/debvisor-rpc`and a README only; it does**not**\n deploy or start any RPC
+daemon
+yet.\n\n- When implemented, the RPC service and its systemd units and\n\n configuration
+files are
+expected to live under`/opt/debvisor-rpc`\n and to be managed by this role. Until then,
+enabling the
+addon is a\n no-risk marker for future expansion.\n\n## VNC/noVNC Console (vnc-console
+role)\n\n-
+DebVisor can expose per-VM consoles via a VNC backend and an HTML5\n\n noVNC frontend,
+similar to
 Proxmox.\n\n- The `vnc-console`Ansible role (Debian 13 + nginx)
-installs:\n\n-`tigervnc-standalone-server`,`novnc`,`websockify`, and`nginx`.\n\n- Helper scripts
-under `/usr/local/sbin/`such as\n\n`debvisor-vnc-target.sh`and`debvisor-vnc-ensure.sh`.\n\n- A
-`debvisor-websockify@.service`systemd template to run\n\n websockify for individual VMs.\n\n- An
-nginx config that serves noVNC from`/usr/share/novnc`and\n\n proxies`/vnc/`WebSocket connections to
-websockify on\n localhost.\n\n- To use the console for a VM`vm1`after the role is applied:\n\n-
+installs:\n\n-`tigervnc-standalone-server`,`novnc`,`websockify`, and`nginx`.\n\n- Helper
+scripts
+under `/usr/local/sbin/`such
+as\n\n`debvisor-vnc-target.sh`and`debvisor-vnc-ensure.sh`.\n\n- A
+`debvisor-websockify@.service`systemd template to run\n\n websockify for individual
+VMs.\n\n- An
+nginx config that serves noVNC from`/usr/share/novnc`and\n\n proxies`/vnc/`WebSocket
+connections to
+websockify on\n localhost.\n\n- To use the console for a VM`vm1`after the role is
+applied:\n\n-
 Ensure the VM has a libvirt VNC graphics device listening on\n\n`127.0.0.1`.\n\n- Run
 `debvisor-vnc-ensure.sh vm1`on the hypervisor to start the\n\n
-corresponding`debvisor-websockify@vm1.service`.\n\n- Open the URL printed by the helper (for
-example\n\n `/novnc/vnc.html?path=/vnc/vm1`) via the DebVisor host's nginx\n endpoint.\n\n-
-Operators should restrict access to the console using host\n\n firewall rules (nftables) and nginx
-access controls and may later\n integrate it behind the DebVisor webpanel over HTTPS.\n\n##
+corresponding`debvisor-websockify@vm1.service`.\n\n- Open the URL printed by the helper
+(for
+example\n\n `/novnc/vnc.html?path=/vnc/vm1`) via the DebVisor host's nginx\n
+endpoint.\n\n-
+Operators should restrict access to the console using host\n\n firewall rules (nftables)
+and nginx
+access controls and may later\n integrate it behind the DebVisor webpanel over
+HTTPS.\n\n##
 Expansion (Implemented/Planned)\n\n- Multi-node join scripts for Ceph OSD & MON roles
-(Implemented)\n\n- kubeadm join automation with taint removal guidance (Implemented)\n\n## Secure
-Multi-Operator DebVisor Mesh\n\n This section describes how to connect many DebVisor nodes over the
-internet as\n a loosely coupled "supercomputer" while maintaining strong security\n boundaries
+(Implemented)\n\n- kubeadm join automation with taint removal guidance (Implemented)\n\n##
+Secure
+Multi-Operator DebVisor Mesh\n\n This section describes how to connect many DebVisor nodes
+over the
+internet as\n a loosely coupled "supercomputer" while maintaining strong security\n
+boundaries
 between operators and only running trusted workloads.\n\n### 1. Secure Node-to-Node
-Connectivity\n\n- Use a mesh VPN (e.g. WireGuard or Nebula) to create a private overlay\n\n network
-between DebVisor nodes.\n\n- Each node receives:\n\n- A unique node keypair (identity).\n\n- A
-stable VPN address (for example from 10.200.0.0/16).\n\n- A small control node (which can be a
-DebVisor) acts as the authority to:\n\n- Issue and revoke node identities.\n\n- Group nodes into
-trust levels, such as `trusted_local`and\n\n- VPN ACLs and host-level`nftables`rules work together
-so that:\n\n- Only specific groups can reach management endpoints (Kubernetes API, RPC,\n\n storage,
-monitoring).\n\n- The DebVisor firewall still enforces which ports and IPs are allowed, and\n\n can
-use blocklists/whitelists to rapidly isolate misbehaving nodes.\n\n### 2. Trusted Applications via
+Connectivity\n\n- Use a mesh VPN (e.g. WireGuard or Nebula) to create a private
+overlay\n\n network
+between DebVisor nodes.\n\n- Each node receives:\n\n- A unique node keypair
+(identity).\n\n- A
+stable VPN address (for example from 10.200.0.0/16).\n\n- A small control node (which can
+be a
+DebVisor) acts as the authority to:\n\n- Issue and revoke node identities.\n\n- Group
+nodes into
+trust levels, such as `trusted_local`and\n\n- VPN ACLs and host-level`nftables`rules work
+together
+so that:\n\n- Only specific groups can reach management endpoints (Kubernetes API,
+RPC,\n\n storage,
+monitoring).\n\n- The DebVisor firewall still enforces which ports and IPs are allowed,
+and\n\n can
+use blocklists/whitelists to rapidly isolate misbehaving nodes.\n\n### 2. Trusted
+Applications via
 Signing and Policy\n\n- Define one or more signing keys for workloads, for
-example:\n\n-`debvisor-app-signer`for official images and charts.\n\n- Optional partner-specific
-keys for third-party workloads.\n\n- Distribute the corresponding public keys to all DebVisor nodes
-(for\n\n example under`/etc/debvisor/trusted-signers/`) and manage them like CA\n certificates.\n\n-
-For container images:\n\n- Use Sigstore cosign or a similar tool in CI to sign images hosted in
-your\n\n registry.\n\n- Enforce image verification in Kubernetes using admission policies (such\n\n
-as Kyverno, Gatekeeper, or ImagePolicyWebhook) so that only images from\n approved registries and
-signed by trusted keys are allowed.\n\n- For manifests and Helm charts:\n\n- Store them in a Git
-repository under your control.\n\n- Use GitOps tools (such as Argo CD or Flux) so clusters sync only
-from\n\n that repository and optionally verify commit or artifact signatures.\n\n- Prefer running
-arbitrary code inside containers/VMs so the Kubernetes\n\n admission policy is the primary gate;
-keep the DebVisor host as a relatively\n fixed, signed image.\n\n### 3. Trust Boundaries Between
-Local and External DebVisors\n\n- Local DebVisors (owned by you) can host control planes, storage,
-and other\n\n critical services.\n\n- External or community DebVisors join the VPN mesh but are
-treated as\n\n semi-trusted:\n\n- They are usually restricted to worker or job-runner roles.\n\n-
+example:\n\n-`debvisor-app-signer`for official images and charts.\n\n- Optional
+partner-specific
+keys for third-party workloads.\n\n- Distribute the corresponding public keys to all
+DebVisor nodes
+(for\n\n example under`/etc/debvisor/trusted-signers/`) and manage them like CA\n
+certificates.\n\n-
+For container images:\n\n- Use Sigstore cosign or a similar tool in CI to sign images
+hosted in
+your\n\n registry.\n\n- Enforce image verification in Kubernetes using admission policies
+(such\n\n
+as Kyverno, Gatekeeper, or ImagePolicyWebhook) so that only images from\n approved
+registries and
+signed by trusted keys are allowed.\n\n- For manifests and Helm charts:\n\n- Store them in
+a Git
+repository under your control.\n\n- Use GitOps tools (such as Argo CD or Flux) so clusters
+sync only
+from\n\n that repository and optionally verify commit or artifact signatures.\n\n- Prefer
+running
+arbitrary code inside containers/VMs so the Kubernetes\n\n admission policy is the primary
+gate;
+keep the DebVisor host as a relatively\n fixed, signed image.\n\n### 3. Trust Boundaries
+Between
+Local and External DebVisors\n\n- Local DebVisors (owned by you) can host control planes,
+storage,
+and other\n\n critical services.\n\n- External or community DebVisors join the VPN mesh
+but are
+treated as\n\n semi-trusted:\n\n- They are usually restricted to worker or job-runner
+roles.\n\n-
 They do not receive broad access to hypervisor management or sensitive\n\n services unless
-explicitly allowed.\n\n- Use:\n\n- Node labels and taints to distinguish trusted vs semi-trusted
-workers in\n\n Kubernetes.\n\n- Scheduling policies to control which workloads may run on which
-nodes.\n\n- Central monitoring (Prometheus/Grafana) runs on trusted DebVisors so that\n\n logs and
-metrics from all participants can be observed in one place.\n\n### 4. Practical Minimal Design\n\n-
+explicitly allowed.\n\n- Use:\n\n- Node labels and taints to distinguish trusted vs
+semi-trusted
+workers in\n\n Kubernetes.\n\n- Scheduling policies to control which workloads may run on
+which
+nodes.\n\n- Central monitoring (Prometheus/Grafana) runs on trusted DebVisors so that\n\n
+logs and
+metrics from all participants can be observed in one place.\n\n### 4. Practical Minimal
+Design\n\n-
 Deploy a mesh VPN across all participating DebVisor nodes.\n\n- Use Ansible to manage VPN
-keys/configs and to enforce `nftables`policies,\n\n including the dynamic blocklist/whitelist sets
-documented above.\n\n- Stand up a container registry for DebVisor workloads and adopt image\n\n
-signing in CI.\n\n- Configure Kubernetes clusters running on DebVisor with admission policies\n\n
-that only permit signed images from approved registries.\n\n- To participate in the mesh, an
-operator should:\n\n- Accept a node identity issued by the shared control authority.\n\n- Agree to
-run only workloads from the signed registry (enforced by\n\n policy).\n\n- Understand that their
-node may be categorized as semi-trusted with\n\n limited access.\n\n- If a node misbehaves, you
-can:\n\n- Revoke its VPN identity at the control node.\n\n- Add its VPN IP address to DebVisor
-blocklists so host firewalls\n\n immediately drop its traffic.\n\n## DNS HA service (dns-ha
-role)\n\n DebVisor can run a small, highly-available DNS pair for`debvisor.local`\n using Bind9 and
-Keepalived.\n\n- The `dns-ha`Ansible role:\n\n- Installs`bind9`,`keepalived`and`nftables`.\n\n-
+keys/configs and to enforce `nftables`policies,\n\n including the dynamic
+blocklist/whitelist sets
+documented above.\n\n- Stand up a container registry for DebVisor workloads and adopt
+image\n\n
+signing in CI.\n\n- Configure Kubernetes clusters running on DebVisor with admission
+policies\n\n
+that only permit signed images from approved registries.\n\n- To participate in the mesh,
+an
+operator should:\n\n- Accept a node identity issued by the shared control authority.\n\n-
+Agree to
+run only workloads from the signed registry (enforced by\n\n policy).\n\n- Understand that
+their
+node may be categorized as semi-trusted with\n\n limited access.\n\n- If a node
+misbehaves, you
+can:\n\n- Revoke its VPN identity at the control node.\n\n- Add its VPN IP address to
+DebVisor
+blocklists so host firewalls\n\n immediately drop its traffic.\n\n## DNS HA service
+(dns-ha
+role)\n\n DebVisor can run a small, highly-available DNS pair for`debvisor.local`\n using
+Bind9 and
+Keepalived.\n\n- The `dns-ha`Ansible role:\n\n-
+Installs`bind9`,`keepalived`and`nftables`.\n\n-
 Deploys Bind9 zone/includes from templates\n\n
-(`named.conf.local.j2`,`db.debvisor.local.j2`,`tsig-node.conf.j2`,\n `tsig-vm.conf.j2`).\n\n-
-Configures Keepalived to float a virtual IP for DNS.\n\n- Installs DNS-facing nftables rules in
-`/etc/nftables.d/20-dns.conf`\n\n and ensures `/etc/nftables.d/*.conf`is included by the main
-config.\n\n- TSIG keys and rotation:\n\n- The role**does not generate or rotate TSIG secrets
+(`named.conf.local.j2`,`db.debvisor.local.j2`,`tsig-node.conf.j2`,\n
+`tsig-vm.conf.j2`).\n\n-
+Configures Keepalived to float a virtual IP for DNS.\n\n- Installs DNS-facing nftables
+rules in
+`/etc/nftables.d/20-dns.conf`\n\n and ensures `/etc/nftables.d/*.conf`is included by the
+main
+config.\n\n- TSIG keys and rotation:\n\n- The role**does not generate or rotate TSIG
+secrets
 itself**.\n\n- TSIG material is managed by the dedicated rotation service\n\n
-(`tsig-rotate.service`/`tsig-rotate.timer`and helper scripts).\n\n- The`tsig-*.conf.j2`templates are
+(`tsig-rotate.service`/`tsig-rotate.timer`and helper scripts).\n\n-
+The`tsig-*.conf.j2`templates are
 expected to reference key files\n\n that the rotation service creates and refreshes.\n\n-
-Usage:\n\n- Apply`dns-ha`to the hosts that should form the DNS HA pair\n\n (for example, an Ansible
-group such as`dns_ha_nodes`).\n\n- Ensure the TSIG rotation units and scripts are installed on
-those\n\n nodes so that key material stays fresh.\n\n- Combine with the "Firewall blocklists and
-whitelists" section above\n\n to control which clients may talk to the DNS VIP.\n Example inventory
-and playbook snippet:\n[dns_ha_nodes]\ndns1.debvisor.local\ndns2.debvisor.local\n\n- --\n\n- name:
-Configure HA DNS pair\n\n hosts: dns_ha_nodes\n become: yes\n roles:\n\n- dns-ha\n\n pre_tasks:\n\n-
+Usage:\n\n- Apply`dns-ha`to the hosts that should form the DNS HA pair\n\n (for example,
+an Ansible
+group such as`dns_ha_nodes`).\n\n- Ensure the TSIG rotation units and scripts are
+installed on
+those\n\n nodes so that key material stays fresh.\n\n- Combine with the "Firewall
+blocklists and
+whitelists" section above\n\n to control which clients may talk to the DNS VIP.\n Example
+inventory
+and playbook snippet:\n[dns_ha_nodes]\ndns1.debvisor.local\ndns2.debvisor.local\n\n-
+--\n\n- name:
+Configure HA DNS pair\n\n hosts: dns_ha_nodes\n become: yes\n roles:\n\n- dns-ha\n\n
+pre_tasks:\n\n-
 name: Ensure TSIG rotation units are present\n\n stat:\n path:
-/etc/systemd/system/tsig-rotate.service\n register: tsig_rotate_service\n\n- name: Fail if TSIG
-rotation service is missing\n\n fail:\n msg: "tsig-rotate.service not found; install TSIG rotation
+/etc/systemd/system/tsig-rotate.service\n register: tsig_rotate_service\n\n- name: Fail if
+TSIG
+rotation service is missing\n\n fail:\n msg: "tsig-rotate.service not found; install TSIG
+rotation
 tooling before running dns-ha role."\n when: not tsig_rotate_service.stat.exists\n\n## VM
-Registration Hook (vm-register role)\n\n- DebVisor can optionally install a libvirt`qemu`hook script
+Registration Hook (vm-register role)\n\n- DebVisor can optionally install a
+libvirt`qemu`hook script
 on\n\n hypervisor nodes via the`vm-register`Ansible role.\n\n- The role
 ensures`/etc/libvirt/hooks/`exists and deploys a\n\n`qemu`hook that can trigger VM-related
-registration logic (for\n example, calling a local helper that updates DNS records).\n\n- The hook
-itself does**not**embed TSIG secrets; any TSIG-based\n\n updates are expected to use the on-node
-TSIG key files and rotation\n tooling described in "TSIG key generation & rotation".\n\n- When the
-hook sees a VM`started`event and is able to\n\n discover an IPv4 address via`virsh domifaddr`, it
-invokes the\n local helper `/usr/local/sbin/debvisor-vm-register.sh` (if present)\n with the VM name
-and IP. That helper owns the actual TSIG-authenticated\n DNS update and logs the outcome.\n\n
+registration logic (for\n example, calling a local helper that updates DNS records).\n\n-
+The hook
+itself does**not**embed TSIG secrets; any TSIG-based\n\n updates are expected to use the
+on-node
+TSIG key files and rotation\n tooling described in "TSIG key generation & rotation".\n\n-
+When the
+hook sees a VM`started`event and is able to\n\n discover an IPv4 address via`virsh
+domifaddr`, it
+invokes the\n local helper `/usr/local/sbin/debvisor-vm-register.sh` (if present)\n with
+the VM name
+and IP. That helper owns the actual TSIG-authenticated\n DNS update and logs the
+outcome.\n\n

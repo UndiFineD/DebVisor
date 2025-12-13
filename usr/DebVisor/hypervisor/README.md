@@ -1,21 +1,36 @@
-# DebVisor On-Box Quickstart\n\n## Verify Core Services\n\n cephctl health\n hvctl list\n k8sctl
+# DebVisor On-Box Quickstart\n\n## Verify Core Services\n\n cephctl health\n hvctl list\n
 
-nodes\n docker ps\n\n## On-box tooling\n\nThe following helper commands are provided on DebVisor
+k8sctl
+
+nodes\n docker ps\n\n## On-box tooling\n\nThe following helper commands are provided on
+DebVisor
 hosts to make\nday-to-day operations easier:\n\n- `k8sctl`- Convenience wrapper for common
-Kubernetes operations on\n\n the local cluster. Use this when you want short, opinionated commands\n
-for tasks like listing nodes, checking workloads, or applying core\n manifests.\n\n-`hvctl`-
-Hypervisor management helper around libvirt/VM lifecycle\n\n operations. Use this when creating,
+Kubernetes operations on\n\n the local cluster. Use this when you want short, opinionated
+commands\n
+for tasks like listing nodes, checking workloads, or applying core\n
+manifests.\n\n-`hvctl`-
+Hypervisor management helper around libvirt/VM lifecycle\n\n operations. Use this when
+creating,
 listing, starting, or stopping\n VMs without having to remember the
-full`virsh`syntax.\n\n-`cephctl`- Wrapper for frequently used Ceph commands. Use this\n\n when
-checking cluster health, OSD status, or CephFS/RBD pools.\n\n-`debvisor-netcfg`- Generate a simple
-systemd-networkd bridge\n\n configuration (e.g. bridge`br0`over a physical NIC). Use this with\n
-extra care, as it writes into`/etc/systemd/network`; test in a lab\n or with console access
+full`virsh`syntax.\n\n-`cephctl`- Wrapper for frequently used Ceph commands. Use this\n\n
+when
+checking cluster health, OSD status, or CephFS/RBD pools.\n\n-`debvisor-netcfg`- Generate
+a simple
+systemd-networkd bridge\n\n configuration (e.g. bridge`br0`over a physical NIC). Use this
+with\n
+extra care, as it writes into`/etc/systemd/network`; test in a lab\n or with console
+access
 available.\n\n- VM/VNC helpers (`debvisor-vm-register.sh`,`debvisor-vnc-target.sh`,\n\n
-`debvisor-vnc-ensure.sh`) - Small tools to register VMs for\n management and ensure VNC access is
-wired up correctly.\n\n## Create CephFS-backed WordPress (example)\n\n k8sctl add-cephfs\n helm
-install wp bitnami/wordpress -f /addons/k8s/wordpress/wordpress-values.yaml\n\n## Launch VM (Ubuntu
+`debvisor-vnc-ensure.sh`) - Small tools to register VMs for\n management and ensure VNC
+access is
+wired up correctly.\n\n## Create CephFS-backed WordPress (example)\n\n k8sctl add-cephfs\n
+helm
+install wp bitnami/wordpress -f /addons/k8s/wordpress/wordpress-values.yaml\n\n## Launch
+VM (Ubuntu
 cloud image)\n\n cp /var/lib/libvirt/images/ubuntu-cloudimg.qcow2
-/var/lib/libvirt/images/vm1.qcow2\n hvctl create vm1 /var/lib/libvirt/images/vm1.qcow2\n hvctl start
+/var/lib/libvirt/images/vm1.qcow2\n hvctl create vm1 /var/lib/libvirt/images/vm1.qcow2\n
+hvctl start
 vm1\n\n## Apply Monitoring Stack (placeholder)\n\n kubectl apply -f
-/opt/docker/addons/k8s/monitoring/prometheus-grafana-placeholder.yaml\nRefer to repository docs for
+/opt/docker/addons/k8s/monitoring/prometheus-grafana-placeholder.yaml\nRefer to repository
+docs for
 full flows.\n\n

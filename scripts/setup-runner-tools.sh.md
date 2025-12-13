@@ -388,7 +388,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -417,7 +417,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -446,7 +446,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -475,7 +475,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -504,7 +504,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -533,7 +533,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -562,7 +562,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -748,7 +748,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -777,7 +777,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -806,7 +806,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -835,7 +835,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -864,7 +864,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -893,7 +893,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -922,7 +922,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1108,7 +1108,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -1137,7 +1137,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1166,7 +1166,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1195,7 +1195,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1224,7 +1224,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1253,7 +1253,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1282,7 +1282,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1468,7 +1468,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -1497,7 +1497,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1526,7 +1526,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1555,7 +1555,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1584,7 +1584,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1613,7 +1613,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1642,7 +1642,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1828,7 +1828,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -1857,7 +1857,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -1886,7 +1886,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -1915,7 +1915,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1944,7 +1944,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1973,7 +1973,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2002,7 +2002,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2188,7 +2188,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -2217,7 +2217,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2246,7 +2246,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2275,7 +2275,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2304,7 +2304,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2333,7 +2333,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2362,7 +2362,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2548,7 +2548,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -2577,7 +2577,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2606,7 +2606,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2635,7 +2635,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2664,7 +2664,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2693,7 +2693,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2722,7 +2722,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2908,7 +2908,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -2937,7 +2937,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -2966,7 +2966,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -2995,7 +2995,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3024,7 +3024,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3053,7 +3053,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3082,7 +3082,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3268,7 +3268,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -3297,7 +3297,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3326,7 +3326,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3355,7 +3355,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3384,7 +3384,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3413,7 +3413,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3442,7 +3442,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3628,7 +3628,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -3657,7 +3657,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -3686,7 +3686,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -3715,7 +3715,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3744,7 +3744,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3773,7 +3773,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3802,7 +3802,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3988,7 +3988,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -4017,7 +4017,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4046,7 +4046,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4075,7 +4075,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4104,7 +4104,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4133,7 +4133,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4162,7 +4162,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4348,7 +4348,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -4377,7 +4377,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4406,7 +4406,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4435,7 +4435,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4464,7 +4464,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4493,7 +4493,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4522,7 +4522,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4708,7 +4708,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -4737,7 +4737,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -4766,7 +4766,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -4795,7 +4795,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4824,7 +4824,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4853,7 +4853,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4882,7 +4882,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5068,7 +5068,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 ```python
 
 ### Proposal
@@ -5097,7 +5097,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 ```python
 
@@ -5126,7 +5126,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 ```python
@@ -5155,7 +5155,7 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5184,7 +5184,7 @@ Items marked below as fixed:
 ```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5213,7 +5213,7 @@ Items marked below as fixed:
 
 ```python
 # You may obtain a copy of the License at
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -5242,7 +5242,7 @@ Items marked below as fixed:
 ### Context
 
 ```python
-# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2](http://www.apache.org/licenses/LICENSE-2).)0)
+# [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-](http://www.apache.org/licenses/LICENSE-)2).)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -6388,7 +6388,7 @@ install_jq() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
 ```python
 
 ### Proposal
@@ -6417,7 +6417,7 @@ install_jq() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
       echo "jq installed to $TOOLS_DIR/jq.exe"
 ```python
 
@@ -6445,7 +6445,7 @@ install_jq() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
       echo "jq installed to $TOOLS_DIR/jq.exe"
       ;;
     Linux)
@@ -6474,7 +6474,7 @@ install_jq() {
 ```python
     Windows)
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
       echo "jq installed to $TOOLS_DIR/jq.exe"
       ;;
     Linux)
@@ -6503,12 +6503,12 @@ install_jq() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/jq.exe" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
       echo "jq installed to $TOOLS_DIR/jq.exe"
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
 ```python
 
 ### Proposal
@@ -6532,12 +6532,12 @@ install_jq() {
 ### Context
 
 ```python
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex)e)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.exe]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.ex]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-windows-amd64.e)x)e)")
       echo "jq installed to $TOOLS_DIR/jq.exe"
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
 ```python
 
@@ -6565,7 +6565,7 @@ install_jq() {
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6594,7 +6594,7 @@ install_jq() {
 ```python
     Linux)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6623,7 +6623,7 @@ install_jq() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6652,13 +6652,13 @@ install_jq() {
 ### Context
 
 ```python
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
 ```python
 
 ### Proposal
@@ -6687,7 +6687,7 @@ install_jq() {
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
 ```python
 
@@ -6715,7 +6715,7 @@ install_jq() {
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6744,7 +6744,7 @@ install_jq() {
 ```python
     macOS)
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6773,7 +6773,7 @@ install_jq() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/jq" \
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -6802,7 +6802,7 @@ install_jq() {
 ### Context
 
 ```python
-        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6)4)")
+        "[https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64"]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd64]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd6]([https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd](https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-macos-amd)6)4)")
       chmod +x "$TOOLS_DIR/jq"
       echo "jq installed to $TOOLS_DIR/jq"
       ;;
@@ -7258,7 +7258,7 @@ install_cosign() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
 ```python
 
 ### Proposal
@@ -7287,7 +7287,7 @@ install_cosign() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
       echo "cosign installed to $TOOLS_DIR/cosign.exe"
 ```python
 
@@ -7315,7 +7315,7 @@ install_cosign() {
   case "$OS" in
     Windows)
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
       echo "cosign installed to $TOOLS_DIR/cosign.exe"
       ;;
     Linux)
@@ -7344,7 +7344,7 @@ install_cosign() {
 ```python
     Windows)
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
       echo "cosign installed to $TOOLS_DIR/cosign.exe"
       ;;
     Linux)
@@ -7373,12 +7373,12 @@ install_cosign() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/cosign.exe" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
       echo "cosign installed to $TOOLS_DIR/cosign.exe"
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
 ```python
 
 ### Proposal
@@ -7402,12 +7402,12 @@ install_cosign() {
 ### Context
 
 ```python
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex)e)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.exe]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.ex]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-windows-amd64.e)x)e)")
       echo "cosign installed to $TOOLS_DIR/cosign.exe"
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
 ```python
 
@@ -7435,7 +7435,7 @@ install_cosign() {
       ;;
     Linux)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7464,7 +7464,7 @@ install_cosign() {
 ```python
     Linux)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7493,7 +7493,7 @@ install_cosign() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7522,13 +7522,13 @@ install_cosign() {
 ### Context
 
 ```python
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
 ```python
 
 ### Proposal
@@ -7557,7 +7557,7 @@ install_cosign() {
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
 ```python
 
@@ -7585,7 +7585,7 @@ install_cosign() {
       ;;
     macOS)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7614,7 +7614,7 @@ install_cosign() {
 ```python
     macOS)
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7643,7 +7643,7 @@ install_cosign() {
 
 ```python
       curl -sSL -o "$TOOLS_DIR/cosign" \
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -7672,7 +7672,7 @@ install_cosign() {
 ### Context
 
 ```python
-        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6)4)")
+        "[https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64"]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd64]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd6]([https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd](https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-darwin-amd)6)4)")
       chmod +x "$TOOLS_DIR/cosign"
       echo "cosign installed to $TOOLS_DIR/cosign"
       ;;
@@ -8188,7 +8188,7 @@ check_gpg() {
         printf '%s\n' "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
 ```python
 
 ### Proposal
@@ -8217,8 +8217,8 @@ check_gpg() {
         printf '%s\n' "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
 ```python
 
 ### Proposal
@@ -8246,8 +8246,8 @@ check_gpg() {
         printf '%s\n' "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
 ```python
 
@@ -8275,8 +8275,8 @@ check_gpg() {
         printf '%s\n' "Ensure C:\\Program Files\\Git\\usr\\bin is in PATH"
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
       fi
 ```python
@@ -8304,8 +8304,8 @@ check_gpg() {
 ```python
       else
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
       fi
       ;;
@@ -8333,8 +8333,8 @@ check_gpg() {
 
 ```python
         echo "WARNING: gpg not found. Install Git for Windows or Gpg4win."
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
       fi
       ;;
@@ -8362,8 +8362,8 @@ check_gpg() {
 ### Context
 
 ```python
-        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi](https://git-scm.com/download/wi)n)")
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Git for Windows: [https://git-scm.com/download/win"]([https://git-scm.com/download/win]([https://git-scm.com/download/wi]([https://git-scm.com/download/w](https://git-scm.com/download/w)i)n)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
       fi
       ;;
@@ -8392,7 +8392,7 @@ check_gpg() {
 ### Context
 
 ```python
-        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm](https://www.gpg4win.org/download.htm)l)")
+        echo "Gpg4win: [https://www.gpg4win.org/download.html"]([https://www.gpg4win.org/download.html]([https://www.gpg4win.org/download.htm]([https://www.gpg4win.org/download.ht](https://www.gpg4win.org/download.ht)m)l)")
         return 1
       fi
       ;;

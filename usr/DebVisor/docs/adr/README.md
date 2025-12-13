@@ -1,7 +1,12 @@
-# Architecture Decision Records (ADRs)\n\nThis directory contains the Architecture Decision Records
+# Architecture Decision Records (ADRs)\n\nThis directory contains the Architecture
 
-for DebVisor.\n\n## What is an ADR?\n\nAn ADR is a document that captures an important architectural
-decision made along with its context and consequences.\n\n## List of ADRs\n\n| ID | Title | Status |
-Date |\n|----|-------|--------|------|\n| [0001](0001-record-architecture-decisions.md) | Record
+Decision Records
+
+for DebVisor.\n\n## What is an ADR?\n\nAn ADR is a document that captures an important
+architectural
+decision made along with its context and consequences.\n\n## List of ADRs\n\n| ID | Title
+| Status |
+Date |\n|----|-------|--------|------|\n| [0001](0001-record-architecture-decisions.md) |
+Record
 Architecture Decisions | Accepted | 2025-12-06 |\n\n## Template\n\nUse
 [0000-template.md](0000-template.md) for new ADRs.\n\n

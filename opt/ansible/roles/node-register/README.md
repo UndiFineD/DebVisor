@@ -1,7 +1,13 @@
-# Node Register Role (Stub)\n\nThis role is a non-operational stub kept in sync with DebVisor's real
+# Node Register Role (Stub)\n\nThis role is a non-operational stub kept in sync with
 
-control paths for node registration. Hostname/DNS registration is handled by built-in services on
-the DebVisor image (e.g., `hostname-register.service`). Future RPC/web-panel workflows or AWX job
-templates may coordinate registration.\n\n- Purpose: Document intended integration points without
-performing system changes.\n\n- Current behavior: No changes are applied; built-in services manage
+DebVisor's real
+
+control paths for node registration. Hostname/DNS registration is handled by built-in
+services on
+the DebVisor image (e.g., `hostname-register.service`). Future RPC/web-panel workflows or
+AWX job
+templates may coordinate registration.\n\n- Purpose: Document intended integration points
+without
+performing system changes.\n\n- Current behavior: No changes are applied; built-in
+services manage
 registration.\n\n- Future integration: RPC/web workflows, AWX templates.\n\n

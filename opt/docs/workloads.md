@@ -1,25 +1,44 @@
-# Example Workloads\n\nDebVisor is containers?first: most example workloads are designed to\nrun as
+# Example Workloads\n\nDebVisor is containers?first: most example workloads are designed
 
-containers or Kubernetes applications, with VMs available for\ncases where containerization is not
-yet practical.\nUse containers when:\n\n- You are deploying stateless, scalable, or cloud-native
-services.\n\n- You want to lean on Kubernetes for rollout, rollback, and health checks.\n\n- You are
-iterating quickly on application code.\n\nUse VMs when:\n\n- You are running legacy, appliance, or
-OS-level workloads.\n\n- You need strong isolation or guest-level customization.\n\n- You are
-dealing with vendors that only ship VM images.\n\n## VM Templates\n\n- Ubuntu Server cloud image
-(latest LTS) preloaded under `/srv/cephfs/images/ubuntu/`.\n\n- Debian cloud image preloaded under
+to\nrun as
+
+containers or Kubernetes applications, with VMs available for\ncases where
+containerization is not
+yet practical.\nUse containers when:\n\n- You are deploying stateless, scalable, or
+cloud-native
+services.\n\n- You want to lean on Kubernetes for rollout, rollback, and health
+checks.\n\n- You are
+iterating quickly on application code.\n\nUse VMs when:\n\n- You are running legacy,
+appliance, or
+OS-level workloads.\n\n- You need strong isolation or guest-level customization.\n\n- You
+are
+dealing with vendors that only ship VM images.\n\n## VM Templates\n\n- Ubuntu Server cloud
+image
+(latest LTS) preloaded under `/srv/cephfs/images/ubuntu/`.\n\n- Debian cloud image
+preloaded under
 `/srv/cephfs/images/debian/`.\n\nFor importing other VM images, see the helpers documented
-in\n`migration.md`:\n\n- `scripts/debvisor-vm-convert.sh`- convert disks between`vmdk`,\n\n `raw`,
-and`qcow2`.\n\n- `scripts/debvisor-cloudinit-iso.sh`- build a cloud-init`cidata`\n\n ISO to attach
+in\n`migration.md`:\n\n- `scripts/debvisor-vm-convert.sh`- convert disks
+between`vmdk`,\n\n `raw`,
+and`qcow2`.\n\n- `scripts/debvisor-cloudinit-iso.sh`- build a cloud-init`cidata`\n\n ISO
+to attach
 alongside imported cloud images.\n\n## Docker / Compose Stacks (placed in
-`docker\addons\compose\`)\n\n- Traefik reverse proxy (auto TLS / dashboard).\n\n- Nextcloud
-(CephFS-backed persistent volume).\n\n- GitLab Runner (CI agent integration).\n\n## Kubernetes Helm
-/ Manifests (placed in `docker\addons\k8s\`)\n\n- WordPress chart with CephFS RWX PVC.\n\n-
+`docker\addons\compose\`)\n\n- Traefik reverse proxy (auto TLS / dashboard).\n\n-
+Nextcloud
+(CephFS-backed persistent volume).\n\n- GitLab Runner (CI agent integration).\n\n##
+Kubernetes Helm
+/ Manifests (placed in `docker\addons\k8s\`)\n\n- WordPress chart with CephFS RWX
+PVC.\n\n-
 Prometheus + Grafana monitoring stack.\n\n- NGINX ingress controller.\n\n## Workload
-Conventions\n\n- All persistent data for shared workloads defaults to CephFS (RWX).\n\n- RBD used
-for performance-sensitive single-writer volumes (databases, VM disks).\n\n- ZFS datasets (if mixed
-profile) used for ephemeral build/cache layers.\n\n## Expansion Ideas\n\n- Add CI/CD example: ArgoCD
+Conventions\n\n- All persistent data for shared workloads defaults to CephFS (RWX).\n\n-
+RBD used
+for performance-sensitive single-writer volumes (databases, VM disks).\n\n- ZFS datasets
+(if mixed
+profile) used for ephemeral build/cache layers.\n\n## Expansion Ideas\n\n- Add CI/CD
+example: ArgoCD
 
-- sample app.\n\n- Add ML workload: Jupyter + PVC on CephFS.\n\n- Add Windows VM provisioning
+- sample app.\n\n- Add ML workload: Jupyter + PVC on CephFS.\n\n- Add Windows VM
+provisioning
 example (virtio drivers pre-linked).\n\n## Quick Start\n\n## Compose example\n\n cd
-docker\addons\compose\traefik\n docker compose up -d\n\n## Kubernetes example (assuming KUBECONFIG
+docker\addons\compose\traefik\n docker compose up -d\n\n## Kubernetes example (assuming
+KUBECONFIG
 ready)\n\n helm install wp docker\addons\k8s\wordpress-chart\ -f values.yaml\n\n

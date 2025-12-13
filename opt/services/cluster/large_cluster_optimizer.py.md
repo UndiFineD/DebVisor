@@ -23,7 +23,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 

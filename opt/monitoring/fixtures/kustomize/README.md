@@ -1,14 +1,24 @@
-# Kustomize Overlays for Synthetic Metrics Generator\n\nUse Kustomize overlays to select deployment
+# Kustomize Overlays for Synthetic Metrics Generator\n\nUse Kustomize overlays to select
 
-options, including which registry/owner hosts the generator image.\n\n## Structure\n\n- `base/`:
+deployment
+
+options, including which registry/owner hosts the generator image.\n\n## Structure\n\n-
+`base/`:
 references the fixture ConfigMap and the Deployment/Service.\n\n- `overlays/debvisor/`:
-uses`ghcr.io/debvisor/synthetic-metrics:latest`.\n\n- `overlays/customer-sample/`: example overlay
-using`ghcr.io/customer-sample/synthetic-metrics:latest`.\n\n## Usage\n\n- Apply the DebVisor default
-overlay:\n\n kubectl apply -k monitoring/fixtures/kustomize/overlays/debvisor\n\n- Apply a custom
+uses`ghcr.io/debvisor/synthetic-metrics:latest`.\n\n- `overlays/customer-sample/`: example
+overlay
+using`ghcr.io/customer-sample/synthetic-metrics:latest`.\n\n## Usage\n\n- Apply the
+DebVisor default
+overlay:\n\n kubectl apply -k monitoring/fixtures/kustomize/overlays/debvisor\n\n- Apply a
+custom
 overlay (replace `customer-sample`with your org):\n\n kubectl apply -k
 monitoring/fixtures/kustomize/overlays/customer-sample\n\n## Creating Your Overlay\n\n1.
-Copy`overlays/customer-sample`to`overlays/`.\n\n1. Edit `kustomization.yaml`to set the`images:`block
-with your GHCR owner.\n\n1. Optionally add patches for namespace, replicas, or labels.\n\n##
-Notes\n\n- Overlays update the image via Kustomize`images:`. Ensure the base deployment image name
-matches the target for replacement.\n\n- You can still override via environment (`REPO_OWNER`) if
+Copy`overlays/customer-sample`to`overlays/`.\n\n1. Edit `kustomization.yaml`to set
+the`images:`block
+with your GHCR owner.\n\n1. Optionally add patches for namespace, replicas, or
+labels.\n\n##
+Notes\n\n- Overlays update the image via Kustomize`images:`. Ensure the base deployment
+image name
+matches the target for replacement.\n\n- You can still override via environment
+(`REPO_OWNER`) if
 deploying without Kustomize; overlays are the recommended approach.\n\n

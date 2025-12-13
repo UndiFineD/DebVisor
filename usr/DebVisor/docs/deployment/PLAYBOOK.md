@@ -1,12 +1,18 @@
-# Deployment Playbook\n\n## Production Deployment Checklist\n\n### Pre-Deployment\n\n- [] **Code
+# Deployment Playbook\n\n## Production Deployment Checklist\n\n### Pre-Deployment\n\n- []
 
-Review**: Ensure all PRs are approved and merged to `main`.\n\n- [] **Tests**: Verify CI pipeline
-passed (Unit, Integration, E2E).\n\n- [] **Backup**: Trigger a manual backup of the production
+**Code
+
+Review**: Ensure all PRs are approved and merged to `main`.\n\n- [] **Tests**: Verify CI
+pipeline
+passed (Unit, Integration, E2E).\n\n- [] **Backup**: Trigger a manual backup of the
+production
 database.\n\n ```bash\n debvisor-cli backup create --type full --tag
 pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full --tag
 pre-deploy-vX.Y.Z\n```text\n```text\n debvisor-cli backup create --type full --tag
-pre-deploy-vX.Y.Z\n```text\n```text\n```text\n```text\n\n- [] **Migrations**: Check for pending
-database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n
+pre-deploy-vX.Y.Z\n```text\n```text\n```text\n```text\n\n- [] **Migrations**: Check for
+pending
+database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending database
+migrations.\n\n
 
 ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n ```bash\n\n- []
 **Migrations**: Check for pending database migrations.\n\n ```bash\n\n- [] **Migrations**: Check for
@@ -15,13 +21,15 @@ migrations.\n\n ```bash\n\n- [] **Migrations**: Check for pending database migra
 ```bash\n\n- [] **Migrations**: Check for pending database migrations.\n\n ```bash\n debvisor-cli db
 
 check\n```text\n```text\n debvisor-cli db check\n```text\n```text\n debvisor-cli db
-check\n```text\n```text\n```text\n```text\n### Deployment Steps\n1. **Pull Latest Image/Code**:\n\n
+check\n```text\n```text\n```text\n```text\n### Deployment Steps\n1. **Pull Latest
+Image/Code**:\n\n
 
 ```bash\n\n1. **Pull Latest Image/Code**:\n\n ```bash\n\n### Deployment Steps (2)\n\n1. **Pull
 Latest Image/Code**:\n\n ```bash\n\n### Deployment Steps (3)\n\n1. **Pull Latest Image/Code**:\n\n
 ```bash\n### Deployment Steps (4)\n1. **Pull Latest Image/Code**:\n\n ```bash\n\n1. **Pull Latest
 
-Image/Code**:\n\n ```bash\n\n### Deployment Steps (5)\n\n1. **Pull Latest Image/Code**:\n\n
+Image/Code**:\n\n ```bash\n\n### Deployment Steps (5)\n\n1. **Pull Latest
+Image/Code**:\n\n
 
 ```bash\n\n### Deployment Steps (6)\n\n1. **Pull Latest Image/Code**:\n\n ```bash\n git pull origin
 main\n # OR\n docker pull debvisor/debvisor:latest\n```text\n\n # OR\n docker pull
@@ -33,11 +41,14 @@ pull debvisor/debvisor:latest\n```text\n\n1. **Apply Migrations**:\n\n ```bash\n
 Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n
 ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n\n1.
 
-**Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n debvisor-cli db
+**Apply Migrations**:\n\n ```bash\n\n1. **Apply Migrations**:\n\n ```bash\n debvisor-cli
+db
 upgrade\n```text\n```text\n debvisor-cli db upgrade\n```text\n```text\n debvisor-cli db
-upgrade\n```text\n```text\n```text\n```text\n\n1. **Restart Services**(Rolling update if K8s,
+upgrade\n```text\n```text\n```text\n```text\n\n1. **Restart Services**(Rolling update if
+K8s,
 otherwise restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise
-restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise restart):\n\n
+restart):\n\n ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise
+restart):\n\n
 
 ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise restart):\n\n
 ```bash\n\n1.**Restart Services**(Rolling update if K8s, otherwise restart):\n\n
@@ -52,39 +63,52 @@ restart debvisor\n```text\n```text\n```text\n```text\n\n1.**Verify Health**:\n\n
 ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n\n1. **Verify
 
 Health**:\n\n ```bash\n\n1. **Verify Health**:\n\n ```bash\n curl -f
-<[http://localhost:8080/health/live>\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv]([http://localhost:8080/health/li](http://localhost:8080/health/li)v)e)>)\)n)
+<[http://localhost:8080/health/live>\n]([http://localhost:8080/health/live>\]([http://localhost:8080/health/live>]([http://localhost:8080/health/live]([http://localhost:8080/health/liv]([http://localhost:8080/health/li]([http://localhost:8080/health/l](http://localhost:8080/health/l)i)v)e)>)\)n)
 curl -f
-<[http://localhost:8080/health/ready>\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text]([http://localhost:8080/health/ready>\n```tex](http://localhost:8080/health/ready>\n```tex)t)\)n)\)n)
+<[http://localhost:8080/health/ready>\n```text\n\n]([http://localhost:8080/health/ready>\n```text\n\]([http://localhost:8080/health/ready>\n```text\n]([http://localhost:8080/health/ready>\n```text\]([http://localhost:8080/health/ready>\n```text]([http://localhost:8080/health/ready>\n```tex]([http://localhost:8080/health/ready>\n```te](http://localhost:8080/health/ready>\n```te)x)t)\)n)\)n)
 curl -f
-<<[http://localhost:8080/health/ready>>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te]([http://localhost:8080/health/ready>>\n```t](http://localhost:8080/health/ready>>\n```t)e)x)t)\)n)
+<<[http://localhost:8080/health/ready>>\n```text\n]([http://localhost:8080/health/ready>>\n```text\]([http://localhost:8080/health/ready>>\n```text]([http://localhost:8080/health/ready>>\n```tex]([http://localhost:8080/health/ready>>\n```te]([http://localhost:8080/health/ready>>\n```t]([http://localhost:8080/health/ready>>\n```](http://localhost:8080/health/ready>>\n```)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l](https://localhost:8080/health/l)i)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/](https://localhost:8080/health/)l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex](https://localhost:8080/health/ready\n```tex)t)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te](https://localhost:8080/health/ready\n```te)x)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t](https://localhost:8080/health/ready>\n```t)e)x)t)\)n)
+<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```](https://localhost:8080/health/ready>\n```)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l](https://localhost:8080/health/l)i)v)e)\)n)
+[https://localhost:8080/health/live\n]([https://localhost:8080/health/live\]([https://localhost:8080/health/live]([https://localhost:8080/health/liv]([https://localhost:8080/health/li]([https://localhost:8080/health/l]([https://localhost:8080/health/](https://localhost:8080/health/)l)i)v)e)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex](https://localhost:8080/health/ready\n```tex)t)\)n)\)n)
+[https://localhost:8080/health/ready\n```text\n\n]([https://localhost:8080/health/ready\n```text\n\]([https://localhost:8080/health/ready\n```text\n]([https://localhost:8080/health/ready\n```text\]([https://localhost:8080/health/ready\n```text]([https://localhost:8080/health/ready\n```tex]([https://localhost:8080/health/ready\n```te](https://localhost:8080/health/ready\n```te)x)t)\)n)\)n)
 curl -f
-<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t](https://localhost:8080/health/ready>\n```t)e)x)t)\)n)
+<[https://localhost:8080/health/ready>\n```text\n]([https://localhost:8080/health/ready>\n```text\]([https://localhost:8080/health/ready>\n```text]([https://localhost:8080/health/ready>\n```tex]([https://localhost:8080/health/ready>\n```te]([https://localhost:8080/health/ready>\n```t]([https://localhost:8080/health/ready>\n```](https://localhost:8080/health/ready>\n```)t)e)x)t)\)n)
 curl -f
-[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\]([https://localhost:8080/health/ready\n```text\n```text](https://localhost:8080/health/ready\n```text\n```text)\)n)#)#)#)
-Post-Deployment\n- [] **Smoke Test**: Log in to the Web Panel and verify dashboard loads.\n\n- []
-**Monitor**: Watch error rates and latency for 15 minutes.\n\n- --\n## Rollback Procedures\nIf
-critical issues are detected:\n\n1. **Revert Code/Image**:\n\n ```bash\n\n- [] **Smoke Test**: Log
-in to the Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency
-for 15 minutes.\n\n- --\n\n## Rollback Procedures (2)\n\nIf critical issues are detected:\n\n1.
-**Revert Code/Image**:\n\n ```bash\n\n### Post-Deployment (2)\n\n- [] **Smoke Test**: Log in to the
-Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15
-minutes.\n\n- --\n\n## Rollback Procedures (3)\n\nIf critical issues are detected:\n\n1. **Revert
-Code/Image**:\n\n ```bash\n\n### Post-Deployment (3)\n\n- [] **Smoke Test**: Log in to the Web Panel
-and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15 minutes.\n\n-
+[https://localhost:8080/health/ready\n```text\n```text\n###]([https://localhost:8080/health/ready\n```text\n```text\n##]([https://localhost:8080/health/ready\n```text\n```text\n#]([https://localhost:8080/health/ready\n```text\n```text\n]([https://localhost:8080/health/ready\n```text\n```text\]([https://localhost:8080/health/ready\n```text\n```text]([https://localhost:8080/health/ready\n```text\n```tex](https://localhost:8080/health/ready\n```text\n```tex)t)\)n)#)#)#)
+Post-Deployment\n- [] **Smoke Test**: Log in to the Web Panel and verify dashboard
+loads.\n\n- []
+**Monitor**: Watch error rates and latency for 15 minutes.\n\n- --\n## Rollback
+Procedures\nIf
+critical issues are detected:\n\n1. **Revert Code/Image**:\n\n ```bash\n\n- [] **Smoke
+Test**: Log
+in to the Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and
+latency
+for 15 minutes.\n\n- --\n\n## Rollback Procedures (2)\n\nIf critical issues are
+detected:\n\n1.
+**Revert Code/Image**:\n\n ```bash\n\n### Post-Deployment (2)\n\n- [] **Smoke Test**: Log
+in to the
+Web Panel and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency
+for 15
+minutes.\n\n- --\n\n## Rollback Procedures (3)\n\nIf critical issues are detected:\n\n1.
+**Revert
+Code/Image**:\n\n ```bash\n\n### Post-Deployment (3)\n\n- [] **Smoke Test**: Log in to the
+Web Panel
+and verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15
+minutes.\n\n-
 --\n\n## Rollback Procedures (4)\n\nIf critical issues are detected:\n\n1. **Revert
-Code/Image**:\n\n ```bash\n### Post-Deployment (4)\n- [] **Smoke Test**: Log in to the Web Panel and
-verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15 minutes.\n\n-
---\n## Rollback Procedures (5)\nIf critical issues are detected:\n\n1. **Revert Code/Image**:\n\n
+Code/Image**:\n\n ```bash\n### Post-Deployment (4)\n- [] **Smoke Test**: Log in to the Web
+Panel and
+verify dashboard loads.\n\n- [] **Monitor**: Watch error rates and latency for 15
+minutes.\n\n-
+--\n## Rollback Procedures (5)\nIf critical issues are detected:\n\n1. **Revert
+Code/Image**:\n\n
 
 ```bash\n\n- [] **Smoke Test**: Log in to the Web Panel and verify dashboard loads.\n\n- []
 **Monitor**: Watch error rates and latency for 15 minutes.\n\n- --\n\n## Rollback Procedures
@@ -119,9 +143,12 @@ downgrade if data loss is acceptable or necessary.*\n\n1.**Restore Backup**(Last
 ```bash\n\n- Note: Only downgrade if data loss is acceptable or necessary.*\n\n1.**Restore
 
 Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if data loss is acceptable or
-necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if data loss
-is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note: Only
-downgrade if data loss is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n
+necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note: Only downgrade if
+data loss
+is acceptable or necessary.*\n\n1.**Restore Backup**(Last Resort):\n\n ```bash\n\n- Note:
+Only
+downgrade if data loss is acceptable or necessary.*\n\n1.**Restore Backup**(Last
+Resort):\n\n
 
 ```bash\n\n- Note: Only downgrade if data loss is acceptable or necessary.*\n\n1.**Restore
 Backup**(Last Resort):\n\n ```bash\n debvisor-cli backup restore --tag

@@ -136,7 +136,7 @@ def scan_markdown_file(file_path):
 def main():
     """Scan all markdown files."""
     workspace_root = Path(__file__).parent
-    excluded_dirs = {'.venv', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
+    excluded_dirs = {'.venv', '.venv-1', '.venv-2', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
 
     # Find all markdown files
     markdown_files = []

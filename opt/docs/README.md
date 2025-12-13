@@ -1,39 +1,60 @@
-# DebVisor Documentation\n\nDebVisor is a Debian-based, containers-first hypervisor distribution
+# DebVisor Documentation\n\nDebVisor is a Debian-based, containers-first hypervisor
+
+distribution
 
 optimized for running Kubernetes and containerized workloads at the edge, with optional VM
-support.\n\n## Getting Started\n\n- *New here?**Start with [**00-START.md**](00-START.md) for guided
-navigation, decision trees, and role-based documentation paths.\n\n- *Need a term defined?**See the
+support.\n\n## Getting Started\n\n- *New here?**Start with [**00-START.md**](00-START.md)
+for guided
+navigation, decision trees, and role-based documentation paths.\n\n- *Need a term
+defined?**See the
 [Glossary](GLOSSARY.md).\n\n- *Looking for a specific task?**Use the [Quick
-Reference](quick-reference.md) for common commands.\n\n## Key Documents\n\n| Document | Purpose
+Reference](quick-reference.md) for common commands.\n\n## Key Documents\n\n| Document |
+Purpose
 |\n|----------|---------|\n| [00-START.md](00-START.md) |**Start here!**Navigation guide, decision
-trees, and role-based paths |\n| [GLOSSARY.md](GLOSSARY.md) | DebVisor-specific terminology and
-concepts |\n| [Architecture](architecture.md) | High-level system design, layers, and major
-components |\n| [Operations](operations.md) | Day-2 operations, safety rails, and containers vs VMs
-guidance |\n| [Profiles](profiles.md) | Storage profiles (Ceph, ZFS, mixed) and behavior |\n|
+trees, and role-based paths |\n| [GLOSSARY.md](GLOSSARY.md) | DebVisor-specific
+terminology and
+concepts |\n| [Architecture](architecture.md) | High-level system design, layers, and
+major
+components |\n| [Operations](operations.md) | Day-2 operations, safety rails, and
+containers vs VMs
+guidance |\n| [Profiles](profiles.md) | Storage profiles (Ceph, ZFS, mixed) and behavior
+|\n|
 [Security](security.md) | Security posture, hardening, and threat model references |\n|
 [Installation Guide](install/ISO_BUILD.md) | How to build and deploy the DebVisor ISO |\n|
 [Networking](networking.md) | Network configuration, DNS, VLAN, and troubleshooting |\n|
-[Workloads](workloads.md) | Container vs VM guidance with practical examples |\n| [Monitoring &
+[Workloads](workloads.md) | Container vs VM guidance with practical examples |\n|
+[Monitoring &
 Automation](monitoring-automation.md) | Prometheus, Grafana, and alert automation setup
 |\nAdditional documentation covers migration/failover, RPC API design, compliance logging, developer
-workflows, and more.\n\n- *All documents reviewed and current as of 2025-11-26**?\n\n## Build-time
-vs. first-boot vs. Ansible\n\nAt a high level:\n\n- `config/preseed.cfg`- controls the Debian
+workflows, and more.\n\n- *All documents reviewed and current as of 2025-11-26**?\n\n##
+Build-time
+vs. first-boot vs. Ansible\n\nAt a high level:\n\n- `config/preseed.cfg`- controls the
+Debian
 Installer experience (locale, disks, initial users, and a storage profile selector that
-writes`/etc/debvisor-profile`).\n\n- `config/package-lists/`- defines which packages are baked into
-the DebVisor image by live-build.\n\n-`config/hooks/`- shell hooks that run during the image build;
-they prepare files and defaults inside the chroot but do not replace day-2 configuration.\n\n-
+writes`/etc/debvisor-profile`).\n\n- `config/package-lists/`- defines which packages are
+baked into
+the DebVisor image by live-build.\n\n-`config/hooks/`- shell hooks that run during the
+image build;
+they prepare files and defaults inside the chroot but do not replace day-2
+configuration.\n\n-
 Example hooks:\n\n-`ZZ-debvisor-perms.chroot`ensures helper scripts are
 executable.\n\n-`99-debvisor-firstboot-enable.chroot`installs/enables the first-boot
 unit.\n\n-`config/includes.chroot/`- static files copied into the target filesystem (for
-example`debvisor-firstboot.sh`, systemd units, helper scripts, and base configs).\n\n- Example
+example`debvisor-firstboot.sh`, systemd units, helper scripts, and base configs).\n\n-
+Example
 includes:\n\n- `/usr/local/sbin/debvisor-firstboot.sh`- main first-boot
 script.\n\n-`/usr/local/sbin/debvisor-profile-summary.sh`- writes profile summary
 files.\n\n-`/opt/debvisor/systemd/debvisor-firstboot.service`- staged unit installed by
-hook.\n\n-`config/includes.installer/`- helpers used only at install time (for example profile/addon
-selection scripts) and not present on the running system.\n\n-`debvisor-firstboot.sh`- the main
-first-boot provisioning script that turns a freshly installed node into a DebVisor hypervisor based
+hook.\n\n-`config/includes.installer/`- helpers used only at install time (for example
+profile/addon
+selection scripts) and not present on the running system.\n\n-`debvisor-firstboot.sh`- the
+main
+first-boot provisioning script that turns a freshly installed node into a DebVisor
+hypervisor based
 on the chosen profile.\n\n- At the end of the run, it calls`debvisor-profile-summary.sh`to
 produce`/var/log/debvisor/profile-summary.{txt,json}`for automation.\n\n-`ansible/`- day-2
-configuration, hardening, and addons, intended to be safe to re-apply as the cluster evolves.\n\nAll
-supported builds should go through`build/build-debvisor.sh`rather than calling live-build directly.
+configuration, hardening, and addons, intended to be safe to re-apply as the cluster
+evolves.\n\nAll
+supported builds should go through`build/build-debvisor.sh`rather than calling live-build
+directly.
 The legacy`config/auto/config` entry point is intentionally deprecated.\n\n

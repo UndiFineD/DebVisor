@@ -39,7 +39,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -69,7 +70,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -99,7 +101,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -129,7 +132,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -159,7 +163,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -189,7 +194,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -219,7 +225,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -249,12 +256,13 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
 ```python
-        "disk_gb": random.randint(10, 500),
+        "disk*gb": random.randint(10, 500),
         "network*interfaces": [
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
@@ -279,7 +287,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -287,7 +296,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             {
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
             }
-            for _ in range(random.randint(1, 4))
+            for * in range(random.randint(1, 4))
         ],
         "created*at": datetime.now(timezone.utc).isoformat(),
         "hypervisor": random.choice(["kvm", "xen"]),
@@ -309,7 +318,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -339,7 +349,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -369,7 +380,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -399,7 +411,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -429,7 +442,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -459,7 +473,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -489,7 +504,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 
@@ -519,7 +535,8 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for security/cryptographic
+purposes.
 
 ### Context
 

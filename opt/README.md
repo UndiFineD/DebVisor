@@ -1,203 +1,353 @@
-# opt/ Directory - DebVisor Operational Workspace\n\n## Overview\n\nThe `opt/`directory contains the
+# opt/ Directory - DebVisor Operational Workspace\n\n## Overview\n\nThe `opt/`directory
 
-core operational infrastructure for DebVisor, including build automation, Ansible orchestration,
-monitoring configuration, Docker addon definitions, and supporting tools. This directory transforms
-DebVisor from a single-node appliance into a deployable, manageable, and monitorable infrastructure
-platform.\n\n- *Key Responsibility:**Provide production-grade tooling for deployment, configuration
-management, monitoring, and lifecycle operations.\n\n## Directory Structure\n\n opt/\n +-- README.md
+contains the
 
-# This file\n +-- ansible/ # Configuration management & orchestration\n | +-- inventory.example #
+core operational infrastructure for DebVisor, including build automation, Ansible
+orchestration,
+monitoring configuration, Docker addon definitions, and supporting tools. This directory
+transforms
+DebVisor from a single-node appliance into a deployable, manageable, and monitorable
+infrastructure
+platform.\n\n- *Key Responsibility:**Provide production-grade tooling for deployment,
+configuration
+management, monitoring, and lifecycle operations.\n\n## Directory Structure\n\n opt/\n +--
+README.md
 
-Host inventory template\n | +-- inventory # Actual inventory (not in git)\n | +-- playbooks/ #
-High-level orchestration playbooks\n | | +-- security-hardening.yml # Security posture enforcement\n
+## This file\n +-- ansible/ # Configuration management & orchestration\n | +--
+
+inventory.example #
+
+Host inventory template\n | +-- inventory # Actual inventory (not in git)\n | +--
+playbooks/ #
+High-level orchestration playbooks\n | | +-- security-hardening.yml # Security posture
+enforcement\n
 | | +-- enforce-mfa.yml # SSH MFA configuration\n | | +-- block-ips.yml # Dynamic IP blocklist
 management\n | | +-- quarantine-host.yml # Host isolation (security response)\n | | +--
-rotate-tsig-ha.yml # TSIG key rotation (HA DNS)\n | +-- roles/ # Reusable Ansible roles\n | +--
+rotate-tsig-ha.yml # TSIG key rotation (HA DNS)\n | +-- roles/ # Reusable Ansible roles\n
+| +--
 dns-ha/ # Bind9+Keepalived HA DNS\n | +-- dns-secondary/ # Secondary Bind9 servers\n | +--
-node-register/ # Node registration (stub)\n | +-- vm-register/ # VM dynamic DNS registration\n | +--
-blocklist/ # Firewall blocklist management\n | +-- mfa/ # SSH MFA setup (stub)\n | +-- vnc-console/
+node-register/ # Node registration (stub)\n | +-- vm-register/ # VM dynamic DNS
+registration\n | +--
+blocklist/ # Firewall blocklist management\n | +-- mfa/ # SSH MFA setup (stub)\n | +--
+vnc-console/
 
-# noVNC web console addon\n | +-- rpc-service/ # gRPC RPC service (stub)\n | +-- web-panel/ # Web
+## noVNC web console addon\n | +-- rpc-service/ # gRPC RPC service (stub)\n | +--
+
+web-panel/ # Web
 
 management UI (stub)\n |\n +-- argocd/ # Kubernetes automation workflows\n | +--
-security-remediation-workflow.yaml # Alert -> remediation pipeline\n |\n +-- build/ # ISO build and
-testing scripts\n | +-- build-debvisor.sh # Main ISO build script\n | +-- sync-addons-playbook.sh #
-Sync Ansible addons into ISO\n | +-- test-firstboot.sh # First-boot provisioning tests\n | +--
-test-profile-summary.sh # Profile validation tests\n |\n +-- config/ # Live-build configuration\n |
-+-- preseed.cfg # Debian Installer preseed\n | +-- package-lists/ # APT package manifests\n | | +--
-base.list # Base system packages\n | | +-- ceph.list # Ceph storage packages\n | | +-- zfs.list #
+security-remediation-workflow.yaml # Alert -> remediation pipeline\n |\n +-- build/ # ISO
+build and
+testing scripts\n | +-- build-debvisor.sh # Main ISO build script\n | +--
+sync-addons-playbook.sh #
+Sync Ansible addons into ISO\n | +-- test-firstboot.sh # First-boot provisioning tests\n |
++--
+test-profile-summary.sh # Profile validation tests\n |\n +-- config/ # Live-build
+configuration\n |
++-- preseed.cfg # Debian Installer preseed\n | +-- package-lists/ # APT package
+manifests\n | | +--
+base.list # Base system packages\n | | +-- ceph.list # Ceph storage packages\n | | +--
+zfs.list #
 ZFS storage packages\n | | +-- k8s.list # Kubernetes packages\n | | +-- docker.list #
 Docker/container packages\n | | +-- virtualization.list # KVM/libvirt packages\n | | +--
-monitoring.list # Prometheus/Grafana packages\n | +-- hooks/ # Live-build hook scripts\n | | +--
-normal/ # Normal phase hooks (executed)\n | | +-- ...\n | +-- includes.chroot/ # Files injected into
-ISO\n | | +-- etc/ # System configuration files\n | | +-- usr/ # User binaries and libraries\n | |
-+-- ...\n | +-- includes.installer/ # Debian Installer files\n |\n +-- docker/ # Container addon
-definitions\n | +-- addons/ # Addon packages\n | | +-- compose/ # Docker Compose applications\n | |
+monitoring.list # Prometheus/Grafana packages\n | +-- hooks/ # Live-build hook scripts\n |
+| +--
+normal/ # Normal phase hooks (executed)\n | | +-- ...\n | +-- includes.chroot/ # Files
+injected into
+ISO\n | | +-- etc/ # System configuration files\n | | +-- usr/ # User binaries and
+libraries\n | |
++-- ...\n | +-- includes.installer/ # Debian Installer files\n |\n +-- docker/ # Container
+addon
+definitions\n | +-- addons/ # Addon packages\n | | +-- compose/ # Docker Compose
+applications\n | |
 | +-- traefik-compose.yml # Reverse proxy\n | | | +-- gitlab-runner-compose.yml # CI/CD runner\n | |
 +-- k8s/ # Kubernetes manifests\n | | +-- storage-classes/ # Storage (Ceph, ZFS)\n | | +--
-monitoring/ # Prometheus, Grafana\n | | +-- networking/ # Ingress, CNI\n | | +-- system/ # Essential
-services\n | +-- README.md # Addon architecture guide\n |\n +-- docs/ # Project documentation\n |
-+-- index.md # Documentation entry point\n | +-- GLOSSARY.md # DebVisor terminology\n | +--
+monitoring/ # Prometheus, Grafana\n | | +-- networking/ # Ingress, CNI\n | | +-- system/ #
+Essential
+services\n | +-- README.md # Addon architecture guide\n |\n +-- docs/ # Project
+documentation\n |
++-- index.md # Documentation entry point\n | +-- GLOSSARY.md # DebVisor terminology\n |
++--
 architecture.md # System design & components\n | +-- core-components.md # Package roles &
-responsibilities\n | +-- profiles.md # Storage profiles (ceph/zfs/mixed)\n | +-- operations.md #
-Day-2 operations & defaults\n | +-- networking.md # Network configuration\n | +-- migration.md #
+responsibilities\n | +-- profiles.md # Storage profiles (ceph/zfs/mixed)\n | +--
+operations.md #
+Day-2 operations & defaults\n | +-- networking.md # Network configuration\n | +--
+migration.md #
 Failover & live migration\n | +-- rpc-service.md # gRPC service design\n | +--
-failover-identity-access.md # AD/SSSD/Keycloak integration\n | +-- monitoring-automation.md #
+failover-identity-access.md # AD/SSSD/Keycloak integration\n | +--
+monitoring-automation.md #
 Dashboards & automation\n | +-- compliance-logging.md # Audit trail & evidence\n | +--
 quick-reference.md # Cheat sheet\n | +-- workloads.md # Example workload configs\n | +--
-developer-workflow.md # Contributing & development\n | +-- install/ # Installation guides\n | +--
-ISO_BUILD.md # Building the ISO\n |\n +-- grafana/ # Monitoring dashboards\n | +-- dashboards/ #
-Grafana JSON dashboards\n | | +-- overview.json # System overview\n | | +-- dns-dhcp.json # DNS/DHCP
-monitoring\n | | +-- security.json # Security metrics\n | | +-- compliance.json # Compliance audit\n
+developer-workflow.md # Contributing & development\n | +-- install/ # Installation
+guides\n | +--
+ISO_BUILD.md # Building the ISO\n |\n +-- grafana/ # Monitoring dashboards\n | +--
+dashboards/ #
+Grafana JSON dashboards\n | | +-- overview.json # System overview\n | | +-- dns-dhcp.json
+
+## DNS/DHCP
+
+monitoring\n | | +-- security.json # Security metrics\n | | +-- compliance.json #
+Compliance audit\n
 | | +-- ceph.json # Ceph cluster metrics\n | +-- provisioning/ # Grafana provisioning configs\n |
 +-- datasources/ # Prometheus, Loki, etc.\n | +-- alerting/ # Alert rules\n | +--
-notification-channels/ # Email, Slack, etc.\n |\n +-- monitoring/ # Prometheus & observability\n |
-+-- fixtures/ # Test metrics & synthetic data\n | | +-- generator/ # Metrics generator\n | | +--
-*-ConfigMap.yaml # Test data ConfigMaps\n | | +-- *-Deployment.yaml # Test generators\n | +--
-prometheus/ # Prometheus configuration\n | | +-- prometheus.yml # Scrape configs\n | | +-- rules/ #
-Recording & alerting rules\n | | +-- alerts/ # Prometheus AlertManager configs\n | +-- loki/ # Loki
-log aggregation\n | +-- loki-config.yaml # Loki scrape configs\n | +-- ...\n |\n +-- netcfg-tui/ #
-Network configuration TUI\n | +-- README.md # Usage guide\n | +-- netcfg_tui.py # Python TUI
-application\n | +-- ...\n |\n +-- services/\n +-- rpc/ # gRPC RPC service\n +-- proto/ # Protocol
-Buffer definitions\n | +-- debvisor.proto # RPC API schema\n | +-- Makefile # Proto compilation\n
+notification-channels/ # Email, Slack, etc.\n |\n +-- monitoring/ # Prometheus &
+observability\n |
++-- fixtures/ # Test metrics & synthetic data\n | | +-- generator/ # Metrics generator\n |
+| +--
+*-ConfigMap.yaml # Test data ConfigMaps\n | | +-- *-Deployment.yaml # Test generators\n |
++--
+prometheus/ # Prometheus configuration\n | | +-- prometheus.yml # Scrape configs\n | | +--
+rules/ #
+Recording & alerting rules\n | | +-- alerts/ # Prometheus AlertManager configs\n | +--
+loki/ # Loki
+log aggregation\n | +-- loki-config.yaml # Loki scrape configs\n | +-- ...\n |\n +--
+netcfg-tui/ #
+Network configuration TUI\n | +-- README.md # Usage guide\n | +-- netcfg_tui.py # Python
+TUI
+application\n | +-- ...\n |\n +-- services/\n +-- rpc/ # gRPC RPC service\n +-- proto/ #
+Protocol
+Buffer definitions\n | +-- debvisor.proto # RPC API schema\n | +-- Makefile # Proto
+compilation\n
 +-- Makefile # Build & testing\n +-- ...\n\n## Component Descriptions\n\n### ansible/ -
-Configuration Management\n\n- *Purpose:**Deploy, configure, and manage DebVisor clusters using
-Ansible playbooks and roles.\n\n#### Inventory Management\n\n### inventory.example\n\n- Template
+Configuration Management\n\n- *Purpose:**Deploy, configure, and manage DebVisor clusters
+using
+Ansible playbooks and roles.\n\n#### Inventory Management\n\n### inventory.example\n\n-
+Template
 showing expected host groups and variables\n\n-
 Groups:`dns_primaries`,`dns_secondaries`,`ceph_mons`,`ceph_osds`,`k8s_controlplane`,`k8s_workers`\n\n-
 Required variables per role (documented in file)\n\n### inventory (not in git)\n\n- Actual
-deployment inventory for your environment\n\n- Should match inventory.example structure\n\n-
+deployment inventory for your environment\n\n- Should match inventory.example
+structure\n\n-
 Sensitive data (passwords, API keys) stored in separate vault file\n\n### Improvements to
 implement\n\n- Convert to YAML format for better validation and templating\n\n- Add
-`ansible-inventory --list`CI validation\n\n- Document required variables per role\n\n- Provide
+`ansible-inventory --list`CI validation\n\n- Document required variables per role\n\n-
+Provide
 environment-specific examples (lab, prod, cluster)\n\n#### Playbooks\n\n### Key
 Playbooks\n\n1.**security-hardening.yml**\n\n- Installs Wazuh/IDS, configures nftables
-blocklists\n\n- Applies sysctl hardening, auditd rules\n\n- Enforces SELinux/AppArmor policies\n\n-
-*Improvements:*Add check/diff modes, idempotence guarantees\n\n1.**enforce-mfa.yml**\n\n- Configures
+blocklists\n\n- Applies sysctl hardening, auditd rules\n\n- Enforces SELinux/AppArmor
+policies\n\n-
+*Improvements:*Add check/diff modes, idempotence guarantees\n\n1.**enforce-mfa.yml**\n\n-
+Configures
 SSH MFA via PAM Google Authenticator\n\n- Integrates with LDAP/AD if
-configured\n\n-*Improvements:*Add rollback support, testing in CI\n\n1.**block-ips.yml**\n\n- Pushes
-IPs into nftables blocklist\n\n- Logs and exports metrics for monitoring\n\n-*Improvements:*Add
-dry-run, whitelist management, rate limiting\n\n1.**quarantine-host.yml**\n\n- Isolates compromised
-host (network, services)\n\n- Disables autostarted VMs, tags in metrics/DNS\n\n-*Improvements:*Add
-audit logging, emergency restore procedures\n\n1.**rotate-tsig-ha.yml**\n\n- Rotates TSIG keys
-cluster-wide (nodes, VMs, transfer key)\n\n-*Improvements:*Add check/diff mode, rollback, audit
+configured\n\n-*Improvements:*Add rollback support, testing in
+CI\n\n1.**block-ips.yml**\n\n- Pushes
+IPs into nftables blocklist\n\n- Logs and exports metrics for
+monitoring\n\n-*Improvements:*Add
+dry-run, whitelist management, rate limiting\n\n1.**quarantine-host.yml**\n\n- Isolates
+compromised
+host (network, services)\n\n- Disables autostarted VMs, tags in
+metrics/DNS\n\n-*Improvements:*Add
+audit logging, emergency restore procedures\n\n1.**rotate-tsig-ha.yml**\n\n- Rotates TSIG
+keys
+cluster-wide (nodes, VMs, transfer key)\n\n-*Improvements:*Add check/diff mode, rollback,
+audit
 logging\n\n#### Roles\n\n| Role | Purpose | Status | Improvements Needed
 |\n|------|---------|--------|---------------------|\n| dns-ha | Bind9+Keepalived HA primaries |
-Production | Document VIP setup, failover testing |\n| dns-secondary | Secondary Bind9 servers |
-Production | Multi-master IXFR, zone validation |\n| node-register | Node hostname registration |
-Stub | Integrate with on-node services |\n| vm-register | VM dynamic DNS via libvirt hook |
-Production | Add IPv6, DNSSEC validation |\n| blocklist | Firewall blocklist management | Production
+Production | Document VIP setup, failover testing |\n| dns-secondary | Secondary Bind9
+servers |
+Production | Multi-master IXFR, zone validation |\n| node-register | Node hostname
+registration |
+Stub | Integrate with on-node services |\n| vm-register | VM dynamic DNS via libvirt hook
+|
+Production | Add IPv6, DNSSEC validation |\n| blocklist | Firewall blocklist management |
+Production
 | Add granular rules, performance tuning |\n| mfa | SSH MFA via PAM | Stub | Implement full MFA
-pipeline |\n| vnc-console | noVNC web console addon | Production | Add TLS, websockify optimization
+pipeline |\n| vnc-console | noVNC web console addon | Production | Add TLS, websockify
+optimization
 |\n| rpc-service | gRPC RPC service | Stub | Implement authentication, RBAC |\n| web-panel | Web
-management UI | Stub | Implement full UI, backend integration |\n\n### Usage Examples\n\n## Run
-security hardening on all hosts\n\n ansible-playbook opt/ansible/playbooks/security-hardening.yml -i
+management UI | Stub | Implement full UI, backend integration |\n\n### Usage
+Examples\n\n## Run
+security hardening on all hosts\n\n ansible-playbook
+opt/ansible/playbooks/security-hardening.yml -i
 inventory\n\n## Apply MFA enforcement to SSH servers\n\n ansible-playbook
-opt/ansible/playbooks/enforce-mfa.yml \\n\n - i inventory \\n\n - l ssh_servers \\n\n - -tags
+opt/ansible/playbooks/enforce-mfa.yml \\n\n - i inventory \\n\n - l ssh_servers \\n\n -
+-tags
 ssh-mfa\n\n## Dry-run: preview changes before applying\n\n ansible-playbook
-opt/ansible/playbooks/rotate-tsig-ha.yml \\n\n - i inventory \\n\n - -check --diff\n\n## build/ -
+opt/ansible/playbooks/rotate-tsig-ha.yml \\n\n - i inventory \\n\n - -check --diff\n\n##
+build/ -
 ISO Building\n\n-*Purpose:**Automate ISO creation for DebVisor deployments.\n\n###
-build-debvisor.sh\n\nMain build script orchestrating live-build.\n\n### Current Features\n\n-
+build-debvisor.sh\n\nMain build script orchestrating live-build.\n\n### Current
+Features\n\n-
 Environment variable configuration (DEBVISOR_DIST, DEBVISOR_ARCH, DEBVISOR_VERSION)\n\n-
-Mirror/firmware toggles\n\n- Preseed and package list integration\n\n- Addon synchronization
-(sync-addons-playbook.sh)\n\n- ISO hybrid creation\n\n### Improvements to implement [2]\n\n- Add
-comprehensive logging (timestamp, severity levels)\n\n- Add`--verbose`flag for detailed output\n\n-
-Add mirror fallback if primary unavailable\n\n- Add SHA256 checksum verification\n\n- Preserve build
+Mirror/firmware toggles\n\n- Preseed and package list integration\n\n- Addon
+synchronization
+(sync-addons-playbook.sh)\n\n- ISO hybrid creation\n\n### Improvements to implement
+[2]\n\n- Add
+comprehensive logging (timestamp, severity levels)\n\n- Add`--verbose`flag for detailed
+output\n\n-
+Add mirror fallback if primary unavailable\n\n- Add SHA256 checksum verification\n\n-
+Preserve build
 artifacts on failure (for debugging)\n\n- Add CI matrix for amd64, arm64, multiple Debian
-releases\n\n- Add post-build smoke tests (mount, verify files)\n\n- Create`.env.example`with all
+releases\n\n- Add post-build smoke tests (mount, verify files)\n\n-
+Create`.env.example`with all
 variables\n\n#### sync-addons-playbook.sh\n\nSynchronizes Ansible addons into ISO before
-building.\n\n### Improvements to implement [3]\n\n- Add error handling for missing source files\n\n-
-Add`--dry-run`mode to preview changes\n\n- Add checksumming (skip if identical)\n\n- Document addon
-discovery process\n\n#### test-firstboot.sh\n\nTests first-boot provisioning script.\n\n###
-Improvements to implement [4]\n\n- Expand test coverage (syntax + execution)\n\n- Add tests for
-different Debian releases\n\n- Add checks for required binaries (zfs, ceph, kubeadm)\n\n- Generate
-JUnit test reports for CI\n\n#### test-profile-summary.sh\n\nValidates profile configuration.\n\n###
-Improvements to implement [5]\n\n- Document what is validated\n\n- Add detailed error messages\n\n-
+building.\n\n### Improvements to implement [3]\n\n- Add error handling for missing source
+files\n\n-
+Add`--dry-run`mode to preview changes\n\n- Add checksumming (skip if identical)\n\n-
+Document addon
+discovery process\n\n#### test-firstboot.sh\n\nTests first-boot provisioning
+script.\n\n###
+Improvements to implement [4]\n\n- Expand test coverage (syntax + execution)\n\n- Add
+tests for
+different Debian releases\n\n- Add checks for required binaries (zfs, ceph, kubeadm)\n\n-
+Generate
+JUnit test reports for CI\n\n#### test-profile-summary.sh\n\nValidates profile
+configuration.\n\n###
+Improvements to implement [5]\n\n- Document what is validated\n\n- Add detailed error
+messages\n\n-
 Add supported profile list output\n\n### config/ - Live-Build Configuration\n\n-
 *Purpose:**Configure live-build to produce DebVisor ISO with all components.\n\n####
-preseed.cfg\n\nDebian Installer preseeding for automated installation.\n\n### Current Features
-[2]\n\n- Locale/timezone/hostname\n\n- Root + admin password prompts\n\n- Profile selection menu
-(ceph/zfs/mixed)\n\n- User account creation\n\n### Improvements to implement [6]\n\n- Add NTP/time
-synchronization settings\n\n- Add language/locale selection options\n\n- Document profile-specific
-vs universal settings\n\n- Add inline comments explaining sections\n\n- Review password/secret
-handling (no hardcoding)\n\n#### package-lists/\n\nAPT package manifests for different component
+preseed.cfg\n\nDebian Installer preseeding for automated installation.\n\n### Current
+Features
+[2]\n\n- Locale/timezone/hostname\n\n- Root + admin password prompts\n\n- Profile
+selection menu
+(ceph/zfs/mixed)\n\n- User account creation\n\n### Improvements to implement [6]\n\n- Add
+NTP/time
+synchronization settings\n\n- Add language/locale selection options\n\n- Document
+profile-specific
+vs universal settings\n\n- Add inline comments explaining sections\n\n- Review
+password/secret
+handling (no hardcoding)\n\n#### package-lists/\n\nAPT package manifests for different
+component
 groups.\n\n### Files\n\n- base.list: Core system packages\n\n- ceph.list: Ceph
 MON/MGR/OSD/MDS/RBD/CephFS\n\n- zfs.list: ZFS storage\n\n- k8s.list: Kubernetes
-(kubeadm/kubelet/kubectl)\n\n- docker.list: Docker/containerd/compose\n\n- virtualization.list:
-KVM/libvirt/virt-manager\n\n- monitoring.list: Prometheus/Grafana/exporters\n\n### Improvements to
-implement [7]\n\n- Document purpose of each list file\n\n- Add package validation CI: verify
-availability in target Debian\n\n- Document conditional packages (profile-specific)\n\n- Add
-size/security audit notes for high-impact packages\n\n#### hooks/\n\nLive-build hook scripts
-executed during ISO building.\n\n### Improvements to implement [8]\n\n- Document lifecycle: early,
-normal, late phases\n\n- Add shellcheck linting in CI\n\n- Add logging: each hook logs progress\n\n-
-Document inter-hook dependencies\n\n#### includes.chroot/ and includes.installer/\n\nFiles injected
-into ISO (system config, scripts, manifests).\n\n### Improvements to implement [9]\n\n- Create
-manifest of all files (ownership, purposes)\n\n- Add CI validation: verify referenced files
-exist\n\n- Document which files modified on first-boot vs at build time\n\n### docker/addons/ -
-Container Addons\n\n- *Purpose:**Provide pre-built Docker Compose applications and Kubernetes
-manifests as optional addons.\n\n#### compose/\n\nDocker Compose application definitions.\n\n###
+(kubeadm/kubelet/kubectl)\n\n- docker.list: Docker/containerd/compose\n\n-
+virtualization.list:
+KVM/libvirt/virt-manager\n\n- monitoring.list: Prometheus/Grafana/exporters\n\n###
+Improvements to
+implement [7]\n\n- Document purpose of each list file\n\n- Add package validation CI:
+verify
+availability in target Debian\n\n- Document conditional packages (profile-specific)\n\n-
+Add
+size/security audit notes for high-impact packages\n\n#### hooks/\n\nLive-build hook
+scripts
+executed during ISO building.\n\n### Improvements to implement [8]\n\n- Document
+lifecycle: early,
+normal, late phases\n\n- Add shellcheck linting in CI\n\n- Add logging: each hook logs
+progress\n\n-
+Document inter-hook dependencies\n\n#### includes.chroot/ and includes.installer/\n\nFiles
+injected
+into ISO (system config, scripts, manifests).\n\n### Improvements to implement [9]\n\n-
+Create
+manifest of all files (ownership, purposes)\n\n- Add CI validation: verify referenced
+files
+exist\n\n- Document which files modified on first-boot vs at build time\n\n###
+docker/addons/ -
+Container Addons\n\n- *Purpose:**Provide pre-built Docker Compose applications and
+Kubernetes
+manifests as optional addons.\n\n#### compose/\n\nDocker Compose application
+definitions.\n\n###
 Examples\n\n- Traefik reverse proxy\n\n- GitLab Runner for CI/CD\n\n- Custom application
-stacks\n\n#### k8s/\n\nKubernetes manifests and addons.\n\n### Categories\n\n- storage-classes/:
-Ceph RBD, CephFS, ZFS LocalPV\n\n- monitoring/: Prometheus, Grafana, node-exporter\n\n- networking/:
-nginx-ingress, Calico CNI\n\n- system/: Essential Kubernetes services\n\n### Improvements to
-implement [10]\n\n- Create`docker/README.md`explaining addon architecture\n\n- Document addon
+stacks\n\n#### k8s/\n\nKubernetes manifests and addons.\n\n### Categories\n\n-
+storage-classes/:
+Ceph RBD, CephFS, ZFS LocalPV\n\n- monitoring/: Prometheus, Grafana, node-exporter\n\n-
+networking/:
+nginx-ingress, Calico CNI\n\n- system/: Essential Kubernetes services\n\n### Improvements
+to
+implement [10]\n\n- Create`docker/README.md`explaining addon architecture\n\n- Document
+addon
 metadata format (addon.yaml)\n\n- Add CI validation: syntax, required fields, dependency
 consistency\n\n- Support selective addon deployment (K8s-only, Ceph-only)\n\n### docs/ -
 Documentation\n\n- *Purpose:**Comprehensive documentation for operators, developers, and
-users.\n\n#### Documentation Structure\n\n### Entry Points\n\n- index.md: Main documentation
-index\n\n- GLOSSARY.md: DebVisor-specific terminology\n\n- quick-reference.md: Cheat sheet for
+users.\n\n#### Documentation Structure\n\n### Entry Points\n\n- index.md: Main
+documentation
+index\n\n- GLOSSARY.md: DebVisor-specific terminology\n\n- quick-reference.md: Cheat sheet
+for
 common tasks\n\n### Core Documentation\n\n- architecture.md: System design, component
-interaction\n\n- core-components.md: Package roles, responsibilities\n\n- profiles.md: Storage
-profiles and behavior\n\n- operations.md: Day-2 operations, defaults, safeguards\n\n### Specialized
-Documentation\n\n- networking.md: VLANs, bridges, tenant isolation\n\n- migration.md: Failover, live
+interaction\n\n- core-components.md: Package roles, responsibilities\n\n- profiles.md:
+Storage
+profiles and behavior\n\n- operations.md: Day-2 operations, defaults, safeguards\n\n###
+Specialized
+Documentation\n\n- networking.md: VLANs, bridges, tenant isolation\n\n- migration.md:
+Failover, live
 migration, RBD layouts\n\n- rpc-service.md: gRPC service architecture\n\n-
-failover-identity-access.md: AD/SSSD/Keycloak integration\n\n- monitoring-automation.md: Dashboards,
-automation flows\n\n- compliance-logging.md: Audit trails, evidence workflows\n\n- workloads.md:
+failover-identity-access.md: AD/SSSD/Keycloak integration\n\n- monitoring-automation.md:
+Dashboards,
+automation flows\n\n- compliance-logging.md: Audit trails, evidence workflows\n\n-
+workloads.md:
 Example workload configurations\n\n- developer-workflow.md: Contributing guidelines\n\n###
-Installation\n\n- install/ISO_BUILD.md: Building and booting ISO\n\n- Step-by-step deployment
+Installation\n\n- install/ISO_BUILD.md: Building and booting ISO\n\n- Step-by-step
+deployment
 guides\n\n### Improvements to implement [11]\n\n- Add index.md as entry point\n\n- Create
-GLOSSARY.md for terminology\n\n- Add navigation aids (breadcrumbs, table of contents)\n\n- Audit all
-files for outdated info, broken links\n\n- Add "last updated" timestamps\n\n- Create decision trees
-for common scenarios\n\n### grafana/ - Monitoring Dashboards\n\n- *Purpose:**Provide pre-built
-Grafana dashboards for monitoring DebVisor clusters.\n\n#### Dashboards\n\n### Key Dashboards\n\n-
-overview.json: System overview (nodes, resources, services)\n\n- dns-dhcp.json: DNS/DHCP health and
-performance\n\n- security.json: Security metrics and firewall stats\n\n- compliance.json: Compliance
-audit and MFA usage\n\n- ceph.json: Ceph cluster health and performance\n\n### Improvements to
-implement [12]\n\n- Add datasource naming consistency (Prometheus UID:`prometheus-debvisor`)\n\n-
-Document threshold choices (why specific values)\n\n- Add CI validation: verify metrics exist in
-Prometheus\n\n- Add dashboard variables for multi-cluster/multi-tenant reusability\n\n- Add
-templating examples\n\n#### Provisioning\n\nGrafana provisioning configuration.\n\n### Improvements
-to implement [13]\n\n- Add provisioning for notification channels (email, Slack)\n\n- Document
-datasource endpoint customization\n\n- Add CI validation for YAML syntax\n\n### monitoring/ -
-Prometheus & Observability\n\n- *Purpose:**Configure metrics collection and log aggregation.\n\n####
-fixtures/\n\nTest metrics and synthetic data for lab/demo environments.\n\n### Components\n\n-
-generator/: Metrics generation for testing\n\n- ConfigMaps/Deployments: Pre-configured test
-data\n\n### Improvements to implement [14]\n\n- Add configuration options for metric names,
-labels\n\n- Add Helm charts or kustomize overlays\n\n- Clarify which fixtures for testing vs never
+GLOSSARY.md for terminology\n\n- Add navigation aids (breadcrumbs, table of contents)\n\n-
+Audit all
+files for outdated info, broken links\n\n- Add "last updated" timestamps\n\n- Create
+decision trees
+for common scenarios\n\n### grafana/ - Monitoring Dashboards\n\n- *Purpose:**Provide
+pre-built
+Grafana dashboards for monitoring DebVisor clusters.\n\n#### Dashboards\n\n### Key
+Dashboards\n\n-
+overview.json: System overview (nodes, resources, services)\n\n- dns-dhcp.json: DNS/DHCP
+health and
+performance\n\n- security.json: Security metrics and firewall stats\n\n- compliance.json:
+Compliance
+audit and MFA usage\n\n- ceph.json: Ceph cluster health and performance\n\n###
+Improvements to
+implement [12]\n\n- Add datasource naming consistency (Prometheus
+UID:`prometheus-debvisor`)\n\n-
+Document threshold choices (why specific values)\n\n- Add CI validation: verify metrics
+exist in
+Prometheus\n\n- Add dashboard variables for multi-cluster/multi-tenant reusability\n\n-
+Add
+templating examples\n\n#### Provisioning\n\nGrafana provisioning configuration.\n\n###
+Improvements
+to implement [13]\n\n- Add provisioning for notification channels (email, Slack)\n\n-
+Document
+datasource endpoint customization\n\n- Add CI validation for YAML syntax\n\n###
+monitoring/ -
+Prometheus & Observability\n\n- *Purpose:**Configure metrics collection and log
+aggregation.\n\n####
+fixtures/\n\nTest metrics and synthetic data for lab/demo environments.\n\n###
+Components\n\n-
+generator/: Metrics generation for testing\n\n- ConfigMaps/Deployments: Pre-configured
+test
+data\n\n### Improvements to implement [14]\n\n- Add configuration options for metric
+names,
+labels\n\n- Add Helm charts or kustomize overlays\n\n- Clarify which fixtures for testing
+vs never
 production\n\n- Add auto-cleanup/retention policies\n\n#### Prometheus Configuration\n\n-
-*prometheus.yml:**Scrape configurations for different component types\n\n- *rules/:**Recording and
-alerting rules\n\n- *alerts/:**AlertManager configuration\n\n### netcfg-tui/ - Network Configuration
-TUI\n\n- *Purpose:**Terminal UI for interactive network configuration.\n\n### Improvements to
-implement [15]\n\n- Add unit tests for config generation (interface enumeration, IP validation,
-VLAN)\n\n- Add error handling for edge cases (interface disappears, invalid CIDR)\n\n- Add more
-backends: iproute2, nmcli (NetworkManager)\n\n- Add `--apply`flag for direct application with
-confirmation\n\n- Add pre-flight validation (systemd-networkd/netplan available)\n\n- Expand
-documentation: bonding, LAGs, multi-bridge scenarios\n\n### services/rpc/ - gRPC RPC Service\n\n-
+*prometheus.yml:**Scrape configurations for different component types\n\n-
+*rules/:**Recording and
+alerting rules\n\n- *alerts/:**AlertManager configuration\n\n### netcfg-tui/ - Network
+Configuration
+TUI\n\n- *Purpose:**Terminal UI for interactive network configuration.\n\n### Improvements
+to
+implement [15]\n\n- Add unit tests for config generation (interface enumeration, IP
+validation,
+VLAN)\n\n- Add error handling for edge cases (interface disappears, invalid CIDR)\n\n- Add
+more
+backends: iproute2, nmcli (NetworkManager)\n\n- Add `--apply`flag for direct application
+with
+confirmation\n\n- Add pre-flight validation (systemd-networkd/netplan available)\n\n-
+Expand
+documentation: bonding, LAGs, multi-bridge scenarios\n\n### services/rpc/ - gRPC RPC
+Service\n\n-
 *Purpose:**Provide machine API for node management, migrations, config sync.\n\n####
-proto/debvisor.proto\n\nProtocol Buffer definitions for RPC API.\n\n### Improvements to implement
+proto/debvisor.proto\n\nProtocol Buffer definitions for RPC API.\n\n### Improvements to
+implement
 [16]\n\n- Add API versioning and deprecation guidance\n\n- Document error codes and client
-handling\n\n- Add request/response payload examples\n\n#### Makefile\n\nProto compilation and build
-targets.\n\n### Improvements to implement [17]\n\n- Add targets for Go, TypeScript/Node.js\n\n- Add
-protolint for proto files\n\n- Add version pinning for grpcio-tools\n\n#### Implementation\n\n###
+handling\n\n- Add request/response payload examples\n\n#### Makefile\n\nProto compilation
+and build
+targets.\n\n### Improvements to implement [17]\n\n- Add targets for Go,
+TypeScript/Node.js\n\n- Add
+protolint for proto files\n\n- Add version pinning for grpcio-tools\n\n####
+Implementation\n\n###
 Improvements to implement [18]\n\n- Add authentication (OAuth2, mTLS, API keys)\n\n- Add
-authorization (RBAC for different RPC methods)\n\n- Add TLS by default (self-signed for lab, proper
-certs for prod)\n\n- Add request validation (schema, rate limiting, timeouts)\n\n- Add audit logging
-(caller identity, timestamp)\n\n- Add integration tests in container\n\n- Add load testing and chaos
-testing\n\n## Management & Usage\n\n### Building the ISO\n\n## Standard build\n\n cd opt/build\n
-./build-debvisor.sh\n\n## With custom architecture\n\n DEBVISOR_ARCH=arm64 ./build-debvisor.sh\n\n##
-Fast rebuild (skip clean)\n\n DEBVISOR_FAST=1 ./build-debvisor.sh\n\n## Specific version\n\n
+authorization (RBAC for different RPC methods)\n\n- Add TLS by default (self-signed for
+lab, proper
+certs for prod)\n\n- Add request validation (schema, rate limiting, timeouts)\n\n- Add
+audit logging
+(caller identity, timestamp)\n\n- Add integration tests in container\n\n- Add load testing
+and chaos
+testing\n\n## Management & Usage\n\n### Building the ISO\n\n## Standard build\n\n cd
+opt/build\n
+./build-debvisor.sh\n\n## With custom architecture\n\n DEBVISOR_ARCH=arm64
+./build-debvisor.sh\n\n##
+Fast rebuild (skip clean)\n\n DEBVISOR_FAST=1 ./build-debvisor.sh\n\n## Specific
+version\n\n
 DEBVISOR_VERSION=v1.0.0 ./build-debvisor.sh\n\n## Verbose output\n\n DEBVISOR_VERBOSE=1
-./build-debvisor.sh\n\n## Deploying with Ansible\n\n## Verify inventory syntax\n\n ansible-inventory
+./build-debvisor.sh\n\n## Deploying with Ansible\n\n## Verify inventory syntax\n\n
+ansible-inventory
 -i opt/ansible/inventory --list\n\n## Run security hardening\n\n ansible-playbook
 opt/ansible/playbooks/security-hardening.yml \\n\n - i opt/ansible/inventory\n\n## Dry-run
 playbook\n\n ansible-playbook opt/ansible/playbooks/rotate-tsig-ha.yml \\n\n - i
@@ -207,57 +357,84 @@ firewall,selinux\n\n## Testing & Validation\n\n## Test first-boot provisioning\n
 ./opt/build/test-firstboot.sh --profile ceph\n\n## Validate profiles\n\n
 ./opt/build/test-profile-summary.sh\n\n## Lint Ansible playbooks\n\n ansible-lint
 opt/ansible/playbooks/*.yml\n\n## Validate systemd units in resulting ISO\n\n## (after ISO
-boots)\n\n systemd-analyze verify /etc/systemd/system/*.service\n\n## Production Deployment
-Checklist\n\n### Pre-Deployment\n\n- [] Review and customize`opt/ansible/inventory`\n\n- [] Verify
+boots)\n\n systemd-analyze verify /etc/systemd/system/*.service\n\n## Production
+Deployment
+Checklist\n\n### Pre-Deployment\n\n- [] Review and customize`opt/ansible/inventory`\n\n-
+[] Verify
 all `opt/config/package-lists/*.list`packages available\n\n- [] Test ISO
 build:`./opt/build/build-debvisor.sh`\n\n- [] Validate first-boot:
-`./opt/build/test-firstboot.sh`\n\n- [] Review Ansible playbooks for your environment\n\n- [] Test
+`./opt/build/test-firstboot.sh`\n\n- [] Review Ansible playbooks for your environment\n\n-
+[] Test
 Ansible on staging: `--check --diff`dry-run\n\n### ISO Building\n\n- [] Build production
-ISO:`DEBVISOR_VERSION=v1.0.0 ./opt/build/build-debvisor.sh`\n\n- [] Verify ISO checksums\n\n- []
-Boot ISO on test hardware\n\n- [] Validate post-boot services\n\n### Deployment\n\n- [] Boot ISO on
-all target nodes\n\n- [] Run through installer (profiles, networking, users)\n\n- [] Verify
-first-boot completes successfully\n\n- [] Run Ansible playbooks for cluster setup\n\n- [] Validate
-cluster health (Ceph, K8s, networking)\n\n### Post-Deployment\n\n- [] Verify Grafana dashboards show
-metrics\n\n- [] Confirm alert rules are firing correctly\n\n- [] Test backup/restore procedures\n\n-
-[] Document any custom configurations\n\n- [] Set up monitoring alerts for critical metrics\n\n##
-Cross-Component Validation\n\n- *Recommended:**Add CI job to validate compatibility:\n\n## Check
-Ansible inventory matches expected groups\n\n## Check build scripts reference valid package
-lists\n\n## Check Kubernetes manifests reference valid images\n\n## Check Grafana dashboards
-reference valid metrics\n\n## Check RPC proto matches web panel implementation\n\n## Advanced
+ISO:`DEBVISOR_VERSION=v1.0.0 ./opt/build/build-debvisor.sh`\n\n- [] Verify ISO
+checksums\n\n- []
+Boot ISO on test hardware\n\n- [] Validate post-boot services\n\n### Deployment\n\n- []
+Boot ISO on
+all target nodes\n\n- [] Run through installer (profiles, networking, users)\n\n- []
+Verify
+first-boot completes successfully\n\n- [] Run Ansible playbooks for cluster setup\n\n- []
+Validate
+cluster health (Ceph, K8s, networking)\n\n### Post-Deployment\n\n- [] Verify Grafana
+dashboards show
+metrics\n\n- [] Confirm alert rules are firing correctly\n\n- [] Test backup/restore
+procedures\n\n-
+[] Document any custom configurations\n\n- [] Set up monitoring alerts for critical
+metrics\n\n##
+Cross-Component Validation\n\n- *Recommended:**Add CI job to validate compatibility:\n\n##
+Check
+Ansible inventory matches expected groups\n\n## Check build scripts reference valid
+package
+lists\n\n## Check Kubernetes manifests reference valid images\n\n## Check Grafana
+dashboards
+reference valid metrics\n\n## Check RPC proto matches web panel implementation\n\n##
+Advanced
 Improvements (Phase 3.5+)\n\n### Services & Features\n\n- *RPC Service
-Enhancements**(`services/rpc/ADVANCED_FEATURES.md`)\n\n- Connection pooling (50 max connections,
-configurable)\n\n- Request/response compression (GZIP, Brotli)\n\n- API versioning (V1.0, V2.0,
+Enhancements**(`services/rpc/ADVANCED_FEATURES.md`)\n\n- Connection pooling (50 max
+connections,
+configurable)\n\n- Request/response compression (GZIP, Brotli)\n\n- API versioning (V1.0,
+V2.0,
 V3.0)\n\n- Large cluster optimization (1000+ nodes)\n\n- *Web Panel
 Enhancements**(`web/panel/ADVANCED_FEATURES.md`)\n\n- Two-Factor Authentication (TOTP,
-WebAuthn)\n\n- WebSocket real-time notifications\n\n- PDF export and reporting\n\n- Dark mode and
+WebAuthn)\n\n- WebSocket real-time notifications\n\n- PDF export and reporting\n\n- Dark
+mode and
 themes\n\n- Batch operations framework\n\n- Large cluster performance optimization\n\n###
-Infrastructure Components\n\n- *Ansible Automation**(`ansible/ANSIBLE_GUIDE.md`)\n\n- Comprehensive
-Ansible framework guide\n\n- Inventory templates and best practices\n\n- Playbook patterns for
+Infrastructure Components\n\n- *Ansible Automation**(`ansible/ANSIBLE_GUIDE.md`)\n\n-
+Comprehensive
+Ansible framework guide\n\n- Inventory templates and best practices\n\n- Playbook patterns
+for
 scalability\n\n- Molecule testing framework setup\n\n- Ansible-lint quality assurance\n\n-
-*Configuration & Preseed**(`config/PRESEED_DOCUMENTATION.md`)\n\n- Preseed.cfg customization
-guide\n\n- Variable substitution templates\n\n- Build hooks documentation\n\n- Architecture support
+*Configuration & Preseed**(`config/PRESEED_DOCUMENTATION.md`)\n\n- Preseed.cfg
+customization
+guide\n\n- Variable substitution templates\n\n- Build hooks documentation\n\n-
+Architecture support
 (amd64, arm64)\n\n- Security hardening in preseed\n\n- *Systemd Services &
 Timers**(`../etc/CONFIGURATION_GUIDE.md`)\n\n- Service file best practices\n\n- Timer unit
-configuration\n\n- Security hardening (PrivateTmp, ProtectSystem)\n\n- Resource limits and restart
+configuration\n\n- Security hardening (PrivateTmp, ProtectSystem)\n\n- Resource limits and
+restart
 policies\n\n- Validation and troubleshooting\n\n- *Helper
-Scripts**(`../usr/HELPER_SCRIPTS_GUIDE.md`)\n\n- CLI tool reference (cephctl, hvctl, k8sctl)\n\n-
+Scripts**(`../usr/HELPER_SCRIPTS_GUIDE.md`)\n\n- CLI tool reference (cephctl, hvctl,
+k8sctl)\n\n-
 Script improvements (error handling, logging, validation)\n\n- Health check framework\n\n-
-Standardized exit codes\n\n- Audit logging integration\n\n## Next Steps\n\n1.**Short-term:**Create
-`docker/README.md` for addon architecture\n1.**Short-term:**Add Ansible inventory validation to
+Standardized exit codes\n\n- Audit logging integration\n\n## Next
+Steps\n\n1.**Short-term:**Create
+`docker/README.md` for addon architecture\n1.**Short-term:**Add Ansible inventory
+validation to
 CI\n1.**Short-term:**Implement advanced RPC features (connection pooling,
-compression)\n1.**Medium-term:**Implement gRPC RPC service and web panel advanced features (2FA,
-WebSockets, PDF)\n1.**Medium-term:**Add comprehensive testing framework\n1.**Medium-term:**Large
+compression)\n1.**Medium-term:**Implement gRPC RPC service and web panel advanced features
+(2FA,
+WebSockets, PDF)\n1.**Medium-term:**Add comprehensive testing
+framework\n1.**Medium-term:**Large
 cluster optimization (1000+ nodes)\n1.**Long-term:**Develop HA cluster automation\n\n##
 References\n\n- [Ansible
-Documentation]([https://docs.ansible.com]([https://docs.ansible.co]([https://docs.ansible.c]([https://docs.ansible.]([https://docs.ansible]([https://docs.ansibl](https://docs.ansibl)e).)c)o)m)/)\n\n-
+Documentation]([https://docs.ansible.com]([https://docs.ansible.co]([https://docs.ansible.c]([https://docs.ansible.]([https://docs.ansible]([https://docs.ansibl]([https://docs.ansib](https://docs.ansib)l)e).)c)o)m)/)\n\n-
 [Live-build
-Manual]([https://live-team.pages.debian.net/live-manual]([https://live-team.pages.debian.net/live-manua]([https://live-team.pages.debian.net/live-manu]([https://live-team.pages.debian.net/live-man]([https://live-team.pages.debian.net/live-ma]([https://live-team.pages.debian.net/live-m](https://live-team.pages.debian.net/live-m)a)n)u)a)l)/)\n\n-
+Manual]([https://live-team.pages.debian.net/live-manual]([https://live-team.pages.debian.net/live-manua]([https://live-team.pages.debian.net/live-manu]([https://live-team.pages.debian.net/live-man]([https://live-team.pages.debian.net/live-ma]([https://live-team.pages.debian.net/live-m]([https://live-team.pages.debian.net/live-](https://live-team.pages.debian.net/live-)m)a)n)u)a)l)/)\n\n-
 [Grafana
-Documentation]([https://grafana.com/docs]([https://grafana.com/doc]([https://grafana.com/do]([https://grafana.com/d]([https://grafana.com/]([https://grafana.com](https://grafana.com)/)d)o)c)s)/)\n\n-
+Documentation]([https://grafana.com/docs]([https://grafana.com/doc]([https://grafana.com/do]([https://grafana.com/d]([https://grafana.com/]([https://grafana.com]([https://grafana.co](https://grafana.co)m)/)d)o)c)s)/)\n\n-
 [Prometheus
-Documentation]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/]([https://prometheus.io](https://prometheus.io)/)d)o)c)s)/)\n\n-
+Documentation]([https://prometheus.io/docs]([https://prometheus.io/doc]([https://prometheus.io/do]([https://prometheus.io/d]([https://prometheus.io/]([https://prometheus.io]([https://prometheus.i](https://prometheus.i)o)/)d)o)c)s)/)\n\n-
 [Kubernetes
-Documentation]([https://kubernetes.io/docs]([https://kubernetes.io/doc]([https://kubernetes.io/do]([https://kubernetes.io/d]([https://kubernetes.io/]([https://kubernetes.io](https://kubernetes.io)/)d)o)c)s)/)\n\n##
+Documentation]([https://kubernetes.io/docs]([https://kubernetes.io/doc]([https://kubernetes.io/do]([https://kubernetes.io/d]([https://kubernetes.io/]([https://kubernetes.io]([https://kubernetes.i](https://kubernetes.i)o)/)d)o)c)s)/)\n\n##
 Related Documentation\n\n- See [/etc/README.md](../etc/README.md) for system services and
 maintenance\n\n- See [/usr/README.md](../usr/README.md) for operational scripts and CLIs
 (planned)\n\n- See [README.md](../README.md) for project overview\n\n

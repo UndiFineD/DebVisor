@@ -28,9 +28,9 @@ Items marked below as fixed:
 ### Context
 
 ```python
-app.register_blueprint(cost_bp, url_prefix="/api/v1/cost")
+app.register_blueprint(cost_bp, url*prefix="/api/v1/cost")
 
-if *name**== "**main*_":
+if *name**== "**main**":
     app.run(host="0.0.0.0", port=5006)
 ```python
 

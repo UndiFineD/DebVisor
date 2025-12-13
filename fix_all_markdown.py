@@ -96,9 +96,12 @@ def fix_markdown_file(file_path):
     # Fix MD033: Remove or replace inline HTML
     content = re.sub(r'<br\s*/?>', '\n', content, flags=re.IGNORECASE)
     content = re.sub(r'<hr\s*/?>', '\n---\n', content, flags=re.IGNORECASE)
-    content = re.sub(r'</?p>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?p[^>]*>', '', content, flags=re.IGNORECASE)
     content = re.sub(r'</?div[^>]*>', '', content, flags=re.IGNORECASE)
     content = re.sub(r'</?span[^>]*>', '', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?(strong|b)>', '**', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?(em|i)>', '*', content, flags=re.IGNORECASE)
+    content = re.sub(r'</?code>', '`', content, flags=re.IGNORECASE)
 
     # Fix MD036: Convert emphasis as heading to proper heading
     content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
@@ -139,7 +142,7 @@ def fix_markdown_file(file_path):
             fixed_lines.append(line)
     content = '\n'.join(fixed_lines)
 
-    # Fix MD013: Wrap long lines (split at word boundaries, max ~100 chars)
+    # Fix MD013: Wrap long lines (split at word boundaries, max ~90 chars)
     lines = content.split('\n')
     fixed_lines = []
     in_code_block = False
@@ -147,7 +150,7 @@ def fix_markdown_file(file_path):
         if line.startswith('```'):
             in_code_block = not in_code_block
             fixed_lines.append(line)
-        elif in_code_block or line.startswith('    ') or line.startswith('|') or len(line) <= 100:
+        elif in_code_block or line.startswith('    ') or line.startswith('|') or len(line) <= 90:
             # Don't wrap code blocks, indented code, tables, or short lines
             fixed_lines.append(line)
         elif line.strip() and not line.strip().startswith('http'):
@@ -158,7 +161,7 @@ def fix_markdown_file(file_path):
             indent = indent_match.group(1) if indent_match else ''
             for word in words:
                 test_line = current_line + (' ' if current_line else '') + word
-                if len(test_line) <= 100:
+                if len(test_line) <= 90:
                     current_line = test_line
                 else:
                     if current_line:
@@ -196,7 +199,7 @@ def fix_markdown_file(file_path):
     # Fix MD047: Ensure file ends with exactly one newline
     content = content.rstrip() + '\n'
 
-    # Fix MD022, MD031, MD032 with line-by-line processing
+    # Fix MD001, MD022, MD031, MD032 with line-by-line processing
     lines = content.split('\n')
     fixed_lines = []
     i = 0
@@ -228,10 +231,16 @@ def fix_markdown_file(file_path):
             # Check for top-level heading
             if line.startswith('# ') and not top_level_heading_found:
                 top_level_heading_found = True
+                current_heading = line
+            elif line.startswith('# '):
+                # Demote additional H1 to H2 for MD001
+                current_heading = '#' + line
+            else:
+                current_heading = line
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
                 fixed_lines.append('')
-            fixed_lines.append(line)
+            fixed_lines.append(current_heading)
             # Add blank line after if needed
             if i + 1 < len(lines) and lines[i + 1].strip() != '':
                 fixed_lines.append('')

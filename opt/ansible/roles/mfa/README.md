@@ -1,7 +1,13 @@
-# MFA Role (Stub)\n\nThis role is a non-operational stub kept in sync with DebVisor's real control
+# MFA Role (Stub)\n\nThis role is a non-operational stub kept in sync with DebVisor's real
 
-paths for MFA enforcement. Use `ansible/playbooks/enforce-mfa.yml` and eventual RPC/web-panel
-workflows or AWX job templates for actual enforcement.\n\n- Purpose: Document intended integration
-points without performing system changes.\n\n- Future integration: System policy tasks, RPC/web
-workflows, AWX templates.\n\n- Note: This role intentionally does not modify PAM/sshd or fetch
+control
+
+paths for MFA enforcement. Use `ansible/playbooks/enforce-mfa.yml` and eventual
+RPC/web-panel
+workflows or AWX job templates for actual enforcement.\n\n- Purpose: Document intended
+integration
+points without performing system changes.\n\n- Future integration: System policy tasks,
+RPC/web
+workflows, AWX templates.\n\n- Note: This role intentionally does not modify PAM/sshd or
+fetch
 packages.\n\n

@@ -68,7 +68,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess module.
+**Message:** Consider possible security implications associated with the subprocess
+module.
 
 ### Context
 
@@ -97,7 +98,8 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -128,7 +130,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -159,7 +162,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -190,7 +194,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -221,7 +226,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -251,7 +257,8 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -282,7 +289,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -313,7 +321,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -344,7 +353,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -375,7 +385,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -406,7 +417,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -437,7 +449,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -468,7 +481,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -499,7 +513,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -530,7 +545,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -561,7 +577,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -591,7 +608,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -621,7 +639,8 @@ class TestWhitelistOverride:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -652,7 +671,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -683,7 +703,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -714,7 +735,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -744,7 +766,8 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -775,7 +798,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -806,7 +830,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -837,7 +862,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -868,7 +894,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -898,7 +925,8 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -929,7 +957,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -960,7 +989,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -991,7 +1021,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1022,7 +1053,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1053,7 +1085,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1084,7 +1117,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1115,7 +1149,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1146,7 +1181,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1177,7 +1213,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1207,7 +1244,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1237,7 +1275,8 @@ class TestValidationScriptIntegration:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1268,7 +1307,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1359,7 +1399,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context
@@ -1450,7 +1491,8 @@ byte code.
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised
+**Message:** Use of assert detected. The enclosed code will be removed when compiling to
+optimised
 byte code.
 
 ### Context

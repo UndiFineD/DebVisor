@@ -40,7 +40,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess module.
+**Message:** Consider possible security implications associated with the subprocess
+module.
 
 ### Context
 

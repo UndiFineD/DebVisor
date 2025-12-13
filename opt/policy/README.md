@@ -1,9 +1,14 @@
-# Policy (Conftest / OPA)\n\nThis folder provides starter Rego policies for Kubernetes manifests
+# Policy (Conftest / OPA)\n\nThis folder provides starter Rego policies for Kubernetes
 
-validated by Conftest in CI.\nPolicies focus on common reliability and security checks:\n\n-
-Disallow images with the `latest`tag.\n\n- Require CPU and memory resource requests/limits on
-containers.\n\nPlace additional rules under`policy/k8s/` and they will be picked up by the combined
+manifests
+
+validated by Conftest in CI.\nPolicies focus on common reliability and security
+checks:\n\n-
+Disallow images with the `latest`tag.\n\n- Require CPU and memory resource requests/limits
+on
+containers.\n\nPlace additional rules under`policy/k8s/` and they will be picked up by the
+combined
 validator workflow.\nReferences:\n\n- Conftest:
-<<[https://www.conftest.dev/>\n\n->]([https://www.conftest.dev/>\n\n-]([https://www.conftest.dev/>\n\n]([https://www.conftest.dev/>\n\]([https://www.conftest.dev/>\n]([https://www.conftest.dev/>\](https://www.conftest.dev/>\)n)\)n)-)>)
+<<[https://www.conftest.dev/>\n\n->]([https://www.conftest.dev/>\n\n-]([https://www.conftest.dev/>\n\n]([https://www.conftest.dev/>\n\]([https://www.conftest.dev/>\n]([https://www.conftest.dev/>\]([https://www.conftest.dev/>](https://www.conftest.dev/>)\)n)\)n)-)>)
 OPA/Rego:
-<<[https://www.openpolicyagent.org/docs/latest/policy-language/>\n>\n]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n>\]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n>]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n]([https://www.openpolicyagent.org/docs/latest/policy-language/>\]([https://www.openpolicyagent.org/docs/latest/policy-language/>](https://www.openpolicyagent.org/docs/latest/policy-language/>)\)n)>)\)n)
+<<[https://www.openpolicyagent.org/docs/latest/policy-language/>\n>\n]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n>\]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n>]([https://www.openpolicyagent.org/docs/latest/policy-language/>\n]([https://www.openpolicyagent.org/docs/latest/policy-language/>\]([https://www.openpolicyagent.org/docs/latest/policy-language/>]([https://www.openpolicyagent.org/docs/latest/policy-language/](https://www.openpolicyagent.org/docs/latest/policy-language/)>)\)n)>)\)n)

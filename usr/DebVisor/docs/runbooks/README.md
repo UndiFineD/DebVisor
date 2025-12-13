@@ -1,9 +1,16 @@
-# DebVisor Operational Runbooks\n\nThis directory contains operational runbooks for maintaining and
+# DebVisor Operational Runbooks\n\nThis directory contains operational runbooks for
+
+maintaining and
 
 troubleshooting the DebVisor platform.\n\n## Available Runbooks\n\n| Runbook | Description
 |\n|---------|-------------|\n| [Troubleshooting Guide](TROUBLESHOOTING_GUIDE.md) | Common failure
-scenarios and resolution steps |\n| [Disaster Recovery](DISASTER_RECOVERY.md) | Procedures for data
-restoration and system recovery |\n| [Performance Tuning](PERFORMANCE_TUNING.md) | Guidelines for
-optimizing system performance |\n\n## Usage\n\nThese runbooks are intended for:\n\n- System
-Administrators\n\n- DevOps Engineers\n\n- Support Staff\n\nAlways follow the escalation path defined
-in the [Troubleshooting Guide](TROUBLESHOOTING_GUIDE.md) if an issue cannot be resolved.\n\n
+scenarios and resolution steps |\n| [Disaster Recovery](DISASTER_RECOVERY.md) | Procedures
+for data
+restoration and system recovery |\n| [Performance Tuning](PERFORMANCE_TUNING.md) |
+Guidelines for
+optimizing system performance |\n\n## Usage\n\nThese runbooks are intended for:\n\n-
+System
+Administrators\n\n- DevOps Engineers\n\n- Support Staff\n\nAlways follow the escalation
+path defined
+in the [Troubleshooting Guide](TROUBLESHOOTING_GUIDE.md) if an issue cannot be
+resolved.\n\n

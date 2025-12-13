@@ -1,37 +1,70 @@
-# DebVisor Security Overview\n\nThis document summarizes the baseline security posture for the
+# DebVisor Security Overview\n\nThis document summarizes the baseline security posture for
 
-DebVisor ISO,\ninstaller, and installed system. It is intentionally concise; see the\nreferenced
-docs for deeper architecture.\n\n## ISO Integrity\n\n- Every released ISO SHOULD be accompanied by a
-SHA256 checksum file.\n\n- Optionally, ISOs MAY be signed with a GPG key dedicated to DebVisor\n\n
-releases.\n\n- The build script supports this via:\n\n- `DEBVISOR_SIGN_ISO=1`to enable checksum +
-signature generation.\n\n-`DEBVISOR_GPG_KEY=`to select a specific GPG key (optional).\n\nExample
-(after importing the DebVisor release key):\n sha256sum -c debvisor--.hybrid.iso.sha256\n gpg
---verify debvisor--.hybrid.iso.asc\n\n## ISO and Live Environment\n\n- The live environment aims to
-ship only the packages required to install and\n\n operate DebVisor as a headless hypervisor.\n\n-
-Network-facing services in the live system SHOULD be minimized. SSH or other\n\n daemons SHOULD only
-be enabled when explicitly required for installation or\n remote automation.\n\n- Default firewall
+the
+
+DebVisor ISO,\ninstaller, and installed system. It is intentionally concise; see
+the\nreferenced
+docs for deeper architecture.\n\n## ISO Integrity\n\n- Every released ISO SHOULD be
+accompanied by a
+SHA256 checksum file.\n\n- Optionally, ISOs MAY be signed with a GPG key dedicated to
+DebVisor\n\n
+releases.\n\n- The build script supports this via:\n\n- `DEBVISOR_SIGN_ISO=1`to enable
+checksum +
+signature generation.\n\n-`DEBVISOR_GPG_KEY=`to select a specific GPG key
+(optional).\n\nExample
+(after importing the DebVisor release key):\n sha256sum -c debvisor--.hybrid.iso.sha256\n
+gpg
+--verify debvisor--.hybrid.iso.asc\n\n## ISO and Live Environment\n\n- The live
+environment aims to
+ship only the packages required to install and\n\n operate DebVisor as a headless
+hypervisor.\n\n-
+Network-facing services in the live system SHOULD be minimized. SSH or other\n\n daemons
+SHOULD only
+be enabled when explicitly required for installation or\n remote automation.\n\n- Default
+firewall
 policy SHOULD deny inbound traffic unless explicitly\n\n documented as required for the
-installer.\n\n## Installation and First Boot\n\n- The first-boot script (`debvisor-firstboot.sh`) is
+installer.\n\n## Installation and First Boot\n\n- The first-boot script
+(`debvisor-firstboot.sh`) is
 intended to be\n\n non-destructive when run in`--dry-run`mode, and its behavior is covered
-by\n`build/test-firstboot.sh`.\n\n- The installed system MUST NOT ship with default or well-known
-passwords.\n\n Installers SHOULD either:\n\n- Require a strong password at install time, or\n\n-
-Prefer SSH key-based administration with no password login.\n\n- The installed host SHOULD disable
-or remove services that are not required\n\n for a headless hypervisor (e.g., GUI components,
-desktop daemons, printers).\n\n## Updates and Maintenance\n\n- Security updates SHOULD be applied
-regularly. Operators are encouraged to\n\n enable unattended upgrades for security repositories
-where operationally\n compatible.\n\n- Logs from first boot and key management actions SHOULD be
-written to a\n\n dedicated location (e.g., `/var/log/debvisor/`) to ease auditing.\n\n## Operational
-Guidance\n\n- Expose DebVisor management interfaces only over trusted channels\n\n (VPN, bastion
-hosts, or private networks).\n\n- Avoid exposing management SSH or web consoles directly to the
-public\n\n internet without additional controls (firewalls, MFA, IP restrictions).\n\n- Periodically
-review the package set and configuration against current\n\n hardening guidance for Debian and
-virtualization hosts.\nExample threat scenarios, trust boundaries, and supply-chain\nassumptions are
-summarized in `threat-model.md`; site operators may\nhave stricter policies that take precedence
-over these defaults.\n\n## Blocklists and Whitelists\n\nDebVisor ships**example**blocklist and
+by\n`build/test-firstboot.sh`.\n\n- The installed system MUST NOT ship with default or
+well-known
+passwords.\n\n Installers SHOULD either:\n\n- Require a strong password at install time,
+or\n\n-
+Prefer SSH key-based administration with no password login.\n\n- The installed host SHOULD
+disable
+or remove services that are not required\n\n for a headless hypervisor (e.g., GUI
+components,
+desktop daemons, printers).\n\n## Updates and Maintenance\n\n- Security updates SHOULD be
+applied
+regularly. Operators are encouraged to\n\n enable unattended upgrades for security
+repositories
+where operationally\n compatible.\n\n- Logs from first boot and key management actions
+SHOULD be
+written to a\n\n dedicated location (e.g., `/var/log/debvisor/`) to ease auditing.\n\n##
+Operational
+Guidance\n\n- Expose DebVisor management interfaces only over trusted channels\n\n (VPN,
+bastion
+hosts, or private networks).\n\n- Avoid exposing management SSH or web consoles directly
+to the
+public\n\n internet without additional controls (firewalls, MFA, IP restrictions).\n\n-
+Periodically
+review the package set and configuration against current\n\n hardening guidance for Debian
+and
+virtualization hosts.\nExample threat scenarios, trust boundaries, and
+supply-chain\nassumptions are
+summarized in `threat-model.md`; site operators may\nhave stricter policies that take
+precedence
+over these defaults.\n\n## Blocklists and Whitelists\n\nDebVisor ships**example**blocklist
+and
 whitelist files under\n`/etc/debvisor/`:\n\n- `blocklist-example.txt`\n\n-
-`blocklist-whitelist-example.txt`\n\nThese are templates only; they are not active unless wired into
-the\n`blocklist`Ansible role via inventory or`group_vars` (see\n`operations.md`). Operators should
-copy and adapt these files, then\nreference the real paths from Ansible configuration.\nUsing the
-example files as-is without connecting them to Ansible has\nno effect on the running firewall.\nThis
-document is a starting point. Site operators may have stricter policies\nthat take precedence over
+`blocklist-whitelist-example.txt`\n\nThese are templates only; they are not active unless
+wired into
+the\n`blocklist`Ansible role via inventory or`group_vars` (see\n`operations.md`).
+Operators should
+copy and adapt these files, then\nreference the real paths from Ansible
+configuration.\nUsing the
+example files as-is without connecting them to Ansible has\nno effect on the running
+firewall.\nThis
+document is a starting point. Site operators may have stricter policies\nthat take
+precedence over
 these defaults.\n\n
