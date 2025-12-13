@@ -39,7 +39,7 @@ from pathlib import Path
 from typing import Any, Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from uuid import uuid4
 
-_logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -345,7 +345,7 @@ class ChangeRateEstimator:
 
         # Simple: rate * hours
         # Advanced: consider time-of-day patterns
-        _total_mb = 0.0
+        total_mb = 0.0
         now = datetime.now(timezone.utc)
 
         for h in range(hours_ahead):  # type: ignore[name-defined]
@@ -445,7 +445,7 @@ class ChangeRateEstimator:
             for window in sorted(windows, key = lambda w: -w.priority):
                 if check_date.weekday() in window.days_of_week:  # type: ignore[name-defined]
                     start=check_date.replace(  # type: ignore[name-defined]
-                        _hour = window.start_hour, minute = 0, second = 0, microsecond = 0
+                        hour = window.start_hour, minute = 0, second = 0, microsecond = 0
                     )
                     if start > now:  # type: ignore[name-defined]
                         return start
@@ -513,14 +513,14 @@ class RestoreTestManager:
         priority: int = 0,
     ) -> RestoreTest:
         """Schedule a restore test."""
-        _test_id = f"rt-{uuid4().hex[:12]}"
+        test_id = f"rt-{uuid4().hex[:12]}"
 
         test = RestoreTest(  # type: ignore[call-arg]
             _id=test_id,  # type: ignore[name-defined]
-            _backup_id = backup_id,
-            _vm_id = vm_id,
-            _policy_id = policy_id,
-            _status = RestoreTestStatus.PENDING,
+            backup_id = backup_id,
+            vm_id = vm_id,
+            policy_id = policy_id,
+            status = RestoreTestStatus.PENDING,
         )
 
         self.tests[test_id] = test  # type: ignore[name-defined]
@@ -546,7 +546,7 @@ class RestoreTestManager:
         try:
         # Phase 1: Provision sandbox
             test.status = RestoreTestStatus.PROVISIONING
-            _sandbox_id = await self._provision_sandbox(test)
+            sandbox_id = await self._provision_sandbox(test)
             test.sandbox_vm_id=sandbox_id  # type: ignore[name-defined]
 
             # Phase 2: Restore backup
@@ -560,7 +560,7 @@ class RestoreTestManager:
             )
 
             for check in checks:
-                _result = await self._run_validation(test, check)
+                result = await self._run_validation(test, check)
                 test.validation_results[check] = result  # type: ignore[name-defined]
                 if not result:  # type: ignore[name-defined]
                     test.status = RestoreTestStatus.FAILED
@@ -603,7 +603,7 @@ class RestoreTestManager:
         )
 
         # In production: call backup service to restore
-        _start_time = time.time()
+        start_time = time.time()
 
         # Simulate restore time
         await asyncio.sleep(0.2)
@@ -674,7 +674,7 @@ class RestoreTestManager:
         """Run application-specific validation."""
         # In production: run custom validation scripts
 
-        _validator = self.custom_validators.get(test.vm_id)
+        validator = self.custom_validators.get(test.vm_id)
         if validator:  # type: ignore[name-defined]
             return await validator(test)  # type: ignore[name-defined]
 
@@ -698,7 +698,7 @@ class RestoreTestManager:
         self, vm_id: Optional[str] = None, limit: int = 100
     ) -> List[RestoreTest]:
         """Get restore test history."""
-        _tests = list(self.tests.values())
+        tests = list(self.tests.values())
 
         if vm_id:
             tests = [t for t in tests if t.vm_id == vm_id]  # type: ignore[has-type]
@@ -768,27 +768,27 @@ class SLAComplianceTracker:
 
     def check_compliance(self, vmid: str) -> SLAComplianceReport:
         """Check SLA compliance for a VM."""
-        _policy_id = self.vm_policies.get(vm_id)
+        policy_id = self.vm_policies.get(vm_id)
 
         if not policy_id:  # type: ignore[name-defined]
             return SLAComplianceReport(  # type: ignore[call-arg]
-                _vm_id = vm_id,
-                _policy_id = "",
-                _status = SLAStatus.UNKNOWN,
-                _issues = ["No policy assigned"],
+                vm_id = vm_id,
+                policy_id = "",
+                status = SLAStatus.UNKNOWN,
+                issues = ["No policy assigned"],
             )
 
         _sla=self.slas.get(policy_id)  # type: ignore[name-defined]
         if not sla:  # type: ignore[name-defined]
             return SLAComplianceReport(  # type: ignore[call-arg]
-                _vm_id = vm_id,
+                vm_id = vm_id,
                 _policy_id=policy_id,  # type: ignore[name-defined]
-                _status = SLAStatus.UNKNOWN,
-                _issues = ["Policy not found"],
+                status = SLAStatus.UNKNOWN,
+                issues = ["Policy not found"],
             )
 
         now = datetime.now(timezone.utc)
-        _backups = self.backup_history.get(vm_id, [])
+        backups = self.backup_history.get(vm_id, [])
 
         # Get last backup
         last_backup=backups[-1] if backups else None  # type: ignore[name-defined]
@@ -811,7 +811,7 @@ class SLAComplianceTracker:
                     f"RPO breached: {int(minutes_since_backup)}m since last backup"  # type: ignore[name-defined]
                 )
             elif minutes_since_backup > sla.rpo_minutes * 0.8:  # type: ignore[name-defined]
-                _status = SLAStatus.AT_RISK
+                status = SLAStatus.AT_RISK
                 issues.append(f"RPO at risk: {int(minutes_until_breach)}m until breach")  # type: ignore[call-overload]
 
         # Count violations in last 30 days
@@ -831,13 +831,13 @@ class SLAComplianceTracker:
         _backup_count=sum(1 for b in backups if b > thirty_days_ago)  # type: ignore[name-defined]
 
         # Restore success rate
-        _restores = self.restore_history.get(vm_id, [])
+        restores = self.restore_history.get(vm_id, [])
         _recent_restores=[(t, s) for t, s in restores if t > thirty_days_ago]  # type: ignore[name-defined]
         _successful=sum(1 for _, s in recent_restores if s)  # type: ignore[name-defined]
         _failed=len(recent_restores) - successful  # type: ignore[name-defined]
 
         # Calculate average backup duration (placeholder)
-        _avg_duration = 0.0
+        avg_duration = 0.0
 
         # Next backup due
         next_due = None
@@ -845,18 +845,18 @@ class SLAComplianceTracker:
             _next_due=last_backup + timedelta(minutes=sla.rpo_minutes)  # type: ignore[name-defined]
 
         return SLAComplianceReport(  # type: ignore[call-arg]
-            _vm_id = vm_id,
+            vm_id = vm_id,
             _policy_id=policy_id,  # type: ignore[name-defined]
-            _status = status,
-            _last_backup = last_backup,
-            _next_backup_due = next_due,
-            _minutes_until_breach = minutes_until_breach,
+            status = status,
+            last_backup = last_backup,
+            next_backup_due = next_due,
+            minutes_until_breach = minutes_until_breach,
             _backup_count_30d=backup_count,  # type: ignore[name-defined]
             _successful_restores=successful,  # type: ignore[name-defined]
             _failed_restores=failed,  # type: ignore[name-defined]
-            _rpo_violations_30d = rpo_violations,
+            rpo_violations_30d = rpo_violations,
             _avg_backup_duration=avg_duration,  # type: ignore[name-defined]
-            _issues = issues,
+            issues = issues,
         )
 
     def check_all_compliance(self) -> List[SLAComplianceReport]:
@@ -907,15 +907,15 @@ class DedupAnalyzer:
         shared_chunks: int,
     ) -> DedupAnalytics:
         """Record deduplication statistics for a backup."""
-        _dedup_ratio = logical_bytes / max(physical_bytes, 1)
+        dedup_ratio = logical_bytes / max(physical_bytes, 1)
 
-        _analytics = DedupAnalytics(  # type: ignore[call-arg]
-            _vm_id = vm_id,
-            _total_logical_bytes = logical_bytes,
-            _total_physical_bytes = physical_bytes,
+        analytics = DedupAnalytics(  # type: ignore[call-arg]
+            vm_id = vm_id,
+            total_logical_bytes = logical_bytes,
+            total_physical_bytes = physical_bytes,
             _dedup_ratio=dedup_ratio,  # type: ignore[name-defined]
-            _unique_chunks = unique_chunks,
-            _shared_chunks = shared_chunks,
+            unique_chunks = unique_chunks,
+            shared_chunks = shared_chunks,
         )
 
         # Estimate monthly savings (assumes weekly full backups)
@@ -933,8 +933,8 @@ class DedupAnalyzer:
         if not self.vm_analytics:
             return {}
 
-        _total_logical = sum(a.total_logical_bytes for a in self.vm_analytics.values())
-        _total_physical = sum(a.total_physical_bytes for a in self.vm_analytics.values())
+        total_logical = sum(a.total_logical_bytes for a in self.vm_analytics.values())
+        total_physical = sum(a.total_physical_bytes for a in self.vm_analytics.values())
         total_savings = sum(
             a.estimated_monthly_savings_gb for a in self.vm_analytics.values()
         )
@@ -947,8 +947,8 @@ class DedupAnalyzer:
             "estimated_monthly_savings_gb": total_savings,
             "top_dedup_vms": sorted(  # type: ignore[call-overload]
                 [(vm, a.dedup_ratio) for vm, a in self.vm_analytics.items()],
-                _key = lambda x: x[1],
-                _reverse = True,
+                key = lambda x: x[1],
+                reverse = True,
             )[:10],
         }
 
@@ -987,11 +987,11 @@ class BackupIntelligence:
             BackupWindow(name = "overnight", start_hour = 0, end_hour = 6, priority = 10),
             BackupWindow(name = "business_low", start_hour = 12, end_hour = 14, priority = 5),
             BackupWindow(  # type: ignore[call-arg]
-                _name = "weekend",
-                _start_hour = 0,
-                _end_hour = 24,
-                _days_of_week = [5, 6],    # Sat, Sun
-                _priority = 8,
+                name = "weekend",
+                start_hour = 0,
+                end_hour = 24,
+                days_of_week = [5, 6],    # Sat, Sun
+                priority = 8,
             ),
         ]
 
@@ -1015,7 +1015,7 @@ class BackupIntelligence:
         """Record backup completion for intelligence updates."""
         # Update change rate
         self.change_estimator.record_change(  # type: ignore[call-arg]
-            _vm_id = vm_id, changed_mb = changed_mb, interval_minutes = duration_minutes
+            vm_id = vm_id, changed_mb = changed_mb, interval_minutes = duration_minutes
         )
 
         # Update SLA tracking
@@ -1023,11 +1023,11 @@ class BackupIntelligence:
 
         # Update dedup analytics
         self.dedup_analyzer.record_backup_stats(  # type: ignore[call-arg]
-            _vm_id = vm_id,
-            _logical_bytes = logical_bytes,
-            _physical_bytes = physical_bytes,
-            _unique_chunks = unique_chunks,
-            _shared_chunks = shared_chunks,
+            vm_id = vm_id,
+            logical_bytes = logical_bytes,
+            physical_bytes = physical_bytes,
+            unique_chunks = unique_chunks,
+            shared_chunks = shared_chunks,
         )
 
     def schedule_backup(
@@ -1036,25 +1036,25 @@ class BackupIntelligence:
         """Create an optimized backup schedule for a VM."""
         windows = windows or self.backup_windows
 
-        _sla = self.sla_tracker.slas.get(policy_id)
+        sla = self.sla_tracker.slas.get(policy_id)
         rpo_minutes=sla.rpo_minutes if sla else 1440    # Default 24h  # type: ignore[name-defined]
         _priority=sla.priority if sla else BackupPriority.MEDIUM  # type: ignore[name-defined]
 
         # Get optimal time
         optimal_time = self.change_estimator.get_optimal_backup_time(  # type: ignore[call-arg]
-            _vm_id = vm_id, windows = windows, rpo_minutes = rpo_minutes
+            vm_id = vm_id, windows = windows, rpo_minutes = rpo_minutes
         )
 
         if not optimal_time:
         # Fallback to next window start if no optimal time found
-            _optimal_time = self.change_estimator._next_window_start(windows)
+            optimal_time = self.change_estimator._next_window_start(windows)
 
         # Estimate duration and size
-        _rate = self.change_estimator.estimate_change_rate(vm_id)
-        _hours_ahead = (optimal_time - datetime.now(timezone.utc)).total_seconds() / 3600  # type: ignore[operator]
+        rate = self.change_estimator.estimate_change_rate(vm_id)
+        hours_ahead = (optimal_time - datetime.now(timezone.utc)).total_seconds() / 3600  # type: ignore[operator]
         predicted_mb, _=self.change_estimator.predict_changes(vm_id, int(hours_ahead))  # type: ignore[name-defined]
 
-        _estimated_duration = max(int(predicted_mb / 100), 5)    # Assume 100MB/min
+        estimated_duration = max(int(predicted_mb / 100), 5)    # Assume 100MB/min
 
         # Find which window
         window = None
@@ -1064,13 +1064,13 @@ class BackupIntelligence:
                     window = w
                     break
 
-        _schedule = BackupSchedule(  # type: ignore[call-arg]
-            _vm_id = vm_id,
-            _policy_id = policy_id,
-            _next_backup = optimal_time,
+        schedule = BackupSchedule(  # type: ignore[call-arg]
+            vm_id = vm_id,
+            policy_id = policy_id,
+            next_backup = optimal_time,
             _estimated_duration_minutes=estimated_duration,  # type: ignore[name-defined]
-            _estimated_size_mb = int(predicted_mb),
-            _window = window or self.backup_windows[0],
+            estimated_size_mb = int(predicted_mb),
+            window = window or self.backup_windows[0],
             _priority=priority,  # type: ignore[name-defined]
             _reason=f"Optimal time based on {rate:.1f} MB/h change rate",  # type: ignore[name-defined]
         )
@@ -1083,7 +1083,7 @@ class BackupIntelligence:
     ) -> str:
         """Schedule a restore test."""
         test = self.restore_tester.schedule_test(  # type: ignore[call-arg]
-            _backup_id = backup_id, vm_id = vm_id, policy_id = policy_id, profile = profile
+            backup_id = backup_id, vm_id = vm_id, policy_id = policy_id, profile = profile
         )
         return test.id
 
@@ -1091,32 +1091,32 @@ class BackupIntelligence:
         self, vm_id: str, last_backup: Optional[datetime] = None
     ) -> bool:
         """Check if VM is SLA compliant."""
-        _report = self.sla_tracker.check_compliance(vm_id)
+        report = self.sla_tracker.check_compliance(vm_id)
         return report.status == SLAStatus.COMPLIANT
 
     def get_health_report(self) -> BackupHealthReport:
         """Generate comprehensive backup health report."""
         now = datetime.now(timezone.utc)
 
-        _all_vms = set(self.sla_tracker.vm_policies.keys())
-        _compliance_reports = self.sla_tracker.check_all_compliance()
+        all_vms = set(self.sla_tracker.vm_policies.keys())
+        compliance_reports = self.sla_tracker.check_all_compliance()
 
-        _compliant = sum(
+        compliant = sum(
             1 for r in compliance_reports if r.status == SLAStatus.COMPLIANT  # type: ignore[name-defined]
         )
         at_risk=sum(1 for r in compliance_reports if r.status== SLAStatus.AT_RISK)  # type: ignore[name-defined]
         breached=sum(1 for r in compliance_reports if r.status== SLAStatus.BREACHED)  # type: ignore[name-defined]
 
         # Dedup stats
-        _dedup_stats = self.dedup_analyzer.get_global_stats()
+        dedup_stats = self.dedup_analyzer.get_global_stats()
 
         # Restore success rate
-        _all_tests = self.restore_tester.get_test_history()
+        all_tests = self.restore_tester.get_test_history()
         recent_tests=[t for t in all_tests if t.status != RestoreTestStatus.PENDING]  # type: ignore[name-defined]
         successful_tests = sum(
             1 for t in recent_tests if t.status == RestoreTestStatus.SUCCESS
         )
-        _restore_rate = successful_tests / max(len(recent_tests), 1)
+        restore_rate = successful_tests / max(len(recent_tests), 1)
 
         # Generate recommendations
         recommendations = []
@@ -1148,14 +1148,14 @@ class BackupIntelligence:
             _protected_vms=len(compliance_reports),  # type: ignore[name-defined]
             _unprotected_vms=len(all_vms) - len(compliance_reports),  # type: ignore[name-defined]
             _compliant_count=compliant,  # type: ignore[name-defined]
-            _at_risk_count = at_risk,
-            _breached_count = breached,
+            at_risk_count = at_risk,
+            breached_count = breached,
             _total_backup_size_tb=dedup_stats.get("total_logical_tb", 0),  # type: ignore[name-defined]
             _dedup_savings_tb=dedup_stats.get("total_logical_tb", 0)  # type: ignore[name-defined]
             - dedup_stats.get("total_physical_tb", 0),  # type: ignore[name-defined]
             _avg_dedup_ratio=dedup_stats.get("global_dedup_ratio", 1.0),  # type: ignore[name-defined]
             _restore_success_rate=restore_rate,  # type: ignore[name-defined]
-            _recommendations = recommendations,
+            recommendations = recommendations,
         )
 
 
@@ -1165,7 +1165,7 @@ class BackupIntelligence:
 
 if _name__== "__main__":  # type: ignore[name-defined]
     logging.basicConfig(  # type: ignore[call-arg]
-        _level = logging.INFO, format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        level = logging.INFO, format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
 
     print("=" * 60)
@@ -1173,39 +1173,39 @@ if _name__== "__main__":  # type: ignore[name-defined]
     print("=" * 60)
 
     # Initialize
-    _bi = BackupIntelligence()
+    bi = BackupIntelligence()
 
     # Register SLAs
     bi.sla_tracker.register_sla(  # type: ignore[name-defined]
         BackupSLA(  # type: ignore[call-arg]
-            _policy_id = "gold",
-            _name = "Gold - Critical Systems",
-            _rpo_minutes = 60,
-            _rto_minutes = 30,
-            _retention_days = 90,
-            _priority = BackupPriority.CRITICAL,
+            policy_id = "gold",
+            name = "Gold - Critical Systems",
+            rpo_minutes = 60,
+            rto_minutes = 30,
+            retention_days = 90,
+            priority = BackupPriority.CRITICAL,
         )
     )
 
     bi.sla_tracker.register_sla(  # type: ignore[name-defined]
         BackupSLA(  # type: ignore[call-arg]
-            _policy_id = "silver",
-            _name = "Silver - Production",
-            _rpo_minutes = 240,
-            _rto_minutes = 120,
-            _retention_days = 30,
-            _priority = BackupPriority.HIGH,
+            policy_id = "silver",
+            name = "Silver - Production",
+            rpo_minutes = 240,
+            rto_minutes = 120,
+            retention_days = 30,
+            priority = BackupPriority.HIGH,
         )
     )
 
     bi.sla_tracker.register_sla(  # type: ignore[name-defined]
         BackupSLA(  # type: ignore[call-arg]
-            _policy_id = "bronze",
-            _name = "Bronze - Standard",
-            _rpo_minutes = 1440,
-            _rto_minutes = 480,
-            _retention_days = 14,
-            _priority = BackupPriority.MEDIUM,
+            policy_id = "bronze",
+            name = "Bronze - Standard",
+            rpo_minutes = 1440,
+            rto_minutes = 480,
+            retention_days = 14,
+            priority = BackupPriority.MEDIUM,
         )
     )
 
@@ -1227,27 +1227,27 @@ if _name__== "__main__":  # type: ignore[name-defined]
         now = datetime.now(timezone.utc)
         for days_ago in range(7):
             backup_time=now - timedelta(  # type: ignore[call-arg, name-defined]
-                _days = days_ago, hours = random.randint(0, 6)
+                days = days_ago, hours = random.randint(0, 6)
             )    # nosec B311
             bi.sla_tracker.record_backup(vm_id, backup_time)  # type: ignore[name-defined]
 
             # Record change rate
             bi.change_estimator.record_change(  # type: ignore[name-defined]
-                _vm_id = vm_id,
-                _changed_mb = random.uniform(100, 5000),    # nosec B311
-                _interval_minutes = random.randint(60, 480),    # nosec B311
+                vm_id = vm_id,
+                changed_mb = random.uniform(100, 5000),    # nosec B311
+                interval_minutes = random.randint(60, 480),    # nosec B311
                 timestamp = backup_time,
             )
 
             # Record dedup stats
-            _logical = random.randint(10_000_000_000, 100_000_000_000)    # nosec B311
+            logical = random.randint(10_000_000_000, 100_000_000_000)    # nosec B311
             _physical=int(logical / random.uniform(1.5, 4.0))    # nosec B311  # type: ignore[name-defined]
             bi.dedup_analyzer.record_backup_stats(  # type: ignore[name-defined]
-                _vm_id = vm_id,
+                vm_id = vm_id,
                 _logical_bytes=logical,  # type: ignore[name-defined]
                 _physical_bytes=physical,  # type: ignore[name-defined]
-                _unique_chunks = random.randint(1000, 5000),    # nosec B311
-                _shared_chunks = random.randint(5000, 20000),    # nosec B311
+                unique_chunks = random.randint(1000, 5000),    # nosec B311
+                shared_chunks = random.randint(5000, 20000),    # nosec B311
             )
 
     # Check compliance
