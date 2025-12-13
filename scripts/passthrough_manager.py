@@ -44,20 +44,20 @@ class PassthroughProfile:
 
 class PassthroughManager:
 
-    def __init__(self) -> None:
-    # Minimal stub; real functionality not required for current tests
-        self.PROFILES={
-            "gaming": PassthroughProfile(
-                "Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"]
-            ),
-            "ai": PassthroughProfile(
-                "AI Accelerator", "GPU + 3D Controller", ["0300", "0302"]
-            ),
-            "usb": PassthroughProfile("USB Controller", "USB controller", ["0c03"]),
-            "nvme": PassthroughProfile("NVMe Storage", "NVMe storage", ["0108"]),
-        }
+    PROFILES = {
+        "gaming": PassthroughProfile(
+            "Gaming GPU", "GPU + HDMI Audio", ["0300", "0403"]
+        ),
+        "ai": PassthroughProfile(
+            "AI Accelerator", "GPU + 3D Controller", ["0300", "0302"]
+        ),
+        "usb": PassthroughProfile("USB Controller", "USB controller", ["0c03"]),
+        "nvme": PassthroughProfile("NVMe Storage", "NVMe storage", ["0108"]),
+    }
 
-    # Stubs for potential calls in skipped tests
+    def __init__(self) -> None:
+        # Minimal stub; real functionality not required for current tests
+        pass
 
     def scan_devices(self) -> List[PCIDevice]:
         return []
