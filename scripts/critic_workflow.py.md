@@ -1,6 +1,6 @@
 # Code Issues Report: scripts\critic_workflow.py
 
-Generated: 2025-12-13T15:05:44.254917
+Generated: 2025-12-13T15:20:56.139586
 Source: scripts\critic_workflow.py
 
 ## Issues Summary
@@ -15,75 +15,3 @@ Total: 2 issues found
 ## Implementation Status
 
 Items marked below as fixed:
-
-## Fix Proposals
-
-### 2 issues to fix
-
-### Issue at Line 10
-
-**Tool:** bandit | **Code:** `B404` | **Severity:** LOW
-
-**Message:** Consider possible security implications associated with the subprocess module.
-
-### Context
-
-```python
-"""
-
-import sys
-import subprocess
-from pathlib import Path
-
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-### Issue at Line 48
-
-**Tool:** bandit | **Code:** `B603` | **Severity:** LOW
-
-**Message:** subprocess call - check for execution of untrusted input.
-
-### Context
-
-```python
-    print(f"{'='*70}\n")
-
-    try:
-        result = subprocess.run(
-            [sys.executable, str(script_path)],
-            cwd=script_path.parent.parent,
-            check=False
-```python
-
-### Proposal
-
-- Review the issue message above
-
-- Consider the context code
-
-- Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
-
-- Ensure the fix aligns with the codebase style and the context.md guidelines
-
----
-
-## Implementation Progress
-
-To mark an issue as fixed, add the issue code to the line below with a ✅ emoji:
-
-**Fixed Issues:** (none yet)
-
----
-*Updated: (auto-populated by coding expert)*

@@ -1,8 +1,10 @@
 # Code Issues Report: scripts\critic_agent.py
+
 Generated: 2025-12-13T15:20:53.157512
 Source: scripts\critic_agent.py
 
 ## Issues Summary
+
 Total: 13 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -22,4 +24,5 @@ Total: 13 issues found
 | 195 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
+
 Items marked below as fixed:
