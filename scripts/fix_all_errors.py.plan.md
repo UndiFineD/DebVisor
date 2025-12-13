@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_all_errors.py
 
-Generated: 2025-12-13T21:20:30.457648
+Generated: 2025-12-13T21:23:15.520371
 Status: INVALID
 
 ## File Structure Validation

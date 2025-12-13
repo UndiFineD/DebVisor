@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_parameters.py
 
-Generated: 2025-12-13T21:20:30.502964
+Generated: 2025-12-13T21:23:15.571502
 Status: INVALID
 
 ## File Structure Validation

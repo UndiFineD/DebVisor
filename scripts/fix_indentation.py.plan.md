@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_indentation.py
 
-Generated: 2025-12-13T21:20:30.497186
+Generated: 2025-12-13T21:23:15.564845
 Status: INVALID
 
 ## File Structure Validation

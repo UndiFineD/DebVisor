@@ -1,6 +1,6 @@
 # Planning Report: scripts\fix_backup_comprehensive_v2.py
 
-Generated: 2025-12-13T21:20:30.473751
+Generated: 2025-12-13T21:23:15.537565
 Status: INVALID
 
 ## File Structure Validation

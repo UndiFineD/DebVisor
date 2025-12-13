@@ -1,6 +1,6 @@
 # Planning Report: scripts\test_copilot_integration.py
 
-Generated: 2025-12-13T21:20:30.537350
+Generated: 2025-12-13T21:23:15.603017
 Status: INVALID
 
 ## File Structure Validation

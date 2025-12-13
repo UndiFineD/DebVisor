@@ -1,6 +1,6 @@
 # Planning Report: scripts\generate_security_report_v2.py
 
-Generated: 2025-12-13T21:20:30.518228
+Generated: 2025-12-13T21:23:15.587970
 Status: INVALID
 
 ## File Structure Validation
