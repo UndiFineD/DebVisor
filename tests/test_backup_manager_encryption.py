@@ -12,16 +12,12 @@ from opt.services.backup_manager import BackupEncryption
 
 
 @pytest.fixture
-
-
 def temp_dir() -> Generator[str, None, None]:
     with tempfile.TemporaryDirectory() as tmp:
         yield tmp
 
 
 @pytest.fixture
-
-
 def backup_encryption(temp_dir):
     key_path = os.path.join(temp_dir, "backup.key")
     return BackupEncryption(key_path=key_path)
