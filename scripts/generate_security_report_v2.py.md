@@ -1,8 +1,10 @@
 # Code Issues Report: scripts\generate_security_report_v2.py
+
 Generated: 2025-12-13T15:07:05.153985
 Source: scripts\generate_security_report_v2.py
 
 ## Issues Summary
+
 Total: 2 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -11,13 +13,12 @@ Total: 2 issues found
 | 43 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**2 issues to fix:**
-
+### 2 issues to fix
 
 ### Issue at Line 13
 
@@ -25,8 +26,9 @@ Items marked below as fixed:
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -34,12 +36,16 @@ import subprocess
 import json
 import shutil
 import re
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -50,8 +56,9 @@ import re
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         print("Error: 'gh' executable not found in PATH.")
         return 1
 
@@ -59,12 +66,16 @@ import re
 
     if result.returncode != 0:
         print("Error fetching alerts:")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

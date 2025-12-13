@@ -1,8 +1,10 @@
 # Code Issues Report: opt\services\rpc\tests\test_rpc_features.py
+
 Generated: 2025-12-13T15:17:32.581350
 Source: opt\services\rpc\tests\test_rpc_features.py
 
 ## Issues Summary
+
 Total: 51 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -60,4 +62,5 @@ Total: 51 issues found
 | 445 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
+
 Items marked below as fixed:

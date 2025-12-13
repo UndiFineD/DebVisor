@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\includes.chroot\usr\local\sbin\debvisor-profile-summary.sh
+
 Generated: 2025-12-13T15:11:16.422171
 Source: opt\config\includes.chroot\usr\local\sbin\debvisor-profile-summary.sh
 
 ## Issues Summary
+
 Total: 259 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -268,4 +270,5 @@ Total: 259 issues found
 | 265 | 7 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

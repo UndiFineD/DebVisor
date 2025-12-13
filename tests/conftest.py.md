@@ -1,8 +1,10 @@
 # Code Issues Report: tests\conftest.py
+
 Generated: 2025-12-13T15:07:33.536406
 Source: tests\conftest.py
 
 ## Issues Summary
+
 Total: 9 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -18,13 +20,12 @@ Total: 9 issues found
 | 392 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**9 issues to fix:**
-
+### 9 issues to fix
 
 ### Issue at Line 245
 
@@ -32,21 +33,25 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         """Generate random integer"""
         import random
 
         return random.randint(min_val, max_val)
 
-
 @pytest.fixture
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -57,8 +62,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     start = time.time()
     yield
     elapsed = time.time() - start
@@ -66,12 +72,16 @@ Items marked below as fixed:
         elapsed <= max_seconds
     ), f"Execution took {elapsed}s, expected <= {max_seconds}s"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -82,8 +92,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     start = time.time()
     yield
     elapsed = time.time() - start
@@ -91,12 +102,16 @@ Items marked below as fixed:
         elapsed <= max_seconds
     ), f"Execution took {elapsed}s, expected <= {max_seconds}s"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -107,8 +122,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def assert_dict_contains(actual: Dict[str, Any], expected: Dict[str, Any]) -> None:
         """Assert dict contains expected keys and values"""
         for key, value in expected.items():
@@ -116,12 +132,16 @@ Items marked below as fixed:
             assert (
                 actual[key] == value
             ), f"Value mismatch for key '{key}': {actual[key]} != {value}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -132,8 +152,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Assert dict contains expected keys and values"""
         for key, value in expected.items():
             assert key in actual, f"Key '{key}' not found in actual dict"
@@ -141,12 +162,16 @@ Items marked below as fixed:
                 actual[key] == value
             ), f"Value mismatch for key '{key}': {actual[key]} != {value}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -157,8 +182,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def assert_list_contains_all(actual: List[Any], *items: Any) -> None:
         """Assert list contains all items"""
         for item in items:
@@ -166,12 +192,16 @@ Items marked below as fixed:
 
     @staticmethod
     def assert_response_valid(response: Dict[str, Any]) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -182,8 +212,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     @staticmethod
     def assert_response_valid(response: Dict[str, Any]) -> None:
         """Assert response has valid structure"""
@@ -191,12 +222,16 @@ Items marked below as fixed:
         assert "success" in response, "Response missing 'success' field"
         assert isinstance(response["success"], bool), "'success' must be bool"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -207,21 +242,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def assert_response_valid(response: Dict[str, Any]) -> None:
         """Assert response has valid structure"""
         assert "status" in response, "Response missing 'status' field"
         assert "success" in response, "Response missing 'success' field"
         assert isinstance(response["success"], bool), "'success' must be bool"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -232,21 +271,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Assert response has valid structure"""
         assert "status" in response, "Response missing 'status' field"
         assert "success" in response, "Response missing 'success' field"
         assert isinstance(response["success"], bool), "'success' must be bool"
 
-
 @pytest.fixture
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

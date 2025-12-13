@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\hooks\normal\060-console.sh
+
 Generated: 2025-12-13T15:11:15.522478
 Source: opt\config\hooks\normal\060-console.sh
 
 ## Issues Summary
+
 Total: 468 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -477,4 +479,5 @@ Total: 468 issues found
 | 468 | 3 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

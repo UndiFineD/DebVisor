@@ -1,8 +1,10 @@
 # Code Issues Report: usr\DebVisor\bin\debvisor-lib.sh
+
 Generated: 2025-12-13T15:10:16.254600
 Source: usr\DebVisor\bin\debvisor-lib.sh
 
 ## Issues Summary
+
 Total: 822 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -831,13 +833,12 @@ Total: 822 issues found
 | 822 | 81 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**822 issues to fix:**
-
+### 822 issues to fix
 
 ### Issue at Line 1
 
@@ -845,18 +846,23 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -867,19 +873,24 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -890,20 +901,25 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -914,21 +930,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -939,21 +960,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -964,21 +990,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -989,21 +1020,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1014,21 +1050,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1039,21 +1080,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1064,8 +1110,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1073,12 +1120,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1089,8 +1140,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -1098,12 +1150,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1114,8 +1170,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -1123,12 +1180,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1139,8 +1200,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -1148,12 +1210,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1164,8 +1230,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -1173,12 +1240,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1189,21 +1260,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1214,21 +1290,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1239,21 +1320,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1264,21 +1350,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1289,21 +1380,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1314,21 +1410,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1339,21 +1440,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1364,8 +1470,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1373,12 +1480,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1389,8 +1500,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -1398,12 +1510,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1414,8 +1530,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -1423,12 +1540,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1439,8 +1560,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -1448,12 +1570,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1464,8 +1590,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -1473,12 +1600,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1489,21 +1620,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1514,21 +1650,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1539,21 +1680,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1564,21 +1710,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1589,21 +1740,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1614,21 +1770,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1639,21 +1800,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1664,8 +1830,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1673,12 +1840,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1689,8 +1860,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -1698,12 +1870,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1714,8 +1890,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -1723,12 +1900,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1739,8 +1920,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -1748,12 +1930,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1764,8 +1950,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -1773,12 +1960,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1789,21 +1980,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1814,21 +2010,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1839,21 +2040,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1864,21 +2070,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1889,21 +2100,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1914,21 +2130,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1939,21 +2160,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1964,8 +2190,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -1973,12 +2200,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1989,8 +2220,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -1998,12 +2230,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2014,8 +2250,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -2023,12 +2260,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2039,8 +2280,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -2048,12 +2290,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2064,8 +2310,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -2073,12 +2320,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2089,21 +2340,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2114,21 +2370,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2139,21 +2400,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2164,21 +2430,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2189,21 +2460,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2214,21 +2490,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2239,21 +2520,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2264,8 +2550,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2273,12 +2560,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2289,8 +2580,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -2298,12 +2590,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2314,8 +2610,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -2323,12 +2620,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2339,8 +2640,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -2348,12 +2650,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2364,8 +2670,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -2373,12 +2680,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2389,21 +2700,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2414,21 +2730,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2439,21 +2760,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2464,21 +2790,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2489,21 +2820,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2514,21 +2850,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2539,21 +2880,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2564,8 +2910,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2573,12 +2920,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2589,8 +2940,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -2598,12 +2950,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2614,8 +2970,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -2623,12 +2980,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2639,8 +3000,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -2648,12 +3010,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2664,8 +3030,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -2673,12 +3040,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2689,21 +3060,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2714,21 +3090,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2739,21 +3120,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2764,21 +3150,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2789,21 +3180,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2814,21 +3210,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2839,21 +3240,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2864,8 +3270,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -2873,12 +3280,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2889,8 +3300,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -2898,12 +3310,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2914,8 +3330,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -2923,12 +3340,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2939,8 +3360,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -2948,12 +3370,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2964,8 +3390,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -2973,12 +3400,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2989,21 +3420,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3014,21 +3450,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3039,21 +3480,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3064,21 +3510,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3089,21 +3540,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3114,21 +3570,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3139,21 +3600,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3164,8 +3630,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3173,12 +3640,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3189,8 +3660,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -3198,12 +3670,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3214,8 +3690,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -3223,12 +3700,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3239,8 +3720,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -3248,12 +3730,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3264,8 +3750,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -3273,12 +3760,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3289,21 +3780,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3314,21 +3810,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3339,21 +3840,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3364,21 +3870,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3389,21 +3900,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3414,21 +3930,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3439,21 +3960,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3464,8 +3990,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3473,12 +4000,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3489,8 +4020,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -3498,12 +4030,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3514,8 +4050,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -3523,12 +4060,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3539,8 +4080,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -3548,12 +4090,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3564,8 +4110,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -3573,12 +4120,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3589,21 +4140,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3614,21 +4170,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3639,21 +4200,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3664,21 +4230,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3689,21 +4260,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3714,21 +4290,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3739,21 +4320,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3764,8 +4350,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -3773,12 +4360,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3789,8 +4380,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -3798,12 +4390,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3814,8 +4410,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -3823,12 +4420,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3839,8 +4440,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -3848,12 +4450,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3864,8 +4470,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -3873,12 +4480,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3889,21 +4500,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3914,21 +4530,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3939,21 +4560,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3964,21 +4590,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3989,21 +4620,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4014,21 +4650,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4039,21 +4680,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4064,8 +4710,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4073,12 +4720,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4089,8 +4740,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -4098,12 +4750,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4114,8 +4770,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -4123,12 +4780,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4139,8 +4800,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -4148,12 +4810,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4164,8 +4830,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -4173,12 +4840,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4189,21 +4860,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4214,21 +4890,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4239,21 +4920,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4264,21 +4950,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4289,21 +4980,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4314,21 +5010,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4339,21 +5040,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4364,8 +5070,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4373,12 +5080,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4389,8 +5100,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -4398,12 +5110,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4414,8 +5130,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -4423,12 +5140,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4439,8 +5160,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -4448,12 +5170,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4464,8 +5190,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -4473,12 +5200,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4489,21 +5220,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4514,21 +5250,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4539,21 +5280,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4564,21 +5310,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4589,21 +5340,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4614,21 +5370,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4639,21 +5400,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4664,8 +5430,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4673,12 +5440,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 #!/bin/bash
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4689,8 +5460,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -4698,12 +5470,16 @@ Items marked below as fixed:
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4714,8 +5490,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -4723,12 +5500,16 @@ Items marked below as fixed:
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4739,8 +5520,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -4748,12 +5530,16 @@ Items marked below as fixed:
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4764,8 +5550,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 #!/bin/bash
@@ -4773,12 +5560,16 @@ Items marked below as fixed:
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4789,21 +5580,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-```
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4814,21 +5610,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #!/bin/bash
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4839,21 +5640,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Copyright (c) 2025 DebVisor contributors
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4864,21 +5670,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4889,21 +5700,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4914,21 +5730,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4939,21 +5760,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-#     http://www.apache.org/licenses/LICENSE-2.0
+### Context
+
+```python
+#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4964,8 +5790,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -4973,12 +5800,16 @@ Items marked below as fixed:
 # limitations under the License.
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -4989,8 +5820,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
@@ -4998,12 +5830,16 @@ Items marked below as fixed:
 
 ################################################################################
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5014,8 +5850,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -5023,12 +5860,16 @@ Items marked below as fixed:
 ################################################################################
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
 #
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5039,8 +5880,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -5048,12 +5890,16 @@ Items marked below as fixed:
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
 #
 # This library provides common functions for error handling, logging, retries,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5064,8 +5910,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # limitations under the License.
 
 ################################################################################
@@ -5073,12 +5920,16 @@ Items marked below as fixed:
 #
 # This library provides common functions for error handling, logging, retries,
 # validation, and safe operation patterns. All DebVisor scripts should source
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5089,8 +5940,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
@@ -5098,12 +5950,16 @@ Items marked below as fixed:
 # This library provides common functions for error handling, logging, retries,
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5114,8 +5970,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
 #
@@ -5123,12 +5980,16 @@ Items marked below as fixed:
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
 #
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5139,21 +6000,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # debvisor-lib.sh - Shared bash library for DebVisor operational scripts
 #
 # This library provides common functions for error handling, logging, retries,
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
 #
-# Usage in scripts:
-```
+# Usage in scripts
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5164,21 +6030,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #
 # This library provides common functions for error handling, logging, retries,
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
 #
-# Usage in scripts:
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5189,21 +6060,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # This library provides common functions for error handling, logging, retries,
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
 #
-# Usage in scripts:
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5214,21 +6090,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # validation, and safe operation patterns. All DebVisor scripts should source
 # this library for consistent behavior and error handling.
 #
-# Usage in scripts:
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5239,21 +6120,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # this library for consistent behavior and error handling.
 #
-# Usage in scripts:
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5264,21 +6150,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #
-# Usage in scripts:
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5289,21 +6180,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-# Usage in scripts:
+### Context
+
+```python
+# Usage in scripts
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-# Exit Codes:
-```
+# Exit Codes
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5314,21 +6210,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   source /usr/local/bin/debvisor-lib.sh
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-# Exit Codes:
+# Exit Codes
 #   0 - Success
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5339,21 +6240,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   log_info "Starting operation..."
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-# Exit Codes:
+# Exit Codes
 #   0 - Success
 #   1 - General error
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5364,21 +6270,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   require_bin "ceph" "kubectl" "zpool"
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-# Exit Codes:
+# Exit Codes
 #   0 - Success
 #   1 - General error
 #   2 - Usage/argument error
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5389,21 +6300,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   retry 3 30 "ceph health" || die "Ceph health check failed"
 #
-# Exit Codes:
+# Exit Codes
 #   0 - Success
 #   1 - General error
 #   2 - Usage/argument error
 #   3 - Prerequisite missing (binary, service, etc.)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5414,21 +6330,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #
-# Exit Codes:
+# Exit Codes
 #   0 - Success
 #   1 - General error
 #   2 - Usage/argument error
 #   3 - Prerequisite missing (binary, service, etc.)
 #   4 - Configuration error
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5439,21 +6360,26 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
-# Exit Codes:
+### Context
+
+```python
+# Exit Codes
 #   0 - Success
 #   1 - General error
 #   2 - Usage/argument error
 #   3 - Prerequisite missing (binary, service, etc.)
 #   4 - Configuration error
 #   5 - Validation failed
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5464,8 +6390,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   0 - Success
 #   1 - General error
 #   2 - Usage/argument error
@@ -5473,12 +6400,16 @@ Items marked below as fixed:
 #   4 - Configuration error
 #   5 - Validation failed
 #   10+ - Command-specific errors
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5489,8 +6420,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   1 - General error
 #   2 - Usage/argument error
 #   3 - Prerequisite missing (binary, service, etc.)
@@ -5498,12 +6430,16 @@ Items marked below as fixed:
 #   5 - Validation failed
 #   10+ - Command-specific errors
 #
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5514,8 +6450,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   2 - Usage/argument error
 #   3 - Prerequisite missing (binary, service, etc.)
 #   4 - Configuration error
@@ -5523,12 +6460,16 @@ Items marked below as fixed:
 #   10+ - Command-specific errors
 #
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5539,8 +6480,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   3 - Prerequisite missing (binary, service, etc.)
 #   4 - Configuration error
 #   5 - Validation failed
@@ -5548,12 +6490,16 @@ Items marked below as fixed:
 #
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5564,8 +6510,9 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   4 - Configuration error
 #   5 - Validation failed
 #   10+ - Command-specific errors
@@ -5573,12 +6520,16 @@ Items marked below as fixed:
 ################################################################################
 
 set -eEuo pipefail
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5589,8 +6540,9 @@ set -eEuo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   5 - Validation failed
 #   10+ - Command-specific errors
 #
@@ -5598,12 +6550,16 @@ set -eEuo pipefail
 
 set -eEuo pipefail
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5614,8 +6570,9 @@ set -eEuo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #   10+ - Command-specific errors
 #
 ################################################################################
@@ -5623,12 +6580,16 @@ set -eEuo pipefail
 set -eEuo pipefail
 
 # Library identification
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5639,8 +6600,9 @@ set -eEuo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 #
 ################################################################################
 
@@ -5648,12 +6610,16 @@ set -eEuo pipefail
 
 # Library identification
 readonly DEBVISOR_LIB_VERSION="1.0.0"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5664,8 +6630,9 @@ readonly DEBVISOR_LIB_VERSION="1.0.0"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 set -eEuo pipefail
@@ -5673,12 +6640,16 @@ set -eEuo pipefail
 # Library identification
 readonly DEBVISOR_LIB_VERSION="1.0.0"
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5689,8 +6660,9 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 set -eEuo pipefail
 
@@ -5698,12 +6670,16 @@ set -eEuo pipefail
 readonly DEBVISOR_LIB_VERSION="1.0.0"
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5714,8 +6690,9 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 set -eEuo pipefail
 
 # Library identification
@@ -5723,12 +6700,16 @@ readonly DEBVISOR_LIB_VERSION="1.0.0"
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Global state
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5739,8 +6720,9 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Library identification
 readonly DEBVISOR_LIB_VERSION="1.0.0"
@@ -5748,12 +6730,16 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Global state
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5764,8 +6750,9 @@ DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Library identification
 readonly DEBVISOR_LIB_VERSION="1.0.0"
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -5773,12 +6760,16 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Global state
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5789,8 +6780,9 @@ DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly DEBVISOR_LIB_VERSION="1.0.0"
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -5798,12 +6790,16 @@ readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5814,8 +6810,9 @@ DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly DEBVISOR_LIB_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Global state
@@ -5823,12 +6820,16 @@ DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5839,8 +6840,9 @@ DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Global state
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
@@ -5848,12 +6850,16 @@ DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 DEBVISOR_SCRIPT_NAME="${0##*/}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5864,8 +6870,9 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Global state
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
@@ -5873,12 +6880,16 @@ DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 DEBVISOR_SCRIPT_NAME="${0##*/}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5889,8 +6900,9 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 DEBVISOR_VERBOSE=${DEBVISOR_VERBOSE:-false}
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
@@ -5898,12 +6910,16 @@ DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 # Color codes for terminal output
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5914,8 +6930,9 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 DEBVISOR_DRY_RUN=${DEBVISOR_DRY_RUN:-false}
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
@@ -5923,12 +6940,16 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 # Color codes for terminal output
 readonly COLOR_RED='\033[0;31m'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5939,8 +6960,9 @@ readonly COLOR_RED='\033[0;31m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 DEBVISOR_LOG_FILE=${DEBVISOR_LOG_FILE:-}
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 DEBVISOR_SCRIPT_NAME="${0##*/}"
@@ -5948,12 +6970,16 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 # Color codes for terminal output
 readonly COLOR_RED='\033[0;31m'
 readonly COLOR_YELLOW='\033[1;33m'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5964,8 +6990,9 @@ readonly COLOR_YELLOW='\033[1;33m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 DEBVISOR_AUDIT_LOG=${DEBVISOR_AUDIT_LOG:-/var/log/debvisor/audit.log}
 DEBVISOR_SCRIPT_NAME="${0##*/}"
 
@@ -5973,12 +7000,16 @@ DEBVISOR_SCRIPT_NAME="${0##*/}"
 readonly COLOR_RED='\033[0;31m'
 readonly COLOR_YELLOW='\033[1;33m'
 readonly COLOR_GREEN='\033[0;32m'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -5989,8 +7020,9 @@ readonly COLOR_GREEN='\033[0;32m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 DEBVISOR_SCRIPT_NAME="${0##*/}"
 
 # Color codes for terminal output
@@ -5998,12 +7030,16 @@ readonly COLOR_RED='\033[0;31m'
 readonly COLOR_YELLOW='\033[1;33m'
 readonly COLOR_GREEN='\033[0;32m'
 readonly COLOR_BLUE='\033[0;34m'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6014,8 +7050,9 @@ readonly COLOR_BLUE='\033[0;34m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Color codes for terminal output
 readonly COLOR_RED='\033[0;31m'
@@ -6023,12 +7060,16 @@ readonly COLOR_YELLOW='\033[1;33m'
 readonly COLOR_GREEN='\033[0;32m'
 readonly COLOR_BLUE='\033[0;34m'
 readonly COLOR_RESET='\033[0m'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6039,8 +7080,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Color codes for terminal output
 readonly COLOR_RED='\033[0;31m'
 readonly COLOR_YELLOW='\033[1;33m'
@@ -6048,12 +7090,16 @@ readonly COLOR_GREEN='\033[0;32m'
 readonly COLOR_BLUE='\033[0;34m'
 readonly COLOR_RESET='\033[0m'
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6064,8 +7110,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly COLOR_RED='\033[0;31m'
 readonly COLOR_YELLOW='\033[1;33m'
 readonly COLOR_GREEN='\033[0;32m'
@@ -6073,12 +7120,16 @@ readonly COLOR_BLUE='\033[0;34m'
 readonly COLOR_RESET='\033[0m'
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6089,8 +7140,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly COLOR_YELLOW='\033[1;33m'
 readonly COLOR_GREEN='\033[0;32m'
 readonly COLOR_BLUE='\033[0;34m'
@@ -6098,12 +7150,16 @@ readonly COLOR_RESET='\033[0m'
 
 ################################################################################
 # Logging Functions
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6114,8 +7170,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly COLOR_GREEN='\033[0;32m'
 readonly COLOR_BLUE='\033[0;34m'
 readonly COLOR_RESET='\033[0m'
@@ -6123,12 +7180,16 @@ readonly COLOR_RESET='\033[0m'
 ################################################################################
 # Logging Functions
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6139,8 +7200,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly COLOR_BLUE='\033[0;34m'
 readonly COLOR_RESET='\033[0m'
 
@@ -6148,12 +7210,16 @@ readonly COLOR_RESET='\033[0m'
 # Logging Functions
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6164,8 +7230,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 readonly COLOR_RESET='\033[0m'
 
 ################################################################################
@@ -6173,12 +7240,16 @@ readonly COLOR_RESET='\033[0m'
 ################################################################################
 
 # log_info: Log informational message
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6189,8 +7260,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Logging Functions
@@ -6198,12 +7270,16 @@ readonly COLOR_RESET='\033[0m'
 
 # log_info: Log informational message
 # Usage: log_info "Operation started"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6214,8 +7290,9 @@ readonly COLOR_RESET='\033[0m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Logging Functions
 ################################################################################
@@ -6223,12 +7300,16 @@ readonly COLOR_RESET='\033[0m'
 # log_info: Log informational message
 # Usage: log_info "Operation started"
 log_info() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6239,8 +7320,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Logging Functions
 ################################################################################
 
@@ -6248,12 +7330,16 @@ log_info() {
 # Usage: log_info "Operation started"
 log_info() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6264,8 +7350,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # log_info: Log informational message
@@ -6273,12 +7360,16 @@ log_info() {
 log_info() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6289,8 +7380,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # log_info: Log informational message
 # Usage: log_info "Operation started"
@@ -6298,12 +7390,16 @@ log_info() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6314,8 +7410,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # log_info: Log informational message
 # Usage: log_info "Operation started"
 log_info() {
@@ -6323,12 +7420,16 @@ log_info() {
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6339,8 +7440,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: log_info "Operation started"
 log_info() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -6348,12 +7450,16 @@ log_info() {
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6364,8 +7470,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 log_info() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
@@ -6373,12 +7480,16 @@ log_info() {
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6389,8 +7500,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
@@ -6398,12 +7510,16 @@ log_info() {
 }
 
 # log_warn: Log warning message
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6414,8 +7530,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
@@ -6423,12 +7540,16 @@ log_info() {
 
 # log_warn: Log warning message
 # Usage: log_warn "Potential issue detected"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6439,8 +7560,9 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_GREEN}[INFO]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
@@ -6448,12 +7570,16 @@ log_info() {
 # log_warn: Log warning message
 # Usage: log_warn "Potential issue detected"
 log_warn() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6464,8 +7590,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [INFO] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
@@ -6473,12 +7600,16 @@ log_warn() {
 # Usage: log_warn "Potential issue detected"
 log_warn() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6489,8 +7620,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # log_warn: Log warning message
@@ -6498,12 +7630,16 @@ log_warn() {
 log_warn() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6514,8 +7650,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # log_warn: Log warning message
 # Usage: log_warn "Potential issue detected"
@@ -6523,12 +7660,16 @@ log_warn() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6539,8 +7680,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # log_warn: Log warning message
 # Usage: log_warn "Potential issue detected"
 log_warn() {
@@ -6548,12 +7690,16 @@ log_warn() {
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6564,8 +7710,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: log_warn "Potential issue detected"
 log_warn() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -6573,12 +7720,16 @@ log_warn() {
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6589,8 +7740,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 log_warn() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
@@ -6598,12 +7750,16 @@ log_warn() {
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6614,8 +7770,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
@@ -6623,12 +7780,16 @@ log_warn() {
 }
 
 # log_error: Log error message
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6639,8 +7800,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
@@ -6648,12 +7810,16 @@ log_warn() {
 
 # log_error: Log error message
 # Usage: log_error "Something went wrong"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6664,8 +7830,9 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[WARN]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
@@ -6673,12 +7840,16 @@ log_warn() {
 # log_error: Log error message
 # Usage: log_error "Something went wrong"
 log_error() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6689,8 +7860,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [WARN] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
@@ -6698,12 +7870,16 @@ log_error() {
 # Usage: log_error "Something went wrong"
 log_error() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6714,8 +7890,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # log_error: Log error message
@@ -6723,12 +7900,16 @@ log_error() {
 log_error() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6739,8 +7920,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # log_error: Log error message
 # Usage: log_error "Something went wrong"
@@ -6748,12 +7930,16 @@ log_error() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6764,8 +7950,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # log_error: Log error message
 # Usage: log_error "Something went wrong"
 log_error() {
@@ -6773,12 +7960,16 @@ log_error() {
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6789,8 +7980,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: log_error "Something went wrong"
 log_error() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -6798,12 +7990,16 @@ log_error() {
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6814,8 +8010,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 log_error() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
@@ -6823,12 +8020,16 @@ log_error() {
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6839,8 +8040,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
@@ -6848,12 +8050,16 @@ log_error() {
 }
 
 # log_debug: Log debug message (only if --verbose flag used)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6864,8 +8070,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local message="$*"
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
@@ -6873,12 +8080,16 @@ log_error() {
 
 # log_debug: Log debug message (only if --verbose flag used)
 # Usage: log_debug "Detailed diagnostic info"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6889,8 +8100,9 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_RED}[ERROR]${COLOR_RESET} ${message}" >&2
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
@@ -6898,12 +8110,16 @@ log_error() {
 # log_debug: Log debug message (only if --verbose flag used)
 # Usage: log_debug "Detailed diagnostic info"
 log_debug() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6914,8 +8130,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [ERROR] ${message}" >> "$DEBVISOR_LOG_FILE"
 }
 
@@ -6923,12 +8140,16 @@ log_debug() {
 # Usage: log_debug "Detailed diagnostic info"
 log_debug() {
     if [ "$DEBVISOR_VERBOSE" = true ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6939,8 +8160,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # log_debug: Log debug message (only if --verbose flag used)
@@ -6948,12 +8170,16 @@ log_debug() {
 log_debug() {
     if [ "$DEBVISOR_VERBOSE" = true ]; then
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6964,8 +8190,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # log_debug: Log debug message (only if --verbose flag used)
 # Usage: log_debug "Detailed diagnostic info"
@@ -6973,12 +8200,16 @@ log_debug() {
     if [ "$DEBVISOR_VERBOSE" = true ]; then
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
         local message="$*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -6989,8 +8220,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # log_debug: Log debug message (only if --verbose flag used)
 # Usage: log_debug "Detailed diagnostic info"
 log_debug() {
@@ -6998,12 +8230,16 @@ log_debug() {
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
         local message="$*"
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7014,8 +8250,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: log_debug "Detailed diagnostic info"
 log_debug() {
     if [ "$DEBVISOR_VERBOSE" = true ]; then
@@ -7023,12 +8260,16 @@ log_debug() {
         local message="$*"
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7039,8 +8280,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 log_debug() {
     if [ "$DEBVISOR_VERBOSE" = true ]; then
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -7048,12 +8290,16 @@ log_debug() {
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7064,8 +8310,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$DEBVISOR_VERBOSE" = true ]; then
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
         local message="$*"
@@ -7073,12 +8320,16 @@ log_debug() {
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7089,8 +8340,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
         local message="$*"
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
@@ -7098,12 +8350,16 @@ log_debug() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7114,8 +8370,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local message="$*"
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
@@ -7123,12 +8380,16 @@ log_debug() {
 }
 
 # audit_log: Log to audit trail (for compliance and troubleshooting)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7139,8 +8400,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         echo -e "${COLOR_BLUE}[${timestamp}]${COLOR_RESET} ${COLOR_YELLOW}[DEBUG]${COLOR_RESET} ${message}" >&2
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
     fi
@@ -7148,12 +8410,16 @@ log_debug() {
 
 # audit_log: Log to audit trail (for compliance and troubleshooting)
 # Usage: audit_log "Operation" "Description" "Result"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7164,8 +8430,9 @@ log_debug() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         [ -n "$DEBVISOR_LOG_FILE" ] && echo "[${timestamp}] [DEBUG] ${message}" >> "$DEBVISOR_LOG_FILE"
     fi
 }
@@ -7173,12 +8440,16 @@ log_debug() {
 # audit_log: Log to audit trail (for compliance and troubleshooting)
 # Usage: audit_log "Operation" "Description" "Result"
 audit_log() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7189,8 +8460,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -7198,12 +8470,16 @@ audit_log() {
 # Usage: audit_log "Operation" "Description" "Result"
 audit_log() {
     local operation="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7214,8 +8490,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # audit_log: Log to audit trail (for compliance and troubleshooting)
@@ -7223,12 +8500,16 @@ audit_log() {
 audit_log() {
     local operation="$1"
     local description="$2"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7239,8 +8520,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # audit_log: Log to audit trail (for compliance and troubleshooting)
 # Usage: audit_log "Operation" "Description" "Result"
@@ -7248,12 +8530,16 @@ audit_log() {
     local operation="$1"
     local description="$2"
     local result="${3:-success}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7264,8 +8550,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # audit_log: Log to audit trail (for compliance and troubleshooting)
 # Usage: audit_log "Operation" "Description" "Result"
 audit_log() {
@@ -7273,12 +8560,16 @@ audit_log() {
     local description="$2"
     local result="${3:-success}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7289,8 +8580,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: audit_log "Operation" "Description" "Result"
 audit_log() {
     local operation="$1"
@@ -7298,12 +8590,16 @@ audit_log() {
     local result="${3:-success}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local user="${SUDO_USER:-$(whoami)}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7314,8 +8610,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 audit_log() {
     local operation="$1"
     local description="$2"
@@ -7323,12 +8620,16 @@ audit_log() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local user="${SUDO_USER:-$(whoami)}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7339,8 +8640,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local operation="$1"
     local description="$2"
     local result="${3:-success}"
@@ -7348,12 +8650,16 @@ audit_log() {
     local user="${SUDO_USER:-$(whoami)}"
 
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7364,8 +8670,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local description="$2"
     local result="${3:-success}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
@@ -7373,12 +8680,16 @@ audit_log() {
 
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7389,8 +8700,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local result="${3:-success}"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local user="${SUDO_USER:-$(whoami)}"
@@ -7398,12 +8710,16 @@ audit_log() {
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
 
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7414,8 +8730,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     local user="${SUDO_USER:-$(whoami)}"
 
@@ -7423,12 +8740,16 @@ audit_log() {
 
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
         >> "$DEBVISOR_AUDIT_LOG"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7439,8 +8760,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local user="${SUDO_USER:-$(whoami)}"
 
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
@@ -7448,12 +8770,16 @@ audit_log() {
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
         >> "$DEBVISOR_AUDIT_LOG"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7464,8 +8790,9 @@ audit_log() {
 
 **Message:** This redirection doesn't have a command. Move to its command (or use 'true' as no-op).
 
-**Context:**
-```
+### Context
+
+```python
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
 
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
@@ -7473,12 +8800,16 @@ audit_log() {
 
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7489,8 +8820,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     mkdir -p "$(dirname "$DEBVISOR_AUDIT_LOG")"
 
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
@@ -7498,12 +8830,16 @@ audit_log() {
 
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7514,8 +8850,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
         >> "$DEBVISOR_AUDIT_LOG"
@@ -7523,12 +8860,16 @@ audit_log() {
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7539,8 +8880,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo "[${timestamp}] User=${user} Script=${DEBVISOR_SCRIPT_NAME} Operation=${operation} Description=${description} Result=${result}" \
         >> "$DEBVISOR_AUDIT_LOG"
 
@@ -7548,12 +8890,16 @@ audit_log() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7564,8 +8910,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         >> "$DEBVISOR_AUDIT_LOG"
 
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
@@ -7573,12 +8920,16 @@ audit_log() {
 
 ################################################################################
 # Error Handling & Exit Functions
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7589,8 +8940,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
@@ -7598,12 +8950,16 @@ audit_log() {
 ################################################################################
 # Error Handling & Exit Functions
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7614,8 +8970,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Audit logged: ${operation} - ${description} - ${result}"
 }
 
@@ -7623,12 +8980,16 @@ audit_log() {
 # Error Handling & Exit Functions
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7639,8 +9000,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -7648,12 +9010,16 @@ audit_log() {
 ################################################################################
 
 # die: Print error message and exit with code
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7664,8 +9030,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Error Handling & Exit Functions
@@ -7673,12 +9040,16 @@ audit_log() {
 
 # die: Print error message and exit with code
 # Usage: die "Fatal error occurred" 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7689,8 +9060,9 @@ audit_log() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Error Handling & Exit Functions
 ################################################################################
@@ -7698,12 +9070,16 @@ audit_log() {
 # die: Print error message and exit with code
 # Usage: die "Fatal error occurred" 1
 die() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7714,8 +9090,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Error Handling & Exit Functions
 ################################################################################
 
@@ -7723,12 +9100,16 @@ die() {
 # Usage: die "Fatal error occurred" 1
 die() {
     local message="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7739,8 +9120,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # die: Print error message and exit with code
@@ -7748,12 +9130,16 @@ die() {
 die() {
     local message="$1"
     local exit_code="${2:-1}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7764,8 +9150,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # die: Print error message and exit with code
 # Usage: die "Fatal error occurred" 1
@@ -7773,12 +9160,16 @@ die() {
     local message="$1"
     local exit_code="${2:-1}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7789,8 +9180,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # die: Print error message and exit with code
 # Usage: die "Fatal error occurred" 1
 die() {
@@ -7798,12 +9190,16 @@ die() {
     local exit_code="${2:-1}"
 
     log_error "$message"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7814,8 +9210,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: die "Fatal error occurred" 1
 die() {
     local message="$1"
@@ -7823,12 +9220,16 @@ die() {
 
     log_error "$message"
     exit "$exit_code"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7839,8 +9240,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 die() {
     local message="$1"
     local exit_code="${2:-1}"
@@ -7848,12 +9250,16 @@ die() {
     log_error "$message"
     exit "$exit_code"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7864,8 +9270,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local message="$1"
     local exit_code="${2:-1}"
 
@@ -7873,12 +9280,16 @@ die() {
     exit "$exit_code"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7889,8 +9300,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local exit_code="${2:-1}"
 
     log_error "$message"
@@ -7898,12 +9310,16 @@ die() {
 }
 
 # cleanup_trap: Called on EXIT, handling cleanup tasks
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7914,8 +9330,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_error "$message"
     exit "$exit_code"
@@ -7923,12 +9340,16 @@ die() {
 
 # cleanup_trap: Called on EXIT, handling cleanup tasks
 # Usage: trap cleanup_trap EXIT
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7939,8 +9360,9 @@ die() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_error "$message"
     exit "$exit_code"
 }
@@ -7948,12 +9370,16 @@ die() {
 # cleanup_trap: Called on EXIT, handling cleanup tasks
 # Usage: trap cleanup_trap EXIT
 cleanup_trap() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7964,8 +9390,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     exit "$exit_code"
 }
 
@@ -7973,12 +9400,16 @@ cleanup_trap() {
 # Usage: trap cleanup_trap EXIT
 cleanup_trap() {
     local exit_code=$?
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -7989,8 +9420,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # cleanup_trap: Called on EXIT, handling cleanup tasks
@@ -7998,12 +9430,16 @@ cleanup_trap() {
 cleanup_trap() {
     local exit_code=$?
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8014,8 +9450,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # cleanup_trap: Called on EXIT, handling cleanup tasks
 # Usage: trap cleanup_trap EXIT
@@ -8023,12 +9460,16 @@ cleanup_trap() {
     local exit_code=$?
 
     if [ $exit_code -eq 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8039,8 +9480,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # cleanup_trap: Called on EXIT, handling cleanup tasks
 # Usage: trap cleanup_trap EXIT
 cleanup_trap() {
@@ -8048,12 +9490,16 @@ cleanup_trap() {
 
     if [ $exit_code -eq 0 ]; then
         log_debug "Script completed successfully"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8064,8 +9510,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: trap cleanup_trap EXIT
 cleanup_trap() {
     local exit_code=$?
@@ -8073,12 +9520,16 @@ cleanup_trap() {
     if [ $exit_code -eq 0 ]; then
         log_debug "Script completed successfully"
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8089,8 +9540,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 cleanup_trap() {
     local exit_code=$?
 
@@ -8098,12 +9550,16 @@ cleanup_trap() {
         log_debug "Script completed successfully"
     else
         log_error "Script exited with code $exit_code"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8114,8 +9570,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local exit_code=$?
 
     if [ $exit_code -eq 0 ]; then
@@ -8123,12 +9580,16 @@ cleanup_trap() {
     else
         log_error "Script exited with code $exit_code"
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8139,8 +9600,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ $exit_code -eq 0 ]; then
         log_debug "Script completed successfully"
@@ -8148,12 +9610,16 @@ cleanup_trap() {
         log_error "Script exited with code $exit_code"
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8164,8 +9630,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ $exit_code -eq 0 ]; then
         log_debug "Script completed successfully"
     else
@@ -8173,12 +9640,16 @@ cleanup_trap() {
     fi
 
     # Override exit code if needed
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8189,8 +9660,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Script completed successfully"
     else
         log_error "Script exited with code $exit_code"
@@ -8198,12 +9670,16 @@ cleanup_trap() {
 
     # Override exit code if needed
     return $exit_code
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8214,8 +9690,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Script exited with code $exit_code"
     fi
@@ -8223,12 +9700,16 @@ cleanup_trap() {
     # Override exit code if needed
     return $exit_code
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8239,8 +9720,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Script exited with code $exit_code"
     fi
 
@@ -8248,12 +9730,16 @@ cleanup_trap() {
     return $exit_code
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8264,8 +9750,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     # Override exit code if needed
@@ -8273,12 +9760,16 @@ cleanup_trap() {
 }
 
 # error_trap: Called on ERR, provides error context
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8289,8 +9780,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     # Override exit code if needed
     return $exit_code
@@ -8298,12 +9790,16 @@ cleanup_trap() {
 
 # error_trap: Called on ERR, provides error context
 # Usage: trap error_trap ERR
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8314,8 +9810,9 @@ cleanup_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     # Override exit code if needed
     return $exit_code
 }
@@ -8323,12 +9820,16 @@ cleanup_trap() {
 # error_trap: Called on ERR, provides error context
 # Usage: trap error_trap ERR
 error_trap() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8339,8 +9840,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     return $exit_code
 }
 
@@ -8348,12 +9850,16 @@ error_trap() {
 # Usage: trap error_trap ERR
 error_trap() {
     local line_no=$1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8364,8 +9870,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # error_trap: Called on ERR, provides error context
@@ -8373,12 +9880,16 @@ error_trap() {
 error_trap() {
     local line_no=$1
     log_error "Error on line $line_no (exit code: $?)"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8389,8 +9900,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # error_trap: Called on ERR, provides error context
 # Usage: trap error_trap ERR
@@ -8398,12 +9910,16 @@ error_trap() {
     local line_no=$1
     log_error "Error on line $line_no (exit code: $?)"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8414,8 +9930,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # error_trap: Called on ERR, provides error context
 # Usage: trap error_trap ERR
 error_trap() {
@@ -8423,12 +9940,16 @@ error_trap() {
     log_error "Error on line $line_no (exit code: $?)"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8439,8 +9960,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: trap error_trap ERR
 error_trap() {
     local line_no=$1
@@ -8448,12 +9970,16 @@ error_trap() {
 }
 
 # Ensure traps are installed
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8464,8 +9990,9 @@ error_trap() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 error_trap() {
     local line_no=$1
     log_error "Error on line $line_no (exit code: $?)"
@@ -8473,12 +10000,16 @@ error_trap() {
 
 # Ensure traps are installed
 trap cleanup_trap EXIT
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8489,8 +10020,9 @@ trap cleanup_trap EXIT
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local line_no=$1
     log_error "Error on line $line_no (exit code: $?)"
 }
@@ -8498,12 +10030,16 @@ trap cleanup_trap EXIT
 # Ensure traps are installed
 trap cleanup_trap EXIT
 trap error_trap ERR
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8514,8 +10050,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_error "Error on line $line_no (exit code: $?)"
 }
 
@@ -8523,12 +10060,16 @@ trap error_trap ERR
 trap cleanup_trap EXIT
 trap error_trap ERR
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8539,8 +10080,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # Ensure traps are installed
@@ -8548,12 +10090,16 @@ trap cleanup_trap EXIT
 trap error_trap ERR
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8564,8 +10110,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Ensure traps are installed
 trap cleanup_trap EXIT
@@ -8573,12 +10120,16 @@ trap error_trap ERR
 
 ################################################################################
 # Validation Functions
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8589,8 +10140,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Ensure traps are installed
 trap cleanup_trap EXIT
 trap error_trap ERR
@@ -8598,12 +10150,16 @@ trap error_trap ERR
 ################################################################################
 # Validation Functions
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8614,8 +10170,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 trap cleanup_trap EXIT
 trap error_trap ERR
 
@@ -8623,12 +10180,16 @@ trap error_trap ERR
 # Validation Functions
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8639,8 +10200,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 trap error_trap ERR
 
 ################################################################################
@@ -8648,12 +10210,16 @@ trap error_trap ERR
 ################################################################################
 
 # require_bin: Check that required binaries exist, exit if missing
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8664,8 +10230,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Validation Functions
@@ -8673,12 +10240,16 @@ trap error_trap ERR
 
 # require_bin: Check that required binaries exist, exit if missing
 # Usage: require_bin "ceph" "kubectl" "zpool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8689,8 +10260,9 @@ trap error_trap ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Validation Functions
 ################################################################################
@@ -8698,12 +10270,16 @@ trap error_trap ERR
 # require_bin: Check that required binaries exist, exit if missing
 # Usage: require_bin "ceph" "kubectl" "zpool"
 require_bin() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8714,8 +10290,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Validation Functions
 ################################################################################
 
@@ -8723,12 +10300,16 @@ require_bin() {
 # Usage: require_bin "ceph" "kubectl" "zpool"
 require_bin() {
     local missing=()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8739,8 +10320,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # require_bin: Check that required binaries exist, exit if missing
@@ -8748,12 +10330,16 @@ require_bin() {
 require_bin() {
     local missing=()
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8764,8 +10350,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # require_bin: Check that required binaries exist, exit if missing
 # Usage: require_bin "ceph" "kubectl" "zpool"
@@ -8773,12 +10360,16 @@ require_bin() {
     local missing=()
 
     for bin in "$@"; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8789,8 +10380,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # require_bin: Check that required binaries exist, exit if missing
 # Usage: require_bin "ceph" "kubectl" "zpool"
 require_bin() {
@@ -8798,12 +10390,16 @@ require_bin() {
 
     for bin in "$@"; do
         if ! command -v "$bin" &>/dev/null; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8814,8 +10410,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: require_bin "ceph" "kubectl" "zpool"
 require_bin() {
     local missing=()
@@ -8823,12 +10420,16 @@ require_bin() {
     for bin in "$@"; do
         if ! command -v "$bin" &>/dev/null; then
             missing+=("$bin")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8839,8 +10440,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 require_bin() {
     local missing=()
 
@@ -8848,12 +10450,16 @@ require_bin() {
         if ! command -v "$bin" &>/dev/null; then
             missing+=("$bin")
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8864,8 +10470,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local missing=()
 
     for bin in "$@"; do
@@ -8873,12 +10480,16 @@ require_bin() {
             missing+=("$bin")
         fi
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8889,8 +10500,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     for bin in "$@"; do
         if ! command -v "$bin" &>/dev/null; then
@@ -8898,12 +10510,16 @@ require_bin() {
         fi
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8914,8 +10530,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     for bin in "$@"; do
         if ! command -v "$bin" &>/dev/null; then
             missing+=("$bin")
@@ -8923,12 +10540,16 @@ require_bin() {
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8939,8 +10560,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if ! command -v "$bin" &>/dev/null; then
             missing+=("$bin")
         fi
@@ -8948,12 +10570,16 @@ require_bin() {
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required binaries: ${missing[*]}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8964,8 +10590,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             missing+=("$bin")
         fi
     done
@@ -8973,12 +10600,16 @@ require_bin() {
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required binaries: ${missing[*]}"
         die "Required tools not installed: ${missing[*]}" 3
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -8989,8 +10620,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
     done
 
@@ -8998,12 +10630,16 @@ require_bin() {
         log_error "Missing required binaries: ${missing[*]}"
         die "Required tools not installed: ${missing[*]}" 3
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9014,8 +10650,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
@@ -9023,12 +10660,16 @@ require_bin() {
         die "Required tools not installed: ${missing[*]}" 3
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9039,8 +10680,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required binaries: ${missing[*]}"
@@ -9048,12 +10690,16 @@ require_bin() {
     fi
 
     log_debug "All required binaries found: $*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9064,8 +10710,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required binaries: ${missing[*]}"
         die "Required tools not installed: ${missing[*]}" 3
@@ -9073,12 +10720,16 @@ require_bin() {
 
     log_debug "All required binaries found: $*"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9089,8 +10740,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Missing required binaries: ${missing[*]}"
         die "Required tools not installed: ${missing[*]}" 3
     fi
@@ -9098,12 +10750,16 @@ require_bin() {
     log_debug "All required binaries found: $*"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9114,8 +10770,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         die "Required tools not installed: ${missing[*]}" 3
     fi
 
@@ -9123,12 +10780,16 @@ require_bin() {
 }
 
 # require_env: Check that required environment variables are set
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9139,8 +10800,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     log_debug "All required binaries found: $*"
@@ -9148,12 +10810,16 @@ require_bin() {
 
 # require_env: Check that required environment variables are set
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9164,8 +10830,9 @@ require_bin() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "All required binaries found: $*"
 }
@@ -9173,12 +10840,16 @@ require_bin() {
 # require_env: Check that required environment variables are set
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
 require_env() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9189,8 +10860,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "All required binaries found: $*"
 }
 
@@ -9198,12 +10870,16 @@ require_env() {
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
 require_env() {
     local missing=()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9214,8 +10890,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # require_env: Check that required environment variables are set
@@ -9223,12 +10900,16 @@ require_env() {
 require_env() {
     local missing=()
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9239,8 +10920,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # require_env: Check that required environment variables are set
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
@@ -9248,12 +10930,16 @@ require_env() {
     local missing=()
 
     for var in "$@"; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9264,8 +10950,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # require_env: Check that required environment variables are set
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
 require_env() {
@@ -9273,12 +10960,16 @@ require_env() {
 
     for var in "$@"; do
         if [ -z "${!var:-}" ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9289,8 +10980,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: require_env "HOME" "USER" "DEBVISOR_CLUSTER"
 require_env() {
     local missing=()
@@ -9298,12 +10990,16 @@ require_env() {
     for var in "$@"; do
         if [ -z "${!var:-}" ]; then
             missing+=("$var")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9314,8 +11010,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 require_env() {
     local missing=()
 
@@ -9323,12 +11020,16 @@ require_env() {
         if [ -z "${!var:-}" ]; then
             missing+=("$var")
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9339,8 +11040,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local missing=()
 
     for var in "$@"; do
@@ -9348,12 +11050,16 @@ require_env() {
             missing+=("$var")
         fi
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9364,8 +11070,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     for var in "$@"; do
         if [ -z "${!var:-}" ]; then
@@ -9373,12 +11080,16 @@ require_env() {
         fi
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9389,8 +11100,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     for var in "$@"; do
         if [ -z "${!var:-}" ]; then
             missing+=("$var")
@@ -9398,12 +11110,16 @@ require_env() {
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9414,8 +11130,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ -z "${!var:-}" ]; then
             missing+=("$var")
         fi
@@ -9423,12 +11140,16 @@ require_env() {
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required environment variables: ${missing[*]}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9439,8 +11160,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             missing+=("$var")
         fi
     done
@@ -9448,12 +11170,16 @@ require_env() {
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required environment variables: ${missing[*]}"
         die "Required environment variables not set: ${missing[*]}" 4
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9464,8 +11190,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
     done
 
@@ -9473,12 +11200,16 @@ require_env() {
         log_error "Missing required environment variables: ${missing[*]}"
         die "Required environment variables not set: ${missing[*]}" 4
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9489,8 +11220,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
@@ -9498,12 +11230,16 @@ require_env() {
         die "Required environment variables not set: ${missing[*]}" 4
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9514,8 +11250,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required environment variables: ${missing[*]}"
@@ -9523,12 +11260,16 @@ require_env() {
     fi
 
     log_debug "All required environment variables set: $*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9539,8 +11280,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required environment variables: ${missing[*]}"
         die "Required environment variables not set: ${missing[*]}" 4
@@ -9548,12 +11290,16 @@ require_env() {
 
     log_debug "All required environment variables set: $*"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9564,8 +11310,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Missing required environment variables: ${missing[*]}"
         die "Required environment variables not set: ${missing[*]}" 4
     fi
@@ -9573,12 +11320,16 @@ require_env() {
     log_debug "All required environment variables set: $*"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9589,8 +11340,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         die "Required environment variables not set: ${missing[*]}" 4
     fi
 
@@ -9598,12 +11350,16 @@ require_env() {
 }
 
 # require_root: Check that script is running as root
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9614,8 +11370,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     log_debug "All required environment variables set: $*"
@@ -9623,12 +11380,16 @@ require_env() {
 
 # require_root: Check that script is running as root
 # Usage: require_root
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9639,8 +11400,9 @@ require_env() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "All required environment variables set: $*"
 }
@@ -9648,12 +11410,16 @@ require_env() {
 # require_root: Check that script is running as root
 # Usage: require_root
 require_root() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9664,8 +11430,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "All required environment variables set: $*"
 }
 
@@ -9673,12 +11440,16 @@ require_root() {
 # Usage: require_root
 require_root() {
     if [ "$EUID" -ne 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9689,8 +11460,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # require_root: Check that script is running as root
@@ -9698,12 +11470,16 @@ require_root() {
 require_root() {
     if [ "$EUID" -ne 0 ]; then
         log_error "This script must be run as root"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9714,8 +11490,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # require_root: Check that script is running as root
 # Usage: require_root
@@ -9723,12 +11500,16 @@ require_root() {
     if [ "$EUID" -ne 0 ]; then
         log_error "This script must be run as root"
         die "Root privileges required" 3
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9739,8 +11520,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # require_root: Check that script is running as root
 # Usage: require_root
 require_root() {
@@ -9748,12 +11530,16 @@ require_root() {
         log_error "This script must be run as root"
         die "Root privileges required" 3
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9764,8 +11550,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: require_root
 require_root() {
     if [ "$EUID" -ne 0 ]; then
@@ -9773,12 +11560,16 @@ require_root() {
         die "Root privileges required" 3
     fi
     log_debug "Running as root"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9789,8 +11580,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 require_root() {
     if [ "$EUID" -ne 0 ]; then
         log_error "This script must be run as root"
@@ -9798,12 +11590,16 @@ require_root() {
     fi
     log_debug "Running as root"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9814,8 +11610,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$EUID" -ne 0 ]; then
         log_error "This script must be run as root"
         die "Root privileges required" 3
@@ -9823,12 +11620,16 @@ require_root() {
     log_debug "Running as root"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9839,8 +11640,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "This script must be run as root"
         die "Root privileges required" 3
     fi
@@ -9848,12 +11650,16 @@ require_root() {
 }
 
 # require_file: Check that required files exist
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9864,8 +11670,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         die "Root privileges required" 3
     fi
     log_debug "Running as root"
@@ -9873,12 +11680,16 @@ require_root() {
 
 # require_file: Check that required files exist
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9889,8 +11700,9 @@ require_root() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
     log_debug "Running as root"
 }
@@ -9898,12 +11710,16 @@ require_root() {
 # require_file: Check that required files exist
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
 require_file() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9914,8 +11730,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Running as root"
 }
 
@@ -9923,12 +11740,16 @@ require_file() {
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
 require_file() {
     local missing=()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9939,8 +11760,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # require_file: Check that required files exist
@@ -9948,12 +11770,16 @@ require_file() {
 require_file() {
     local missing=()
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9964,8 +11790,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # require_file: Check that required files exist
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
@@ -9973,12 +11800,16 @@ require_file() {
     local missing=()
 
     for file in "$@"; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -9989,8 +11820,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # require_file: Check that required files exist
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
 require_file() {
@@ -9998,12 +11830,16 @@ require_file() {
 
     for file in "$@"; do
         if [ ! -f "$file" ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10014,8 +11850,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: require_file "/etc/ceph/ceph.conf" "/etc/kubernetes/admin.conf"
 require_file() {
     local missing=()
@@ -10023,12 +11860,16 @@ require_file() {
     for file in "$@"; do
         if [ ! -f "$file" ]; then
             missing+=("$file")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10039,8 +11880,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 require_file() {
     local missing=()
 
@@ -10048,12 +11890,16 @@ require_file() {
         if [ ! -f "$file" ]; then
             missing+=("$file")
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10064,8 +11910,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local missing=()
 
     for file in "$@"; do
@@ -10073,12 +11920,16 @@ require_file() {
             missing+=("$file")
         fi
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10089,8 +11940,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     for file in "$@"; do
         if [ ! -f "$file" ]; then
@@ -10098,12 +11950,16 @@ require_file() {
         fi
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10114,8 +11970,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     for file in "$@"; do
         if [ ! -f "$file" ]; then
             missing+=("$file")
@@ -10123,12 +11980,16 @@ require_file() {
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10139,8 +12000,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ ! -f "$file" ]; then
             missing+=("$file")
         fi
@@ -10148,12 +12010,16 @@ require_file() {
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10164,8 +12030,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             missing+=("$file")
         fi
     done
@@ -10173,12 +12040,16 @@ require_file() {
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
         die "Required files not found: ${missing[*]}" 5
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10189,8 +12060,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
     done
 
@@ -10198,12 +12070,16 @@ require_file() {
         log_error "Missing required files: ${missing[*]}"
         die "Required files not found: ${missing[*]}" 5
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10214,8 +12090,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     if [ ${#missing[@]} -gt 0 ]; then
@@ -10223,12 +12100,16 @@ require_file() {
         die "Required files not found: ${missing[*]}" 5
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10239,8 +12120,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
@@ -10248,12 +12130,16 @@ require_file() {
     fi
 
     log_debug "All required files found: $*"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10264,8 +12150,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ ${#missing[@]} -gt 0 ]; then
         log_error "Missing required files: ${missing[*]}"
         die "Required files not found: ${missing[*]}" 5
@@ -10273,12 +12160,16 @@ require_file() {
 
     log_debug "All required files found: $*"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10289,8 +12180,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Missing required files: ${missing[*]}"
         die "Required files not found: ${missing[*]}" 5
     fi
@@ -10298,12 +12190,16 @@ require_file() {
     log_debug "All required files found: $*"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10314,8 +12210,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         die "Required files not found: ${missing[*]}" 5
     fi
 
@@ -10323,12 +12220,16 @@ require_file() {
 }
 
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10339,8 +12240,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     log_debug "All required files found: $*"
@@ -10348,12 +12250,16 @@ require_file() {
 
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10364,8 +12270,9 @@ require_file() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "All required files found: $*"
 }
@@ -10373,12 +12280,16 @@ require_file() {
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
 validate_cidr() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10389,8 +12300,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "All required files found: $*"
 }
 
@@ -10398,12 +12310,16 @@ validate_cidr() {
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
 validate_cidr() {
     local cidr="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10414,8 +12330,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
@@ -10423,12 +12340,16 @@ validate_cidr() {
 validate_cidr() {
     local cidr="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10439,8 +12360,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
@@ -10448,12 +12370,16 @@ validate_cidr() {
     local cidr="$1"
 
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10464,8 +12390,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # validate_cidr: Validate CIDR notation (e.g., "192.168.1.0/24")
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
 validate_cidr() {
@@ -10473,12 +12400,16 @@ validate_cidr() {
 
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
         log_error "Invalid CIDR format: $cidr"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10489,8 +12420,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: validate_cidr "10.0.0.0/8" || die "Invalid CIDR"
 validate_cidr() {
     local cidr="$1"
@@ -10498,12 +12430,16 @@ validate_cidr() {
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
         log_error "Invalid CIDR format: $cidr"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10514,8 +12450,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 validate_cidr() {
     local cidr="$1"
 
@@ -10523,12 +12460,16 @@ validate_cidr() {
         log_error "Invalid CIDR format: $cidr"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10539,8 +12480,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local cidr="$1"
 
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
@@ -10548,12 +12490,16 @@ validate_cidr() {
         return 1
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10564,8 +12510,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
         log_error "Invalid CIDR format: $cidr"
@@ -10573,12 +12520,16 @@ validate_cidr() {
     fi
 
     local ip="${cidr%/*}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10589,8 +12540,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ! [[ "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
         log_error "Invalid CIDR format: $cidr"
         return 1
@@ -10598,12 +12550,16 @@ validate_cidr() {
 
     local ip="${cidr%/*}"
     local prefix="${cidr#*/}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10614,8 +12570,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Invalid CIDR format: $cidr"
         return 1
     fi
@@ -10623,12 +12580,16 @@ validate_cidr() {
     local ip="${cidr%/*}"
     local prefix="${cidr#*/}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10639,8 +12600,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 
@@ -10648,12 +12610,16 @@ validate_cidr() {
     local prefix="${cidr#*/}"
 
     # Validate IP octets
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10664,8 +12630,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     local ip="${cidr%/*}"
@@ -10673,12 +12640,16 @@ validate_cidr() {
 
     # Validate IP octets
     local IFS='.'
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10689,8 +12660,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     local ip="${cidr%/*}"
     local prefix="${cidr#*/}"
@@ -10698,12 +12670,16 @@ validate_cidr() {
     # Validate IP octets
     local IFS='.'
     read -ra octets <<< "$ip"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10714,8 +12690,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local ip="${cidr%/*}"
     local prefix="${cidr#*/}"
 
@@ -10723,12 +12700,16 @@ validate_cidr() {
     local IFS='.'
     read -ra octets <<< "$ip"
     for octet in "${octets[@]}"; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10739,8 +12720,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local prefix="${cidr#*/}"
 
     # Validate IP octets
@@ -10748,12 +12730,16 @@ validate_cidr() {
     read -ra octets <<< "$ip"
     for octet in "${octets[@]}"; do
         if [ "$octet" -gt 255 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10764,8 +12750,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     # Validate IP octets
     local IFS='.'
@@ -10773,12 +12760,16 @@ validate_cidr() {
     for octet in "${octets[@]}"; do
         if [ "$octet" -gt 255 ]; then
             log_error "Invalid IP address in CIDR: $ip"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10789,8 +12780,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     # Validate IP octets
     local IFS='.'
     read -ra octets <<< "$ip"
@@ -10798,12 +12790,16 @@ validate_cidr() {
         if [ "$octet" -gt 255 ]; then
             log_error "Invalid IP address in CIDR: $ip"
             return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10814,8 +12810,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local IFS='.'
     read -ra octets <<< "$ip"
     for octet in "${octets[@]}"; do
@@ -10823,12 +12820,16 @@ validate_cidr() {
             log_error "Invalid IP address in CIDR: $ip"
             return 1
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10839,8 +12840,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     read -ra octets <<< "$ip"
     for octet in "${octets[@]}"; do
         if [ "$octet" -gt 255 ]; then
@@ -10848,12 +12850,16 @@ validate_cidr() {
             return 1
         fi
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10864,8 +12870,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     for octet in "${octets[@]}"; do
         if [ "$octet" -gt 255 ]; then
             log_error "Invalid IP address in CIDR: $ip"
@@ -10873,12 +12880,16 @@ validate_cidr() {
         fi
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10889,8 +12900,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ "$octet" -gt 255 ]; then
             log_error "Invalid IP address in CIDR: $ip"
             return 1
@@ -10898,12 +12910,16 @@ validate_cidr() {
     done
 
     # Validate prefix length
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10914,8 +12930,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_error "Invalid IP address in CIDR: $ip"
             return 1
         fi
@@ -10923,12 +12940,16 @@ validate_cidr() {
 
     # Validate prefix length
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10939,8 +12960,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             return 1
         fi
     done
@@ -10948,12 +12970,16 @@ validate_cidr() {
     # Validate prefix length
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
         log_error "Invalid prefix length in CIDR: $prefix"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10964,8 +12990,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
     done
 
@@ -10973,12 +13000,16 @@ validate_cidr() {
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
         log_error "Invalid prefix length in CIDR: $prefix"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -10989,8 +13020,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     # Validate prefix length
@@ -10998,12 +13030,16 @@ validate_cidr() {
         log_error "Invalid prefix length in CIDR: $prefix"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11014,8 +13050,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     # Validate prefix length
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
@@ -11023,12 +13060,16 @@ validate_cidr() {
         return 1
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11039,8 +13080,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     # Validate prefix length
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
         log_error "Invalid prefix length in CIDR: $prefix"
@@ -11048,12 +13090,16 @@ validate_cidr() {
     fi
 
     return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11064,8 +13110,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$prefix" -lt 0 ] || [ "$prefix" -gt 32 ]; then
         log_error "Invalid prefix length in CIDR: $prefix"
         return 1
@@ -11073,12 +13120,16 @@ validate_cidr() {
 
     return 0
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11089,8 +13140,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Invalid prefix length in CIDR: $prefix"
         return 1
     fi
@@ -11098,12 +13150,16 @@ validate_cidr() {
     return 0
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11114,8 +13170,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 
@@ -11123,12 +13180,16 @@ validate_cidr() {
 }
 
 # validate_pool_name: Validate ZFS pool name
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11139,8 +13200,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     return 0
@@ -11148,12 +13210,16 @@ validate_cidr() {
 
 # validate_pool_name: Validate ZFS pool name
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11164,8 +13230,9 @@ validate_cidr() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     return 0
 }
@@ -11173,12 +13240,16 @@ validate_cidr() {
 # validate_pool_name: Validate ZFS pool name
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
 validate_pool_name() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11189,8 +13260,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     return 0
 }
 
@@ -11198,12 +13270,16 @@ validate_pool_name() {
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
 validate_pool_name() {
     local pool="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11214,8 +13290,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # validate_pool_name: Validate ZFS pool name
@@ -11223,12 +13300,16 @@ validate_pool_name() {
 validate_pool_name() {
     local pool="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11239,8 +13320,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # validate_pool_name: Validate ZFS pool name
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
@@ -11248,12 +13330,16 @@ validate_pool_name() {
     local pool="$1"
 
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11264,8 +13350,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # validate_pool_name: Validate ZFS pool name
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
 validate_pool_name() {
@@ -11273,12 +13360,16 @@ validate_pool_name() {
 
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
         log_error "Invalid pool name: $pool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11289,8 +13380,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: validate_pool_name "tank" || die "Invalid pool name"
 validate_pool_name() {
     local pool="$1"
@@ -11298,12 +13390,16 @@ validate_pool_name() {
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
         log_error "Invalid pool name: $pool"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11314,8 +13410,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 validate_pool_name() {
     local pool="$1"
 
@@ -11323,12 +13420,16 @@ validate_pool_name() {
         log_error "Invalid pool name: $pool"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11339,8 +13440,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local pool="$1"
 
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
@@ -11348,12 +13450,16 @@ validate_pool_name() {
         return 1
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11364,8 +13470,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
         log_error "Invalid pool name: $pool"
@@ -11373,12 +13480,16 @@ validate_pool_name() {
     fi
 
     return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11389,8 +13500,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ! [[ "$pool" =~ ^[a-zA-Z][a-zA-Z0-9_:-]*$ ]]; then
         log_error "Invalid pool name: $pool"
         return 1
@@ -11398,12 +13510,16 @@ validate_pool_name() {
 
     return 0
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11414,8 +13530,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Invalid pool name: $pool"
         return 1
     fi
@@ -11423,12 +13540,16 @@ validate_pool_name() {
     return 0
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11439,8 +13560,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 
@@ -11448,12 +13570,16 @@ validate_pool_name() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11464,8 +13590,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     return 0
@@ -11473,12 +13600,16 @@ validate_pool_name() {
 
 ################################################################################
 # Retry & Transient Failure Handling
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11489,8 +13620,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     return 0
 }
@@ -11498,12 +13630,16 @@ validate_pool_name() {
 ################################################################################
 # Retry & Transient Failure Handling
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11514,8 +13650,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     return 0
 }
 
@@ -11523,12 +13660,16 @@ validate_pool_name() {
 # Retry & Transient Failure Handling
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11539,8 +13680,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -11548,12 +13690,16 @@ validate_pool_name() {
 ################################################################################
 
 # retry: Retry command with exponential backoff
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11564,8 +13710,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Retry & Transient Failure Handling
@@ -11573,12 +13720,16 @@ validate_pool_name() {
 
 # retry: Retry command with exponential backoff
 # Usage: retry 3 30 "ceph health" || die "Command failed"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11589,8 +13740,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Retry & Transient Failure Handling
 ################################################################################
@@ -11598,12 +13750,16 @@ validate_pool_name() {
 # retry: Retry command with exponential backoff
 # Usage: retry 3 30 "ceph health" || die "Command failed"
 # Args: max_attempts initial_delay_seconds command [args...]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11614,8 +13770,9 @@ validate_pool_name() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Retry & Transient Failure Handling
 ################################################################################
 
@@ -11623,12 +13780,16 @@ validate_pool_name() {
 # Usage: retry 3 30 "ceph health" || die "Command failed"
 # Args: max_attempts initial_delay_seconds command [args...]
 retry() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11639,8 +13800,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # retry: Retry command with exponential backoff
@@ -11648,12 +13810,16 @@ retry() {
 # Args: max_attempts initial_delay_seconds command [args...]
 retry() {
     local max_attempts="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11664,8 +13830,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # retry: Retry command with exponential backoff
 # Usage: retry 3 30 "ceph health" || die "Command failed"
@@ -11673,12 +13840,16 @@ retry() {
 retry() {
     local max_attempts="$1"
     local initial_delay="$2"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11689,8 +13860,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # retry: Retry command with exponential backoff
 # Usage: retry 3 30 "ceph health" || die "Command failed"
 # Args: max_attempts initial_delay_seconds command [args...]
@@ -11698,12 +13870,16 @@ retry() {
     local max_attempts="$1"
     local initial_delay="$2"
     shift 2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11714,8 +13890,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: retry 3 30 "ceph health" || die "Command failed"
 # Args: max_attempts initial_delay_seconds command [args...]
 retry() {
@@ -11723,12 +13900,16 @@ retry() {
     local initial_delay="$2"
     shift 2
     local command=("$@")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11739,8 +13920,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Args: max_attempts initial_delay_seconds command [args...]
 retry() {
     local max_attempts="$1"
@@ -11748,12 +13930,16 @@ retry() {
     shift 2
     local command=("$@")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11764,8 +13950,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 retry() {
     local max_attempts="$1"
     local initial_delay="$2"
@@ -11773,12 +13960,16 @@ retry() {
     local command=("$@")
 
     local attempt=1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11789,8 +13980,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local max_attempts="$1"
     local initial_delay="$2"
     shift 2
@@ -11798,12 +13990,16 @@ retry() {
 
     local attempt=1
     local delay="$initial_delay"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11814,8 +14010,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local initial_delay="$2"
     shift 2
     local command=("$@")
@@ -11823,12 +14020,16 @@ retry() {
     local attempt=1
     local delay="$initial_delay"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11839,8 +14040,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     shift 2
     local command=("$@")
 
@@ -11848,12 +14050,16 @@ retry() {
     local delay="$initial_delay"
 
     while [ $attempt -le "$max_attempts" ]; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11864,8 +14070,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local command=("$@")
 
     local attempt=1
@@ -11873,12 +14080,16 @@ retry() {
 
     while [ $attempt -le "$max_attempts" ]; do
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11889,8 +14100,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     local attempt=1
     local delay="$initial_delay"
@@ -11898,12 +14110,16 @@ retry() {
     while [ $attempt -le "$max_attempts" ]; do
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11914,8 +14130,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local attempt=1
     local delay="$initial_delay"
 
@@ -11923,12 +14140,16 @@ retry() {
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
 
         if "${command[@]}"; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11939,8 +14160,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local delay="$initial_delay"
 
     while [ $attempt -le "$max_attempts" ]; do
@@ -11948,12 +14170,16 @@ retry() {
 
         if "${command[@]}"; then
             log_debug "Command succeeded on attempt $attempt"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11964,8 +14190,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     while [ $attempt -le "$max_attempts" ]; do
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
@@ -11973,12 +14200,16 @@ retry() {
         if "${command[@]}"; then
             log_debug "Command succeeded on attempt $attempt"
             return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -11989,8 +14220,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     while [ $attempt -le "$max_attempts" ]; do
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
 
@@ -11998,12 +14230,16 @@ retry() {
             log_debug "Command succeeded on attempt $attempt"
             return 0
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12014,8 +14250,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Attempt $attempt/$max_attempts: ${command[*]}"
 
         if "${command[@]}"; then
@@ -12023,12 +14260,16 @@ retry() {
             return 0
         fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12039,8 +14280,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         if "${command[@]}"; then
             log_debug "Command succeeded on attempt $attempt"
@@ -12048,12 +14290,16 @@ retry() {
         fi
 
         if [ $attempt -lt "$max_attempts" ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12064,8 +14310,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if "${command[@]}"; then
             log_debug "Command succeeded on attempt $attempt"
             return 0
@@ -12073,12 +14320,16 @@ retry() {
 
         if [ $attempt -lt "$max_attempts" ]; then
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12089,8 +14340,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_debug "Command succeeded on attempt $attempt"
             return 0
         fi
@@ -12098,12 +14350,16 @@ retry() {
         if [ $attempt -lt "$max_attempts" ]; then
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
             sleep "$delay"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12114,8 +14370,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             return 0
         fi
 
@@ -12123,12 +14380,16 @@ retry() {
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
             sleep "$delay"
             # Exponential backoff: double delay, cap at 5 minutes
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12139,8 +14400,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
 
         if [ $attempt -lt "$max_attempts" ]; then
@@ -12148,12 +14410,16 @@ retry() {
             sleep "$delay"
             # Exponential backoff: double delay, cap at 5 minutes
             delay=$((delay * 2))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12164,8 +14430,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         if [ $attempt -lt "$max_attempts" ]; then
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
@@ -12173,12 +14440,16 @@ retry() {
             # Exponential backoff: double delay, cap at 5 minutes
             delay=$((delay * 2))
             delay=$((delay > 300 ? 300 : delay))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12189,8 +14460,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ $attempt -lt "$max_attempts" ]; then
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
             sleep "$delay"
@@ -12198,12 +14470,16 @@ retry() {
             delay=$((delay * 2))
             delay=$((delay > 300 ? 300 : delay))
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12214,8 +14490,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_warn "Command failed (attempt $attempt/$max_attempts), retrying in ${delay}s..."
             sleep "$delay"
             # Exponential backoff: double delay, cap at 5 minutes
@@ -12223,12 +14500,16 @@ retry() {
             delay=$((delay > 300 ? 300 : delay))
         fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12239,8 +14520,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             sleep "$delay"
             # Exponential backoff: double delay, cap at 5 minutes
             delay=$((delay * 2))
@@ -12248,12 +14530,16 @@ retry() {
         fi
 
         ((attempt++))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12264,8 +14550,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             # Exponential backoff: double delay, cap at 5 minutes
             delay=$((delay * 2))
             delay=$((delay > 300 ? 300 : delay))
@@ -12273,12 +14560,16 @@ retry() {
 
         ((attempt++))
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12289,8 +14580,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             delay=$((delay * 2))
             delay=$((delay > 300 ? 300 : delay))
         fi
@@ -12298,12 +14590,16 @@ retry() {
         ((attempt++))
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12314,8 +14610,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             delay=$((delay > 300 ? 300 : delay))
         fi
 
@@ -12323,12 +14620,16 @@ retry() {
     done
 
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12339,8 +14640,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
 
         ((attempt++))
@@ -12348,12 +14650,16 @@ retry() {
 
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
     return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12364,8 +14670,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         ((attempt++))
     done
@@ -12373,12 +14680,16 @@ retry() {
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
     return 1
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12389,8 +14700,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         ((attempt++))
     done
 
@@ -12398,12 +14710,16 @@ retry() {
     return 1
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12414,8 +14730,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
@@ -12423,12 +14740,16 @@ retry() {
 }
 
 # wait_for_condition: Wait for a condition to become true with timeout
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12439,8 +14760,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
     return 1
@@ -12448,12 +14770,16 @@ retry() {
 
 # wait_for_condition: Wait for a condition to become true with timeout
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12464,8 +14790,9 @@ retry() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_error "Command failed after $max_attempts attempts: ${command[*]}"
     return 1
 }
@@ -12473,12 +14800,16 @@ retry() {
 # wait_for_condition: Wait for a condition to become true with timeout
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
 wait_for_condition() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12489,8 +14820,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     return 1
 }
 
@@ -12498,12 +14830,16 @@ wait_for_condition() {
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
 wait_for_condition() {
     local timeout_seconds="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12514,8 +14850,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # wait_for_condition: Wait for a condition to become true with timeout
@@ -12523,12 +14860,16 @@ wait_for_condition() {
 wait_for_condition() {
     local timeout_seconds="$1"
     local condition="$2"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12539,8 +14880,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # wait_for_condition: Wait for a condition to become true with timeout
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
@@ -12548,12 +14890,16 @@ wait_for_condition() {
     local timeout_seconds="$1"
     local condition="$2"
     local check_interval="${3:-5}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12564,8 +14910,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # wait_for_condition: Wait for a condition to become true with timeout
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
 wait_for_condition() {
@@ -12573,12 +14920,16 @@ wait_for_condition() {
     local condition="$2"
     local check_interval="${3:-5}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12589,8 +14940,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: wait_for_condition 60 "ceph health | grep -q HEALTH_OK" || die "Ceph unhealthy"
 wait_for_condition() {
     local timeout_seconds="$1"
@@ -12598,12 +14950,16 @@ wait_for_condition() {
     local check_interval="${3:-5}"
 
     local start_time=$(date +%s)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12614,8 +14970,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 wait_for_condition() {
     local timeout_seconds="$1"
     local condition="$2"
@@ -12623,12 +14980,16 @@ wait_for_condition() {
 
     local start_time=$(date +%s)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12639,8 +15000,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local timeout_seconds="$1"
     local condition="$2"
     local check_interval="${3:-5}"
@@ -12648,12 +15010,16 @@ wait_for_condition() {
     local start_time=$(date +%s)
 
     while true; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12664,8 +15030,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local condition="$2"
     local check_interval="${3:-5}"
 
@@ -12673,12 +15040,16 @@ wait_for_condition() {
 
     while true; do
         if eval "$condition"; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12689,8 +15060,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local check_interval="${3:-5}"
 
     local start_time=$(date +%s)
@@ -12698,12 +15070,16 @@ wait_for_condition() {
     while true; do
         if eval "$condition"; then
             log_debug "Condition satisfied"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12714,8 +15090,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     local start_time=$(date +%s)
 
@@ -12723,12 +15100,16 @@ wait_for_condition() {
         if eval "$condition"; then
             log_debug "Condition satisfied"
             return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12739,8 +15120,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local start_time=$(date +%s)
 
     while true; do
@@ -12748,12 +15130,16 @@ wait_for_condition() {
             log_debug "Condition satisfied"
             return 0
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12764,8 +15150,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     while true; do
         if eval "$condition"; then
@@ -12773,12 +15160,16 @@ wait_for_condition() {
             return 0
         fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12789,8 +15180,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     while true; do
         if eval "$condition"; then
             log_debug "Condition satisfied"
@@ -12798,12 +15190,16 @@ wait_for_condition() {
         fi
 
         local current_time=$(date +%s)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12814,8 +15210,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if eval "$condition"; then
             log_debug "Condition satisfied"
             return 0
@@ -12823,12 +15220,16 @@ wait_for_condition() {
 
         local current_time=$(date +%s)
         local elapsed=$((current_time - start_time))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12839,8 +15240,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_debug "Condition satisfied"
             return 0
         fi
@@ -12848,12 +15250,16 @@ wait_for_condition() {
         local current_time=$(date +%s)
         local elapsed=$((current_time - start_time))
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12864,8 +15270,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             return 0
         fi
 
@@ -12873,12 +15280,16 @@ wait_for_condition() {
         local elapsed=$((current_time - start_time))
 
         if [ $elapsed -ge "$timeout_seconds" ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12889,8 +15300,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
 
         local current_time=$(date +%s)
@@ -12898,12 +15310,16 @@ wait_for_condition() {
 
         if [ $elapsed -ge "$timeout_seconds" ]; then
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12914,8 +15330,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         local current_time=$(date +%s)
         local elapsed=$((current_time - start_time))
@@ -12923,12 +15340,16 @@ wait_for_condition() {
         if [ $elapsed -ge "$timeout_seconds" ]; then
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
             return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12939,8 +15360,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local current_time=$(date +%s)
         local elapsed=$((current_time - start_time))
 
@@ -12948,12 +15370,16 @@ wait_for_condition() {
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
             return 1
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12964,8 +15390,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local elapsed=$((current_time - start_time))
 
         if [ $elapsed -ge "$timeout_seconds" ]; then
@@ -12973,12 +15400,16 @@ wait_for_condition() {
             return 1
         fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -12989,8 +15420,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         if [ $elapsed -ge "$timeout_seconds" ]; then
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
@@ -12998,12 +15430,16 @@ wait_for_condition() {
         fi
 
         local remaining=$((timeout_seconds - elapsed))
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13014,8 +15450,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ $elapsed -ge "$timeout_seconds" ]; then
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
             return 1
@@ -13023,12 +15460,16 @@ wait_for_condition() {
 
         local remaining=$((timeout_seconds - elapsed))
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13039,8 +15480,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_error "Condition not satisfied within ${timeout_seconds}s: $condition"
             return 1
         fi
@@ -13048,12 +15490,16 @@ wait_for_condition() {
         local remaining=$((timeout_seconds - elapsed))
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
         sleep "$check_interval"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13064,8 +15510,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             return 1
         fi
 
@@ -13073,12 +15520,16 @@ wait_for_condition() {
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
         sleep "$check_interval"
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13089,8 +15540,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
 
         local remaining=$((timeout_seconds - elapsed))
@@ -13098,12 +15550,16 @@ wait_for_condition() {
         sleep "$check_interval"
     done
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13114,8 +15570,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         local remaining=$((timeout_seconds - elapsed))
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
@@ -13123,12 +15580,16 @@ wait_for_condition() {
     done
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13139,8 +15600,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local remaining=$((timeout_seconds - elapsed))
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
         sleep "$check_interval"
@@ -13148,12 +15610,16 @@ wait_for_condition() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13164,8 +15630,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Condition not yet satisfied, checking again in ${check_interval}s (${remaining}s remaining)..."
         sleep "$check_interval"
     done
@@ -13173,12 +15640,16 @@ wait_for_condition() {
 
 ################################################################################
 # Dry-Run & Safe Operation Functions
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13189,8 +15660,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         sleep "$check_interval"
     done
 }
@@ -13198,12 +15670,16 @@ wait_for_condition() {
 ################################################################################
 # Dry-Run & Safe Operation Functions
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13214,8 +15690,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 }
 
@@ -13223,12 +15700,16 @@ wait_for_condition() {
 # Dry-Run & Safe Operation Functions
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13239,8 +15720,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -13248,12 +15730,16 @@ wait_for_condition() {
 ################################################################################
 
 # execute: Execute command, respecting dry-run mode
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13264,8 +15750,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Dry-Run & Safe Operation Functions
@@ -13273,12 +15760,16 @@ wait_for_condition() {
 
 # execute: Execute command, respecting dry-run mode
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13289,8 +15780,9 @@ wait_for_condition() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Dry-Run & Safe Operation Functions
 ################################################################################
@@ -13298,12 +15790,16 @@ wait_for_condition() {
 # execute: Execute command, respecting dry-run mode
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
 execute() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13314,8 +15810,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Dry-Run & Safe Operation Functions
 ################################################################################
 
@@ -13323,12 +15820,16 @@ execute() {
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
 execute() {
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13339,8 +15840,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # execute: Execute command, respecting dry-run mode
@@ -13348,12 +15850,16 @@ execute() {
 execute() {
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
     local cmd_str="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13364,8 +15870,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # execute: Execute command, respecting dry-run mode
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
@@ -13373,12 +15880,16 @@ execute() {
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
     local cmd_str="$1"
     local description="${2:-Executing command}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13389,8 +15900,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # execute: Execute command, respecting dry-run mode
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
 execute() {
@@ -13398,12 +15910,16 @@ execute() {
     local cmd_str="$1"
     local description="${2:-Executing command}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13414,8 +15930,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: execute "rm -rf /tmp/old" "Remove old files"
 execute() {
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
@@ -13423,12 +15940,16 @@ execute() {
     local description="${2:-Executing command}"
 
     log_info "$description"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13439,8 +15960,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 execute() {
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
     local cmd_str="$1"
@@ -13448,12 +15970,16 @@ execute() {
 
     log_info "$description"
     log_debug "Command: $cmd_str"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13464,8 +15990,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     # Use distinct variable name to avoid array/string cross warnings (SC2178/SC2128)
     local cmd_str="$1"
     local description="${2:-Executing command}"
@@ -13473,12 +16000,16 @@ execute() {
     log_info "$description"
     log_debug "Command: $cmd_str"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13489,8 +16020,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local cmd_str="$1"
     local description="${2:-Executing command}"
 
@@ -13498,12 +16030,16 @@ execute() {
     log_debug "Command: $cmd_str"
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13514,8 +16050,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local description="${2:-Executing command}"
 
     log_info "$description"
@@ -13523,12 +16060,16 @@ execute() {
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would execute: $cmd_str"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13539,8 +16080,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_info "$description"
     log_debug "Command: $cmd_str"
@@ -13548,12 +16090,16 @@ execute() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would execute: $cmd_str"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13564,8 +16110,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_info "$description"
     log_debug "Command: $cmd_str"
 
@@ -13573,12 +16120,16 @@ execute() {
         log_info "[DRY-RUN] Would execute: $cmd_str"
         return 0
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13589,8 +16140,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Command: $cmd_str"
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
@@ -13598,12 +16150,16 @@ execute() {
         return 0
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13614,8 +16170,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would execute: $cmd_str"
@@ -13623,12 +16180,16 @@ execute() {
     fi
 
     if eval "$cmd_str"; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13639,8 +16200,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would execute: $cmd_str"
         return 0
@@ -13648,12 +16210,16 @@ execute() {
 
     if eval "$cmd_str"; then
         log_debug "Command succeeded"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13664,8 +16230,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_info "[DRY-RUN] Would execute: $cmd_str"
         return 0
     fi
@@ -13673,12 +16240,16 @@ execute() {
     if eval "$cmd_str"; then
         log_debug "Command succeeded"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13689,8 +16260,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     fi
 
@@ -13698,12 +16270,16 @@ execute() {
         log_debug "Command succeeded"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13714,8 +16290,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     if eval "$cmd_str"; then
@@ -13723,12 +16300,16 @@ execute() {
         return 0
     else
         log_error "Command failed: $cmd_str"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13739,8 +16320,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if eval "$cmd_str"; then
         log_debug "Command succeeded"
@@ -13748,12 +16330,16 @@ execute() {
     else
         log_error "Command failed: $cmd_str"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13764,8 +16350,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if eval "$cmd_str"; then
         log_debug "Command succeeded"
         return 0
@@ -13773,12 +16360,16 @@ execute() {
         log_error "Command failed: $cmd_str"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13789,8 +16380,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Command succeeded"
         return 0
     else
@@ -13798,12 +16390,16 @@ execute() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13814,8 +16410,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Command failed: $cmd_str"
@@ -13823,12 +16420,16 @@ execute() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13839,8 +16440,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Command failed: $cmd_str"
         return 1
@@ -13848,12 +16450,16 @@ execute() {
 }
 
 # show_dry_run_plan: Display what would be done in dry-run mode
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13864,8 +16470,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Command failed: $cmd_str"
         return 1
     fi
@@ -13873,12 +16480,16 @@ execute() {
 
 # show_dry_run_plan: Display what would be done in dry-run mode
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13889,8 +16500,9 @@ execute() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -13898,12 +16510,16 @@ execute() {
 # show_dry_run_plan: Display what would be done in dry-run mode
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
 show_dry_run_plan() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13914,8 +16530,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -13923,12 +16540,16 @@ show_dry_run_plan() {
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
 show_dry_run_plan() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13939,8 +16560,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # show_dry_run_plan: Display what would be done in dry-run mode
@@ -13948,12 +16570,16 @@ show_dry_run_plan() {
 show_dry_run_plan() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "===== DRY-RUN MODE: The following would be executed ====="
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13964,8 +16590,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # show_dry_run_plan: Display what would be done in dry-run mode
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
@@ -13973,12 +16600,16 @@ show_dry_run_plan() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "===== DRY-RUN MODE: The following would be executed ====="
         while [ $# -gt 0 ]; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -13989,8 +16620,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # show_dry_run_plan: Display what would be done in dry-run mode
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
 show_dry_run_plan() {
@@ -13998,12 +16630,16 @@ show_dry_run_plan() {
         log_info "===== DRY-RUN MODE: The following would be executed ====="
         while [ $# -gt 0 ]; do
             log_info "  $1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14014,8 +16650,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: show_dry_run_plan "- Remove old backups" "- Update DNS records" "- Restart services"
 show_dry_run_plan() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
@@ -14023,12 +16660,16 @@ show_dry_run_plan() {
         while [ $# -gt 0 ]; do
             log_info "  $1"
             shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14039,8 +16680,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 show_dry_run_plan() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "===== DRY-RUN MODE: The following would be executed ====="
@@ -14048,12 +16690,16 @@ show_dry_run_plan() {
             log_info "  $1"
             shift
         done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14064,8 +16710,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "===== DRY-RUN MODE: The following would be executed ====="
         while [ $# -gt 0 ]; do
@@ -14073,12 +16720,16 @@ show_dry_run_plan() {
             shift
         done
         log_info "===== END DRY-RUN PLAN ====="
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14089,8 +16740,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_info "===== DRY-RUN MODE: The following would be executed ====="
         while [ $# -gt 0 ]; do
             log_info "  $1"
@@ -14098,12 +16750,16 @@ show_dry_run_plan() {
         done
         log_info "===== END DRY-RUN PLAN ====="
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14114,8 +16770,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         while [ $# -gt 0 ]; do
             log_info "  $1"
             shift
@@ -14123,12 +16780,16 @@ show_dry_run_plan() {
         log_info "===== END DRY-RUN PLAN ====="
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14139,8 +16800,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             log_info "  $1"
             shift
         done
@@ -14148,12 +16810,16 @@ show_dry_run_plan() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14164,8 +16830,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             shift
         done
         log_info "===== END DRY-RUN PLAN ====="
@@ -14173,12 +16840,16 @@ show_dry_run_plan() {
 }
 
 # confirm_operation: Prompt user to confirm an operation
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14189,8 +16860,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         done
         log_info "===== END DRY-RUN PLAN ====="
     fi
@@ -14198,12 +16870,16 @@ show_dry_run_plan() {
 
 # confirm_operation: Prompt user to confirm an operation
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14214,8 +16890,9 @@ show_dry_run_plan() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_info "===== END DRY-RUN PLAN ====="
     fi
 }
@@ -14223,12 +16900,16 @@ show_dry_run_plan() {
 # confirm_operation: Prompt user to confirm an operation
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
 confirm_operation() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14239,8 +16920,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -14248,12 +16930,16 @@ confirm_operation() {
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
 confirm_operation() {
     local message="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14264,8 +16950,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # confirm_operation: Prompt user to confirm an operation
@@ -14273,12 +16960,16 @@ confirm_operation() {
 confirm_operation() {
     local message="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14289,8 +16980,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # confirm_operation: Prompt user to confirm an operation
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
@@ -14298,12 +16990,16 @@ confirm_operation() {
     local message="$1"
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14314,8 +17010,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # confirm_operation: Prompt user to confirm an operation
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
 confirm_operation() {
@@ -14323,12 +17020,16 @@ confirm_operation() {
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would ask for confirmation: $message"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14339,8 +17040,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: confirm_operation "This will upgrade all nodes" || return 1
 confirm_operation() {
     local message="$1"
@@ -14348,12 +17050,16 @@ confirm_operation() {
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would ask for confirmation: $message"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14364,8 +17070,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 confirm_operation() {
     local message="$1"
 
@@ -14373,12 +17080,16 @@ confirm_operation() {
         log_info "[DRY-RUN] Would ask for confirmation: $message"
         return 0
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14389,8 +17100,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local message="$1"
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
@@ -14398,12 +17110,16 @@ confirm_operation() {
         return 0
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14414,8 +17130,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would ask for confirmation: $message"
@@ -14423,12 +17140,16 @@ confirm_operation() {
     fi
 
     log_warn "$message"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14439,8 +17160,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$DEBVISOR_DRY_RUN" = true ]; then
         log_info "[DRY-RUN] Would ask for confirmation: $message"
         return 0
@@ -14448,12 +17170,16 @@ confirm_operation() {
 
     log_warn "$message"
     read -p "Continue? (yes/no): " -r response
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14464,8 +17190,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_info "[DRY-RUN] Would ask for confirmation: $message"
         return 0
     fi
@@ -14473,12 +17200,16 @@ confirm_operation() {
     log_warn "$message"
     read -p "Continue? (yes/no): " -r response
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14489,8 +17220,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     fi
 
@@ -14498,12 +17230,16 @@ confirm_operation() {
     read -p "Continue? (yes/no): " -r response
 
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14514,8 +17250,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     log_warn "$message"
@@ -14523,12 +17260,16 @@ confirm_operation() {
 
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14539,8 +17280,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_warn "$message"
     read -p "Continue? (yes/no): " -r response
@@ -14548,12 +17290,16 @@ confirm_operation() {
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14564,8 +17310,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_warn "$message"
     read -p "Continue? (yes/no): " -r response
 
@@ -14573,12 +17320,16 @@ confirm_operation() {
         return 0
     else
         log_info "Operation cancelled by user"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14589,8 +17340,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     read -p "Continue? (yes/no): " -r response
 
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
@@ -14598,12 +17350,16 @@ confirm_operation() {
     else
         log_info "Operation cancelled by user"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14614,8 +17370,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
         return 0
@@ -14623,12 +17380,16 @@ confirm_operation() {
         log_info "Operation cancelled by user"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14639,8 +17400,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [[ "$response" =~ ^[Yy][Ee][Ss]$ ]]; then
         return 0
     else
@@ -14648,12 +17410,16 @@ confirm_operation() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14664,8 +17430,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_info "Operation cancelled by user"
@@ -14673,12 +17440,16 @@ confirm_operation() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14689,8 +17460,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_info "Operation cancelled by user"
         return 1
@@ -14698,12 +17470,16 @@ confirm_operation() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14714,8 +17490,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_info "Operation cancelled by user"
         return 1
     fi
@@ -14723,12 +17500,16 @@ confirm_operation() {
 
 ################################################################################
 # Ceph Operations
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14739,8 +17520,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -14748,12 +17530,16 @@ confirm_operation() {
 ################################################################################
 # Ceph Operations
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14764,8 +17550,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -14773,12 +17560,16 @@ confirm_operation() {
 # Ceph Operations
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14789,8 +17580,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -14798,12 +17590,16 @@ confirm_operation() {
 ################################################################################
 
 # ceph_health_check: Check Ceph cluster health, return status
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14814,8 +17610,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Ceph Operations
@@ -14823,12 +17620,16 @@ confirm_operation() {
 
 # ceph_health_check: Check Ceph cluster health, return status
 # Usage: ceph_health_check || die "Cluster unhealthy"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14839,8 +17640,9 @@ confirm_operation() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Ceph Operations
 ################################################################################
@@ -14848,12 +17650,16 @@ confirm_operation() {
 # ceph_health_check: Check Ceph cluster health, return status
 # Usage: ceph_health_check || die "Cluster unhealthy"
 ceph_health_check() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14864,8 +17670,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Ceph Operations
 ################################################################################
 
@@ -14873,12 +17680,16 @@ ceph_health_check() {
 # Usage: ceph_health_check || die "Cluster unhealthy"
 ceph_health_check() {
     require_bin "ceph"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14889,8 +17700,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # ceph_health_check: Check Ceph cluster health, return status
@@ -14898,12 +17710,16 @@ ceph_health_check() {
 ceph_health_check() {
     require_bin "ceph"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14914,8 +17730,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # ceph_health_check: Check Ceph cluster health, return status
 # Usage: ceph_health_check || die "Cluster unhealthy"
@@ -14923,12 +17740,16 @@ ceph_health_check() {
     require_bin "ceph"
 
     log_debug "Checking Ceph health..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14939,8 +17760,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # ceph_health_check: Check Ceph cluster health, return status
 # Usage: ceph_health_check || die "Cluster unhealthy"
 ceph_health_check() {
@@ -14948,12 +17770,16 @@ ceph_health_check() {
 
     log_debug "Checking Ceph health..."
     local health_status
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14964,8 +17790,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: ceph_health_check || die "Cluster unhealthy"
 ceph_health_check() {
     require_bin "ceph"
@@ -14973,12 +17800,16 @@ ceph_health_check() {
     log_debug "Checking Ceph health..."
     local health_status
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -14989,8 +17820,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ceph_health_check() {
     require_bin "ceph"
 
@@ -14998,12 +17830,16 @@ ceph_health_check() {
     local health_status
 
     if ! health_status=$(ceph health); then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15014,8 +17850,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "ceph"
 
     log_debug "Checking Ceph health..."
@@ -15023,12 +17860,16 @@ ceph_health_check() {
 
     if ! health_status=$(ceph health); then
         log_error "Failed to query Ceph health"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15039,8 +17880,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "Checking Ceph health..."
     local health_status
@@ -15048,12 +17890,16 @@ ceph_health_check() {
     if ! health_status=$(ceph health); then
         log_error "Failed to query Ceph health"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15064,8 +17910,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Checking Ceph health..."
     local health_status
 
@@ -15073,12 +17920,16 @@ ceph_health_check() {
         log_error "Failed to query Ceph health"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15089,8 +17940,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local health_status
 
     if ! health_status=$(ceph health); then
@@ -15098,12 +17950,16 @@ ceph_health_check() {
         return 1
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15114,8 +17970,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if ! health_status=$(ceph health); then
         log_error "Failed to query Ceph health"
@@ -15123,12 +17980,16 @@ ceph_health_check() {
     fi
 
     log_debug "Ceph health output: $health_status"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15139,8 +18000,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ! health_status=$(ceph health); then
         log_error "Failed to query Ceph health"
         return 1
@@ -15148,12 +18010,16 @@ ceph_health_check() {
 
     log_debug "Ceph health output: $health_status"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15164,8 +18030,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Failed to query Ceph health"
         return 1
     fi
@@ -15173,12 +18040,16 @@ ceph_health_check() {
     log_debug "Ceph health output: $health_status"
 
     if [[ "$health_status" =~ HEALTH_OK ]]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15189,8 +18060,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 
@@ -15198,12 +18070,16 @@ ceph_health_check() {
 
     if [[ "$health_status" =~ HEALTH_OK ]]; then
         log_debug "Ceph cluster healthy"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15214,8 +18090,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     log_debug "Ceph health output: $health_status"
@@ -15223,12 +18100,16 @@ ceph_health_check() {
     if [[ "$health_status" =~ HEALTH_OK ]]; then
         log_debug "Ceph cluster healthy"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15239,8 +18120,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "Ceph health output: $health_status"
 
@@ -15248,12 +18130,16 @@ ceph_health_check() {
         log_debug "Ceph cluster healthy"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15264,8 +18150,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Ceph health output: $health_status"
 
     if [[ "$health_status" =~ HEALTH_OK ]]; then
@@ -15273,12 +18160,16 @@ ceph_health_check() {
         return 0
     else
         log_error "Ceph cluster unhealthy: $health_status"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15289,8 +18180,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [[ "$health_status" =~ HEALTH_OK ]]; then
         log_debug "Ceph cluster healthy"
@@ -15298,12 +18190,16 @@ ceph_health_check() {
     else
         log_error "Ceph cluster unhealthy: $health_status"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15314,8 +18210,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [[ "$health_status" =~ HEALTH_OK ]]; then
         log_debug "Ceph cluster healthy"
         return 0
@@ -15323,12 +18220,16 @@ ceph_health_check() {
         log_error "Ceph cluster unhealthy: $health_status"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15339,8 +18240,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Ceph cluster healthy"
         return 0
     else
@@ -15348,12 +18250,16 @@ ceph_health_check() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15364,8 +18270,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Ceph cluster unhealthy: $health_status"
@@ -15373,12 +18280,16 @@ ceph_health_check() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15389,8 +18300,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Ceph cluster unhealthy: $health_status"
         return 1
@@ -15398,12 +18310,16 @@ ceph_health_check() {
 }
 
 # ceph_osds_ready: Check that all OSDs are up and in
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15414,8 +18330,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Ceph cluster unhealthy: $health_status"
         return 1
     fi
@@ -15423,12 +18340,16 @@ ceph_health_check() {
 
 # ceph_osds_ready: Check that all OSDs are up and in
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15439,8 +18360,9 @@ ceph_health_check() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -15448,12 +18370,16 @@ ceph_health_check() {
 # ceph_osds_ready: Check that all OSDs are up and in
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
 ceph_osds_ready() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15464,8 +18390,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -15473,12 +18400,16 @@ ceph_osds_ready() {
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
 ceph_osds_ready() {
     require_bin "ceph"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15489,8 +18420,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # ceph_osds_ready: Check that all OSDs are up and in
@@ -15498,12 +18430,16 @@ ceph_osds_ready() {
 ceph_osds_ready() {
     require_bin "ceph"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15514,8 +18450,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # ceph_osds_ready: Check that all OSDs are up and in
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
@@ -15523,12 +18460,16 @@ ceph_osds_ready() {
     require_bin "ceph"
 
     log_debug "Checking Ceph OSD status..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15539,8 +18480,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # ceph_osds_ready: Check that all OSDs are up and in
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
 ceph_osds_ready() {
@@ -15548,12 +18490,16 @@ ceph_osds_ready() {
 
     log_debug "Checking Ceph OSD status..."
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15564,8 +18510,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: ceph_osds_ready || die "Not all OSDs ready"
 ceph_osds_ready() {
     require_bin "ceph"
@@ -15573,12 +18520,16 @@ ceph_osds_ready() {
     log_debug "Checking Ceph OSD status..."
 
     local down_osds
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15589,8 +18540,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ceph_osds_ready() {
     require_bin "ceph"
 
@@ -15598,12 +18550,16 @@ ceph_osds_ready() {
 
     local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15614,8 +18570,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "ceph"
 
     log_debug "Checking Ceph OSD status..."
@@ -15623,12 +18580,16 @@ ceph_osds_ready() {
     local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15639,8 +18600,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "Checking Ceph OSD status..."
 
@@ -15648,12 +18610,16 @@ ceph_osds_ready() {
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15664,8 +18630,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Checking Ceph OSD status..."
 
     local down_osds
@@ -15673,12 +18640,16 @@ ceph_osds_ready() {
         down_osds=0
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15689,8 +18660,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
@@ -15698,12 +18670,16 @@ ceph_osds_ready() {
     fi
 
     if [ "$down_osds" -eq 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15714,8 +18690,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local down_osds
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
@@ -15723,12 +18700,16 @@ ceph_osds_ready() {
 
     if [ "$down_osds" -eq 0 ]; then
         log_debug "All OSDs are up and in"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15739,8 +18720,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ! down_osds=$(ceph osd stat | grep -oP '(?<=down )[^ ]*'); then
         down_osds=0
     fi
@@ -15748,12 +18730,16 @@ ceph_osds_ready() {
     if [ "$down_osds" -eq 0 ]; then
         log_debug "All OSDs are up and in"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15764,8 +18750,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         down_osds=0
     fi
 
@@ -15773,12 +18760,16 @@ ceph_osds_ready() {
         log_debug "All OSDs are up and in"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15789,8 +18780,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     if [ "$down_osds" -eq 0 ]; then
@@ -15798,12 +18790,16 @@ ceph_osds_ready() {
         return 0
     else
         log_error "Some OSDs are down: $down_osds down"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15814,8 +18810,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ "$down_osds" -eq 0 ]; then
         log_debug "All OSDs are up and in"
@@ -15823,12 +18820,16 @@ ceph_osds_ready() {
     else
         log_error "Some OSDs are down: $down_osds down"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15839,8 +18840,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$down_osds" -eq 0 ]; then
         log_debug "All OSDs are up and in"
         return 0
@@ -15848,12 +18850,16 @@ ceph_osds_ready() {
         log_error "Some OSDs are down: $down_osds down"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15864,8 +18870,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "All OSDs are up and in"
         return 0
     else
@@ -15873,12 +18880,16 @@ ceph_osds_ready() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15889,8 +18900,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Some OSDs are down: $down_osds down"
@@ -15898,12 +18910,16 @@ ceph_osds_ready() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15914,8 +18930,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Some OSDs are down: $down_osds down"
         return 1
@@ -15923,12 +18940,16 @@ ceph_osds_ready() {
 }
 
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15939,8 +18960,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Some OSDs are down: $down_osds down"
         return 1
     fi
@@ -15948,12 +18970,16 @@ ceph_osds_ready() {
 
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
 # Usage: ceph_set_noout || die "Failed to set noout"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15964,8 +18990,9 @@ ceph_osds_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -15973,12 +19000,16 @@ ceph_osds_ready() {
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
 # Usage: ceph_set_noout || die "Failed to set noout"
 ceph_set_noout() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -15989,8 +19020,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -15998,12 +19030,16 @@ ceph_set_noout() {
 # Usage: ceph_set_noout || die "Failed to set noout"
 ceph_set_noout() {
     require_bin "ceph"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16014,8 +19050,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
@@ -16023,12 +19060,16 @@ ceph_set_noout() {
 ceph_set_noout() {
     require_bin "ceph"
     require_root
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16039,8 +19080,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
 # Usage: ceph_set_noout || die "Failed to set noout"
@@ -16048,12 +19090,16 @@ ceph_set_noout() {
     require_bin "ceph"
     require_root
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16064,8 +19110,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # ceph_set_noout: Set noout flag on cluster (prevents rebalance during maintenance)
 # Usage: ceph_set_noout || die "Failed to set noout"
 ceph_set_noout() {
@@ -16073,12 +19120,16 @@ ceph_set_noout() {
     require_root
 
     log_info "Setting Ceph noout flag..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16089,8 +19140,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: ceph_set_noout || die "Failed to set noout"
 ceph_set_noout() {
     require_bin "ceph"
@@ -16098,12 +19150,16 @@ ceph_set_noout() {
 
     log_info "Setting Ceph noout flag..."
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16114,8 +19170,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ceph_set_noout() {
     require_bin "ceph"
     require_root
@@ -16123,12 +19180,16 @@ ceph_set_noout() {
     log_info "Setting Ceph noout flag..."
 
     if ceph osd set noout; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16139,8 +19200,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "ceph"
     require_root
 
@@ -16148,12 +19210,16 @@ ceph_set_noout() {
 
     if ceph osd set noout; then
         log_debug "Noout flag set"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16164,8 +19230,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_root
 
     log_info "Setting Ceph noout flag..."
@@ -16173,12 +19240,16 @@ ceph_set_noout() {
     if ceph osd set noout; then
         log_debug "Noout flag set"
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16189,8 +19260,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_info "Setting Ceph noout flag..."
 
@@ -16198,12 +19270,16 @@ ceph_set_noout() {
         log_debug "Noout flag set"
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16214,8 +19290,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_info "Setting Ceph noout flag..."
 
     if ceph osd set noout; then
@@ -16223,12 +19300,16 @@ ceph_set_noout() {
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16239,8 +19320,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if ceph osd set noout; then
         log_debug "Noout flag set"
@@ -16248,12 +19330,16 @@ ceph_set_noout() {
         return 0
     else
         log_error "Failed to set noout flag"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16264,8 +19350,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ceph osd set noout; then
         log_debug "Noout flag set"
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
@@ -16273,12 +19360,16 @@ ceph_set_noout() {
     else
         log_error "Failed to set noout flag"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16289,8 +19380,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Noout flag set"
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
         return 0
@@ -16298,12 +19390,16 @@ ceph_set_noout() {
         log_error "Failed to set noout flag"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16314,8 +19410,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         audit_log "ceph_set_noout" "Set noout flag for maintenance"
         return 0
     else
@@ -16323,12 +19420,16 @@ ceph_set_noout() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16339,8 +19440,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Failed to set noout flag"
@@ -16348,12 +19450,16 @@ ceph_set_noout() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16364,8 +19470,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Failed to set noout flag"
         return 1
@@ -16373,12 +19480,16 @@ ceph_set_noout() {
 }
 
 # ceph_unset_noout: Remove noout flag
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16389,8 +19500,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Failed to set noout flag"
         return 1
     fi
@@ -16398,12 +19510,16 @@ ceph_set_noout() {
 
 # ceph_unset_noout: Remove noout flag
 # Usage: ceph_unset_noout || die "Failed to unset noout"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16414,8 +19530,9 @@ ceph_set_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -16423,12 +19540,16 @@ ceph_set_noout() {
 # ceph_unset_noout: Remove noout flag
 # Usage: ceph_unset_noout || die "Failed to unset noout"
 ceph_unset_noout() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16439,8 +19560,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -16448,12 +19570,16 @@ ceph_unset_noout() {
 # Usage: ceph_unset_noout || die "Failed to unset noout"
 ceph_unset_noout() {
     require_bin "ceph"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16464,8 +19590,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # ceph_unset_noout: Remove noout flag
@@ -16473,12 +19600,16 @@ ceph_unset_noout() {
 ceph_unset_noout() {
     require_bin "ceph"
     require_root
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16489,8 +19620,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # ceph_unset_noout: Remove noout flag
 # Usage: ceph_unset_noout || die "Failed to unset noout"
@@ -16498,12 +19630,16 @@ ceph_unset_noout() {
     require_bin "ceph"
     require_root
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16514,8 +19650,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # ceph_unset_noout: Remove noout flag
 # Usage: ceph_unset_noout || die "Failed to unset noout"
 ceph_unset_noout() {
@@ -16523,12 +19660,16 @@ ceph_unset_noout() {
     require_root
 
     log_info "Removing Ceph noout flag..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16539,8 +19680,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: ceph_unset_noout || die "Failed to unset noout"
 ceph_unset_noout() {
     require_bin "ceph"
@@ -16548,12 +19690,16 @@ ceph_unset_noout() {
 
     log_info "Removing Ceph noout flag..."
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16564,8 +19710,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ceph_unset_noout() {
     require_bin "ceph"
     require_root
@@ -16573,12 +19720,16 @@ ceph_unset_noout() {
     log_info "Removing Ceph noout flag..."
 
     if ceph osd unset noout; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16589,8 +19740,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "ceph"
     require_root
 
@@ -16598,12 +19750,16 @@ ceph_unset_noout() {
 
     if ceph osd unset noout; then
         log_debug "Noout flag removed"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16614,8 +19770,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_root
 
     log_info "Removing Ceph noout flag..."
@@ -16623,12 +19780,16 @@ ceph_unset_noout() {
     if ceph osd unset noout; then
         log_debug "Noout flag removed"
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16639,8 +19800,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_info "Removing Ceph noout flag..."
 
@@ -16648,12 +19810,16 @@ ceph_unset_noout() {
         log_debug "Noout flag removed"
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16664,8 +19830,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_info "Removing Ceph noout flag..."
 
     if ceph osd unset noout; then
@@ -16673,12 +19840,16 @@ ceph_unset_noout() {
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16689,8 +19860,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if ceph osd unset noout; then
         log_debug "Noout flag removed"
@@ -16698,12 +19870,16 @@ ceph_unset_noout() {
         return 0
     else
         log_error "Failed to unset noout flag"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16714,8 +19890,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if ceph osd unset noout; then
         log_debug "Noout flag removed"
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
@@ -16723,12 +19900,16 @@ ceph_unset_noout() {
     else
         log_error "Failed to unset noout flag"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16739,8 +19920,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Noout flag removed"
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
         return 0
@@ -16748,12 +19930,16 @@ ceph_unset_noout() {
         log_error "Failed to unset noout flag"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16764,8 +19950,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         audit_log "ceph_unset_noout" "Removed noout flag after maintenance"
         return 0
     else
@@ -16773,12 +19960,16 @@ ceph_unset_noout() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16789,8 +19980,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Failed to unset noout flag"
@@ -16798,12 +19990,16 @@ ceph_unset_noout() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16814,8 +20010,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Failed to unset noout flag"
         return 1
@@ -16823,12 +20020,16 @@ ceph_unset_noout() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16839,8 +20040,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Failed to unset noout flag"
         return 1
     fi
@@ -16848,12 +20050,16 @@ ceph_unset_noout() {
 
 ################################################################################
 # ZFS Operations
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16864,8 +20070,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -16873,12 +20080,16 @@ ceph_unset_noout() {
 ################################################################################
 # ZFS Operations
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16889,8 +20100,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -16898,12 +20110,16 @@ ceph_unset_noout() {
 # ZFS Operations
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16914,8 +20130,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -16923,12 +20140,16 @@ ceph_unset_noout() {
 ################################################################################
 
 # zpool_exists: Check if ZFS pool exists
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16939,8 +20160,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # ZFS Operations
@@ -16948,12 +20170,16 @@ ceph_unset_noout() {
 
 # zpool_exists: Check if ZFS pool exists
 # Usage: zpool_exists "tank" || die "Pool not found"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16964,8 +20190,9 @@ ceph_unset_noout() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # ZFS Operations
 ################################################################################
@@ -16973,12 +20200,16 @@ ceph_unset_noout() {
 # zpool_exists: Check if ZFS pool exists
 # Usage: zpool_exists "tank" || die "Pool not found"
 zpool_exists() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -16989,8 +20220,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # ZFS Operations
 ################################################################################
 
@@ -16998,12 +20230,16 @@ zpool_exists() {
 # Usage: zpool_exists "tank" || die "Pool not found"
 zpool_exists() {
     local pool="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17014,8 +20250,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # zpool_exists: Check if ZFS pool exists
@@ -17023,12 +20260,16 @@ zpool_exists() {
 zpool_exists() {
     local pool="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17039,8 +20280,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # zpool_exists: Check if ZFS pool exists
 # Usage: zpool_exists "tank" || die "Pool not found"
@@ -17048,12 +20290,16 @@ zpool_exists() {
     local pool="$1"
 
     require_bin "zpool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17064,8 +20310,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # zpool_exists: Check if ZFS pool exists
 # Usage: zpool_exists "tank" || die "Pool not found"
 zpool_exists() {
@@ -17073,12 +20320,16 @@ zpool_exists() {
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17089,8 +20340,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: zpool_exists "tank" || die "Pool not found"
 zpool_exists() {
     local pool="$1"
@@ -17098,12 +20350,16 @@ zpool_exists() {
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17114,8 +20370,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 zpool_exists() {
     local pool="$1"
 
@@ -17123,12 +20380,16 @@ zpool_exists() {
     validate_pool_name "$pool" || return 1
 
     if zpool list "$pool" &>/dev/null; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17139,8 +20400,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local pool="$1"
 
     require_bin "zpool"
@@ -17148,12 +20410,16 @@ zpool_exists() {
 
     if zpool list "$pool" &>/dev/null; then
         log_debug "ZFS pool exists: $pool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17164,8 +20430,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
@@ -17173,12 +20440,16 @@ zpool_exists() {
     if zpool list "$pool" &>/dev/null; then
         log_debug "ZFS pool exists: $pool"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17189,8 +20460,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
@@ -17198,12 +20470,16 @@ zpool_exists() {
         log_debug "ZFS pool exists: $pool"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17214,8 +20490,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     validate_pool_name "$pool" || return 1
 
     if zpool list "$pool" &>/dev/null; then
@@ -17223,12 +20500,16 @@ zpool_exists() {
         return 0
     else
         log_error "ZFS pool not found: $pool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17239,8 +20520,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if zpool list "$pool" &>/dev/null; then
         log_debug "ZFS pool exists: $pool"
@@ -17248,12 +20530,16 @@ zpool_exists() {
     else
         log_error "ZFS pool not found: $pool"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17264,8 +20550,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if zpool list "$pool" &>/dev/null; then
         log_debug "ZFS pool exists: $pool"
         return 0
@@ -17273,12 +20560,16 @@ zpool_exists() {
         log_error "ZFS pool not found: $pool"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17289,8 +20580,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "ZFS pool exists: $pool"
         return 0
     else
@@ -17298,12 +20590,16 @@ zpool_exists() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17314,8 +20610,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "ZFS pool not found: $pool"
@@ -17323,12 +20620,16 @@ zpool_exists() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17339,8 +20640,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "ZFS pool not found: $pool"
         return 1
@@ -17348,12 +20650,16 @@ zpool_exists() {
 }
 
 # zpool_health: Get ZFS pool health status
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17364,8 +20670,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "ZFS pool not found: $pool"
         return 1
     fi
@@ -17373,12 +20680,16 @@ zpool_exists() {
 
 # zpool_health: Get ZFS pool health status
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17389,8 +20700,9 @@ zpool_exists() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -17398,12 +20710,16 @@ zpool_exists() {
 # zpool_health: Get ZFS pool health status
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
 zpool_health() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17414,8 +20730,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -17423,12 +20740,16 @@ zpool_health() {
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
 zpool_health() {
     local pool="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17439,8 +20760,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # zpool_health: Get ZFS pool health status
@@ -17448,12 +20770,16 @@ zpool_health() {
 zpool_health() {
     local pool="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17464,8 +20790,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # zpool_health: Get ZFS pool health status
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
@@ -17473,12 +20800,16 @@ zpool_health() {
     local pool="$1"
 
     require_bin "zpool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17489,8 +20820,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # zpool_health: Get ZFS pool health status
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
 zpool_health() {
@@ -17498,12 +20830,16 @@ zpool_health() {
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17514,8 +20850,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: health=$(zpool_health "tank") && log_info "Pool health: $health"
 zpool_health() {
     local pool="$1"
@@ -17523,12 +20860,16 @@ zpool_health() {
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17539,8 +20880,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 zpool_health() {
     local pool="$1"
 
@@ -17548,12 +20890,16 @@ zpool_health() {
     validate_pool_name "$pool" || return 1
 
     zpool list -H -o health "$pool" || return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17564,8 +20910,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local pool="$1"
 
     require_bin "zpool"
@@ -17573,12 +20920,16 @@ zpool_health() {
 
     zpool list -H -o health "$pool" || return 1
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17589,8 +20940,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
@@ -17598,12 +20950,16 @@ zpool_health() {
     zpool list -H -o health "$pool" || return 1
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17614,8 +20970,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
@@ -17623,12 +20980,16 @@ zpool_health() {
 }
 
 # zpool_scrub_schedule: Get next scheduled scrub time
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17639,8 +21000,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     validate_pool_name "$pool" || return 1
 
     zpool list -H -o health "$pool" || return 1
@@ -17648,12 +21010,16 @@ zpool_health() {
 
 # zpool_scrub_schedule: Get next scheduled scrub time
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17664,8 +21030,9 @@ zpool_health() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     zpool list -H -o health "$pool" || return 1
 }
@@ -17673,12 +21040,16 @@ zpool_health() {
 # zpool_scrub_schedule: Get next scheduled scrub time
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
 zpool_scrub_schedule() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17689,8 +21060,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     zpool list -H -o health "$pool" || return 1
 }
 
@@ -17698,12 +21070,16 @@ zpool_scrub_schedule() {
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
 zpool_scrub_schedule() {
     local pool="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17714,8 +21090,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # zpool_scrub_schedule: Get next scheduled scrub time
@@ -17723,12 +21100,16 @@ zpool_scrub_schedule() {
 zpool_scrub_schedule() {
     local pool="$1"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17739,8 +21120,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # zpool_scrub_schedule: Get next scheduled scrub time
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
@@ -17748,12 +21130,16 @@ zpool_scrub_schedule() {
     local pool="$1"
 
     require_bin "zpool"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17764,8 +21150,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # zpool_scrub_schedule: Get next scheduled scrub time
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
 zpool_scrub_schedule() {
@@ -17773,12 +21160,16 @@ zpool_scrub_schedule() {
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17789,8 +21180,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: next_scrub=$(zpool_scrub_schedule "tank")
 zpool_scrub_schedule() {
     local pool="$1"
@@ -17798,12 +21190,16 @@ zpool_scrub_schedule() {
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17814,8 +21210,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 zpool_scrub_schedule() {
     local pool="$1"
 
@@ -17823,12 +21220,16 @@ zpool_scrub_schedule() {
     validate_pool_name "$pool" || return 1
 
     # Get last scrub time and estimate next
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17839,8 +21240,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local pool="$1"
 
     require_bin "zpool"
@@ -17848,12 +21250,16 @@ zpool_scrub_schedule() {
 
     # Get last scrub time and estimate next
     local last_scrub
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17864,8 +21270,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
@@ -17873,12 +21280,16 @@ zpool_scrub_schedule() {
     # Get last scrub time and estimate next
     local last_scrub
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17889,8 +21300,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "zpool"
     validate_pool_name "$pool" || return 1
 
@@ -17898,12 +21310,16 @@ zpool_scrub_schedule() {
     local last_scrub
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17914,8 +21330,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     validate_pool_name "$pool" || return 1
 
     # Get last scrub time and estimate next
@@ -17923,12 +21340,16 @@ zpool_scrub_schedule() {
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
 
     if [ -z "$last_scrub" ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17939,8 +21360,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     # Get last scrub time and estimate next
     local last_scrub
@@ -17948,12 +21370,16 @@ zpool_scrub_schedule() {
 
     if [ -z "$last_scrub" ]; then
         echo "Never"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17964,8 +21390,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     # Get last scrub time and estimate next
     local last_scrub
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
@@ -17973,12 +21400,16 @@ zpool_scrub_schedule() {
     if [ -z "$last_scrub" ]; then
         echo "Never"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -17989,8 +21420,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local last_scrub
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
 
@@ -17998,12 +21430,16 @@ zpool_scrub_schedule() {
         echo "Never"
         return 0
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18014,8 +21450,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     last_scrub=$(zpool status "$pool" | grep "scan:" | grep -oP '\d{4}-\d{2}-\d{2}')
 
     if [ -z "$last_scrub" ]; then
@@ -18023,12 +21460,16 @@ zpool_scrub_schedule() {
         return 0
     fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18039,8 +21480,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ -z "$last_scrub" ]; then
         echo "Never"
@@ -18048,12 +21490,16 @@ zpool_scrub_schedule() {
     fi
 
     echo "$last_scrub"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18064,8 +21510,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ -z "$last_scrub" ]; then
         echo "Never"
         return 0
@@ -18073,12 +21520,16 @@ zpool_scrub_schedule() {
 
     echo "$last_scrub"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18089,8 +21540,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         echo "Never"
         return 0
     fi
@@ -18098,12 +21550,16 @@ zpool_scrub_schedule() {
     echo "$last_scrub"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18114,8 +21570,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     fi
 
@@ -18123,12 +21580,16 @@ zpool_scrub_schedule() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18139,8 +21600,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 
     echo "$last_scrub"
@@ -18148,12 +21610,16 @@ zpool_scrub_schedule() {
 
 ################################################################################
 # Kubernetes Operations
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18164,8 +21630,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     echo "$last_scrub"
 }
@@ -18173,12 +21640,16 @@ zpool_scrub_schedule() {
 ################################################################################
 # Kubernetes Operations
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18189,8 +21660,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo "$last_scrub"
 }
 
@@ -18198,12 +21670,16 @@ zpool_scrub_schedule() {
 # Kubernetes Operations
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18214,8 +21690,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -18223,12 +21700,16 @@ zpool_scrub_schedule() {
 ################################################################################
 
 # kubectl_available: Check if kubectl is available and configured
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18239,8 +21720,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Kubernetes Operations
@@ -18248,12 +21730,16 @@ zpool_scrub_schedule() {
 
 # kubectl_available: Check if kubectl is available and configured
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18264,8 +21750,9 @@ zpool_scrub_schedule() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Kubernetes Operations
 ################################################################################
@@ -18273,12 +21760,16 @@ zpool_scrub_schedule() {
 # kubectl_available: Check if kubectl is available and configured
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
 kubectl_available() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18289,8 +21780,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Kubernetes Operations
 ################################################################################
 
@@ -18298,12 +21790,16 @@ kubectl_available() {
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
 kubectl_available() {
     require_bin "kubectl"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18314,8 +21810,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # kubectl_available: Check if kubectl is available and configured
@@ -18323,12 +21820,16 @@ kubectl_available() {
 kubectl_available() {
     require_bin "kubectl"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18339,8 +21840,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # kubectl_available: Check if kubectl is available and configured
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
@@ -18348,12 +21850,16 @@ kubectl_available() {
     require_bin "kubectl"
 
     if kubectl cluster-info &>/dev/null; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18364,8 +21870,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # kubectl_available: Check if kubectl is available and configured
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
 kubectl_available() {
@@ -18373,12 +21880,16 @@ kubectl_available() {
 
     if kubectl cluster-info &>/dev/null; then
         log_debug "Kubernetes cluster accessible"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18389,8 +21900,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: kubectl_available || log_warn "Kubernetes not configured"
 kubectl_available() {
     require_bin "kubectl"
@@ -18398,12 +21910,16 @@ kubectl_available() {
     if kubectl cluster-info &>/dev/null; then
         log_debug "Kubernetes cluster accessible"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18414,8 +21930,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 kubectl_available() {
     require_bin "kubectl"
 
@@ -18423,12 +21940,16 @@ kubectl_available() {
         log_debug "Kubernetes cluster accessible"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18439,8 +21960,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "kubectl"
 
     if kubectl cluster-info &>/dev/null; then
@@ -18448,12 +21970,16 @@ kubectl_available() {
         return 0
     else
         log_error "Kubernetes cluster not accessible"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18464,8 +21990,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if kubectl cluster-info &>/dev/null; then
         log_debug "Kubernetes cluster accessible"
@@ -18473,12 +22000,16 @@ kubectl_available() {
     else
         log_error "Kubernetes cluster not accessible"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18489,8 +22020,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if kubectl cluster-info &>/dev/null; then
         log_debug "Kubernetes cluster accessible"
         return 0
@@ -18498,12 +22030,16 @@ kubectl_available() {
         log_error "Kubernetes cluster not accessible"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18514,8 +22050,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "Kubernetes cluster accessible"
         return 0
     else
@@ -18523,12 +22060,16 @@ kubectl_available() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18539,8 +22080,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Kubernetes cluster not accessible"
@@ -18548,12 +22090,16 @@ kubectl_available() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18564,8 +22110,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Kubernetes cluster not accessible"
         return 1
@@ -18573,12 +22120,16 @@ kubectl_available() {
 }
 
 # k8s_nodes_ready: Check that all K8s nodes are ready
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18589,8 +22140,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Kubernetes cluster not accessible"
         return 1
     fi
@@ -18598,12 +22150,16 @@ kubectl_available() {
 
 # k8s_nodes_ready: Check that all K8s nodes are ready
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18614,8 +22170,9 @@ kubectl_available() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -18623,12 +22180,16 @@ kubectl_available() {
 # k8s_nodes_ready: Check that all K8s nodes are ready
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
 k8s_nodes_ready() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18639,8 +22200,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -18648,12 +22210,16 @@ k8s_nodes_ready() {
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
 k8s_nodes_ready() {
     require_bin "kubectl"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18664,8 +22230,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # k8s_nodes_ready: Check that all K8s nodes are ready
@@ -18673,12 +22240,16 @@ k8s_nodes_ready() {
 k8s_nodes_ready() {
     require_bin "kubectl"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18689,8 +22260,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # k8s_nodes_ready: Check that all K8s nodes are ready
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
@@ -18698,12 +22270,16 @@ k8s_nodes_ready() {
     require_bin "kubectl"
 
     log_debug "Checking Kubernetes node status..."
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18714,8 +22290,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # k8s_nodes_ready: Check that all K8s nodes are ready
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
 k8s_nodes_ready() {
@@ -18723,12 +22300,16 @@ k8s_nodes_ready() {
 
     log_debug "Checking Kubernetes node status..."
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18739,8 +22320,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: k8s_nodes_ready || die "Kubernetes nodes not ready"
 k8s_nodes_ready() {
     require_bin "kubectl"
@@ -18748,12 +22330,16 @@ k8s_nodes_ready() {
     log_debug "Checking Kubernetes node status..."
 
     local ready_count notready_count
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18764,8 +22350,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 k8s_nodes_ready() {
     require_bin "kubectl"
 
@@ -18773,12 +22360,16 @@ k8s_nodes_ready() {
 
     local ready_count notready_count
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18789,8 +22380,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     require_bin "kubectl"
 
     log_debug "Checking Kubernetes node status..."
@@ -18798,12 +22390,16 @@ k8s_nodes_ready() {
     local ready_count notready_count
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18814,8 +22410,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     log_debug "Checking Kubernetes node status..."
 
@@ -18823,12 +22420,16 @@ k8s_nodes_ready() {
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18839,8 +22440,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     log_debug "Checking Kubernetes node status..."
 
     local ready_count notready_count
@@ -18848,12 +22450,16 @@ k8s_nodes_ready() {
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
 
     if [ "$notready_count" -eq 0 ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18864,8 +22470,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     local ready_count notready_count
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
@@ -18873,12 +22480,16 @@ k8s_nodes_ready() {
 
     if [ "$notready_count" -eq 0 ]; then
         log_debug "All Kubernetes nodes ready"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18889,8 +22500,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local ready_count notready_count
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
@@ -18898,12 +22510,16 @@ k8s_nodes_ready() {
     if [ "$notready_count" -eq 0 ]; then
         log_debug "All Kubernetes nodes ready"
         return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18914,8 +22530,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     ready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -c " Ready " || echo 0)
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
 
@@ -18923,12 +22540,16 @@ k8s_nodes_ready() {
         log_debug "All Kubernetes nodes ready"
         return 0
     else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18939,8 +22560,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     notready_count=$(kubectl get nodes --no-headers 2>/dev/null | grep -cv " Ready " || echo 0)
 
     if [ "$notready_count" -eq 0 ]; then
@@ -18948,12 +22570,16 @@ k8s_nodes_ready() {
         return 0
     else
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18964,8 +22590,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     if [ "$notready_count" -eq 0 ]; then
         log_debug "All Kubernetes nodes ready"
@@ -18973,12 +22600,16 @@ k8s_nodes_ready() {
     else
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
         return 1
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -18989,8 +22620,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     if [ "$notready_count" -eq 0 ]; then
         log_debug "All Kubernetes nodes ready"
         return 0
@@ -18998,12 +22630,16 @@ k8s_nodes_ready() {
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
         return 1
     fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19014,8 +22650,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_debug "All Kubernetes nodes ready"
         return 0
     else
@@ -19023,12 +22660,16 @@ k8s_nodes_ready() {
         return 1
     fi
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19039,8 +22680,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 0
     else
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
@@ -19048,12 +22690,16 @@ k8s_nodes_ready() {
     fi
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19064,8 +22710,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     else
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
         return 1
@@ -19073,12 +22720,16 @@ k8s_nodes_ready() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19089,8 +22740,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         log_error "Some Kubernetes nodes not ready: $notready_count/$((ready_count + notready_count))"
         return 1
     fi
@@ -19098,12 +22750,16 @@ k8s_nodes_ready() {
 
 ################################################################################
 # Output Formatting
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19114,8 +22770,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         return 1
     fi
 }
@@ -19123,12 +22780,16 @@ k8s_nodes_ready() {
 ################################################################################
 # Output Formatting
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19139,8 +22800,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     fi
 }
 
@@ -19148,12 +22810,16 @@ k8s_nodes_ready() {
 # Output Formatting
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19164,8 +22830,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -19173,12 +22840,16 @@ k8s_nodes_ready() {
 ################################################################################
 
 # output_json: Convert key=value pairs to JSON
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19189,8 +22860,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Output Formatting
@@ -19198,12 +22870,16 @@ k8s_nodes_ready() {
 
 # output_json: Convert key=value pairs to JSON
 # Usage: output_json status=success node=node1 pool=tank
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19214,8 +22890,9 @@ k8s_nodes_ready() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Output Formatting
 ################################################################################
@@ -19223,12 +22900,16 @@ k8s_nodes_ready() {
 # output_json: Convert key=value pairs to JSON
 # Usage: output_json status=success node=node1 pool=tank
 output_json() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19239,8 +22920,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Output Formatting
 ################################################################################
 
@@ -19248,12 +22930,16 @@ output_json() {
 # Usage: output_json status=success node=node1 pool=tank
 output_json() {
     local json="{"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19264,8 +22950,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # output_json: Convert key=value pairs to JSON
@@ -19273,12 +22960,16 @@ output_json() {
 output_json() {
     local json="{"
     local first=true
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19289,8 +22980,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # output_json: Convert key=value pairs to JSON
 # Usage: output_json status=success node=node1 pool=tank
@@ -19298,12 +22990,16 @@ output_json() {
     local json="{"
     local first=true
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19314,8 +23010,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # output_json: Convert key=value pairs to JSON
 # Usage: output_json status=success node=node1 pool=tank
 output_json() {
@@ -19323,12 +23020,16 @@ output_json() {
     local first=true
 
     while [ $# -gt 0 ]; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19339,8 +23040,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: output_json status=success node=node1 pool=tank
 output_json() {
     local json="{"
@@ -19348,12 +23050,16 @@ output_json() {
 
     while [ $# -gt 0 ]; do
         local pair="$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19364,8 +23070,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 output_json() {
     local json="{"
     local first=true
@@ -19373,12 +23080,16 @@ output_json() {
     while [ $# -gt 0 ]; do
         local pair="$1"
         local key="${pair%=*}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19389,8 +23100,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local json="{"
     local first=true
 
@@ -19398,12 +23110,16 @@ output_json() {
         local pair="$1"
         local key="${pair%=*}"
         local value="${pair#*=}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19414,8 +23130,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local first=true
 
     while [ $# -gt 0 ]; do
@@ -19423,12 +23140,16 @@ output_json() {
         local key="${pair%=*}"
         local value="${pair#*=}"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19439,8 +23160,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     while [ $# -gt 0 ]; do
         local pair="$1"
@@ -19448,12 +23170,16 @@ output_json() {
         local value="${pair#*=}"
 
         if [ "$first" = true ]; then
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19464,8 +23190,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     while [ $# -gt 0 ]; do
         local pair="$1"
         local key="${pair%=*}"
@@ -19473,12 +23200,16 @@ output_json() {
 
         if [ "$first" = true ]; then
             first=false
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19489,8 +23220,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local pair="$1"
         local key="${pair%=*}"
         local value="${pair#*=}"
@@ -19498,12 +23230,16 @@ output_json() {
         if [ "$first" = true ]; then
             first=false
         else
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19514,8 +23250,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local key="${pair%=*}"
         local value="${pair#*=}"
 
@@ -19523,12 +23260,16 @@ output_json() {
             first=false
         else
             json+=","
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19539,8 +23280,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         local value="${pair#*=}"
 
         if [ "$first" = true ]; then
@@ -19548,12 +23290,16 @@ output_json() {
         else
             json+=","
         fi
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19564,8 +23310,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         if [ "$first" = true ]; then
             first=false
@@ -19573,12 +23320,16 @@ output_json() {
             json+=","
         fi
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19589,8 +23340,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         if [ "$first" = true ]; then
             first=false
         else
@@ -19598,12 +23350,16 @@ output_json() {
         fi
 
         json+="\"$key\":\"$value\""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19614,8 +23370,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             first=false
         else
             json+=","
@@ -19623,12 +23380,16 @@ output_json() {
 
         json+="\"$key\":\"$value\""
         shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19639,8 +23400,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         else
             json+=","
         fi
@@ -19648,12 +23410,16 @@ output_json() {
         json+="\"$key\":\"$value\""
         shift
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19664,8 +23430,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             json+=","
         fi
 
@@ -19673,12 +23440,16 @@ output_json() {
         shift
     done
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19689,8 +23460,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         fi
 
         json+="\"$key\":\"$value\""
@@ -19698,12 +23470,16 @@ output_json() {
     done
 
     json+="}"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19714,8 +23490,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
         json+="\"$key\":\"$value\""
         shift
@@ -19723,12 +23500,16 @@ output_json() {
 
     json+="}"
     echo "$json"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19739,8 +23520,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         json+="\"$key\":\"$value\""
         shift
     done
@@ -19748,12 +23530,16 @@ output_json() {
     json+="}"
     echo "$json"
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19764,8 +23550,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         shift
     done
 
@@ -19773,12 +23560,16 @@ output_json() {
     echo "$json"
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19789,8 +23580,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 
     json+="}"
@@ -19798,12 +23590,16 @@ output_json() {
 }
 
 # tabulate: Format output as table
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19814,8 +23610,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
     json+="}"
     echo "$json"
@@ -19823,12 +23620,16 @@ output_json() {
 
 # tabulate: Format output as table
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19839,8 +23640,9 @@ output_json() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     json+="}"
     echo "$json"
 }
@@ -19848,12 +23650,16 @@ output_json() {
 # tabulate: Format output as table
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
 tabulate() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19864,8 +23670,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo "$json"
 }
 
@@ -19873,12 +23680,16 @@ tabulate() {
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
 tabulate() {
     local col_width=20
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19889,8 +23700,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # tabulate: Format output as table
@@ -19898,12 +23710,16 @@ tabulate() {
 tabulate() {
     local col_width=20
     while [ $# -gt 0 ]; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19914,8 +23730,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # tabulate: Format output as table
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
@@ -19923,12 +23740,16 @@ tabulate() {
     local col_width=20
     while [ $# -gt 0 ]; do
         printf "%-${col_width}s" "$1"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19939,8 +23760,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # tabulate: Format output as table
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
 tabulate() {
@@ -19948,12 +23770,16 @@ tabulate() {
     while [ $# -gt 0 ]; do
         printf "%-${col_width}s" "$1"
         shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19964,8 +23790,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Usage: tabulate "Name" "Status" "Pod" "node1" "ready" "pod-123"
 tabulate() {
     local col_width=20
@@ -19973,12 +23800,16 @@ tabulate() {
         printf "%-${col_width}s" "$1"
         shift
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -19989,8 +23820,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 tabulate() {
     local col_width=20
     while [ $# -gt 0 ]; do
@@ -19998,12 +23830,16 @@ tabulate() {
         shift
     done
     echo
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20014,8 +23850,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     local col_width=20
     while [ $# -gt 0 ]; do
         printf "%-${col_width}s" "$1"
@@ -20023,12 +23860,16 @@ tabulate() {
     done
     echo
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20039,8 +23880,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     while [ $# -gt 0 ]; do
         printf "%-${col_width}s" "$1"
         shift
@@ -20048,12 +23890,16 @@ tabulate() {
     echo
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20064,8 +23910,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         printf "%-${col_width}s" "$1"
         shift
     done
@@ -20073,12 +23920,16 @@ tabulate() {
 }
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20089,8 +23940,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         shift
     done
     echo
@@ -20098,12 +23950,16 @@ tabulate() {
 
 ################################################################################
 # Library Initialization
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20114,8 +23970,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
     echo
 }
@@ -20123,12 +23980,16 @@ tabulate() {
 ################################################################################
 # Library Initialization
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20139,8 +24000,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     echo
 }
 
@@ -20148,12 +24010,16 @@ tabulate() {
 # Library Initialization
 ################################################################################
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20164,8 +24030,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 ################################################################################
@@ -20173,12 +24040,16 @@ tabulate() {
 ################################################################################
 
 # Ensure library is properly loaded
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20189,8 +24060,9 @@ tabulate() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # Library Initialization
@@ -20198,12 +24070,16 @@ tabulate() {
 
 # Ensure library is properly loaded
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20214,8 +24090,9 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 # Library Initialization
 ################################################################################
@@ -20223,12 +24100,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 # Ensure library is properly loaded
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20239,8 +24120,9 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Library Initialization
 ################################################################################
 
@@ -20248,12 +24130,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 # Handle common flags in parent script context (these should be parsed by parent)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20264,8 +24150,9 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 ################################################################################
 
 # Ensure library is properly loaded
@@ -20273,12 +24160,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 # Handle common flags in parent script context (these should be parsed by parent)
 # This function can be called to set up common flag handling
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20289,8 +24180,9 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Ensure library is properly loaded
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
@@ -20298,12 +24190,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 # Handle common flags in parent script context (these should be parsed by parent)
 # This function can be called to set up common flag handling
 parse_common_flags() {
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20314,8 +24210,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Ensure library is properly loaded
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
@@ -20323,12 +24220,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 # This function can be called to set up common flag handling
 parse_common_flags() {
     while [ $# -gt 0 ]; do
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20339,8 +24240,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 
 # Handle common flags in parent script context (these should be parsed by parent)
@@ -20348,12 +24250,16 @@ log_debug "DebVisor library loaded (version $DEBVISOR_LIB_VERSION)"
 parse_common_flags() {
     while [ $# -gt 0 ]; do
         case "$1" in
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20364,8 +24270,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Handle common flags in parent script context (these should be parsed by parent)
 # This function can be called to set up common flag handling
@@ -20373,12 +24280,16 @@ parse_common_flags() {
     while [ $# -gt 0 ]; do
         case "$1" in
             --verbose)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20389,8 +24300,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Handle common flags in parent script context (these should be parsed by parent)
 # This function can be called to set up common flag handling
 parse_common_flags() {
@@ -20398,12 +24310,16 @@ parse_common_flags() {
         case "$1" in
             --verbose)
                 DEBVISOR_VERBOSE=true
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20414,8 +24330,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # This function can be called to set up common flag handling
 parse_common_flags() {
     while [ $# -gt 0 ]; do
@@ -20423,12 +24340,16 @@ parse_common_flags() {
             --verbose)
                 DEBVISOR_VERBOSE=true
                 log_debug "Verbose mode enabled"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20439,8 +24360,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 parse_common_flags() {
     while [ $# -gt 0 ]; do
         case "$1" in
@@ -20448,12 +24370,16 @@ parse_common_flags() {
                 DEBVISOR_VERBOSE=true
                 log_debug "Verbose mode enabled"
                 shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20464,8 +24390,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     while [ $# -gt 0 ]; do
         case "$1" in
             --verbose)
@@ -20473,12 +24400,16 @@ parse_common_flags() {
                 log_debug "Verbose mode enabled"
                 shift
                 ;;
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20489,8 +24420,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         case "$1" in
             --verbose)
                 DEBVISOR_VERBOSE=true
@@ -20498,12 +24430,16 @@ parse_common_flags() {
                 shift
                 ;;
             --dry-run)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20514,8 +24450,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             --verbose)
                 DEBVISOR_VERBOSE=true
                 log_debug "Verbose mode enabled"
@@ -20523,12 +24460,16 @@ parse_common_flags() {
                 ;;
             --dry-run)
                 DEBVISOR_DRY_RUN=true
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20539,8 +24480,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 DEBVISOR_VERBOSE=true
                 log_debug "Verbose mode enabled"
                 shift
@@ -20548,12 +24490,16 @@ parse_common_flags() {
             --dry-run)
                 DEBVISOR_DRY_RUN=true
                 log_info "Dry-run mode enabled"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20564,8 +24510,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 log_debug "Verbose mode enabled"
                 shift
                 ;;
@@ -20573,12 +24520,16 @@ parse_common_flags() {
                 DEBVISOR_DRY_RUN=true
                 log_info "Dry-run mode enabled"
                 shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20589,8 +24540,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 shift
                 ;;
             --dry-run)
@@ -20598,12 +24550,16 @@ parse_common_flags() {
                 log_info "Dry-run mode enabled"
                 shift
                 ;;
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20614,8 +24570,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 ;;
             --dry-run)
                 DEBVISOR_DRY_RUN=true
@@ -20623,12 +24580,16 @@ parse_common_flags() {
                 shift
                 ;;
             --log-file)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20639,8 +24600,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             --dry-run)
                 DEBVISOR_DRY_RUN=true
                 log_info "Dry-run mode enabled"
@@ -20648,12 +24610,16 @@ parse_common_flags() {
                 ;;
             --log-file)
                 DEBVISOR_LOG_FILE="$2"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20664,8 +24630,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 DEBVISOR_DRY_RUN=true
                 log_info "Dry-run mode enabled"
                 shift
@@ -20673,12 +24640,16 @@ parse_common_flags() {
             --log-file)
                 DEBVISOR_LOG_FILE="$2"
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20689,8 +24660,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 log_info "Dry-run mode enabled"
                 shift
                 ;;
@@ -20698,12 +24670,16 @@ parse_common_flags() {
                 DEBVISOR_LOG_FILE="$2"
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20714,8 +24690,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 shift
                 ;;
             --log-file)
@@ -20723,12 +24700,16 @@ parse_common_flags() {
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
                 shift 2
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20739,8 +24720,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 ;;
             --log-file)
                 DEBVISOR_LOG_FILE="$2"
@@ -20748,12 +24730,16 @@ parse_common_flags() {
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
                 shift 2
                 ;;
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20764,8 +24750,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             --log-file)
                 DEBVISOR_LOG_FILE="$2"
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
@@ -20773,12 +24760,16 @@ parse_common_flags() {
                 shift 2
                 ;;
             --help|-h)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20789,8 +24780,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 DEBVISOR_LOG_FILE="$2"
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
@@ -20798,12 +24790,16 @@ parse_common_flags() {
                 ;;
             --help|-h)
                 echo "Common flags:"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20814,8 +24810,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 mkdir -p "$(dirname "$DEBVISOR_LOG_FILE")"
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
                 shift 2
@@ -20823,12 +24820,16 @@ parse_common_flags() {
             --help|-h)
                 echo "Common flags:"
                 echo "  --verbose           Enable verbose output"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20839,8 +24840,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 log_info "Logging to: $DEBVISOR_LOG_FILE"
                 shift 2
                 ;;
@@ -20848,12 +24850,16 @@ parse_common_flags() {
                 echo "Common flags:"
                 echo "  --verbose           Enable verbose output"
                 echo "  --dry-run           Show what would be done without making changes"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20864,8 +24870,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 shift 2
                 ;;
             --help|-h)
@@ -20873,12 +24880,16 @@ parse_common_flags() {
                 echo "  --verbose           Enable verbose output"
                 echo "  --dry-run           Show what would be done without making changes"
                 echo "  --log-file FILE     Write logs to file"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20889,8 +24900,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 ;;
             --help|-h)
                 echo "Common flags:"
@@ -20898,12 +24910,16 @@ parse_common_flags() {
                 echo "  --dry-run           Show what would be done without making changes"
                 echo "  --log-file FILE     Write logs to file"
                 echo "  --help              Show this help"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20914,8 +24930,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             --help|-h)
                 echo "Common flags:"
                 echo "  --verbose           Enable verbose output"
@@ -20923,12 +24940,16 @@ parse_common_flags() {
                 echo "  --log-file FILE     Write logs to file"
                 echo "  --help              Show this help"
                 shift
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20939,8 +24960,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 echo "Common flags:"
                 echo "  --verbose           Enable verbose output"
                 echo "  --dry-run           Show what would be done without making changes"
@@ -20948,12 +24970,16 @@ parse_common_flags() {
                 echo "  --help              Show this help"
                 shift
                 ;;
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20964,8 +24990,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 echo "  --verbose           Enable verbose output"
                 echo "  --dry-run           Show what would be done without making changes"
                 echo "  --log-file FILE     Write logs to file"
@@ -20973,12 +25000,16 @@ parse_common_flags() {
                 shift
                 ;;
             *)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -20989,8 +25020,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 echo "  --dry-run           Show what would be done without making changes"
                 echo "  --log-file FILE     Write logs to file"
                 echo "  --help              Show this help"
@@ -20998,12 +25030,16 @@ parse_common_flags() {
                 ;;
             *)
                 # Unknown flag, let parent handle it
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21014,8 +25050,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 echo "  --log-file FILE     Write logs to file"
                 echo "  --help              Show this help"
                 shift
@@ -21023,12 +25060,16 @@ parse_common_flags() {
             *)
                 # Unknown flag, let parent handle it
                 return 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21039,8 +25080,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 echo "  --help              Show this help"
                 shift
                 ;;
@@ -21048,12 +25090,16 @@ parse_common_flags() {
                 # Unknown flag, let parent handle it
                 return 0
                 ;;
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21064,8 +25110,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 shift
                 ;;
             *)
@@ -21073,12 +25120,16 @@ parse_common_flags() {
                 return 0
                 ;;
         esac
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21089,8 +25140,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 ;;
             *)
                 # Unknown flag, let parent handle it
@@ -21098,12 +25150,16 @@ parse_common_flags() {
                 ;;
         esac
     done
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21114,8 +25170,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
             *)
                 # Unknown flag, let parent handle it
                 return 0
@@ -21123,12 +25180,16 @@ parse_common_flags() {
         esac
     done
 }
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21139,8 +25200,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 # Unknown flag, let parent handle it
                 return 0
                 ;;
@@ -21148,12 +25210,16 @@ parse_common_flags() {
     done
 }
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21164,8 +25230,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 return 0
                 ;;
         esac
@@ -21173,12 +25240,16 @@ parse_common_flags() {
 }
 
 # Export for use in subshells
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21189,8 +25260,9 @@ parse_common_flags() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
                 ;;
         esac
     done
@@ -21198,12 +25270,16 @@ parse_common_flags() {
 
 # Export for use in subshells
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21214,8 +25290,9 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
         esac
     done
 }
@@ -21223,12 +25300,16 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 # Export for use in subshells
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21239,8 +25320,9 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
     done
 }
 
@@ -21248,12 +25330,16 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
 
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21264,8 +25350,9 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 }
 
 # Export for use in subshells
@@ -21273,12 +25360,16 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 ################################################################################
 # End of debvisor-lib.sh
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21289,8 +25380,9 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 # Export for use in subshells
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
@@ -21298,12 +25390,16 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 ################################################################################
 # End of debvisor-lib.sh
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21314,20 +25410,25 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 # Export for use in subshells
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
 
 ################################################################################
 # End of debvisor-lib.sh
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21338,19 +25439,24 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DEBVISOR_SCRIPT_NAME
 
 ################################################################################
 # End of debvisor-lib.sh
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -21361,18 +25467,23 @@ export DEBVISOR_VERBOSE DEBVISOR_DRY_RUN DEBVISOR_LOG_FILE DEBVISOR_AUDIT_LOG DE
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-**Context:**
-```
+### Context
+
+```python
 
 ################################################################################
 # End of debvisor-lib.sh
 ################################################################################
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

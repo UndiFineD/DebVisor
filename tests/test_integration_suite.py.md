@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_integration_suite.py
+
 Generated: 2025-12-13T15:08:53.952890
 Source: tests\test_integration_suite.py
 
 ## Issues Summary
+
 Total: 41 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -50,13 +52,12 @@ Total: 41 issues found
 | 654 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**41 issues to fix:**
-
+### 41 issues to fix
 
 ### Issue at Line 53
 
@@ -64,21 +65,26 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'dev-only-token'
 
-**Context:**
-```
+### Context
+
+```python
 @pytest.fixture(scope="function")
 async def vault_client() -> None:  # type: ignore[misc]
     """Initialize Vault client for testing."""
     config = VaultConfig(
-        _url = "http://127.0.0.1:8200",
+        _url = "[http://127.0.0.1:8200",](http://127.0.0.1:8200",)
         _auth_method = AuthMethod.TOKEN,
         _token = "dev-only-token",
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -89,8 +95,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             },
         )
 
@@ -98,12 +105,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert metadata.path == "integration/test/db_password"
 
         # Read secret
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -114,8 +125,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert metadata.version == 1
@@ -123,12 +135,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Read secret
         secret = vault_client.read_secret("integration/test/db_password")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -139,8 +155,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Read secret
         secret = vault_client.read_secret("integration/test/db_password")
@@ -148,12 +165,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert secret["username"] == "testuser"
         assert secret["password"] == "secret123"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -164,8 +185,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Read secret
         secret = vault_client.read_secret("integration/test/db_password")
         assert secret is not None
@@ -173,12 +195,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert secret["password"] == "secret123"
 
     def test_secret_rotation(self, vault_client):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -189,8 +215,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         secret = vault_client.read_secret("integration/test/db_password")
         assert secret is not None
         assert secret["username"] == "testuser"
@@ -198,12 +225,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     def test_secret_rotation(self, vault_client):
         """Test secret rotation workflow."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -214,8 +245,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _new_data = {"api_key": "rotated_key"},
         )
 
@@ -223,12 +255,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Read new version
         secret = vault_client.read_secret(path)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -239,8 +275,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Read new version
         secret = vault_client.read_secret(path)
@@ -248,12 +285,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Read old version
         old_secret = vault_client.read_secret(path, version=1)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -264,8 +305,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Read old version
         old_secret = vault_client.read_secret(path, version=1)
@@ -273,12 +315,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     def test_secret_listing(self, vault_client):
         """Test listing secrets in a path."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -289,21 +335,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # List secrets
         secrets = vault_client.list_secrets("integration/test/list")
         assert len(secrets) >= 3
         assert any("secret_0" in s for s in secrets)
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -314,21 +364,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # List secrets
         secrets = vault_client.list_secrets("integration/test/list")
         assert len(secrets) >= 3
         assert any("secret_0" in s for s in secrets)
 
-
 @pytest.mark.skip(reason="Requires Vault and RBAC services running")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -339,8 +393,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         decision = role_manager.authorize(context)
@@ -348,12 +403,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert len(decision.matched_permissions) > 0
 
         # Test user management permission (should be denied)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -364,8 +423,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         decision = role_manager.authorize(context)
         assert decision.allowed is True
@@ -373,12 +433,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Test user management permission (should be denied)
         context.resource_type = ResourceType.USER
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -389,8 +453,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         context.action = Action.DELETE
 
         decision = role_manager.authorize(context)
@@ -398,12 +463,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert len(decision.matched_permissions) == 0
 
     def test_conditional_permissions(self, role_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -414,8 +483,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         decision = role_manager.authorize(context)
         assert decision.allowed is False
@@ -423,12 +493,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     def test_conditional_permissions(self, role_manager):
         """Test time-based and IP-based conditional permissions."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -439,8 +513,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         decision = role_manager.authorize(context)
@@ -448,12 +523,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Test from external IP (should be denied)
         context.client_ip = "8.8.8.8"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -464,8 +543,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Test from external IP (should be denied)
         context.client_ip = "8.8.8.8"
         decision = role_manager.authorize(context)
@@ -473,12 +553,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     def test_permission_inheritance(self, role_manager):
         """Test role hierarchy and permission inheritance."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -489,21 +573,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             for p in all_permissions
         )
 
         assert has_vm_read is True
         assert has_snapshot_create is True
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -514,21 +602,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert has_vm_read is True
         assert has_snapshot_create is True
 
-
 @pytest.mark.skip(reason="Requires PostgreSQL and Redis running")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -539,8 +631,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _use_cache = True,
         )
 
@@ -548,12 +641,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Second query (cache hit)
         start_time = time.time()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -564,8 +661,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
         cache_time = (time.time() - start_time) * 1000
 
@@ -573,12 +671,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert cache_time < 10    # Cache should be much faster
 
         # Verify cache hit in stats
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -589,8 +691,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         cache_time = (time.time() - start_time) * 1000
 
         assert result1 == result2
@@ -598,12 +701,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Verify cache hit in stats
         cache_stats = database_pool.cache.get_stats()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -614,8 +721,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify cache hit in stats
         cache_stats = database_pool.cache.get_stats()
@@ -623,12 +731,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     @pytest.mark.asyncio
     async def test_async_operations(self, database_pool):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -639,8 +751,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "async@example.com",
         )
 
@@ -648,12 +761,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     @pytest.mark.asyncio
     async def test_index_creation(self, database_pool):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -664,8 +781,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check query stats
         stats = database_pool.get_query_stats()
@@ -673,12 +791,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     @pytest.mark.asyncio
     async def test_query_metrics(self, database_pool):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -689,8 +811,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Get statistics
         stats = database_pool.get_query_stats()
 
@@ -698,12 +821,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert stats["avg_execution_time_ms"] > 0
         assert stats["p50_ms"] >= 0
         assert stats["p95_ms"] >= 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -714,8 +841,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         stats = database_pool.get_query_stats()
 
         assert stats["total_queries"] >= 5
@@ -723,12 +851,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert stats["p50_ms"] >= 0
         assert stats["p95_ms"] >= 0
         assert stats["p99_ms"] >= 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -739,8 +871,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert stats["total_queries"] >= 5
         assert stats["avg_execution_time_ms"] > 0
@@ -748,12 +881,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert stats["p95_ms"] >= 0
         assert stats["p99_ms"] >= 0
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -764,21 +901,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert stats["total_queries"] >= 5
         assert stats["avg_execution_time_ms"] > 0
         assert stats["p50_ms"] >= 0
         assert stats["p95_ms"] >= 0
         assert stats["p99_ms"] >= 0
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -789,21 +930,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert stats["avg_execution_time_ms"] > 0
         assert stats["p50_ms"] >= 0
         assert stats["p95_ms"] >= 0
         assert stats["p99_ms"] >= 0
 
-
 @pytest.mark.skip(reason="Requires Vault, PostgreSQL, and Redis running")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -814,8 +959,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         decision = role_manager.authorize(context)
@@ -823,12 +969,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Step 4: Create VM in database
         await database_pool.execute(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -839,8 +989,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Step 5: Retrieve DB credentials from Vault
         db_creds = vault_client.read_secret("workflow/db/credentials")
@@ -848,12 +999,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert db_creds["username"] == "workflow_user"
 
         # Step 6: Update VM status
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -864,8 +1019,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Step 5: Retrieve DB credentials from Vault
         db_creds = vault_client.read_secret("workflow/db/credentials")
         assert db_creds is not None
@@ -873,12 +1029,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Step 6: Update VM status
         await database_pool.execute(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -889,8 +1049,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-workflow-001",
         )
 
@@ -898,12 +1059,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert vm["status"] == "running"
         assert vm["owner"] == principal_id
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -914,8 +1079,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert vm is not None
@@ -923,12 +1089,16 @@ async def vault_client() -> None:  # type: ignore[misc]
         assert vm["owner"] == principal_id
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -939,8 +1109,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert vm is not None
         assert vm["status"] == "running"
@@ -948,12 +1119,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     @pytest.mark.asyncio
     async def test_secret_rotation_workflow(self, vault_client, database_pool):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -964,8 +1139,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         import json
 
         tags = json.loads(vm["tags"])
@@ -973,12 +1149,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Verify new secret
         secret = vault_client.read_secret(path)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -989,8 +1169,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify new secret
         secret = vault_client.read_secret(path)
@@ -998,12 +1179,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
     def test_rbac_with_secrets(self, vault_client, role_manager):
         """Test RBAC authorization for secret access."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1014,8 +1199,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Note: This will fail because viewer doesn't have SECRET permissions
         # In production, you'd create specific secret roles
@@ -1023,12 +1209,16 @@ async def vault_client() -> None:  # type: ignore[misc]
 
         # Superadmin should have access
         role_manager.assign_role("admin@example.com", "superadmin")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1039,21 +1229,25 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         role_manager.assign_role("admin@example.com", "superadmin")
         context.principal_id = "admin@example.com"
         decision = role_manager.authorize(context)
         assert decision.allowed is True, "Superadmin should access all secrets"
 
-
 # Performance benchmarks
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1064,8 +1258,9 @@ async def vault_client() -> None:  # type: ignore[misc]
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Only enforce timing comparison if uncached time is above minimum threshold
         # to avoid flaky failures on fast hardware or CI variance
         if uncached_time >= MIN_TIMING_THRESHOLD_MS:
@@ -1073,12 +1268,16 @@ async def vault_client() -> None:  # type: ignore[misc]
                 cached_time <= uncached_time * CACHE_TIMING_TOLERANCE
             ), f"Cache should be faster: {cached_time:.2f}ms <= {uncached_time * CACHE_TIMING_TOLERANCE:.2f}ms"
         else:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

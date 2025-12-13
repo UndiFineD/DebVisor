@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\includes.chroot\usr\local\bin\run-tsig-rotation.sh
+
 Generated: 2025-12-13T15:11:15.921069
 Source: opt\config\includes.chroot\usr\local\bin\run-tsig-rotation.sh
 
 ## Issues Summary
+
 Total: 257 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -266,4 +268,5 @@ Total: 257 issues found
 | 257 | 3 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

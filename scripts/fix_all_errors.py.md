@@ -1,8 +1,10 @@
 # Code Issues Report: scripts\fix_all_errors.py
+
 Generated: 2025-12-13T15:05:52.470484
 Source: scripts\fix_all_errors.py
 
 ## Issues Summary
+
 Total: 18 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -27,13 +29,12 @@ Total: 18 issues found
 | 1845 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**18 issues to fix:**
-
+### 18 issues to fix
 
 ### Issue at Line 52
 
@@ -41,8 +42,9 @@ Items marked below as fixed:
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import logging
 import re
 import shutil
@@ -50,12 +52,16 @@ import subprocess
 import sys
 import yaml
 from collections import defaultdict
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -66,8 +72,9 @@ from collections import defaultdict
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
                     self._normalize_line_endings(sh_file, stats)
 
                 # Get JSON output for reporting
@@ -75,12 +82,16 @@ from collections import defaultdict
                     ["shellcheck", "-f", "json", str(sh_file)],
                     capture_output=True, text=True
                 )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -91,8 +102,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
                     self._normalize_line_endings(sh_file, stats)
 
                 # Get JSON output for reporting
@@ -100,12 +112,16 @@ from collections import defaultdict
                     ["shellcheck", "-f", "json", str(sh_file)],
                     capture_output=True, text=True
                 )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -116,8 +132,9 @@ from collections import defaultdict
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
                 if self.apply:
                     # Apply diffs
@@ -125,12 +142,16 @@ from collections import defaultdict
                         ["shellcheck", "-f", "diff", str(sh_file)],
                         capture_output=True, text=True
                     )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -141,8 +162,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
                 if self.apply:
                     # Apply diffs
@@ -150,12 +172,16 @@ from collections import defaultdict
                         ["shellcheck", "-f", "diff", str(sh_file)],
                         capture_output=True, text=True
                     )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -166,8 +192,9 @@ from collections import defaultdict
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
                         # Apply patch using git apply
                         try:
                             # git apply expects input from stdin
@@ -175,12 +202,16 @@ from collections import defaultdict
                                 ["git", "apply", "-"],
                                 input=diff_proc.stdout, text=True, check=True, cwd=self.root
                             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -191,8 +222,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
                         # Apply patch using git apply
                         try:
                             # git apply expects input from stdin
@@ -200,12 +232,16 @@ from collections import defaultdict
                                 ["git", "apply", "-"],
                                 input=diff_proc.stdout, text=True, check=True, cwd=self.root
                             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -216,8 +252,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         print("Running MyPy scan...")
         try:
             # Run mypy
@@ -225,12 +262,16 @@ from collections import defaultdict
                 [sys.executable, "-m", "mypy", "opt", "scripts", "--no-error-summary"],
                 capture_output=True, text=True
             )
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -241,8 +282,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
 
                 if self.apply and lines != original_lines:
                     file_path.write_text("\n".join(lines), encoding="utf-8")
@@ -250,12 +292,16 @@ from collections import defaultdict
                 pass
 
         return fixed_ids
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -266,8 +312,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
 
                 if self.apply and lines != original_lines:
                     file_path.write_text("\n".join(lines), encoding="utf-8")
@@ -275,12 +322,16 @@ from collections import defaultdict
                 pass
 
         return fixed_ids
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -291,8 +342,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
 
                 if self.apply and lines != original_lines:
                     file_path.write_text("\n".join(lines), encoding="utf-8")
@@ -300,12 +352,16 @@ from collections import defaultdict
                 pass
 
         return fixed_ids
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -316,8 +372,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
 
                 if content != original:
                     file_path.write_text("\n".join(content), encoding="utf-8")
@@ -325,12 +382,16 @@ from collections import defaultdict
                 pass
 
         return fixed_ids
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -341,8 +402,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
                     for id_ in ids:
                         fixed_ids.add(id_)
                         stats.add(str(file_path), "F404", 0, "Reordered __future__ imports", fixed=True)
@@ -350,12 +412,16 @@ from collections import defaultdict
                 pass
 
         return fixed_ids
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -366,8 +432,9 @@ from collections import defaultdict
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
             return
         except (KeyboardInterrupt, SystemExit):
             raise
@@ -375,12 +442,16 @@ from collections import defaultdict
             pass
 
         # Find first complete JSON object/array
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -391,8 +462,9 @@ from collections import defaultdict
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
         print("Running type checking diagnostics...")
 
         try:
@@ -400,12 +472,16 @@ from collections import defaultdict
                 ["mypy", "opt", "tests", "--config-file", "mypy.ini", "--show-error-codes"],
                 capture_output=True,
                 text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -416,8 +492,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
         print("Running type checking diagnostics...")
 
         try:
@@ -425,12 +502,16 @@ from collections import defaultdict
                 ["mypy", "opt", "tests", "--config-file", "mypy.ini", "--show-error-codes"],
                 capture_output=True,
                 text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -441,8 +522,9 @@ from collections import defaultdict
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
 
         try:
             # Run pytest with collection-only to detect syntax errors
@@ -450,12 +532,16 @@ from collections import defaultdict
                 ["pytest", "--collect-only", "-q"],
                 cwd=str(self.root),
                 capture_output=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -466,8 +552,9 @@ from collections import defaultdict
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
 
         try:
             # Run pytest with collection-only to detect syntax errors
@@ -475,12 +562,16 @@ from collections import defaultdict
                 ["pytest", "--collect-only", "-q"],
                 cwd=str(self.root),
                 capture_output=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

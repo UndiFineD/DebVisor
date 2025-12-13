@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\includes.installer\usr\local\sbin\debvisor-addon-choices.sh
+
 Generated: 2025-12-13T15:11:16.765933
 Source: opt\config\includes.installer\usr\local\sbin\debvisor-addon-choices.sh
 
 ## Issues Summary
+
 Total: 273 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -282,4 +284,5 @@ Total: 273 issues found
 | 282 | 18 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

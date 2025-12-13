@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_netcfg_mock.py
+
 Generated: 2025-12-13T15:09:14.329297
 Source: tests\test_netcfg_mock.py
 
 ## Issues Summary
+
 Total: 133 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -142,13 +144,12 @@ Total: 133 issues found
 | 635 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**133 issues to fix:**
-
+### 133 issues to fix
 
 ### Issue at Line 49
 
@@ -156,8 +157,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             mac_address="00:11:22:33:44:55",
         )
 
@@ -165,12 +167,16 @@ Items marked below as fixed:
         assert iface.type == MockInterfaceType.ETHERNET
         assert iface.state == MockConnectionState.UP
         assert iface.mac_address == "00:11:22:33:44:55"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -181,8 +187,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert iface.name == "test0"
@@ -190,12 +197,16 @@ Items marked below as fixed:
         assert iface.state == MockConnectionState.UP
         assert iface.mac_address == "00:11:22:33:44:55"
         assert iface.mtu == 1500    # default
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -206,8 +217,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert iface.name == "test0"
         assert iface.type == MockInterfaceType.ETHERNET
@@ -215,12 +227,16 @@ Items marked below as fixed:
         assert iface.mac_address == "00:11:22:33:44:55"
         assert iface.mtu == 1500    # default
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -231,8 +247,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert iface.name == "test0"
         assert iface.type == MockInterfaceType.ETHERNET
         assert iface.state == MockConnectionState.UP
@@ -240,12 +257,16 @@ Items marked below as fixed:
         assert iface.mtu == 1500    # default
 
     def test_interface_with_addresses(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -256,8 +277,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert iface.type == MockInterfaceType.ETHERNET
         assert iface.state == MockConnectionState.UP
         assert iface.mac_address == "00:11:22:33:44:55"
@@ -265,12 +287,16 @@ Items marked below as fixed:
 
     def test_interface_with_addresses(self) -> None:
         """Test interface with IP addresses."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -281,8 +307,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             dns_servers=["8.8.8.8", "8.8.4.4"],
         )
 
@@ -290,12 +317,16 @@ Items marked below as fixed:
         assert len(iface.ipv6_addresses) == 1
         assert iface.gateway == "192.168.1.1"
         assert "8.8.8.8" in iface.dns_servers
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -306,8 +337,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert len(iface.ipv4_addresses) == 2
@@ -315,12 +347,16 @@ Items marked below as fixed:
         assert iface.gateway == "192.168.1.1"
         assert "8.8.8.8" in iface.dns_servers
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -331,8 +367,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert len(iface.ipv4_addresses) == 2
         assert len(iface.ipv6_addresses) == 1
@@ -340,12 +377,16 @@ Items marked below as fixed:
         assert "8.8.8.8" in iface.dns_servers
 
     def test_interface_to_dict(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -356,8 +397,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(iface.ipv4_addresses) == 2
         assert len(iface.ipv6_addresses) == 1
         assert iface.gateway == "192.168.1.1"
@@ -365,12 +407,16 @@ Items marked below as fixed:
 
     def test_interface_to_dict(self) -> None:
         """Test interface serialization to dict."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -381,8 +427,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         data = iface.to_dict()
 
@@ -390,12 +437,16 @@ Items marked below as fixed:
         assert data["type"] == "ethernet"
         assert data["state"] == "up"
         assert data["speed_mbps"] == 1000
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -406,8 +457,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         data = iface.to_dict()
 
         assert data["name"] == "eth0"
@@ -415,12 +467,16 @@ Items marked below as fixed:
         assert data["state"] == "up"
         assert data["speed_mbps"] == 1000
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -431,21 +487,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert data["name"] == "eth0"
         assert data["type"] == "ethernet"
         assert data["state"] == "up"
         assert data["speed_mbps"] == 1000
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -456,21 +516,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert data["name"] == "eth0"
         assert data["type"] == "ethernet"
         assert data["state"] == "up"
         assert data["speed_mbps"] == 1000
 
-
 class TestMockNetworkState:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -481,8 +545,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         state1 = MockNetworkState()
         state2 = MockNetworkState()
 
@@ -490,12 +555,16 @@ class TestMockNetworkState:
 
     def test_default_interfaces(self) -> None:
         """Test default interfaces are generated."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -506,8 +575,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         state = get_mock_state()
 
         # Should have standard interfaces
@@ -515,12 +585,16 @@ class TestMockNetworkState:
         assert "eth0" in state.interfaces
         assert "eth1" in state.interfaces
         assert "br0" in state.interfaces
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -531,8 +605,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Should have standard interfaces
         assert "lo" in state.interfaces
@@ -540,12 +615,16 @@ class TestMockNetworkState:
         assert "eth1" in state.interfaces
         assert "br0" in state.interfaces
         assert "wlan0" in state.interfaces
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -556,8 +635,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Should have standard interfaces
         assert "lo" in state.interfaces
         assert "eth0" in state.interfaces
@@ -565,12 +645,16 @@ class TestMockNetworkState:
         assert "br0" in state.interfaces
         assert "wlan0" in state.interfaces
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -581,8 +665,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert "lo" in state.interfaces
         assert "eth0" in state.interfaces
         assert "eth1" in state.interfaces
@@ -590,12 +675,16 @@ class TestMockNetworkState:
         assert "wlan0" in state.interfaces
 
     def test_loopback_interface(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -606,8 +695,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert "eth0" in state.interfaces
         assert "eth1" in state.interfaces
         assert "br0" in state.interfaces
@@ -615,12 +705,16 @@ class TestMockNetworkState:
 
     def test_loopback_interface(self) -> None:
         """Test loopback interface configuration."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -631,8 +725,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         state = get_mock_state()
 
         lo = state.interfaces["lo"]
@@ -640,12 +735,16 @@ class TestMockNetworkState:
         assert lo.state == MockConnectionState.UP
         assert "127.0.0.1/8" in lo.ipv4_addresses
         assert "::1/128" in lo.ipv6_addresses
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -656,8 +755,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         lo = state.interfaces["lo"]
         assert lo.type == MockInterfaceType.LOOPBACK
@@ -665,12 +765,16 @@ class TestMockNetworkState:
         assert "127.0.0.1/8" in lo.ipv4_addresses
         assert "::1/128" in lo.ipv6_addresses
         assert lo.mtu == 65536
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -681,8 +785,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         lo = state.interfaces["lo"]
         assert lo.type == MockInterfaceType.LOOPBACK
         assert lo.state == MockConnectionState.UP
@@ -690,12 +795,16 @@ class TestMockNetworkState:
         assert "::1/128" in lo.ipv6_addresses
         assert lo.mtu == 65536
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -706,8 +815,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert lo.type == MockInterfaceType.LOOPBACK
         assert lo.state == MockConnectionState.UP
         assert "127.0.0.1/8" in lo.ipv4_addresses
@@ -715,12 +825,16 @@ class TestMockNetworkState:
         assert lo.mtu == 65536
 
     def test_ethernet_interface(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -731,8 +845,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert lo.state == MockConnectionState.UP
         assert "127.0.0.1/8" in lo.ipv4_addresses
         assert "::1/128" in lo.ipv6_addresses
@@ -740,12 +855,16 @@ class TestMockNetworkState:
 
     def test_ethernet_interface(self) -> None:
         """Test ethernet interface configuration."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -756,8 +875,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         state = get_mock_state()
 
         eth0 = state.interfaces["eth0"]
@@ -765,12 +885,16 @@ class TestMockNetworkState:
         assert eth0.state == MockConnectionState.UP
         assert eth0.speed_mbps == 1000
         assert len(eth0.ipv4_addresses) > 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -781,8 +905,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         eth0 = state.interfaces["eth0"]
         assert eth0.type == MockInterfaceType.ETHERNET
@@ -790,12 +915,16 @@ class TestMockNetworkState:
         assert eth0.speed_mbps == 1000
         assert len(eth0.ipv4_addresses) > 0
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -806,8 +935,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         eth0 = state.interfaces["eth0"]
         assert eth0.type == MockInterfaceType.ETHERNET
         assert eth0.state == MockConnectionState.UP
@@ -815,12 +945,16 @@ class TestMockNetworkState:
         assert len(eth0.ipv4_addresses) > 0
 
     def test_wifi_networks_generated(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -831,8 +965,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert eth0.type == MockInterfaceType.ETHERNET
         assert eth0.state == MockConnectionState.UP
         assert eth0.speed_mbps == 1000
@@ -840,12 +975,16 @@ class TestMockNetworkState:
 
     def test_wifi_networks_generated(self) -> None:
         """Test WiFi networks are generated."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -856,8 +995,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         reset_mock_state()
         state = get_mock_state()
 
@@ -865,12 +1005,16 @@ class TestMockNetworkState:
 
         # Should have various security types
         securities = [n.security for n in state.wifi_networks]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -881,8 +1025,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Should have various security types
         securities = [n.security for n in state.wifi_networks]
@@ -890,12 +1035,16 @@ class TestMockNetworkState:
 
     def test_routes_generated(self) -> None:
         """Test routing table is generated."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -906,8 +1055,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         reset_mock_state()
         state = get_mock_state()
 
@@ -915,12 +1065,16 @@ class TestMockNetworkState:
 
         # Should have default route
         destinations = [r["destination"] for r in state.routes]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -931,8 +1085,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Should have default route
         destinations = [r["destination"] for r in state.routes]
@@ -940,12 +1095,16 @@ class TestMockNetworkState:
 
     def test_reset_with_different_seeds(self) -> None:
         """Test reset with different seeds produces different MACs."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -956,8 +1115,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         reset_mock_state(seed=2)
         mac2 = state.interfaces["eth0"].mac_address
 
@@ -965,12 +1125,16 @@ class TestMockNetworkState:
 
     def test_operation_logging(self) -> None:
         """Test operation logging."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -981,8 +1145,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         initial_count = len(state.operation_log)
         state.log_operation("test_op", {"key": "value"}, True)
 
@@ -990,12 +1155,16 @@ class TestMockNetworkState:
 
         last_log = state.operation_log[-1]
         assert last_log["operation"] == "test_op"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1006,8 +1175,9 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(state.operation_log) == initial_count + 1
 
         last_log = state.operation_log[-1]
@@ -1015,12 +1185,16 @@ class TestMockNetworkState:
         assert last_log["params"]["key"] == "value"
         assert last_log["result"] == "success"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1031,21 +1205,25 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         last_log = state.operation_log[-1]
         assert last_log["operation"] == "test_op"
         assert last_log["params"]["key"] == "value"
         assert last_log["result"] == "success"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1056,21 +1234,25 @@ class TestMockNetworkState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         last_log = state.operation_log[-1]
         assert last_log["operation"] == "test_op"
         assert last_log["params"]["key"] == "value"
         assert last_log["result"] == "success"
 
-
 class TestMockNetworkBackend:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1081,8 +1263,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test listing all interfaces."""
         interfaces = self.backend.list_interfaces()
 
@@ -1090,12 +1273,16 @@ class TestMockNetworkBackend:
         assert len(interfaces) >= 5
 
         names = [i["name"] for i in interfaces]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1106,8 +1293,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         interfaces = self.backend.list_interfaces()
 
         assert isinstance(interfaces, list)
@@ -1115,12 +1303,16 @@ class TestMockNetworkBackend:
 
         names = [i["name"] for i in interfaces]
         assert "lo" in names
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1131,8 +1323,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(interfaces) >= 5
 
         names = [i["name"] for i in interfaces]
@@ -1140,12 +1333,16 @@ class TestMockNetworkBackend:
         assert "eth0" in names
 
     def test_get_interface(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1156,8 +1353,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         names = [i["name"] for i in interfaces]
         assert "lo" in names
@@ -1165,12 +1363,16 @@ class TestMockNetworkBackend:
 
     def test_get_interface(self) -> None:
         """Test getting a specific interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1181,8 +1383,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test getting a specific interface."""
         iface = self.backend.get_interface("eth0")
 
@@ -1190,12 +1393,16 @@ class TestMockNetworkBackend:
         assert iface["name"] == "eth0"
         assert iface["type"] == "ethernet"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1206,8 +1413,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         iface = self.backend.get_interface("eth0")
 
         assert iface is not None
@@ -1215,12 +1423,16 @@ class TestMockNetworkBackend:
         assert iface["type"] == "ethernet"
 
     def test_get_interface_not_found(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1231,8 +1443,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert iface is not None
         assert iface["name"] == "eth0"
@@ -1240,12 +1453,16 @@ class TestMockNetworkBackend:
 
     def test_get_interface_not_found(self) -> None:
         """Test getting non-existent interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1256,8 +1473,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_get_interface_not_found(self) -> None:
         """Test getting non-existent interface."""
         iface = self.backend.get_interface("nonexistent0")
@@ -1265,12 +1483,16 @@ class TestMockNetworkBackend:
 
     def test_set_interface_up(self) -> None:
         """Test bringing interface up."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1281,8 +1503,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test bringing interface up."""
         # First bring down
         self.backend.set_interface_down("eth1")
@@ -1290,12 +1513,16 @@ class TestMockNetworkBackend:
 
         # Now bring up
         result = self.backend.set_interface_up("eth1")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1306,8 +1533,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Now bring up
         result = self.backend.set_interface_up("eth1")
@@ -1315,12 +1543,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("eth1")["state"] == "up"  # type: ignore[index]
 
     def test_set_interface_down(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1331,8 +1563,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Now bring up
         result = self.backend.set_interface_up("eth1")
         assert result is True
@@ -1340,12 +1573,16 @@ class TestMockNetworkBackend:
 
     def test_set_interface_down(self) -> None:
         """Test bringing interface down."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1356,8 +1593,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test bringing interface down."""
         result = self.backend.set_interface_down("eth0")
 
@@ -1365,12 +1603,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("eth0")["state"] == "down"  # type: ignore[index]
 
     def test_set_interface_nonexistent(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1381,8 +1623,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.set_interface_down("eth0")
 
         assert result is True
@@ -1390,12 +1633,16 @@ class TestMockNetworkBackend:
 
     def test_set_interface_nonexistent(self) -> None:
         """Test operations on non-existent interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1406,8 +1653,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_set_interface_nonexistent(self) -> None:
         """Test operations on non-existent interface."""
@@ -1415,12 +1663,16 @@ class TestMockNetworkBackend:
         assert self.backend.set_interface_down("fake0") is False
 
     def test_add_ipv4_address(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1431,8 +1683,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_set_interface_nonexistent(self) -> None:
         """Test operations on non-existent interface."""
         assert self.backend.set_interface_up("fake0") is False
@@ -1440,12 +1693,16 @@ class TestMockNetworkBackend:
 
     def test_add_ipv4_address(self) -> None:
         """Test adding IPv4 address."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1456,8 +1713,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test adding IPv4 address."""
         result = self.backend.add_ip_address("eth1", "10.0.0.100/24")
 
@@ -1465,12 +1723,16 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1481,8 +1743,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert result is True
         iface = self.backend.get_interface("eth1")
@@ -1490,12 +1753,16 @@ class TestMockNetworkBackend:
 
     def test_add_ipv6_address(self) -> None:
         """Test adding IPv6 address."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1506,8 +1773,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test adding IPv6 address."""
         result = self.backend.add_ip_address("eth1", "2001:db8::100/64")
 
@@ -1515,12 +1783,16 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "2001:db8::100/64" in iface["ipv6_addresses"]  # type: ignore[index]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1531,8 +1803,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert result is True
         iface = self.backend.get_interface("eth1")
@@ -1540,12 +1813,16 @@ class TestMockNetworkBackend:
 
     def test_add_duplicate_address(self) -> None:
         """Test adding duplicate address (should not duplicate)."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1556,8 +1833,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
 
         iface = self.backend.get_interface("eth1")
@@ -1565,12 +1843,16 @@ class TestMockNetworkBackend:
 
     def test_remove_ip_address(self) -> None:
         """Test removing IP address."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1581,8 +1863,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.add_ip_address("eth1", "10.0.0.100/24")
         result = self.backend.remove_ip_address("eth1", "10.0.0.100/24")
 
@@ -1590,12 +1873,16 @@ class TestMockNetworkBackend:
         iface = self.backend.get_interface("eth1")
         assert "10.0.0.100/24" not in iface["ipv4_addresses"]  # type: ignore[index]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1606,8 +1893,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert result is True
         iface = self.backend.get_interface("eth1")
@@ -1615,12 +1903,16 @@ class TestMockNetworkBackend:
 
     def test_set_gateway(self) -> None:
         """Test setting gateway."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1631,8 +1923,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test setting gateway."""
         result = self.backend.set_gateway("eth1", "192.168.2.1")
 
@@ -1640,12 +1933,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("eth1")["gateway"] == "192.168.2.1"  # type: ignore[index]
 
     def test_set_dns_servers(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1656,8 +1953,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.set_gateway("eth1", "192.168.2.1")
 
         assert result is True
@@ -1665,12 +1963,16 @@ class TestMockNetworkBackend:
 
     def test_set_dns_servers(self) -> None:
         """Test setting DNS servers."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1681,8 +1983,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test setting DNS servers."""
         result = self.backend.set_dns_servers(["1.1.1.1", "1.0.0.1"])
 
@@ -1690,12 +1993,16 @@ class TestMockNetworkBackend:
         assert verify_operation_logged("set_dns_servers")
 
     def test_set_mtu_valid(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1706,8 +2013,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.set_dns_servers(["1.1.1.1", "1.0.0.1"])
 
         assert result is True
@@ -1715,12 +2023,16 @@ class TestMockNetworkBackend:
 
     def test_set_mtu_valid(self) -> None:
         """Test setting valid MTU."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1731,8 +2043,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test setting valid MTU."""
         result = self.backend.set_mtu("eth0", 9000)
 
@@ -1740,12 +2053,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("eth0")["mtu"] == 9000  # type: ignore[index]
 
     def test_set_mtu_invalid(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1756,8 +2073,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.set_mtu("eth0", 9000)
 
         assert result is True
@@ -1765,12 +2083,16 @@ class TestMockNetworkBackend:
 
     def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1781,8 +2103,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
@@ -1790,12 +2113,16 @@ class TestMockNetworkBackend:
         assert self.backend.set_mtu("eth0", 10000) is False    # Too high
 
     def test_create_vlan(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1806,8 +2133,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_set_mtu_invalid(self) -> None:
         """Test setting invalid MTU."""
         assert self.backend.set_mtu("eth0", 100) is False    # Too low
@@ -1815,12 +2143,16 @@ class TestMockNetworkBackend:
 
     def test_create_vlan(self) -> None:
         """Test creating VLAN interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1831,8 +2163,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test creating VLAN interface."""
         result = self.backend.create_vlan("eth0", 100)
 
@@ -1840,12 +2173,16 @@ class TestMockNetworkBackend:
 
         vlan = self.backend.get_interface("eth0.100")
         assert vlan is not None
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1856,8 +2193,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert result is True
 
         vlan = self.backend.get_interface("eth0.100")
@@ -1865,12 +2203,16 @@ class TestMockNetworkBackend:
         assert vlan["type"] == "vlan"
         assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]  # type: ignore[index]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1881,8 +2223,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         vlan = self.backend.get_interface("eth0.100")
         assert vlan is not None
@@ -1890,12 +2233,16 @@ class TestMockNetworkBackend:
         assert vlan["mac_address"] == self.backend.get_interface("eth0")["mac_address"]  # type: ignore[index]
 
     def test_create_vlan_custom_name(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1906,8 +2253,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         vlan = self.backend.get_interface("eth0.100")
         assert vlan is not None
         assert vlan["type"] == "vlan"
@@ -1915,12 +2263,16 @@ class TestMockNetworkBackend:
 
     def test_create_vlan_custom_name(self) -> None:
         """Test creating VLAN with custom name."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1931,8 +2283,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test creating VLAN with custom name."""
         result = self.backend.create_vlan("eth0", 200, name="management")
 
@@ -1940,12 +2293,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("management") is not None
 
     def test_create_vlan_invalid_id(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1956,8 +2313,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.create_vlan("eth0", 200, name="management")
 
         assert result is True
@@ -1965,12 +2323,16 @@ class TestMockNetworkBackend:
 
     def test_create_vlan_invalid_id(self) -> None:
         """Test creating VLAN with invalid ID."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1981,8 +2343,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_create_vlan_invalid_id(self) -> None:
         """Test creating VLAN with invalid ID."""
@@ -1990,12 +2353,16 @@ class TestMockNetworkBackend:
         assert self.backend.create_vlan("eth0", 4095) is False
 
     def test_delete_vlan(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2006,8 +2373,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_create_vlan_invalid_id(self) -> None:
         """Test creating VLAN with invalid ID."""
         assert self.backend.create_vlan("eth0", 0) is False
@@ -2015,12 +2383,16 @@ class TestMockNetworkBackend:
 
     def test_delete_vlan(self) -> None:
         """Test deleting VLAN interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2031,8 +2403,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = self.backend.delete_vlan("eth0.100")
 
@@ -2040,12 +2413,16 @@ class TestMockNetworkBackend:
         assert self.backend.get_interface("eth0.100") is None
 
     def test_delete_non_vlan(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2056,8 +2433,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = self.backend.delete_vlan("eth0.100")
 
         assert result is True
@@ -2065,12 +2443,16 @@ class TestMockNetworkBackend:
 
     def test_delete_non_vlan(self) -> None:
         """Test deleting non-VLAN interface fails."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2081,8 +2463,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_delete_non_vlan(self) -> None:
         """Test deleting non-VLAN interface fails."""
@@ -2090,12 +2473,16 @@ class TestMockNetworkBackend:
 
     def test_create_bond(self) -> None:
         """Test creating bond interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2106,8 +2493,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "bond0", ["eth0", "eth1"], mode="active-backup"
         )
 
@@ -2115,12 +2503,16 @@ class TestMockNetworkBackend:
 
         bond = self.backend.get_interface("bond0")
         assert bond is not None
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2131,8 +2523,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert result is True
 
         bond = self.backend.get_interface("bond0")
@@ -2140,12 +2533,16 @@ class TestMockNetworkBackend:
         assert bond["type"] == "bond"
 
     def test_create_bond_invalid_slave(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2156,8 +2553,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         bond = self.backend.get_interface("bond0")
         assert bond is not None
@@ -2165,12 +2563,16 @@ class TestMockNetworkBackend:
 
     def test_create_bond_invalid_slave(self) -> None:
         """Test creating bond with invalid slave fails."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2181,8 +2583,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_create_bond_invalid_slave(self) -> None:
         """Test creating bond with invalid slave fails."""
         result = self.backend.create_bond("bond0", ["eth0", "fake0"])
@@ -2190,12 +2593,16 @@ class TestMockNetworkBackend:
 
     def test_create_bridge(self) -> None:
         """Test creating bridge interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2206,8 +2613,9 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test creating bridge interface."""
         result = self.backend.create_bridge("br1", ports=["eth0"])
 
@@ -2215,12 +2623,16 @@ class TestMockNetworkBackend:
 
         bridge = self.backend.get_interface("br1")
         assert bridge is not None
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2231,21 +2643,25 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert result is True
 
         bridge = self.backend.get_interface("br1")
         assert bridge is not None
         assert bridge["type"] == "bridge"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2256,21 +2672,25 @@ class TestMockNetworkBackend:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         bridge = self.backend.get_interface("br1")
         assert bridge is not None
         assert bridge["type"] == "bridge"
 
-
 class TestWiFiOperations:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2281,8 +2701,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test WiFi scanning."""
         networks = self.backend.scan_wifi("wlan0")
 
@@ -2290,12 +2711,16 @@ class TestWiFiOperations:
         assert len(networks) > 0
 
         # Check network structure
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2306,8 +2731,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         networks = self.backend.scan_wifi("wlan0")
 
         assert isinstance(networks, list)
@@ -2315,12 +2741,16 @@ class TestWiFiOperations:
 
         # Check network structure
         network = networks[0]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2331,8 +2761,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check network structure
         network = networks[0]
@@ -2340,12 +2771,16 @@ class TestWiFiOperations:
         assert "bssid" in network
         assert "signal_strength" in network
         assert "security" in network
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2356,8 +2791,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Check network structure
         network = networks[0]
         assert "ssid" in network
@@ -2365,12 +2801,16 @@ class TestWiFiOperations:
         assert "signal_strength" in network
         assert "security" in network
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2381,8 +2821,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         network = networks[0]
         assert "ssid" in network
         assert "bssid" in network
@@ -2390,12 +2831,16 @@ class TestWiFiOperations:
         assert "security" in network
 
     def test_scan_wifi_non_wifi_interface(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2406,8 +2851,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert "ssid" in network
         assert "bssid" in network
         assert "signal_strength" in network
@@ -2415,12 +2861,16 @@ class TestWiFiOperations:
 
     def test_scan_wifi_non_wifi_interface(self) -> None:
         """Test scanning on non-WiFi interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2431,8 +2881,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_scan_wifi_non_wifi_interface(self) -> None:
         """Test scanning on non-WiFi interface."""
         networks = self.backend.scan_wifi("eth0")
@@ -2440,12 +2891,16 @@ class TestWiFiOperations:
 
     def test_scan_wifi_nonexistent_interface(self) -> None:
         """Test scanning on non-existent interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2456,8 +2911,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_scan_wifi_nonexistent_interface(self) -> None:
         """Test scanning on non-existent interface."""
         networks = self.backend.scan_wifi("wlan99")
@@ -2465,12 +2921,16 @@ class TestWiFiOperations:
 
     def test_connect_wifi_open(self) -> None:
         """Test connecting to open WiFi."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2481,8 +2941,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         if open_network:
             result = self.backend.connect_wifi("wlan0", open_network["ssid"])
@@ -2490,12 +2951,16 @@ class TestWiFiOperations:
 
             # Interface should be up with IP
             iface = self.backend.get_interface("wlan0")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2506,8 +2971,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
             # Interface should be up with IP
             iface = self.backend.get_interface("wlan0")
@@ -2515,12 +2981,16 @@ class TestWiFiOperations:
             assert len(iface["ipv4_addresses"]) > 0  # type: ignore[index]
 
     def test_connect_wifi_secured(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2531,8 +3001,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             # Interface should be up with IP
             iface = self.backend.get_interface("wlan0")
             assert iface["state"] == "up"  # type: ignore[index]
@@ -2540,12 +3011,16 @@ class TestWiFiOperations:
 
     def test_connect_wifi_secured(self) -> None:
         """Test connecting to secured WiFi."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2556,8 +3031,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if secured:
             # Without password should fail
             result = self.backend.connect_wifi("wlan0", secured["ssid"])
@@ -2565,12 +3041,16 @@ class TestWiFiOperations:
 
             # With password should succeed
             result = self.backend.connect_wifi(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2581,8 +3061,9 @@ class TestWiFiOperations:
 
 **Message:** Possible hardcoded password: 'secret123'
 
-**Context:**
-```
+### Context
+
+```python
             assert result is False
 
             # With password should succeed
@@ -2590,12 +3071,16 @@ class TestWiFiOperations:
                 "wlan0", secured["ssid"], password="secret123"
             )
             assert result is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2606,8 +3091,9 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             result = self.backend.connect_wifi(
                 "wlan0", secured["ssid"], password="secret123"
             )
@@ -2615,12 +3101,16 @@ class TestWiFiOperations:
 
     def test_connect_wifi_nonexistent_network(self) -> None:
         """Test connecting to non-existent network."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2631,21 +3121,25 @@ class TestWiFiOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_connect_wifi_nonexistent_network(self) -> None:
         """Test connecting to non-existent network."""
         result = self.backend.connect_wifi("wlan0", "NonExistent-Network-12345")
         assert result is False
 
-
 class TestRoutingOperations:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2656,8 +3150,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test getting routing table."""
         routes = self.backend.get_routes()
 
@@ -2665,12 +3160,16 @@ class TestRoutingOperations:
         assert len(routes) > 0
 
         # Check route structure
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2681,8 +3180,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         routes = self.backend.get_routes()
 
         assert isinstance(routes, list)
@@ -2690,12 +3190,16 @@ class TestRoutingOperations:
 
         # Check route structure
         route = routes[0]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2706,8 +3210,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check route structure
         route = routes[0]
@@ -2715,12 +3220,16 @@ class TestRoutingOperations:
         assert "interface" in route
 
     def test_add_route(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2731,8 +3240,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Check route structure
         route = routes[0]
         assert "destination" in route
@@ -2740,12 +3250,16 @@ class TestRoutingOperations:
 
     def test_add_route(self) -> None:
         """Test adding a route."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2756,8 +3270,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _metric = 50,
         )
 
@@ -2765,12 +3280,16 @@ class TestRoutingOperations:
         assert len(self.backend.get_routes()) == initial_count + 1
 
         # Verify route exists
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2781,8 +3300,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         assert result is True
@@ -2790,12 +3310,16 @@ class TestRoutingOperations:
 
         # Verify route exists
         routes = self.backend.get_routes()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2806,8 +3330,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         new_route = next(
             (r for r in routes if r["destination"] == "10.10.0.0/16"), None
         )
@@ -2815,12 +3340,16 @@ class TestRoutingOperations:
         assert new_route["gateway"] == "192.168.1.254"
 
     def test_delete_route(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2831,8 +3360,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             (r for r in routes if r["destination"] == "10.10.0.0/16"), None
         )
         assert new_route is not None
@@ -2840,12 +3370,16 @@ class TestRoutingOperations:
 
     def test_delete_route(self) -> None:
         """Test deleting a route."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2856,8 +3390,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = self.backend.delete_route("10.10.0.0/16")
 
@@ -2865,12 +3400,16 @@ class TestRoutingOperations:
 
         routes = self.backend.get_routes()
         deleted = next((r for r in routes if r["destination"] == "10.10.0.0/16"), None)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2881,8 +3420,9 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         routes = self.backend.get_routes()
         deleted = next((r for r in routes if r["destination"] == "10.10.0.0/16"), None)
@@ -2890,12 +3430,16 @@ class TestRoutingOperations:
 
     def test_delete_nonexistent_route(self) -> None:
         """Test deleting non-existent route."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2906,21 +3450,25 @@ class TestRoutingOperations:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_delete_nonexistent_route(self) -> None:
         """Test deleting non-existent route."""
         result = self.backend.delete_route("99.99.99.0/24")
         assert result is False
 
-
 class TestOperationLogging:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2931,8 +3479,9 @@ class TestOperationLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test operation verification."""
         self.backend.set_interface_up("eth1")
 
@@ -2940,12 +3489,16 @@ class TestOperationLogging:
         assert verify_operation_logged("set_interface_up", {"name": "eth1"}) is True
         assert verify_operation_logged("nonexistent_op") is False
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2956,8 +3509,9 @@ class TestOperationLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.set_interface_up("eth1")
 
         assert verify_operation_logged("set_interface_up") is True
@@ -2965,12 +3519,16 @@ class TestOperationLogging:
         assert verify_operation_logged("nonexistent_op") is False
 
     def test_get_operation_count(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -2981,8 +3539,9 @@ class TestOperationLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert verify_operation_logged("set_interface_up") is True
         assert verify_operation_logged("set_interface_up", {"name": "eth1"}) is True
@@ -2990,12 +3549,16 @@ class TestOperationLogging:
 
     def test_get_operation_count(self) -> None:
         """Test operation counting."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3006,21 +3569,25 @@ class TestOperationLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.set_interface_down("eth1")
         self.backend.set_interface_up("eth1")
 
         assert get_operation_count("set_interface_up") == 2
         assert get_operation_count("set_interface_down") == 1
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3031,21 +3598,25 @@ class TestOperationLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.set_interface_up("eth1")
 
         assert get_operation_count("set_interface_up") == 2
         assert get_operation_count("set_interface_down") == 1
 
-
 class TestMockNetworkContext:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3056,8 +3627,9 @@ class TestMockNetworkContext:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             backend = MockNetworkBackend()
             backend.set_interface_down("eth0")
 
@@ -3065,12 +3637,16 @@ class TestMockNetworkContext:
 
         # New context should have fresh state
         with mock_network_mode(seed=100):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3081,8 +3657,9 @@ class TestMockNetworkContext:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # New context should have fresh state
         with mock_network_mode(seed=100):
             backend = MockNetworkBackend()
@@ -3090,12 +3667,16 @@ class TestMockNetworkContext:
 
     def test_context_manager_different_seeds(self) -> None:
         """Test context manager with different seeds."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3106,21 +3687,25 @@ class TestMockNetworkContext:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with mock_network_mode(seed=2) as state2:
             mac2 = state2.interfaces["eth0"].mac_address
 
         assert mac1 != mac2
 
-
 class TestExportMockState:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3131,8 +3716,9 @@ class TestExportMockState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Should be valid JSON
         data = json.loads(json_str)
 
@@ -3140,12 +3726,16 @@ class TestExportMockState:
         assert "wifi_networks" in data
         assert "routes" in data
         assert "operation_log" in data
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3156,8 +3746,9 @@ class TestExportMockState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         data = json.loads(json_str)
 
         assert "interfaces" in data
@@ -3165,12 +3756,16 @@ class TestExportMockState:
         assert "routes" in data
         assert "operation_log" in data
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3181,8 +3776,9 @@ class TestExportMockState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert "interfaces" in data
         assert "wifi_networks" in data
@@ -3190,12 +3786,16 @@ class TestExportMockState:
         assert "operation_log" in data
 
     def test_export_includes_operations(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3206,8 +3806,9 @@ class TestExportMockState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert "interfaces" in data
         assert "wifi_networks" in data
         assert "routes" in data
@@ -3215,12 +3816,16 @@ class TestExportMockState:
 
     def test_export_includes_operations(self) -> None:
         """Test export includes logged operations."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3231,21 +3836,25 @@ class TestExportMockState:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         json_str = export_mock_state()
         data = json.loads(json_str)
 
         assert len(data["operation_log"]) >= 2
 
-
 class TestEdgeCases:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3256,8 +3865,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test operations on loopback interface."""
         # Should be able to add addresses
         result = self.backend.add_ip_address("lo", "127.0.0.2/8")
@@ -3265,12 +3875,16 @@ class TestEdgeCases:
 
     def test_multiple_ip_addresses(self) -> None:
         """Test adding multiple IP addresses to same interface."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3281,8 +3895,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             self.backend.add_ip_address("eth1", f"192.168.{i}.100/24")
 
         iface = self.backend.get_interface("eth1")
@@ -3290,12 +3905,16 @@ class TestEdgeCases:
 
     def test_concurrent_interface_types(self) -> None:
         """Test managing multiple interface types."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3306,8 +3925,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         self.backend.create_bridge("br1")
 
         # Verify all exist
@@ -3315,12 +3935,16 @@ class TestEdgeCases:
         assert self.backend.get_interface("bond0") is not None
         assert self.backend.get_interface("br1") is not None
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3331,8 +3955,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify all exist
         assert self.backend.get_interface("eth0.100") is not None
@@ -3340,12 +3965,16 @@ class TestEdgeCases:
         assert self.backend.get_interface("br1") is not None
 
     def test_state_persistence_across_operations(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3356,8 +3985,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify all exist
         assert self.backend.get_interface("eth0.100") is not None
         assert self.backend.get_interface("bond0") is not None
@@ -3365,12 +3995,16 @@ class TestEdgeCases:
 
     def test_state_persistence_across_operations(self) -> None:
         """Test state persists correctly across multiple operations."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3381,8 +4015,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify all changes persisted
         iface = self.backend.get_interface("eth1")
@@ -3390,12 +4025,16 @@ class TestEdgeCases:
         assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
         assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
         assert iface["mtu"] == 9000  # type: ignore[index]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3406,8 +4045,9 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify all changes persisted
         iface = self.backend.get_interface("eth1")
         assert iface["state"] == "up"  # type: ignore[index]
@@ -3415,12 +4055,16 @@ class TestEdgeCases:
         assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
         assert iface["mtu"] == 9000  # type: ignore[index]
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3431,21 +4075,25 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         iface = self.backend.get_interface("eth1")
         assert iface["state"] == "up"  # type: ignore[index]
         assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
         assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
         assert iface["mtu"] == 9000  # type: ignore[index]
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -3456,21 +4104,25 @@ class TestEdgeCases:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert iface["state"] == "up"  # type: ignore[index]
         assert "10.0.0.100/24" in iface["ipv4_addresses"]  # type: ignore[index]
         assert iface["gateway"] == "10.0.0.1"  # type: ignore[index]
         assert iface["mtu"] == 9000  # type: ignore[index]
 
-
 if __name__ == "__main__":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

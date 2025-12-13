@@ -1,8 +1,10 @@
 # Code Issues Report: scripts\update_type_ignore.py
+
 Generated: 2025-12-13T15:07:28.467595
 Source: scripts\update_type_ignore.py
 
 ## Issues Summary
+
 Total: 3 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -12,13 +14,12 @@ Total: 3 issues found
 | 358 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 30
 
@@ -26,8 +27,9 @@ Items marked below as fixed:
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import argparse
 import json
 import re
@@ -35,12 +37,16 @@ import subprocess
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List, Set, Tuple, Optional
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -51,8 +57,9 @@ from typing import Dict, List, Set, Tuple, Optional
 
 **Message:** Starting a process with a partial executable path
 
-**Context:**
-```
+### Context
+
+```python
     # Run mypy if requested
     if args.run_mypy:
         print("Running mypy...")
@@ -60,12 +67,16 @@ from typing import Dict, List, Set, Tuple, Optional
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
             _capture_output=True,
             _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -76,8 +87,9 @@ from typing import Dict, List, Set, Tuple, Optional
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-**Context:**
-```
+### Context
+
+```python
     # Run mypy if requested
     if args.run_mypy:
         print("Running mypy...")
@@ -85,12 +97,16 @@ from typing import Dict, List, Set, Tuple, Optional
             ["mypy", "opt", "tests", "--config-file", "mypy.ini"],
             _capture_output=True,
             _text=True,
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -1,4 +1,5 @@
 # Planning Report: opt\services\compliance\auto_remediation.py
+
 Generated: 2025-12-13T15:10:42.617570
 Status: INVALID
 
@@ -20,26 +21,34 @@ Status: INVALID
 ⚠️ **Generated .md files should comply with these rules:**
 
 ### MD022: blanks-around-headings
+
 - **Issue**: Headings should be surrounded by blank lines
+
 - **Fix**: Add blank lines before and after headings
 
 ### MD034: no-bare-urls
+
 - **Issue**: Bare URL used
+
 - **Fix**: Wrap URLs in markdown link format: [URL](URL)
 
 ### MD038: no-space-in-code
+
 - **Issue**: Spaces inside code span delimiters
+
 - **Fix**: Remove spaces: change ` code ` to `code`
 
 ### MD047: single-trailing-newline
+
 - **Issue**: Files should end with a single newline character
+
 - **Fix**: Add a single newline (\n) at the end of the file
 
 ## Required Structure
 
 Each code file should have the following structure:
 
-```
+```python
 #!/usr/bin/env python3  (shebang for .py files)
 # [LICENSE_HEADER - 10 lines of Apache 2.0 license as comments]
 
@@ -65,27 +74,39 @@ Detailed description of what this file does.
 # =====================================================
 # [Actual code starts here]
 # =====================================================
-```
+```python
 
 ## Fix Proposals
 
-### To Fix This File:
+### To Fix This File
 
 1. Add shebang at line 1: `#!/usr/bin/env python3`
+
 2. Add license header (lines 2-11)
+
 3. Add module docstring with required sections:
+
    - Description
+
    - Changelog
+
    - Suggested Fixes
+
    - Improvements
+
 4. Separate docstring from code with blank line and comment divider
+
 5. Ensure generated .md reports comply with markdown linting rules:
+
    - **MD034**: Wrap bare URLs in links: `[URL](URL)`
+
    - **MD047**: Add trailing newline at end of file
+
    - **MD022**: Add blank lines around headings
+
    - **MD038**: Remove spaces in code spans: `` `code` `` not `` ` code ` ``
 
-### Example Template:
+### Example Template
 
 ```python
 #!/usr/bin/env python3
@@ -93,7 +114,7 @@ Detailed description of what this file does.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#     [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+#     [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.](http://www.apache.org/licenses/LICENSE-2.)0)
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -121,7 +142,8 @@ Longer description of what this module does.
 # =====================================================
 
 # Your code here...
-```
+```python
 
 ## Implementation Status
+
 Mark items as complete with ✅ emoji:

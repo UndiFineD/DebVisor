@@ -1,8 +1,10 @@
 # Code Issues Report: opt\ansible\roles\vnc-console\files\debvisor-vnc-ensure.sh
+
 Generated: 2025-12-13T15:11:04.836125
 Source: opt\ansible\roles\vnc-console\files\debvisor-vnc-ensure.sh
 
 ## Issues Summary
+
 Total: 472 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -481,4 +483,5 @@ Total: 472 issues found
 | 472 | 37 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

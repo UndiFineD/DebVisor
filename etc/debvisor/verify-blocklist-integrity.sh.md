@@ -1,8 +1,10 @@
 # Code Issues Report: etc\debvisor\verify-blocklist-integrity.sh
+
 Generated: 2025-12-13T15:10:53.793382
 Source: etc\debvisor\verify-blocklist-integrity.sh
 
 ## Issues Summary
+
 Total: 332 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -341,4 +343,5 @@ Total: 332 issues found
 | 589 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 
 ## Implementation Status
+
 Items marked below as fixed:

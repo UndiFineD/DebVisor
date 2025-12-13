@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_contracts.py
+
 Generated: 2025-12-13T15:08:21.248099
 Source: tests\test_contracts.py
 
 ## Issues Summary
+
 Total: 6 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -15,13 +17,12 @@ Total: 6 issues found
 | 669 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**6 issues to fix:**
-
+### 6 issues to fix
 
 ### Issue at Line 537
 
@@ -29,8 +30,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
@@ -38,12 +40,16 @@ Items marked below as fixed:
 
     def test_get_debt_contract(self, contract, validator):
         """Test: Get single debt endpoint matches contract."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -54,8 +60,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
@@ -63,12 +70,16 @@ Items marked below as fixed:
 
     def test_unauthorized_contract(self, contract, validator):
         """Test: Unauthorized response matches contract."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -79,21 +90,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
-
 class TestPaymentAPIContract:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -104,8 +119,9 @@ class TestPaymentAPIContract:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
@@ -113,12 +129,16 @@ class TestPaymentAPIContract:
 
     def test_invalid_payment_contract(self, contract, validator):
         """Test: Invalid payment response matches contract."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -129,21 +149,25 @@ class TestPaymentAPIContract:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
-
 class TestUserAPIContract:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -154,21 +178,25 @@ class TestUserAPIContract:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _actual_body = actual_response,
         )
 
         assert is_valid, f"Validation errors: {validator.validation_errors}"
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

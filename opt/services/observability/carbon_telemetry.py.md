@@ -1,8 +1,10 @@
 # Code Issues Report: opt\services\observability\carbon_telemetry.py
+
 Generated: 2025-12-13T15:16:19.231503
 Source: opt\services\observability\carbon_telemetry.py
 
 ## Issues Summary
+
 Total: 4 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -13,4 +15,5 @@ Total: 4 issues found
 | 504 | 0 | bandit | `B110` | LOW | Try, Except, Pass detected. |
 
 ## Implementation Status
+
 Items marked below as fixed:

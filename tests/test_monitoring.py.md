@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_monitoring.py
+
 Generated: 2025-12-13T15:09:06.057084
 Source: tests\test_monitoring.py
 
 ## Issues Summary
+
 Total: 43 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -52,13 +54,12 @@ Total: 43 issues found
 | 634 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**43 issues to fix:**
-
+### 43 issues to fix
 
 ### Issue at Line 133
 
@@ -66,8 +67,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.collect_cpu_metrics("vm-001")
 
@@ -75,12 +77,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_collect_memory_metrics(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -91,8 +97,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.collect_memory_metrics("vm-001")
 
@@ -100,12 +107,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_collect_disk_metrics(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -116,8 +127,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.collect_disk_metrics("vm-001")
 
@@ -125,12 +137,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_collect_network_metrics(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -141,8 +157,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.collect_network_metrics("eth0")
 
@@ -150,12 +167,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_store_metric(self, mock_monitoring_system, metric):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -166,8 +187,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.store_metric(metric)
 
@@ -175,12 +197,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_retrieve_metrics(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -191,8 +217,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", metric_type="cpu_usage", time_range=3600
         )
 
@@ -200,12 +227,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_aggregate_metrics(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -216,8 +247,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _metric_type = "cpu_usage", aggregation="1h"
         )
 
@@ -225,12 +257,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_metrics_retention_policy(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -241,21 +277,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.apply_retention_policy(retention_days=30)
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -266,8 +306,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.check_vm_health("vm-001")
 
@@ -275,12 +316,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_service_health_check(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -291,8 +336,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.check_service_health("debvisor-api")
 
@@ -300,12 +346,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_database_health_check(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -316,8 +366,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.check_db_health()
 
@@ -325,12 +376,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_network_connectivity_check(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -341,8 +396,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.check_connectivity("8.8.8.8")
 
@@ -350,12 +406,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_storage_health_check(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -366,8 +426,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.check_storage_health("/var/lib/debvisor")
 
@@ -375,12 +436,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_health_check(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -391,8 +456,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name = "api_health", check_type="http", interval=60, timeout=10
         )
 
@@ -400,12 +466,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_health_status(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -416,8 +486,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         status = await mock_monitoring_system.get_health_status()
 
@@ -425,12 +496,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_health_check_history(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -441,21 +516,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         history = await mock_monitoring_system.get_check_history("check-001")
 
         assert len(history) > 0
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -466,8 +545,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _severity = AlertSeverity.WARNING,
         )
 
@@ -475,12 +555,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_active_alerts(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -491,8 +575,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.list_alerts(status="active")
 
@@ -500,12 +585,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_resolve_alert(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -516,8 +605,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.resolve_alert("a-001")
 
@@ -525,12 +615,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alert_silencing(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -541,8 +635,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "a-001", duration_minutes=30
         )
 
@@ -550,12 +645,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alert_routing(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -566,8 +665,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "a-001", channel="slack", team="infrastructure"
         )
 
@@ -575,12 +675,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alert_notification(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -591,8 +695,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _alert_id = "a-001", channels=["email", "slack"]
         )
 
@@ -600,12 +705,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_escalation_policy(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -616,21 +725,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "a-001", escalation_level=2
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -641,8 +754,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name = "production-overview", description="Main production dashboard"
         )
 
@@ -650,12 +764,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_add_widget_to_dashboard(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -666,8 +784,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _position = {"x": 0, "y": 0},
         )
 
@@ -675,12 +794,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_graph_widget(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -691,8 +814,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _title = "CPU Usage", metric="cpu_usage", time_range="1h"
         )
 
@@ -700,12 +824,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_gauge_widget(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -716,8 +844,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _title = "Memory Usage", metric="memory_usage", threshold=80
         )
 
@@ -725,12 +854,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_dashboard_export(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -741,8 +874,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.export_dashboard("db-001", format="pd")
 
@@ -750,12 +884,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_dashboard_sharing(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -766,21 +904,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "db-001", users=["user1", "user2"]
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -791,8 +933,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.collect_logs("vm-001")
 
@@ -800,12 +943,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_search_logs(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -816,8 +963,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _query = "error", time_range="1h"
         )
 
@@ -825,12 +973,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_log_parsing(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -841,8 +993,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _log_type = "syslog", filter_pattern="error|warning"
         )
 
@@ -850,12 +1003,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_log_alert(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -866,8 +1023,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _notification_channel = "email",
         )
 
@@ -875,12 +1033,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_log_retention_policy(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -891,21 +1053,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.set_log_retention(retention_days=30)
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -916,8 +1082,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _metric_type = "cpu_usage", duration_hours=24
         )
 
@@ -925,12 +1092,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_anomaly_detection(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -941,8 +1112,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", sensitivity="medium"
         )
 
@@ -950,12 +1122,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_performance_trending(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -966,8 +1142,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.get_trend(metric="cpu_usage", period="7d")
 
@@ -975,12 +1152,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_capacity_planning(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -991,8 +1172,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_monitoring_system.analyze_capacity()
 
@@ -1000,12 +1182,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_sla_tracking(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1016,21 +1202,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _service = "debvisor", period="month"
         )
 
         assert result["sla_status"] == "met"
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1041,8 +1231,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Collect
         collect = await mock_monitoring_system.collect_cpu_metrics("vm-001")
@@ -1050,12 +1241,16 @@ Items marked below as fixed:
 
         # Store
         store = await mock_monitoring_system.store_metric(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1066,8 +1261,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         store = await mock_monitoring_system.store_metric(
             Metric("m-001", "cpu", 85, "%", time.time(), {"vm_id": "vm-001"})
         )
@@ -1075,12 +1271,16 @@ Items marked below as fixed:
 
         # Check threshold
         check = await mock_monitoring_system.check_threshold("cpu", 90)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1091,8 +1291,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check threshold
         check = await mock_monitoring_system.check_threshold("cpu", 90)
@@ -1100,12 +1301,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alert_to_dashboard_workflow(self, mock_monitoring_system):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1116,21 +1321,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         alert = await mock_monitoring_system.create_alert(
             "CPU High", "CPU > 90%", AlertSeverity.WARNING
         )
         assert alert == "a-001"
 
-
 if __name__ == "__main__":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

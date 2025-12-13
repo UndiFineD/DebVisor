@@ -3,6 +3,7 @@ Generated: 2025-12-13T14:42:07.330205
 Source: tests\test_backup_service.py
 
 ## Issues Summary
+
 Total: 44 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -58,8 +59,7 @@ Items marked below as fixed:
 
 ## Fix Proposals
 
-### 44 issues to fix:
-
+### 44 issues to fix
 
 ### Issue at Line 173
 
@@ -67,7 +67,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
             hashes.append(chunk_hash)
 
@@ -78,10 +79,14 @@ Items marked below as fixed:
         assert len(set(hashes)) == 3
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -92,7 +97,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         assert hashes[0] == hashes[3]
 
@@ -103,10 +109,14 @@ Items marked below as fixed:
         """Test chunk size boundary detection."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -117,7 +127,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         max_chunk = 256 * 1024    # 256 KB
 
@@ -128,10 +139,14 @@ Items marked below as fixed:
     def test_rolling_hash_simulation(self, sample_data_blocks):
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -142,7 +157,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         # Verify boundaries are reasonable
@@ -153,10 +169,14 @@ Items marked below as fixed:
         """Simulate rolling hash for content-defined boundaries."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -167,7 +187,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
                 )
                 fingerprints.append(fp % (2**32))
@@ -178,10 +199,14 @@ Items marked below as fixed:
         """Test handling of empty data."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -192,21 +217,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         chunk_hash = hashlib.sha256(empty_data).hexdigest()
 
         # Empty data has a valid hash
         assert len(chunk_hash) == 64
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -217,7 +246,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         is_new = in_memory_chunk_store.store(chunk_hash, chunk)
@@ -228,10 +258,14 @@ Items marked below as fixed:
     def test_store_duplicate_chunk(self, in_memory_chunk_store, sample_data_blocks):
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -242,7 +276,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         is_new = in_memory_chunk_store.store(chunk_hash, chunk)
 
@@ -253,10 +288,14 @@ Items marked below as fixed:
         """Test storing a duplicate chunk."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -267,7 +306,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         # Store first time
@@ -278,10 +318,14 @@ Items marked below as fixed:
         second = in_memory_chunk_store.store(chunk_hash, chunk)
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -292,7 +336,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         # Store second time (duplicate)
@@ -303,10 +348,14 @@ Items marked below as fixed:
         assert in_memory_chunk_store.total_chunks == 1
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -317,7 +366,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         assert second is False
 
@@ -328,10 +378,14 @@ Items marked below as fixed:
         assert in_memory_chunk_store.reference_counts[chunk_hash] == 2
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -342,7 +396,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         assert in_memory_chunk_store.total_chunks == 1
 
@@ -353,10 +408,14 @@ Items marked below as fixed:
         """Test retrieving a stored chunk."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -367,7 +426,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         in_memory_chunk_store.store(chunk_hash, chunk)
         retrieved = in_memory_chunk_store.retrieve(chunk_hash)
@@ -378,10 +438,14 @@ Items marked below as fixed:
         """Test retrieving a non-existent chunk."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -392,7 +456,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         fake_hash = "0" * 64
         result = in_memory_chunk_store.retrieve(fake_hash)
@@ -403,10 +468,14 @@ Items marked below as fixed:
         """Test chunk existence check."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -417,7 +486,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         chunk = sample_data_blocks[0]
         chunk_hash = hashlib.sha256(chunk).hexdigest()
@@ -428,10 +498,14 @@ Items marked below as fixed:
 
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -442,7 +516,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         in_memory_chunk_store.store(chunk_hash, chunk)
@@ -453,10 +528,14 @@ Items marked below as fixed:
         self, in_memory_chunk_store, sample_data_blocks
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -467,7 +546,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         # We have 4 blocks (total 232 bytes) but only 3 unique ones (179 bytes)
@@ -475,13 +555,16 @@ Items marked below as fixed:
         assert dedup_ratio > 1.0
         assert round(dedup_ratio, 2) == 1.30
 
-
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -492,21 +575,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         # We have 4 blocks (total 232 bytes) but only 3 unique ones (179 bytes)
         # Ratio is 232/179 = 1.296...
         assert dedup_ratio > 1.0
         assert round(dedup_ratio, 2) == 1.30
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -517,7 +604,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         """Test snapshot metadata creation."""
         snap = sample_snapshots[0]
@@ -528,10 +616,14 @@ Items marked below as fixed:
 
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -542,7 +634,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         snap = sample_snapshots[0]
 
@@ -553,10 +646,14 @@ Items marked below as fixed:
     def test_snapshot_filtering_by_source(self, sample_snapshots):
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -567,7 +664,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         assert snap.snapshot_id == "snap-001"
@@ -578,10 +676,14 @@ Items marked below as fixed:
         """Test filtering snapshots by source path."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -592,7 +694,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         source = "/var/lib/vm/disk1.qcow2"
         filtered = [s for s in sample_snapshots if s.source_path == source]
@@ -603,10 +706,14 @@ Items marked below as fixed:
         """Test filtering snapshots by tag."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -617,7 +724,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         """Test filtering snapshots by tag."""
         filtered = [s for s in sample_snapshots if s.tags.get("type") == "daily"]
@@ -628,10 +736,14 @@ Items marked below as fixed:
         """Test sorting snapshots by creation date."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -642,7 +754,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         )
 
@@ -653,10 +766,14 @@ Items marked below as fixed:
     def test_snapshot_size_summary(self, sample_snapshots):
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -667,7 +784,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         # Most recent first
@@ -678,10 +796,14 @@ Items marked below as fixed:
         """Test snapshot size summary calculation."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -692,21 +814,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         total_size = sum(s.size_bytes for s in sample_snapshots)
 
         # 10 + 10 + 50 = 70 GB
         assert total_size == 70 * 1024 * 1024 * 1024
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -717,7 +843,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
             :daily_keep
         ]
@@ -728,10 +855,14 @@ Items marked below as fixed:
         """Test retention based on snapshot age."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -742,7 +873,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         # Filter by age (strictly less than, so 7 days = days 0-6 inclusive)
         keep_snaps = [s for s in test_snaps if (now - s.created_at) < max_daily_age]
@@ -753,10 +885,14 @@ Items marked below as fixed:
         """Test GFS rotation policy."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -767,7 +903,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
             + retention_policy["yearly"]
@@ -775,14 +912,17 @@ Items marked below as fixed:
 
         assert total_retention == 26
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -793,7 +933,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
             chunk_count=len(chunks),
         )
@@ -804,10 +945,14 @@ Items marked below as fixed:
     def test_incremental_backup_simulation(
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -818,7 +963,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         )
 
@@ -829,10 +975,14 @@ Items marked below as fixed:
         self, in_memory_chunk_store, temp_backup_dir
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -843,7 +993,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         _overlap = set(first_chunks) & set(second_chunks)
 
@@ -854,10 +1005,14 @@ Items marked below as fixed:
 
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -868,7 +1023,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         # Restore
         restored = in_memory_chunk_store.retrieve(chunk_hash)
@@ -879,10 +1035,14 @@ Items marked below as fixed:
         """Test restoring data from ordered chunk list."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -893,7 +1053,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         restored_chunks = [in_memory_chunk_store.retrieve(h) for h in chunk_hashes]
         restored = b"".join(restored_chunks)
@@ -904,10 +1065,14 @@ Items marked below as fixed:
         """Test integrity verification during restore."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -918,21 +1083,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         restored = in_memory_chunk_store.retrieve(chunk_hash)
         restored_hash = hashlib.sha256(restored).hexdigest()
 
         assert restored_hash == chunk_hash
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -943,7 +1112,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         chunk_file.parent.mkdir(parents=True, exist_ok=True)
         chunk_file.write_bytes(chunk_data)
@@ -954,10 +1124,14 @@ Items marked below as fixed:
     def test_local_backend_read(self, tmp_path):
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -968,7 +1142,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         chunk_file.write_bytes(chunk_data)
 
@@ -979,10 +1154,14 @@ Items marked below as fixed:
         """Test local filesystem backend read."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -993,7 +1172,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         # Read back
         read_data = chunk_file.read_bytes()
@@ -1004,10 +1184,14 @@ Items marked below as fixed:
     async def test_s3_backend_mock(self) -> None:
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1018,7 +1202,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
             Bucket="backups", Key=f"chunks/{chunk_hash}", Body=chunk_data
         )
@@ -1029,10 +1214,14 @@ Items marked below as fixed:
         response = await mock_s3.get_object(
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1043,21 +1232,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         )
 
         retrieved = await response["Body"].read()
         assert retrieved == b"chunk data"
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1068,7 +1261,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         throughput_mbps = data_size / (1024 * 1024) / elapsed if elapsed > 0 else 0
 
@@ -1079,10 +1273,14 @@ Items marked below as fixed:
         """Test deduplication lookup performance."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1093,21 +1291,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         elapsed = time.time() - start
 
         # Should complete 1000 lookups in under 100ms
         assert elapsed < 0.1
 
-
 # =============================================================================
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1118,7 +1320,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
         retrieved_hash = hashlib.sha256(retrieved).hexdigest()
 
@@ -1129,10 +1332,14 @@ Items marked below as fixed:
         """Test handling of missing chunks."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1143,7 +1350,8 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
+### Context
+
 ```python
 
         result = in_memory_chunk_store.retrieve(fake_hash)
@@ -1154,10 +1362,14 @@ Items marked below as fixed:
         """Simulate storage full condition."""
 ```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1170,4 +1382,3 @@ To mark an issue as fixed, add the issue code to the line below with a ✅ emoji
 
 ---
 *Updated: (auto-populated by coding expert)*
-

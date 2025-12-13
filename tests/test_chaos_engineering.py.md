@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_chaos_engineering.py
+
 Generated: 2025-12-13T15:08:10.002307
 Source: tests\test_chaos_engineering.py
 
 ## Issues Summary
+
 Total: 20 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -29,13 +31,12 @@ Total: 20 issues found
 | 584 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**20 issues to fix:**
-
+### 20 issues to fix
 
 ### Issue at Line 112
 
@@ -43,8 +44,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
     def inject(self) -> float:
         """Add random latency and return the delay."""
@@ -52,12 +54,16 @@ Items marked below as fixed:
         delay_seconds = delay_ms / 1000.0
         time.sleep(delay_seconds)
         return delay_seconds
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -68,8 +74,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
     async def inject_async(self) -> float:
         """Add random latency asynchronously."""
@@ -77,12 +84,16 @@ Items marked below as fixed:
         delay_seconds = delay_ms / 1000.0
         await asyncio.sleep(delay_seconds)
         return delay_seconds
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -93,8 +104,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
     def inject(self) -> NoReturn:
         """Raise a random error for the target component."""
@@ -102,12 +114,16 @@ Items marked below as fixed:
         # error is an Exception instance, raise its type with its message
         raise type(error)(str(error))
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -118,8 +134,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
     def corrupt_string(self, value: str) -> str:
         """Corrupt a string value."""
@@ -127,12 +144,16 @@ Items marked below as fixed:
             return value
 
         corruption_type = random.choice(["truncate", "garbage", "empty", "swap"])
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -143,8 +164,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         if random.random() > self.corruption_rate:
             return value
 
@@ -152,12 +174,16 @@ Items marked below as fixed:
 
         if corruption_type == "truncate":
             return value[: len(value) // 2]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -168,8 +194,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         if corruption_type == "truncate":
             return value[: len(value) // 2]
         elif corruption_type == "garbage":
@@ -177,12 +204,16 @@ Items marked below as fixed:
         elif corruption_type == "empty":
             return ""
         elif corruption_type == "swap":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -193,8 +224,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
         elif corruption_type == "swap":
             chars = list(value)
             if len(chars) > 1:
@@ -202,12 +234,16 @@ Items marked below as fixed:
                 chars[i], chars[j] = chars[j], chars[i]
             return "".join(chars)
         return value
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -218,8 +254,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
     def corrupt_dict(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Corrupt dictionary values."""
@@ -227,12 +264,16 @@ Items marked below as fixed:
             return data
 
         corrupted = data.copy()
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -243,8 +284,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
         corrupted = data.copy()
         if corrupted:
@@ -252,12 +294,16 @@ Items marked below as fixed:
             value = corrupted[key]
 
             if isinstance(value, str):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -268,8 +314,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             if isinstance(value, str):
                 corrupted[key] = self.corrupt_string(value)
             elif isinstance(value, (int, float)):
@@ -277,12 +324,16 @@ Items marked below as fixed:
             elif isinstance(value, bool):
                 corrupted[key] = not value
             elif value is None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -293,8 +344,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             return False
 
         # Random probability
@@ -302,12 +354,16 @@ Items marked below as fixed:
 
     @contextmanager
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -318,8 +374,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
             return
 
         failure_modes = failure_modes or list(FailureMode)
@@ -327,12 +384,16 @@ Items marked below as fixed:
 
         self._active_failures += 1
         self._last_failure_time = datetime.now(timezone.utc)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -343,8 +404,9 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-**Context:**
-```
+### Context
+
+```python
 
             elif failure_mode == FailureMode.PARTIAL_FAILURE:
                 # 50% chance of success after partial work
@@ -352,12 +414,16 @@ Items marked below as fixed:
                     yield
                 else:
                     raise Exception(f"Partial failure in {operation}")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -368,8 +434,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Should eventually succeed or exhaust retries
@@ -377,12 +444,16 @@ Items marked below as fixed:
 
     def test_database_latency_handling(self, chaos_monkey, mock_database):
         """Test: System handles database latency gracefully."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -393,8 +464,9 @@ Items marked below as fixed:
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
                     "db_query", TargetComponent.DATABASE, [FailureMode.LATENCY]
                 ):
                     mock_database.query("SELECT 1")
@@ -402,12 +474,16 @@ Items marked below as fixed:
                 pass
             latencies.append(time.time() - start)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -418,21 +494,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Verify latencies were tracked
         assert len(latencies) == 10
 
-
 class TestCacheResilience:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -443,8 +523,9 @@ class TestCacheResilience:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             },
         )
 
@@ -452,12 +533,16 @@ class TestCacheResilience:
 
     def test_cache_write_through_failure(self, chaos_monkey, mock_cache, mock_database):
         """Test: Database write succeeds even if cache update fails."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -468,8 +553,9 @@ class TestCacheResilience:
 
 **Message:** Try, Except, Pass detected.
 
-**Context:**
-```
+### Context
+
+```python
             ):
                 mock_cache.set("key", "data")
                 cache_success = True
@@ -477,12 +563,16 @@ class TestCacheResilience:
             # Cache failure is acceptable
             pass
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -493,21 +583,24 @@ class TestCacheResilience:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Database write must succeed regardless of cache
         assert db_success
 
+```python
 
+### Proposal
 
-```
-
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -518,8 +611,9 @@ class TestCacheResilience:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Circuit should have opened
@@ -527,12 +621,16 @@ class TestCacheResilience:
 
     def test_api_timeout_handling(self, chaos_monkey):
         """Test: API timeouts are handled with proper error responses."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

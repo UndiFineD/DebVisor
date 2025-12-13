@@ -1,8 +1,10 @@
 # Code Issues Report: opt\dvctl.py
+
 Generated: 2025-12-13T15:11:59.808074
 Source: opt\dvctl.py
 
 ## Issues Summary
+
 Total: 7 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -16,4 +18,5 @@ Total: 7 issues found
 | 280 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
+
 Items marked below as fixed:

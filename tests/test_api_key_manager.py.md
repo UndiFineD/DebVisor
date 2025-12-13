@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_api_key_manager.py
+
 Generated: 2025-12-13T15:07:52.431185
 Source: tests\test_api_key_manager.py
 
 ## Issues Summary
+
 Total: 51 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -60,13 +62,12 @@ Total: 51 issues found
 | 405 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**51 issues to fix:**
-
+### 51 issues to fix
 
 ### Issue at Line 58
 
@@ -74,8 +75,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Verify key format
@@ -83,12 +85,16 @@ Items marked below as fixed:
         assert len(api_key) == 67    # "dv_" + 64 hex chars
 
         # Verify key object
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -99,8 +105,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key format
         assert api_key.startswith("dv_")
@@ -108,12 +115,16 @@ Items marked below as fixed:
 
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -124,8 +135,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(api_key) == 67    # "dv_" + 64 hex chars
 
         # Verify key object
@@ -133,12 +145,16 @@ Items marked below as fixed:
         assert key_obj.status == KeyStatus.ACTIVE
         assert key_obj.use_count == 0
         assert key_obj.description == "Test key"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -149,8 +165,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
@@ -158,12 +175,16 @@ Items marked below as fixed:
         assert key_obj.use_count == 0
         assert key_obj.description == "Test key"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -174,8 +195,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify key object
         assert key_obj.principal_id == "user@test.com"
         assert key_obj.status == KeyStatus.ACTIVE
@@ -183,12 +205,16 @@ Items marked below as fixed:
         assert key_obj.description == "Test key"
 
     def test_validate_key(self, key_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -199,8 +225,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert key_obj.principal_id == "user@test.com"
         assert key_obj.status == KeyStatus.ACTIVE
         assert key_obj.use_count == 0
@@ -208,12 +235,16 @@ Items marked below as fixed:
 
     def test_validate_key(self, key_manager):
         """Test API key validation."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -224,8 +255,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Validate key
         validated = key_manager.validate_key(api_key)
@@ -233,12 +265,16 @@ Items marked below as fixed:
         assert validated.key_id == key_obj.key_id
         assert validated.principal_id == "user@test.com"
         assert validated.use_count == 1    # Incremented on validation
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -249,8 +285,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Validate key
         validated = key_manager.validate_key(api_key)
         assert validated is not None
@@ -258,12 +295,16 @@ Items marked below as fixed:
         assert validated.principal_id == "user@test.com"
         assert validated.use_count == 1    # Incremented on validation
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -274,8 +315,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         validated = key_manager.validate_key(api_key)
         assert validated is not None
         assert validated.key_id == key_obj.key_id
@@ -283,12 +325,16 @@ Items marked below as fixed:
         assert validated.use_count == 1    # Incremented on validation
 
     def test_validate_invalid_key(self, key_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -299,8 +345,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert validated is not None
         assert validated.key_id == key_obj.key_id
         assert validated.principal_id == "user@test.com"
@@ -308,12 +355,16 @@ Items marked below as fixed:
 
     def test_validate_invalid_key(self, key_manager):
         """Test validation of invalid key."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -324,8 +375,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test validation of invalid key."""
         invalid_key = "dv_" + "0" * 64
         validated = key_manager.validate_key(invalid_key)
@@ -333,12 +385,16 @@ Items marked below as fixed:
 
     def test_key_usage_tracking(self, key_manager):
         """Test that key usage is tracked."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -349,21 +405,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Use key multiple times
         for i in range(5):
             validated = key_manager.validate_key(api_key)
             assert validated.use_count == i + 1
 
-
 class TestKeyRotation:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -374,8 +434,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         )
 
         # Verify new key
@@ -383,12 +444,16 @@ class TestKeyRotation:
         assert new_key_obj.key_id != old_key_obj.key_id
         assert new_key_obj.principal_id == old_key_obj.principal_id
         assert new_key_obj.status == KeyStatus.ACTIVE
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -399,8 +464,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify new key
         assert new_api_key != old_api_key
@@ -408,12 +474,16 @@ class TestKeyRotation:
         assert new_key_obj.principal_id == old_key_obj.principal_id
         assert new_key_obj.status == KeyStatus.ACTIVE
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -424,8 +494,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify new key
         assert new_api_key != old_api_key
         assert new_key_obj.key_id != old_key_obj.key_id
@@ -433,12 +504,16 @@ class TestKeyRotation:
         assert new_key_obj.status == KeyStatus.ACTIVE
 
         # Verify old key marked as expiring
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -449,8 +524,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert new_api_key != old_api_key
         assert new_key_obj.key_id != old_key_obj.key_id
         assert new_key_obj.principal_id == old_key_obj.principal_id
@@ -458,12 +534,16 @@ class TestKeyRotation:
 
         # Verify old key marked as expiring
         old_key_refreshed = key_manager.keys[old_key_obj.key_id]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -474,8 +554,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify old key marked as expiring
         old_key_refreshed = key_manager.keys[old_key_obj.key_id]
@@ -483,12 +564,16 @@ class TestKeyRotation:
 
         # Verify rotation linkage
         assert old_key_refreshed.rotation_id == new_key_obj.rotation_id
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -499,8 +584,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert old_key_refreshed.status == KeyStatus.EXPIRING
 
         # Verify rotation linkage
@@ -508,12 +594,16 @@ class TestKeyRotation:
 
     def test_rotated_key_overlap(self, key_manager):
         """Test that old key works during overlap period."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -524,8 +614,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         old_validated = key_manager.validate_key(old_api_key)
         new_validated = key_manager.validate_key(new_api_key)
 
@@ -533,12 +624,16 @@ class TestKeyRotation:
         assert new_validated is not None
         assert old_validated.status == KeyStatus.EXPIRING
         assert new_validated.status == KeyStatus.ACTIVE
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -549,8 +644,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         new_validated = key_manager.validate_key(new_api_key)
 
         assert old_validated is not None
@@ -558,12 +654,16 @@ class TestKeyRotation:
         assert old_validated.status == KeyStatus.EXPIRING
         assert new_validated.status == KeyStatus.ACTIVE
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -574,8 +674,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert old_validated is not None
         assert new_validated is not None
@@ -583,12 +684,16 @@ class TestKeyRotation:
         assert new_validated.status == KeyStatus.ACTIVE
 
     def test_auto_rotate_expiring_keys(self, key_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -599,8 +704,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert old_validated is not None
         assert new_validated is not None
         assert old_validated.status == KeyStatus.EXPIRING
@@ -608,12 +714,16 @@ class TestKeyRotation:
 
     def test_auto_rotate_expiring_keys(self, key_manager):
         """Test automatic rotation of expiring keys."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -624,8 +734,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         rotations = key_manager.auto_rotate_expiring_keys()
 
         # Verify rotation occurred
@@ -633,12 +744,16 @@ class TestKeyRotation:
         assert key_obj.key_id in rotations
 
         # Verify old key is expiring
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -649,8 +764,9 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify rotation occurred
         assert len(rotations) == 1
@@ -658,12 +774,16 @@ class TestKeyRotation:
 
         # Verify old key is expiring
         old_key = key_manager.keys[key_obj.key_id]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -674,21 +794,25 @@ class TestKeyRotation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify old key is expiring
         old_key = key_manager.keys[key_obj.key_id]
         assert old_key.status == KeyStatus.EXPIRING
 
-
 class TestKeyRevocation:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -699,8 +823,9 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key is revoked
         key_refreshed = key_manager.keys[key_obj.key_id]
@@ -708,12 +833,16 @@ class TestKeyRevocation:
 
         # Verify revoked key doesn't validate
         validated = key_manager.validate_key(api_key)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -724,8 +853,9 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify revoked key doesn't validate
         validated = key_manager.validate_key(api_key)
@@ -733,12 +863,16 @@ class TestKeyRevocation:
 
     def test_revoke_nonexistent_key(self, key_manager):
         """Test revoking nonexistent key raises error."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -749,8 +883,9 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify expired key is rejected
         validated = key_manager.validate_key(api_key)
@@ -758,12 +893,16 @@ class TestKeyRevocation:
 
         # Verify key status updated to expired
         key_refreshed = key_manager.keys[key_obj.key_id]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -774,8 +913,9 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key status updated to expired
         key_refreshed = key_manager.keys[key_obj.key_id]
@@ -783,12 +923,16 @@ class TestKeyRevocation:
 
     def test_check_expiring_keys(self, key_manager):
         """Test identifying keys expiring soon."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -799,21 +943,25 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         expiring = key_manager.check_expiring_keys()
 
         # Only second key should be expiring
         assert len(expiring) == 1
         assert expiring[0].principal_id == "user2@test.com"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -824,21 +972,25 @@ class TestKeyRevocation:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Only second key should be expiring
         assert len(expiring) == 1
         assert expiring[0].principal_id == "user2@test.com"
 
-
 class TestKeyCleanup:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -849,8 +1001,9 @@ class TestKeyCleanup:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         removed = key_manager.cleanup_expired_keys(retention_days=365)
 
         # Verify key removed
@@ -858,12 +1011,16 @@ class TestKeyCleanup:
         assert key_obj.key_id not in key_manager.keys
 
     def test_cleanup_preserves_recent_expired(self, key_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -874,8 +1031,9 @@ class TestKeyCleanup:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key removed
         assert removed == 1
@@ -883,12 +1041,16 @@ class TestKeyCleanup:
 
     def test_cleanup_preserves_recent_expired(self, key_manager):
         """Test that recent expired keys are preserved."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -899,21 +1061,25 @@ class TestKeyCleanup:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         removed = key_manager.cleanup_expired_keys(retention_days=365)
 
         # Key should be preserved
         assert removed == 0
         assert key_obj.key_id in key_manager.keys
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -924,21 +1090,25 @@ class TestKeyCleanup:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Key should be preserved
         assert removed == 0
         assert key_obj.key_id in key_manager.keys
 
-
 class TestKeyPersistence:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -949,8 +1119,9 @@ class TestKeyPersistence:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify file created
         keys_file = Path(temp_storage) / "api_keys.json"
@@ -958,12 +1129,16 @@ class TestKeyPersistence:
 
         # Verify content
         with open(keys_file, "r") as f:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -974,8 +1149,9 @@ class TestKeyPersistence:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify content
         with open(keys_file, "r") as f:
             data = json.load(f)
@@ -983,12 +1159,16 @@ class TestKeyPersistence:
 
     def test_keys_loaded_on_init(self, temp_storage):
         """Test that keys are loaded from disk on initialization."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -999,8 +1179,9 @@ class TestKeyPersistence:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         manager2 = APIKeyManager(config, temp_storage)
 
         # Verify key loaded
@@ -1008,12 +1189,16 @@ class TestKeyPersistence:
         assert manager2.keys[key_obj.key_id].principal_id == "user@test.com"
 
         # Verify validation works
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1024,8 +1209,9 @@ class TestKeyPersistence:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify key loaded
         assert key_obj.key_id in manager2.keys
@@ -1033,12 +1219,16 @@ class TestKeyPersistence:
 
         # Verify validation works
         validated = manager2.validate_key(api_key)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1049,21 +1239,25 @@ class TestKeyPersistence:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify validation works
         validated = manager2.validate_key(api_key)
         assert validated is not None
 
-
 class TestAuditLogging:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1074,8 +1268,9 @@ class TestAuditLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify audit log exists
         audit_log = Path(temp_storage) / "api_key_audit.log"
@@ -1083,12 +1278,16 @@ class TestAuditLogging:
 
     def test_audit_log_entries(self, key_manager, temp_storage):
         """Test audit log entries are written."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1099,8 +1298,9 @@ class TestAuditLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             lines = f.readlines()
 
         # Verify entries
@@ -1108,12 +1308,16 @@ class TestAuditLogging:
 
         # Parse entries
         entries = [json.loads(line) for line in lines]
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1124,21 +1328,25 @@ class TestAuditLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Parse entries
         entries = [json.loads(line) for line in lines]
         assert entries[0]["event"] == "key_created"
         assert entries[1]["event"] == "key_rotated"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1149,21 +1357,25 @@ class TestAuditLogging:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Parse entries
         entries = [json.loads(line) for line in lines]
         assert entries[0]["event"] == "key_created"
         assert entries[1]["event"] == "key_rotated"
 
-
 class TestStatistics:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1174,8 +1386,9 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         stats = key_manager.get_key_stats()
 
         # Verify stats
@@ -1183,12 +1396,16 @@ class TestStatistics:
         assert stats["active_keys"] == 1
         assert stats["revoked_keys"] == 1
         assert stats["expired_keys"] == 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1199,8 +1416,9 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify stats
         assert stats["total_keys"] == 2
@@ -1208,12 +1426,16 @@ class TestStatistics:
         assert stats["revoked_keys"] == 1
         assert stats["expired_keys"] == 0
         assert stats["expiring_keys"] == 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1224,8 +1446,9 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify stats
         assert stats["total_keys"] == 2
         assert stats["active_keys"] == 1
@@ -1233,12 +1456,16 @@ class TestStatistics:
         assert stats["expired_keys"] == 0
         assert stats["expiring_keys"] == 0
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1249,8 +1476,9 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert stats["total_keys"] == 2
         assert stats["active_keys"] == 1
         assert stats["revoked_keys"] == 1
@@ -1258,12 +1486,16 @@ class TestStatistics:
         assert stats["expiring_keys"] == 0
 
     def test_list_keys_for_principal(self, key_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1274,8 +1506,9 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert stats["active_keys"] == 1
         assert stats["revoked_keys"] == 1
         assert stats["expired_keys"] == 0
@@ -1283,12 +1516,16 @@ class TestStatistics:
 
     def test_list_keys_for_principal(self, key_manager):
         """Test listing keys for a specific principal."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1299,19 +1536,24 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         user1_keys = key_manager.list_keys_for_principal("user1@test.com")
 
         # Verify results
         assert len(user1_keys) == 2
         assert all(k.principal_id == "user1@test.com" for k in user1_keys)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1322,18 +1564,23 @@ class TestStatistics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify results
         assert len(user1_keys) == 2
         assert all(k.principal_id == "user1@test.com" for k in user1_keys)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\hooks\normal\030-ceph.sh
+
 Generated: 2025-12-13T15:11:15.145064
 Source: opt\config\hooks\normal\030-ceph.sh
 
 ## Issues Summary
+
 Total: 460 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -469,4 +471,5 @@ Total: 460 issues found
 | 460 | 85 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

@@ -16,6 +16,7 @@ At a high level it:
   are missing).
 
 - Runs Debian live-build with the DebVisor configuration in `config/`.
+
 - Produces an installable ISO artifact in the project root
 
   (for example `debvisor--.hybrid.iso`).
@@ -24,7 +25,9 @@ Key environment variables (see the script header for the
 authoritative list):
 
 - `DEBVISOR_DIST`: Debian release to target (for example`trixie`).
+
 - `DEBVISOR_ARCH`: Architecture to build (for example`amd64`).
+
 - `DEBVISOR_FAST`: Control whether`lb clean`/`lb config` are
 
   skipped to speed up rebuilds.
@@ -64,8 +67,11 @@ changes to `debvisor-firstboot.sh` and its helpers.
 Typical uses:
 
 - Run `shellcheck` over first-boot scripting.
+
 - Exercise the `--dry-run`path of`debvisor-firstboot.sh` to catch
+
 - Run `shellcheck` over first-boot scripting.
+
 - Exercise the `--dry-run`path of`debvisor-firstboot.sh` to catch
 
   obvious regressions before booting a real node.
@@ -79,12 +85,17 @@ first-boot validation.
 DebVisor uses Debian live-build hooks and staged includes to prepare the image.
 
 - Hooks under `config/hooks/normal/` run inside the chroot during build:
+
 - `ZZ-debvisor-perms.chroot`ensures helper scripts are executable (`0755`).
+
 - `99-debvisor-firstboot-enable.chroot`installs and enables`debvisor-firstboot.service`.
 
 - Includes under `config/includes.chroot/` are copied into the target filesystem:
+
 - `/usr/local/sbin/debvisor-firstboot.sh` - main first-boot provisioning script.
+
 - `/usr/local/sbin/debvisor-profile-summary.sh`- writes`/var/log/debvisor/profile-summary.{txt,json}`.
+
 - `/opt/debvisor/systemd/debvisor-firstboot.service` - staged unit installed by the enable hook.
 
 On first boot, `debvisor-firstboot.sh` runs once (via the systemd unit), performs

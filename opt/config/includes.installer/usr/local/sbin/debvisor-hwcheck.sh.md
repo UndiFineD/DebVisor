@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\includes.installer\usr\local\sbin\debvisor-hwcheck.sh
+
 Generated: 2025-12-13T15:11:16.895510
 Source: opt\config\includes.installer\usr\local\sbin\debvisor-hwcheck.sh
 
 ## Issues Summary
+
 Total: 299 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -308,4 +310,5 @@ Total: 299 issues found
 | 299 | 7 | shellcheck | `1017` | ERROR | Literal carriage return. Run script through tr -d '\r' . |
 
 ## Implementation Status
+
 Items marked below as fixed:

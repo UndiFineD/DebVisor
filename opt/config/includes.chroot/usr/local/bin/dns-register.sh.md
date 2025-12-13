@@ -1,8 +1,10 @@
 # Code Issues Report: opt\config\includes.chroot\usr\local\bin\dns-register.sh
+
 Generated: 2025-12-13T15:11:15.704204
 Source: opt\config\includes.chroot\usr\local\bin\dns-register.sh
 
 ## Issues Summary
+
 Total: 267 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -276,4 +278,5 @@ Total: 267 issues found
 | 271 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 
 ## Implementation Status
+
 Items marked below as fixed:

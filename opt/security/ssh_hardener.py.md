@@ -1,8 +1,10 @@
 # Code Issues Report: opt\security\ssh_hardener.py
+
 Generated: 2025-12-13T15:13:29.041103
 Source: opt\security\ssh_hardener.py
 
 ## Issues Summary
+
 Total: 5 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -14,4 +16,5 @@ Total: 5 issues found
 | 199 | 0 | bandit | `B603` | LOW | subprocess call - check for execution of untrusted input. |
 
 ## Implementation Status
+
 Items marked below as fixed:

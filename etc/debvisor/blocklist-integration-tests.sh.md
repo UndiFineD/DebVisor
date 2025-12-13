@@ -1,8 +1,10 @@
 # Code Issues Report: etc\debvisor\blocklist-integration-tests.sh
+
 Generated: 2025-12-13T15:10:50.845127
 Source: etc\debvisor\blocklist-integration-tests.sh
 
 ## Issues Summary
+
 Total: 403 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -412,4 +414,5 @@ Total: 403 issues found
 | 623 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 
 ## Implementation Status
+
 Items marked below as fixed:

@@ -1,8 +1,10 @@
 # Code Issues Report: scripts\dev-setup.py
+
 Generated: 2025-12-13T15:05:48.862530
 Source: scripts\dev-setup.py
 
 ## Issues Summary
+
 Total: 1 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -10,13 +12,12 @@ Total: 1 issues found
 | 66 | 0 | bandit | `B404` | LOW | Consider possible security implications associated with the subprocess module. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 66
 
@@ -24,8 +25,9 @@ Items marked below as fixed:
 
 **Message:** Consider possible security implications associated with the subprocess module.
 
-**Context:**
-```
+### Context
+
+```python
 import os
 import platform
 import shutil
@@ -33,12 +35,16 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from enum import Enum
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

@@ -1,8 +1,10 @@
 # Code Issues Report: etc\debvisor\test_validate_blocklists.py
+
 Generated: 2025-12-13T15:10:53.534083
 Source: etc\debvisor\test_validate_blocklists.py
 
 ## Issues Summary
+
 Total: 46 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -55,4 +57,5 @@ Total: 46 issues found
 | 615 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
+
 Items marked below as fixed:

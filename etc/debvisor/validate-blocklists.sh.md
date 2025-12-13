@@ -1,8 +1,10 @@
 # Code Issues Report: etc\debvisor\validate-blocklists.sh
+
 Generated: 2025-12-13T15:10:53.663677
 Source: etc\debvisor\validate-blocklists.sh
 
 ## Issues Summary
+
 Total: 367 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -376,4 +378,5 @@ Total: 367 issues found
 | 569 | 1 | shellcheck | `1072` | ERROR | Here document was not correctly terminated. Fix any mentioned problems and try again. |
 
 ## Implementation Status
+
 Items marked below as fixed:

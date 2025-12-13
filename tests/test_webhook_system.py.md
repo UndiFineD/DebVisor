@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_webhook_system.py
+
 Generated: 2025-12-13T15:10:13.552890
 Source: tests\test_webhook_system.py
 
 ## Issues Summary
+
 Total: 3 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -12,13 +14,12 @@ Total: 3 issues found
 | 54 | 0 | bandit | `B105` | LOW | Possible hardcoded password: 'test_secret' |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**3 issues to fix:**
-
+### 3 issues to fix
 
 ### Issue at Line 35
 
@@ -26,8 +27,9 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'test_secret'
 
-**Context:**
-```
+### Context
+
+```python
     def test_sign_payload(self) -> None:
         """Test signing payload."""
         payload = '{"event": "test"}'
@@ -35,12 +37,16 @@ Items marked below as fixed:
 
         signature = WebhookSigner.sign(payload, secret)
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -51,8 +57,9 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'test_secret'
 
-**Context:**
-```
+### Context
+
+```python
     def test_verify_valid_signature(self) -> None:
         """Test verifying valid signature."""
         payload = '{"event": "test"}'
@@ -60,12 +67,16 @@ Items marked below as fixed:
 
         signature = WebhookSigner.sign(payload, secret)
         valid = WebhookSigner.verify(payload, secret, signature)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -76,8 +87,9 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'test_secret'
 
-**Context:**
-```
+### Context
+
+```python
     def test_verify_invalid_signature(self) -> None:
         """Test rejecting invalid signature."""
         payload = '{"event": "test"}'
@@ -85,12 +97,16 @@ Items marked below as fixed:
 
         valid = WebhookSigner.verify(payload, secret, "sha256=invalid")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

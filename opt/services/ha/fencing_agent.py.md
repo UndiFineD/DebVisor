@@ -1,8 +1,10 @@
 # Code Issues Report: opt\services\ha\fencing_agent.py
+
 Generated: 2025-12-13T15:15:30.215273
 Source: opt\services\ha\fencing_agent.py
 
 ## Issues Summary
+
 Total: 3 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -12,4 +14,5 @@ Total: 3 issues found
 | 373 | 0 | bandit | `B113` | MEDIUM | Call to requests without timeout |
 
 ## Implementation Status
+
 Items marked below as fixed:

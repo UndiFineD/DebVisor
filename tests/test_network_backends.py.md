@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_network_backends.py
+
 Generated: 2025-12-13T15:09:21.000847
 Source: tests\test_network_backends.py
 
 ## Issues Summary
+
 Total: 49 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -58,13 +60,12 @@ Total: 49 issues found
 | 685 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**49 issues to fix:**
-
+### 49 issues to fix
 
 ### Issue at Line 147
 
@@ -72,8 +73,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="eth0", ip_address="192.168.1.100", netmask="255.255.255.0"
         )
 
@@ -81,12 +83,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_interface(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -97,8 +103,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "eth-001", ip_address="192.168.1.100", gateway="192.168.1.1"
         )
 
@@ -106,12 +113,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_enable_interface(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -122,8 +133,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_interface("eth-001")
 
@@ -131,12 +143,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_disable_interface(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -147,8 +163,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.disable_interface("eth-001")
 
@@ -156,12 +173,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_interface_stats(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -172,8 +193,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         stats = await mock_network_backend.get_interface_stats("eth-001")
 
@@ -181,12 +203,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_set_mtu(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -197,8 +223,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.set_mtu("eth-001", 9000)
 
@@ -206,12 +233,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_interfaces(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -222,8 +253,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.list_interfaces()
 
@@ -231,12 +263,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_delete_interface(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -247,21 +283,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.delete_interface("eth-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -272,8 +312,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="br0", network_type=NetworkType.BRIDGE, cidr="192.168.1.0/24"
         )
 
@@ -281,12 +322,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_nat_network(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -297,8 +342,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="nat0", network_type=NetworkType.NAT, cidr="192.168.100.0/24"
         )
 
@@ -306,12 +352,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_create_vlan(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -322,8 +372,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="vlan100", vlan_id=100, parent_interface="eth0"
         )
 
@@ -331,12 +382,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_network_info(self, mock_network_backend, virtual_network):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -347,8 +402,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         network = await mock_network_backend.get_network("net-001")
 
@@ -356,12 +412,16 @@ Items marked below as fixed:
         assert network.state == NetworkState.ACTIVE
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -372,8 +432,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         network = await mock_network_backend.get_network("net-001")
 
         assert network.network_id == "net-001"
@@ -381,12 +442,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_networks(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -397,8 +462,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.list_networks()
 
@@ -406,12 +472,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_delete_network(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -422,8 +492,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.delete_network("net-001")
 
@@ -431,12 +502,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_connect_vm_to_network(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -447,8 +522,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", "net-001", ip_address="192.168.1.100"
         )
 
@@ -456,12 +532,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_disconnect_vm_from_network(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -472,21 +552,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.disconnect_vm("vm-001", "net-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -497,8 +581,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _destination="10.0.0.0/24", gateway="192.168.1.1", metric=10
         )
 
@@ -506,12 +591,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_delete_route(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -522,8 +611,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.delete_route("route-001")
 
@@ -531,12 +621,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_routes(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -547,8 +641,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.list_routes()
 
@@ -556,12 +651,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_enable_ip_forwarding(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -572,8 +671,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_forwarding()
 
@@ -581,12 +681,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_enable_nat(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -597,8 +701,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_nat("eth0", "192.168.1.0/24")
 
@@ -606,12 +711,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_dns(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -622,8 +731,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _nameservers=["8.8.8.8", "8.8.4.4"]
         )
 
@@ -631,12 +741,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_routing_table(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -647,21 +761,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         table = await mock_network_backend.get_routing_table()
 
         assert len(table) > 0
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -672,8 +790,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             backend_pool=["vm-001", "vm-002"],
         )
 
@@ -681,12 +800,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_add_backend_pool_member(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -697,8 +820,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.add_pool_member("lb-001", "vm-003")
 
@@ -706,12 +830,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_remove_backend_pool_member(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -722,8 +850,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.remove_pool_member("lb-001", "vm-001")
 
@@ -731,12 +860,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_health_check(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -747,8 +880,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.health_check("lb-001")
 
@@ -756,12 +890,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_failover_detection(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -772,8 +910,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.detect_failover("lb-001")
 
@@ -781,12 +920,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_automatic_failover(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -797,8 +940,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "lb-001", failed_member="vm-001"
         )
 
@@ -806,12 +950,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_session_persistence(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -822,8 +970,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_persistence("lb-001", timeout=3600)
 
@@ -831,12 +980,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_lb_statistics(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -847,21 +1000,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         stats = await mock_network_backend.get_lb_stats("lb-001")
 
         assert "active_connections" in stats
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -872,8 +1029,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_isolation("net-001")
 
@@ -881,12 +1039,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_firewall_rules(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -897,8 +1059,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _action="accept",
         )
 
@@ -906,12 +1069,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_network_acl(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -922,8 +1089,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             network="net-001", rule_number=100, cidr="192.168.1.0/24", action="allow"
         )
 
@@ -931,12 +1099,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_security_group(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -947,8 +1119,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="web-sg", description="Security group for web tier"
         )
 
@@ -956,12 +1129,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_enable_ddos_protection(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -972,8 +1149,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.enable_ddos_protection("net-001")
 
@@ -981,12 +1159,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_configure_packet_filtering(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -997,21 +1179,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "eth-001", filter_type="stateful"
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1022,8 +1208,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _interface="eth0", filter="tcp port 80"
         )
 
@@ -1031,12 +1218,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_network_latency_test(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1047,8 +1238,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         latency = await mock_network_backend.measure_latency(target="192.168.1.100")
 
@@ -1056,12 +1248,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_bandwidth_test(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1072,8 +1268,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         bandwidth = await mock_network_backend.measure_bandwidth()
 
@@ -1081,12 +1278,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_traceroute(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1097,8 +1298,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_network_backend.traceroute("8.8.8.8")
 
@@ -1106,12 +1308,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_network_stats(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1122,21 +1328,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         stats = await mock_network_backend.get_network_stats()
 
         assert "packets_sent" in stats
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1147,8 +1357,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         net_id = await mock_network_backend.create_network(
             "br0", NetworkType.BRIDGE, "192.168.1.0/24"
         )
@@ -1156,12 +1367,16 @@ Items marked below as fixed:
 
         # Create interface
         if_id = await mock_network_backend.create_interface(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1172,8 +1387,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         if_id = await mock_network_backend.create_interface(
             "eth0", "192.168.1.100", "255.255.255.0"
         )
@@ -1181,12 +1397,16 @@ Items marked below as fixed:
 
         # Configure interface
         cfg = await mock_network_backend.configure_interface(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1197,8 +1417,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         cfg = await mock_network_backend.configure_interface(
             if_id, "192.168.1.100", "192.168.1.1"
         )
@@ -1206,12 +1427,16 @@ Items marked below as fixed:
 
         # Connect VM
         vm_conn = await mock_network_backend.connect_vm(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1222,8 +1447,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         vm_conn = await mock_network_backend.connect_vm(
             "vm-001", net_id, "192.168.1.100"
         )
@@ -1231,12 +1457,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_failover_workflow(self, mock_network_backend):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1247,8 +1477,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         lb = await mock_network_backend.create_lb(
             "lb-test", "round-robin", ["vm-001", "vm-002"]
         )
@@ -1256,12 +1487,16 @@ Items marked below as fixed:
 
         health = await mock_network_backend.health_check(lb)
         assert health is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1272,21 +1507,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert lb == "lb-001"
 
         health = await mock_network_backend.health_check(lb)
         assert health is True
 
-
 if __name__ == "__main__":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

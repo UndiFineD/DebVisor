@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_phase6_vnc.py
+
 Generated: 2025-12-13T15:09:43.397091
 Source: tests\test_phase6_vnc.py
 
 ## Issues Summary
+
 Total: 67 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -76,13 +78,12 @@ Total: 67 issues found
 | 789 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**67 issues to fix:**
-
+### 67 issues to fix
 
 ### Issue at Line 123
 
@@ -90,8 +91,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _vm_id="vm-001", user="testuser", server_config=vnc_server
         )
 
@@ -99,12 +101,16 @@ Items marked below as fixed:
         mock_vnc_manager.create_session.assert_called_once()
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -115,8 +121,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         session = await mock_vnc_manager.get_session("session-vnc-001")
 
@@ -124,12 +131,16 @@ Items marked below as fixed:
         assert session.vm_id == "vm-test-001"
         assert session.authenticated is True
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -140,8 +151,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         session = await mock_vnc_manager.get_session("session-vnc-001")
 
         assert session.session_id == "session-vnc-001"
@@ -149,12 +161,16 @@ Items marked below as fixed:
         assert session.authenticated is True
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -165,8 +181,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         assert session.session_id == "session-vnc-001"
         assert session.vm_id == "vm-test-001"
@@ -174,12 +191,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_active_sessions(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -190,8 +211,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.list_sessions()
 
@@ -199,12 +221,16 @@ Items marked below as fixed:
         assert all(s.authenticated for s in result)
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -215,8 +241,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = await mock_vnc_manager.list_sessions()
 
         assert len(result) == 3
@@ -224,12 +251,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_terminate_session(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -240,8 +271,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.terminate_session("session-vnc-001")
 
@@ -249,12 +281,16 @@ Items marked below as fixed:
         mock_vnc_manager.terminate_session.assert_called_once_with("session-vnc-001")
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -265,8 +301,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.handle_session_timeout("session-vnc-001", 300)
 
@@ -274,12 +311,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_session_heartbeat(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -290,8 +331,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.send_heartbeat("session-vnc-001")
 
@@ -299,12 +341,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_concurrent_sessions(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -315,8 +361,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         count = await mock_vnc_manager.get_active_connection_count()
 
@@ -324,12 +371,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_session_metadata_update(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -340,21 +391,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", {"connection_quality": "medium"}
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -365,8 +420,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "password123"
         )
 
@@ -374,12 +430,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_certificate_authentication(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -390,8 +450,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", cert_data="mock_cert"
         )
 
@@ -399,12 +460,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_authentication_failure(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -415,8 +480,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "wrong_password"
         )
 
@@ -424,12 +490,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_tls_encryption_negotiation(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -440,8 +510,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.negotiate_encryption("session-vnc-001")
 
@@ -449,12 +520,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_authentication_retry_limit(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -465,8 +540,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.check_retry_limit("session-vnc-001")
 
@@ -474,12 +550,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_session_hijacking_prevention(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -490,8 +570,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.validate_session_integrity("session-vnc-001")
 
@@ -499,12 +580,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_ip_whitelist_validation(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -515,8 +600,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "192.168.1.100"
         )
 
@@ -524,12 +610,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_role_based_access_control(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -540,21 +630,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -565,8 +659,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.send_keyboard_input("session-vnc-001", "test")
 
@@ -574,12 +669,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_mouse_input(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -590,8 +689,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", x=100, y=200, buttons=1
         )
 
@@ -599,12 +699,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_framebuffer_update(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -615,8 +719,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.receive_framebuffer_update("session-vnc-001")
 
@@ -624,12 +729,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_copy_paste_support(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -640,8 +749,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "clipboard content"
         )
 
@@ -649,12 +759,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_clipboard_text(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -665,8 +779,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.get_clipboard_text("session-vnc-001")
 
@@ -674,12 +789,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_special_key_handling(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -690,8 +809,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", ["ctrl", "alt", "del"]
         )
 
@@ -699,12 +819,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_input_validation(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -715,21 +839,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "test<script>"
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -740,8 +868,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.negotiate_compression("session-vnc-001")
 
@@ -749,12 +878,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_framebuffer_compression(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -765,8 +898,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", quality=75
         )
 
@@ -774,12 +908,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_bandwidth_monitoring(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -790,8 +928,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.get_bandwidth_usage("session-vnc-001")
 
@@ -799,12 +938,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_latency_measurement(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -815,8 +958,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.measure_latency("session-vnc-001")
 
@@ -824,12 +968,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_adaptive_quality(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -840,8 +988,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", enabled=True
         )
 
@@ -849,12 +998,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_connection_pool_management(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -865,8 +1018,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.get_connection_pool_stats()
 
@@ -874,12 +1028,16 @@ Items marked below as fixed:
         assert result["idle"] == 3
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -890,8 +1048,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = await mock_vnc_manager.get_connection_pool_stats()
 
         assert result["active"] == 5
@@ -899,12 +1058,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_performance_profiling(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -915,21 +1078,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.profile_session("session-vnc-001")
 
         assert result["fps"] == 30
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -940,8 +1107,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.handle_connection_timeout("session-vnc-001")
 
@@ -949,12 +1117,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_network_error_handling(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -965,8 +1137,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", error="connection_reset"
         )
 
@@ -974,12 +1147,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_graceful_disconnection(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -990,8 +1167,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.graceful_disconnect("session-vnc-001")
 
@@ -999,12 +1177,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_automatic_reconnection(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1015,8 +1197,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", max_retries=3
         )
 
@@ -1024,12 +1207,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_error_logging(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1040,8 +1227,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "error_code", "error message"
         )
 
@@ -1049,12 +1237,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_error_notification(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1065,8 +1257,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "Connection lost, attempting reconnection..."
         )
 
@@ -1074,12 +1267,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_circuit_breaker_pattern(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1090,8 +1287,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.check_circuit_breaker("session-vnc-001")
 
@@ -1099,12 +1297,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_fallback_mechanism(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1115,21 +1317,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.attempt_fallback("session-vnc-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1140,8 +1346,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", "running", create_console=True
         )
 
@@ -1149,12 +1356,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_console_initialization_on_vm_start(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1165,8 +1376,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.initialize_console("vm-001")
 
@@ -1174,12 +1386,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_console_cleanup_on_vm_stop(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1190,8 +1406,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.cleanup_console("vm-001")
 
@@ -1199,12 +1416,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_monitoring_integration(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1215,8 +1436,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", {"fps": 30, "bandwidth": 2.5}
         )
 
@@ -1224,12 +1446,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alerting_integration(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1240,8 +1466,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "high_latency", "session-vnc-001", severity="warning"
         )
 
@@ -1249,12 +1476,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_audit_logging_integration(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1265,8 +1496,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             {"action": "console_access", "vm_id": "vm-001"},
         )
 
@@ -1274,12 +1506,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_permission_check_with_rbac(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1290,8 +1526,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "testuser", "vm-001", "console_access"
         )
 
@@ -1299,12 +1536,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_multi_tenant_isolation(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1315,21 +1556,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", "tenant-001"
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1340,8 +1585,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", cycles=5
         )
 
@@ -1349,12 +1595,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_high_latency_scenarios(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1365,8 +1615,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", latency_ms=500
         )
 
@@ -1374,12 +1625,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_bandwidth_constraints(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1390,8 +1645,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", mbps=1
         )
 
@@ -1399,12 +1655,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_packet_loss_resilience(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1415,8 +1675,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", loss_percent=5
         )
 
@@ -1424,12 +1685,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_max_connections_handling(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1440,8 +1705,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.handle_max_connections()
 
@@ -1449,12 +1715,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_large_framebuffer_handling(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1465,8 +1735,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "session-vnc-001", resolution="4K"
         )
 
@@ -1474,12 +1745,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_concurrent_keyboard_mouse_input(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1490,21 +1765,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vnc_manager.handle_concurrent_input("session-vnc-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1515,8 +1794,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Execute workflow
         session_id = await mock_vnc_manager.create_session("vm-001", "testuser", None)
@@ -1524,12 +1804,16 @@ Items marked below as fixed:
 
         auth_result = await mock_vnc_manager.authenticate_password(
             session_id, "password"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1540,8 +1824,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         auth_result = await mock_vnc_manager.authenticate_password(
             session_id, "password"
         )
@@ -1549,12 +1834,16 @@ Items marked below as fixed:
 
         input_result = await mock_vnc_manager.send_keyboard_input(session_id, "test")
         assert input_result is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1565,8 +1854,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert auth_result is True
 
         input_result = await mock_vnc_manager.send_keyboard_input(session_id, "test")
@@ -1574,12 +1864,16 @@ Items marked below as fixed:
 
         term_result = await mock_vnc_manager.terminate_session(session_id)
         assert term_result is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1590,8 +1884,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert input_result is True
 
         term_result = await mock_vnc_manager.terminate_session(session_id)
@@ -1599,12 +1894,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_session_with_error_recovery(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1615,8 +1914,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         mock_vnc_manager.attempt_reconnection = AsyncMock(return_value=True)
 
         session_id = await mock_vnc_manager.create_session("vm-001", "testuser", None)
@@ -1624,12 +1924,16 @@ Items marked below as fixed:
 
         await mock_vnc_manager.handle_connection_timeout(session_id)
         recovery = await mock_vnc_manager.attempt_reconnection(session_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1640,8 +1944,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         await mock_vnc_manager.handle_connection_timeout(session_id)
         recovery = await mock_vnc_manager.attempt_reconnection(session_id)
@@ -1649,12 +1954,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_multi_session_management(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1665,8 +1974,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         active_sessions = await mock_vnc_manager.list_sessions()
 
@@ -1674,12 +1984,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_security_workflow(self, mock_vnc_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1690,8 +2004,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         ip_valid = await mock_vnc_manager.validate_ip_whitelist(
             session_id, "192.168.1.100"
         )
@@ -1699,12 +2014,16 @@ Items marked below as fixed:
 
         cert_auth = await mock_vnc_manager.authenticate_certificate(session_id, "cert")
         assert cert_auth is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1715,8 +2034,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert ip_valid is True
 
         cert_auth = await mock_vnc_manager.authenticate_certificate(session_id, "cert")
@@ -1724,12 +2044,16 @@ Items marked below as fixed:
 
         rbac = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
         assert rbac is True
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1740,21 +2064,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert cert_auth is True
 
         rbac = await mock_vnc_manager.check_rbac("testuser", "admin", "vm-001")
         assert rbac is True
 
-
 if __name__ == "__main__":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

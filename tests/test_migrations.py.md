@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_migrations.py
+
 Generated: 2025-12-13T15:09:01.232349
 Source: tests\test_migrations.py
 
 ## Issues Summary
+
 Total: 1 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -10,13 +12,12 @@ Total: 1 issues found
 | 18 | 0 | bandit | `B105` | LOW | Possible hardcoded password: 'test-key' |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**1 issues to fix:**
-
+### 1 issues to fix
 
 ### Issue at Line 18
 
@@ -24,8 +25,9 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'test-key'
 
-**Context:**
-```
+### Context
+
+```python
         # Use in-memory SQLite for speed and isolation
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -33,12 +35,16 @@ Items marked below as fixed:
 
         # Initialize extensions with test app
         db.init_app(self.app)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

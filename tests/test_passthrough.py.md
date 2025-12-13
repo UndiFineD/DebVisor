@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_passthrough.py
+
 Generated: 2025-12-13T15:09:27.474029
 Source: tests\test_passthrough.py
 
 ## Issues Summary
+
 Total: 42 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -51,13 +53,12 @@ Total: 42 issues found
 | 467 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**42 issues to fix:**
-
+### 42 issues to fix
 
 ### Issue at Line 179
 
@@ -65,8 +66,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_mock_devices_structure(self, mock_pci_devices):
         """Verify mock device data structure."""
@@ -74,12 +76,16 @@ Items marked below as fixed:
 
         gpu = mock_pci_devices[0]
         assert gpu.address == "0000:01:00.0"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -90,8 +96,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert len(mock_pci_devices) == 4
 
         gpu = mock_pci_devices[0]
@@ -99,12 +106,16 @@ Items marked below as fixed:
         assert gpu.vendor_id == "10de"
         assert gpu.device_class == "0300"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -115,8 +126,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         gpu = mock_pci_devices[0]
         assert gpu.address == "0000:01:00.0"
@@ -124,12 +136,16 @@ Items marked below as fixed:
         assert gpu.device_class == "0300"
 
     def test_iommu_group_isolation(self, mock_iommu_groups):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -140,8 +156,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         gpu = mock_pci_devices[0]
         assert gpu.address == "0000:01:00.0"
         assert gpu.vendor_id == "10de"
@@ -149,12 +166,16 @@ Items marked below as fixed:
 
     def test_iommu_group_isolation(self, mock_iommu_groups):
         """Test IOMMU group isolation detection."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -165,8 +186,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_iommu_group_isolation(self, mock_iommu_groups):
         """Test IOMMU group isolation detection."""
         # Group 1 has 2 devices (not isolated)
@@ -174,12 +196,16 @@ Items marked below as fixed:
 
         # Group 2 has 1 device (isolated)
         assert mock_iommu_groups[2].is_isolated
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -190,8 +216,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert not mock_iommu_groups[1].is_isolated
 
         # Group 2 has 1 device (isolated)
@@ -199,12 +226,16 @@ Items marked below as fixed:
 
         # Group 3 has 1 device (isolated)
         assert mock_iommu_groups[3].is_isolated
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -215,8 +246,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert mock_iommu_groups[2].is_isolated
 
         # Group 3 has 1 device (isolated)
@@ -224,12 +256,16 @@ Items marked below as fixed:
 
     def test_device_count_per_group(self, mock_iommu_groups):
         """Verify correct device count per IOMMU group."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -240,8 +276,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_device_count_per_group(self, mock_iommu_groups):
         """Verify correct device count per IOMMU group."""
@@ -249,12 +286,16 @@ Items marked below as fixed:
         assert len(mock_iommu_groups[2].devices) == 1    # USB
         assert len(mock_iommu_groups[3].devices) == 1    # NVMe
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -265,8 +306,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_device_count_per_group(self, mock_iommu_groups):
         """Verify correct device count per IOMMU group."""
         assert len(mock_iommu_groups[1].devices) == 2    # GPU + Audio
@@ -274,12 +316,16 @@ Items marked below as fixed:
         assert len(mock_iommu_groups[3].devices) == 1    # NVMe
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -290,8 +336,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Verify correct device count per IOMMU group."""
         assert len(mock_iommu_groups[1].devices) == 2    # GPU + Audio
         assert len(mock_iommu_groups[2].devices) == 1    # USB
@@ -299,12 +346,16 @@ Items marked below as fixed:
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -315,8 +366,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             with patch("glob.glob", return_value=[]):
                 devices = passthrough_manager.scan_devices()
                 # On non-Linux or mock, returns empty or mock data
@@ -324,12 +376,16 @@ Items marked below as fixed:
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -340,21 +396,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with patch("os.path.exists", return_value=False):
             devices = passthrough_manager.scan_devices()
             # Should return mock devices
             assert isinstance(devices, list)
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -365,8 +425,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_gaming_profile_classes(self) -> None:
         """Verify gaming profile device classes."""
         gaming_classes = ["0300", "0403"]    # VGA + Audio
@@ -374,12 +435,16 @@ Items marked below as fixed:
         assert "0403" in gaming_classes
 
     def test_ai_profile_classes(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -390,8 +455,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Verify gaming profile device classes."""
         gaming_classes = ["0300", "0403"]    # VGA + Audio
         assert "0300" in gaming_classes
@@ -399,12 +465,16 @@ Items marked below as fixed:
 
     def test_ai_profile_classes(self) -> None:
         """Verify AI/ML profile device classes."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -415,8 +485,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_ai_profile_classes(self) -> None:
         """Verify AI/ML profile device classes."""
         ai_classes = ["0300", "0302"]    # VGA + 3D Controller
@@ -424,12 +495,16 @@ Items marked below as fixed:
 
     def test_filter_devices_by_class(self, mock_pci_devices):
         """Test filtering devices by class code."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -440,8 +515,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_filter_devices_by_class(self, mock_pci_devices):
         """Test filtering devices by class code."""
         vga_devices = [d for d in mock_pci_devices if d.device_class == "0300"]
@@ -449,12 +525,16 @@ Items marked below as fixed:
         assert vga_devices[0].device_name == "NVIDIA GeForce RTX 3070"
 
     def test_filter_devices_by_vendor(self, mock_pci_devices):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -465,8 +545,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test filtering devices by class code."""
         vga_devices = [d for d in mock_pci_devices if d.device_class == "0300"]
         assert len(vga_devices) == 1
@@ -474,12 +555,16 @@ Items marked below as fixed:
 
     def test_filter_devices_by_vendor(self, mock_pci_devices):
         """Test filtering devices by vendor ID."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -490,21 +575,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_filter_devices_by_vendor(self, mock_pci_devices):
         """Test filtering devices by vendor ID."""
         nvidia_devices = [d for d in mock_pci_devices if d.vendor_id == "10de"]
         assert len(nvidia_devices) == 2    # GPU + Audio
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -515,8 +604,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_device_driver_detection(self, mock_pci_devices):
         """Verify current driver detection."""
         gpu = mock_pci_devices[0]
@@ -524,12 +614,16 @@ Items marked below as fixed:
 
     def test_vfio_bound_check(self, mock_pci_devices):
         """Test VFIO bound status detection."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -540,8 +634,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test VFIO bound status detection."""
         for device in mock_pci_devices:
             is_vfio_bound = device.driver_in_use == "vfio-pci"
@@ -549,12 +644,16 @@ Items marked below as fixed:
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -565,8 +664,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             # passthrough_manager.bind_to_vfio(device.address)
             result = {"success": True, "message": "Simulated bind"}
 
@@ -574,12 +674,16 @@ Items marked below as fixed:
 
     @pytest.mark.skipif(not HAS_PASSTHROUGH, reason="PassthroughManager not available")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -590,21 +694,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             # Simulate unbind operation
             result = {"success": True, "message": "Simulated unbind"}
 
             assert result["success"] is True
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -615,8 +723,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
 
         for addr in invalid_addresses:
@@ -624,12 +733,16 @@ Items marked below as fixed:
 
     def test_valid_pci_address_format(self) -> None:
         """Test validation of correct PCI address format."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -640,8 +753,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         valid_pattern = r"^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\.[0-9]$"
 
         for addr in valid_addresses:
@@ -649,12 +763,16 @@ Items marked below as fixed:
 
     def test_device_not_found(self, passthrough_manager, mock_pci_devices):
         """Test handling of non-existent device."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -665,8 +783,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             (d for d in mock_pci_devices if d.address == non_existent_address), None
         )
 
@@ -674,12 +793,16 @@ Items marked below as fixed:
 
     def test_permission_denied_simulation(self) -> None:
         """Test handling of permission denied errors."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -690,8 +813,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_list_devices_endpoint(self, client):
         """Test /passthrough/api/devices endpoint."""
         response = client.get("/passthrough/api/devices")
@@ -699,12 +823,16 @@ Items marked below as fixed:
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -715,8 +843,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_list_gpus_endpoint(self, client):
         """Test /passthrough/api/gpus endpoint."""
         response = client.get("/passthrough/api/gpus")
@@ -724,12 +853,16 @@ Items marked below as fixed:
 
     @pytest.mark.skip(reason="Requires full Flask app setup")
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -740,8 +873,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test input validation for device binding."""
         # Missing address
         response = client.post("/passthrough/api/bind", json={})
@@ -749,12 +883,16 @@ Items marked below as fixed:
 
         # Invalid address format
         response = client.post("/passthrough/api/bind", json={"address": "invalid"})
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -765,21 +903,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Invalid address format
         response = client.post("/passthrough/api/bind", json={"address": "invalid"})
         assert response.status_code == 400
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -790,8 +932,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         filtered = [d for d in large_device_list if d.device_class == "0300"]
         elapsed = time.time() - start
 
@@ -799,12 +942,16 @@ Items marked below as fixed:
         assert len(filtered) == 25
 
     def test_iommu_group_building_performance(self, mock_pci_devices):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -815,8 +962,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         elapsed = time.time() - start
 
         assert elapsed < 0.1    # Should complete in under 100ms
@@ -824,12 +972,16 @@ Items marked below as fixed:
 
     def test_iommu_group_building_performance(self, mock_pci_devices):
         """Test IOMMU group building is efficient."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -840,21 +992,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             groups[group_id].append(device)
         elapsed = time.time() - start
 
         assert elapsed < 0.1    # Should complete in under 100ms
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -865,8 +1021,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     def test_mock_devices_available(self, mock_pci_devices):
         """Verify mock devices are properly configured."""
@@ -874,12 +1031,16 @@ Items marked below as fixed:
 
         # Check device types present
         classes = {d.device_class for d in mock_pci_devices}
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -890,8 +1051,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check device types present
         classes = {d.device_class for d in mock_pci_devices}
@@ -899,12 +1061,16 @@ Items marked below as fixed:
         assert "0c03" in classes    # USB
         assert "0108" in classes    # NVMe
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -915,8 +1081,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Check device types present
         classes = {d.device_class for d in mock_pci_devices}
         assert "0300" in classes    # VGA
@@ -924,12 +1091,16 @@ Items marked below as fixed:
         assert "0108" in classes    # NVMe
 
     def test_mock_mode_returns_valid_structure(
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -940,8 +1111,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         classes = {d.device_class for d in mock_pci_devices}
         assert "0300" in classes    # VGA
         assert "0c03" in classes    # USB
@@ -949,12 +1121,16 @@ Items marked below as fixed:
 
     def test_mock_mode_returns_valid_structure(
         self, mock_pci_devices, mock_iommu_groups
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -965,8 +1141,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test mock mode returns valid data structure."""
         # Verify devices have all required fields
         for device in mock_pci_devices:
@@ -974,12 +1151,16 @@ Items marked below as fixed:
             assert device.vendor_id
             assert device.product_id
             assert device.iommu_group >= 0
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -990,8 +1171,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify devices have all required fields
         for device in mock_pci_devices:
             assert device.address
@@ -999,12 +1181,16 @@ Items marked below as fixed:
             assert device.product_id
             assert device.iommu_group >= 0
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1015,8 +1201,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         for device in mock_pci_devices:
             assert device.address
             assert device.vendor_id
@@ -1024,12 +1211,16 @@ Items marked below as fixed:
             assert device.iommu_group >= 0
 
         # Verify groups have valid structure
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1040,8 +1231,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             assert device.address
             assert device.vendor_id
             assert device.product_id
@@ -1049,12 +1241,16 @@ Items marked below as fixed:
 
         # Verify groups have valid structure
         for group_id, group in mock_iommu_groups.items():
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1065,21 +1261,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Verify groups have valid structure
         for group_id, group in mock_iommu_groups.items():
             assert group.id == group_id
             assert len(group.devices) > 0
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1090,21 +1290,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Verify groups have valid structure
         for group_id, group in mock_iommu_groups.items():
             assert group.id == group_id
             assert len(group.devices) > 0
 
-
 # =============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

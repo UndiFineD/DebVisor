@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_hvctl_xen.py
+
 Generated: 2025-12-13T15:08:51.152978
 Source: tests\test_hvctl_xen.py
 
 ## Issues Summary
+
 Total: 6 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -15,13 +17,12 @@ Total: 6 issues found
 | 43 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**6 issues to fix:**
-
+### 6 issues to fix
 
 ### Issue at Line 24
 
@@ -29,8 +30,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     # Verify virsh was called with -c xen:///system
     args, _ = mock_run.call_args
     cmd = args[0]
@@ -38,12 +40,16 @@ Items marked below as fixed:
     assert cmd[1] == "-c"
     assert cmd[2] == "xen:///system"
 
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -54,21 +60,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     args, _ = mock_run.call_args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "xen:///system"
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -79,21 +89,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "xen:///system"
 
-
 @patch("subprocess.run")
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -104,20 +118,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
     args, _ = mock_run.call_args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "qemu:///system"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -128,19 +147,24 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     args, _ = mock_run.call_args
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "qemu:///system"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -151,18 +175,23 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     cmd = args[0]
     assert cmd[0] == "virsh"
     assert cmd[1] == "-c"
     assert cmd[2] == "qemu:///system"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

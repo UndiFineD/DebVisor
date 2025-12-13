@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_phase6_vm.py
+
 Generated: 2025-12-13T15:09:40.268662
 Source: tests\test_phase6_vm.py
 
 ## Issues Summary
+
 Total: 59 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -68,13 +70,12 @@ Total: 59 issues found
 | 720 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**59 issues to fix:**
-
+### 59 issues to fix
 
 ### Issue at Line 137
 
@@ -82,8 +83,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _name="test-vm", resources=vm_resource, owner="testuser"
         )
 
@@ -91,12 +93,16 @@ Items marked below as fixed:
         mock_vm_manager.create_vm.assert_called_once()
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -107,8 +113,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         state = await mock_vm_manager.start_vm("vm-001")
 
@@ -116,12 +123,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_stop_vm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -132,8 +143,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         state = await mock_vm_manager.stop_vm("vm-001")
 
@@ -141,12 +153,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_pause_vm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -157,8 +173,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         state = await mock_vm_manager.pause_vm("vm-001")
 
@@ -166,12 +183,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_resume_vm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -182,8 +203,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         state = await mock_vm_manager.resume_vm("vm-001")
 
@@ -191,12 +213,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_reboot_vm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -207,8 +233,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         state = await mock_vm_manager.reboot_vm("vm-001")
 
@@ -216,12 +243,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_delete_vm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -232,8 +263,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.delete_vm("vm-001")
 
@@ -241,12 +273,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_vm_info(self, mock_vm_manager, vm_instance):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -257,8 +293,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         vm = await mock_vm_manager.get_vm("vm-001")
 
@@ -266,12 +303,16 @@ Items marked below as fixed:
         assert vm.name == "test-vm"
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -282,8 +323,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         vm = await mock_vm_manager.get_vm("vm-001")
 
         assert vm.vm_id == "vm-001"
@@ -291,12 +333,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_vms(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -307,8 +353,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.list_vms()
 
@@ -316,12 +363,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_vms_by_owner(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -332,21 +383,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.list_vms_by_owner("testuser")
 
         assert len(result) == 3
         assert all(vm.owner == "testuser" for vm in result)
 
+```python
 
-```
+### Proposal
 
-**Proposal:**
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -357,21 +412,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = await mock_vm_manager.list_vms_by_owner("testuser")
 
         assert len(result) == 3
         assert all(vm.owner == "testuser" for vm in result)
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -382,8 +441,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.resize_cpu("vm-001", vcpu=8)
 
@@ -391,12 +451,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_resize_vm_memory(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -407,8 +471,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.resize_memory("vm-001", memory_gb=16)
 
@@ -416,12 +481,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_expand_disk(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -432,8 +501,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.expand_disk("vm-001", additional_gb=50)
 
@@ -441,12 +511,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_add_network_interface(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -457,8 +531,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", network="network-01", ip_address="192.168.1.100"
         )
 
@@ -466,12 +541,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_add_gpu(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -482,8 +561,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.add_gpu("vm-001", gpu_type="nvidia-a100")
 
@@ -491,12 +571,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_remove_gpu(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -507,8 +591,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.remove_gpu("vm-001")
 
@@ -516,12 +601,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_resource_utilization(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -532,8 +621,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.get_resource_utilization("vm-001")
 
@@ -541,12 +631,16 @@ Items marked below as fixed:
         assert result["memory"] == 60
 
     @pytest.mark.asyncio
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -557,8 +651,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         result = await mock_vm_manager.get_resource_utilization("vm-001")
 
         assert result["cpu"] == 45
@@ -566,12 +661,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_set_resource_limits(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -582,21 +681,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", max_cpu_percent=80, max_memory_percent=85
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -607,8 +710,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         usage = await mock_vm_manager.get_cpu_usage("vm-001")
 
@@ -616,12 +720,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_vm_memory_usage(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -632,8 +740,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         usage = await mock_vm_manager.get_memory_usage("vm-001")
 
@@ -641,12 +750,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_vm_disk_usage(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -657,8 +770,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         usage = await mock_vm_manager.get_disk_usage("vm-001")
 
@@ -666,12 +780,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_vm_network_stats(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -682,8 +800,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         stats = await mock_vm_manager.get_network_stats("vm-001")
 
@@ -691,12 +810,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_health_check(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -707,8 +830,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.health_check("vm-001")
 
@@ -716,12 +840,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_get_uptime(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -732,8 +860,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         uptime = await mock_vm_manager.get_uptime("vm-001")
 
@@ -741,12 +870,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_detect_performance_anomalies(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -757,8 +890,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.detect_anomalies("vm-001")
 
@@ -766,12 +900,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_alert_on_resource_threshold(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -782,21 +920,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", threshold_type="cpu", threshold_value=90
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -807,8 +949,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", name="backup-001", description="Daily backup"
         )
 
@@ -816,12 +959,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_list_snapshots(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -832,8 +979,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.list_snapshots("vm-001")
 
@@ -841,12 +989,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_restore_from_snapshot(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -857,8 +1009,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.restore_snapshot("vm-001", "snap-001")
 
@@ -866,12 +1019,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_delete_snapshot(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -882,8 +1039,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.delete_snapshot("snap-001")
 
@@ -891,12 +1049,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_schedule_backup(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -907,8 +1069,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", schedule="daily", retention_days=30
         )
 
@@ -916,12 +1079,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_export_snapshot(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -932,8 +1099,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         export_id = await mock_vm_manager.export_snapshot("snap-001", format="qcow2")
 
@@ -941,12 +1109,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_import_snapshot(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -957,8 +1129,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-002", import_file="backup.qcow2"
         )
 
@@ -966,12 +1139,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_snapshot_consistency_check(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -982,21 +1159,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.verify_snapshot("snap-001")
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1007,8 +1188,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _source_vm_id="vm-001", clone_name="vm-clone"
         )
 
@@ -1016,12 +1198,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_migrate_vm_to_host(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1032,8 +1218,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.migrate_vm("vm-001", target_host="hypervisor-02")
 
@@ -1041,12 +1228,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_live_migration(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1057,8 +1248,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", target_host="hypervisor-02"
         )
 
@@ -1066,12 +1258,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_cold_migration(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1082,8 +1278,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", target_host="hypervisor-02"
         )
 
@@ -1091,12 +1288,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_migration_progress_tracking(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1107,8 +1308,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         progress = await mock_vm_manager.get_migration_progress("vm-001")
 
@@ -1116,12 +1318,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_migration_rollback(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1132,8 +1338,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.rollback_migration("vm-001")
 
@@ -1141,12 +1348,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_vm_template_creation(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1157,8 +1368,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", template_name="ubuntu-20.04"
         )
 
@@ -1166,12 +1378,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_vm_from_template(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1182,21 +1398,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             _template_id="template-001", vm_name="new-vm"
         )
 
         assert vm_id == "vm-003"
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1207,8 +1427,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.enable_secure_boot("vm-001")
 
@@ -1216,12 +1437,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_enable_tpm(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1232,8 +1457,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.enable_tpm("vm-001")
 
@@ -1241,12 +1467,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_set_vm_isolation_level(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1257,8 +1487,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.set_isolation_level("vm-001", "high")
 
@@ -1266,12 +1497,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_vm_compliance_scan(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1282,8 +1517,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         result = await mock_vm_manager.run_compliance_scan("vm-001")
 
@@ -1291,12 +1527,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_apply_security_policy(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1307,21 +1547,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "vm-001", policy_name="strict-security"
         )
 
         assert result is True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1332,8 +1576,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Create
         vm_id = await mock_vm_manager.create_vm("test-vm", vm_resource, "testuser")
@@ -1341,12 +1586,16 @@ Items marked below as fixed:
 
         # Start
         state = await mock_vm_manager.start_vm(vm_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1357,8 +1606,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Start
         state = await mock_vm_manager.start_vm(vm_id)
@@ -1366,12 +1616,16 @@ Items marked below as fixed:
 
         # Monitor
         utilization = await mock_vm_manager.get_resource_utilization(vm_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1382,8 +1636,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Monitor
         utilization = await mock_vm_manager.get_resource_utilization(vm_id)
@@ -1391,12 +1646,16 @@ Items marked below as fixed:
 
         # Stop
         state = await mock_vm_manager.stop_vm(vm_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1407,8 +1666,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Stop
         state = await mock_vm_manager.stop_vm(vm_id)
@@ -1416,12 +1676,16 @@ Items marked below as fixed:
 
         # Delete
         result = await mock_vm_manager.delete_vm(vm_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1432,8 +1696,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Delete
         result = await mock_vm_manager.delete_vm(vm_id)
@@ -1441,12 +1706,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_backup_restore_workflow(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1457,8 +1726,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         snapshot_id = await mock_vm_manager.create_snapshot(
             "vm-001", "backup-001", "Daily backup"
         )
@@ -1466,12 +1736,16 @@ Items marked below as fixed:
 
         # Restore
         result = await mock_vm_manager.restore_snapshot("vm-001", snapshot_id)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1482,8 +1756,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Restore
         result = await mock_vm_manager.restore_snapshot("vm-001", snapshot_id)
@@ -1491,12 +1766,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_migration_workflow(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1507,8 +1786,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         mock_vm_manager.get_migration_progress = AsyncMock(return_value=100)
 
         result = await mock_vm_manager.live_migrate("vm-001", "hypervisor-02")
@@ -1516,12 +1796,16 @@ Items marked below as fixed:
 
         progress = await mock_vm_manager.get_migration_progress("vm-001")
         assert progress == 100
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1532,8 +1816,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert result is True
 
         progress = await mock_vm_manager.get_migration_progress("vm-001")
@@ -1541,12 +1826,16 @@ Items marked below as fixed:
 
     @pytest.mark.asyncio
     async def test_scaling_workflow(self, mock_vm_manager):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---

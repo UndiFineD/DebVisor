@@ -1,8 +1,10 @@
 # Code Issues Report: tests\test_phase6_dns.py
+
 Generated: 2025-12-13T15:09:36.666962
 Source: tests\test_phase6_dns.py
 
 ## Issues Summary
+
 Total: 54 issues found
 
 | Line | Column | Tool | Code | Severity | Message |
@@ -63,13 +65,12 @@ Total: 54 issues found
 | 529 | 0 | bandit | `B101` | LOW | Use of assert detected. The enclosed code will be removed when compiling to optimised byte code. |
 
 ## Implementation Status
-Items marked below as fixed:
 
+Items marked below as fixed:
 
 ## Fix Proposals
 
-**54 issues to fix:**
-
+### 54 issues to fix
 
 ### Issue at Line 58
 
@@ -77,8 +78,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_tsig_key_validation_valid(self, tsig_key):
         """Test TSIG key validation with valid key."""
         # Valid TSIG key format: algorithm:keyname:keyvalue
@@ -86,12 +88,16 @@ Items marked below as fixed:
         parts = tsig_key.split(":")
         assert len(parts) == 3
         assert parts[0] == "hmac-sha256"
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -102,8 +108,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Valid TSIG key format: algorithm:keyname:keyvalue
         assert ":" in tsig_key
         parts = tsig_key.split(":")
@@ -111,12 +118,16 @@ Items marked below as fixed:
         assert parts[0] == "hmac-sha256"
 
     def test_tsig_key_validation_invalid_format(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -127,8 +138,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         assert ":" in tsig_key
         parts = tsig_key.split(":")
         assert len(parts) == 3
@@ -136,12 +148,16 @@ Items marked below as fixed:
 
     def test_tsig_key_validation_invalid_format(self) -> None:
         """Test TSIG key validation with invalid format."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -152,8 +168,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test TSIG key validation with invalid format."""
         invalid_key = "invalid-format"
         parts = invalid_key.split(":")
@@ -161,12 +178,16 @@ Items marked below as fixed:
 
     def test_tsig_key_validation_missing_algorithm(self) -> None:
         """Test TSIG key validation without algorithm."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -177,8 +198,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test TSIG key validation without algorithm."""
         invalid_key = "example.com:B64EncodedKeyHere=="
         parts = invalid_key.split(":")
@@ -186,12 +208,16 @@ Items marked below as fixed:
 
     def test_tsig_key_file_reading(self, temp_dns_dir, tsig_key):
         """Test reading TSIG key from file."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -202,8 +228,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(key_file, "r") as f:
             loaded_key = f.read().strip()
 
@@ -211,12 +238,16 @@ Items marked below as fixed:
 
     def test_tsig_key_file_permissions(self, temp_dns_dir, tsig_key):
         """Test TSIG key file has secure permissions."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -227,8 +258,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             f.write(tsig_key)
 
         # Check file exists and is readable
@@ -236,12 +268,16 @@ Items marked below as fixed:
         assert os.access(key_file, os.R_OK)
 
     def test_tsig_multiple_algorithms(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -252,8 +288,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Check file exists and is readable
         assert os.path.exists(key_file)
@@ -261,12 +298,16 @@ Items marked below as fixed:
 
     def test_tsig_multiple_algorithms(self) -> None:
         """Test TSIG support for different algorithms."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -277,21 +318,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         for algo in algorithms:
             parts = algo.split(":")
             assert len(parts) == 3
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -302,8 +347,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "timestamp": datetime.now().isoformat(),
         }
 
@@ -311,12 +357,16 @@ Items marked below as fixed:
         assert expected_record["ip"] == test_ip
 
     def test_propagation_check_multiple_servers(self, test_hostname, test_ip):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -327,8 +377,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         }
 
         assert expected_record["hostname"] == test_hostname
@@ -336,12 +387,16 @@ Items marked below as fixed:
 
     def test_propagation_check_multiple_servers(self, test_hostname, test_ip):
         """Test DNS propagation check across multiple servers."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -352,8 +407,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         for server in servers:
             results[server] = {"ip": test_ip, "ttl": 300}
 
@@ -361,12 +417,16 @@ Items marked below as fixed:
         assert all(r["ip"] == test_ip for r in results.values())
 
     def test_propagation_timeout_handling(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -377,8 +437,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             results[server] = {"ip": test_ip, "ttl": 300}
 
         assert len(results) == len(servers)
@@ -386,12 +447,16 @@ Items marked below as fixed:
 
     def test_propagation_timeout_handling(self) -> None:
         """Test handling of propagation check timeout."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -402,8 +467,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_propagation_timeout_handling(self) -> None:
         """Test handling of propagation check timeout."""
         timeout_seconds = 30
@@ -411,12 +477,16 @@ Items marked below as fixed:
 
     def test_propagation_retry_logic(self) -> None:
         """Test retry logic for propagation checks."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -427,8 +497,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         for attempt in range(max_retries):
             wait_time = retry_delay * (2**attempt)    # Exponential backoff
@@ -436,12 +507,16 @@ Items marked below as fixed:
 
     def test_propagation_success_criteria(self, test_hostname, test_ip):
         """Test success criteria for propagation verification."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -452,8 +527,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         }
 
         all_verified = all(ip == test_ip for ip in servers_verified.values())
@@ -461,12 +537,16 @@ Items marked below as fixed:
 
     def test_propagation_partial_success(self, test_hostname, test_ip):
         """Test handling of partial propagation."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -477,21 +557,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         success_rate = sum(
             1 for ip in servers_verified.values() if ip == test_ip
         ) / len(servers_verified)
         assert success_rate >= 0.66    # 2/3 servers updated (0.666...)
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -502,8 +586,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         original_ttl = 3600
         lowered_ttl = 300
 
@@ -511,12 +596,16 @@ Items marked below as fixed:
         assert lowered_ttl > 0
 
     def test_ttl_restore_after_update(self, test_hostname):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -527,8 +616,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         lowered_ttl = 300
 
         assert lowered_ttl < original_ttl
@@ -536,12 +626,16 @@ Items marked below as fixed:
 
     def test_ttl_restore_after_update(self, test_hostname):
         """Test restoring TTL after DNS update."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -552,8 +646,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Simulate update process
         updated_ttl = original_ttl    # Restore
@@ -561,12 +656,16 @@ Items marked below as fixed:
 
     def test_ttl_wait_time_calculation(self) -> None:
         """Test calculation of wait time based on TTL."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -577,8 +676,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Wait for propagation after lowering TTL
         wait_time = original_ttl + 300    # TTL + buffer
 
@@ -586,12 +686,16 @@ Items marked below as fixed:
         assert wait_time == 3900
 
     def test_ttl_values_valid_range(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -602,8 +706,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         wait_time = original_ttl + 300    # TTL + buffer
 
         assert wait_time > original_ttl
@@ -611,12 +716,16 @@ Items marked below as fixed:
 
     def test_ttl_values_valid_range(self) -> None:
         """Test TTL values are within valid range."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -627,8 +736,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         valid_ttls = [300, 600, 3600, 86400]
 
         for ttl in valid_ttls:
@@ -636,12 +746,16 @@ Items marked below as fixed:
 
     def test_ttl_invalid_values_rejected(self) -> None:
         """Test invalid TTL values are rejected."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -652,21 +766,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         invalid_ttls = [0, -100, 604801]
 
         for ttl in invalid_ttls:
             assert not (0 < ttl <= 604800)
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -677,8 +795,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(state_file, "r") as f:
             loaded_state = json.load(f)
 
@@ -686,12 +805,16 @@ Items marked below as fixed:
         assert loaded_state["new_ip"] == "192.168.1.50"
 
     def test_rollback_execution(self, temp_dns_dir):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -702,8 +825,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             loaded_state = json.load(f)
 
         assert loaded_state["old_ip"] == "192.168.1.40"
@@ -711,12 +835,16 @@ Items marked below as fixed:
 
     def test_rollback_execution(self, temp_dns_dir):
         """Test rollback execution."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -727,8 +855,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Simulate rollback: restore to old_ip
         rollback_ip = state["old_ip"]
@@ -736,12 +865,16 @@ Items marked below as fixed:
 
     def test_rollback_on_timeout(self) -> None:
         """Test automatic rollback on operation timeout."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -752,8 +885,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_rollback_on_timeout(self) -> None:
         """Test automatic rollback on operation timeout."""
         operation_timeout = 300    # 5 minutes
@@ -761,12 +895,16 @@ Items marked below as fixed:
 
     def test_rollback_on_propagation_failure(self) -> None:
         """Test rollback on propagation verification failure."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -777,8 +915,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             if attempt == max_verification_attempts - 1:
                 # Trigger rollback
                 should_rollback = True
@@ -786,12 +925,16 @@ Items marked below as fixed:
 
     def test_rollback_state_cleanup(self, temp_dns_dir):
         """Test cleanup of rollback state files."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -802,8 +945,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(state_file, "w") as f:
             json.dump({"test": "data"}, f)
 
@@ -811,12 +955,16 @@ Items marked below as fixed:
 
         # Clean up
         os.remove(state_file)
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -827,21 +975,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
 
         # Clean up
         os.remove(state_file)
         assert not os.path.exists(state_file)
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -852,8 +1004,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         dnssec_valid = True
 
         if dnssec_valid:
@@ -861,12 +1014,16 @@ Items marked below as fixed:
 
     def test_dnssec_chain_validation(self, test_hostname):
         """Test DNSSEC chain of trust validation."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -877,8 +1034,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         chain_valid = True
 
         if chain_valid:
@@ -886,12 +1044,16 @@ Items marked below as fixed:
 
     def test_dnssec_expired_signature_detection(self) -> None:
         """Test detection of expired DNSSEC signatures."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -902,8 +1064,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         sig_expiration = datetime.now() - timedelta(days=1)
         is_expired = sig_expiration < datetime.now()
 
@@ -911,12 +1074,16 @@ Items marked below as fixed:
 
     def test_dnssec_key_validation(self) -> None:
         """Test DNSSEC key validation."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -927,8 +1094,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         dnskey_valid = True
 
         if dnskey_valid:
@@ -936,12 +1104,16 @@ Items marked below as fixed:
 
     def test_dnssec_not_required_zones(self) -> None:
         """Test handling of zones without DNSSEC."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -952,21 +1124,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         _dnssec_enabled = False
 
         # Should still work without DNSSEC
         assert True
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -977,8 +1153,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             "result": "success",
         }
 
@@ -986,12 +1163,16 @@ Items marked below as fixed:
         assert _log_entry["result"] == "success"
 
     def test_audit_log_file_writing(self, temp_dns_dir, test_hostname):
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1002,8 +1183,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         }
 
         assert _log_entry["action"] == "update_dns"
@@ -1011,12 +1193,16 @@ Items marked below as fixed:
 
     def test_audit_log_file_writing(self, temp_dns_dir, test_hostname):
         """Test writing to audit log file."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1027,8 +1213,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(_log_file, "r") as f:
             lines = f.readlines()
 
@@ -1036,12 +1223,16 @@ Items marked below as fixed:
 
     def test_audit_log_includes_operator(self) -> None:
         """Test audit log includes operator information."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1052,8 +1243,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test audit log includes operator information."""
         log_entry = {"operator": "admin", "action": "update_dns"}
 
@@ -1061,12 +1253,16 @@ Items marked below as fixed:
         assert log_entry["operator"] == "admin"
 
     def test_audit_log_includes_timestamp(self) -> None:
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1077,8 +1273,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         log_entry = {"operator": "admin", "action": "update_dns"}
 
         assert "operator" in log_entry
@@ -1086,12 +1283,16 @@ Items marked below as fixed:
 
     def test_audit_log_includes_timestamp(self) -> None:
         """Test audit log includes timestamp."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1102,8 +1303,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         timestamp = datetime.now().isoformat()
         log_entry = {"timestamp": timestamp}
 
@@ -1111,12 +1313,16 @@ Items marked below as fixed:
 
     def test_audit_log_includes_result(self) -> None:
         """Test audit log includes operation result."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1127,21 +1333,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test audit log includes operation result."""
         log_entry = {"result": "success"}
 
         assert "result" in log_entry
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1152,8 +1362,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(state_file, "r") as f:
             loaded = json.load(f)
 
@@ -1161,12 +1372,16 @@ Items marked below as fixed:
 
     def test_state_recovery(self, temp_dns_dir):
         """Test recovery from saved state."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1177,8 +1392,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         with open(state_file, "r") as f:
             recovered = json.load(f)
 
@@ -1186,12 +1402,16 @@ Items marked below as fixed:
 
     def test_multiple_state_versions(self, temp_dns_dir):
         """Test handling multiple state file versions."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1202,21 +1422,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
             state = {"version": i, "data": f"state_{i}"}
             versions.append(state)
 
         assert len(versions) == 3
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1227,8 +1451,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_dns_server_unreachable(self) -> None:
         """Test handling of unreachable DNS server."""
         error = ConnectionError("DNS server unreachable")
@@ -1236,12 +1461,16 @@ Items marked below as fixed:
 
     def test_invalid_hostname(self) -> None:
         """Test handling of invalid hostname."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1252,8 +1481,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_invalid_hostname(self) -> None:
         """Test handling of invalid hostname."""
         invalid_hostname = "invalid..com"
@@ -1261,12 +1491,16 @@ Items marked below as fixed:
 
     def test_invalid_ip_address(self) -> None:
         """Test handling of invalid IP address."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1277,8 +1511,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         """Test handling of invalid IP address."""
         invalid_ip = "999.999.999.999"
         parts = invalid_ip.split(".")
@@ -1286,12 +1521,16 @@ Items marked below as fixed:
 
     def test_timeout_handling(self) -> None:
         """Test timeout error handling."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1302,8 +1541,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_timeout_handling(self) -> None:
         """Test timeout error handling."""
         timeout_error = TimeoutError("Operation timed out")
@@ -1311,12 +1551,16 @@ Items marked below as fixed:
 
     def test_permission_denied(self) -> None:
         """Test handling of permission denied."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1327,21 +1571,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
     def test_permission_denied(self) -> None:
         """Test handling of permission denied."""
         error = PermissionError("Permission denied")
         assert isinstance(error, Exception)
 
-
 # ============================================================================
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1352,8 +1600,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         # Step 4: Restore TTL
         ttl_restored = True
 
@@ -1361,12 +1610,16 @@ Items marked below as fixed:
 
     def test_update_with_tsig_and_dnssec(self) -> None:
         """Test DNS update with TSIG and DNSSEC validation."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1377,8 +1630,9 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         tsig_valid = True
         dnssec_valid = True
 
@@ -1386,12 +1640,16 @@ Items marked below as fixed:
 
     def test_rollback_workflow(self, temp_dns_dir):
         """Test complete rollback workflow."""
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
@@ -1402,21 +1660,25 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-**Context:**
-```
+### Context
+
+```python
         rollback_verified = True
         state_cleaned = True
 
         assert all([rollback_executed, rollback_verified, state_cleaned])
 
-
 if __name__ == "__main__":
-```
+```python
 
-**Proposal:**
+### Proposal
+
 - Review the issue message above
+
 - Consider the context code
+
 - Apply the appropriate fix (e.g., fix linting error, add type hints, improve security)
+
 - Ensure the fix aligns with the codebase style and the context.md guidelines
 
 ---
