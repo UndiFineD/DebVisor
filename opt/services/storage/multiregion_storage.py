@@ -516,10 +516,10 @@ class RBDMirrorManager:
         """Map common exception types to a failover error category."""
         if isinstance(exc, (asyncio.TimeoutError, TimeoutError)):
             return FailoverErrorCategory.TIMEOUT.value
-        if isinstance(exc, (ConnectionError, OSError)):
-            return FailoverErrorCategory.NETWORK.value
         if isinstance(exc, PermissionError):
             return FailoverErrorCategory.AUTH.value
+        if isinstance(exc, (ConnectionError, OSError)):
+            return FailoverErrorCategory.NETWORK.value
         if isinstance(exc, ssl.SSLError):
             # Inspect SSL exception details to categorize more accurately
             reason = getattr(exc, "reason", "").lower()
@@ -613,8 +613,8 @@ class RBDMirrorManager:
         except Exception as e:
             record.state=FailoverState.ERROR
             record.error_category=self._categorize_error(e)
-            record.error_message=f"Failover failed ({e.__class__.__name__}): {str(e)}"            record.completed_at=datetime.now(timezone.utc)
-            logger.error(f"Failover failed: {e}", exc_info=True)
+            record.error_message=f"Failover failed ({e.__class__.__name__}): {str(e)}"
+            record.completed_at=datetime.now(timezone.utc)            logger.error(f"Failover failed: {e}", exc_info=True)
 
         return record
 
