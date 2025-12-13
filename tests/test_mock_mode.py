@@ -3,7 +3,6 @@
 Test suite for DebVisor Mock Mode Infrastructure.
 """
 
-import pytest
 import json
 import os
 import tempfile

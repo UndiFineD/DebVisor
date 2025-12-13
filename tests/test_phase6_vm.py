@@ -11,7 +11,6 @@ This module provides comprehensive testing for VM management enhancements includ
 Test Coverage: 35+ tests across 6 test classes
 """
 
-import unittest
 import pytest
 from unittest.mock import AsyncMock
 from dataclasses import dataclass
