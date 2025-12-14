@@ -1,0 +1,9 @@
+# Ignore virtual environments and third-party packages
+.venv/
+.venv-*/
+**/.venv/**
+**/.venv-*/**
+
+# Ignore Python package metadata and site-packages
+**/site-packages/**
+**/*.dist-info/**

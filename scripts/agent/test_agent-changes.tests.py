@@ -1,8 +1,20 @@
-# GitHub Copilot (gh) Explanation:
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-For more information, visit:
-- Copilot CLI: https://github.com/github/copilot-cli
-- Deprecation announcement: https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension
+# Tests for agent-changes.tests.py
 
-No commands will be executed.
+
+def test_placeholder():
+    """Placeholder test - replace with actual tests."""
+    assert True
+
+# Add more tests here

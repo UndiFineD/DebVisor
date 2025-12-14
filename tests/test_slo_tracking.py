@@ -24,6 +24,7 @@ from services.slo_tracking import (
     track_availability_sli,
 )
 
+
 # =============================================================================
 # SLI Type Tests
 # =============================================================================
@@ -91,12 +92,12 @@ class TestSLIRecord:
     def test_record_creation(self) -> None:
         """Should create SLI record correctly."""
         now = datetime.now(timezone.utc)
-        _record = SLIRecord(
+        record = SLIRecord(
             sli_type=SLIType.LATENCY,
             service="api-gateway",
-            _operation = "get_user",
+            operation="get_user",
             value=150.0,
-            _timestamp = now,
+            timestamp=now,
             success=True,
             metadata={"endpoint": "/users/{id}"},
         )
@@ -130,15 +131,15 @@ class TestSLOViolation:
     def test_violation_creation(self) -> None:
         """Should create violation record correctly."""
         target = SLOTarget(
-            _name = "test-target", sli_type=SLIType.LATENCY, target_value=200.0
+            name="test-target", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         violation = SLOViolation(
             target=target,
             actual_value=350.0,
-            _expected_value = 200.0,
+            expected_value=200.0,
             severity="critical",
-            _message = "Latency exceeded target",
+            message="Latency exceeded target",
         )
 
         assert violation.target.name == "test-target"
@@ -213,15 +214,14 @@ class TestSLOTracker:
     """Test suite for SLO Tracker."""
 
     @pytest.fixture
-
-    def tracker(self) -> None:
+    def tracker(self) -> SLOTracker:
         """Create SLO tracker for testing."""
         return SLOTracker(service="test-service")
 
     def test_register_target(self, tracker):
         """Should register SLO target."""
         target = SLOTarget(
-            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
 
         tracker.register_target(target)
@@ -232,7 +232,7 @@ class TestSLOTracker:
         """Should record SLI measurement."""
         # Register target first
         target = SLOTarget(
-            _name = "test-latency", sli_type=SLIType.LATENCY, target_value=200.0
+            name="test-latency", sli_type=SLIType.LATENCY, target_value=200.0
         )
         tracker.register_target(target)
 
@@ -247,10 +247,10 @@ class TestSLOTracker:
     def test_check_compliance(self, tracker):
         """Should check SLO compliance."""
         target = SLOTarget(
-            _name = "test-latency",
+            name="test-latency",
             sli_type=SLIType.LATENCY,
-            _target_value = 200.0,
-            _threshold_type = "max",
+            target_value=200.0,
+            threshold_type="max",
         )
         tracker.register_target(target)
 
@@ -324,7 +324,7 @@ class TestSLIDecorators:
         """track_latency_sli should measure function execution time."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            _name = "op-latency", sli_type=SLIType.LATENCY, target_value=1000.0
+            name="op-latency", sli_type=SLIType.LATENCY, target_value=1000.0
         )
         tracker.register_target(target)
 
@@ -346,7 +346,7 @@ class TestSLIDecorators:
         """track_availability_sli should track success/failure."""
         tracker = SLOTracker(service="test")
         target = SLOTarget(
-            _name = "op-availability", sli_type=SLIType.AVAILABILITY, target_value=99.0
+            name="op-availability", sli_type=SLIType.AVAILABILITY, target_value=99.0
         )
         tracker.register_target(target)
 
@@ -416,7 +416,7 @@ class TestSLOIntegration:
 
         # Simulate some traffic
         for i in range(100):
-        # Most requests are fast
+            # Most requests are fast
             latency = 50.0 if i < 95 else 500.0    # 5% slow
             success = i < 98    # 2% failures
 
@@ -437,11 +437,12 @@ class TestSLOIntegration:
         # Check compliance (both should fail based on the data above)
         latency_compliance = tracker.check_compliance("latency-p99")
         availability_compliance = tracker.check_compliance("availability")
-        
+        assert latency_compliance is not None
+        assert availability_compliance is not None
         # Latency p99 is 500ms > 200ms target, so should fail
-        assert latency_compliance is False
+        assert latency_compliance.compliant is False
         # Availability is 98% < 99.9% target, so should fail
-        assert availability_compliance is False
+        assert availability_compliance.compliant is False
 
         # Get overall summary
         summary = tracker.get_summary()

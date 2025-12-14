@@ -1,0 +1,18 @@
+# markdownlint-cli2 configuration
+# - Uses existing rule config in .markdownlint.jsonc
+# - Ignores virtualenv and third-party content (site-packages, dist-info)
+
+config: ".markdownlint.jsonc"
+
+globs:
+  - "**/*.md"
+  - "**/*.mdx"
+  - "**/*.markdown"
+
+ignores:
+  - ".git/**"
+  - "node_modules/**"
+  - ".venv/**"
+  - ".venv-*/**"
+  - "**/site-packages/**"
+  - "**/*.dist-info/**"

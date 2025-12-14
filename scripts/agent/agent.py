@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Agent: Orchestrates work among sub-agents for code improvement.
 
@@ -233,7 +245,8 @@ def test_placeholder():
 
 ## Add more tests here
 """
-            tests_file.write_text(fix_markdown_content(content), encoding='utf-8')
+            # Tests are Python files; do not run markdown normalization on them
+            tests_file.write_text(content, encoding='utf-8')
             print(f"[Agent] Created {tests_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -248,7 +261,7 @@ def test_placeholder():
             prompt = f"Update and expand the test suite for {code_file.name}"
 
         cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-tests.py'),
-               '--context', str(test_file_to_update), '--prompt', prompt]
+            '--context', str(test_file_to_update), '--prompt', prompt]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
