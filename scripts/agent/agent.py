@@ -350,10 +350,10 @@ def test_placeholder():
 
         for loop_iteration in range(1, self.loop + 1):
             print(f"[Agent] Starting loop iteration {loop_iteration}/{self.loop}")
-            
+
             for code_file in code_files:
                 self.process_file(code_file)
-            
+
             print(f"[Agent] Completed loop iteration {loop_iteration}/{self.loop}")
 
         # Final stats update
