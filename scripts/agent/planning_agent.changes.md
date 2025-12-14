@@ -1,5 +1,5 @@
 # AI Changelog Improvement Suggestions
-## Description: Improve the changelog for critic_agent
+## Description: Improve the changelog for planning_agent
 #
 ## Suggestions for improving changelogs:
 ## 1. Use consistent formatting with clear section headers (Added, Changed, Fixed, Removed)
@@ -21,4 +21,4 @@
 
 ## Changelog
 
-- Initial version of critic_agent.py
+- Initial version of planning_agent.py
