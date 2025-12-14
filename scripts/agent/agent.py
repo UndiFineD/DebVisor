@@ -87,10 +87,10 @@ class Agent:
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
 
-        # Filter to scripts directory if agents_only is True
+        # Filter to scripts/agent directory if agents_only is True
         if self.agents_only:
-            scripts_dir = self.repo_root / 'scripts'
-            code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
+            scripts_agent_dir = self.repo_root / 'scripts' / 'agent'
+            code_files = [f for f in code_files if f.is_relative_to(scripts_agent_dir)]
 
         code_files = sorted([f for f in code_files if not self._is_ignored(f)])
 
@@ -254,7 +254,7 @@ def test_placeholder():
         """Process a single code file through the improvement loop."""
         print(f"[Agent] Processing {code_file.relative_to(self.repo_root)}...")
 
-        max_iterations = self.loop if self.loop > 0 else 100
+        max_iterations = 1
         iteration = 0
         all_fixed = False
 
@@ -348,8 +348,18 @@ def test_placeholder():
         code_files = self.find_code_files()
         print(f"[Agent] Found {len(code_files)} code files to process")
 
-        for code_file in code_files:
-            self.process_file(code_file)
+        for loop_iteration in range(1, self.loop + 1):
+            print(f"[Agent] Starting loop iteration {loop_iteration}/{self.loop}")
+            
+            for code_file in code_files:
+                self.process_file(code_file)
+            
+            print(f"[Agent] Completed loop iteration {loop_iteration}/{self.loop}")
+
+        # Final stats update
+        print("[Agent] Final stats:")
+        self.run_stats_update(code_files)
+
 
 def main():
     parser = argparse.ArgumentParser(description='Agent: Orchestrates code improvement agents')
