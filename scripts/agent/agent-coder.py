@@ -9,29 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# AI Code Improvement Suggestions
-# Description: Improve the code for agent-coder.py
-#
-# Suggestions:
-# 1. Add comprehensive docstrings to all functions
-# 2. Implement proper error handling with try/except blocks
-# 3. Add type hints for better code clarity
-# 4. Break down complex functions into smaller, focused functions
-# 5. Add input validation and sanitization
-# 6. Implement logging for debugging and monitoring
-# 7. Add unit tests for all functions
-# 8. Follow PEP 8 style guidelines
-# 9. Add configuration management for customizable behavior
-# 10. Implement proper resource cleanup with context managers
-#
-# Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-# Original code preserved below:
-#
-
-
 """
 Coder Agent: Improves and updates code files.
 
@@ -55,37 +32,28 @@ with enhanced implementations.
 - Enhanced diff reporting
 """
 
-import subprocess
-from pathlib import Path
-import argparse
-import difflib
+from base_agent import BaseAgent, create_main_function
 
 
-def runSubagent(description: str, prompt: str, original_content: str = "") -> str:
-    """
-    Run a subagent using GitHub Copilot CLI to interact with GitHub Copilot.
+class CoderAgent(BaseAgent):
+    """Updates code files using AI assistance."""
 
-    Note: The new GitHub Copilot CLI (gh copilot) is designed for command suggestions,
-    not general code improvement. For code improvement, we fall back to basic suggestions.
+    def _get_default_content(self) -> str:
+        """Return default content for new code files."""
+        return "# Code file\n\n# Add code here\n"
 
-    Args:
-        description: Description of the task
-        prompt: The prompt to send to Copilot
-
-    Returns:
-        AI response as a string, or fallback suggestions
-    """
-    try:
-        # Check if gh command is available
-        subprocess.run(['gh', '--version'], capture_output=True, check=True)
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    def _get_fallback_response(self) -> str:
+        """Return fallback response when Copilot is unavailable."""
         return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
                 "# Original code preserved below:\n\n")
 
-    # The new Copilot CLI is for command suggestions, not code improvement
-    # For now, provide basic improvement suggestions
-    if "improve" in prompt.lower() or "code" in prompt.lower():
-        return f"""# AI Code Improvement Suggestions
+    def improve_content(self, prompt: str) -> str:
+        """Use AI to improve the code with specific coding suggestions."""
+        description = f"Improve the code for {self.file_path.name}"
+
+        # For code improvement, provide specific coding suggestions
+        if "improve" in prompt.lower() or "code" in prompt.lower():
+            fallback_suggestions = f"""# AI Code Improvement Suggestions
 # Description: {description}
 #
 # Suggestions:
@@ -101,86 +69,24 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Implement proper resource cleanup with context managers
 #
 # Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation."""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
+#
+# Original code preserved below:
+#
+{self.previous_content}"""
+            self.current_content = fallback_suggestions
+            return self.current_content
 
-    try:
-        # Try using gh copilot explain for code-related prompts
-        result = subprocess.run(
-            ['gh', 'copilot', 'explain', prompt[:200]],  # Limit prompt length
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-
-        if result.returncode == 0 and result.stdout.strip():
-            explanation = f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-            return explanation
-        else:
-            return "# Copilot CLI available but returned no useful response for code improvement."
-
-    except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed."
+        # For other prompts, use the base implementation
+        return super().improve_content(prompt)
 
 
-class CoderAgent:
-    """Updates code files using AI assistance."""
-
-    def __init__(self, code_file: str):
-        self.code_file = Path(code_file)
-        self.previous_code = ""
-        self.current_code = ""
-
-    def read_previous_code(self) -> str:
-        """Read the existing code file."""
-        if self.code_file.exists():
-            self.previous_code = self.code_file.read_text(encoding='utf-8')
-        else:
-            self.previous_code = "# Code file\n\n# Add code here\n"
-        return self.previous_code
-
-    def improve_code(self, prompt: str) -> str:
-        """Use AI to improve the code."""
-        description = f"Improve the code for {self.code_file.name}"
-        try:
-            improvement = runSubagent(description, prompt, self.previous_code)
-            self.current_code = improvement
-            return self.current_code
-        except Exception as e:
-            print(f"Warning: Failed to improve code: {e}")
-            self.current_code = self.previous_code
-            return self.current_code
-
-    def update_code_file(self):
-        """Write the improved code back to the file."""
-        self.code_file.write_text(self.current_code, encoding='utf-8')
-
-    def get_diff(self) -> str:
-        """Get the diff between previous and current code."""
-        diff = difflib.unified_diff(
-            self.previous_code.splitlines(keepends=True),
-            self.current_code.splitlines(keepends=True),
-            fromfile='previous',
-            tofile='current'
-        )
-        return ''.join(diff)
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Coder Agent: Updates code files')
-    parser.add_argument('--context', required=True, help='Path to the code file')
-    parser.add_argument('--prompt', required=True, help='Prompt for improving the code')
-    args = parser.parse_args()
-
-    agent = CoderAgent(args.context)
-    agent.read_previous_code()
-    agent.improve_code(args.prompt)
-    agent.update_code_file()
-    diff = agent.get_diff()
-    if diff:
-        print("Code updated:")
-        print(diff)
-    else:
-        print("No changes made to code.")
+# Create main function using the helper
+main = create_main_function(
+    CoderAgent,
+    'Coder Agent: Updates code files',
+    'Path to the code file'
+)
 
 
 if __name__ == '__main__':

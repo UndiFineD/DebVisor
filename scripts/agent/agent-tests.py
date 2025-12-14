@@ -9,28 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# AI Code Improvement Suggestions
-# Description: Improve the code for agent-tests.py
-#
-# Suggestions:
-# 1. Add comprehensive docstrings to all functions
-# 2. Implement proper error handling with try/except blocks
-# 3. Add type hints for better code clarity
-# 4. Break down complex functions into smaller, focused functions
-# 5. Add input validation and sanitization
-# 6. Implement logging for debugging and monitoring
-# 7. Add unit tests for all functions
-# 8. Follow PEP 8 style guidelines
-# 9. Add configuration management for customizable behavior
-# 10. Implement proper resource cleanup with context managers
-#
-# Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-# Original code preserved below:
-#
-
 """
 Tests Agent: Improves and updates code file test suites.
 
@@ -54,37 +32,28 @@ and updates the tests files with enhanced test coverage.
 - Enhanced diff reporting
 """
 
-import subprocess
-from pathlib import Path
-import argparse
-import difflib
+from base_agent import BaseAgent, create_main_function
 
 
-def runSubagent(description: str, prompt: str, original_content: str = "") -> str:
-    """
-    Run a subagent using GitHub Copilot CLI to interact with GitHub Copilot.
+class TestsAgent(BaseAgent):
+    """Updates code file test suites using AI assistance."""
 
-    Note: The new GitHub Copilot CLI (gh copilot) is designed for command suggestions,
-    not general content improvement. For test improvement, we fall back to basic suggestions.
+    def _get_default_content(self) -> str:
+        """Return default content for new test files."""
+        return "# Tests\n\nimport pytest\n\n# Add tests here\n"
 
-    Args:
-        description: Description of the task
-        prompt: The prompt to send to Copilot
-
-    Returns:
-        AI response as a string, or fallback suggestions
-    """
-    try:
-        # Check if gh command is available
-        subprocess.run(['gh', '--version'], capture_output=True, check=True)
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    def _get_fallback_response(self) -> str:
+        """Return fallback response when Copilot is unavailable."""
         return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from "
                 "https://cli.github.com/\n\n# Original test code preserved below:\n\n")
 
-    # The new Copilot CLI is for command suggestions, not content improvement
-    # For now, provide basic improvement suggestions for tests
-    if "improve" in prompt.lower() or "test" in prompt.lower():
-        return f"""# AI Test Improvement Suggestions
+    def improve_content(self, prompt: str) -> str:
+        """Use AI to improve the test suites with specific testing suggestions."""
+        description = f"Improve the test suite for {self.file_path.stem.replace('.tests', '')}"
+
+        # For test improvement, provide specific testing suggestions
+        if any(keyword in prompt.lower() for keyword in ["improve", "test"]):
+            fallback_suggestions = f"""# AI Test Improvement Suggestions
 # Description: {description}
 #
 # Suggestions for improving test suites:
@@ -100,85 +69,28 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Include automated test execution in CI/CD pipelines
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
+#
+# Original test code preserved below:
+#
+{self.previous_content}"""
+            self.current_content = fallback_suggestions
+            return self.current_content
 
-    try:
-        # Try using gh copilot explain for test-related prompts
-        result = subprocess.run(
-            ['gh', 'copilot', 'explain', prompt[:200]],  # Limit prompt length
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
+        # For other prompts, use the base implementation
+        return super().improve_content(prompt)
 
-        if result.returncode == 0 and result.stdout.strip():
-            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-        else:
-            return "# Copilot CLI available but returned no useful response for test improvement."
-
-    except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed."
+    def update_file(self):
+        """Write the improved content back to the file (no markdown fixing for test files)."""
+        self.file_path.write_text(self.current_content, encoding='utf-8')
 
 
-class TestsAgent:
-    """Updates code file test suites using AI assistance."""
-
-    def __init__(self, tests_file: str):
-        self.tests_file = Path(tests_file)
-        self.previous_tests = ""
-        self.current_tests = ""
-
-    def read_previous_tests(self) -> str:
-        """Read the existing tests file."""
-        if self.tests_file.exists():
-            self.previous_tests = self.tests_file.read_text(encoding='utf-8')
-        else:
-            self.previous_tests = "# Tests\n\nimport pytest\n\n# Add tests here\n"
-        return self.previous_tests
-
-    def improve_tests(self, prompt: str) -> str:
-        """Use AI to improve the tests."""
-        description = f"Improve the test suite for {self.tests_file.stem.replace('.tests', '')}"
-        try:
-            improvement = runSubagent(description, prompt, self.previous_tests)
-            self.current_tests = improvement
-            return self.current_tests
-        except Exception as e:
-            print(f"Warning: Failed to improve tests: {e}")
-            self.current_tests = self.previous_tests
-            return self.current_tests
-
-    def update_tests_file(self):
-        """Write the improved tests back to the file."""
-        self.tests_file.write_text(self.current_tests, encoding='utf-8')
-
-    def get_diff(self) -> str:
-        """Get the diff between previous and current tests."""
-        diff = difflib.unified_diff(
-            self.previous_tests.splitlines(keepends=True),
-            self.current_tests.splitlines(keepends=True),
-            fromfile='previous',
-            tofile='current'
-        )
-        return ''.join(diff)
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Tests Agent: Updates code file test suites')
-    parser.add_argument('--context', required=True, help='Path to the tests file (e.g., test_file.py)')
-    parser.add_argument('--prompt', required=True, help='Prompt for improving the test suite')
-    args = parser.parse_args()
-
-    agent = TestsAgent(args.context)
-    agent.read_previous_tests()
-    agent.improve_tests(args.prompt)
-    agent.update_tests_file()
-    diff = agent.get_diff()
-    if diff:
-        print("Tests updated:")
-        print(diff)
-    else:
-        print("No changes made to tests.")
+# Create main function using the helper
+main = create_main_function(
+    TestsAgent,
+    'Tests Agent: Updates code file test suites',
+    'Path to the tests file (e.g., test_file.py)'
+)
 
 
 if __name__ == '__main__':

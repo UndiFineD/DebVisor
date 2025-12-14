@@ -9,29 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# AI Code Improvement Suggestions
-# Description: Improve the code for agent-improvements.py
-#
-# Suggestions:
-# 1. Add comprehensive docstrings to all functions
-# 2. Implement proper error handling with try/except blocks
-# 3. Add type hints for better code clarity
-# 4. Break down complex functions into smaller, focused functions
-# 5. Add input validation and sanitization
-# 6. Implement logging for debugging and monitoring
-# 7. Add unit tests for all functions
-# 8. Follow PEP 8 style guidelines
-# 9. Add configuration management for customizable behavior
-# 10. Implement proper resource cleanup with context managers
-#
-# Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-# Original code preserved below:
-#
-
-
 """
 Improvements Agent: Improves and updates code file improvement suggestions.
 
@@ -55,42 +32,29 @@ with enhanced documentation.
 - Enhanced diff reporting
 """
 
-import subprocess
-from pathlib import Path
-import argparse
-import difflib
-import sys
-
-# Import markdown fixing functionality
-sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-from fix_markdown_lint import fix_markdown_content  # noqa: E402
+from base_agent import BaseAgent, create_main_function
 
 
-def runSubagent(description: str, prompt: str, original_content: str = "") -> str:
-    """
-    Run a subagent using GitHub Copilot CLI to interact with GitHub Copilot.
+class ImprovementsAgent(BaseAgent):
+    """Updates code file improvement suggestions using AI assistance."""
 
-    Note: The new GitHub Copilot CLI (gh copilot) is designed for command suggestions,
-    not general content improvement. For improvement suggestions, we fall back to basic suggestions.
+    def _get_default_content(self) -> str:
+        """Return default content for new improvement files."""
+        return "# Improvements\n\nNo improvements suggested.\n"
 
-    Args:
-        description: Description of the task
-        prompt: The prompt to send to Copilot
-
-    Returns:
-        AI response as a string, or fallback suggestions
-    """
-    try:
-        # Check if gh command is available
-        subprocess.run(['gh', '--version'], capture_output=True, check=True)
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    def _get_fallback_response(self) -> str:
+        """Return fallback response when Copilot is unavailable."""
         return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
                 "# Original suggestions preserved below:\n\n")
 
-    # The new Copilot CLI is for command suggestions, not content improvement
-    # For now, provide basic improvement suggestions
-    if "improve" in prompt.lower() or "suggestion" in prompt.lower() or "enhancement" in prompt.lower():
-        return f"""# AI Improvement Suggestions
+    def improve_content(self, prompt: str) -> str:
+        """Use AI to improve the improvement suggestions with specific enhancement suggestions."""
+        base_name = self.file_path.stem.replace('.improvements', '')
+        description = f"Improve the improvement suggestions for {base_name}"
+
+        # For improvement suggestions, provide specific enhancement suggestions
+        if any(keyword in prompt.lower() for keyword in ["improve", "suggestion", "enhancement"]):
+            fallback_suggestions = f"""# AI Improvement Suggestions
 # Description: {description}
 #
 # General improvement suggestions:
@@ -106,86 +70,24 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Deployment: Implement CI/CD pipelines and automated testing
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
+#
+# Original suggestions preserved below:
+#
+{self.previous_content}"""
+            self.current_content = fallback_suggestions
+            return self.current_content
 
-    try:
-        # Try using gh copilot explain for improvement-related prompts
-        result = subprocess.run(
-            ['gh', 'copilot', 'explain', prompt[:200]],  # Limit prompt length
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-
-        if result.returncode == 0 and result.stdout.strip():
-            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-        else:
-            return "# Copilot CLI available but returned no useful response for improvement suggestions."
-
-    except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed."
+        # For other prompts, use the base implementation
+        return super().improve_content(prompt)
 
 
-class ImprovementsAgent:
-    """Updates code file improvement suggestions using AI assistance."""
-
-    def __init__(self, improvements_file: str):
-        self.improvements_file = Path(improvements_file)
-        self.previous_improvements = ""
-        self.current_improvements = ""
-
-    def read_previous_improvements(self) -> str:
-        """Read the existing improvements file."""
-        if self.improvements_file.exists():
-            self.previous_improvements = self.improvements_file.read_text(encoding='utf-8')
-        else:
-            self.previous_improvements = "# Improvements\n\nNo improvements suggested.\n"
-        return self.previous_improvements
-
-    def improve_improvements(self, prompt: str) -> str:
-        """Use AI to improve the improvements."""
-        base_name = self.improvements_file.stem.replace('.improvements', '')
-        description = f"Improve the improvement suggestions for {base_name}"
-        try:
-            improvement = runSubagent(description, prompt, self.previous_improvements)
-            self.current_improvements = improvement
-            return self.current_improvements
-        except Exception as e:
-            print(f"Warning: Failed to improve improvements: {e}")
-            self.current_improvements = self.previous_improvements
-            return self.current_improvements
-
-    def update_improvements_file(self):
-        """Write the improved improvements back to the file."""
-        self.improvements_file.write_text(fix_markdown_content(self.current_improvements), encoding='utf-8')
-
-    def get_diff(self) -> str:
-        """Get the diff between previous and current improvements."""
-        diff = difflib.unified_diff(
-            self.previous_improvements.splitlines(keepends=True),
-            self.current_improvements.splitlines(keepends=True),
-            fromfile='previous',
-            tofile='current'
-        )
-        return ''.join(diff)
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Improvements Agent: Updates code file improvement suggestions')
-    parser.add_argument('--context', required=True, help='Path to the improvements file (e.g., file.improvements.md)')
-    parser.add_argument('--prompt', required=True, help='Prompt for improving the suggestions')
-    args = parser.parse_args()
-
-    agent = ImprovementsAgent(args.context)
-    agent.read_previous_improvements()
-    agent.improve_improvements(args.prompt)
-    agent.update_improvements_file()
-    diff = agent.get_diff()
-    if diff:
-        print("Improvements updated:")
-        print(diff)
-    else:
-        print("No changes made to improvements.")
+# Create main function using the helper
+main = create_main_function(
+    ImprovementsAgent,
+    'Improvements Agent: Updates code file improvement suggestions',
+    'Path to the improvements file (e.g., file.improvements.md)'
+)
 
 
 if __name__ == '__main__':
