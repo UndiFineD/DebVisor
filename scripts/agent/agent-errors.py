@@ -1,14 +1,34 @@
-#!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# AI Code Improvement Suggestions
+## Description: Improve the code for agent-errors.py
+#
+## Suggestions:
+## 1. Add comprehensive docstrings to all functions
+## 2. Implement proper error handling with try/except blocks
+## 3. Add type hints for better code clarity
+## 4. Break down complex functions into smaller, focused functions
+## 5. Add input validation and sanitization
+## 6. Implement logging for debugging and monitoring
+## 7. Add unit tests for all functions
+## 8. Follow PEP 8 style guidelines
+## 9. Add configuration management for customizable behavior
+## 10. Implement proper resource cleanup with context managers
+#
+## Note: Full AI code rewriting requires additional AI service integration.
+## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
+#
+## Original code preserved below:
+#
+## !/usr/bin/env python3
+## Copyright (c) 2025 DebVisor contributors
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##     http://www.apache.org/licenses/LICENSE-2.0
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
 """
 Errors Agent: Improves and updates code file error reports.
 
@@ -34,7 +54,6 @@ with enhanced documentation.
 
 from base_agent import BaseAgent, create_main_function
 
-
 class ErrorsAgent(BaseAgent):
     """Updates code file error reports using AI assistance."""
 
@@ -55,24 +74,24 @@ class ErrorsAgent(BaseAgent):
         # For error report improvement, provide specific error analysis suggestions
         if any(keyword in prompt.lower() for keyword in ["improve", "error", "report"]):
             fallback_suggestions = f"""# AI Error Report Improvement Suggestions
-# Description: {description}
+## Description: {description}
 #
-# Suggestions for improving error reports:
-# 1. Include clear error messages with specific details
-# 2. Add error codes and categorization (fatal, warning, info)
-# 3. Include stack traces with line numbers and file paths
-# 4. Add timestamps for when errors occurred
-# 5. Include system information and environment details
-# 6. Provide steps to reproduce the error
-# 7. Suggest immediate workarounds or fixes
-# 8. Include relevant log entries and debug information
-# 9. Add severity levels and impact assessment
-# 10. Include contact information for support
+## Suggestions for improving error reports:
+## 1. Include clear error messages with specific details
+## 2. Add error codes and categorization (fatal, warning, info)
+## 3. Include stack traces with line numbers and file paths
+## 4. Add timestamps for when errors occurred
+## 5. Include system information and environment details
+## 6. Provide steps to reproduce the error
+## 7. Suggest immediate workarounds or fixes
+## 8. Include relevant log entries and debug information
+## 9. Add severity levels and impact assessment
+## 10. Include contact information for support
 #
-# Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
+## Note: Full AI content rewriting requires additional AI service integration.
+## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
 #
-# Original error report preserved below:
+## Original error report preserved below:
 #
 {self.previous_content}"""
             self.current_content = fallback_suggestions
@@ -81,14 +100,12 @@ class ErrorsAgent(BaseAgent):
         # For other prompts, use the base implementation
         return super().improve_content(prompt)
 
-
-# Create main function using the helper
+## Create main function using the helper
 main = create_main_function(
     ErrorsAgent,
     'Errors Agent: Updates code file error reports',
     'Path to the errors file (e.g., file.errors.md)'
 )
-
 
 if __name__ == '__main__':
     main()
