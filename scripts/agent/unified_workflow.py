@@ -1,5 +1,5 @@
 # AI Code Improvement Suggestions
-# Description: Improve the code for critic_agent.py
+# Description: Improve the code for unified_workflow.py
 #
 # Suggestions:
 # 1. Add comprehensive docstrings to all functions
