@@ -20,11 +20,10 @@ from pathlib import Path
 import argparse
 import difflib
 import sys
-from typing import Optional
 
 # Import markdown fixing functionality
 sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-from fix_markdown_lint import fix_markdown_content  # noqa: E402
+from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
 
 
 class BaseAgent:
@@ -63,6 +62,10 @@ class BaseAgent:
         """
         Run a subagent using GitHub Copilot CLI.
 
+        Note: The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+        For more information, visit:
+        - Copilot CLI: https://github.com/github/copilot-cli
+
         Args:
             description: Description of the task
             prompt: The prompt to send to Copilot
@@ -95,8 +98,10 @@ class BaseAgent:
             return self._get_fallback_response()
 
     def _get_fallback_response(self) -> str:
-        """Return fallback response when Copilot is unavailable. Override in subclasses."""
-        return "# AI Improvement Unavailable\n# GitHub CLI not found or failed."
+        """Return fallback response when Copilot CLI is unavailable. Override in subclasses."""
+        return ("# AI Improvement Unavailable\n"
+                "# GitHub Copilot CLI not found or failed.\n"
+                "# Install GitHub CLI and Copilot extension: https://github.com/github/copilot-cli")
 
     def update_file(self):
         """Write the improved content back to the file."""

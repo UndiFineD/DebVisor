@@ -39,7 +39,8 @@ class ChangesAgent(BaseAgent):
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot is unavailable."""
-        return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
+        return ("# AI Improvement Unavailable\n"
+                "# GitHub CLI not found. Install from https://cli.github.com/\n\n"
                 "# Original changelog preserved below:\n\n")
 
     def improve_content(self, prompt: str) -> str:

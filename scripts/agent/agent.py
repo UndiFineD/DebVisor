@@ -9,7 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
 
 # AI Code Improvement Suggestions
 # Description: Improve the code for agent.py
@@ -73,7 +72,10 @@ def load_codeignore(root: Path) -> Set[str]:
     if codeignore_path.exists():
         try:
             content = codeignore_path.read_text(encoding='utf-8')
-            return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
+            return {
+                line.strip() for line in content.split('\n')
+                if line.strip() and not line.strip().startswith('#')
+            }
         except Exception as e:
             print(f"Warning: Could not read .codeignore file: {e}")
     return set()
@@ -84,7 +86,8 @@ class Agent:
 
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
-    def __init__(self, repo_root: str = '.', agents_only: bool = False, max_files: int = None, loop: int = 1):
+    def __init__(self, repo_root: str = '.', agents_only: bool = False,
+                 max_files: int = None, loop: int = 1):
         self.repo_root = self._find_repo_root(Path(repo_root))
         self.agents_only = agents_only
         self.max_files = max_files
@@ -97,7 +100,8 @@ class Agent:
 
         # Walk up the directory tree looking for repository markers
         for path in [current] + list(current.parents):
-            if (path / '.git').exists() or (path / 'README.md').exists() or (path / 'package.json').exists():
+            if (path / '.git').exists() or (path / 'README.md').exists() or \
+                    (path / 'package.json').exists():
                 return path
 
         # If no markers found, return the original path
@@ -132,7 +136,8 @@ class Agent:
     def run_stats_update(self, files: List[Path]):
         """Run stats update."""
         file_paths = [str(f) for f in files]
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-stats.py'), '--files'] + file_paths
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-stats.py'),
+               '--files'] + file_paths
         subprocess.run(cmd, cwd=self.repo_root)
 
     def run_tests(self, code_file: Path):
@@ -200,11 +205,14 @@ class Agent:
 
     def update_code(self, code_file: Path) -> bool:
         """Update the code file."""
-        prompt = f"Improve the code in {code_file.name} based on its context, errors, and improvements"
+        prompt = (f"Improve the code in {code_file.name} based on its context, "
+                  f"errors, and improvements")
         cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-coder.py'),
                '--context', str(code_file), '--prompt', prompt]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        return "No changes made" not in result.stdout and "No changes made" not in result.stderr
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True,
+                                text=True)
+        return ("No changes made" not in result.stdout and
+                "No changes made" not in result.stderr)
 
     def update_changelog_context_tests(self, code_file: Path) -> bool:
         """Update changelog, context, and tests."""
@@ -352,7 +360,8 @@ def test_placeholder():
             if result.returncode == 0:
                 print(f"[Agent] Committed changes for {code_file.name}")
                 # git push
-                push_result = subprocess.run(['git', 'push'], cwd=self.repo_root, capture_output=True, text=True)
+                push_result = subprocess.run(['git', 'push'], cwd=self.repo_root,
+                                             capture_output=True, text=True)
                 if push_result.returncode == 0:
                     print(f"[Agent] Pushed changes for {code_file.name}")
                 else:
@@ -384,15 +393,19 @@ def test_placeholder():
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Agent: Orchestrates code improvement agents')
+    parser = argparse.ArgumentParser(
+        description='Agent: Orchestrates code improvement agents'
+    )
     parser.add_argument('--dir', default='.', help='Directory to process (default: .)')
     parser.add_argument('--agents-only', action='store_true',
                         help='Only process files in the scripts/agent directory')
     parser.add_argument('--max-files', type=int, help='Maximum number of files to process')
-    parser.add_argument('--loop', type=int, default=1, help='Number of times to loop through all files (default: 1)')
+    parser.add_argument('--loop', type=int, default=1,
+                        help='Number of times to loop through all files (default: 1)')
     args = parser.parse_args()
 
-    agent = Agent(repo_root=args.dir, agents_only=args.agents_only, max_files=args.max_files, loop=args.loop)
+    agent = Agent(repo_root=args.dir, agents_only=args.agents_only,
+                  max_files=args.max_files, loop=args.loop)
     agent.run()
 
 

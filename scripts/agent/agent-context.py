@@ -44,7 +44,8 @@ class ContextAgent(BaseAgent):
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot is unavailable."""
-        return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
+        return ("# AI Improvement Unavailable\n"
+                "# GitHub CLI not found. Install from https://cli.github.com/\n\n"
                 "# Original content preserved below:\n\n")
 
     def improve_content(self, prompt: str) -> str:
@@ -52,28 +53,32 @@ class ContextAgent(BaseAgent):
         description = f"Improve the description for {self.file_path.stem.replace('.description', '')}"
 
         # For documentation improvement, provide specific content suggestions
-        if any(keyword in prompt.lower() for keyword in ["improve", "description", "documentation"]):
-            fallback_suggestions = f"""# AI Content Improvement Suggestions
-# Description: {description}
-#
-# Suggestions for improving documentation/context:
-# 1. Add clear, concise descriptions for all functions and classes
-# 2. Include usage examples and code snippets
-# 3. Document all parameters with types and descriptions
-# 4. Add information about return values and exceptions
-# 5. Include cross-references to related functions/modules
-# 6. Add version information and compatibility notes
-# 7. Include performance considerations and limitations
-# 8. Add troubleshooting and common issues sections
-# 9. Include links to external resources and documentation
-# 10. Use consistent formatting and terminology throughout
-#
-# Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-# Original content preserved below:
-#
-{self.previous_content}"""
+        if any(keyword in prompt.lower()
+                for keyword in ["improve", "description", "documentation"]):
+            fallback_suggestions = (
+                f"# AI Content Improvement Suggestions\n"
+                f"# Description: {description}\n"
+                f"#\n"
+                f"# Suggestions for improving documentation/context:\n"
+                f"# 1. Add clear, concise descriptions for all functions and classes\n"
+                f"# 2. Include usage examples and code snippets\n"
+                f"# 3. Document all parameters with types and descriptions\n"
+                f"# 4. Add information about return values and exceptions\n"
+                f"# 5. Include cross-references to related functions/modules\n"
+                f"# 6. Add version information and compatibility notes\n"
+                f"# 7. Include performance considerations and limitations\n"
+                f"# 8. Add troubleshooting and common issues sections\n"
+                f"# 9. Include links to external resources and documentation\n"
+                f"# 10. Use consistent formatting and terminology throughout\n"
+                f"#\n"
+                f"# Note: Full AI content rewriting requires additional AI service integration.\n"
+                f"# The new GitHub Copilot CLI focuses on command-line suggestions, "
+                f"not content generation.\n"
+                f"#\n"
+                f"# Original content preserved below:\n"
+                f"#\n"
+                f"{self.previous_content}"
+            )
             self.current_content = fallback_suggestions
             return self.current_content
 
