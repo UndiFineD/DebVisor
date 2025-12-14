@@ -1,0 +1,334 @@
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Agent: Orchestrates work among sub-agents for code improvement.
+
+Assigns tasks to various agents to improve code files, their documentation,
+tests, and related artifacts.
+
+## Description
+This module provides the main Agent that coordinates the improvement process
+across code files by calling specialized sub-agents for different aspects
+of code quality and documentation.
+
+## Changelog
+- 1.0.0: Initial implementation
+
+## Suggested Fixes
+- Add better error handling
+- Implement async execution for agents
+
+## Improvements
+- Enhanced coordination between agents
+- Better progress tracking
+"""
+
+import subprocess
+import sys
+from pathlib import Path
+from typing import List, Set
+import argparse
+import time
+
+
+def load_codeignore(root: Path) -> Set[str]:
+    """Load ignore patterns from .codeignore file."""
+    codeignore_path = root / ".codeignore"
+    if codeignore_path.exists():
+        try:
+            content = codeignore_path.read_text(encoding='utf-8')
+            return {line.strip() for line in content.split('\n') if line.strip() and not line.strip().startswith('#')}
+        except Exception as e:
+            print(f"Warning: Could not read .codeignore file: {e}")
+    return set()
+
+
+class Agent:
+    """Main agent that orchestrates sub-agents for code improvement."""
+
+    SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
+
+    def __init__(self, repo_root: str = '.', agents_only: bool = False, max_files: int = None):
+        self.repo_root = Path(repo_root)
+        self.agents_only = agents_only
+        self.max_files = max_files
+        self.ignored_patterns = load_codeignore(self.repo_root)
+
+    def find_code_files(self) -> List[Path]:
+        """Recursively find all supported code files."""
+        code_files = []
+        for ext in self.SUPPORTED_EXTENSIONS:
+            code_files.extend(self.repo_root.rglob(f'*{ext}'))
+
+        # Filter to scripts directory if agents_only is True
+        if self.agents_only:
+            scripts_dir = self.repo_root / 'scripts'
+            code_files = [f for f in code_files if f.is_relative_to(scripts_dir)]
+
+        code_files = sorted([f for f in code_files if not self._is_ignored(f)])
+
+        if self.max_files:
+            code_files = code_files[:self.max_files]
+
+        return code_files
+
+    def _is_ignored(self, path: Path) -> bool:
+        """Check if path should be ignored."""
+        return any(part in self.ignored_patterns for part in path.parts)
+
+    def run_stats_update(self, files: List[Path]):
+        """Run stats update."""
+        file_paths = [str(f) for f in files]
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-stats.py'), '--files'] + file_paths
+        subprocess.run(cmd, cwd=self.repo_root)
+
+    def run_tests(self, code_file: Path):
+        """Run tests for the code file."""
+        tests_file = code_file.with_suffix('.tests.py')
+        if tests_file.exists():
+            print(f"[Agent] Running tests for {code_file.name}...")
+            cmd = [sys.executable, '-m', 'pytest', str(tests_file), '-v']
+            result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+            if result.returncode != 0:
+                print(f"Tests failed for {code_file.name}:")
+                print(result.stdout)
+                print(result.stderr)
+            else:
+                print(f"Tests passed for {code_file.name}")
+        else:
+            print(f"[Agent] No tests file found for {code_file.name}")
+
+    def update_errors_improvements(self, code_file: Path) -> bool:
+        """Update errors and improvements."""
+        base = code_file.stem
+        dir_path = code_file.parent
+
+        errors_file = dir_path / f"{base}.errors.md"
+        improvements_file = dir_path / f"{base}.improvements.md"
+
+        changes_made = False
+
+        # Create errors file if it doesn't exist
+        if not errors_file.exists():
+            errors_file.write_text(f"# Errors\n\nNo errors reported for {code_file.name}.\n", encoding='utf-8')
+            print(f"[Agent] Created {errors_file.relative_to(self.repo_root)}")
+            changes_made = True
+
+        # Update errors
+        prompt = f"Analyze and improve the error report for {code_file.name}"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-errors.py'),
+               '--context', str(errors_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+            changes_made = True
+
+        # Create improvements file if it doesn't exist
+        if not improvements_file.exists():
+            improvements_file.write_text(f"# Improvements\n\nNo improvements suggested for {code_file.name}.\n", encoding='utf-8')
+            print(f"[Agent] Created {improvements_file.relative_to(self.repo_root)}")
+            changes_made = True
+
+        # Update improvements
+        prompt = f"Suggest and improve improvements for {code_file.name}"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-improvements.py'),
+               '--context', str(improvements_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+            changes_made = True
+
+        return changes_made
+
+    def update_code(self, code_file: Path) -> bool:
+        """Update the code file."""
+        prompt = f"Improve the code in {code_file.name} based on its context, errors, and improvements"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-coder.py'),
+               '--context', str(code_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        return "No changes made" not in result.stdout and "No changes made" not in result.stderr
+
+    def update_changelog_context_tests(self, code_file: Path) -> bool:
+        """Update changelog, context, and tests."""
+        base = code_file.stem
+        dir_path = code_file.parent
+
+        changes_file = dir_path / f"{base}.changes.md"
+        context_file = dir_path / f"{base}.description.md"
+        tests_file = dir_path / f"{base}.tests.py"
+
+        changes_made = False
+
+        # Create changelog file if it doesn't exist
+        if not changes_file.exists():
+            changes_file.write_text(f"# Changelog\n\n- Initial version of {code_file.name}\n", encoding='utf-8')
+            print(f"[Agent] Created {changes_file.relative_to(self.repo_root)}")
+            changes_made = True
+
+        # Update changelog
+        prompt = f"Update the changelog for {code_file.name} with recent changes"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-changes.py'),
+               '--context', str(changes_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+            changes_made = True
+
+        # Create context file if it doesn't exist
+        if not context_file.exists():
+            context_file.write_text(f"# Description\n\n{code_file.name} - Description to be added.\n", encoding='utf-8')
+            print(f"[Agent] Created {context_file.relative_to(self.repo_root)}")
+            changes_made = True
+
+        # Update context
+        prompt = f"Update the description for {code_file.name} based on current code"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-context.py'),
+               '--context', str(context_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+            changes_made = True
+
+        # Create tests file if it doesn't exist
+        if not tests_file.exists():
+            tests_file.write_text(f"""# Tests for {code_file.name}
+import pytest
+
+def test_placeholder():
+    \"\"\"Placeholder test - replace with actual tests.\"\"\"
+    assert True
+
+# Add more tests here
+""", encoding='utf-8')
+            print(f"[Agent] Created {tests_file.relative_to(self.repo_root)}")
+            changes_made = True
+
+        # Update tests
+        prompt = f"Update and expand the test suite for {code_file.name}"
+        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-tests.py'),
+               '--context', str(tests_file), '--prompt', prompt]
+        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+            changes_made = True
+
+        return changes_made
+
+    def process_file(self, code_file: Path):
+        """Process a single code file through the improvement loop."""
+        print(f"[Agent] Processing {code_file.relative_to(self.repo_root)}...")
+
+        max_iterations = 100
+        iteration = 0
+        all_fixed = False
+
+        while not all_fixed and iteration < max_iterations:
+            iteration += 1
+            print(f"[Agent] Iteration {iteration} for {code_file.name}")
+
+            # Track if any changes were made in this iteration
+            changes_made = False
+            base = code_file.stem
+            dir_path = code_file.parent
+
+            context_file = dir_path / f"{base}.description.md"
+            changes_file = dir_path / f"{base}.changes.md"
+            errors_file = dir_path / f"{base}.errors.md"
+            improvements_file = dir_path / f"{base}.improvements.md"
+
+            # Check if all supporting files exist and have content beyond AI suggestions
+            files_ready = (
+                context_file.exists() and len(context_file.read_text().strip()) > 100 and
+                changes_file.exists() and len(changes_file.read_text().strip()) > 100 and
+                errors_file.exists() and len(errors_file.read_text().strip()) > 100 and
+                improvements_file.exists() and len(improvements_file.read_text().strip()) > 100
+            )
+
+            if not files_ready and iteration == 1:
+                print(f"[Agent] Creating initial supporting files for {code_file.name}")
+
+            # Give a Stats update
+            self.run_stats_update([code_file])
+
+            # Run the Tests on the Codefile
+            self.run_tests(code_file)
+
+            # Update Errors, Improvements
+            changes_made |= self.update_errors_improvements(code_file)
+
+            # Update Code
+            changes_made |= self.update_code(code_file)
+
+            # Update Changelog, Context, Tests
+            changes_made |= self.update_changelog_context_tests(code_file)
+
+            # Check if all is marked as fixed (no more changes needed)
+            if not changes_made:
+                all_fixed = True
+                print(f"[Agent] No changes made in iteration {iteration}, marking as fixed")
+            else:
+                print(f"[Agent] Changes made in iteration {iteration}, continuing...")
+
+        if iteration >= max_iterations:
+            print(f"[Agent] Reached maximum iterations ({max_iterations}) for {code_file.name}")
+
+        print(f"[Agent] Completed processing {code_file.name} in {iteration} iterations")
+
+        # git add -A, git commit, git push
+        print(f"[Agent] Committing changes for {code_file.name}")
+        try:
+            # git add -A
+            subprocess.run(['git', 'add', '-A'], cwd=self.repo_root, check=True)
+
+            # git commit
+            commit_msg = f"Agent improvements for {code_file.name}"
+            result = subprocess.run(['git', 'commit', '-m', commit_msg], cwd=self.repo_root, capture_output=True, text=True)
+
+            if result.returncode == 0:
+                print(f"[Agent] Committed changes for {code_file.name}")
+                # git push
+                push_result = subprocess.run(['git', 'push'], cwd=self.repo_root, capture_output=True, text=True)
+                if push_result.returncode == 0:
+                    print(f"[Agent] Pushed changes for {code_file.name}")
+                else:
+                    print(f"[Agent] Failed to push changes: {push_result.stderr}")
+            else:
+                print(f"[Agent] No changes to commit for {code_file.name}")
+
+        except subprocess.CalledProcessError as e:
+            print(f"[Agent] Git operation failed for {code_file.name}: {e}")
+        except FileNotFoundError:
+            print(f"[Agent] Git not available for {code_file.name}")
+
+    def run(self):
+        """Run the main agent loop."""
+        code_files = self.find_code_files()
+        print(f"[Agent] Found {len(code_files)} code files to process")
+
+        for code_file in code_files:
+            self.process_file(code_file)
+
+        # Final stats update
+        print("[Agent] Final stats:")
+        self.run_stats_update(code_files)
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Agent: Orchestrates code improvement agents')
+    parser.add_argument('--dir', default='.', help='Directory to process (default: .)')
+    parser.add_argument('--agents-only', action='store_true',
+                        help='Only process files in the scripts/agent directory')
+    parser.add_argument('--max-files', type=int, help='Maximum number of files to process')
+    args = parser.parse_args()
+
+    agent = Agent(repo_root=args.dir, agents_only=args.agents_only, max_files=args.max_files)
+    agent.run()
+
+
+if __name__ == '__main__':
+    main()

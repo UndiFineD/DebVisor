@@ -6,9 +6,9 @@ This demonstrates how runSubagent works with GitHub Copilot.
 """
 
 import subprocess
-from coding_expert_agent import runSubagent as cea_runSubagent
-from planning_agent import runSubagent as pa_runSubagent
-from unified_workflow import runSubagent as uw_runSubagent
+from scripts.agent.coding_expert_agent import runSubagent as cea_runSubagent
+from scripts.agent.planning_agent import runSubagent as pa_runSubagent
+from scripts.agent.unified_workflow import runSubagent as uw_runSubagent
 
 
 def test_copilot_integration():
