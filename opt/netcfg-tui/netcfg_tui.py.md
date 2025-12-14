@@ -57,7 +57,7 @@ import tempfile
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (1)
 
 ```python
             # But old configs might conflict.
@@ -69,7 +69,7 @@ import tempfile
                 _check=True,
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -87,7 +87,7 @@ import tempfile
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (2)
 
 ```python
                 _shell=True,
@@ -99,7 +99,7 @@ import tempfile
                 _check=True,
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 

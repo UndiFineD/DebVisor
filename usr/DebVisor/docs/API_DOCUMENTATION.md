@@ -315,8 +315,9 @@ Returns:
 metric_type=MetricType.MEMORY_USAGE,\n threshold_stddevs=3.0,\n
 resource_id='node-1'\n)\n\n##
 Returns: [{'value': 98.5, 'timestamp': '...', 'zscore': 3.2,
-...}]\n\n```python\nanomalies
-=
+
+## ...}]\n\n```python\nanomalies
+
 engine.detect_anomalies(\n metric_type=MetricType.MEMORY_USAGE,\n
 threshold_stddevs=3.0,\n
 resource_id='node-1'\n)\n\n## Returns: [{'value': 98.5, 'timestamp': '...',
@@ -667,10 +668,11 @@ List[Dict]`-
 Recent
 anomalies\n\n-`trends: Dict`- Trend
 analysis\n\n-*Example:**\n\n```python\ndashboard =
-engine.get_dashboard_summary(time_window=3600)\n\n```python\n\n```python\ndashboard
-=
-engine.get_dashboard_summary(time_window=3600)\n\n```python\n\n```python\ndashboard
-=
+
+## engine.get_dashboard_summary(time_window=3600)\n\n```python\n\n```python\ndashboard
+
+## engine.get_dashboard_summary(time_window=3600)\n\n```python\n\n```python\ndashboard (1)
+
 engine.get_dashboard_summary(time_window=3600)\n\n```python\n\n```python\n\n```python\n\n```python\n\n-
 --\n#### Enumerations\n#####`TimeGranularity`Enum\nTime bucketing
 granularities:\n\n-`MINUTE`- 1
@@ -920,8 +922,9 @@ description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
 "performance_analysis",\n
 "alerts_summary"\n ]\n)\nscheduler =
-ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate
-=
+
+## ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate
+
 ReportTemplate(\n template_id="daily_metrics",\n name="Daily Metrics Report",\n
 description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
@@ -935,8 +938,9 @@ description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
 "performance_analysis",\n
 "alerts_summary"\n ]\n)\nscheduler =
-ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate
-=
+
+## ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate (1)
+
 ReportTemplate(\n template_id="daily_metrics",\n name="Daily Metrics Report",\n
 description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
@@ -950,15 +954,17 @@ description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
 "performance_analysis",\n
 "alerts_summary"\n ]\n)\nscheduler =
-ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate
-=
+
+## ReportScheduler()\nscheduler.register_template(template)\n\n```python\n\ntemplate (2)
+
 ReportTemplate(\n template_id="daily_metrics",\n name="Daily Metrics Report",\n
 description="Daily
 system metrics summary",\n sections=[\n "system_health",\n
 "performance_analysis",\n
 "alerts_summary"\n ]\n)\nscheduler =
-ReportScheduler()\nscheduler.register_template(template)\n\n```python\ntemplate
-=
+
+## ReportScheduler()\nscheduler.register_template(template)\n\n```python\ntemplate
+
 ReportTemplate(\n
 template_id="daily_metrics",\n name="Daily Metrics Report",\n description="Daily
 system
@@ -1190,7 +1196,7 @@ Return: Report content as string\n return report_content\n\n```python\nasync def
 generate_report(scheduled_report: ScheduledReport) -> str:\n # Generate report
 content\n
 
-## Return
+## Return (1)
 
 Report content as string\n return report_content\n\n```python\n\n # Generate
 report
@@ -1199,7 +1205,7 @@ Return: Report content as string\n return report_content\n\n```python\nasync def
 generate_report(scheduled_report: ScheduledReport) -> str:\n # Generate report
 content\n
 
-## Return
+## Return (2)
 
 Report content as string\n return report_content\n\n```python\n\n # Generate
 report
@@ -1208,7 +1214,7 @@ Return: Report content as string\n return report_content\n\n```python\n #
 Generate report
 content\n
 
-## Return: Report content as string\n return report_content\n\n```python\n ## Return:
+## Return: Report content as string\n return report_content\n\n```python\n ## Return
 
 Report content
 
@@ -2247,18 +2253,21 @@ path\n\n-
 opt.netcfg_tui.main
 import
 NetworkConfig\nconfig =
-NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig
-=
+
+## NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig
+
 NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\nfrom
 opt.netcfg_tui.main import NetworkConfig\nconfig =
-NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig
-=
+
+## NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig (1)
+
 NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\nfrom
 opt.netcfg_tui.main import NetworkConfig\nconfig =
-NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig
-=
-NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\nconfig
-=
+
+## NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\nconfig (2)
+
+## NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\nconfig
+
 NetworkConfig()\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\nconfig.save_config('/etc/debvisor/network_config.json')\n\n```python\n\n-
 --\n#####`load_config(filepath: str) -> bool`\nLoad configuration from JSON
 file.\n\n-
@@ -2481,13 +2490,15 @@ target="eth0"\n)\nsuccess, commands = config.apply_changes(dry_run=True)\nfor
 cmd in
 commands:\n
 print(f"Would execute: {cmd}")\n\n```python\n\nconfig.add_change(\n
-change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands
-=
+
+## change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands
+
 config.apply_changes(dry_run=True)\nfor cmd in commands:\n print(f"Would
 execute:
 {cmd}")\n\n```python\nconfig = NetworkConfig()\nconfig.add_change(\n
-change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands
-=
+
+## change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands (1)
+
 config.apply_changes(dry_run=True)\nfor cmd in commands:\n print(f"Would
 execute:
 {cmd}")\n\n```python\n\nconfig.add_change(\n
@@ -2497,8 +2508,9 @@ cmd in
 commands:\n
 print(f"Would execute: {cmd}")\n\n```python\nconfig =
 NetworkConfig()\nconfig.add_change(\n
-change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands
-=
+
+## change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands (2)
+
 config.apply_changes(dry_run=True)\nfor cmd in commands:\n print(f"Would
 execute:
 {cmd}")\n\n```python\n\nconfig.add_change(\n
@@ -2507,8 +2519,9 @@ target="eth0"\n)\nsuccess, commands = config.apply_changes(dry_run=True)\nfor
 cmd in
 commands:\n
 print(f"Would execute: {cmd}")\n\n```python\nconfig.add_change(\n
-change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands
-=
+
+## change_type=ConfigChangeType.INTERFACE_UP,\n target="eth0"\n)\nsuccess, commands (3)
+
 config.apply_changes(dry_run=True)\nfor cmd in commands:\n print(f"Would
 execute:
 {cmd}")\n\n```python\n change_type=ConfigChangeType.INTERFACE_UP,\n
@@ -3680,8 +3693,9 @@ resource_id="node-1"\n )\n\n## Analyze\n\nanomalies =
 engine.detect_anomalies(MetricType.CPU_USAGE)\ntrend =
 engine.calculate_trend(MetricType.CPU_USAGE)\nforecast =
 engine.forecast_metric(MetricType.CPU_USAGE, periods_ahead=10)\n\n##
-Dashboard\n\nsummary
-=
+
+## Dashboard\n\nsummary
+
 engine.get_dashboard_summary(time_window=3600)\n\n```python\nfrom
 opt.web.panel.analytics
 import
@@ -3721,8 +3735,9 @@ Analyze
 (4)\nanomalies = engine.detect_anomalies(MetricType.CPU_USAGE)\ntrend =
 engine.calculate_trend(MetricType.CPU_USAGE)\nforecast =
 engine.forecast_metric(MetricType.CPU_USAGE, periods_ahead=10)\n## Dashboard
-(4)\nsummary
-=
+
+## (4)\nsummary
+
 engine.get_dashboard_summary(time_window=3600)\n\n```python\n\nfrom datetime
 import
 datetime,
@@ -3817,8 +3832,9 @@ framework.get_remediation_suggestions(report)\nfor sug in suggestions:\n
 print(f" ->
 {sug}")\n##
 Monitor trend (4)\ntrend =
-framework.get_health_trend(hours=24)\n\n```python\n\nframework
-=
+
+## framework.get_health_trend(hours=24)\n\n```python\n\nframework
+
 DiagnosticsFramework()\n\n## Run diagnostics (5)\n\nreport =
 framework.run_diagnostics()\n\n## Get
 insights (5)\n\nprint(f"Health:

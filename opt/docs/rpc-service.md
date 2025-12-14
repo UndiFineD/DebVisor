@@ -1,4 +1,4 @@
-# DebVisor RPC Service Design\n\n## Purpose\n\nCoordinate node membership, health,
+# DebVisor RPC Service Design\n\n## Purpose\n\nCoordinate node membership, health
 
 migration, and
 

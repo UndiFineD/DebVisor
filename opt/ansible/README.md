@@ -225,8 +225,9 @@ host_key_checking = False\n roles_path = roles\n collections_on_play_restart =
 True\n
 timeout = 60\n
 [ssh_connection]\n ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s\n
-pipelining
-=
+
+## pipelining
+
 True\n\n## Inventory Management\n\n### Environment-Specific
 Inventories\n\nCreate
 environment-specific copies:\n\n## Lab environment\n\n cp inventory.yaml

@@ -66,7 +66,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
                 "role_id and secret_id required for AppRole authentication"
@@ -78,7 +78,7 @@ Items marked below as fixed:
             _secret_id=self.config.secret_id,
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -96,7 +96,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
             _jwt=f.read().strip()
@@ -108,7 +108,7 @@ Items marked below as fixed:
             _jwt=jwt,
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -126,7 +126,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
         if not self.config.role_id:    # Using role_id as username
@@ -138,7 +138,7 @@ Items marked below as fixed:
             _password=self.config.secret_id,
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -156,7 +156,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
             SecretMetadata with version info
@@ -168,7 +168,7 @@ Items marked below as fixed:
                 _path=path,
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -186,7 +186,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
             Secret data or None if not found
@@ -198,7 +198,7 @@ Items marked below as fixed:
                 _version=version,
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -216,7 +216,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
             versions: List of versions to delete (None=delete latest)
@@ -228,7 +228,7 @@ Items marked below as fixed:
                     _path=path,
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -246,7 +246,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
             List of secret paths
@@ -258,7 +258,7 @@ Items marked below as fixed:
                 _mount_point=self.config.mount_point,
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -276,7 +276,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
             SecretMetadata or None if not found
@@ -288,7 +288,7 @@ Items marked below as fixed:
                 _mount_point=self.config.mount_point,
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -306,7 +306,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
             Dict with username and password
@@ -318,7 +318,7 @@ Items marked below as fixed:
                 _mount_point="database",
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -336,7 +336,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
             Encrypted ciphertext
@@ -348,7 +348,7 @@ Items marked below as fixed:
                 _plaintext=plaintext,
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -366,7 +366,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
             Decrypted plaintext
@@ -378,7 +378,7 @@ Items marked below as fixed:
                 _ciphertext=ciphertext,
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 

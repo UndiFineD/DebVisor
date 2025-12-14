@@ -36,15 +36,17 @@ inside
 fenced blocks\n\n - Supports both````` and`~~~`fence styles\n\n1. **Smart Blank
 Line
 Insertion**:\n\n - Avoids duplicate blank lines\n\n - Respects intentional
-formatting\n\n
--
+
+## formatting\n\n
+
 Distinguishes between different block types (headings vs fences vs lists)\n\n1.
 **HTML
 Handling**:\n\n - Escapes problematic tokens\n\n - Converts
 angle-bracket-wrapped
 URLs:`]([https://url`]([https://url]([https://ur]([https://u](https://u)r)l)`)>)
-→`\n\n]([https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://u)r)l)`)>)\)n)\)n)
--
+
+## →`\n\n]([https://url`>\n\]([https://url`>\n]([https://url`>\]([https://url`>]([https://url`]([https://url]([https://ur]([https://u](https://u)r)l)`)>)\)n)\)n)
+
 Preserves valid markdown links\n\n1. **Robust Regex Patterns**:\n\n - Anchored
 patterns
 prevent

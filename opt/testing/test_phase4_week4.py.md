@@ -114,7 +114,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
         assert l1_cache["key"] == "value"
@@ -126,7 +126,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -144,7 +144,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
 
@@ -156,7 +156,7 @@ Items marked below as fixed:
     async def test_redis_cache_operations(self) -> None:
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -174,7 +174,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
         await mock_redis.set("key", "value")
@@ -186,7 +186,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -204,7 +204,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
 
@@ -216,7 +216,7 @@ Items marked below as fixed:
         _val=await mock_l2.get("key")
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -234,7 +234,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
 
@@ -246,7 +246,7 @@ Items marked below as fixed:
         l1_cache["key"] = val
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -264,7 +264,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
 
@@ -276,7 +276,7 @@ Items marked below as fixed:
     async def test_cache_decorator(self) -> None:
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -294,7 +294,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
 
@@ -306,7 +306,7 @@ Items marked below as fixed:
         mock_cache.get.return_value="cached_result"
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -324,7 +324,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
         if await mock_cache.get("test"):
@@ -336,7 +336,7 @@ Items marked below as fixed:
     async def test_cache_invalidation_patterns(self) -> None:
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -354,7 +354,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
         for key in keys:
@@ -366,7 +366,7 @@ Items marked below as fixed:
     async def test_cache_failure_fallback(self) -> None:
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -384,7 +384,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
         # Fallback logic
@@ -395,7 +395,7 @@ Items marked below as fixed:
 class TestQueryOptimization:
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -413,7 +413,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
         if query["select"] == "*":
@@ -425,7 +425,7 @@ class TestQueryOptimization:
     async def test_pagination_optimizer(self) -> None:
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -443,7 +443,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (12)
 
 ```python
         query["limit"] = query.get("limit", 20)
@@ -455,7 +455,7 @@ class TestQueryOptimization:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -473,7 +473,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (13)
 
 ```python
         query["offset"] = query.get("offset", 0)
@@ -485,7 +485,7 @@ class TestQueryOptimization:
     async def test_filter_pushdown(self) -> None:
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -503,7 +503,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (14)
 
 ```python
         # Reorder filters (id first)
@@ -515,7 +515,7 @@ class TestQueryOptimization:
     async def test_lazy_loading_optimizer(self) -> None:
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -533,7 +533,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (15)
 
 ```python
         # Access relationship
@@ -545,7 +545,7 @@ class TestQueryOptimization:
     async def test_query_profiling(self) -> None:
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -563,7 +563,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (16)
 
 ```python
         time.sleep(0.001)
@@ -575,7 +575,7 @@ class TestQueryOptimization:
     async def test_n_plus_one_detection(self) -> None:
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -593,7 +593,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (17)
 
 ```python
         # Detect N+1
@@ -605,7 +605,7 @@ class TestQueryOptimization:
     async def test_optimization_report_generation(self) -> None:
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -623,7 +623,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (18)
 
 ```python
             "recommendations": ["Add index on user_id"],
@@ -634,7 +634,7 @@ class TestQueryOptimization:
 
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -652,7 +652,7 @@ class TestQueryOptimization:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (19)
 
 ```python
         }
@@ -663,7 +663,7 @@ class TestQueryOptimization:
 class TestPerformanceProfiling:
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -681,7 +681,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (20)
 
 ```python
         await profiled_func()
@@ -693,7 +693,7 @@ class TestPerformanceProfiling:
     async def test_sync_function_profiling(self) -> None:
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -711,7 +711,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (21)
 
 ```python
         profiled_func()
@@ -723,7 +723,7 @@ class TestPerformanceProfiling:
         """Test monitoring context manager"""
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -741,7 +741,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (22)
 
 ```python
         with Monitor():
@@ -753,7 +753,7 @@ class TestPerformanceProfiling:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -771,7 +771,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (23)
 
 ```python
             pass
@@ -783,7 +783,7 @@ class TestPerformanceProfiling:
     async def test_resource_snapshot_capture(self) -> None:
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -801,7 +801,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (24)
 
 ```python
         """Test resource snapshot collection"""
@@ -813,7 +813,7 @@ class TestPerformanceProfiling:
     def test_slow_function_detection(self) -> None:
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -831,7 +831,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (25)
 
 ```python
         snapshot={"cpu": 10.5, "memory": 512, "disk": 1024}
@@ -843,7 +843,7 @@ class TestPerformanceProfiling:
         """Test slow function detection"""
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -861,7 +861,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (26)
 
 ```python
 
@@ -873,7 +873,7 @@ class TestPerformanceProfiling:
     def test_memory_heavy_function_detection(self) -> None:
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -891,7 +891,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (27)
 
 ```python
         slow_funcs=[f for f in functions if f["duration"] > 1.0]  # type: ignore[operator]
@@ -903,7 +903,7 @@ class TestPerformanceProfiling:
         """Test memory-heavy function detection"""
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -921,7 +921,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (28)
 
 ```python
 
@@ -933,7 +933,7 @@ class TestPerformanceProfiling:
     def test_flame_graph_data_generation(self) -> None:
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -951,7 +951,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (29)
 
 ```python
         heavy_funcs=[f for f in functions if f["memory"] > 100]  # type: ignore[operator]
@@ -963,7 +963,7 @@ class TestPerformanceProfiling:
         """Test flame graph data generation"""
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -981,7 +981,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (30)
 
 ```python
         stack=["root", "func1", "func2"]
@@ -993,7 +993,7 @@ class TestPerformanceProfiling:
         """Test resource constraint monitoring"""
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1011,7 +1011,7 @@ class TestPerformanceProfiling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (31)
 
 ```python
         if cpu_usage > threshold:
@@ -1022,7 +1022,7 @@ class TestPerformanceProfiling:
 class TestAdvancedAuthentication:
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1040,7 +1040,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (32)
 
 ```python
         input_otp="123456"
@@ -1052,7 +1052,7 @@ class TestAdvancedAuthentication:
         is_valid=stored_otp == input_otp
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1070,7 +1070,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (33)
 
 ```python
 
@@ -1082,7 +1082,7 @@ class TestAdvancedAuthentication:
     async def test_risk_assessment(self) -> None:
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1100,7 +1100,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (34)
 
 ```python
         if factors["new_device"]:
@@ -1112,7 +1112,7 @@ class TestAdvancedAuthentication:
     async def test_risk_based_methods(self) -> None:
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1130,7 +1130,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (35)
 
 ```python
         if risk_score > 70:
@@ -1142,7 +1142,7 @@ class TestAdvancedAuthentication:
     async def test_impossible_travel_detection(self) -> None:
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1160,7 +1160,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (36)
 
 ```python
         speed=distance / time_diff_hours
@@ -1172,7 +1172,7 @@ class TestAdvancedAuthentication:
     async def test_velocity_checking(self) -> None:
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1190,7 +1190,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (37)
 
 ```python
         _recent=[t for t in logins if time.time() - t  5
@@ -1201,7 +1201,7 @@ class TestAdvancedAuthentication:
     async def test_device_fingerprinting(self) -> None:
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1219,7 +1219,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (38)
 
 ```python
         ip="127.0.0.1"
@@ -1231,7 +1231,7 @@ class TestAdvancedAuthentication:
     async def test_authentication_context(self) -> None:
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1249,7 +1249,7 @@ class TestAdvancedAuthentication:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (39)
 
 ```python
         """Test authentication context tracking"""
@@ -1260,7 +1260,7 @@ class TestAdvancedAuthentication:
 class TestPerformanceOptimizationEnd2End:
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1278,7 +1278,7 @@ class TestPerformanceOptimizationEnd2End:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (40)
 
 ```python
         time.sleep(0.0001)
@@ -1287,7 +1287,7 @@ class TestPerformanceOptimizationEnd2End:
         assert cached_time  None:
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1305,7 +1305,7 @@ class TestPerformanceOptimizationEnd2End:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (41)
 
 ```python
         unoptimized_rows=1000
@@ -1314,7 +1314,7 @@ class TestPerformanceOptimizationEnd2End:
         assert optimized_rows  None:
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1332,7 +1332,7 @@ class TestPerformanceOptimizationEnd2End:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (42)
 
 ```python
         profile["cpu"].append(10)
@@ -1344,7 +1344,7 @@ class TestPerformanceOptimizationEnd2End:
     async def test_risk_based_auth_workflow(self) -> None:
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1362,7 +1362,7 @@ class TestPerformanceOptimizationEnd2End:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (43)
 
 ```python
         if risk == "HIGH":
@@ -1373,7 +1373,7 @@ class TestPerformanceOptimizationEnd2End:
 class TestPerformanceMetrics:
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1391,7 +1391,7 @@ class TestPerformanceMetrics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (44)
 
 ```python
         total=hits + misses
@@ -1403,7 +1403,7 @@ class TestPerformanceMetrics:
     async def test_query_efficiency_ratio(self) -> None:
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1421,7 +1421,7 @@ class TestPerformanceMetrics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (45)
 
 ```python
         examined=500
@@ -1433,7 +1433,7 @@ class TestPerformanceMetrics:
     async def test_function_performance_ranking(self) -> None:
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1451,7 +1451,7 @@ class TestPerformanceMetrics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (46)
 
 ```python
         funcs=[{"name": "a", "time": 10}, {"name": "b", "time": 20}]
@@ -1463,7 +1463,7 @@ class TestPerformanceMetrics:
     async def test_resource_utilization_metrics(self) -> None:
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1481,7 +1481,7 @@ class TestPerformanceMetrics:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (47)
 
 ```python
         """Test resource utilization tracking"""
@@ -1492,7 +1492,7 @@ class TestPerformanceMetrics:
 class TestCacheStrategies:
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1510,7 +1510,7 @@ class TestCacheStrategies:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (48)
 
 ```python
     async def test_l1_only_strategy(self) -> None:
@@ -1522,7 +1522,7 @@ class TestCacheStrategies:
     async def test_l2_only_strategy(self) -> None:
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1540,7 +1540,7 @@ class TestCacheStrategies:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (49)
 
 ```python
     async def test_l2_only_strategy(self) -> None:
@@ -1552,7 +1552,7 @@ class TestCacheStrategies:
     async def test_write_through_strategy(self) -> None:
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1570,7 +1570,7 @@ class TestCacheStrategies:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (50)
 
 ```python
         l1[key] = val
@@ -1582,7 +1582,7 @@ class TestCacheStrategies:
     async def test_write_back_strategy(self) -> None:
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1600,7 +1600,7 @@ class TestCacheStrategies:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (51)
 
 ```python
         _dirty_keys=set()
@@ -1611,7 +1611,7 @@ class TestCacheStrategies:
 class TestErrorHandling:
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1629,7 +1629,7 @@ class TestErrorHandling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (52)
 
 ```python
         except ConnectionError:
@@ -1641,7 +1641,7 @@ class TestErrorHandling:
     async def test_email_delivery_failure(self) -> None:
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1659,7 +1659,7 @@ class TestErrorHandling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (53)
 
 ```python
         try:
@@ -1671,7 +1671,7 @@ class TestErrorHandling:
     async def test_invalid_otp_code(self) -> None:
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1689,13 +1689,13 @@ class TestErrorHandling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (54)
 
 ```python
         while attempts  None:
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1713,7 +1713,7 @@ class TestErrorHandling:
 
 **Message:** Try, Except, Pass detected.
 
-### Context
+### Context (55)
 
 ```python
         query="SELECT *"
@@ -1725,7 +1725,7 @@ class TestErrorHandling:
 
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1743,7 +1743,7 @@ class TestErrorHandling:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (56)
 
 ```python
         # Return original
@@ -1754,7 +1754,7 @@ class TestErrorHandling:
 class TestLoadTesting:
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1772,7 +1772,7 @@ class TestLoadTesting:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (57)
 
 ```python
         requests=1000
@@ -1784,7 +1784,7 @@ class TestLoadTesting:
     async def test_query_optimization_under_load(self) -> None:
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1802,7 +1802,7 @@ class TestLoadTesting:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (58)
 
 ```python
         """Test query optimization with many queries"""
@@ -1814,7 +1814,7 @@ class TestLoadTesting:
     async def test_authentication_scaling(self) -> None:
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -1832,7 +1832,7 @@ class TestLoadTesting:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (59)
 
 ```python
         """Test 2FA system scaling"""
@@ -1843,7 +1843,7 @@ class TestLoadTesting:
 ## Helper fixtures for tests
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 

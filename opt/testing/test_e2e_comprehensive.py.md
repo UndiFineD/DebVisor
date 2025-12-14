@@ -56,7 +56,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
             # 1. Verify prerequisites
@@ -68,7 +68,7 @@ Items marked below as fixed:
             # 2. Bootstrap first node
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

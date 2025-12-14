@@ -62,7 +62,7 @@ Items marked below as fixed:
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ```python
 
 ### Proposal
@@ -83,17 +83,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -111,18 +111,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -140,19 +140,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -170,19 +170,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## distributed under the License is distributed on an "AS IS" BASIS
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -200,19 +200,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -230,19 +230,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -260,19 +260,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -290,19 +290,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -320,18 +319,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -349,18 +347,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -378,18 +375,17 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -407,18 +403,17 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 PROFILE_FILE="/etc/debvisor-profile"
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -436,18 +431,17 @@ PROFILE_FILE="/etc/debvisor-profile"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 PROFILE_FILE="/etc/debvisor-profile"
 OUT_DIR="/var/log/debvisor"
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -465,7 +459,7 @@ OUT_DIR="/var/log/debvisor"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
@@ -476,7 +470,7 @@ OUT_DIR="/var/log/debvisor"
 TXT_OUT="$OUT_DIR/profile-summary.txt"
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -494,7 +488,7 @@ TXT_OUT="$OUT_DIR/profile-summary.txt"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 
@@ -506,7 +500,7 @@ TXT_OUT="$OUT_DIR/profile-summary.txt"
 JSON_OUT="$OUT_DIR/profile-summary.json"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -524,7 +518,7 @@ JSON_OUT="$OUT_DIR/profile-summary.json"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 set -euo pipefail
@@ -536,7 +530,7 @@ JSON_OUT="$OUT_DIR/profile-summary.json"
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -554,7 +548,7 @@ JSON_OUT="$OUT_DIR/profile-summary.json"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 
@@ -566,7 +560,7 @@ JSON_OUT="$OUT_DIR/profile-summary.json"
 mkdir -p "$OUT_DIR"
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -584,7 +578,7 @@ mkdir -p "$OUT_DIR"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 PROFILE_FILE="/etc/debvisor-profile"
@@ -596,7 +590,7 @@ mkdir -p "$OUT_DIR"
 
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -614,7 +608,7 @@ mkdir -p "$OUT_DIR"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 OUT_DIR="/var/log/debvisor"
@@ -626,7 +620,7 @@ mkdir -p "$OUT_DIR"
 if [[-f "$PROFILE_FILE"]]; then
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -644,7 +638,7 @@ if [[-f "$PROFILE_FILE"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 TXT_OUT="$OUT_DIR/profile-summary.txt"
@@ -656,7 +650,7 @@ if [[-f "$PROFILE_FILE"]]; then
   profile=$(cat "$PROFILE_FILE" | tr -d '\r' | xargs)
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -674,7 +668,7 @@ if [[-f "$PROFILE_FILE"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 JSON_OUT="$OUT_DIR/profile-summary.json"
@@ -686,7 +680,7 @@ if [[-f "$PROFILE_FILE"]]; then
 else
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -704,7 +698,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 
@@ -716,7 +710,7 @@ else
   profile="unknown"
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -734,7 +728,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 mkdir -p "$OUT_DIR"
@@ -746,7 +740,7 @@ else
 fi
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -764,7 +758,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 
@@ -776,7 +770,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -794,7 +788,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
 if [[-f "$PROFILE_FILE"]]; then
@@ -806,7 +800,7 @@ fi
 echo "DebVisor storage profile: $profile" > "$TXT_OUT"
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -824,7 +818,7 @@ echo "DebVisor storage profile: $profile" > "$TXT_OUT"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
   profile=$(cat "$PROFILE_FILE" | tr -d '\r' | xargs)
@@ -842,7 +836,7 @@ cat > "$JSON_OUT" <<EOF
   "source": "${PROFILE_FILE}",
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -860,7 +854,7 @@ cat > "$JSON_OUT" <<EOF
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
   "generated_at": "$(date -Iseconds)"
@@ -870,7 +864,7 @@ EOF
 exit 0
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -888,7 +882,7 @@ exit 0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
 }
@@ -897,7 +891,7 @@ EOF
 exit 0
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 

@@ -56,7 +56,7 @@ from pathlib import Path
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (1)
 
 ```python
     if not ca.exists():
@@ -68,7 +68,7 @@ from pathlib import Path
             CertConfig(
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

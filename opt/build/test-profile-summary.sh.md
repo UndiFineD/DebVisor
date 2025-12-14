@@ -111,7 +111,7 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/usr/bin/env bash
@@ -121,7 +121,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -139,7 +139,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/usr/bin/env bash
@@ -150,7 +150,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -168,7 +168,7 @@ ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/usr/bin/env bash
@@ -180,7 +180,7 @@ ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 HELPER="${ROOT_DIR}/config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -198,7 +198,7 @@ HELPER="${ROOT_DIR}/config/includes.chroot/usr/local/sbin/debvisor-profile-summa
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 set -euo pipefail
@@ -210,7 +210,7 @@ HELPER="${ROOT_DIR}/config/includes.chroot/usr/local/sbin/debvisor-profile-summa
 TMPDIR="$(mktemp -d)"
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -228,7 +228,7 @@ TMPDIR="$(mktemp -d)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 
@@ -240,7 +240,7 @@ TMPDIR="$(mktemp -d)"
 trap 'rm -rf "${TMPDIR}"' EXIT
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -258,7 +258,7 @@ trap 'rm -rf "${TMPDIR}"' EXIT
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
 ## Smoke test for debvisor-profile-summary.sh
@@ -270,7 +270,7 @@ trap 'rm -rf "${TMPDIR}"' EXIT
 
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -288,7 +288,7 @@ trap 'rm -rf "${TMPDIR}"' EXIT
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -300,7 +300,7 @@ trap 'rm -rf "${TMPDIR}"' EXIT
 if [[! -x "${HELPER}"]]; then
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -318,7 +318,7 @@ if [[! -x "${HELPER}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -330,7 +330,7 @@ if [[! -x "${HELPER}"]]; then
   echo "Helper not found or not executable: ${HELPER}" >&2
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -348,7 +348,7 @@ if [[! -x "${HELPER}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 HELPER="${ROOT_DIR}/config/includes.chroot/usr/local/sbin/debvisor-profile-summary.sh"
@@ -360,7 +360,7 @@ if [[! -x "${HELPER}"]]; then
   exit 1
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -378,7 +378,7 @@ if [[! -x "${HELPER}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
 TMPDIR="$(mktemp -d)"
@@ -390,7 +390,7 @@ if [[! -x "${HELPER}"]]; then
 fi
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -408,7 +408,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
 trap 'rm -rf "${TMPDIR}"' EXIT
@@ -420,7 +420,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -438,7 +438,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 
@@ -450,7 +450,7 @@ fi
 profiles=(ceph zfs usb-zfs)
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -468,7 +468,7 @@ profiles=(ceph zfs usb-zfs)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
 if [[! -x "${HELPER}"]]; then
@@ -480,7 +480,7 @@ profiles=(ceph zfs usb-zfs)
 
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -498,7 +498,7 @@ profiles=(ceph zfs usb-zfs)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
   echo "Helper not found or not executable: ${HELPER}" >&2
@@ -510,7 +510,7 @@ profiles=(ceph zfs usb-zfs)
 ## Create a fake filesystem layout once
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -528,7 +528,7 @@ profiles=(ceph zfs usb-zfs)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
   exit 1
@@ -540,7 +540,7 @@ profiles=(ceph zfs usb-zfs)
 mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -558,7 +558,7 @@ mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 fi
@@ -570,7 +570,7 @@ mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -588,7 +588,7 @@ mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 
@@ -600,7 +600,7 @@ mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
 for p in "${profiles[@]}"; do
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -618,7 +618,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 profiles=(ceph zfs usb-zfs)
@@ -630,7 +630,7 @@ for p in "${profiles[@]}"; do
   echo "Testing profile: $p"
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -648,7 +648,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 
@@ -660,7 +660,7 @@ for p in "${profiles[@]}"; do
   echo "$p" > "${TMPDIR}/etc/debvisor-profile"
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -678,7 +678,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 ## Create a fake filesystem layout once
@@ -690,7 +690,7 @@ for p in "${profiles[@]}"; do
 
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -708,7 +708,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 mkdir -p "${TMPDIR}/etc" "${TMPDIR}/var/log/debvisor"
@@ -720,7 +720,7 @@ for p in "${profiles[@]}"; do
   # Clean previous outputs
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -738,7 +738,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 
@@ -750,7 +750,7 @@ for p in "${profiles[@]}"; do
   rm -f "${TMPDIR}/var/log/debvisor/profile-summary.txt" "${TMPDIR}/var/log/debvisor/profile-summary.json"
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -768,7 +768,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 for p in "${profiles[@]}"; do
@@ -780,7 +780,7 @@ for p in "${profiles[@]}"; do
 
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -798,7 +798,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
   echo "Testing profile: $p"
@@ -810,7 +810,7 @@ for p in "${profiles[@]}"; do
   # Run helper in a chroot-like environment by overriding paths
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -828,7 +828,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
   echo "$p" > "${TMPDIR}/etc/debvisor-profile"
@@ -840,7 +840,7 @@ for p in "${profiles[@]}"; do
   (
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -858,7 +858,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
 
@@ -870,7 +870,7 @@ for p in "${profiles[@]}"; do
     cd "${TMPDIR}" || exit 1
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -888,7 +888,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
   # Clean previous outputs
@@ -900,7 +900,7 @@ for p in "${profiles[@]}"; do
     ln -sf "${TMPDIR}/etc" /etc 2>/dev/null || true
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -918,7 +918,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
   rm -f "${TMPDIR}/var/log/debvisor/profile-summary.txt" "${TMPDIR}/var/log/debvisor/profile-summary.json"
@@ -930,7 +930,7 @@ for p in "${profiles[@]}"; do
     ln -sf "${TMPDIR}/var" /var 2>/dev/null || true
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -948,7 +948,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
 
@@ -960,7 +960,7 @@ for p in "${profiles[@]}"; do
     bash "${HELPER}"
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -978,7 +978,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
   # Run helper in a chroot-like environment by overriding paths
@@ -990,7 +990,7 @@ for p in "${profiles[@]}"; do
   )
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1008,7 +1008,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
   (
@@ -1020,7 +1020,7 @@ for p in "${profiles[@]}"; do
 
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1038,7 +1038,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
     cd "${TMPDIR}" || exit 1
@@ -1050,7 +1050,7 @@ for p in "${profiles[@]}"; do
   TXT_OUT="${TMPDIR}/var/log/debvisor/profile-summary.txt"
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1068,7 +1068,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
     ln -sf "${TMPDIR}/etc" /etc 2>/dev/null || true
@@ -1080,7 +1080,7 @@ for p in "${profiles[@]}"; do
   JSON_OUT="${TMPDIR}/var/log/debvisor/profile-summary.json"
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1098,7 +1098,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
     ln -sf "${TMPDIR}/var" /var 2>/dev/null || true
@@ -1110,7 +1110,7 @@ for p in "${profiles[@]}"; do
 
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1128,7 +1128,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
     bash "${HELPER}"
@@ -1140,7 +1140,7 @@ for p in "${profiles[@]}"; do
   if [[! -s "${TXT_OUT}"]]; then
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1158,7 +1158,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
   )
@@ -1170,7 +1170,7 @@ for p in "${profiles[@]}"; do
     echo "Missing or empty ${TXT_OUT} for profile $p" >&2
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1188,7 +1188,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
 
@@ -1200,7 +1200,7 @@ for p in "${profiles[@]}"; do
     exit 1
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1218,7 +1218,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
   TXT_OUT="${TMPDIR}/var/log/debvisor/profile-summary.txt"
@@ -1230,7 +1230,7 @@ for p in "${profiles[@]}"; do
   fi
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1248,7 +1248,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
   JSON_OUT="${TMPDIR}/var/log/debvisor/profile-summary.json"
@@ -1260,7 +1260,7 @@ for p in "${profiles[@]}"; do
   if [[! -s "${JSON_OUT}"]]; then
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1278,7 +1278,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
 
@@ -1290,7 +1290,7 @@ for p in "${profiles[@]}"; do
     echo "Missing or empty ${JSON_OUT} for profile $p" >&2
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1308,7 +1308,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
   if [[! -s "${TXT_OUT}"]]; then
@@ -1320,7 +1320,7 @@ for p in "${profiles[@]}"; do
     exit 1
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1338,7 +1338,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
     echo "Missing or empty ${TXT_OUT} for profile $p" >&2
@@ -1350,7 +1350,7 @@ for p in "${profiles[@]}"; do
   fi
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1368,7 +1368,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
     exit 1
@@ -1380,7 +1380,7 @@ for p in "${profiles[@]}"; do
 
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1398,7 +1398,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
   fi
@@ -1410,7 +1410,7 @@ for p in "${profiles[@]}"; do
   grep -qi "DebVisor storage profile: $p" "${TXT_OUT}" || {
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1428,7 +1428,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
   if [[! -s "${JSON_OUT}"]]; then
@@ -1440,7 +1440,7 @@ for p in "${profiles[@]}"; do
     echo "Text summary does not contain expected profile $p" >&2
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1458,7 +1458,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
     echo "Missing or empty ${JSON_OUT} for profile $p" >&2
@@ -1470,7 +1470,7 @@ for p in "${profiles[@]}"; do
     cat "${TXT_OUT}" >&2
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1488,7 +1488,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
     exit 1
@@ -1500,7 +1500,7 @@ for p in "${profiles[@]}"; do
     exit 1
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1518,7 +1518,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
   fi
@@ -1530,7 +1530,7 @@ for p in "${profiles[@]}"; do
   }
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1548,7 +1548,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
 
@@ -1560,7 +1560,7 @@ for p in "${profiles[@]}"; do
   jq -e ".profile == \"$p\"" "${JSON_OUT}" >/dev/null 2>&1 || {
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1578,7 +1578,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
   grep -qi "DebVisor storage profile: $p" "${TXT_OUT}" || {
@@ -1590,7 +1590,7 @@ for p in "${profiles[@]}"; do
     echo "JSON does not report expected profile $p" >&2
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1608,7 +1608,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
     echo "Text summary does not contain expected profile $p" >&2
@@ -1620,7 +1620,7 @@ for p in "${profiles[@]}"; do
     cat "${JSON_OUT}" >&2
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1638,7 +1638,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
     cat "${TXT_OUT}" >&2
@@ -1650,7 +1650,7 @@ for p in "${profiles[@]}"; do
     exit 1
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1668,7 +1668,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
     exit 1
@@ -1680,7 +1680,7 @@ for p in "${profiles[@]}"; do
   }
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1698,7 +1698,7 @@ for p in "${profiles[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
   }
@@ -1710,7 +1710,7 @@ for p in "${profiles[@]}"; do
 done
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1728,7 +1728,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
   jq -e ".profile == \"$p\"" "${JSON_OUT}" >/dev/null 2>&1 || {
@@ -1740,7 +1740,7 @@ done
 
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1758,7 +1758,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (56)
 
 ```python
     echo "JSON does not report expected profile $p" >&2
@@ -1770,7 +1770,7 @@ done
 echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}"
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1788,7 +1788,7 @@ echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (57)
 
 ```python
     cat "${JSON_OUT}" >&2
@@ -1799,7 +1799,7 @@ done
 echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}"
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1817,7 +1817,7 @@ echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (58)
 
 ```python
     exit 1
@@ -1827,7 +1827,7 @@ done
 echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}"
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -1845,7 +1845,7 @@ echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (59)
 
 ```python
   }
@@ -1854,7 +1854,7 @@ done
 echo "debvisor-profile-summary.sh smoke test passed for profiles: ${profiles[*]}"
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 

@@ -68,7 +68,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B404` |**Severity:** LOW
 
-**Message:** Consider possible security implications associated with the subprocess module.
+**Message:** Consider possible security implications associated with the
+subprocess module.
 
 ### Context
 
@@ -97,9 +98,10 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
         # Should not raise exception via ipaddress module
@@ -111,7 +113,7 @@ import os
         """Valid IPv6 CIDR blocks should pass"""
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -127,9 +129,10 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
         for cidr in valid_cidrs:
@@ -141,7 +144,7 @@ import os
         """Single IPv4 addresses should be treated as /32"""
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -157,9 +160,10 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
         for ip in single_ips:
@@ -171,7 +175,7 @@ import os
         """Single IPv6 addresses should be treated as /128"""
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -187,9 +191,10 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
         for ip in single_ips:
@@ -201,7 +206,7 @@ import os
         """Invalid IPv4 CIDR should raise ValueError"""
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -217,9 +222,10 @@ import os
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
             ip_network("256.0.0.0/8")
@@ -230,7 +236,7 @@ import os
 class TestCommentHandling:
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -246,9 +252,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
                 for line in f:
@@ -260,7 +267,7 @@ class TestCommentHandling:
 
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -276,9 +283,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
                     if line and not line.startswith("    #"):
@@ -290,7 +298,7 @@ class TestCommentHandling:
 
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -306,9 +314,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
                     if line and not line.startswith("    #"):
@@ -320,7 +329,7 @@ class TestCommentHandling:
 
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -336,9 +345,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
         _net1=ip_network("10.0.0.0/8")
@@ -350,7 +360,7 @@ class TestCommentHandling:
         """Subnet should be detected as overlap with supernet"""
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -366,9 +376,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
         _supernet=ip_network("10.0.0.0/8")
@@ -380,7 +391,7 @@ class TestCommentHandling:
     def test_partial_overlap_in_same_family(self) -> None:
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -396,9 +407,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
         _subnet=ip_network("10.0.0.0/24")
@@ -410,7 +422,7 @@ class TestCommentHandling:
         """Partial overlaps in same address family should be detected"""
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -426,9 +438,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (12)
 
 ```python
         _net2=ip_network("10.0.128.0/17")
@@ -440,7 +453,7 @@ class TestCommentHandling:
         """Non-overlapping ranges should not overlap"""
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -456,9 +469,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (13)
 
 ```python
         _net2=ip_network("10.0.1.0/24")
@@ -470,7 +484,7 @@ class TestCommentHandling:
         """IPv4 and IPv6 should not overlap (different address families)"""
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -486,9 +500,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (14)
 
 ```python
         _ipv6_net=ip_network("2001:db8::/32")
@@ -500,7 +515,7 @@ class TestCommentHandling:
         """Overlap warnings should have clear, actionable format"""
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -516,9 +531,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (15)
 
 ```python
         # Format: "[WARN] Overlap detected: 10.0.0.0/24 is subset of 10.0.0.0/8"
@@ -530,7 +546,7 @@ class TestCommentHandling:
 
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -546,9 +562,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (16)
 
 ```python
         warning=f"[WARN] Overlap detected: {subnet} is subset of {supernet}"
@@ -559,7 +576,7 @@ class TestCommentHandling:
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -575,9 +592,10 @@ class TestCommentHandling:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (17)
 
 ```python
 
@@ -588,7 +606,7 @@ class TestCommentHandling:
 class TestWhitelistOverride:
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -604,9 +622,10 @@ class TestWhitelistOverride:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (18)
 
 ```python
         _whitelist=ip_network("10.0.0.0/24")
@@ -618,7 +637,7 @@ class TestWhitelistOverride:
         """Whitelist supernet should allow all subnets"""
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -634,9 +653,10 @@ class TestWhitelistOverride:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (19)
 
 ```python
 
@@ -648,7 +668,7 @@ class TestWhitelistOverride:
         """Whitelist should not override entries outside its range"""
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -664,9 +684,10 @@ class TestWhitelistOverride:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (20)
 
 ```python
         _whitelist=ip_network("192.168.0.0/16")
@@ -678,7 +699,7 @@ class TestWhitelistOverride:
         """Single IP whitelist should override CIDR blocklist"""
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -694,9 +715,10 @@ class TestWhitelistOverride:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (21)
 
 ```python
         _whitelist_ip=ip_address("10.0.0.1")
@@ -707,7 +729,7 @@ class TestWhitelistOverride:
 class TestDuplicateDetection:
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -723,9 +745,10 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (22)
 
 ```python
         _net1=ip_network("10.0.0.0/8")
@@ -737,7 +760,7 @@ class TestDuplicateDetection:
     def test_different_prefix_formats_same_network(self) -> None:
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -753,9 +776,10 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (23)
 
 ```python
         _net2=ip_network("10.0.0.0/8")
@@ -767,7 +791,7 @@ class TestDuplicateDetection:
         """Same network with different formats should be detected"""
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -783,9 +807,10 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (24)
 
 ```python
         _net1=ip_network("10.0.0.0/8")
@@ -797,7 +822,7 @@ class TestDuplicateDetection:
         """Duplicate single IP entries should be detected"""
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -813,9 +838,10 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (25)
 
 ```python
         _ip1=ip_network("10.0.0.1/32")
@@ -827,7 +853,7 @@ class TestDuplicateDetection:
         """Duplicates should be detected regardless of order"""
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -843,9 +869,10 @@ class TestDuplicateDetection:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (26)
 
 ```python
 
@@ -856,7 +883,7 @@ class TestDuplicateDetection:
 class TestBlocklistFileFormat:
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -872,9 +899,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (27)
 
 ```python
                     if line:
@@ -886,7 +914,7 @@ class TestBlocklistFileFormat:
 
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -902,9 +930,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (28)
 
 ```python
                     if line:
@@ -916,7 +945,7 @@ class TestBlocklistFileFormat:
 
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -932,9 +961,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (29)
 
 ```python
                             ipv4_count += 1
@@ -946,7 +976,7 @@ class TestBlocklistFileFormat:
             os.unlink(temp_file)
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -962,9 +992,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (30)
 
 ```python
                         else:
@@ -976,7 +1007,7 @@ class TestBlocklistFileFormat:
 
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -992,9 +1023,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (31)
 
 ```python
         from ipaddress import ip_network
@@ -1006,7 +1038,7 @@ class TestBlocklistFileFormat:
         """Private IPv4 ranges should be recognized"""
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1022,9 +1054,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (32)
 
 ```python
 
@@ -1036,7 +1069,7 @@ class TestBlocklistFileFormat:
         """Private IPv6 ranges (ULA) should be recognized"""
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1052,9 +1085,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (33)
 
 ```python
         from ipaddress import ip_network
@@ -1066,7 +1100,7 @@ class TestBlocklistFileFormat:
         """Link-local IPv6 range handling"""
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1082,9 +1116,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (34)
 
 ```python
         from ipaddress import ip_network
@@ -1096,7 +1131,7 @@ class TestBlocklistFileFormat:
         """Multicast IPv6 range handling"""
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1112,9 +1147,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (35)
 
 ```python
         from ipaddress import ip_network
@@ -1126,7 +1162,7 @@ class TestBlocklistFileFormat:
         """Loopback ranges should be recognized"""
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1142,9 +1178,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (36)
 
 ```python
         _ipv4_loopback=ip_address("127.0.0.1")
@@ -1155,7 +1192,7 @@ class TestBlocklistFileFormat:
 
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1171,9 +1208,10 @@ class TestBlocklistFileFormat:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (37)
 
 ```python
         _ipv6_loopback=ip_address("::1")
@@ -1184,7 +1222,7 @@ class TestBlocklistFileFormat:
 class TestValidationScriptIntegration:
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1200,9 +1238,10 @@ class TestValidationScriptIntegration:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (38)
 
 ```python
     def test_validation_script_exists(self) -> None:
@@ -1214,7 +1253,7 @@ class TestValidationScriptIntegration:
     def test_validation_script_with_valid_blocklist(self) -> None:
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1230,9 +1269,10 @@ class TestValidationScriptIntegration:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (39)
 
 ```python
         """Validation script should exist and be executable"""
@@ -1244,7 +1284,7 @@ class TestValidationScriptIntegration:
         """Script should validate correct blocklist files"""
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1262,7 +1302,7 @@ class TestValidationScriptIntegration:
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (40)
 
 ```python
 
@@ -1274,7 +1314,7 @@ class TestValidationScriptIntegration:
                     "etc/debvisor/validate-blocklists.sh",
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1286,13 +1326,13 @@ class TestValidationScriptIntegration:
 
 ---
 
-### Issue at Line 526
+### Issue at Line 526 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (41)
 
 ```python
 
@@ -1304,7 +1344,7 @@ class TestValidationScriptIntegration:
                     "etc/debvisor/validate-blocklists.sh",
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1320,9 +1360,10 @@ class TestValidationScriptIntegration:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (42)
 
 ```python
                 _text=True,
@@ -1334,7 +1375,7 @@ class TestValidationScriptIntegration:
         finally:
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1352,7 +1393,7 @@ class TestValidationScriptIntegration:
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (43)
 
 ```python
             temp_file=f.name
@@ -1364,7 +1405,7 @@ class TestValidationScriptIntegration:
                     "etc/debvisor/validate-blocklists.sh",
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1376,13 +1417,13 @@ class TestValidationScriptIntegration:
 
 ---
 
-### Issue at Line 553
+### Issue at Line 553 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (44)
 
 ```python
             temp_file=f.name
@@ -1394,7 +1435,7 @@ class TestValidationScriptIntegration:
                     "etc/debvisor/validate-blocklists.sh",
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1410,9 +1451,10 @@ class TestValidationScriptIntegration:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (45)
 
 ```python
                 _text=True,
@@ -1424,7 +1466,7 @@ class TestValidationScriptIntegration:
                 or "invalid" in result.stdout.lower()
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 

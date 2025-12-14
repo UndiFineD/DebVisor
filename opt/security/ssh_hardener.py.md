@@ -59,7 +59,7 @@ import sys
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (1)
 
 ```python
 def validate_and_restart() -> None:
@@ -71,7 +71,7 @@ def validate_and_restart() -> None:
         logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -83,13 +83,13 @@ def validate_and_restart() -> None:
 
 ---
 
-### Issue at Line 191
+### Issue at Line 191 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (2)
 
 ```python
 def validate_and_restart() -> None:
@@ -101,7 +101,7 @@ def validate_and_restart() -> None:
         logger.error("SSHD configuration syntax check FAILED! Restoring backup...")  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -119,7 +119,7 @@ def validate_and_restart() -> None:
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (3)
 
 ```python
         sys.exit(1)
@@ -131,7 +131,7 @@ def validate_and_restart() -> None:
         logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -143,13 +143,13 @@ def validate_and_restart() -> None:
 
 ---
 
-### Issue at Line 199
+### Issue at Line 199 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (4)
 
 ```python
         sys.exit(1)
@@ -161,7 +161,7 @@ def validate_and_restart() -> None:
         logger.error("Failed to restart SSHD service.")  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 

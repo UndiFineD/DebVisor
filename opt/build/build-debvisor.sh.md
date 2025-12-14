@@ -286,7 +286,7 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/usr/bin/env bash
@@ -296,7 +296,7 @@ set -euo pipefail
 usage() {
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -314,7 +314,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/usr/bin/env bash
@@ -325,7 +325,7 @@ usage() {
     cat &2
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -343,7 +343,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
     -h|--help)
@@ -355,7 +355,7 @@ usage() {
         usage >&2
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -373,7 +373,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
         usage
@@ -385,7 +385,7 @@ usage() {
         exit 1
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -403,7 +403,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
         exit 0
@@ -415,7 +415,7 @@ usage() {
         ;;
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -433,7 +433,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
         ;;
@@ -445,7 +445,7 @@ usage() {
     esac
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -463,7 +463,7 @@ usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
     *)
@@ -475,7 +475,7 @@ usage() {
 done
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -493,7 +493,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
         echo "[DebVisor] Unknown argument: $1" >&2
@@ -505,7 +505,7 @@ done
 
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -523,7 +523,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
         usage >&2
@@ -535,7 +535,7 @@ done
 DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -553,7 +553,7 @@ DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
         exit 1
@@ -565,7 +565,7 @@ DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -583,7 +583,7 @@ DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
         ;;
@@ -595,7 +595,7 @@ DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -613,7 +613,7 @@ DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
     esac
@@ -625,7 +625,7 @@ DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -643,7 +643,7 @@ DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
 done
@@ -655,7 +655,7 @@ DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
 DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org]([http://deb.debian.or]([http://deb.debian.o]([http://deb.debian.]([http://deb.debian]([http://deb.debia]([http://deb.debi]([http://deb.deb]([http://deb.de]([http://deb.d]([http://deb.]([http://deb]([http://de]([http://d](http://d)e)b).)d)e)b)i)a)n).)o)r)g)/)d)e)b)i)a)n)/)})")
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -673,7 +673,7 @@ DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/d
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
@@ -685,7 +685,7 @@ DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/d
 DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org]([http://deb.debian.or]([http://deb.debian.o]([http://deb.debian.]([http://deb.debian]([http://deb.debia]([http://deb.debi]([http://deb.deb]([http://deb.de]([http://deb.d]([http://deb.]([http://deb]([http://de]([http://d](http://d)e)b).)d)e)b)i)a)n).)o)r)g)/)d)e)b)i)a)n)/)})")
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -703,7 +703,7 @@ DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 DEBVISOR_DIST="${DEBVISOR_DIST:-trixie}"
@@ -715,7 +715,7 @@ DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -733,7 +733,7 @@ DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 DEBVISOR_FAST="${DEBVISOR_FAST:-0}"
@@ -745,7 +745,7 @@ DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -763,7 +763,7 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 DEBVISOR_ARCH="${DEBVISOR_ARCH:-amd64}"
@@ -775,7 +775,7 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -793,7 +793,7 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 DEBVISOR_VERSION="${DEBVISOR_VERSION:-}"
@@ -805,7 +805,7 @@ DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
 normalize_bool() {
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -823,7 +823,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 DEBVISOR_MIRROR_BOOTSTRAP="${DEBVISOR_MIRROR_BOOTSTRAP:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org]([http://deb.debian.or]([http://deb.debian.o]([http://deb.debian.]([http://deb.debian]([http://deb.debia]([http://deb.debi]([http://deb.deb]([http://deb.de]([http://deb.d]([http://deb.]([http://deb]([http://de]([http://d](http://d)e)b).)d)e)b)i)a)n).)o)r)g)/)d)e)b)i)a)n)/)})")
@@ -835,7 +835,7 @@ normalize_bool() {
     case "${1,,}" in
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -853,7 +853,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 DEBVISOR_MIRROR_BINARY="${DEBVISOR_MIRROR_BINARY:-[http://deb.debian.org/debian/}"]([http://deb.debian.org/debian/}]([http://deb.debian.org/debian/]([http://deb.debian.org/debian]([http://deb.debian.org/debia]([http://deb.debian.org/debi]([http://deb.debian.org/deb]([http://deb.debian.org/de]([http://deb.debian.org/d]([http://deb.debian.org/]([http://deb.debian.org]([http://deb.debian.or]([http://deb.debian.o]([http://deb.debian.]([http://deb.debian]([http://deb.debia]([http://deb.debi]([http://deb.deb]([http://deb.de]([http://deb.d]([http://deb.]([http://deb]([http://de]([http://d](http://d)e)b).)d)e)b)i)a)n).)o)r)g)/)d)e)b)i)a)n)/)})")
@@ -865,7 +865,7 @@ normalize_bool() {
         1|true|yes|on)
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -883,7 +883,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 DEBVISOR_FIRMWARE_CHROOT="${DEBVISOR_FIRMWARE_CHROOT:-true}"
@@ -895,7 +895,7 @@ normalize_bool() {
             echo "true"
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -913,7 +913,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 DEBVISOR_FIRMWARE_BINARY="${DEBVISOR_FIRMWARE_BINARY:-true}"
@@ -925,7 +925,7 @@ normalize_bool() {
             ;;
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -943,7 +943,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 
@@ -955,7 +955,7 @@ normalize_bool() {
         0|false|no|off)
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -973,7 +973,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 normalize_bool() {
@@ -985,7 +985,7 @@ normalize_bool() {
             echo "false"
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -1003,7 +1003,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
     case "${1,,}" in
@@ -1015,7 +1015,7 @@ normalize_bool() {
             ;;
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -1033,7 +1033,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
         1|true|yes|on)
@@ -1045,7 +1045,7 @@ normalize_bool() {
         *)
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -1063,7 +1063,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
             echo "true"
@@ -1075,7 +1075,7 @@ normalize_bool() {
             echo "[DebVisor] ERROR: Invalid boolean value: $1" >&2
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -1093,7 +1093,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
             ;;
@@ -1105,7 +1105,7 @@ normalize_bool() {
             exit 1
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -1123,7 +1123,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
         0|false|no|off)
@@ -1135,7 +1135,7 @@ normalize_bool() {
             ;;
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -1153,7 +1153,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
             echo "false"
@@ -1165,7 +1165,7 @@ normalize_bool() {
     esac
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1183,7 +1183,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
             ;;
@@ -1195,7 +1195,7 @@ normalize_bool() {
 }
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1213,7 +1213,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
         *)
@@ -1225,7 +1225,7 @@ normalize_bool() {
 
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1243,7 +1243,7 @@ normalize_bool() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
             echo "[DebVisor] ERROR: Invalid boolean value: $1" >&2
@@ -1255,7 +1255,7 @@ normalize_bool() {
 DEBVISOR_FIRMWARE_CHROOT="$(normalize_bool "${DEBVISOR_FIRMWARE_CHROOT}")"
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1273,7 +1273,7 @@ DEBVISOR_FIRMWARE_CHROOT="$(normalize_bool "${DEBVISOR_FIRMWARE_CHROOT}")"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
             exit 1
@@ -1285,7 +1285,7 @@ DEBVISOR_FIRMWARE_CHROOT="$(normalize_bool "${DEBVISOR_FIRMWARE_CHROOT}")"
 DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1303,7 +1303,7 @@ DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
             ;;
@@ -1315,7 +1315,7 @@ DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
 
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1333,7 +1333,7 @@ DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
     esac
@@ -1345,7 +1345,7 @@ DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1363,7 +1363,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
 }
@@ -1375,7 +1375,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 project_root="$(cd "${script_dir}/.." && pwd)"
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1393,7 +1393,7 @@ project_root="$(cd "${script_dir}/.." && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
 
@@ -1405,7 +1405,7 @@ project_root="$(cd "${script_dir}/.." && pwd)"
 
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1423,7 +1423,7 @@ project_root="$(cd "${script_dir}/.." && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
 DEBVISOR_FIRMWARE_CHROOT="$(normalize_bool "${DEBVISOR_FIRMWARE_CHROOT}")"
@@ -1435,7 +1435,7 @@ project_root="$(cd "${script_dir}/.." && pwd)"
 cd "${project_root}"
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1453,7 +1453,7 @@ cd "${project_root}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
 DEBVISOR_FIRMWARE_BINARY="$(normalize_bool "${DEBVISOR_FIRMWARE_BINARY}")"
@@ -1465,7 +1465,7 @@ cd "${project_root}"
 
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1483,7 +1483,7 @@ cd "${project_root}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
 
@@ -1495,7 +1495,7 @@ cd "${project_root}"
 if ! command -v lb >/dev/null; then
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1513,7 +1513,7 @@ if ! command -v lb >/dev/null; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1525,7 +1525,7 @@ if ! command -v lb >/dev/null; then
     echo "live-build not installed. Install prerequisites first." >&2
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1543,7 +1543,7 @@ if ! command -v lb >/dev/null; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
 project_root="$(cd "${script_dir}/.." && pwd)"
@@ -1555,7 +1555,7 @@ if ! command -v lb >/dev/null; then
     exit 1
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1573,7 +1573,7 @@ if ! command -v lb >/dev/null; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
 
@@ -1585,7 +1585,7 @@ if ! command -v lb >/dev/null; then
 fi
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1603,7 +1603,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
 cd "${project_root}"
@@ -1615,7 +1615,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1633,7 +1633,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
 
@@ -1645,7 +1645,7 @@ fi
 if [! -f /etc/debian_version]; then
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1663,7 +1663,7 @@ if [! -f /etc/debian_version]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
 if ! command -v lb >/dev/null; then
@@ -1675,7 +1675,7 @@ if [! -f /etc/debian_version]; then
     echo "[DebVisor] WARNING: This script is intended to run on Debian-based hosts." >&2
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1693,7 +1693,7 @@ if [! -f /etc/debian_version]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
     echo "live-build not installed. Install prerequisites first." >&2
@@ -1705,7 +1705,7 @@ if [! -f /etc/debian_version]; then
 else
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1723,7 +1723,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
     exit 1
@@ -1735,7 +1735,7 @@ else
     host_debian="$(cut -d. -f1 /dev/null || echo "")"
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1753,7 +1753,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
 fi
@@ -1765,7 +1765,7 @@ else
     case "${host_debian}" in
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1783,7 +1783,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
 
@@ -1795,7 +1795,7 @@ else
         '' )
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1813,7 +1813,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
 if [! -f /etc/debian_version]; then
@@ -1825,7 +1825,7 @@ else
             echo "[DebVisor] WARNING: Unable to parse /etc/debian_version; continuing without version check." >&2 ;;
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1843,7 +1843,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
     echo "[DebVisor] WARNING: This script is intended to run on Debian-based hosts." >&2
@@ -1855,7 +1855,7 @@ else
         * )
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1873,7 +1873,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
 else
@@ -1885,7 +1885,7 @@ else
             # For now we only warn if running on releases older than bookworm (12).
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1903,7 +1903,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
     host_debian="$(cut -d. -f1 /dev/null || echo "")"
@@ -1915,7 +1915,7 @@ else
             if ["${host_debian}" -lt 12] 2>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1933,7 +1933,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (56)
 
 ```python
     case "${host_debian}" in
@@ -1945,7 +1945,7 @@ else
                 echo "[DebVisor] WARNING: Host Debian release (${host_debian}) is older than recommended (bookworm/12+)." >&2
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1963,7 +1963,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (57)
 
 ```python
         '' )
@@ -1975,7 +1975,7 @@ else
             fi
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1993,7 +1993,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (58)
 
 ```python
             echo "[DebVisor] WARNING: Unable to parse /etc/debian_version; continuing without version check." >&2 ;;
@@ -2005,7 +2005,7 @@ else
             ;;
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -2023,7 +2023,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (59)
 
 ```python
         * )
@@ -2035,7 +2035,7 @@ else
     esac
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 
@@ -2053,7 +2053,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (60)
 
 ```python
             # For now we only warn if running on releases older than bookworm (12).
@@ -2065,7 +2065,7 @@ else
 fi
 ```python
 
-### Proposal
+### Proposal (60)
 
 - Review the issue message above
 
@@ -2083,7 +2083,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (61)
 
 ```python
             if ["${host_debian}" -lt 12] 2>/dev/null; then
@@ -2095,7 +2095,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (61)
 
 - Review the issue message above
 
@@ -2113,7 +2113,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (62)
 
 ```python
                 echo "[DebVisor] WARNING: Host Debian release (${host_debian}) is older than recommended (bookworm/12+)." >&2
@@ -2125,7 +2125,7 @@ fi
 for bin in debootstrap xorriso; do
 ```python
 
-### Proposal
+### Proposal (62)
 
 - Review the issue message above
 
@@ -2143,7 +2143,7 @@ for bin in debootstrap xorriso; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (63)
 
 ```python
             fi
@@ -2155,7 +2155,7 @@ for bin in debootstrap xorriso; do
     if ! command -v "$bin" >/dev/null 2>&1; then
 ```python
 
-### Proposal
+### Proposal (63)
 
 - Review the issue message above
 
@@ -2173,7 +2173,7 @@ for bin in debootstrap xorriso; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (64)
 
 ```python
             ;;
@@ -2185,7 +2185,7 @@ for bin in debootstrap xorriso; do
         echo "[DebVisor] ERROR: Required tool missing: $bin" >&2
 ```python
 
-### Proposal
+### Proposal (64)
 
 - Review the issue message above
 
@@ -2203,7 +2203,7 @@ for bin in debootstrap xorriso; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (65)
 
 ```python
     esac
@@ -2215,7 +2215,7 @@ for bin in debootstrap xorriso; do
         exit 1
 ```python
 
-### Proposal
+### Proposal (65)
 
 - Review the issue message above
 
@@ -2233,7 +2233,7 @@ for bin in debootstrap xorriso; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (66)
 
 ```python
 fi
@@ -2245,7 +2245,7 @@ for bin in debootstrap xorriso; do
     fi
 ```python
 
-### Proposal
+### Proposal (66)
 
 - Review the issue message above
 
@@ -2263,7 +2263,7 @@ for bin in debootstrap xorriso; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (67)
 
 ```python
 
@@ -2275,7 +2275,7 @@ for bin in debootstrap xorriso; do
 done
 ```python
 
-### Proposal
+### Proposal (67)
 
 - Review the issue message above
 
@@ -2293,7 +2293,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (68)
 
 ```python
 for bin in debootstrap xorriso; do
@@ -2305,7 +2305,7 @@ done
 
 ```python
 
-### Proposal
+### Proposal (68)
 
 - Review the issue message above
 
@@ -2323,7 +2323,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (69)
 
 ```python
     if ! command -v "$bin" >/dev/null 2>&1; then
@@ -2335,7 +2335,7 @@ done
 if ! command -v shellcheck >/dev/null 2>&1; then
 ```python
 
-### Proposal
+### Proposal (69)
 
 - Review the issue message above
 
@@ -2353,7 +2353,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (70)
 
 ```python
         echo "[DebVisor] ERROR: Required tool missing: $bin" >&2
@@ -2365,7 +2365,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
     echo "[DebVisor] WARNING: shellcheck not found; build scripts will not be linted. Install it with 'apt install shellcheck' on Debian-based hosts." >&2
 ```python
 
-### Proposal
+### Proposal (70)
 
 - Review the issue message above
 
@@ -2383,7 +2383,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (71)
 
 ```python
         exit 1
@@ -2395,7 +2395,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 fi
 ```python
 
-### Proposal
+### Proposal (71)
 
 - Review the issue message above
 
@@ -2413,7 +2413,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (72)
 
 ```python
     fi
@@ -2425,7 +2425,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (72)
 
 - Review the issue message above
 
@@ -2443,7 +2443,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (73)
 
 ```python
 done
@@ -2455,7 +2455,7 @@ fi
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
 ```python
 
-### Proposal
+### Proposal (73)
 
 - Review the issue message above
 
@@ -2473,7 +2473,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (74)
 
 ```python
 
@@ -2485,7 +2485,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
     echo "[DebVisor] ERROR: DEBVISOR_SIGN_ISO=1 but gpg is not installed." >&2
 ```python
 
-### Proposal
+### Proposal (74)
 
 - Review the issue message above
 
@@ -2503,7 +2503,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (75)
 
 ```python
 if ! command -v shellcheck >/dev/null 2>&1; then
@@ -2515,7 +2515,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
     exit 1
 ```python
 
-### Proposal
+### Proposal (75)
 
 - Review the issue message above
 
@@ -2533,7 +2533,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (76)
 
 ```python
     echo "[DebVisor] WARNING: shellcheck not found; build scripts will not be linted. Install it with 'apt install shellcheck' on Debian-based hosts." >&2
@@ -2545,7 +2545,7 @@ if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
 fi
 ```python
 
-### Proposal
+### Proposal (76)
 
 - Review the issue message above
 
@@ -2563,7 +2563,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (77)
 
 ```python
 fi
@@ -2575,7 +2575,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (77)
 
 - Review the issue message above
 
@@ -2593,7 +2593,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (78)
 
 ```python
 
@@ -2605,7 +2605,7 @@ fi
 trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
 ```python
 
-### Proposal
+### Proposal (78)
 
 - Review the issue message above
 
@@ -2623,7 +2623,7 @@ trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (79)
 
 ```python
 if ["${DEBVISOR_SIGN_ISO:-0}" = "1"] && ! command -v gpg >/dev/null 2>&1; then
@@ -2635,7 +2635,7 @@ trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
 
 ```python
 
-### Proposal
+### Proposal (79)
 
 - Review the issue message above
 
@@ -2653,7 +2653,7 @@ trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (80)
 
 ```python
     echo "[DebVisor] ERROR: DEBVISOR_SIGN_ISO=1 but gpg is not installed." >&2
@@ -2665,7 +2665,7 @@ trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
 echo "[DebVisor] Project root: ${project_root}"
 ```python
 
-### Proposal
+### Proposal (80)
 
 - Review the issue message above
 
@@ -2683,7 +2683,7 @@ echo "[DebVisor] Project root: ${project_root}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (81)
 
 ```python
     exit 1
@@ -2695,7 +2695,7 @@ echo "[DebVisor] Project root: ${project_root}"
 echo "[DebVisor] Target distribution: ${DEBVISOR_DIST}"
 ```python
 
-### Proposal
+### Proposal (81)
 
 - Review the issue message above
 
@@ -2713,7 +2713,7 @@ echo "[DebVisor] Target distribution: ${DEBVISOR_DIST}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (82)
 
 ```python
 fi
@@ -2725,7 +2725,7 @@ echo "[DebVisor] Target distribution: ${DEBVISOR_DIST}"
 echo "[DebVisor] FAST mode: ${DEBVISOR_FAST} (0=clean,1=no-clean)"
 ```python
 
-### Proposal
+### Proposal (82)
 
 - Review the issue message above
 
@@ -2743,7 +2743,7 @@ echo "[DebVisor] FAST mode: ${DEBVISOR_FAST} (0=clean,1=no-clean)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (83)
 
 ```python
 
@@ -2755,7 +2755,7 @@ echo "[DebVisor] FAST mode: ${DEBVISOR_FAST} (0=clean,1=no-clean)"
 echo "[DebVisor] Architecture: ${DEBVISOR_ARCH}"
 ```python
 
-### Proposal
+### Proposal (83)
 
 - Review the issue message above
 
@@ -2773,7 +2773,7 @@ echo "[DebVisor] Architecture: ${DEBVISOR_ARCH}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (84)
 
 ```python
 trap 'echo "[DebVisor] ERROR: build failed" >&2' ERR
@@ -2785,7 +2785,7 @@ echo "[DebVisor] Architecture: ${DEBVISOR_ARCH}"
 if [-n "${DEBVISOR_VERSION}"]; then
 ```python
 
-### Proposal
+### Proposal (84)
 
 - Review the issue message above
 
@@ -2803,7 +2803,7 @@ if [-n "${DEBVISOR_VERSION}"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (85)
 
 ```python
 
@@ -2815,7 +2815,7 @@ if [-n "${DEBVISOR_VERSION}"]; then
     echo "[DebVisor] Version tag: ${DEBVISOR_VERSION}"
 ```python
 
-### Proposal
+### Proposal (85)
 
 - Review the issue message above
 
@@ -2833,7 +2833,7 @@ if [-n "${DEBVISOR_VERSION}"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (86)
 
 ```python
 echo "[DebVisor] Project root: ${project_root}"
@@ -2845,7 +2845,7 @@ if [-n "${DEBVISOR_VERSION}"]; then
 fi
 ```python
 
-### Proposal
+### Proposal (86)
 
 - Review the issue message above
 
@@ -2863,7 +2863,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (87)
 
 ```python
 echo "[DebVisor] Target distribution: ${DEBVISOR_DIST}"
@@ -2875,7 +2875,7 @@ fi
 echo "[DebVisor] Mirror (bootstrap): ${DEBVISOR_MIRROR_BOOTSTRAP}"
 ```python
 
-### Proposal
+### Proposal (87)
 
 - Review the issue message above
 
@@ -2893,7 +2893,7 @@ echo "[DebVisor] Mirror (bootstrap): ${DEBVISOR_MIRROR_BOOTSTRAP}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (88)
 
 ```python
 echo "[DebVisor] FAST mode: ${DEBVISOR_FAST} (0=clean,1=no-clean)"
@@ -2905,7 +2905,7 @@ echo "[DebVisor] Mirror (bootstrap): ${DEBVISOR_MIRROR_BOOTSTRAP}"
 echo "[DebVisor] Mirror (binary):    ${DEBVISOR_MIRROR_BINARY}"
 ```python
 
-### Proposal
+### Proposal (88)
 
 - Review the issue message above
 
@@ -2923,7 +2923,7 @@ echo "[DebVisor] Mirror (binary):    ${DEBVISOR_MIRROR_BINARY}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (89)
 
 ```python
 echo "[DebVisor] Architecture: ${DEBVISOR_ARCH}"
@@ -2935,7 +2935,7 @@ echo "[DebVisor] Mirror (binary):    ${DEBVISOR_MIRROR_BINARY}"
 echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=${DEBVISOR_FIRMWARE_BINARY}"
 ```python
 
-### Proposal
+### Proposal (89)
 
 - Review the issue message above
 
@@ -2953,7 +2953,7 @@ echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (90)
 
 ```python
 if [-n "${DEBVISOR_VERSION}"]; then
@@ -2965,7 +2965,7 @@ echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=
 
 ```python
 
-### Proposal
+### Proposal (90)
 
 - Review the issue message above
 
@@ -2983,7 +2983,7 @@ echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (91)
 
 ```python
     echo "[DebVisor] Version tag: ${DEBVISOR_VERSION}"
@@ -2995,7 +2995,7 @@ echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=
 case "${DEBVISOR_ARCH}" in
 ```python
 
-### Proposal
+### Proposal (91)
 
 - Review the issue message above
 
@@ -3013,7 +3013,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (92)
 
 ```python
 fi
@@ -3025,7 +3025,7 @@ case "${DEBVISOR_ARCH}" in
     amd64|arm64)
 ```python
 
-### Proposal
+### Proposal (92)
 
 - Review the issue message above
 
@@ -3043,7 +3043,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (93)
 
 ```python
 echo "[DebVisor] Mirror (bootstrap): ${DEBVISOR_MIRROR_BOOTSTRAP}"
@@ -3055,7 +3055,7 @@ case "${DEBVISOR_ARCH}" in
         ;;
 ```python
 
-### Proposal
+### Proposal (93)
 
 - Review the issue message above
 
@@ -3073,7 +3073,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (94)
 
 ```python
 echo "[DebVisor] Mirror (binary):    ${DEBVISOR_MIRROR_BINARY}"
@@ -3085,7 +3085,7 @@ case "${DEBVISOR_ARCH}" in
     *)
 ```python
 
-### Proposal
+### Proposal (94)
 
 - Review the issue message above
 
@@ -3103,7 +3103,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (95)
 
 ```python
 echo "[DebVisor] Firmware flags:     chroot=${DEBVISOR_FIRMWARE_CHROOT}, binary=${DEBVISOR_FIRMWARE_BINARY}"
@@ -3115,7 +3115,7 @@ case "${DEBVISOR_ARCH}" in
         echo "[DebVisor] ERROR: Unsupported DEBVISOR_ARCH: ${DEBVISOR_ARCH} (allowed: amd64, arm64)" >&2
 ```python
 
-### Proposal
+### Proposal (95)
 
 - Review the issue message above
 
@@ -3133,7 +3133,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (96)
 
 ```python
 
@@ -3145,7 +3145,7 @@ case "${DEBVISOR_ARCH}" in
         exit 1
 ```python
 
-### Proposal
+### Proposal (96)
 
 - Review the issue message above
 
@@ -3163,7 +3163,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (97)
 
 ```python
 case "${DEBVISOR_ARCH}" in
@@ -3175,7 +3175,7 @@ case "${DEBVISOR_ARCH}" in
         ;;
 ```python
 
-### Proposal
+### Proposal (97)
 
 - Review the issue message above
 
@@ -3193,7 +3193,7 @@ case "${DEBVISOR_ARCH}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (98)
 
 ```python
     amd64|arm64)
@@ -3205,7 +3205,7 @@ case "${DEBVISOR_ARCH}" in
 esac
 ```python
 
-### Proposal
+### Proposal (98)
 
 - Review the issue message above
 
@@ -3223,7 +3223,7 @@ esac
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (99)
 
 ```python
         ;;
@@ -3235,7 +3235,7 @@ esac
 
 ```python
 
-### Proposal
+### Proposal (99)
 
 - Review the issue message above
 
@@ -3253,7 +3253,7 @@ esac
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (100)
 
 ```python
     *)
@@ -3265,7 +3265,7 @@ esac
 if [! -f config/preseed.cfg]; then
 ```python
 
-### Proposal
+### Proposal (100)
 
 - Review the issue message above
 
@@ -3283,7 +3283,7 @@ if [! -f config/preseed.cfg]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (101)
 
 ```python
         echo "[DebVisor] ERROR: Unsupported DEBVISOR_ARCH: ${DEBVISOR_ARCH} (allowed: amd64, arm64)" >&2
@@ -3295,7 +3295,7 @@ if [! -f config/preseed.cfg]; then
     echo "[DebVisor] WARNING: config/preseed.cfg not found in project root" >&2
 ```python
 
-### Proposal
+### Proposal (101)
 
 - Review the issue message above
 
@@ -3313,7 +3313,7 @@ if [! -f config/preseed.cfg]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (102)
 
 ```python
         exit 1
@@ -3325,7 +3325,7 @@ if [! -f config/preseed.cfg]; then
 fi
 ```python
 
-### Proposal
+### Proposal (102)
 
 - Review the issue message above
 
@@ -3343,7 +3343,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (103)
 
 ```python
         ;;
@@ -3355,7 +3355,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (103)
 
 - Review the issue message above
 
@@ -3373,7 +3373,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (104)
 
 ```python
 esac
@@ -3385,7 +3385,7 @@ fi
 required_paths=(
 ```python
 
-### Proposal
+### Proposal (104)
 
 - Review the issue message above
 
@@ -3403,7 +3403,7 @@ required_paths=(
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (105)
 
 ```python
 
@@ -3415,7 +3415,7 @@ required_paths=(
     "config/package-lists"
 ```python
 
-### Proposal
+### Proposal (105)
 
 - Review the issue message above
 
@@ -3433,7 +3433,7 @@ required_paths=(
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (106)
 
 ```python
 if [! -f config/preseed.cfg]; then
@@ -3445,7 +3445,7 @@ required_paths=(
     "config/includes.chroot"
 ```python
 
-### Proposal
+### Proposal (106)
 
 - Review the issue message above
 
@@ -3463,7 +3463,7 @@ required_paths=(
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (107)
 
 ```python
     echo "[DebVisor] WARNING: config/preseed.cfg not found in project root" >&2
@@ -3475,7 +3475,7 @@ required_paths=(
 )
 ```python
 
-### Proposal
+### Proposal (107)
 
 - Review the issue message above
 
@@ -3493,7 +3493,7 @@ required_paths=(
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (108)
 
 ```python
 fi
@@ -3505,7 +3505,7 @@ required_paths=(
 
 ```python
 
-### Proposal
+### Proposal (108)
 
 - Review the issue message above
 
@@ -3523,7 +3523,7 @@ required_paths=(
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (109)
 
 ```python
 
@@ -3535,7 +3535,7 @@ required_paths=(
 for path in "${required_paths[@]}"; do
 ```python
 
-### Proposal
+### Proposal (109)
 
 - Review the issue message above
 
@@ -3553,7 +3553,7 @@ for path in "${required_paths[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (110)
 
 ```python
 required_paths=(
@@ -3565,7 +3565,7 @@ for path in "${required_paths[@]}"; do
     if [! -e "${path}"]; then
 ```python
 
-### Proposal
+### Proposal (110)
 
 - Review the issue message above
 
@@ -3583,7 +3583,7 @@ for path in "${required_paths[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (111)
 
 ```python
     "config/package-lists"
@@ -3595,7 +3595,7 @@ for path in "${required_paths[@]}"; do
         echo "[DebVisor] ERROR: required path missing: ${path}" >&2
 ```python
 
-### Proposal
+### Proposal (111)
 
 - Review the issue message above
 
@@ -3613,7 +3613,7 @@ for path in "${required_paths[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (112)
 
 ```python
     "config/includes.chroot"
@@ -3625,7 +3625,7 @@ for path in "${required_paths[@]}"; do
         exit 1
 ```python
 
-### Proposal
+### Proposal (112)
 
 - Review the issue message above
 
@@ -3643,7 +3643,7 @@ for path in "${required_paths[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (113)
 
 ```python
 )
@@ -3655,7 +3655,7 @@ for path in "${required_paths[@]}"; do
     fi
 ```python
 
-### Proposal
+### Proposal (113)
 
 - Review the issue message above
 
@@ -3673,7 +3673,7 @@ for path in "${required_paths[@]}"; do
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (114)
 
 ```python
 
@@ -3685,7 +3685,7 @@ for path in "${required_paths[@]}"; do
 done
 ```python
 
-### Proposal
+### Proposal (114)
 
 - Review the issue message above
 
@@ -3703,7 +3703,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (115)
 
 ```python
 for path in "${required_paths[@]}"; do
@@ -3715,7 +3715,7 @@ done
 
 ```python
 
-### Proposal
+### Proposal (115)
 
 - Review the issue message above
 
@@ -3733,7 +3733,7 @@ done
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (116)
 
 ```python
     if [! -e "${path}"]; then
@@ -3745,7 +3745,7 @@ done
 SKIP_CONFIG=0
 ```python
 
-### Proposal
+### Proposal (116)
 
 - Review the issue message above
 
@@ -3763,7 +3763,7 @@ SKIP_CONFIG=0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (117)
 
 ```python
         echo "[DebVisor] ERROR: required path missing: ${path}" >&2
@@ -3775,7 +3775,7 @@ SKIP_CONFIG=0
 case "${DEBVISOR_FAST}" in
 ```python
 
-### Proposal
+### Proposal (117)
 
 - Review the issue message above
 
@@ -3793,7 +3793,7 @@ case "${DEBVISOR_FAST}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (118)
 
 ```python
         exit 1
@@ -3921,7 +3921,7 @@ case "${DEBVISOR_FAST}" in
 
 ```python
 
-### Proposal
+### Proposal (118)
 
 - Review the issue message above
 
@@ -3939,7 +3939,7 @@ case "${DEBVISOR_FAST}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (119)
 
 ```python
 case "${DEBVISOR_FAST}" in
@@ -3949,7 +3949,7 @@ case "${DEBVISOR_FAST}" in
     1. echo "[DebVisor] FAST=1: skipping clean, will re-configure"
 ```python
 
-### Proposal
+### Proposal (119)
 
 - Review the issue message above
 
@@ -3967,7 +3967,7 @@ case "${DEBVISOR_FAST}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (120)
 
 ```python
     1. echo "[DebVisor] FAST=0: full clean & re-configure"
@@ -3977,7 +3977,7 @@ case "${DEBVISOR_FAST}" in
         ;;
 ```python
 
-### Proposal
+### Proposal (120)
 
 - Review the issue message above
 
@@ -3995,7 +3995,7 @@ case "${DEBVISOR_FAST}" in
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (121)
 
 ```python
         echo "[DebVisor] FAST=0: full clean & re-configure"

@@ -60,7 +60,7 @@ Items marked below as fixed:
 
 **Message:** Try, Except, Pass detected.
 
-### Context
+### Context (1)
 
 ```python
         json_data=None
@@ -72,7 +72,7 @@ Items marked below as fixed:
         return cls(
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -90,7 +90,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
 
@@ -102,7 +102,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -120,7 +120,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
 
@@ -132,7 +132,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -150,7 +150,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
     def assert_json_key(self, key: str) -> Any:
@@ -161,7 +161,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -179,7 +179,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
         required_keys: List[str],
@@ -191,7 +191,7 @@ Items marked below as fixed:
                 key in response.json_data
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -209,7 +209,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
         """Assert response has required keys."""
@@ -221,7 +221,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 

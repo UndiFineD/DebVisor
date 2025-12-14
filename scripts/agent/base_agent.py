@@ -1,94 +1,14 @@
-# AI Code Improvement Suggestions
-## Description: Improve the code for base_agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for base_agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for base_agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for base_agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## !/usr/bin/env python3
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-##     http://www.apache.org/licenses/LICENSE-2.0
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
+#!/usr/bin/env python3
+# Copyright (c) 2025 DebVisor contributors
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """
 Base Agent: Common functionality for all AI-powered agents.
 
@@ -101,9 +21,10 @@ import argparse
 import difflib
 import sys
 
-## Import markdown fixing functionality
+# Import markdown fixing functionality
 sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
 from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
+
 
 class BaseAgent:
     """Base class for all AI-powered agents."""
@@ -157,7 +78,9 @@ class BaseAgent:
             # Check if gh command is available
             subprocess.run(['gh', '--version'], capture_output=True, check=True)
         except (subprocess.CalledProcessError, FileNotFoundError):
-            return self._get_fallback_response()
+            # In environments without GitHub CLI/Copilot, do not overwrite files with
+            # synthetic placeholder suggestions. Keep existing content unchanged.
+            return original_content or self._get_fallback_response()
 
         # Try using gh copilot explain
         try:
@@ -184,7 +107,14 @@ class BaseAgent:
 
     def update_file(self):
         """Write the improved content back to the file."""
-        self.file_path.write_text(fix_markdown_content(self.current_content), encoding='utf-8')
+        content_to_write = self.current_content
+        # Only run the markdown fixer on markdown-like files. Applying markdown
+        # normalization to source code can corrupt it.
+        suffix = self.file_path.suffix.lower()
+        is_markdown = suffix in {'.md', '.markdown'} or self.file_path.name.lower().endswith('.plan.md')
+        if is_markdown:
+            content_to_write = fix_markdown_content(content_to_write)
+        self.file_path.write_text(content_to_write, encoding='utf-8')
 
     def get_diff(self) -> str:
         """Get the diff between previous and current content."""
@@ -195,6 +125,7 @@ class BaseAgent:
             tofile='current'
         )
         return ''.join(diff)
+
 
 def create_main_function(agent_class, description: str, context_help: str):
     """Create a main function for an agent class."""

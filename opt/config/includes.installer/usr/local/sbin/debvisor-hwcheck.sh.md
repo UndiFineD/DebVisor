@@ -101,7 +101,7 @@ Items marked below as fixed:
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ```python
 
 ### Proposal
@@ -122,17 +122,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -150,18 +150,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -179,19 +179,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -209,19 +209,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## distributed under the License is distributed on an "AS IS" BASIS
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -239,19 +239,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -269,19 +269,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -299,19 +299,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -329,19 +329,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -359,19 +358,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -eu
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -389,19 +387,18 @@ set -eu
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -eu
 
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -419,19 +416,18 @@ set -eu
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -eu
 
 LOG=/target/var/log/debvisor/installer.log
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -449,19 +445,18 @@ LOG=/target/var/log/debvisor/installer.log
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -eu
 
 LOG=/target/var/log/debvisor/installer.log
 mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -479,11 +474,10 @@ mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
-## limitations under the License.
-
+## limitations under the License
 set -eu
 
 LOG=/target/var/log/debvisor/installer.log
@@ -491,7 +485,7 @@ mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
 exec >>"$LOG" 2>&1
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -509,7 +503,7 @@ exec >>"$LOG" 2>&1
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
@@ -521,7 +515,7 @@ exec >>"$LOG" 2>&1
 
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -539,7 +533,7 @@ exec >>"$LOG" 2>&1
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 set -eu
@@ -551,7 +545,7 @@ exec >>"$LOG" 2>&1
 echo "[debvisor-hwcheck] Starting hardware sanity checks"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -569,7 +563,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 
@@ -581,7 +575,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -599,7 +593,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 LOG=/target/var/log/debvisor/installer.log
@@ -611,7 +605,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 ## Minimum RAM in kB (e.g. 2 GiB)
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -629,7 +623,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
@@ -641,7 +635,7 @@ echo "[debvisor-hwcheck] Starting hardware sanity checks"
 MIN_RAM_KB=$((2*1024*1024))
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -659,7 +653,7 @@ MIN_RAM_KB=$((2*1024*1024))
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 exec >>"$LOG" 2>&1
@@ -671,7 +665,7 @@ MIN_RAM_KB=$((2*1024*1024))
 TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -689,7 +683,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 
@@ -701,7 +695,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -719,7 +713,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 echo "[debvisor-hwcheck] Starting hardware sanity checks"
@@ -731,7 +725,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 ## Check CPU virtualization flags
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -749,7 +743,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 
@@ -761,7 +755,7 @@ TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
 CPU_OK=0
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -779,7 +773,7 @@ CPU_OK=0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 ## Minimum RAM in kB (e.g. 2 GiB)
@@ -791,7 +785,7 @@ CPU_OK=0
 if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -809,7 +803,7 @@ if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 MIN_RAM_KB=$((2*1024*1024))
@@ -821,7 +815,7 @@ if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
   CPU_OK=1
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -839,7 +833,7 @@ if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
 TOTAL_RAM_KB=$(awk '/MemTotal:/ {print $2}' /proc/meminfo || echo 0)
@@ -851,7 +845,7 @@ if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
 fi
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -869,7 +863,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
 
@@ -881,7 +875,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -899,7 +893,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
 ## Check CPU virtualization flags
@@ -911,7 +905,7 @@ fi
 ## Check at least one non-loopback NIC
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -929,7 +923,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
 CPU_OK=0
@@ -941,7 +935,7 @@ fi
 NIC_OK=0
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -959,7 +953,7 @@ NIC_OK=0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
 if grep -qE '\b(vmx|svm)\b' /proc/cpuinfo 2>/dev/null; then
@@ -971,7 +965,7 @@ NIC_OK=0
 if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -989,7 +983,7 @@ if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
   CPU_OK=1
@@ -1001,7 +995,7 @@ if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
   NIC_OK=1
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1019,7 +1013,7 @@ if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
 fi
@@ -1031,7 +1025,7 @@ if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
 fi
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1049,7 +1043,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
 
@@ -1061,7 +1055,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1079,7 +1073,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
 ## Check at least one non-loopback NIC
@@ -1091,7 +1085,7 @@ fi
 ## Check at least one disk
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1109,7 +1103,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
 NIC_OK=0
@@ -1121,7 +1115,7 @@ fi
 DISK_OK=0
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1139,7 +1133,7 @@ DISK_OK=0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
 if ip -o link show | awk -F': ' '$2!="lo" {print $2; exit}' | grep -q .; then
@@ -1151,7 +1145,7 @@ DISK_OK=0
 if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1169,7 +1163,7 @@ if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
   NIC_OK=1
@@ -1181,7 +1175,7 @@ if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
   DISK_OK=1
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1199,7 +1193,7 @@ if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
 fi
@@ -1211,7 +1205,7 @@ if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
 fi
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1229,7 +1223,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
 
@@ -1241,7 +1235,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1259,7 +1253,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
 ## Check at least one disk
@@ -1271,7 +1265,7 @@ fi
 ARCH_EXPECTED="$(uname -m)"
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1289,7 +1283,7 @@ ARCH_EXPECTED="$(uname -m)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
 DISK_OK=0
@@ -1301,7 +1295,7 @@ ARCH_EXPECTED="$(uname -m)"
 ARCH_ACTUAL="$(uname -m)"
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1319,7 +1313,7 @@ ARCH_ACTUAL="$(uname -m)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
 if lsblk -ndo TYPE 2>/dev/null | grep -q '^disk$'; then
@@ -1331,7 +1325,7 @@ ARCH_ACTUAL="$(uname -m)"
 
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1349,7 +1343,7 @@ ARCH_ACTUAL="$(uname -m)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
   DISK_OK=1
@@ -1361,7 +1355,7 @@ ARCH_ACTUAL="$(uname -m)"
 PROBLEMS=""
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1379,7 +1373,7 @@ PROBLEMS=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
 fi
@@ -1391,7 +1385,7 @@ PROBLEMS=""
 
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1409,7 +1403,7 @@ PROBLEMS=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
 
@@ -1421,7 +1415,7 @@ PROBLEMS=""
 if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1439,7 +1433,7 @@ if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
 ARCH_EXPECTED="$(uname -m)"
@@ -1451,7 +1445,7 @@ if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
   PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1469,7 +1463,7 @@ if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
 ARCH_ACTUAL="$(uname -m)"
@@ -1481,7 +1475,7 @@ if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
 fi
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1499,7 +1493,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
 
@@ -1511,7 +1505,7 @@ fi
 if ["$CPU_OK" -ne 1]; then
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1529,7 +1523,7 @@ if ["$CPU_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
 PROBLEMS=""
@@ -1541,7 +1535,7 @@ if ["$CPU_OK" -ne 1]; then
   PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1559,7 +1553,7 @@ if ["$CPU_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
 
@@ -1571,7 +1565,7 @@ if ["$CPU_OK" -ne 1]; then
 fi
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1589,7 +1583,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
 if ["$TOTAL_RAM_KB" -lt "$MIN_RAM_KB"]; then
@@ -1601,7 +1595,7 @@ fi
 if ["$NIC_OK" -ne 1]; then
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1619,7 +1613,7 @@ if ["$NIC_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
   PROBLEMS="$PROBLEMS\n- RAM too low: need at least 2 GiB."
@@ -1631,7 +1625,7 @@ if ["$NIC_OK" -ne 1]; then
   PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1649,7 +1643,7 @@ if ["$NIC_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
 fi
@@ -1661,7 +1655,7 @@ if ["$NIC_OK" -ne 1]; then
 fi
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1679,7 +1673,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
 if ["$CPU_OK" -ne 1]; then
@@ -1691,7 +1685,7 @@ fi
 if ["$DISK_OK" -ne 1]; then
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1709,7 +1703,7 @@ if ["$DISK_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
   PROBLEMS="$PROBLEMS\n- CPU virtualization (VT-x/AMD-V) not detected."
@@ -1721,7 +1715,7 @@ if ["$DISK_OK" -ne 1]; then
   PROBLEMS="$PROBLEMS\n- No disk device detected."
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1739,7 +1733,7 @@ if ["$DISK_OK" -ne 1]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
 fi
@@ -1751,7 +1745,7 @@ if ["$DISK_OK" -ne 1]; then
 fi
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1769,7 +1763,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (56)
 
 ```python
 if ["$NIC_OK" -ne 1]; then
@@ -1781,7 +1775,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1799,7 +1793,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (57)
 
 ```python
   PROBLEMS="$PROBLEMS\n- No non-loopback network interface detected."
@@ -1811,7 +1805,7 @@ fi
 if [-n "$PROBLEMS"]; then
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1829,7 +1823,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (58)
 
 ```python
 fi
@@ -1841,7 +1835,7 @@ if [-n "$PROBLEMS"]; then
   echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -1859,7 +1853,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (59)
 
 ```python
 if ["$DISK_OK" -ne 1]; then
@@ -1871,7 +1865,7 @@ if [-n "$PROBLEMS"]; then
   # Show a clear message on the console and drop to shell
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 
@@ -1889,7 +1883,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (60)
 
 ```python
   PROBLEMS="$PROBLEMS\n- No disk device detected."
@@ -1901,7 +1895,7 @@ if [-n "$PROBLEMS"]; then
   printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
 ```python
 
-### Proposal
+### Proposal (60)
 
 - Review the issue message above
 
@@ -1919,7 +1913,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (61)
 
 ```python
 fi
@@ -1931,7 +1925,7 @@ if [-n "$PROBLEMS"]; then
   printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
 ```python
 
-### Proposal
+### Proposal (61)
 
 - Review the issue message above
 
@@ -1949,7 +1943,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (62)
 
 ```python
 
@@ -1961,7 +1955,7 @@ if [-n "$PROBLEMS"]; then
   read -r _junk /dev/null || true
 ```python
 
-### Proposal
+### Proposal (62)
 
 - Review the issue message above
 
@@ -1979,7 +1973,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (63)
 
 ```python
 if [-n "$PROBLEMS"]; then
@@ -1991,7 +1985,7 @@ if [-n "$PROBLEMS"]; then
   exec /bin/sh
 ```python
 
-### Proposal
+### Proposal (63)
 
 - Review the issue message above
 
@@ -2009,7 +2003,7 @@ if [-n "$PROBLEMS"]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (64)
 
 ```python
   echo "[debvisor-hwcheck] FAILED:$PROBLEMS"
@@ -2021,7 +2015,7 @@ if [-n "$PROBLEMS"]; then
 fi
 ```python
 
-### Proposal
+### Proposal (64)
 
 - Review the issue message above
 
@@ -2039,7 +2033,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (65)
 
 ```python
   # Show a clear message on the console and drop to shell
@@ -2051,7 +2045,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (65)
 
 - Review the issue message above
 
@@ -2069,7 +2063,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (66)
 
 ```python
   printf '\nDebVisor hardware checks failed:%s\n' "$PROBLEMS" > /dev/tty1 2>/dev/null || true
@@ -2081,7 +2075,7 @@ fi
 echo "[debvisor-hwcheck] Hardware checks passed"
 ```python
 
-### Proposal
+### Proposal (66)
 
 - Review the issue message above
 
@@ -2099,7 +2093,7 @@ echo "[debvisor-hwcheck] Hardware checks passed"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (67)
 
 ```python
   printf '\nPress Enter to drop to a shell, or power off.\n' > /dev/tty1 2>/dev/null || true
@@ -2111,7 +2105,7 @@ echo "[debvisor-hwcheck] Hardware checks passed"
 exit 0
 ```python
 
-### Proposal
+### Proposal (67)
 
 - Review the issue message above
 
@@ -2129,7 +2123,7 @@ exit 0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (68)
 
 ```python
   read -r _junk /dev/null || true
@@ -2140,7 +2134,7 @@ echo "[debvisor-hwcheck] Hardware checks passed"
 exit 0
 ```python
 
-### Proposal
+### Proposal (68)
 
 - Review the issue message above
 
@@ -2158,7 +2152,7 @@ exit 0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (69)
 
 ```python
   exec /bin/sh
@@ -2168,7 +2162,7 @@ echo "[debvisor-hwcheck] Hardware checks passed"
 exit 0
 ```python
 
-### Proposal
+### Proposal (69)
 
 - Review the issue message above
 
@@ -2186,7 +2180,7 @@ exit 0
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (70)
 
 ```python
 fi
@@ -2195,7 +2189,7 @@ echo "[debvisor-hwcheck] Hardware checks passed"
 exit 0
 ```python
 
-### Proposal
+### Proposal (70)
 
 - Review the issue message above
 

@@ -595,8 +595,6 @@ blocklist-p2p.txt # Load
 on production\n\n- blocklist-geoip.txt # Load on production\n\n- "{{
 optional_category }}"
 
-## 
-
 Conditional per environment\n\n## Caching Recommendations\n\nFor blocklists that
 rarely
 change:\n\n## Generate cache of compiled rules\n\n nft list ruleset >

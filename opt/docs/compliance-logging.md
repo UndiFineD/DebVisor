@@ -29,8 +29,9 @@ WORM compliance\n\n aws s3api create-bucket \\n\n - -bucket
 debvisor-compliance-archive
 \\n\n -
 -object-lock-enabled-for-bucket\n\n## Set default retention\n\n aws s3api
-put-object-lock-configuration \\n\n - -bucket debvisor-compliance-archive \\n\n
--
+
+## put-object-lock-configuration \\n\n - -bucket debvisor-compliance-archive \\n\n
+
 -object-lock-configuration \\n\n
 'ObjectLockEnabled=Enabled,Rule={DefaultRetention={Mode=COMPLIANCE,Years=7}}'\n\n##
 Log

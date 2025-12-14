@@ -56,7 +56,7 @@ Items marked below as fixed:
 
 **Message:** Probable insecure usage of temp file/directory.
 
-### Context
+### Context (1)
 
 ```python
 
@@ -68,7 +68,7 @@ Items marked below as fixed:
         handle = mock_file()
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

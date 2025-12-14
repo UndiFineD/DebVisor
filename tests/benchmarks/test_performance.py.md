@@ -39,7 +39,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
 ### Context
 
@@ -69,9 +70,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (1)
 
 ```python
     return {
@@ -83,7 +85,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         "disk_gb": random.randint(10, 500),
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -99,9 +101,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (2)
 
 ```python
         "id": vm_id,
@@ -113,7 +116,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         "network_interfaces": [
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -129,9 +132,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (3)
 
 ```python
         "name": f"test-vm-{vm_id}",
@@ -143,7 +147,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             {
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -159,9 +163,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (4)
 
 ```python
         "status": random.choice(["running", "stopped", "paused"]),
@@ -173,7 +178,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
                 "mac": f"52:54:00:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}:{random.randint(0, 255):02x}"
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -189,9 +194,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (5)
 
 ```python
         "disk_gb": random.randint(10, 500),
@@ -203,7 +209,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         ],
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -215,13 +221,14 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ---
 
-### Issue at Line 297
+### Issue at Line 297 (1)
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (6)
 
 ```python
         "disk_gb": random.randint(10, 500),
@@ -233,7 +240,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         ],
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -245,13 +252,14 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ---
 
-### Issue at Line 297
+### Issue at Line 297 (2)
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (7)
 
 ```python
         "disk*gb": random.randint(10, 500),
@@ -263,7 +271,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         ],
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -279,9 +287,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (8)
 
 ```python
             {
@@ -293,7 +302,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         "hypervisor": random.choice(["kvm", "xen"]),
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -309,9 +318,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (9)
 
 ```python
             for * in range(random.randint(1, 4))
@@ -323,7 +333,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -339,9 +349,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (10)
 
 ```python
         "status": "healthy",
@@ -353,7 +364,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             "database": {"status": "ok", "latency_ms": random.uniform(1, 5)},
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -369,9 +380,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (11)
 
 ```python
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -383,7 +395,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         },
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -399,9 +411,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (12)
 
 ```python
         "services": {
@@ -413,7 +426,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         "metrics": {
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -429,9 +442,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (13)
 
 ```python
             "kvm": {"status": "ok", "latency_ms": random.uniform(1, 10)},
@@ -443,7 +457,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
             "cpu_percent": random.uniform(10, 80),
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -459,9 +473,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (14)
 
 ```python
             "database": {"status": "ok", "latency_ms": random.uniform(1, 5)},
@@ -473,7 +488,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
         },
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -489,9 +504,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (15)
 
 ```python
         },
@@ -503,7 +519,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
     }
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -519,9 +535,10 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
-### Context
+### Context (16)
 
 ```python
         "metrics": {
@@ -533,7 +550,7 @@ def create_mock_vm(vm_id: str = None) -> Dict[str, Any]:
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 

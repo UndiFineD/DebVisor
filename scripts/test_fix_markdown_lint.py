@@ -4,7 +4,7 @@ import importlib.util
 
 # Dynamically import fix_markdown_lint from repository root without modifying sys.path
 ROOT = Path(__file__).resolve().parents[1]
-FIXER_PATH = ROOT / "fix_markdown_lint.py"
+FIXER_PATH = ROOT / "scripts" / "fix" / "fix_markdown_lint.py"
 spec = importlib.util.spec_from_file_location("fix_markdown_lint", str(FIXER_PATH))
 module = importlib.util.module_from_spec(spec)  # type: ignore
 assert spec and spec.loader

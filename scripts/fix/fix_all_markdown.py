@@ -53,7 +53,8 @@ import argparse
 import json
 import fnmatch
 
-# Load optional wrapping configuration
+
+# apping configuration
 def load_wrap_config(root: Path):
     cfg_path = root / 'md_wrap_config.json'
     if cfg_path.exists():
@@ -72,6 +73,7 @@ def load_wrap_config(root: Path):
         'file_limits': [],
         'skip_patterns': []
     }
+
 
 def get_wrap_settings(root: Path, file_path: Path, cfg: dict):
     rel = str(file_path.relative_to(root)).replace('\\', '/')
@@ -94,6 +96,7 @@ def get_wrap_settings(root: Path, file_path: Path, cfg: dict):
     # default
     return False, int(cfg.get('default_limit', 80))
 
+
 def fix_markdown_file(file_path, max_line_length: int | None = None):
     """Fix markdown linting errors in a single file."""
     try:
@@ -105,10 +108,55 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
 
     original_content = content
 
+    # Special-case: agent-generated documentation sometimes contains repeated
+    # "AI ... Suggestions" wrapper blocks from fallback runs. Those wrappers also
+    # trigger MD024, and our MD024 fixer previously produced noisy headings like
+    # "## (1)". Collapse these files into their intended single section.
+    try:
+        rel_path = str(Path(file_path).resolve().relative_to(Path(__file__).resolve().parents[2])).replace('\\', '/')
+    except Exception:
+        rel_path = str(file_path).replace('\\', '/')
+
+    agent_doc_match = re.match(r'^scripts/agent/.+\.(description|changes|errors|improvements)\.md$', rel_path)
+    if agent_doc_match:
+        kind = agent_doc_match.group(1)
+        section_title = {
+            'description': 'Description',
+            'changes': 'Changelog',
+            'errors': 'Errors',
+            'improvements': 'Improvements',
+        }[kind]
+
+        # Prefer the last real section heading; otherwise fall back to the last
+        # "Original ... preserved below" marker.
+        section_heading_re = re.compile(rf'^#+\s+{re.escape(section_title)}\s*$', re.MULTILINE)
+        matches = list(section_heading_re.finditer(content))
+        if matches:
+            content = content[matches[-1].start():]
+        else:
+            original_marker_re = re.compile(r'^##\s+Original .+ preserved below.*$', re.MULTILINE)
+            marker_matches = list(original_marker_re.finditer(content))
+            if marker_matches:
+                after = content.find('\n', marker_matches[-1].end())
+                content = content[after + 1 if after != -1 else marker_matches[-1].end():]
+
+        # Drop noisy numbered headings like "## (1)".
+        content = re.sub(r'^##\s*\(\d+\)\s*$', '', content, flags=re.MULTILINE)
+
+        # Ensure the main section is a single H1.
+        content = re.sub(rf'^##\s+{re.escape(section_title)}\s*$',
+            f'# {section_title}', content, count=1, flags=re.MULTILINE)
+
+        # Trim leading blank lines for clean top-of-file.
+        content = content.lstrip('\n')
+
     # Fix MD009: Remove trailing spaces from lines
     lines = content.split('\n')
     lines = [line.rstrip() for line in lines]
     content = '\n'.join(lines)
+
+    # Fix empty headings (lines with just #s) which cause MD022/MD024 issues
+    content = re.sub(r'^#+\s*$', '', content, flags=re.MULTILINE)
 
     # Fix MD010: Replace hard tabs with spaces
     content = content.replace('\t', '    ')
@@ -137,6 +185,10 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     # Fix MD021: Multiple spaces inside hashes on closed atx style heading
     content = re.sub(r'^(#+) {2,}(.+?) {2,}(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
 
+    # Fix MD020/MD021: Add space inside closed ATX style headings if missing
+    # Matches #Heading# -> # Heading #
+    content = re.sub(r'^(#+)([^#\s].*?)(#+)$', r'\1 \2 \3', content, flags=re.MULTILINE)
+
     # Additional MD001 guard: demote extra H1 headings to H2
     lines = content.split('\n')
     h1_seen = False
@@ -164,7 +216,7 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = re.sub(r'^\*\*(.+?):?\*\*$', r'### \1', content, flags=re.MULTILINE)
 
     # Fix MD026: Remove trailing punctuation from headings
-    content = re.sub(r'^(#+\s+[^:\n]+):\s*$', r'\1', content, flags=re.MULTILINE)
+    content = re.sub(r'^(#+\s+.*?)[:.!?,]\s*$', r'\1', content, flags=re.MULTILINE)
 
     # Fix MD027: Remove multiple spaces after blockquote symbol
     content = re.sub(r'^(>\s) {2,}', r'\1', content, flags=re.MULTILINE)
@@ -219,7 +271,7 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = '\n'.join(fixed_lines)
 
     # Fix MD013: Wrap long lines with smarter heuristics
-    repo_root = Path(__file__).parent
+    repo_root = Path(__file__).parent.parent.parent
     wrap_cfg = load_wrap_config(repo_root)
     skip_wrap, wrap_limit = get_wrap_settings(repo_root, Path(file_path), wrap_cfg)
     if max_line_length is not None:
@@ -370,11 +422,36 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     # Fix MD047: Ensure file ends with exactly one newline
     content = content.rstrip() + '\n'
 
+    # Fix MD003: Convert Setext headings to ATX
+    lines = content.split('\n')
+    new_lines = []
+    skip_next = False
+    for i in range(len(lines)):
+        if skip_next:
+            skip_next = False
+            continue
+
+        line = lines[i]
+        next_line = lines[i+1] if i + 1 < len(lines) else ''
+
+        # Check for Setext H1 (===)
+        if re.match(r'^=+\s*$', next_line) and line.strip() != '':
+            new_lines.append(f'# {line.strip()}')
+            skip_next = True
+        # Check for Setext H2 (---)
+        elif re.match(r'^-+\s*$', next_line) and line.strip() != '':
+            new_lines.append(f'## {line.strip()}')
+            skip_next = True
+        else:
+            new_lines.append(line)
+    content = '\n'.join(new_lines)
+
     # Fix MD001, MD022, MD031, MD032 with line-by-line processing
     lines = content.split('\n')
     fixed_lines = []
     i = 0
     top_level_heading_found = False
+    seen_headings = {}
 
     while i < len(lines):
         line = lines[i]
@@ -408,6 +485,19 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
                 current_heading = '#' + line
             else:
                 current_heading = line
+
+            # Fix MD024: Ensure unique headings
+            # Normalize heading for comparison (strip whitespace and trailing punctuation just in case)
+            normalized = current_heading.strip().rstrip(':.!?,')
+            if normalized in seen_headings:
+                seen_headings[normalized] += 1
+                # Append counter to the original heading text (preserving indentation/style if any)
+                # Actually, we want to reconstruct it cleanly.
+                current_heading = f"{normalized} ({seen_headings[normalized]})"
+            else:
+                seen_headings[normalized] = 0
+                current_heading = normalized
+
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
                 fixed_lines.append('')
@@ -420,7 +510,11 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
         elif re.match(r'^\s*[-*+]\s', line) or re.match(r'^\s*[0-9]+\.\s', line):
             # Add blank line before if needed
             if fixed_lines and fixed_lines[-1].strip() != '':
-                fixed_lines.append('')
+                # Check if previous line was also a list item (to avoid loose lists)
+                prev = fixed_lines[-1]
+                is_prev_list = re.match(r'^\s*[-*+]\s', prev) or re.match(r'^\s*[0-9]+\.\s', prev)
+                if not is_prev_list:
+                    fixed_lines.append('')
             fixed_lines.append(line)
 
         # Check for blockquote
@@ -437,16 +531,22 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
 
     content = '\n'.join(fixed_lines)
 
+    # Final pass: Fix MD009 (Trailing spaces) again to catch any introduced by other fixes
+    lines = content.split('\n')
+    lines = [line.rstrip() for line in lines]
+    content = '\n'.join(lines)
+
     # Only write if content changed
     if content != original_content:
         try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            return True
+            return 1  # Fixed
         except Exception as e:
             print(f"  [ERROR] writing {file_path}: {e}")
-            return False
-    return False
+            return -1  # Error
+    return 0  # Unchanged
+
 
 def main():
     """Find and fix all markdown files in the repository."""
@@ -455,10 +555,13 @@ def main():
     parser.add_argument("--max-line-length", type=int, default=None, help="override wrapping limit for MD013")
     args, _ = parser.parse_known_args()
 
-    workspace_root = Path(__file__).parent
+    workspace_root = Path(__file__).parent.parent.parent
 
     # Directories to exclude
-    excluded_dirs = {'.venv', '.venv-1', '.venv-2', '.venv-3', '.git', '__pycache__', '.pytest_cache', 'node_modules', '.github', '.vscode'}
+    excluded_dirs = {
+        '.venv', '.venv-1', '.venv-2', '.venv-3',
+        '.git', '__pycache__', '.pytest_cache',
+        'node_modules', '.github', '.vscode'}
 
     # Find all markdown files
     markdown_files = []
@@ -471,25 +574,31 @@ def main():
     total_files = len(markdown_files)
     fixed_files = 0
     failed_files = 0
+    unchanged_files = 0
 
     print(f"Found {total_files} markdown files to process")
     print("-" * 60)
 
     for md_file in sorted(markdown_files):
         relative_path = md_file.relative_to(workspace_root)
-        if fix_markdown_file(md_file, max_line_length=args.max_line_length):
+        result = fix_markdown_file(md_file, max_line_length=args.max_line_length)
+
+        if result == 1:
             if not args.quiet:
                 print(f"[FIXED] {relative_path}")
             fixed_files += 1
-        else:
+        elif result == -1:
             failed_files += 1
+        else:
+            unchanged_files += 1
 
     print("-" * 60)
     print(f"\nSummary:")
     print(f"  Total files:   {total_files}")
     print(f"  Fixed:         {fixed_files}")
     print(f"  Failed:        {failed_files}")
-    print(f"  Unchanged:     {total_files - fixed_files - failed_files}")
+    print(f"  Unchanged:     {unchanged_files}")
+
 
 if __name__ == '__main__':
     main()

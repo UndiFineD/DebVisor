@@ -1,4 +1,4 @@
-# Contributing to DebVisor\n\nThank you for your interest in contributing to DebVisor!
+# Contributing to DebVisor\n\nThank you for your interest in contributing to DebVisor
 
 This document
 
@@ -341,7 +341,7 @@ process_nodes(["node-1", "node-2"])\n >>> print(results)\n {'node-1': True,
 'node-2':
 True}\n """\n
 
-## Implementation\n pass\n```text\n## Good example\n\nfrom typing import Optional, List,
+## Implementation\n pass\n```text\n## Good example\n\nfrom typing import Optional, List
 
 Dict,
 
@@ -599,8 +599,6 @@ manager(self):\n """Create BackupManager instance."""\n return
 BackupManager(config=test_config)\n
 def test_create_backup_success(self, manager):\n """Test successful backup
 creation."""\n
-
-## 
 
 Arrange\n mock_storage = Mock()\n # Act\n result =
 manager.create_backup("test-vm",
@@ -1020,20 +1018,20 @@ Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption
 roundtrip\nCloses
 
-## 123\n```text\n\n- Add encryption option to BackupConfig\n\n- Implement encrypt_stream()
+## 123\n```text\n\n- Add encryption option to BackupConfig\n\n- Implement encrypt_stream() (1)
 
 and
 
 decrypt_stream()\n\n- Add tests for encryption roundtrip\n\nCloses
 
-## 123\n```text\nfeat(backup): add
+## 123\n```text\nfeat(backup): add (1)
 
 AES-256 encryption support\n\n- Add encryption option to BackupConfig\n\n-
 Implement
 encrypt_stream() and decrypt_stream()\n\n- Add tests for encryption
 roundtrip\nCloses
 
-## 123\n```text\n\n- Add encryption option to BackupConfig\n\n- Implement encrypt_stream()
+## 123\n```text\n\n- Add encryption option to BackupConfig\n\n- Implement encrypt_stream() (2)
 
 and
 

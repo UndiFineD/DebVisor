@@ -68,7 +68,7 @@ from datetime import datetime, timezone
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (1)
 
 ```python
         """Check if Xen is available on the system."""
@@ -80,7 +80,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -92,13 +92,13 @@ from datetime import datetime, timezone
 
 ---
 
-### Issue at Line 241
+### Issue at Line 241 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (2)
 
 ```python
         """Check if Xen is available on the system."""
@@ -110,7 +110,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -128,7 +128,7 @@ from datetime import datetime, timezone
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (3)
 
 ```python
 
@@ -140,7 +140,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -152,13 +152,13 @@ from datetime import datetime, timezone
 
 ---
 
-### Issue at Line 266
+### Issue at Line 266 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (4)
 
 ```python
 
@@ -170,7 +170,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -188,7 +188,7 @@ from datetime import datetime, timezone
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (5)
 
 ```python
             return []
@@ -200,7 +200,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -212,13 +212,13 @@ from datetime import datetime, timezone
 
 ---
 
-### Issue at Line 360
+### Issue at Line 360 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (6)
 
 ```python
             return []
@@ -230,7 +230,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -248,7 +248,7 @@ from datetime import datetime, timezone
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (7)
 
 ```python
                 _temp_config_fd=None  # Mark as closed
@@ -260,7 +260,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -272,13 +272,13 @@ from datetime import datetime, timezone
 
 ---
 
-### Issue at Line 489
+### Issue at Line 489 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (8)
 
 ```python
                 _temp_config_fd=None  # Mark as closed
@@ -290,7 +290,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -308,7 +308,7 @@ from datetime import datetime, timezone
 
 **Message:** Try, Except, Pass detected.
 
-### Context
+### Context (9)
 
 ```python
             if temp_config_fd is not None:
@@ -320,7 +320,7 @@ from datetime import datetime, timezone
             if temp_config_path and os.path.exists(temp_config_path):
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -338,7 +338,7 @@ from datetime import datetime, timezone
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (10)
 
 ```python
     async def start_vm(self, vmid: str) -> bool:
@@ -350,7 +350,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -362,13 +362,13 @@ from datetime import datetime, timezone
 
 ---
 
-### Issue at Line 605
+### Issue at Line 605 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (11)
 
 ```python
     async def start_vm(self, vmid: str) -> bool:
@@ -380,7 +380,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -398,7 +398,7 @@ from datetime import datetime, timezone
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (12)
 
 ```python
         try:
@@ -410,7 +410,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -428,7 +428,7 @@ from datetime import datetime, timezone
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (13)
 
 ```python
                 command.append("--live")
@@ -440,7 +440,7 @@ from datetime import datetime, timezone
                 _text=True,
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 

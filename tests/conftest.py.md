@@ -31,7 +31,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
-**Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+**Message:** Standard pseudo-random generators are not suitable for
+security/cryptographic purposes.
 
 ### Context
 
@@ -60,9 +61,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
     start = time.time()
@@ -78,7 +80,7 @@ Items marked below as fixed:
             ), f"Value mismatch for key '{key}': {actual[key]} != {value}"
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -94,9 +96,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
         """Assert dict contains expected keys and values"""
@@ -108,7 +111,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -124,9 +127,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
     def assert_list_contains_all(actual: List[Any], *items: Any) -> None:
@@ -138,7 +142,7 @@ Items marked below as fixed:
     def assert_response_valid(response: Dict[str, Any]) -> None:
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -154,9 +158,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
     @staticmethod
@@ -168,7 +173,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -184,9 +189,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
     def assert_response_valid(response: Dict[str, Any]) -> None:
@@ -197,7 +203,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -213,9 +219,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
         """Assert response has valid structure"""
@@ -226,7 +233,7 @@ Items marked below as fixed:
 @pytest.fixture
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 

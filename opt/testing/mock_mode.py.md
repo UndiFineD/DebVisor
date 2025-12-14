@@ -122,7 +122,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (1)
 
 ```python
             "status": random.choices[
@@ -134,7 +134,7 @@ Items marked below as fixed:
             "hypervisor": random.choice(hypervisors),
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -152,7 +152,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (2)
 
 ```python
                 0
@@ -164,7 +164,7 @@ Items marked below as fixed:
             "host": f"node-{random.randint(1, 5):02d}",
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -182,7 +182,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (3)
 
 ```python
             ],
@@ -194,7 +194,7 @@ Items marked below as fixed:
             "created_at": (
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -212,7 +212,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (4)
 
 ```python
             "vcpus": random.choice([1, 2, 4, 8, 16]),
@@ -224,7 +224,7 @@ Items marked below as fixed:
                 datetime.now(timezone.utc) - timedelta(days=random.randint(1, 365))
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -242,7 +242,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (5)
 
 ```python
             "memory_mb": random.choice([512, 1024, 2048, 4096, 8192, 16384]),
@@ -254,7 +254,7 @@ Items marked below as fixed:
             ).isoformat(),
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -272,7 +272,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (6)
 
 ```python
             "hypervisor": random.choice(hypervisors),
@@ -284,7 +284,7 @@ Items marked below as fixed:
             "network_interfaces": [
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -302,7 +302,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (7)
 
 ```python
             "network_interfaces": [
@@ -314,7 +314,7 @@ Items marked below as fixed:
                 for * in range(random.randint(1, 3))
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -326,13 +326,13 @@ Items marked below as fixed:
 
 ---
 
-### Issue at Line 335
+### Issue at Line 335 (1)
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (8)
 
 ```python
             "network_interfaces": [
@@ -344,7 +344,7 @@ Items marked below as fixed:
                 for * in range(random.randint(1, 3))
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -362,7 +362,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (9)
 
 ```python
                 {
@@ -374,7 +374,7 @@ Items marked below as fixed:
             ],
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -392,7 +392,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (10)
 
 ```python
                     "ip": f"10.0.{random.randint(0, 255)}.{random.randint(1, 254)}",
@@ -404,7 +404,7 @@ Items marked below as fixed:
                 {
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -422,7 +422,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (11)
 
 ```python
             "disks": [
@@ -434,7 +434,7 @@ Items marked below as fixed:
                 }
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -452,7 +452,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (12)
 
 ```python
                     "path": f"/var/lib/libvirt/images/{vm_id}-disk{j}.qcow2",
@@ -464,7 +464,7 @@ Items marked below as fixed:
             ],
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -482,7 +482,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (13)
 
 ```python
                     "format": "qcow2",
@@ -494,7 +494,7 @@ Items marked below as fixed:
                 [
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -512,7 +512,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (14)
 
 ```python
                 }
@@ -524,7 +524,7 @@ Items marked below as fixed:
                     "staging",
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -542,7 +542,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (15)
 
 ```python
                     "web",
@@ -554,7 +554,7 @@ Items marked below as fixed:
                 "owner": f"user-{random.randint(1, 10):02d}",
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -572,7 +572,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (16)
 
 ```python
                 _k=random.randint(1, 3),
@@ -584,7 +584,7 @@ Items marked below as fixed:
         }
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -602,7 +602,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (17)
 
 ```python
             ),
@@ -614,7 +614,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -632,7 +632,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (18)
 
 ```python
 def _generate_mac() -> str:
@@ -643,7 +643,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -655,13 +655,13 @@ def _generate_mac() -> str:
 
 ---
 
-### Issue at Line 373
+### Issue at Line 373 (1)
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (19)
 
 ```python
 def _generate_mac() -> str:
@@ -672,7 +672,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -684,13 +684,13 @@ def _generate_mac() -> str:
 
 ---
 
-### Issue at Line 373
+### Issue at Line 373 (2)
 
 **Tool:**bandit |**Code:**`B311` |**Severity:** LOW
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (20)
 
 ```python
 def _generate_mac() -> str:
@@ -701,7 +701,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -719,7 +719,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (21)
 
 ```python
         container_id=f"container-{i:04d}"
@@ -731,7 +731,7 @@ def _generate_mac() -> str:
                 0
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -749,7 +749,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (22)
 
 ```python
             "id": container_id,
@@ -761,7 +761,7 @@ def _generate_mac() -> str:
             "image": random.choice(images),
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -779,7 +779,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (23)
 
 ```python
             "status": random.choices[
@@ -791,7 +791,7 @@ def _generate_mac() -> str:
             ).isoformat(),
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -809,7 +809,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (24)
 
 ```python
             ],
@@ -821,7 +821,7 @@ def _generate_mac() -> str:
                 {
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -839,7 +839,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (25)
 
 ```python
             ).isoformat(),
@@ -851,7 +851,7 @@ def _generate_mac() -> str:
                 }
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -869,7 +869,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (26)
 
 ```python
             "ports": [
@@ -881,7 +881,7 @@ def _generate_mac() -> str:
                 for * in range(random.randint(0, 3))
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -899,7 +899,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (27)
 
 ```python
                     "host*port": random.randint(30000, 32767),
@@ -911,7 +911,7 @@ def _generate_mac() -> str:
                 "app": f"app-{random.randint(1, 10):02d}",
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -929,7 +929,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (28)
 
 ```python
                 for * in range(random.randint(0, 3))
@@ -941,7 +941,7 @@ def _generate_mac() -> str:
             "resource_limits": {
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -959,7 +959,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (29)
 
 ```python
             ],
@@ -971,7 +971,7 @@ def _generate_mac() -> str:
                 "cpu_shares": random.choice([256, 512, 1024, 2048]),
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -989,7 +989,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (30)
 
 ```python
                 "environment": random.choice(["prod", "staging", "dev"]),
@@ -1001,7 +1001,7 @@ def _generate_mac() -> str:
         }
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1019,7 +1019,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (31)
 
 ```python
             },
@@ -1031,7 +1031,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1049,7 +1049,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (32)
 
 ```python
 
@@ -1061,7 +1061,7 @@ def _generate_mac() -> str:
             "id": pool_id,
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1079,7 +1079,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (33)
 
 ```python
     for i in range(count):
@@ -1091,7 +1091,7 @@ def _generate_mac() -> str:
             "name": f"storage-pool-{i:02d}",
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1109,7 +1109,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (34)
 
 ```python
         pools[pool_id] = {
@@ -1121,7 +1121,7 @@ def _generate_mac() -> str:
             "capacity_gb": total_gb,
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1139,7 +1139,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (35)
 
 ```python
             "used_gb": used_gb,
@@ -1151,7 +1151,7 @@ def _generate_mac() -> str:
     return pools
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1169,7 +1169,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (36)
 
 ```python
         networks[net_id] = {
@@ -1181,7 +1181,7 @@ def _generate_mac() -> str:
             "cidr": f"10.{i}.0.0/24",
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1199,7 +1199,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (37)
 
 ```python
         hosts[host_id] = {
@@ -1211,7 +1211,7 @@ def _generate_mac() -> str:
             "memory_gb": random.choice([32, 64, 128, 256]),
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1229,7 +1229,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (38)
 
 ```python
             "hostname": f"debvisor-node-{i + 1:02d}.local",
@@ -1241,7 +1241,7 @@ def _generate_mac() -> str:
             "memory_usage_percent": random.uniform(20, 70),
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1259,7 +1259,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (39)
 
 ```python
             "status": "online" if random.random() > 0.1 else "offline",
@@ -1271,7 +1271,7 @@ def _generate_mac() -> str:
             "uptime_seconds": random.randint(86400, 86400 * 365),
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1289,7 +1289,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (40)
 
 ```python
             "role": "compute" if i > 0 else "controller",
@@ -1301,7 +1301,7 @@ def _generate_mac() -> str:
             "kernel_version": "6.1.0-debvisor",
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1319,7 +1319,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (41)
 
 ```python
             "cpu_cores": random.choice([8, 16, 32, 64]),
@@ -1331,7 +1331,7 @@ def _generate_mac() -> str:
             "hypervisor": {
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1349,7 +1349,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (42)
 
 ```python
             "memory_gb": random.choice([32, 64, 128, 256]),
@@ -1361,7 +1361,7 @@ def _generate_mac() -> str:
                 "type": "kvm",
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1379,7 +1379,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (43)
 
 ```python
                 "type": "kvm",
@@ -1391,7 +1391,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1409,7 +1409,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (44)
 
 ```python
                 "version": "QEMU 8.1.0",
@@ -1421,7 +1421,7 @@ def _generate_mac() -> str:
     return hosts
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1439,7 +1439,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (45)
 
 ```python
     """Generate mock metrics data."""
@@ -1451,7 +1451,7 @@ def _generate_mac() -> str:
             "used_memory_gb": random.randint(200, 1500),
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1469,7 +1469,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (46)
 
 ```python
     return {
@@ -1481,7 +1481,7 @@ def _generate_mac() -> str:
             "total_storage_tb": random.randint(10, 100),
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1499,7 +1499,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (47)
 
 ```python
         "cluster": {
@@ -1511,7 +1511,7 @@ def _generate_mac() -> str:
             "used_storage_tb": random.randint(5, 80),
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1529,7 +1529,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (48)
 
 ```python
             "total_vcpus": random.randint(100, 500),
@@ -1541,7 +1541,7 @@ def _generate_mac() -> str:
             "vms_running": random.randint(50, 200),
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1559,7 +1559,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (49)
 
 ```python
             "used_vcpus": random.randint(50, 400),
@@ -1571,7 +1571,7 @@ def _generate_mac() -> str:
             "vms_total": random.randint(100, 300),
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1589,7 +1589,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (50)
 
 ```python
             "total_memory_gb": random.randint(500, 2000),
@@ -1601,7 +1601,7 @@ def _generate_mac() -> str:
             "containers_running": random.randint(100, 500),
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1619,7 +1619,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (51)
 
 ```python
             "used_memory_gb": random.randint(200, 1500),
@@ -1631,7 +1631,7 @@ def _generate_mac() -> str:
         },
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1649,7 +1649,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (52)
 
 ```python
             "total_storage_tb": random.randint(10, 100),
@@ -1661,7 +1661,7 @@ def _generate_mac() -> str:
         "performance": {
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1679,7 +1679,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (53)
 
 ```python
             "used_storage_tb": random.randint(5, 80),
@@ -1691,7 +1691,7 @@ def _generate_mac() -> str:
             "api_requests_per_sec": random.uniform(100, 1000),
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1709,7 +1709,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (54)
 
 ```python
             "containers_running": random.randint(100, 500),
@@ -1721,7 +1721,7 @@ def _generate_mac() -> str:
         },
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1739,7 +1739,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (55)
 
 ```python
         },
@@ -1751,7 +1751,7 @@ def _generate_mac() -> str:
     }
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1769,7 +1769,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (56)
 
 ```python
         "performance": {
@@ -1781,7 +1781,7 @@ def _generate_mac() -> str:
 
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1799,7 +1799,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (57)
 
 ```python
         secrets[secret_id] = {
@@ -1811,7 +1811,7 @@ def _generate_mac() -> str:
             ).isoformat(),
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1829,7 +1829,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (58)
 
 ```python
             "name": f"test-secret-{i:03d}",
@@ -1841,7 +1841,7 @@ def _generate_mac() -> str:
                 datetime.now(timezone.utc) + timedelta(days=random.randint(30, 365))
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -1859,7 +1859,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (59)
 
 ```python
                 datetime.now(timezone.utc) - timedelta(days=random.randint(1, 180))
@@ -1871,7 +1871,7 @@ def _generate_mac() -> str:
             "version": random.randint(1, 5),
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 
@@ -1889,7 +1889,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (60)
 
 ```python
                 datetime.now(timezone.utc) + timedelta(days=random.randint(30, 365))
@@ -1901,7 +1901,7 @@ def _generate_mac() -> str:
         }
 ```python
 
-### Proposal
+### Proposal (60)
 
 - Review the issue message above
 
@@ -1919,7 +1919,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (61)
 
 ```python
         if config.latency_ms > 0:
@@ -1931,7 +1931,7 @@ def _generate_mac() -> str:
             time.sleep(max(0, latency) / 1000)
 ```python
 
-### Proposal
+### Proposal (61)
 
 - Review the issue message above
 
@@ -1949,7 +1949,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (62)
 
 ```python
             raise MockServiceError(f"Mock failure: {func.**name**}")
@@ -1964,7 +1964,7 @@ def _generate_mac() -> str:
             await asyncio.sleep(max(0, latency) / 1000)
 ```python
 
-### Proposal
+### Proposal (62)
 
 - Review the issue message above
 
@@ -1982,7 +1982,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (63)
 
 ```python
             raise MockServiceError(f"Mock failure: {func.**name**}")
@@ -1992,7 +1992,7 @@ def _generate_mac() -> str:
         """Create a new secret."""
 ```python
 
-### Proposal
+### Proposal (63)
 
 - Review the issue message above
 
@@ -2010,7 +2010,7 @@ def _generate_mac() -> str:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (64)
 
 ```python
         return ":".join(f"{rng.randint(0, 255):02x}" for * in range(6))
@@ -2022,7 +2022,7 @@ def _generate_mac() -> str:
                 "lo",
 ```python
 
-### Proposal
+### Proposal (64)
 
 - Review the issue message above
 

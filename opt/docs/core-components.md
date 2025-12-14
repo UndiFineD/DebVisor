@@ -1,4 +1,4 @@
-# Core Components\n\n## Virtualization\n\n- qemu-kvm\n\n- libvirt-daemon,
+# Core Components\n\n## Virtualization\n\n- qemu-kvm\n\n- libvirt-daemon
 
 libvirt-daemon-system\n\n-
 

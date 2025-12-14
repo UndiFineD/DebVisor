@@ -56,7 +56,7 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'dev-key'
 
-### Context
+### Context (1)
 
 ```python
         if not secret_key:
@@ -68,7 +68,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

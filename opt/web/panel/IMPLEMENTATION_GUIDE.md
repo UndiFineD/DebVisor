@@ -22,8 +22,6 @@ point
 INPUT_VALIDATION.md #
 Input validation guide\n +-- IMPLEMENTATION_GUIDE.md # This file\n |\n +-- debvisor_pb2.py
 
-## 
-
 Generated RPC protocol buffers\n +-- debvisor_pb2_grpc.py # Generated RPC
 service stubs\n
 |\n +--
@@ -52,7 +50,7 @@ app.css\n | +-- js/\n | | +-- jquery.min.js\n | | +-- bootstrap.min.js\n | | +--
 | +--
 images/\n |\n +-- tests/ # Unit and integration tests\n +--**init**.py\n +-- test_auth.py
 
-## 
+## (1)
 
 Authentication tests\n +-- test_nodes.py # Node endpoint tests\n +--
 test_validators.py #
@@ -264,8 +262,9 @@ health"""\n
 try:\n channel = self._get_channel()\n stub =
 debvisor_pb2_grpc.NodeServiceStub(channel)\n
 response
-= stub.HealthCheck(debvisor_pb2.HealthCheckRequest())\n return response.status
-==
+
+## = stub.HealthCheck(debvisor_pb2.HealthCheckRequest())\n return response.status
+
 debvisor_pb2.HealthCheckResponse.SERVING\n except Exception as e:\n
 logger.error(f'Health
 check
@@ -353,8 +352,9 @@ nullable=False,
 default='viewer') # admin, operator, developer, viewer\n email =
 db.Column(db.String(120),
 unique=True)\n\n## MFA\n\n mfa_enabled = db.Column(db.Boolean, default=False)\n
-mfa_secret
-=
+
+## mfa_secret
+
 db.Column(db.String(32)) # Base32 encoded TOTP secret\n\n## Account status\n\n
 active =
 db.Column(db.Boolean, default=True)\n created_at = db.Column(db.DateTime,
@@ -427,8 +427,9 @@ logging.getLogger('debvisor.audit')\n def audit_log(event_type, action,
 result='success',
 extra=None):\n """Log audit event"""\n try:\n username = current_user.username
 if
-current_user.is_authenticated else 'anonymous'\n except RuntimeError:\n username
-=
+
+## current_user.is_authenticated else 'anonymous'\n except RuntimeError:\n username
+
 'anonymous'\n
 event = {\n 'timestamp': datetime.utcnow().isoformat(),\n 'event_type':
 event_type,\n

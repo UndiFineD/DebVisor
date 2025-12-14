@@ -88,8 +88,9 @@ User.query.get(user_id)\n\n## Login route\n\n @app.route('/login',
 methods=['GET',
 'POST'])\n def
 login():\n """Secure login with rate limiting"""\n if request.method ==
-'POST':\n username
-=
+
+## 'POST':\n username
+
 request.form.get('username', '').strip()\n password =
 request.form.get('password',
 '')\n\n##
@@ -312,8 +313,9 @@ viewer\n }\n def check_limit(self, user, role):\n """Check if user is within
 rate
 limit"""\n limit =
 self.default_limits.get(role, 100)\n key =
-f'ratelimit:{user}:{int(time.time())}'\n count
-=
+
+## f'ratelimit:{user}:{int(time.time())}'\n count
+
 self.redis.incr(key)\n if count == 1:\n self.redis.expire(key, 60) # 1-minute
 window\n
 return count

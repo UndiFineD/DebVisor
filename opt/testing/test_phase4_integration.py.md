@@ -94,7 +94,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
         _enrollment_data=twofa_manager.initiate_enrollment(user_id)
@@ -106,7 +106,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -124,7 +124,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
 
@@ -136,7 +136,7 @@ Items marked below as fixed:
     def test_totp_token_verification(self, twofamanager) -> None:
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -154,7 +154,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
         assert enrollment_data is not None
@@ -166,7 +166,7 @@ Items marked below as fixed:
         """Test TOTP token verification."""
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -184,7 +184,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
 
@@ -196,7 +196,7 @@ Items marked below as fixed:
         """Test backup code generation."""
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -214,7 +214,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
         # Generate codes
@@ -226,7 +226,7 @@ Items marked below as fixed:
             assert len(code) == 9
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -244,7 +244,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
         assert len(codes) == 9
@@ -256,7 +256,7 @@ Items marked below as fixed:
     def test_invalid_token_verification(self, twofamanager) -> None:
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -274,7 +274,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
         # Check format XXXX-XXXX
@@ -286,7 +286,7 @@ Items marked below as fixed:
         """Test invalid token verification."""
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -304,7 +304,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
 
@@ -316,7 +316,7 @@ Items marked below as fixed:
     async def test_totp_performance(self) -> None:
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -334,7 +334,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
         )
@@ -342,7 +342,7 @@ Items marked below as fixed:
         # Should be fast ( None:
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -360,7 +360,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
 
@@ -372,7 +372,7 @@ Items marked below as fixed:
         """Test capacity planning forecasting."""
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -390,7 +390,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
         # Get summary
@@ -402,7 +402,7 @@ Items marked below as fixed:
     def test_recommendations_generation(self) -> None:
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -420,7 +420,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (12)
 
 ```python
         _summary=report.get_summary()
@@ -432,7 +432,7 @@ Items marked below as fixed:
         """Test recommendation generation."""
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -450,7 +450,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (13)
 
 ```python
         # Get recommendations
@@ -461,7 +461,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -479,7 +479,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (14)
 
 ```python
         _recommendations=report.get_recommendations()
@@ -490,7 +490,7 @@ Items marked below as fixed:
 class TestThemeIntegration:
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -508,7 +508,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (15)
 
 ```python
         """Test that default themes are registered."""
@@ -520,7 +520,7 @@ class TestThemeIntegration:
     def test_theme_switching(self, thememanager) -> None:
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -538,7 +538,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (16)
 
 ```python
         _themes=theme_manager.list_themes()
@@ -550,7 +550,7 @@ class TestThemeIntegration:
         """Test switching between themes."""
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -568,7 +568,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (17)
 
 ```python
         """Test switching between themes."""
@@ -580,7 +580,7 @@ class TestThemeIntegration:
         _css=theme_manager.get_theme_css()
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -598,7 +598,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (18)
 
 ```python
 
@@ -610,7 +610,7 @@ class TestThemeIntegration:
         """Test CSS variable generation."""
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -628,7 +628,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (19)
 
 ```python
         _css=theme_manager.get_theme_css()
@@ -640,7 +640,7 @@ class TestThemeIntegration:
 
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -658,7 +658,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (20)
 
 ```python
 
@@ -670,7 +670,7 @@ class TestThemeIntegration:
     def test_custom_theme_creation(self, thememanager) -> None:
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -688,7 +688,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (21)
 
 ```python
         # Check for CSS variables
@@ -700,7 +700,7 @@ class TestThemeIntegration:
         """Test creating custom theme."""
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -718,7 +718,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (22)
 
 ```python
             _colors_dict=custom_colors,
@@ -729,7 +729,7 @@ class TestThemeIntegration:
 
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -747,7 +747,7 @@ class TestThemeIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (23)
 
 ```python
         )
@@ -758,7 +758,7 @@ class TestThemeIntegration:
 class TestBatchOperationsIntegration:
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -776,7 +776,7 @@ class TestBatchOperationsIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (24)
 
 ```python
             _resources=["resource1", "resource2"],
@@ -788,7 +788,7 @@ class TestBatchOperationsIntegration:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -806,7 +806,7 @@ class TestBatchOperationsIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (25)
 
 ```python
         )
@@ -818,7 +818,7 @@ class TestBatchOperationsIntegration:
     async def test_dry_run_preview(self, batchmanager):
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -836,7 +836,7 @@ class TestBatchOperationsIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (26)
 
 ```python
 
@@ -848,7 +848,7 @@ class TestBatchOperationsIntegration:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -866,7 +866,7 @@ class TestBatchOperationsIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (27)
 
 ```python
         _preview=await batch_manager.preview_dry_run(operation)
@@ -878,7 +878,7 @@ class TestBatchOperationsIntegration:
     async def test_operation_history(self, batchmanager):
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -896,7 +896,7 @@ class TestBatchOperationsIntegration:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (28)
 
 ```python
         # Get history
@@ -907,7 +907,7 @@ class TestBatchOperationsIntegration:
 class TestEndToEndWorkflow:
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -925,7 +925,7 @@ class TestEndToEndWorkflow:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (29)
 
 ```python
 
@@ -937,7 +937,7 @@ class TestEndToEndWorkflow:
         _qr_code=enrollment_data.get("qr_code_base64")
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -955,7 +955,7 @@ class TestEndToEndWorkflow:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (30)
 
 ```python
 
@@ -967,7 +967,7 @@ class TestEndToEndWorkflow:
         _backup_codes=twofa_manager.backup_code_manager.generate_codes()  # type: ignore[attr-defined]
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -985,7 +985,7 @@ class TestEndToEndWorkflow:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (31)
 
 ```python
 
@@ -997,7 +997,7 @@ class TestEndToEndWorkflow:
     async def test_monitoring_workflow(self) -> None:
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1015,7 +1015,7 @@ class TestEndToEndWorkflow:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (32)
 
 ```python
 
@@ -1024,7 +1024,7 @@ class TestEndToEndWorkflow:
         assert message is not None
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 

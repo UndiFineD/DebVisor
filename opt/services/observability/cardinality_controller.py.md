@@ -55,7 +55,7 @@ Items marked below as fixed:
 
 **Message:** Standard pseudo-random generators are not suitable for security/cryptographic purposes.
 
-### Context
+### Context (1)
 
 ```python
             # Safe evaluation of condition
@@ -67,7 +67,7 @@ Items marked below as fixed:
                         return SamplingDecision.DROPPED
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

@@ -56,7 +56,7 @@ from typing import Dict, List, Optional, Any, Tuple
 
 **Message:** Possible binding to all interfaces.
 
-### Context
+### Context (1)
 
 ```python
                         route=RouteEntry(  # type: ignore[call-arg]
@@ -68,7 +68,7 @@ from typing import Dict, List, Optional, Any, Tuple
                         self.routes.append(route)
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

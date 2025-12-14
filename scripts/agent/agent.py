@@ -1,116 +1,3 @@
-# AI Code Improvement Suggestions
-## Description: Improve the code for agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## AI Code Improvement Suggestions
-## Description: Improve the code for agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-## !/usr/bin/env python3
-## Copyright (c) 2025 DebVisor contributors
-## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
-## You may obtain a copy of the License at
-##     http://www.apache.org/licenses/LICENSE-2.0
-## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## AI Code Improvement Suggestions
-## Description: Improve the code for agent.py
-#
-## Suggestions:
-## 1. Add comprehensive docstrings to all functions
-## 2. Implement proper error handling with try/except blocks
-## 3. Add type hints for better code clarity
-## 4. Break down complex functions into smaller, focused functions
-## 5. Add input validation and sanitization
-## 6. Implement logging for debugging and monitoring
-## 7. Add unit tests for all functions
-## 8. Follow PEP 8 style guidelines
-## 9. Add configuration management for customizable behavior
-## 10. Implement proper resource cleanup with context managers
-#
-## Note: Full AI code rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-## Original code preserved below:
-#
-
 """
 Agent: Orchestrates work among sub-agents for code improvement.
 
@@ -141,9 +28,10 @@ from typing import List, Set
 import argparse
 import fnmatch
 
-## Import markdown fixing functionality
+# Import markdown fixing functionality
 sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-from fix_markdown_lint import fix_markdown_content  # noqa: E402
+from fix_markdown_lint import fix_markdown_content  # type: ignore # noqa: E402
+
 
 def load_codeignore(root: Path) -> Set[str]:
     """Load ignore patterns from .codeignore file."""
@@ -158,6 +46,7 @@ def load_codeignore(root: Path) -> Set[str]:
         except Exception as e:
             print(f"Warning: Could not read .codeignore file: {e}")
     return set()
+
 
 class Agent:
     """Main agent that orchestrates sub-agents for code improvement."""
@@ -477,6 +366,7 @@ def test_placeholder():
         print("[Agent] Final stats:")
         self.run_stats_update(code_files)
 
+
 def main():
     parser = argparse.ArgumentParser(
         description='Agent: Orchestrates code improvement agents'
@@ -492,6 +382,7 @@ def main():
     agent = Agent(repo_root=args.dir, agents_only=args.agents_only,
                   max_files=args.max_files, loop=args.loop)
     agent.run()
+
 
 if __name__ == '__main__':
     main()

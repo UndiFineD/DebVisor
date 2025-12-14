@@ -57,7 +57,7 @@ Items marked below as fixed:
 
 **Message:** Possible hardcoded password: 'dev-key'
 
-### Context
+### Context (1)
 
 ```python
         if not secret_key:
@@ -69,7 +69,7 @@ Items marked below as fixed:
         _persistence=FileAuditPersistence(log_file)
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -87,7 +87,7 @@ Items marked below as fixed:
 
 **Message:** Try, Except, Pass detected.
 
-### Context
+### Context (2)
 
 ```python
                     _principal=identity.principal_id
@@ -99,7 +99,7 @@ Items marked below as fixed:
             status="success"
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 

@@ -74,7 +74,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/usr/bin/env bash
@@ -84,7 +84,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -102,7 +102,7 @@ SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/usr/bin/env bash
@@ -113,7 +113,7 @@ SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
 
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -131,7 +131,7 @@ SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/usr/bin/env bash
@@ -143,7 +143,7 @@ SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
 if [[! -x "$SCRIPT"]]; then
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -161,7 +161,7 @@ if [[! -x "$SCRIPT"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 set -euo pipefail
@@ -173,7 +173,7 @@ if [[! -x "$SCRIPT"]]; then
     echo "[test-firstboot] ERROR: firstboot script not found or not executable: $SCRIPT" >&2
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -191,7 +191,7 @@ if [[! -x "$SCRIPT"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 
@@ -203,7 +203,7 @@ if [[! -x "$SCRIPT"]]; then
     exit 1
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -221,7 +221,7 @@ if [[! -x "$SCRIPT"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -233,7 +233,7 @@ if [[! -x "$SCRIPT"]]; then
 fi
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -251,7 +251,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 SCRIPT="${ROOT}/config/includes.chroot/usr/local/sbin/debvisor-firstboot.sh"
@@ -263,7 +263,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -281,7 +281,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
 
@@ -293,7 +293,7 @@ fi
 if ! command -v shellcheck >/dev/null 2>&1; then
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -311,7 +311,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 if [[! -x "$SCRIPT"]]; then
@@ -323,7 +323,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
     echo "[test-firstboot] shellcheck not found; install it with: sudo apt install shellcheck" >&2
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -341,7 +341,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
     echo "[test-firstboot] ERROR: firstboot script not found or not executable: $SCRIPT" >&2
@@ -353,7 +353,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 else
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -371,7 +371,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
     exit 1
@@ -383,7 +383,7 @@ else
     echo "[test-firstboot] Running shellcheck on debvisor-firstboot.sh"
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -401,7 +401,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 fi
@@ -413,7 +413,7 @@ else
     shellcheck "$SCRIPT"
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -431,7 +431,7 @@ else
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
 
@@ -443,7 +443,7 @@ else
 fi
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -461,7 +461,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 if ! command -v shellcheck >/dev/null 2>&1; then
@@ -473,7 +473,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -491,7 +491,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
     echo "[test-firstboot] shellcheck not found; install it with: sudo apt install shellcheck" >&2
@@ -503,7 +503,7 @@ fi
 echo "[test-firstboot] Running debvisor-firstboot.sh in dry-run mode (this should be non-destructive)"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -521,7 +521,7 @@ echo "[test-firstboot] Running debvisor-firstboot.sh in dry-run mode (this shoul
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 else
@@ -533,7 +533,7 @@ echo "[test-firstboot] Running debvisor-firstboot.sh in dry-run mode (this shoul
 if ! "$SCRIPT" --dry-run; then
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -551,7 +551,7 @@ if ! "$SCRIPT" --dry-run; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
     echo "[test-firstboot] Running shellcheck on debvisor-firstboot.sh"
@@ -563,7 +563,7 @@ if ! "$SCRIPT" --dry-run; then
     echo "[test-firstboot] ERROR: dry-run exited non-zero (check logs)" >&2
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -581,7 +581,7 @@ if ! "$SCRIPT" --dry-run; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
     shellcheck "$SCRIPT"
@@ -593,7 +593,7 @@ if ! "$SCRIPT" --dry-run; then
     exit 1
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -611,7 +611,7 @@ if ! "$SCRIPT" --dry-run; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 fi
@@ -623,7 +623,7 @@ if ! "$SCRIPT" --dry-run; then
 fi
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -641,7 +641,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 
@@ -652,7 +652,7 @@ if ! "$SCRIPT" --dry-run; then
 fi
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -670,7 +670,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 echo "[test-firstboot] Running debvisor-firstboot.sh in dry-run mode (this should be non-destructive)"
@@ -680,7 +680,7 @@ if ! "$SCRIPT" --dry-run; then
 fi
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -698,7 +698,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 if ! "$SCRIPT" --dry-run; then
@@ -707,7 +707,7 @@ if ! "$SCRIPT" --dry-run; then
 fi
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 

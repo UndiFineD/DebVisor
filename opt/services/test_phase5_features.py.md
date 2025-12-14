@@ -100,7 +100,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
 
@@ -112,7 +112,7 @@ Items marked below as fixed:
         await optimization_engine.end_query(profile, rows_scanned=100, rows_returned=1)
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -130,7 +130,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
         await optimization_engine.end_query(profile, rows_scanned=100, rows_returned=1)
@@ -142,7 +142,7 @@ Items marked below as fixed:
         assert profile.efficiency_ratio() == 1.0    # 1/100 rows
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -160,7 +160,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
 
@@ -172,7 +172,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -190,7 +190,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
         # Then: Statistics should be recorded
@@ -202,7 +202,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -220,7 +220,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
         assert profile.duration_ms > 0
@@ -232,7 +232,7 @@ Items marked below as fixed:
     async def test_query_signature_generation(self) -> None:
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -250,7 +250,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
         _sig2=QueryAnalyzer.generate_signature(query2)
@@ -262,7 +262,7 @@ Items marked below as fixed:
         query3="SELECT * FROM products WHERE id=123"
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -280,7 +280,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
         _sig3=QueryAnalyzer.generate_signature(query3)
@@ -292,7 +292,7 @@ Items marked below as fixed:
     async def test_slow_query_detection(self, optimizationengine: Any) -> None:
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -310,7 +310,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
         _slow=optimization_engine.get_slow_queries(threshold_ms=1000)
@@ -322,7 +322,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -340,7 +340,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
 
@@ -352,7 +352,7 @@ Items marked below as fixed:
     async def test_n_plus_one_detection(self, optimizationengine: Any) -> None:
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -370,7 +370,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
         _n_plus_one=optimization_engine.detect_n_plus_one()
@@ -381,7 +381,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -399,7 +399,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
         _user=backend._parse_ldap_entry("testuser", dn, attributes)  # type: ignore[arg-type]
@@ -411,7 +411,7 @@ Items marked below as fixed:
         assert user.enabled is True
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -429,7 +429,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (12)
 
 ```python
 
@@ -441,7 +441,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -459,7 +459,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (13)
 
 ```python
         # Then: User should be correctly parsed
@@ -471,7 +471,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -489,7 +489,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (14)
 
 ```python
         assert user.username == "testuser"
@@ -501,7 +501,7 @@ Items marked below as fixed:
     async def test_ldap_config_validation(self) -> None:
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -519,7 +519,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (15)
 
 ```python
         )
@@ -530,7 +530,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -548,7 +548,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (16)
 
 ```python
 
@@ -559,7 +559,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -577,7 +577,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (17)
 
 ```python
         )
@@ -589,7 +589,7 @@ Items marked below as fixed:
         assert not pin.is_expired()
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -607,7 +607,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (18)
 
 ```python
 
@@ -619,7 +619,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -637,7 +637,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (19)
 
 ```python
         # Then: Pin should be created correctly
@@ -649,7 +649,7 @@ Items marked below as fixed:
     def test_pin_expiration(self) -> None:
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -667,7 +667,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (20)
 
 ```python
         assert pin.pin_type == pin_type
@@ -679,7 +679,7 @@ Items marked below as fixed:
         """Test certificate pin expiration checking"""
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -697,7 +697,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (21)
 
 ```python
         )
@@ -709,7 +709,7 @@ Items marked below as fixed:
         _past=datetime.now(timezone.utc) - timedelta(days=1)
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -727,7 +727,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (22)
 
 ```python
         )
@@ -739,7 +739,7 @@ Items marked below as fixed:
         """Test pinning policy management"""
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -757,7 +757,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (23)
 
 ```python
         )
@@ -769,7 +769,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -787,7 +787,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (24)
 
 ```python
 
@@ -798,7 +798,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -816,7 +816,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (25)
 
 ```python
         # Then: Policy should have correct structure
@@ -827,7 +827,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -845,7 +845,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (26)
 
 ```python
         _rate_error=RateLimitError("client_123", 100, 60)
@@ -857,7 +857,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -875,7 +875,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (27)
 
 ```python
 
@@ -887,7 +887,7 @@ Items marked below as fixed:
     def test_error_context(self) -> None:
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -905,7 +905,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (28)
 
 ```python
         # Then: All should be DebVisorRPCError
@@ -917,7 +917,7 @@ Items marked below as fixed:
         """Test error context and recovery steps"""
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -935,7 +935,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (29)
 
 ```python
         _error=ValidationError("username", "Too short", value="ab")
@@ -947,7 +947,7 @@ Items marked below as fixed:
         assert len(error.recovery_steps) > 0
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -965,7 +965,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (30)
 
 ```python
 
@@ -977,7 +977,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -995,7 +995,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (31)
 
 ```python
         # Then: Error should have context
@@ -1007,7 +1007,7 @@ Items marked below as fixed:
     def test_retry_mechanism(self) -> None:
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1025,7 +1025,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (32)
 
 ```python
         assert error.error_code == "VALIDATION_ERROR"
@@ -1037,7 +1037,7 @@ Items marked below as fixed:
         """Test retry with exponential backo"""
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1055,7 +1055,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (33)
 
 ```python
         _result=flaky_function()
@@ -1066,7 +1066,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1084,7 +1084,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (34)
 
 ```python
 
@@ -1095,7 +1095,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1113,7 +1113,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (35)
 
 ```python
         )
@@ -1125,7 +1125,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1143,7 +1143,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (36)
 
 ```python
 
@@ -1155,7 +1155,7 @@ Items marked below as fixed:
     def test_health_checker(self) -> None:
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1173,7 +1173,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (37)
 
 ```python
         # Then: Result should be created correctly
@@ -1185,7 +1185,7 @@ Items marked below as fixed:
         """Test health checker coordination"""
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1203,7 +1203,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (38)
 
 ```python
         _results=checker.run_all_checks()
@@ -1215,7 +1215,7 @@ Items marked below as fixed:
         _overall=checker.get_overall_status(results)
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1233,7 +1233,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (39)
 
 ```python
         _overall=checker.get_overall_status(results)
@@ -1245,7 +1245,7 @@ Items marked below as fixed:
         """Test disk space health check"""
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1263,7 +1263,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (40)
 
 ```python
         _result=check_disk_space("/tmp")    # nosec B108
@@ -1275,7 +1275,7 @@ Items marked below as fixed:
             HealthStatus.DEGRADED,
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1293,7 +1293,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (41)
 
 ```python
 
@@ -1305,7 +1305,7 @@ Items marked below as fixed:
             HealthStatus.UNHEALTHY,
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1323,7 +1323,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (42)
 
 ```python
             HealthStatus.DEGRADED,
@@ -1334,7 +1334,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1352,7 +1352,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (43)
 
 ```python
             HealthStatus.UNHEALTHY,
@@ -1363,7 +1363,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1381,7 +1381,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (44)
 
 ```python
         _result=api_call()
@@ -1392,7 +1392,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1410,7 +1410,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (45)
 
 ```python
 
@@ -1421,7 +1421,7 @@ Items marked below as fixed:
 if *name**== "**main**":
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 

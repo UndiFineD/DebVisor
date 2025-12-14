@@ -234,8 +234,9 @@ Histogram,
 Gauge\n\n## Request metrics\n\n rpc_requests_total = Counter(\n
 'rpc_requests_total',\n
 'Total RPC
-requests',\n ['service', 'method', 'status']\n )\n rpc_request_duration_seconds
-=
+
+## requests',\n ['service', 'method', 'status']\n )\n rpc_request_duration_seconds
+
 Histogram(\n
 'rpc_request_duration_seconds',\n 'RPC request duration',\n ['service',
 'method']\n

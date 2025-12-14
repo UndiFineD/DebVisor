@@ -639,8 +639,9 @@ removed from
 each
 file:\n\n```yaml\n'on':\n push:\n branches:\n\n - main\n pull_request:\n
 branches:\n\n -
-main\n```text\n\n push:\n branches:\n\n - main\n\n pull_request:\n branches:\n\n
--
+
+## main\n```text\n\n push:\n branches:\n\n - main\n\n pull_request:\n branches:\n\n
+
 main\n```text\n
 push:\n branches:\n\n - main\n pull_request:\n branches:\n\n - main\n```text\n\n
 branches:\n\n -

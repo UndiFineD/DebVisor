@@ -76,7 +76,7 @@ mismatch\n "union-attr", # Accessing attribute that doesn't exist on some union
 members\n
 "attr-defined", # Accessing undefined attribute\n}\n```text\n\n "return-value",
 
-## Return
+## Return (1)
 
 type
 mismatch (real bugs)\n "func-returns-value", # Function returns wrong type\n
@@ -97,7 +97,7 @@ on some
 union members\n "attr-defined", # Accessing undefined attribute\n}\n```text\n
 "func-returns-value",
 
-## Function returns wrong type\n "arg-type", # Function argument type mismatch\n
+## Function returns wrong type\n "arg-type", # Function argument type mismatch\n (1)
 
 "union-attr", #
 
@@ -502,7 +502,7 @@ returns
 timedelta\n```text\n expires_in = get_ttl_seconds()\n return
 timedelta(seconds=expires_in)
 
-## Now
+## Now (1)
 
 correctly returns timedelta\n```text\n\n return timedelta(seconds=expires_in) #
 Now

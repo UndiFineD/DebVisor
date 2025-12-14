@@ -1,4 +1,4 @@
-# Profiles\n\n## usb-zfs (default)\n\nZFS pool across removable USB sticks for fast,
+# Profiles\n\n## usb-zfs (default)\n\nZFS pool across removable USB sticks for fast
 
 simple lab
 

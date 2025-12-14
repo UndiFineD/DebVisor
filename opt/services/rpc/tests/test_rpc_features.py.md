@@ -105,7 +105,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
         assert pool._initialized is False
@@ -117,7 +117,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -135,7 +135,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
 
@@ -147,7 +147,7 @@ Items marked below as fixed:
     async def test_pool_acquire_release(self, pool: ConnectionPool) -> None:
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -165,7 +165,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
         initial_available = len(pool.available_connections)
@@ -175,7 +175,7 @@ Items marked below as fixed:
             assert len(pool.available_connections)  None:
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -193,7 +193,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
             ctx = pool.acquire()
@@ -205,7 +205,7 @@ Items marked below as fixed:
         with pytest.raises(TimeoutError):
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -223,7 +223,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
             conn2_id = id(conn2)
@@ -235,7 +235,7 @@ Items marked below as fixed:
     async def test_pool_metrics(self, pool: ConnectionPool) -> None:
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -253,7 +253,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
             pass
@@ -265,7 +265,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -283,7 +283,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
 
@@ -295,7 +295,7 @@ Items marked below as fixed:
     @pytest.mark.asyncio
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -313,7 +313,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
         metrics = pool.get_metrics()
@@ -325,7 +325,7 @@ Items marked below as fixed:
     async def test_pool_close(self, pool: ConnectionPool) -> None:
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -343,7 +343,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
         pool.config.connection_ttl_seconds = 1
@@ -355,7 +355,7 @@ Items marked below as fixed:
         conn.created_at -= 2    # 2 seconds ago
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -373,7 +373,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
 
@@ -385,7 +385,7 @@ Items marked below as fixed:
     async def test_connection_health_check(self) -> None:
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -403,7 +403,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (11)
 
 ```python
         with patch("grpc.health.v1.health_pb2_grpc.HealthStub") as mock_health:  # type: ignore[name-defined]
@@ -414,7 +414,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -432,7 +432,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (12)
 
 ```python
             mock_health.return_value.Check.return_value = mock_response
@@ -443,7 +443,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -461,7 +461,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (13)
 
 ```python
 
@@ -473,7 +473,7 @@ Items marked below as fixed:
         large_payload_size = 5000
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -491,7 +491,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (14)
 
 ```python
         # Large payload should compress
@@ -503,7 +503,7 @@ Items marked below as fixed:
         """Test GZIP compression."""
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -521,7 +521,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (15)
 
 ```python
 
@@ -531,7 +531,7 @@ Items marked below as fixed:
         assert len(compressed)  None:
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -549,7 +549,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (16)
 
 ```python
 
@@ -558,7 +558,7 @@ Items marked below as fixed:
         """Test GZIP decompression."""
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -576,7 +576,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (17)
 
 ```python
         compressed, algo = manager.compress(original_data, CompressionAlgorithm.GZIP)
@@ -588,7 +588,7 @@ Items marked below as fixed:
         """Test that compression is skipped if it doesn't reduce size."""
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -606,7 +606,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (18)
 
 ```python
 
@@ -618,7 +618,7 @@ Items marked below as fixed:
         """Test compression metrics tracking."""
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -636,7 +636,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (19)
 
 ```python
         manager.compress(data, CompressionAlgorithm.GZIP)
@@ -649,7 +649,7 @@ Items marked below as fixed:
         assert 0  None:
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -667,7 +667,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (20)
 
 ```python
         metrics = manager.get_metrics()
@@ -677,7 +677,7 @@ Items marked below as fixed:
         """Test error handling in compression."""
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -695,7 +695,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (21)
 
 ```python
 
@@ -706,7 +706,7 @@ Items marked below as fixed:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -724,7 +724,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (22)
 
 ```python
     def test_supported_versions(self, negotiator: VersionNegotiator) -> None:
@@ -736,7 +736,7 @@ Items marked below as fixed:
     def test_version_negotiation_client_preference(self, negotiator: VersionNegotiator) -> None:
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -754,7 +754,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (23)
 
 ```python
         """Test listing supported versions."""
@@ -766,7 +766,7 @@ Items marked below as fixed:
         """Test version negotiation respects client preference."""
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -784,7 +784,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (24)
 
 ```python
         client_versions = ["2.0", "1.0"]
@@ -796,7 +796,7 @@ Items marked below as fixed:
         """Test version negotiation fallback to server version."""
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -814,7 +814,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (25)
 
 ```python
 
@@ -826,7 +826,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -844,7 +844,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (26)
 
 ```python
     def test_version_validation(self, negotiator: VersionNegotiator) -> None:
@@ -856,7 +856,7 @@ Items marked below as fixed:
     def test_deprecation_warnings(self, negotiator: VersionNegotiator) -> None:
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -874,7 +874,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (27)
 
 ```python
         """Test version validation."""
@@ -886,7 +886,7 @@ Items marked below as fixed:
         """Test deprecation warnings."""
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -904,7 +904,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (28)
 
 ```python
         negotiator.negotiate_version(["2.0"])
@@ -915,7 +915,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -933,7 +933,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (29)
 
 ```python
 
@@ -944,7 +944,7 @@ Items marked below as fixed:
 class TestVersionedRouter:
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -962,7 +962,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (30)
 
 ```python
 
@@ -974,7 +974,7 @@ class TestVersionedRouter:
         """Test routing requests to appropriate handlers."""
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -992,7 +992,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (31)
 
 ```python
         router.register_handler(APIVersion.V2_0, "list_nodes", mock_handler_v2)
@@ -1004,7 +1004,7 @@ class TestVersionedRouter:
         result = router.route("2.0", "list_nodes", arg1="value2")
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1022,7 +1022,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (32)
 
 ```python
         mock_handler_v1.assert_called_once_with(arg1="value1")
@@ -1034,7 +1034,7 @@ class TestVersionedRouter:
     def test_operation_not_found(self, router: VersionedRequestRouter) -> None:
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1052,7 +1052,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (33)
 
 ```python
         router.register_handler(APIVersion.V2_0, "list_nodes", Mock())  # type: ignore[name-defined]
@@ -1064,7 +1064,7 @@ class TestVersionedRouter:
 
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1082,7 +1082,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (34)
 
 ```python
 
@@ -1093,7 +1093,7 @@ class TestVersionedRouter:
 
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1111,7 +1111,7 @@ class TestVersionedRouter:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (35)
 
 ```python
         matrix = router.get_compatibility_matrix()
@@ -1122,7 +1122,7 @@ class TestVersionedRouter:
 class TestBackwardCompatibility:
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1140,7 +1140,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (36)
 
 ```python
 
@@ -1152,7 +1152,7 @@ class TestBackwardCompatibility:
 
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1170,7 +1170,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (37)
 
 ```python
         v2_response = BackwardCompatibilityLayer.convert_v1_response_to_v2(v1_response)
@@ -1182,7 +1182,7 @@ class TestBackwardCompatibility:
     def test_v2_to_v1_request_conversion(self) -> None:
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1200,7 +1200,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (38)
 
 ```python
 
@@ -1212,7 +1212,7 @@ class TestBackwardCompatibility:
         """Test converting V2 request to V1 format."""
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1230,7 +1230,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (39)
 
 ```python
 
@@ -1241,7 +1241,7 @@ class TestBackwardCompatibility:
 
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1259,7 +1259,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (40)
 
 ```python
         v1_request = BackwardCompatibilityLayer.convert_v2_request_to_v1(v2_request)
@@ -1270,7 +1270,7 @@ class TestBackwardCompatibility:
 ## ============================================================================
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1288,7 +1288,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (41)
 
 ```python
 
@@ -1300,7 +1300,7 @@ class TestBackwardCompatibility:
             data = b"Test data " * 100
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1318,7 +1318,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (42)
 
 ```python
             compressed, algo = compression_manager.compress(data)
@@ -1330,7 +1330,7 @@ class TestBackwardCompatibility:
 
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1348,7 +1348,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (43)
 
 ```python
 
@@ -1360,7 +1360,7 @@ class TestBackwardCompatibility:
         async with pool.acquire() as conn:
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1378,7 +1378,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (44)
 
 ```python
 
@@ -1390,7 +1390,7 @@ class TestBackwardCompatibility:
             data = b"Integration test data " * 50
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1408,7 +1408,7 @@ class TestBackwardCompatibility:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (45)
 
 ```python
             # Compress data
@@ -1420,7 +1420,7 @@ class TestBackwardCompatibility:
 
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 

@@ -73,7 +73,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/usr/bin/env bash
@@ -83,7 +83,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="${REPO_ROOT}/ansible/playbooks/bootstrap-addons.yml"
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -101,7 +101,7 @@ SRC="${REPO_ROOT}/ansible/playbooks/bootstrap-addons.yml"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/usr/bin/env bash
@@ -112,7 +112,7 @@ SRC="${REPO_ROOT}/ansible/playbooks/bootstrap-addons.yml"
 DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootstrap-addons.yml"
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -130,7 +130,7 @@ DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootst
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/usr/bin/env bash
@@ -142,7 +142,7 @@ DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootst
 
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -160,7 +160,7 @@ DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootst
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 set -euo pipefail
@@ -172,7 +172,7 @@ DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootst
 if [[! -f "$SRC"]]; then
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -190,7 +190,7 @@ if [[! -f "$SRC"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 
@@ -202,7 +202,7 @@ if [[! -f "$SRC"]]; then
     echo "[sync-addons-playbook] Source playbook not found: $SRC" >&2
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -220,7 +220,7 @@ if [[! -f "$SRC"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -232,7 +232,7 @@ if [[! -f "$SRC"]]; then
     exit 1
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -250,7 +250,7 @@ if [[! -f "$SRC"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 SRC="${REPO_ROOT}/ansible/playbooks/bootstrap-addons.yml"
@@ -262,7 +262,7 @@ if [[! -f "$SRC"]]; then
 fi
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -280,7 +280,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
 DST="${REPO_ROOT}/config/includes.chroot/usr/local/share/debvisor/ansible/bootstrap-addons.yml"
@@ -292,7 +292,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -310,7 +310,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 
@@ -322,7 +322,7 @@ fi
 DST_DIR="$(dirname "$DST")"
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -340,7 +340,7 @@ DST_DIR="$(dirname "$DST")"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
 if [[! -f "$SRC"]]; then
@@ -352,7 +352,7 @@ DST_DIR="$(dirname "$DST")"
 mkdir -p "$DST_DIR"
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -370,7 +370,7 @@ mkdir -p "$DST_DIR"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
     echo "[sync-addons-playbook] Source playbook not found: $SRC" >&2
@@ -382,7 +382,7 @@ mkdir -p "$DST_DIR"
 
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -400,7 +400,7 @@ mkdir -p "$DST_DIR"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
     exit 1
@@ -412,7 +412,7 @@ mkdir -p "$DST_DIR"
 if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -430,7 +430,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
 fi
@@ -442,7 +442,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
     echo "[sync-addons-playbook] No changes; destination already up to date: $DST"
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -460,7 +460,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
@@ -472,7 +472,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
     exit 0
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -490,7 +490,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 DST_DIR="$(dirname "$DST")"
@@ -502,7 +502,7 @@ if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
 fi
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -520,7 +520,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 mkdir -p "$DST_DIR"
@@ -532,7 +532,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -550,7 +550,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 
@@ -562,7 +562,7 @@ fi
 install -m 0644 "$SRC" "$DST"
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -580,7 +580,7 @@ install -m 0644 "$SRC" "$DST"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 if [[-f "$DST"]] && cmp -s "$SRC" "$DST"; then
@@ -592,7 +592,7 @@ install -m 0644 "$SRC" "$DST"
 echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -610,7 +610,7 @@ echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
     echo "[sync-addons-playbook] No changes; destination already up to date: $DST"
@@ -621,7 +621,7 @@ install -m 0644 "$SRC" "$DST"
 echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -639,7 +639,7 @@ echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
     exit 0
@@ -649,7 +649,7 @@ install -m 0644 "$SRC" "$DST"
 echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -667,7 +667,7 @@ echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 fi
@@ -676,7 +676,7 @@ install -m 0644 "$SRC" "$DST"
 echo "[sync-addons-playbook] Synced addons playbook to includes.chroot: $DST"
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 

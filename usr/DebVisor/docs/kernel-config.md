@@ -65,7 +65,7 @@ Devices
 vhost for performance
 (4)\nCONFIG_VHOST=m\nCONFIG_VHOST_NET=m\nCONFIG_VHOST_SCSI=m\nCONFIG_VHOST_VSOCK=m\n```text\n\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m
 
-## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
+## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization (1)
 
 (5)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
 recommended\nCONFIG_KVM_AMD_NESTED=y #
@@ -75,7 +75,7 @@ recommended\n\n## virtio Devices
 vhost for performance
 (5)\n\nCONFIG_VHOST=m\nCONFIG_VHOST_NET=m\nCONFIG_VHOST_SCSI=m\nCONFIG_VHOST_VSOCK=m\n```text\nCONFIG_VIRTUALIZATION=y\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m
 
-## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
+## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization (2)
 
 (6)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
 recommended\nCONFIG_KVM_AMD_NESTED=y #
@@ -85,7 +85,7 @@ recommended\n\n## virtio Devices
 vhost for performance
 (6)\n\nCONFIG_VHOST=m\nCONFIG_VHOST_NET=m\nCONFIG_VHOST_SCSI=m\nCONFIG_VHOST_VSOCK=m\n```text\nCONFIG_KVM=m\nCONFIG_KVM_INTEL=m
 
-## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization
+## For Intel CPUs\nCONFIG_KVM_AMD=m # For AMD CPUs\n\n## Nested Virtualization (3)
 
 (7)\n\nCONFIG_KVM_INTEL_NESTED=y # Optional but
 recommended\nCONFIG_KVM_AMD_NESTED=y #
@@ -136,14 +136,14 @@ Device Passthrough
 
 (2)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\n\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y
 
-## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # (1)
 
 AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
 
 VFIO for Device Passthrough
 (3)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
 
-## Mediated devices\n\n## GPU Passthrough
+## Mediated devices\n\n## GPU Passthrough (1)
 
 (3)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\n## IOMMU
 
@@ -159,25 +159,25 @@ Device Passthrough
 
 (4)\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\n\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y
 
-## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # (2)
 
 AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
 
 VFIO for Device Passthrough
 (5)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
 
-## Mediated devices\n\n## GPU Passthrough
+## Mediated devices\n\n## GPU Passthrough (2)
 
 (5)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\nCONFIG_IOMMU_SUPPORT=y\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y
 
-## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y #
+## Intel VT-d\nCONFIG_INTEL_IOMMU_SVM=y\nCONFIG_AMD_IOMMU=y # (3)
 
 AMD-Vi\nCONFIG_AMD_IOMMU_V2=y\n\n##
 
 VFIO for Device Passthrough
 (6)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
 
-## Mediated devices\n\n## GPU Passthrough
+## Mediated devices\n\n## GPU Passthrough (3)
 
 (6)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\nCONFIG_IOMMU_API=y\nCONFIG_INTEL_IOMMU=y
 
@@ -189,7 +189,7 @@ VFIO for
 Device Passthrough
 (7)\n\nCONFIG_VFIO=m\nCONFIG_VFIO_IOMMU_TYPE1=m\nCONFIG_VFIO_PCI=m\nCONFIG_VFIO_VIRQFD=y\nCONFIG_VFIO_MDEV=m
 
-## Mediated devices\n\n## GPU Passthrough
+## Mediated devices\n\n## GPU Passthrough (4)
 
 (7)\n\nCONFIG_DRM=m\nCONFIG_DRM_VGEM=m\n```text\n###
 
@@ -250,7 +250,7 @@ Messenger\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n## Ceph
 Distributed
 Storage\n\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
 
-## RADOS
+## RADOS (1)
 
 Block Device\n\n## Ceph Messenger
 (2)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
@@ -262,21 +262,19 @@ Block Device\n\n## Ceph Messenger
 Ceph Distributed Storage
 (2)\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
 
-## 
-
 RADOS Block
 Device\n## Ceph Messenger
 (4)\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
 
-## RADOS Block Device\n\n## Ceph Messenger
+## RADOS Block Device\n\n## Ceph Messenger (1)
 
 (5)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\nCONFIG_CEPH_LIB=m\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
 
-## RADOS Block Device\n\n## Ceph Messenger
+## RADOS Block Device\n\n## Ceph Messenger (2)
 
 (6)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\nCONFIG_CEPH_FS=m\nCONFIG_CEPH_FSCACHE=y\nCONFIG_BLK_DEV_RBD=m
 
-## RADOS Block Device\n\n## Ceph Messenger
+## RADOS Block Device\n\n## Ceph Messenger (3)
 
 (7)\n\nCONFIG_CEPH_LIB_USE_DNS_RESOLVER=y\n```text\n###
 
@@ -525,7 +523,7 @@ Management\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI_S
 Hardware
 Watchdog\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## 
+## (1)
 
 Intel
 TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
@@ -538,7 +536,7 @@ Management\n\nCONFIG_IPMI_HANDLER=m\nCONFIG_IPMI_DEVICE_INTERFACE=m\nCONFIG_IPMI
 Hardware
 Watchdog\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## 
+## (2)
 
 Intel TCO\n```text\n## NUMA
 Support\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
@@ -553,7 +551,7 @@ Management
 Hardware Watchdog
 (2)\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (1)
 
 TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
 Huge
@@ -568,7 +566,7 @@ Management
 Hardware Watchdog
 (3)\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (2)
 
 TCO\n```text\n## NUMA Support
 (2)\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n##
@@ -583,7 +581,7 @@ Management
 Hardware Watchdog
 (4)\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (3)
 
 TCO\n```text\n\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
 Huge
@@ -598,7 +596,7 @@ Management
 Hardware Watchdog
 (5)\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (4)
 
 TCO\n```text\nCONFIG_NUMA=y\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n##
 Huge
@@ -613,7 +611,7 @@ Management
 Hardware Watchdog
 (6)\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (5)
 
 TCO\n```text\nCONFIG_X86_64_ACPI_NUMA=y\nCONFIG_ACPI_NUMA=y\n\n## Huge Pages
 (7)\n\nCONFIG_HUGETLBFS=y\nCONFIG_HUGETLB_PAGE=y\nCONFIG_TRANSPARENT_HUGEPAGE=y\n\n##
@@ -626,7 +624,7 @@ Management
 Hardware Watchdog
 (7)\n\nCONFIG_WATCHDOG=y\nCONFIG_WATCHDOG_CORE=y\nCONFIG_SOFT_WATCHDOG=m\nCONFIG_ITCO_WDT=m
 
-## Intel
+## Intel (6)
 
 TCO\n```text\n## Kernel Command Line Parameters\nAdd to GRUB
 (`/etc/default/grub`):\n\n```bash\nAdd
@@ -713,7 +711,7 @@ build dependencies\napt install build-essential libncurses-dev bison flex
 libssl-dev
 libelf-dev\n#
 Download kernel source\nwget
-\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke](https://cdn.ke)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n# Start with distribution config\ncp
 /boot/config-$(uname
 -r) .config\n# Apply DebVisor requirements\nscripts/config --enable
@@ -732,7 +730,7 @@ Download
 kernel
 source\n\nwget
 
->\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker](https://cdn.ker)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)>)\)n)t)a)r)
+>\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution
 config\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor
@@ -752,7 +750,7 @@ build-essential libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download
 kernel
 source
 (2)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k](https://cdn.k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
 (2)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
@@ -770,7 +768,7 @@ install\n\n## Update bootloader (2)\n\nupdate-grub\n```text\n\napt install
 build-essential
 libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source
 (3)\n\nwget
-\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke](https://cdn.ke)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
 (3)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
@@ -791,7 +789,7 @@ install build-essential libncurses-dev bison flex libssl-dev libelf-dev\n##
 Download
 kernel source
 (4)\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k](https://cdn.k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n## Start with distribution config
 (4)\ncp
 /boot/config-$(uname -r) .config\n## Apply DebVisor requirements
@@ -810,7 +808,7 @@ bootloader (4)\nupdate-grub\n```text\n\napt install build-essential
 libncurses-dev bison
 flex
 libssl-dev libelf-dev\n\n## Download kernel source (5)\n\nwget
-\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke](https://cdn.ke)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
 (5)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
@@ -828,7 +826,7 @@ install\n\n## Update bootloader (5)\n\nupdate-grub\n```text\napt install
 build-essential
 libncurses-dev bison flex libssl-dev libelf-dev\n\n## Download kernel source
 (6)\n\nwget
-[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k](https://cdn.k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
+[https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
 (6)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
@@ -845,7 +843,7 @@ modules_install\nmake
 install\n\n## Update bootloader (6)\n\nupdate-grub\n```text\n\n## Download
 kernel source
 (7)\n\nwget
-\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke](https://cdn.ke)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
+\ntar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\nt]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\n]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>\]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz>]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.xz]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.tar]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.ta]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.t]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.xx]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.x]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linux]([https://cdn.kernel.org/pub/linux/kernel/v6.x/linu]([https://cdn.kernel.org/pub/linux/kernel/v6.x/lin]([https://cdn.kernel.org/pub/linux/kernel/v6.x/li]([https://cdn.kernel.org/pub/linux/kernel/v6.x/l]([https://cdn.kernel.org/pub/linux/kernel/v6.x/]([https://cdn.kernel.org/pub/linux/kernel/v6.x]([https://cdn.kernel.org/pub/linux/kernel/v6.]([https://cdn.kernel.org/pub/linux/kernel/v6]([https://cdn.kernel.org/pub/linux/kernel/v]([https://cdn.kernel.org/pub/linux/kernel/]([https://cdn.kernel.org/pub/linux/kernel]([https://cdn.kernel.org/pub/linux/kerne]([https://cdn.kernel.org/pub/linux/kern]([https://cdn.kernel.org/pub/linux/ker]([https://cdn.kernel.org/pub/linux/ke]([https://cdn.kernel.org/pub/linux/k]([https://cdn.kernel.org/pub/linux/]([https://cdn.kernel.org/pub/linux]([https://cdn.kernel.org/pub/linu]([https://cdn.kernel.org/pub/lin]([https://cdn.kernel.org/pub/li]([https://cdn.kernel.org/pub/l]([https://cdn.kernel.org/pub/]([https://cdn.kernel.org/pub]([https://cdn.kernel.org/pu]([https://cdn.kernel.org/p]([https://cdn.kernel.org/]([https://cdn.kernel.org]([https://cdn.kernel.or]([https://cdn.kernel.o]([https://cdn.kernel.]([https://cdn.kernel]([https://cdn.kerne]([https://cdn.kern]([https://cdn.ker]([https://cdn.ke]([https://cdn.k]([https://cdn.]([https://cdn]([https://cd]([https://c](https://c)d)n).)k)e)r)n)e)l).)o)r)g)/)p)u)b)/)l)i)n)u)x)/)k)e)r)n)e)l)/)v)6).)x)/)l)i)n)u)x)-)6).)1).)x)x).)t)a)r).)x)z)>)\)n)t)a)r)
 xf linux-6.1.xx.tar.xz\ncd linux-6.1.xx\n\n## Start with distribution config
 (7)\n\ncp
 /boot/config-$(uname -r) .config\n\n## Apply DebVisor requirements
@@ -1124,13 +1122,15 @@ forwarding\n\nnet.ipv4.ip_forward =
 netfilter\n\nnet.bridge.bridge-nf-call-iptables =
 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n\n## Memory overcommit for
 VMs\n\nvm.overcommit_memory =
-1\n\n## Increase inotify limits for containers\n\nfs.inotify.max_user_instances
-=
+
+## 1\n\n## Increase inotify limits for containers\n\nfs.inotify.max_user_instances
+
 8192\nfs.inotify.max_user_watches = 524288\n\n## Network
 tuning\n\nnet.core.somaxconn =
 32768\nnet.ipv4.tcp_max_syn_backlog = 32768\n\n## File handles for many
-VMs\n\nfs.file-max
-=
+
+## VMs\n\nfs.file-max
+
 2097152\n```text\n## /etc/sysctl.d/99-debvisor.conf\n\n## Enable IP forwarding
 (2)\n\nnet.ipv4.ip_forward = 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge
 netfilter
@@ -1179,8 +1179,9 @@ Network tuning
 handles for
 many VMs
 (4)\nfs.file-max = 2097152\n```text\n\n## Enable IP forwarding
-(5)\n\nnet.ipv4.ip_forward
-=
+
+## (5)\n\nnet.ipv4.ip_forward
+
 1\nnet.ipv6.conf.all.forwarding = 1\n\n## Bridge netfilter
 (5)\n\nnet.bridge.bridge-nf-call-iptables
 = 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n\n## Memory overcommit for VMs

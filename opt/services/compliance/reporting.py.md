@@ -57,7 +57,7 @@ Items marked below as fixed:
 
 **Message:** Probable insecure usage of temp file/directory.
 
-### Context
+### Context (1)
 
 ```python
 
@@ -69,7 +69,7 @@ Items marked below as fixed:
                     f.write(content)
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -87,7 +87,7 @@ Items marked below as fixed:
 
 **Message:** Probable insecure usage of temp file/directory.
 
-### Context
+### Context (2)
 
 ```python
 
@@ -99,7 +99,7 @@ Items marked below as fixed:
                     f.write(content)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 

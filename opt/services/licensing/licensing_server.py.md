@@ -56,7 +56,7 @@ from pathlib import Path
 
 **Message:** Call to requests without timeout
 
-### Context
+### Context (1)
 
 ```python
                 if self.api_key:
@@ -68,7 +68,7 @@ from pathlib import Path
                     _headers=headers,
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

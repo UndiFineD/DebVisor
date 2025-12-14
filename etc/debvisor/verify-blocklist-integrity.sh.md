@@ -134,7 +134,7 @@ Items marked below as fixed:
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ```python
 
 ### Proposal
@@ -155,17 +155,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -183,18 +183,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -212,19 +212,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -242,19 +242,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## distributed under the License is distributed on an "AS IS" BASIS
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -272,19 +272,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -302,19 +302,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -332,19 +332,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -362,19 +362,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -392,18 +391,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -421,18 +419,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 
-## 
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -450,18 +447,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 
-## 
 ## verify-blocklist-integrity.sh
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -479,18 +475,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 
-## 
 ## verify-blocklist-integrity.sh
-## 
+
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -508,18 +503,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
-## limitations under the License.
+## limitations under the License
 
-## 
 ## verify-blocklist-integrity.sh
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -537,18 +531,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
-## 
 ## verify-blocklist-integrity.sh
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -566,19 +559,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 
-## 
 ## verify-blocklist-integrity.sh
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
+## blocklist-metadata.json
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -596,19 +588,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
-## 
+
 ## verify-blocklist-integrity.sh
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -626,19 +618,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 ## verify-blocklist-integrity.sh
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ## Usage
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -656,19 +648,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
-## 
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -686,19 +678,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
-## Verify SHA256 checksums and integrity of blocklist files before deployment.
+## Verify SHA256 checksums and integrity of blocklist files before deployment
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -716,19 +708,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 ## Supports both individual file verification and batch verification against
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -746,19 +738,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
-## blocklist-metadata.json.
-## 
+## blocklist-metadata.json
+
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
+
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -776,19 +768,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
-## 
+
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
 
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -806,19 +797,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 ## Usage
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
 
 set -euo pipefail
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -836,19 +826,18 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 ## verify-blocklist-integrity.sh --blocklist  --sha256
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
 
 set -euo pipefail
 
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -866,19 +855,18 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
 ## verify-blocklist-integrity.sh --metadata blocklist-metadata.json
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
 
 set -euo pipefail
 
 ## Color output for readability
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -896,11 +884,10 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
 ## verify-blocklist-integrity.sh --blocklist  --metadata blocklist-metadata.json
-## 
 
 set -euo pipefail
 
@@ -908,7 +895,7 @@ set -euo pipefail
 RED='\033[0;31m'
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -926,10 +913,9 @@ RED='\033[0;31m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
-## 
 
 set -euo pipefail
 
@@ -938,7 +924,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -956,7 +942,7 @@ GREEN='\033[0;32m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
 
@@ -968,7 +954,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -986,7 +972,7 @@ YELLOW='\033[1;33m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
 set -euo pipefail
@@ -998,7 +984,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -1016,7 +1002,7 @@ BLUE='\033[0;34m'
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
 
@@ -1028,7 +1014,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1046,7 +1032,7 @@ NC='\033[0m' # No Color
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
 ## Color output for readability
@@ -1058,7 +1044,7 @@ NC='\033[0m' # No Color
 
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1076,7 +1062,7 @@ NC='\033[0m' # No Color
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
 RED='\033[0;31m'
@@ -1088,7 +1074,7 @@ NC='\033[0m' # No Color
 ## Configuration
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1106,7 +1092,7 @@ NC='\033[0m' # No Color
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
 GREEN='\033[0;32m'
@@ -1118,7 +1104,7 @@ NC='\033[0m' # No Color
 VERBOSE=false
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1136,7 +1122,7 @@ VERBOSE=false
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
 YELLOW='\033[1;33m'
@@ -1148,7 +1134,7 @@ VERBOSE=false
 METADATA_FILE=""
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1166,7 +1152,7 @@ METADATA_FILE=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
 BLUE='\033[0;34m'
@@ -1178,7 +1164,7 @@ METADATA_FILE=""
 BLOCKLIST_FILE=""
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1196,7 +1182,7 @@ BLOCKLIST_FILE=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
 NC='\033[0m' # No Color
@@ -1208,7 +1194,7 @@ BLOCKLIST_FILE=""
 EXPECTED_SHA256=""
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1226,7 +1212,7 @@ EXPECTED_SHA256=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
 
@@ -1238,7 +1224,7 @@ EXPECTED_SHA256=""
 ABORT_ON_FAILURE=false
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1256,7 +1242,7 @@ ABORT_ON_FAILURE=false
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
 ## Configuration
@@ -1268,7 +1254,7 @@ ABORT_ON_FAILURE=false
 
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1286,7 +1272,7 @@ ABORT_ON_FAILURE=false
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
 VERBOSE=false
@@ -1298,7 +1284,7 @@ ABORT_ON_FAILURE=false
 ## Logging functions
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1316,7 +1302,7 @@ ABORT_ON_FAILURE=false
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
 METADATA_FILE=""
@@ -1328,7 +1314,7 @@ ABORT_ON_FAILURE=false
 log_info() {
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1346,7 +1332,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
 BLOCKLIST_FILE=""
@@ -1358,7 +1344,7 @@ log_info() {
     if ["$VERBOSE" = true]; then
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1376,7 +1362,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
 EXPECTED_SHA256=""
@@ -1388,7 +1374,7 @@ log_info() {
         echo -e "${BLUE}[INFO]${NC} $*" >&2
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1406,7 +1392,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
 ABORT_ON_FAILURE=false
@@ -1418,7 +1404,7 @@ log_info() {
     fi
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1436,7 +1422,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
 
@@ -1448,7 +1434,7 @@ log_info() {
 }
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1466,7 +1452,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
 ## Logging functions
@@ -1478,7 +1464,7 @@ log_info() {
 
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1496,7 +1482,7 @@ log_info() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
 log_info() {
@@ -1508,7 +1494,7 @@ log_info() {
 log_success() {
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1526,7 +1512,7 @@ log_success() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
     if ["$VERBOSE" = true]; then
@@ -1538,7 +1524,7 @@ log_success() {
     echo -e "${GREEN}[?]${NC} $*"
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1556,7 +1542,7 @@ log_success() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
         echo -e "${BLUE}[INFO]${NC} $*" >&2
@@ -1568,7 +1554,7 @@ log_success() {
 }
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1586,7 +1572,7 @@ log_success() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
     fi
@@ -1598,7 +1584,7 @@ log_success() {
 
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1616,7 +1602,7 @@ log_success() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
 }
@@ -1628,7 +1614,7 @@ log_success() {
 log_warn() {
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1646,7 +1632,7 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
 
@@ -1658,7 +1644,7 @@ log_warn() {
     echo -e "${YELLOW}[WARN]${NC} $*" >&2
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1676,7 +1662,7 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
 log_success() {
@@ -1688,7 +1674,7 @@ log_warn() {
 }
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1706,7 +1692,7 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
     echo -e "${GREEN}[?]${NC} $*"
@@ -1718,7 +1704,7 @@ log_warn() {
 
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1736,7 +1722,7 @@ log_warn() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
 }
@@ -1748,7 +1734,7 @@ log_warn() {
 log_error() {
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1766,7 +1752,7 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
 
@@ -1778,7 +1764,7 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $*" >&2
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -1796,7 +1782,7 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (56)
 
 ```python
 log_warn() {
@@ -1808,7 +1794,7 @@ log_error() {
 }
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -1826,7 +1812,7 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (57)
 
 ```python
     echo -e "${YELLOW}[WARN]${NC} $*" >&2
@@ -1838,7 +1824,7 @@ log_error() {
 
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -1856,7 +1842,7 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (58)
 
 ```python
 }
@@ -1868,7 +1854,7 @@ log_error() {
 ## Parse command line arguments
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -1886,7 +1872,7 @@ log_error() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (59)
 
 ```python
 
@@ -1898,7 +1884,7 @@ log_error() {
 parse_args() {
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 
@@ -1916,7 +1902,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (60)
 
 ```python
 log_error() {
@@ -1928,7 +1914,7 @@ parse_args() {
     while [[$# -gt 0]]; do
 ```python
 
-### Proposal
+### Proposal (60)
 
 - Review the issue message above
 
@@ -1946,7 +1932,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (61)
 
 ```python
     echo -e "${RED}[ERROR]${NC} $*" >&2
@@ -1958,7 +1944,7 @@ parse_args() {
         case $1 in
 ```python
 
-### Proposal
+### Proposal (61)
 
 - Review the issue message above
 
@@ -1976,7 +1962,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (62)
 
 ```python
 }
@@ -1988,7 +1974,7 @@ parse_args() {
             --blocklist)
 ```python
 
-### Proposal
+### Proposal (62)
 
 - Review the issue message above
 
@@ -2006,7 +1992,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (63)
 
 ```python
 
@@ -2018,7 +2004,7 @@ parse_args() {
                 BLOCKLIST_FILE="$2"
 ```python
 
-### Proposal
+### Proposal (63)
 
 - Review the issue message above
 
@@ -2036,7 +2022,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (64)
 
 ```python
 ## Parse command line arguments
@@ -2048,7 +2034,7 @@ parse_args() {
                 shift 2
 ```python
 
-### Proposal
+### Proposal (64)
 
 - Review the issue message above
 
@@ -2066,7 +2052,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (65)
 
 ```python
 parse_args() {
@@ -2078,7 +2064,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (65)
 
 - Review the issue message above
 
@@ -2096,7 +2082,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (66)
 
 ```python
     while [[$# -gt 0]]; do
@@ -2108,7 +2094,7 @@ parse_args() {
             --sha256)
 ```python
 
-### Proposal
+### Proposal (66)
 
 - Review the issue message above
 
@@ -2126,7 +2112,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (67)
 
 ```python
         case $1 in
@@ -2138,7 +2124,7 @@ parse_args() {
                 EXPECTED_SHA256="$2"
 ```python
 
-### Proposal
+### Proposal (67)
 
 - Review the issue message above
 
@@ -2156,7 +2142,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (68)
 
 ```python
             --blocklist)
@@ -2168,7 +2154,7 @@ parse_args() {
                 shift 2
 ```python
 
-### Proposal
+### Proposal (68)
 
 - Review the issue message above
 
@@ -2186,7 +2172,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (69)
 
 ```python
                 BLOCKLIST_FILE="$2"
@@ -2198,7 +2184,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (69)
 
 - Review the issue message above
 
@@ -2216,7 +2202,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (70)
 
 ```python
                 shift 2
@@ -2228,7 +2214,7 @@ parse_args() {
             --metadata)
 ```python
 
-### Proposal
+### Proposal (70)
 
 - Review the issue message above
 
@@ -2246,7 +2232,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (71)
 
 ```python
                 ;;
@@ -2258,7 +2244,7 @@ parse_args() {
                 METADATA_FILE="$2"
 ```python
 
-### Proposal
+### Proposal (71)
 
 - Review the issue message above
 
@@ -2276,7 +2262,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (72)
 
 ```python
             --sha256)
@@ -2288,7 +2274,7 @@ parse_args() {
                 shift 2
 ```python
 
-### Proposal
+### Proposal (72)
 
 - Review the issue message above
 
@@ -2306,7 +2292,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (73)
 
 ```python
                 EXPECTED_SHA256="$2"
@@ -2318,7 +2304,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (73)
 
 - Review the issue message above
 
@@ -2336,7 +2322,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (74)
 
 ```python
                 shift 2
@@ -2348,7 +2334,7 @@ parse_args() {
             --verbose)
 ```python
 
-### Proposal
+### Proposal (74)
 
 - Review the issue message above
 
@@ -2366,7 +2352,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (75)
 
 ```python
                 ;;
@@ -2378,7 +2364,7 @@ parse_args() {
                 VERBOSE=true
 ```python
 
-### Proposal
+### Proposal (75)
 
 - Review the issue message above
 
@@ -2396,7 +2382,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (76)
 
 ```python
             --metadata)
@@ -2408,7 +2394,7 @@ parse_args() {
                 shift
 ```python
 
-### Proposal
+### Proposal (76)
 
 - Review the issue message above
 
@@ -2426,7 +2412,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (77)
 
 ```python
                 METADATA_FILE="$2"
@@ -2438,7 +2424,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (77)
 
 - Review the issue message above
 
@@ -2456,7 +2442,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (78)
 
 ```python
                 shift 2
@@ -2468,7 +2454,7 @@ parse_args() {
             --abort-on-failure)
 ```python
 
-### Proposal
+### Proposal (78)
 
 - Review the issue message above
 
@@ -2486,7 +2472,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (79)
 
 ```python
                 ;;
@@ -2498,7 +2484,7 @@ parse_args() {
                 ABORT_ON_FAILURE=true
 ```python
 
-### Proposal
+### Proposal (79)
 
 - Review the issue message above
 
@@ -2516,7 +2502,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (80)
 
 ```python
             --verbose)
@@ -2528,7 +2514,7 @@ parse_args() {
                 shift
 ```python
 
-### Proposal
+### Proposal (80)
 
 - Review the issue message above
 
@@ -2546,7 +2532,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (81)
 
 ```python
                 VERBOSE=true
@@ -2558,7 +2544,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (81)
 
 - Review the issue message above
 
@@ -2576,7 +2562,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (82)
 
 ```python
                 shift
@@ -2588,7 +2574,7 @@ parse_args() {
             --help)
 ```python
 
-### Proposal
+### Proposal (82)
 
 - Review the issue message above
 
@@ -2606,7 +2592,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (83)
 
 ```python
                 ;;
@@ -2618,7 +2604,7 @@ parse_args() {
                 print_usage
 ```python
 
-### Proposal
+### Proposal (83)
 
 - Review the issue message above
 
@@ -2636,7 +2622,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (84)
 
 ```python
             --abort-on-failure)
@@ -2648,7 +2634,7 @@ parse_args() {
                 exit 0
 ```python
 
-### Proposal
+### Proposal (84)
 
 - Review the issue message above
 
@@ -2666,7 +2652,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (85)
 
 ```python
                 ABORT_ON_FAILURE=true
@@ -2678,7 +2664,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (85)
 
 - Review the issue message above
 
@@ -2696,7 +2682,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (86)
 
 ```python
                 shift
@@ -2708,7 +2694,7 @@ parse_args() {
             *)
 ```python
 
-### Proposal
+### Proposal (86)
 
 - Review the issue message above
 
@@ -2726,7 +2712,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (87)
 
 ```python
                 ;;
@@ -2738,7 +2724,7 @@ parse_args() {
                 log_error "Unknown option: $1"
 ```python
 
-### Proposal
+### Proposal (87)
 
 - Review the issue message above
 
@@ -2756,7 +2742,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (88)
 
 ```python
             --help)
@@ -2768,7 +2754,7 @@ parse_args() {
                 print_usage
 ```python
 
-### Proposal
+### Proposal (88)
 
 - Review the issue message above
 
@@ -2786,7 +2772,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (89)
 
 ```python
                 print_usage
@@ -2798,7 +2784,7 @@ parse_args() {
                 exit 1
 ```python
 
-### Proposal
+### Proposal (89)
 
 - Review the issue message above
 
@@ -2816,7 +2802,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (90)
 
 ```python
                 exit 0
@@ -2828,7 +2814,7 @@ parse_args() {
                 ;;
 ```python
 
-### Proposal
+### Proposal (90)
 
 - Review the issue message above
 
@@ -2846,7 +2832,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (91)
 
 ```python
                 ;;
@@ -2858,7 +2844,7 @@ parse_args() {
         esac
 ```python
 
-### Proposal
+### Proposal (91)
 
 - Review the issue message above
 
@@ -2876,7 +2862,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (92)
 
 ```python
             *)
@@ -2888,7 +2874,7 @@ parse_args() {
     done
 ```python
 
-### Proposal
+### Proposal (92)
 
 - Review the issue message above
 
@@ -2906,7 +2892,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (93)
 
 ```python
                 log_error "Unknown option: $1"
@@ -2918,7 +2904,7 @@ parse_args() {
 }
 ```python
 
-### Proposal
+### Proposal (93)
 
 - Review the issue message above
 
@@ -2936,7 +2922,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (94)
 
 ```python
                 print_usage
@@ -2948,7 +2934,7 @@ parse_args() {
 
 ```python
 
-### Proposal
+### Proposal (94)
 
 - Review the issue message above
 
@@ -2966,7 +2952,7 @@ parse_args() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (95)
 
 ```python
                 exit 1
@@ -2978,7 +2964,7 @@ parse_args() {
 print_usage() {
 ```python
 
-### Proposal
+### Proposal (95)
 
 - Review the issue message above
 
@@ -2996,7 +2982,7 @@ print_usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (96)
 
 ```python
                 ;;
@@ -3008,7 +2994,7 @@ print_usage() {
     cat << 'EOF'
 ```python
 
-### Proposal
+### Proposal (96)
 
 - Review the issue message above
 
@@ -3026,7 +3012,7 @@ print_usage() {
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (97)
 
 ```python
         esac
@@ -3038,7 +3024,7 @@ print_usage() {
 Usage: verify-blocklist-integrity.sh [OPTIONS]
 ```python
 
-### Proposal
+### Proposal (97)
 
 - Review the issue message above
 
@@ -3056,7 +3042,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (98)
 
 ```python
     done
@@ -3068,7 +3054,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 
 ```python
 
-### Proposal
+### Proposal (98)
 
 - Review the issue message above
 
@@ -3086,7 +3072,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 
 **Message:** The mentioned syntax error was in this simple command.
 
-### Context
+### Context (99)
 
 ```python
 }
@@ -3098,7 +3084,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 Options:
 ```python
 
-### Proposal
+### Proposal (99)
 
 - Review the issue message above
 
@@ -3110,13 +3096,13 @@ Options:
 
 ---
 
-### Issue at Line 100
+### Issue at Line 100 (1)
 
 **Tool:**shellcheck |**Code:**`1073` |**Severity:** ERROR
 
 **Message:** Couldn't parse this here document. Fix to allow more checks.
 
-### Context
+### Context (100)
 
 ```python
 }
@@ -3128,7 +3114,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 Options:
 ```python
 
-### Proposal
+### Proposal (100)
 
 - Review the issue message above
 
@@ -3140,13 +3126,13 @@ Options:
 
 ---
 
-### Issue at Line 100
+### Issue at Line 100 (2)
 
 **Tool:**shellcheck |**Code:**`1044` |**Severity:** ERROR
 
 **Message:** Couldn't find end token`'EOF'\r' in the here document.
 
-### Context
+### Context (101)
 
 ```python
 }
@@ -3158,7 +3144,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 Options:
 ```python
 
-### Proposal
+### Proposal (101)
 
 - Review the issue message above
 
@@ -3170,13 +3156,13 @@ Options:
 
 ---
 
-### Issue at Line 100
+### Issue at Line 100 (3)
 
 **Tool:**shellcheck |**Code:**`1017` |**Severity:** ERROR
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (102)
 
 ```python
 }
@@ -3188,7 +3174,7 @@ Usage: verify-blocklist-integrity.sh [OPTIONS]
 Options:
 ```python
 
-### Proposal
+### Proposal (102)
 
 - Review the issue message above
 
@@ -3204,9 +3190,10 @@ Options:
 
 **Tool:**shellcheck |**Code:**`1072` |**Severity:** ERROR
 
-**Message:** Here document was not correctly terminated. Fix any mentioned problems and try again.
+**Message:** Here document was not correctly terminated. Fix any mentioned
+problems and try again.
 
-### Context
+### Context (103)
 
 ```python
 }
@@ -3214,7 +3201,7 @@ Options:
 main "$@"
 ```python
 
-### Proposal
+### Proposal (103)
 
 - Review the issue message above
 

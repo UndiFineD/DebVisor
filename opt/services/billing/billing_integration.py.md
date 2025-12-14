@@ -60,7 +60,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
     ) -> Subscription:
@@ -72,7 +72,7 @@ Items marked below as fixed:
             customer_id, plan_id, trial_days
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -90,7 +90,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
     ) -> bool:
@@ -102,7 +102,7 @@ Items marked below as fixed:
         if not subscription:  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -120,7 +120,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
     ) -> Invoice:
@@ -132,7 +132,7 @@ Items marked below as fixed:
         invoice.tenant_id=tenant_id  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -150,7 +150,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
     ) -> Payment:
@@ -162,7 +162,7 @@ Items marked below as fixed:
         payment.tenant_id=tenant_id  # type: ignore[name-defined]
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -180,7 +180,7 @@ Items marked below as fixed:
 
 **Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
     ) -> bool:
@@ -192,7 +192,7 @@ Items marked below as fixed:
         _payload_bytes=json.dumps(payload, separators=(", ", ":")).encode()
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 

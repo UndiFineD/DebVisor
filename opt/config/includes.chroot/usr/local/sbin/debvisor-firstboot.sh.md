@@ -461,7 +461,7 @@ Items marked below as fixed:
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ```python
 
 ### Proposal
@@ -482,17 +482,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -510,18 +510,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -539,19 +539,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -569,19 +569,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## distributed under the License is distributed on an "AS IS" BASIS
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -599,19 +599,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -629,19 +629,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -659,19 +659,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -689,19 +689,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -719,18 +718,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -748,18 +746,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -777,18 +774,17 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -806,18 +802,17 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 log(){ echo "[debvisor-firstboot] $*"; }
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -835,18 +830,17 @@ log(){ echo "[debvisor-firstboot] $*"; }
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
-## limitations under the License.
-
+## limitations under the License
 set -euo pipefail
 
 log(){ echo "[debvisor-firstboot] $*"; }
 
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -864,7 +858,7 @@ log(){ echo "[debvisor-firstboot] $*"; }
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
@@ -875,7 +869,7 @@ log(){ echo "[debvisor-firstboot] $*"; }
 MODE="lab"
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -893,7 +887,7 @@ MODE="lab"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 
@@ -905,7 +899,7 @@ MODE="lab"
 PROFILE="ceph"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -923,7 +917,7 @@ PROFILE="ceph"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
 set -euo pipefail
@@ -935,7 +929,7 @@ PROFILE="ceph"
 OS_DISK=""
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -953,7 +947,7 @@ OS_DISK=""
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
 
@@ -965,7 +959,7 @@ OS_DISK=""
 STORAGE_DISKS=()
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -983,7 +977,7 @@ STORAGE_DISKS=()
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 log(){ echo "[debvisor-firstboot] $*"; }
@@ -995,7 +989,7 @@ STORAGE_DISKS=()
 USB_DISKS=()
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -1013,7 +1007,7 @@ USB_DISKS=()
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 
@@ -1025,7 +1019,7 @@ USB_DISKS=()
 DRY_RUN="false"
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -1043,7 +1037,7 @@ DRY_RUN="false"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 MODE="lab"
@@ -1055,7 +1049,7 @@ DRY_RUN="false"
 
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -1073,7 +1067,7 @@ DRY_RUN="false"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 PROFILE="ceph"
@@ -1085,7 +1079,7 @@ DRY_RUN="false"
 parse_args(){
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -1103,7 +1097,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 OS_DISK=""
@@ -1115,7 +1109,7 @@ parse_args(){
   while [[${1-}]]; do
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -1133,7 +1127,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 STORAGE_DISKS=()
@@ -1145,7 +1139,7 @@ parse_args(){
     case "$1" in
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -1163,7 +1157,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 USB_DISKS=()
@@ -1175,7 +1169,7 @@ parse_args(){
       --dry-run)
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -1193,7 +1187,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
 DRY_RUN="false"
@@ -1205,7 +1199,7 @@ parse_args(){
         DRY_RUN="true"
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -1223,7 +1217,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
 
@@ -1235,7 +1229,7 @@ parse_args(){
         ;;
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -1253,7 +1247,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
 parse_args(){
@@ -1265,7 +1259,7 @@ parse_args(){
     esac
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -1283,7 +1277,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
   while [[${1-}]]; do
@@ -1295,7 +1289,7 @@ parse_args(){
     shift || break
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -1313,7 +1307,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
     case "$1" in
@@ -1325,7 +1319,7 @@ parse_args(){
   done
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -1343,7 +1337,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
       --dry-run)
@@ -1355,7 +1349,7 @@ parse_args(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -1373,7 +1367,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
         DRY_RUN="true"
@@ -1385,7 +1379,7 @@ parse_args(){
     log "Running in DRY-RUN mode: no destructive actions will be taken"
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1403,7 +1397,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
         ;;
@@ -1415,7 +1409,7 @@ parse_args(){
   fi
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1433,7 +1427,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
     esac
@@ -1445,7 +1439,7 @@ parse_args(){
 }
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1463,7 +1457,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
     shift || break
@@ -1475,7 +1469,7 @@ parse_args(){
 
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1493,7 +1487,7 @@ parse_args(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
   done
@@ -1505,7 +1499,7 @@ parse_args(){
 load_profile_and_mode(){
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1523,7 +1517,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -1535,7 +1529,7 @@ load_profile_and_mode(){
   if [[-f /etc/debvisor-profile]]; then
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1553,7 +1547,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
     log "Running in DRY-RUN mode: no destructive actions will be taken"
@@ -1565,7 +1559,7 @@ load_profile_and_mode(){
     # shellcheck disable=SC1091
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1583,7 +1577,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
   fi
@@ -1595,7 +1589,7 @@ load_profile_and_mode(){
     source /etc/debvisor-profile || true
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1613,7 +1607,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
 }
@@ -1625,7 +1619,7 @@ load_profile_and_mode(){
   fi
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1643,7 +1637,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
 
@@ -1655,7 +1649,7 @@ load_profile_and_mode(){
   PROFILE=${PROFILE:-ceph}
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1673,7 +1667,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
 load_profile_and_mode(){
@@ -1685,7 +1679,7 @@ load_profile_and_mode(){
 
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1703,7 +1697,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
   if [[-f /etc/debvisor-profile]]; then
@@ -1715,7 +1709,7 @@ load_profile_and_mode(){
   if [[-f /etc/debvisor-mode]]; then
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1733,7 +1727,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
     # shellcheck disable=SC1091
@@ -1745,7 +1739,7 @@ load_profile_and_mode(){
     MODE=$(tr '[:upper:]' '[:lower:]'
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1763,7 +1757,7 @@ load_profile_and_mode(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
 init_logging(){
@@ -1775,7 +1769,7 @@ mark_step(){
   local name="$1" status="$2"
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1793,7 +1787,7 @@ mark_step(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
   mkdir -p /var/log/debvisor
@@ -1805,7 +1799,7 @@ mark_step(){
   echo "${status}" >"/var/log/debvisor/${name}.status" || true
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1823,7 +1817,7 @@ mark_step(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
 }
@@ -1835,7 +1829,7 @@ mark_step(){
 }
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1853,7 +1847,7 @@ mark_step(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
 
@@ -1865,7 +1859,7 @@ mark_step(){
 
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1883,7 +1877,7 @@ mark_step(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
 mark_step(){
@@ -1895,7 +1889,7 @@ mark_step(){
 ensure_base_services(){
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1913,7 +1907,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
   # mark_step
@@ -1925,7 +1919,7 @@ ensure_base_services(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1943,7 +1937,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
   local name="$1" status="$2"
@@ -1955,7 +1949,7 @@ ensure_base_services(){
     log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1973,7 +1967,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
   echo "${status}" >"/var/log/debvisor/${name}.status" || true
@@ -1985,7 +1979,7 @@ ensure_base_services(){
     return 0
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -2003,7 +1997,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
 }
@@ -2015,7 +2009,7 @@ ensure_base_services(){
   fi
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -2033,7 +2027,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
 
@@ -2045,7 +2039,7 @@ ensure_base_services(){
   systemctl enable --now cockpit.socket || true
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -2063,7 +2057,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
 ensure_base_services(){
@@ -2075,7 +2069,7 @@ ensure_base_services(){
   modprobe kvm || true
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -2093,7 +2087,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -2105,7 +2099,7 @@ ensure_base_services(){
   modprobe kvm_intel || modprobe kvm_amd || true
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 
@@ -2123,7 +2117,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (56)
 
 ```python
     log "[dry-run] Would ensure base services (cockpit, libvirtd, KVM modules)"
@@ -2135,7 +2129,7 @@ ensure_base_services(){
   systemctl enable --now libvirtd || true
 ```python
 
-### Proposal
+### Proposal (56)
 
 - Review the issue message above
 
@@ -2153,7 +2147,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (57)
 
 ```python
     return 0
@@ -2165,7 +2159,7 @@ ensure_base_services(){
 }
 ```python
 
-### Proposal
+### Proposal (57)
 
 - Review the issue message above
 
@@ -2183,7 +2177,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (58)
 
 ```python
   fi
@@ -2195,7 +2189,7 @@ ensure_base_services(){
 
 ```python
 
-### Proposal
+### Proposal (58)
 
 - Review the issue message above
 
@@ -2213,7 +2207,7 @@ ensure_base_services(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (59)
 
 ```python
   systemctl enable --now cockpit.socket || true
@@ -2225,7 +2219,7 @@ ensure_base_services(){
 ensure_webpanel_user(){
 ```python
 
-### Proposal
+### Proposal (59)
 
 - Review the issue message above
 
@@ -2243,7 +2237,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (60)
 
 ```python
   modprobe kvm || true
@@ -2255,7 +2249,7 @@ ensure_webpanel_user(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (60)
 
 - Review the issue message above
 
@@ -2273,7 +2267,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (61)
 
 ```python
   modprobe kvm_intel || modprobe kvm_amd || true
@@ -2285,7 +2279,7 @@ ensure_webpanel_user(){
     log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
 ```python
 
-### Proposal
+### Proposal (61)
 
 - Review the issue message above
 
@@ -2303,7 +2297,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (62)
 
 ```python
   systemctl enable --now libvirtd || true
@@ -2315,7 +2309,7 @@ ensure_webpanel_user(){
     return 0
 ```python
 
-### Proposal
+### Proposal (62)
 
 - Review the issue message above
 
@@ -2333,7 +2327,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (63)
 
 ```python
 }
@@ -2345,7 +2339,7 @@ ensure_webpanel_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (63)
 
 - Review the issue message above
 
@@ -2363,7 +2357,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (64)
 
 ```python
 
@@ -2375,7 +2369,7 @@ ensure_webpanel_user(){
 
 ```python
 
-### Proposal
+### Proposal (64)
 
 - Review the issue message above
 
@@ -2393,7 +2387,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (65)
 
 ```python
 ensure_webpanel_user(){
@@ -2405,7 +2399,7 @@ ensure_webpanel_user(){
   if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (65)
 
 - Review the issue message above
 
@@ -2423,7 +2417,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (66)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -2435,7 +2429,7 @@ ensure_webpanel_user(){
     debvisor-setup-webpanel-user.sh || true
 ```python
 
-### Proposal
+### Proposal (66)
 
 - Review the issue message above
 
@@ -2453,7 +2447,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (67)
 
 ```python
     log "[dry-run] Would ensure webpanel system user and ownership of /opt/debvisor/panel"
@@ -2465,7 +2459,7 @@ ensure_webpanel_user(){
   elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
 ```python
 
-### Proposal
+### Proposal (67)
 
 - Review the issue message above
 
@@ -2483,7 +2477,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (68)
 
 ```python
     return 0
@@ -2495,7 +2489,7 @@ ensure_webpanel_user(){
     /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
 ```python
 
-### Proposal
+### Proposal (68)
 
 - Review the issue message above
 
@@ -2513,7 +2507,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (69)
 
 ```python
   fi
@@ -2525,7 +2519,7 @@ ensure_webpanel_user(){
   else
 ```python
 
-### Proposal
+### Proposal (69)
 
 - Review the issue message above
 
@@ -2543,7 +2537,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (70)
 
 ```python
 
@@ -2555,7 +2549,7 @@ ensure_webpanel_user(){
     log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
 ```python
 
-### Proposal
+### Proposal (70)
 
 - Review the issue message above
 
@@ -2573,7 +2567,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (71)
 
 ```python
   if command -v debvisor-setup-webpanel-user.sh &>/dev/null; then
@@ -2585,7 +2579,7 @@ ensure_webpanel_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (71)
 
 - Review the issue message above
 
@@ -2603,7 +2597,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (72)
 
 ```python
     debvisor-setup-webpanel-user.sh || true
@@ -2615,7 +2609,7 @@ ensure_webpanel_user(){
 }
 ```python
 
-### Proposal
+### Proposal (72)
 
 - Review the issue message above
 
@@ -2633,7 +2627,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (73)
 
 ```python
   elif [[-x /usr/local/sbin/debvisor-setup-webpanel-user.sh]]; then
@@ -2645,7 +2639,7 @@ ensure_webpanel_user(){
 
 ```python
 
-### Proposal
+### Proposal (73)
 
 - Review the issue message above
 
@@ -2663,7 +2657,7 @@ ensure_webpanel_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (74)
 
 ```python
     /usr/local/sbin/debvisor-setup-webpanel-user.sh || true
@@ -2675,7 +2669,7 @@ ensure_webpanel_user(){
 ensure_rpc_user(){
 ```python
 
-### Proposal
+### Proposal (74)
 
 - Review the issue message above
 
@@ -2693,7 +2687,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (75)
 
 ```python
   else
@@ -2705,7 +2699,7 @@ ensure_rpc_user(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (75)
 
 - Review the issue message above
 
@@ -2723,7 +2717,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (76)
 
 ```python
     log "webpanel setup helper not found; ensure user/group 'webpanel' exist if panel is enabled"
@@ -2735,7 +2729,7 @@ ensure_rpc_user(){
     log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
 ```python
 
-### Proposal
+### Proposal (76)
 
 - Review the issue message above
 
@@ -2753,7 +2747,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (77)
 
 ```python
   fi
@@ -2765,7 +2759,7 @@ ensure_rpc_user(){
     return 0
 ```python
 
-### Proposal
+### Proposal (77)
 
 - Review the issue message above
 
@@ -2783,7 +2777,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (78)
 
 ```python
 }
@@ -2795,7 +2789,7 @@ ensure_rpc_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (78)
 
 - Review the issue message above
 
@@ -2813,7 +2807,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (79)
 
 ```python
 
@@ -2825,7 +2819,7 @@ ensure_rpc_user(){
 
 ```python
 
-### Proposal
+### Proposal (79)
 
 - Review the issue message above
 
@@ -2843,7 +2837,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (80)
 
 ```python
 ensure_rpc_user(){
@@ -2855,7 +2849,7 @@ ensure_rpc_user(){
   if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (80)
 
 - Review the issue message above
 
@@ -2873,7 +2867,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (81)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -2885,7 +2879,7 @@ ensure_rpc_user(){
     debvisor-setup-rpc-user.sh || true
 ```python
 
-### Proposal
+### Proposal (81)
 
 - Review the issue message above
 
@@ -2903,7 +2897,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (82)
 
 ```python
     log "[dry-run] Would ensure debvisor-rpc system user and ownership of /opt/debvisor/rpc"
@@ -2915,7 +2909,7 @@ ensure_rpc_user(){
   elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
 ```python
 
-### Proposal
+### Proposal (82)
 
 - Review the issue message above
 
@@ -2933,7 +2927,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (83)
 
 ```python
     return 0
@@ -2945,7 +2939,7 @@ ensure_rpc_user(){
     /usr/local/sbin/debvisor-setup-rpc-user.sh || true
 ```python
 
-### Proposal
+### Proposal (83)
 
 - Review the issue message above
 
@@ -2963,7 +2957,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (84)
 
 ```python
   fi
@@ -2975,7 +2969,7 @@ ensure_rpc_user(){
   else
 ```python
 
-### Proposal
+### Proposal (84)
 
 - Review the issue message above
 
@@ -2993,7 +2987,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (85)
 
 ```python
 
@@ -3005,7 +2999,7 @@ ensure_rpc_user(){
     log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
 ```python
 
-### Proposal
+### Proposal (85)
 
 - Review the issue message above
 
@@ -3023,7 +3017,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (86)
 
 ```python
   if command -v debvisor-setup-rpc-user.sh &>/dev/null; then
@@ -3035,7 +3029,7 @@ ensure_rpc_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (86)
 
 - Review the issue message above
 
@@ -3053,7 +3047,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (87)
 
 ```python
     debvisor-setup-rpc-user.sh || true
@@ -3065,7 +3059,7 @@ ensure_rpc_user(){
 }
 ```python
 
-### Proposal
+### Proposal (87)
 
 - Review the issue message above
 
@@ -3083,7 +3077,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (88)
 
 ```python
   elif [[-x /usr/local/sbin/debvisor-setup-rpc-user.sh]]; then
@@ -3095,7 +3089,7 @@ ensure_rpc_user(){
 
 ```python
 
-### Proposal
+### Proposal (88)
 
 - Review the issue message above
 
@@ -3113,7 +3107,7 @@ ensure_rpc_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (89)
 
 ```python
     /usr/local/sbin/debvisor-setup-rpc-user.sh || true
@@ -3125,7 +3119,7 @@ ensure_rpc_user(){
 ensure_tsig_rotator_user(){
 ```python
 
-### Proposal
+### Proposal (89)
 
 - Review the issue message above
 
@@ -3143,7 +3137,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (90)
 
 ```python
   else
@@ -3155,7 +3149,7 @@ ensure_tsig_rotator_user(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (90)
 
 - Review the issue message above
 
@@ -3173,7 +3167,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (91)
 
 ```python
     log "RPC setup helper not found; ensure user/group 'debvisor-rpc' exist if rpcd is enabled"
@@ -3185,7 +3179,7 @@ ensure_tsig_rotator_user(){
     log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
 ```python
 
-### Proposal
+### Proposal (91)
 
 - Review the issue message above
 
@@ -3203,7 +3197,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (92)
 
 ```python
   fi
@@ -3215,7 +3209,7 @@ ensure_tsig_rotator_user(){
     return 0
 ```python
 
-### Proposal
+### Proposal (92)
 
 - Review the issue message above
 
@@ -3233,7 +3227,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (93)
 
 ```python
 }
@@ -3245,7 +3239,7 @@ ensure_tsig_rotator_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (93)
 
 - Review the issue message above
 
@@ -3263,7 +3257,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (94)
 
 ```python
 
@@ -3275,7 +3269,7 @@ ensure_tsig_rotator_user(){
 
 ```python
 
-### Proposal
+### Proposal (94)
 
 - Review the issue message above
 
@@ -3293,7 +3287,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (95)
 
 ```python
 ensure_tsig_rotator_user(){
@@ -3305,7 +3299,7 @@ ensure_tsig_rotator_user(){
   if id tsig-rotator &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (95)
 
 - Review the issue message above
 
@@ -3323,7 +3317,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (96)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -3335,7 +3329,7 @@ ensure_tsig_rotator_user(){
     log "tsig-rotator user already exists"
 ```python
 
-### Proposal
+### Proposal (96)
 
 - Review the issue message above
 
@@ -3353,7 +3347,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (97)
 
 ```python
     log "[dry-run] Would ensure tsig-rotator system user for TSIG rotation"
@@ -3365,7 +3359,7 @@ ensure_tsig_rotator_user(){
     return 0
 ```python
 
-### Proposal
+### Proposal (97)
 
 - Review the issue message above
 
@@ -3383,7 +3377,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (98)
 
 ```python
     return 0
@@ -3395,7 +3389,7 @@ ensure_tsig_rotator_user(){
   fi
 ```python
 
-### Proposal
+### Proposal (98)
 
 - Review the issue message above
 
@@ -3413,7 +3407,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (99)
 
 ```python
   fi
@@ -3425,7 +3419,7 @@ ensure_tsig_rotator_user(){
 
 ```python
 
-### Proposal
+### Proposal (99)
 
 - Review the issue message above
 
@@ -3443,7 +3437,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (100)
 
 ```python
 
@@ -3455,7 +3449,7 @@ ensure_tsig_rotator_user(){
   log "Creating tsig-rotator system user"
 ```python
 
-### Proposal
+### Proposal (100)
 
 - Review the issue message above
 
@@ -3473,7 +3467,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (101)
 
 ```python
   if id tsig-rotator &>/dev/null; then
@@ -3485,7 +3479,7 @@ ensure_tsig_rotator_user(){
   adduser --system --group --no-create-home tsig-rotator || true
 ```python
 
-### Proposal
+### Proposal (101)
 
 - Review the issue message above
 
@@ -3503,7 +3497,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (102)
 
 ```python
     log "tsig-rotator user already exists"
@@ -3515,7 +3509,7 @@ ensure_tsig_rotator_user(){
 }
 ```python
 
-### Proposal
+### Proposal (102)
 
 - Review the issue message above
 
@@ -3533,7 +3527,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (103)
 
 ```python
     return 0
@@ -3545,7 +3539,7 @@ ensure_tsig_rotator_user(){
 
 ```python
 
-### Proposal
+### Proposal (103)
 
 - Review the issue message above
 
@@ -3563,7 +3557,7 @@ ensure_tsig_rotator_user(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (104)
 
 ```python
   fi
@@ -3575,7 +3569,7 @@ ensure_tsig_rotator_user(){
 generate_keys(){
 ```python
 
-### Proposal
+### Proposal (104)
 
 - Review the issue message above
 
@@ -3593,7 +3587,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (105)
 
 ```python
 
@@ -3605,7 +3599,7 @@ generate_keys(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (105)
 
 - Review the issue message above
 
@@ -3623,7 +3617,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (106)
 
 ```python
   log "Creating tsig-rotator system user"
@@ -3635,7 +3629,7 @@ generate_keys(){
     log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
 ```python
 
-### Proposal
+### Proposal (106)
 
 - Review the issue message above
 
@@ -3653,7 +3647,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (107)
 
 ```python
   adduser --system --group --no-create-home tsig-rotator || true
@@ -3665,7 +3659,7 @@ generate_keys(){
     return 0
 ```python
 
-### Proposal
+### Proposal (107)
 
 - Review the issue message above
 
@@ -3683,7 +3677,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (108)
 
 ```python
 }
@@ -3695,7 +3689,7 @@ generate_keys(){
   fi
 ```python
 
-### Proposal
+### Proposal (108)
 
 - Review the issue message above
 
@@ -3713,7 +3707,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (109)
 
 ```python
 
@@ -3725,7 +3719,7 @@ generate_keys(){
 
 ```python
 
-### Proposal
+### Proposal (109)
 
 - Review the issue message above
 
@@ -3743,7 +3737,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (110)
 
 ```python
 generate_keys(){
@@ -3755,7 +3749,7 @@ generate_keys(){
   log "Generating cryptographic keys and secrets..."
 ```python
 
-### Proposal
+### Proposal (110)
 
 - Review the issue message above
 
@@ -3773,7 +3767,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (111)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -3785,7 +3779,7 @@ generate_keys(){
   if [[-f /opt/tools/first_boot_keygen.py]]; then
 ```python
 
-### Proposal
+### Proposal (111)
 
 - Review the issue message above
 
@@ -3803,7 +3797,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (112)
 
 ```python
     log "[dry-run] Would generate SSH keys, Internal CA, and Service Secrets"
@@ -3815,7 +3809,7 @@ generate_keys(){
     python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
 ```python
 
-### Proposal
+### Proposal (112)
 
 - Review the issue message above
 
@@ -3833,7 +3827,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (113)
 
 ```python
     return 0
@@ -3845,7 +3839,7 @@ generate_keys(){
   else
 ```python
 
-### Proposal
+### Proposal (113)
 
 - Review the issue message above
 
@@ -3863,7 +3857,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (114)
 
 ```python
   fi
@@ -3875,7 +3869,7 @@ generate_keys(){
     log "Key generation script not found at /opt/tools/first_boot_keygen.py"
 ```python
 
-### Proposal
+### Proposal (114)
 
 - Review the issue message above
 
@@ -3893,7 +3887,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (115)
 
 ```python
 
@@ -3905,7 +3899,7 @@ generate_keys(){
   fi
 ```python
 
-### Proposal
+### Proposal (115)
 
 - Review the issue message above
 
@@ -3923,7 +3917,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (116)
 
 ```python
   log "Generating cryptographic keys and secrets..."
@@ -3935,7 +3929,7 @@ generate_keys(){
   mark_step keys success
 ```python
 
-### Proposal
+### Proposal (116)
 
 - Review the issue message above
 
@@ -3953,7 +3947,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (117)
 
 ```python
   if [[-f /opt/tools/first_boot_keygen.py]]; then
@@ -3965,7 +3959,7 @@ generate_keys(){
 }
 ```python
 
-### Proposal
+### Proposal (117)
 
 - Review the issue message above
 
@@ -3983,7 +3977,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (118)
 
 ```python
     python3 /opt/tools/first_boot_keygen.py || log "Key generation failed (non-fatal)"
@@ -3995,7 +3989,7 @@ generate_keys(){
 
 ```python
 
-### Proposal
+### Proposal (118)
 
 - Review the issue message above
 
@@ -4013,7 +4007,7 @@ generate_keys(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (119)
 
 ```python
   else
@@ -4025,7 +4019,7 @@ generate_keys(){
 configure_ups(){
 ```python
 
-### Proposal
+### Proposal (119)
 
 - Review the issue message above
 
@@ -4043,7 +4037,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (120)
 
 ```python
     log "Key generation script not found at /opt/tools/first_boot_keygen.py"
@@ -4055,7 +4049,7 @@ configure_ups(){
   # Enable NUT services only if a UPS configuration exists.
 ```python
 
-### Proposal
+### Proposal (120)
 
 - Review the issue message above
 
@@ -4073,7 +4067,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (121)
 
 ```python
   fi
@@ -4085,7 +4079,7 @@ configure_ups(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (121)
 
 - Review the issue message above
 
@@ -4103,7 +4097,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (122)
 
 ```python
   mark_step keys success
@@ -4115,7 +4109,7 @@ configure_ups(){
     if [[-s /etc/nut/ups.conf]]; then
 ```python
 
-### Proposal
+### Proposal (122)
 
 - Review the issue message above
 
@@ -4133,7 +4127,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (123)
 
 ```python
 }
@@ -4145,7 +4139,7 @@ configure_ups(){
       log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
 ```python
 
-### Proposal
+### Proposal (123)
 
 - Review the issue message above
 
@@ -4163,7 +4157,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (124)
 
 ```python
 
@@ -4175,7 +4169,7 @@ configure_ups(){
     else
 ```python
 
-### Proposal
+### Proposal (124)
 
 - Review the issue message above
 
@@ -4193,7 +4187,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (125)
 
 ```python
 configure_ups(){
@@ -4205,7 +4199,7 @@ configure_ups(){
       log "[dry-run] No UPS configuration found; NUT services remain disabled"
 ```python
 
-### Proposal
+### Proposal (125)
 
 - Review the issue message above
 
@@ -4223,7 +4217,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (126)
 
 ```python
   # Enable NUT services only if a UPS configuration exists.
@@ -4235,7 +4229,7 @@ configure_ups(){
     fi
 ```python
 
-### Proposal
+### Proposal (126)
 
 - Review the issue message above
 
@@ -4253,7 +4247,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (127)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -4265,7 +4259,7 @@ configure_ups(){
     return 0
 ```python
 
-### Proposal
+### Proposal (127)
 
 - Review the issue message above
 
@@ -4283,7 +4277,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (128)
 
 ```python
     if [[-s /etc/nut/ups.conf]]; then
@@ -4295,7 +4289,7 @@ configure_ups(){
   fi
 ```python
 
-### Proposal
+### Proposal (128)
 
 - Review the issue message above
 
@@ -4313,7 +4307,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (129)
 
 ```python
       log "[dry-run] Would enable and start NUT UPS services (nut-server, nut-monitor)"
@@ -4325,7 +4319,7 @@ configure_ups(){
 
 ```python
 
-### Proposal
+### Proposal (129)
 
 - Review the issue message above
 
@@ -4343,7 +4337,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (130)
 
 ```python
     else
@@ -4355,7 +4349,7 @@ configure_ups(){
   if [[-s /etc/nut/ups.conf]]; then
 ```python
 
-### Proposal
+### Proposal (130)
 
 - Review the issue message above
 
@@ -4373,7 +4367,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (131)
 
 ```python
       log "[dry-run] No UPS configuration found; NUT services remain disabled"
@@ -4385,7 +4379,7 @@ configure_ups(){
     log "UPS configuration detected; enabling NUT services"
 ```python
 
-### Proposal
+### Proposal (131)
 
 - Review the issue message above
 
@@ -4403,7 +4397,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (132)
 
 ```python
     fi
@@ -4415,7 +4409,7 @@ configure_ups(){
     systemctl enable --now nut-server.service || true
 ```python
 
-### Proposal
+### Proposal (132)
 
 - Review the issue message above
 
@@ -4433,7 +4427,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (133)
 
 ```python
     return 0
@@ -4445,7 +4439,7 @@ configure_ups(){
     systemctl enable --now nut-monitor.service || true
 ```python
 
-### Proposal
+### Proposal (133)
 
 - Review the issue message above
 
@@ -4463,7 +4457,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (134)
 
 ```python
   fi
@@ -4475,7 +4469,7 @@ configure_ups(){
     mark_step ups enabled
 ```python
 
-### Proposal
+### Proposal (134)
 
 - Review the issue message above
 
@@ -4493,7 +4487,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (135)
 
 ```python
 
@@ -4505,7 +4499,7 @@ configure_ups(){
   else
 ```python
 
-### Proposal
+### Proposal (135)
 
 - Review the issue message above
 
@@ -4523,7 +4517,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (136)
 
 ```python
   if [[-s /etc/nut/ups.conf]]; then
@@ -4535,7 +4529,7 @@ configure_ups(){
     log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
 ```python
 
-### Proposal
+### Proposal (136)
 
 - Review the issue message above
 
@@ -4553,7 +4547,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (137)
 
 ```python
     log "UPS configuration detected; enabling NUT services"
@@ -4565,7 +4559,7 @@ configure_ups(){
     mark_step ups skipped
 ```python
 
-### Proposal
+### Proposal (137)
 
 - Review the issue message above
 
@@ -4583,7 +4577,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (138)
 
 ```python
     systemctl enable --now nut-server.service || true
@@ -4595,7 +4589,7 @@ configure_ups(){
   fi
 ```python
 
-### Proposal
+### Proposal (138)
 
 - Review the issue message above
 
@@ -4613,7 +4607,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (139)
 
 ```python
     systemctl enable --now nut-monitor.service || true
@@ -4625,7 +4619,7 @@ configure_ups(){
 }
 ```python
 
-### Proposal
+### Proposal (139)
 
 - Review the issue message above
 
@@ -4643,7 +4637,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (140)
 
 ```python
     mark_step ups enabled
@@ -4655,7 +4649,7 @@ configure_ups(){
 
 ```python
 
-### Proposal
+### Proposal (140)
 
 - Review the issue message above
 
@@ -4673,7 +4667,7 @@ configure_ups(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (141)
 
 ```python
   else
@@ -4685,7 +4679,7 @@ configure_ups(){
 configure_locale_time(){
 ```python
 
-### Proposal
+### Proposal (141)
 
 - Review the issue message above
 
@@ -4703,7 +4697,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (142)
 
 ```python
     log "No UPS configuration detected in /etc/nut/ups.conf; leaving NUT services disabled"
@@ -4715,7 +4709,7 @@ configure_locale_time(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (142)
 
 - Review the issue message above
 
@@ -4733,7 +4727,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (143)
 
 ```python
     mark_step ups skipped
@@ -4745,7 +4739,7 @@ configure_locale_time(){
     log "[dry-run] Would configure locale and timezone"
 ```python
 
-### Proposal
+### Proposal (143)
 
 - Review the issue message above
 
@@ -4763,7 +4757,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (144)
 
 ```python
   fi
@@ -4775,7 +4769,7 @@ configure_locale_time(){
     return 0
 ```python
 
-### Proposal
+### Proposal (144)
 
 - Review the issue message above
 
@@ -4793,7 +4787,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (145)
 
 ```python
 }
@@ -4805,7 +4799,7 @@ configure_locale_time(){
   fi
 ```python
 
-### Proposal
+### Proposal (145)
 
 - Review the issue message above
 
@@ -4823,7 +4817,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (146)
 
 ```python
 
@@ -4835,7 +4829,7 @@ configure_locale_time(){
   localectl set-locale LANG=en_US.UTF-8 || true
 ```python
 
-### Proposal
+### Proposal (146)
 
 - Review the issue message above
 
@@ -4853,7 +4847,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (147)
 
 ```python
 configure_locale_time(){
@@ -4865,7 +4859,7 @@ configure_locale_time(){
   timedatectl set-timezone UTC || true
 ```python
 
-### Proposal
+### Proposal (147)
 
 - Review the issue message above
 
@@ -4883,7 +4877,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (148)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -4895,7 +4889,7 @@ configure_locale_time(){
 }
 ```python
 
-### Proposal
+### Proposal (148)
 
 - Review the issue message above
 
@@ -4913,7 +4907,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (149)
 
 ```python
     log "[dry-run] Would configure locale and timezone"
@@ -4925,7 +4919,7 @@ configure_locale_time(){
 
 ```python
 
-### Proposal
+### Proposal (149)
 
 - Review the issue message above
 
@@ -4943,7 +4937,7 @@ configure_locale_time(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (150)
 
 ```python
     return 0
@@ -4955,7 +4949,7 @@ configure_locale_time(){
 configure_accounts(){
 ```python
 
-### Proposal
+### Proposal (150)
 
 - Review the issue message above
 
@@ -4973,7 +4967,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (151)
 
 ```python
   fi
@@ -4985,7 +4979,7 @@ configure_accounts(){
   # In prod mode, do not auto-create node/monitor; only ensure root exists.
 ```python
 
-### Proposal
+### Proposal (151)
 
 - Review the issue message above
 
@@ -5003,7 +4997,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (152)
 
 ```python
   localectl set-locale LANG=en_US.UTF-8 || true
@@ -5015,7 +5009,7 @@ configure_accounts(){
   local users=(root)
 ```python
 
-### Proposal
+### Proposal (152)
 
 - Review the issue message above
 
@@ -5033,7 +5027,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (153)
 
 ```python
   timedatectl set-timezone UTC || true
@@ -5045,7 +5039,7 @@ configure_accounts(){
   if [["$MODE" == "lab"]]; then
 ```python
 
-### Proposal
+### Proposal (153)
 
 - Review the issue message above
 
@@ -5063,7 +5057,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (154)
 
 ```python
 }
@@ -5075,7 +5069,7 @@ configure_accounts(){
     users=(root node monitor)
 ```python
 
-### Proposal
+### Proposal (154)
 
 - Review the issue message above
 
@@ -5093,7 +5087,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (155)
 
 ```python
 
@@ -5105,7 +5099,7 @@ configure_accounts(){
   fi
 ```python
 
-### Proposal
+### Proposal (155)
 
 - Review the issue message above
 
@@ -5123,7 +5117,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (156)
 
 ```python
 configure_accounts(){
@@ -5135,7 +5129,7 @@ configure_accounts(){
 
 ```python
 
-### Proposal
+### Proposal (156)
 
 - Review the issue message above
 
@@ -5153,7 +5147,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (157)
 
 ```python
   # In prod mode, do not auto-create node/monitor; only ensure root exists.
@@ -5165,7 +5159,7 @@ configure_accounts(){
   for u in "${users[@]}"; do
 ```python
 
-### Proposal
+### Proposal (157)
 
 - Review the issue message above
 
@@ -5183,7 +5177,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (158)
 
 ```python
   local users=(root)
@@ -5195,7 +5189,7 @@ configure_accounts(){
     if ! id "$u" &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (158)
 
 - Review the issue message above
 
@@ -5213,7 +5207,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (159)
 
 ```python
   if [["$MODE" == "lab"]]; then
@@ -5225,7 +5219,7 @@ configure_accounts(){
       if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (159)
 
 - Review the issue message above
 
@@ -5243,7 +5237,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (160)
 
 ```python
     users=(root node monitor)
@@ -5255,7 +5249,7 @@ configure_accounts(){
         log "[dry-run] Would create missing user: $u"
 ```python
 
-### Proposal
+### Proposal (160)
 
 - Review the issue message above
 
@@ -5273,7 +5267,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (161)
 
 ```python
   fi
@@ -5285,7 +5279,7 @@ configure_accounts(){
       else
 ```python
 
-### Proposal
+### Proposal (161)
 
 - Review the issue message above
 
@@ -5303,7 +5297,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (162)
 
 ```python
 
@@ -5315,7 +5309,7 @@ configure_accounts(){
         log "Creating missing user: $u"
 ```python
 
-### Proposal
+### Proposal (162)
 
 - Review the issue message above
 
@@ -5333,7 +5327,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (163)
 
 ```python
   for u in "${users[@]}"; do
@@ -5345,7 +5339,7 @@ configure_accounts(){
         adduser --disabled-password --gecos "" "$u"
 ```python
 
-### Proposal
+### Proposal (163)
 
 - Review the issue message above
 
@@ -5363,7 +5357,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (164)
 
 ```python
     if ! id "$u" &>/dev/null; then
@@ -5375,7 +5369,7 @@ configure_accounts(){
       fi
 ```python
 
-### Proposal
+### Proposal (164)
 
 - Review the issue message above
 
@@ -5393,7 +5387,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (165)
 
 ```python
       if [["$DRY_RUN" == "true"]]; then
@@ -5405,7 +5399,7 @@ configure_accounts(){
     fi
 ```python
 
-### Proposal
+### Proposal (165)
 
 - Review the issue message above
 
@@ -5423,7 +5417,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (166)
 
 ```python
         log "[dry-run] Would create missing user: $u"
@@ -5435,7 +5429,7 @@ configure_accounts(){
     if [["$u" != "root"]]; then
 ```python
 
-### Proposal
+### Proposal (166)
 
 - Review the issue message above
 
@@ -5453,7 +5447,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (167)
 
 ```python
       else
@@ -5465,7 +5459,7 @@ configure_accounts(){
       if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (167)
 
 - Review the issue message above
 
@@ -5483,7 +5477,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (168)
 
 ```python
         log "Creating missing user: $u"
@@ -5495,7 +5489,7 @@ configure_accounts(){
         log "[dry-run] Would lock user: $u"
 ```python
 
-### Proposal
+### Proposal (168)
 
 - Review the issue message above
 
@@ -5513,7 +5507,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (169)
 
 ```python
         adduser --disabled-password --gecos "" "$u"
@@ -5525,7 +5519,7 @@ configure_accounts(){
       else
 ```python
 
-### Proposal
+### Proposal (169)
 
 - Review the issue message above
 
@@ -5543,7 +5537,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (170)
 
 ```python
       fi
@@ -5555,7 +5549,7 @@ configure_accounts(){
         usermod -L "$u" || true
 ```python
 
-### Proposal
+### Proposal (170)
 
 - Review the issue message above
 
@@ -5573,7 +5567,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (171)
 
 ```python
     fi
@@ -5585,7 +5579,7 @@ configure_accounts(){
       fi
 ```python
 
-### Proposal
+### Proposal (171)
 
 - Review the issue message above
 
@@ -5603,7 +5597,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (172)
 
 ```python
     if [["$u" != "root"]]; then
@@ -5615,7 +5609,7 @@ configure_accounts(){
     fi
 ```python
 
-### Proposal
+### Proposal (172)
 
 - Review the issue message above
 
@@ -5633,7 +5627,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (173)
 
 ```python
       if [["$DRY_RUN" == "true"]]; then
@@ -5645,7 +5639,7 @@ configure_accounts(){
   done
 ```python
 
-### Proposal
+### Proposal (173)
 
 - Review the issue message above
 
@@ -5663,7 +5657,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (174)
 
 ```python
         log "[dry-run] Would lock user: $u"
@@ -5675,7 +5669,7 @@ configure_accounts(){
 
 ```python
 
-### Proposal
+### Proposal (174)
 
 - Review the issue message above
 
@@ -5693,7 +5687,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (175)
 
 ```python
       else
@@ -5705,7 +5699,7 @@ configure_accounts(){
   if [["$MODE" == "lab"]]; then
 ```python
 
-### Proposal
+### Proposal (175)
 
 - Review the issue message above
 
@@ -5723,7 +5717,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (176)
 
 ```python
         usermod -L "$u" || true
@@ -5735,7 +5729,7 @@ configure_accounts(){
     log "Lab mode: node/monitor created and locked; set passwords as needed."
 ```python
 
-### Proposal
+### Proposal (176)
 
 - Review the issue message above
 
@@ -5753,7 +5747,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (177)
 
 ```python
       fi
@@ -5765,7 +5759,7 @@ configure_accounts(){
   else
 ```python
 
-### Proposal
+### Proposal (177)
 
 - Review the issue message above
 
@@ -5783,7 +5777,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (178)
 
 ```python
     fi
@@ -5795,7 +5789,7 @@ configure_accounts(){
     log "Prod mode: only root ensured; create additional accounts via your workflow."
 ```python
 
-### Proposal
+### Proposal (178)
 
 - Review the issue message above
 
@@ -5813,7 +5807,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (179)
 
 ```python
   done
@@ -5825,7 +5819,7 @@ configure_accounts(){
   fi
 ```python
 
-### Proposal
+### Proposal (179)
 
 - Review the issue message above
 
@@ -5843,7 +5837,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (180)
 
 ```python
 
@@ -5855,7 +5849,7 @@ configure_accounts(){
 }
 ```python
 
-### Proposal
+### Proposal (180)
 
 - Review the issue message above
 
@@ -5873,7 +5867,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (181)
 
 ```python
   if [["$MODE" == "lab"]]; then
@@ -5885,7 +5879,7 @@ configure_accounts(){
 
 ```python
 
-### Proposal
+### Proposal (181)
 
 - Review the issue message above
 
@@ -5903,7 +5897,7 @@ configure_accounts(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (182)
 
 ```python
     log "Lab mode: node/monitor created and locked; set passwords as needed."
@@ -5915,7 +5909,7 @@ configure_accounts(){
 configure_networking(){
 ```python
 
-### Proposal
+### Proposal (182)
 
 - Review the issue message above
 
@@ -5933,7 +5927,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (183)
 
 ```python
   else
@@ -5945,7 +5939,7 @@ configure_networking(){
   local PRIMARY_DEV
 ```python
 
-### Proposal
+### Proposal (183)
 
 - Review the issue message above
 
@@ -5963,7 +5957,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (184)
 
 ```python
     log "Prod mode: only root ensured; create additional accounts via your workflow."
@@ -5975,7 +5969,7 @@ configure_networking(){
   PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
 ```python
 
-### Proposal
+### Proposal (184)
 
 - Review the issue message above
 
@@ -5993,7 +5987,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (185)
 
 ```python
   fi
@@ -6005,7 +5999,7 @@ configure_networking(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (185)
 
 - Review the issue message above
 
@@ -6023,7 +6017,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (186)
 
 ```python
 }
@@ -6035,7 +6029,7 @@ configure_networking(){
     log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
 ```python
 
-### Proposal
+### Proposal (186)
 
 - Review the issue message above
 
@@ -6053,7 +6047,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (187)
 
 ```python
 
@@ -6065,7 +6059,7 @@ configure_networking(){
     return 0
 ```python
 
-### Proposal
+### Proposal (187)
 
 - Review the issue message above
 
@@ -6083,7 +6077,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (188)
 
 ```python
 configure_networking(){
@@ -6095,7 +6089,7 @@ configure_networking(){
   fi
 ```python
 
-### Proposal
+### Proposal (188)
 
 - Review the issue message above
 
@@ -6113,7 +6107,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (189)
 
 ```python
   local PRIMARY_DEV
@@ -6125,7 +6119,7 @@ configure_networking(){
   if ! ip link show br0 &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (189)
 
 - Review the issue message above
 
@@ -6143,7 +6137,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (190)
 
 ```python
   PRIMARY_DEV=$(ip -o link show | awk -F': ' '/state UP/ && $2 !~ /^lo$/ {print $2; exit}')
@@ -6155,7 +6149,7 @@ configure_networking(){
     ip link add name br0 type bridge || true
 ```python
 
-### Proposal
+### Proposal (190)
 
 - Review the issue message above
 
@@ -6173,7 +6167,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (191)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -6185,7 +6179,7 @@ configure_networking(){
     # Disable STP to prevent topology change notifications and singing
 ```python
 
-### Proposal
+### Proposal (191)
 
 - Review the issue message above
 
@@ -6203,7 +6197,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (192)
 
 ```python
     log "[dry-run] Would configure bridge br0 on primary device: ${PRIMARY_DEV:-} with STP disabled"
@@ -6215,7 +6209,7 @@ configure_networking(){
     ip link set br0 type bridge stp_state 0 || true
 ```python
 
-### Proposal
+### Proposal (192)
 
 - Review the issue message above
 
@@ -6233,7 +6227,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (193)
 
 ```python
     return 0
@@ -6245,7 +6239,7 @@ configure_networking(){
     # Set ageing time and forward delay for stability
 ```python
 
-### Proposal
+### Proposal (193)
 
 - Review the issue message above
 
@@ -6263,7 +6257,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (194)
 
 ```python
   fi
@@ -6275,7 +6269,7 @@ configure_networking(){
     ip link set br0 type bridge ageing_time 30000 || true
 ```python
 
-### Proposal
+### Proposal (194)
 
 - Review the issue message above
 
@@ -6293,7 +6287,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (195)
 
 ```python
   if ! ip link show br0 &>/dev/null; then
@@ -6305,7 +6299,7 @@ configure_networking(){
     ip link set br0 type bridge forward_delay 0 || true
 ```python
 
-### Proposal
+### Proposal (195)
 
 - Review the issue message above
 
@@ -6323,7 +6317,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (196)
 
 ```python
     ip link add name br0 type bridge || true
@@ -6335,7 +6329,7 @@ configure_networking(){
   fi
 ```python
 
-### Proposal
+### Proposal (196)
 
 - Review the issue message above
 
@@ -6353,7 +6347,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (197)
 
 ```python
     # Disable STP to prevent topology change notifications and singing
@@ -6365,7 +6359,7 @@ configure_networking(){
   if [[-n "${PRIMARY_DEV:-}"]]; then
 ```python
 
-### Proposal
+### Proposal (197)
 
 - Review the issue message above
 
@@ -6383,7 +6377,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (198)
 
 ```python
     ip link set br0 type bridge stp_state 0 || true
@@ -6395,7 +6389,7 @@ configure_networking(){
     ip link set "$PRIMARY_DEV" master br0 || true
 ```python
 
-### Proposal
+### Proposal (198)
 
 - Review the issue message above
 
@@ -6413,7 +6407,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (199)
 
 ```python
     # Set ageing time and forward delay for stability
@@ -6425,7 +6419,7 @@ configure_networking(){
   fi
 ```python
 
-### Proposal
+### Proposal (199)
 
 - Review the issue message above
 
@@ -6443,7 +6437,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (200)
 
 ```python
     ip link set br0 type bridge ageing_time 30000 || true
@@ -6455,7 +6449,7 @@ configure_networking(){
   ip link set br0 up || true
 ```python
 
-### Proposal
+### Proposal (200)
 
 - Review the issue message above
 
@@ -6473,7 +6467,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (201)
 
 ```python
     ip link set br0 type bridge forward_delay 0 || true
@@ -6485,7 +6479,7 @@ configure_networking(){
   log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
 ```python
 
-### Proposal
+### Proposal (201)
 
 - Review the issue message above
 
@@ -6503,7 +6497,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (202)
 
 ```python
   fi
@@ -6515,7 +6509,7 @@ configure_networking(){
 }
 ```python
 
-### Proposal
+### Proposal (202)
 
 - Review the issue message above
 
@@ -6533,7 +6527,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (203)
 
 ```python
   if [[-n "${PRIMARY_DEV:-}"]]; then
@@ -6545,7 +6539,7 @@ configure_networking(){
 
 ```python
 
-### Proposal
+### Proposal (203)
 
 - Review the issue message above
 
@@ -6563,7 +6557,7 @@ configure_networking(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (204)
 
 ```python
     ip link set "$PRIMARY_DEV" master br0 || true
@@ -6575,7 +6569,7 @@ configure_networking(){
 detect_disks(){
 ```python
 
-### Proposal
+### Proposal (204)
 
 - Review the issue message above
 
@@ -6593,7 +6587,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (205)
 
 ```python
   fi
@@ -6605,7 +6599,7 @@ detect_disks(){
   # Prefer stable by-id names where available
 ```python
 
-### Proposal
+### Proposal (205)
 
 - Review the issue message above
 
@@ -6623,7 +6617,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (206)
 
 ```python
   ip link set br0 up || true
@@ -6635,7 +6629,7 @@ detect_disks(){
   local root_dev byid_root
 ```python
 
-### Proposal
+### Proposal (206)
 
 - Review the issue message above
 
@@ -6653,7 +6647,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (207)
 
 ```python
   log "Bridge br0 configured (primary=$PRIMARY_DEV, STP disabled)"
@@ -6665,7 +6659,7 @@ detect_disks(){
   root_dev=$(findmnt -no SOURCE / || true)
 ```python
 
-### Proposal
+### Proposal (207)
 
 - Review the issue message above
 
@@ -6683,7 +6677,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (208)
 
 ```python
 }
@@ -6695,7 +6689,7 @@ detect_disks(){
   if [[-n "$root_dev"]]; then
 ```python
 
-### Proposal
+### Proposal (208)
 
 - Review the issue message above
 
@@ -6713,7 +6707,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (209)
 
 ```python
 
@@ -6725,7 +6719,7 @@ detect_disks(){
     root_dev=${root_dev#/dev/}
 ```python
 
-### Proposal
+### Proposal (209)
 
 - Review the issue message above
 
@@ -6743,7 +6737,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (210)
 
 ```python
 detect_disks(){
@@ -6755,7 +6749,7 @@ detect_disks(){
     root_dev=${root_dev%%[0-9]*}
 ```python
 
-### Proposal
+### Proposal (210)
 
 - Review the issue message above
 
@@ -6773,7 +6767,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (211)
 
 ```python
   # Prefer stable by-id names where available
@@ -6785,7 +6779,7 @@ detect_disks(){
   fi
 ```python
 
-### Proposal
+### Proposal (211)
 
 - Review the issue message above
 
@@ -6803,7 +6797,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (212)
 
 ```python
   local root_dev byid_root
@@ -6815,7 +6809,7 @@ detect_disks(){
   if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
 ```python
 
-### Proposal
+### Proposal (212)
 
 - Review the issue message above
 
@@ -6833,7 +6827,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (213)
 
 ```python
   root_dev=$(findmnt -no SOURCE / || true)
@@ -6845,7 +6839,7 @@ detect_disks(){
     # shellcheck disable=SC2010
 ```python
 
-### Proposal
+### Proposal (213)
 
 - Review the issue message above
 
@@ -6863,7 +6857,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (214)
 
 ```python
   if [[-n "$root_dev"]]; then
@@ -6875,7 +6869,7 @@ detect_disks(){
     byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
 ```python
 
-### Proposal
+### Proposal (214)
 
 - Review the issue message above
 
@@ -6893,7 +6887,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (215)
 
 ```python
     root_dev=${root_dev#/dev/}
@@ -6905,7 +6899,7 @@ detect_disks(){
   fi
 ```python
 
-### Proposal
+### Proposal (215)
 
 - Review the issue message above
 
@@ -6923,7 +6917,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (216)
 
 ```python
     root_dev=${root_dev%%[0-9]*}
@@ -6935,7 +6929,7 @@ detect_disks(){
   if [[-n "$byid_root"]]; then
 ```python
 
-### Proposal
+### Proposal (216)
 
 - Review the issue message above
 
@@ -6953,7 +6947,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (217)
 
 ```python
   fi
@@ -6965,7 +6959,7 @@ detect_disks(){
     OS_DISK="/dev/disk/by-id/$byid_root"
 ```python
 
-### Proposal
+### Proposal (217)
 
 - Review the issue message above
 
@@ -6983,7 +6977,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (218)
 
 ```python
   if [[-n "$root_dev" && -e "/dev/$root_dev"]]; then
@@ -6995,7 +6989,7 @@ detect_disks(){
   else
 ```python
 
-### Proposal
+### Proposal (218)
 
 - Review the issue message above
 
@@ -7013,7 +7007,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (219)
 
 ```python
     # shellcheck disable=SC2010
@@ -7025,7 +7019,7 @@ detect_disks(){
     OS_DISK="/dev/${root_dev:-}"
 ```python
 
-### Proposal
+### Proposal (219)
 
 - Review the issue message above
 
@@ -7043,7 +7037,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (220)
 
 ```python
     byid_root=$(ls -1 /dev/disk/by-id 2>/dev/null | grep -m1 "$root_dev" || true)
@@ -7055,7 +7049,7 @@ detect_disks(){
   fi
 ```python
 
-### Proposal
+### Proposal (220)
 
 - Review the issue message above
 
@@ -7073,7 +7067,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (221)
 
 ```python
   fi
@@ -7085,7 +7079,7 @@ detect_disks(){
   mapfile -t STORAGE_DISKS }"
 ```python
 
-### Proposal
+### Proposal (221)
 
 - Review the issue message above
 
@@ -7103,7 +7097,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (222)
 
 ```python
   fi
@@ -7111,7 +7105,7 @@ detect_disks(){
   log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
 ```python
 
-### Proposal
+### Proposal (222)
 
 - Review the issue message above
 
@@ -7129,7 +7123,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (223)
 
 ```python
   mapfile -t STORAGE_DISKS }"
@@ -7137,7 +7131,7 @@ detect_disks(){
 }
 ```python
 
-### Proposal
+### Proposal (223)
 
 - Review the issue message above
 
@@ -7155,7 +7149,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (224)
 
 ```python
   if [[-n "$root_dev"]]; then
@@ -7165,7 +7159,7 @@ detect_disks(){
 
 ```python
 
-### Proposal
+### Proposal (224)
 
 - Review the issue message above
 
@@ -7183,7 +7177,7 @@ detect_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (225)
 
 ```python
     mapfile -t STORAGE_DISKS }"
@@ -7193,7 +7187,7 @@ detect_disks(){
 detect_usb_disks(){
 ```python
 
-### Proposal
+### Proposal (225)
 
 - Review the issue message above
 
@@ -7211,7 +7205,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (226)
 
 ```python
   fi
@@ -7223,7 +7217,7 @@ detect_usb_disks(){
   USB_DISKS=()
 ```python
 
-### Proposal
+### Proposal (226)
 
 - Review the issue message above
 
@@ -7241,7 +7235,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (227)
 
 ```python
   log "OS disk: ${OS_DISK:-}"
@@ -7253,7 +7247,7 @@ detect_usb_disks(){
   # A disk is considered USB/removable if /sys/block//removable == 1
 ```python
 
-### Proposal
+### Proposal (227)
 
 - Review the issue message above
 
@@ -7271,7 +7265,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (228)
 
 ```python
   log "Storage disks (by kernel name, will map to by-id for provisioning): ${STORAGE_DISKS[*]:-}"
@@ -7283,7 +7277,7 @@ detect_usb_disks(){
   for dev in $(lsblk -ndo NAME,TYPE | awk '$2=="disk"{print $1}'); do
 ```python
 
-### Proposal
+### Proposal (228)
 
 - Review the issue message above
 
@@ -7301,7 +7295,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (229)
 
 ```python
 }
@@ -7321,7 +7315,7 @@ detect_usb_disks(){
     if [[-f "/sys/block/${dev}/removable"]] && [[ "$(}"
 ```python
 
-### Proposal
+### Proposal (229)
 
 - Review the issue message above
 
@@ -7339,7 +7333,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (230)
 
 ```python
         continue
@@ -7351,7 +7345,7 @@ detect_usb_disks(){
 }
 ```python
 
-### Proposal
+### Proposal (230)
 
 - Review the issue message above
 
@@ -7369,7 +7363,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (231)
 
 ```python
       fi
@@ -7381,7 +7375,7 @@ detect_usb_disks(){
 
 ```python
 
-### Proposal
+### Proposal (231)
 
 - Review the issue message above
 
@@ -7399,7 +7393,7 @@ detect_usb_disks(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (232)
 
 ```python
       USB_DISKS+=("$dev")
@@ -7411,7 +7405,7 @@ detect_usb_disks(){
 ceph_provision(){
 ```python
 
-### Proposal
+### Proposal (232)
 
 - Review the issue message above
 
@@ -7429,7 +7423,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (233)
 
 ```python
     fi
@@ -7441,7 +7435,7 @@ ceph_provision(){
   if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
 ```python
 
-### Proposal
+### Proposal (233)
 
 - Review the issue message above
 
@@ -7459,7 +7453,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (234)
 
 ```python
   done
@@ -7471,7 +7465,7 @@ ceph_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (234)
 
 - Review the issue message above
 
@@ -7489,7 +7483,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (235)
 
 ```python
   log "USB disks: ${USB_DISKS[*]:-}"
@@ -7501,7 +7495,7 @@ ceph_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (235)
 
 - Review the issue message above
 
@@ -7519,7 +7513,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (236)
 
 ```python
 }
@@ -7531,7 +7525,7 @@ ceph_provision(){
 
 ```python
 
-### Proposal
+### Proposal (236)
 
 - Review the issue message above
 
@@ -7549,7 +7543,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (237)
 
 ```python
 
@@ -7561,7 +7555,7 @@ ceph_provision(){
   if command -v ceph &>/dev/null && ceph status &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (237)
 
 - Review the issue message above
 
@@ -7579,7 +7573,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (238)
 
 ```python
 ceph_provision(){
@@ -7591,7 +7585,7 @@ ceph_provision(){
     log "Ceph already appears configured; skipping provisioning."
 ```python
 
-### Proposal
+### Proposal (238)
 
 - Review the issue message above
 
@@ -7609,7 +7603,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (239)
 
 ```python
   if [["$PROFILE" != "ceph" && "$PROFILE" != "mixed"]]; then
@@ -7621,7 +7615,7 @@ ceph_provision(){
     mark_step ceph success
 ```python
 
-### Proposal
+### Proposal (239)
 
 - Review the issue message above
 
@@ -7639,7 +7633,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (240)
 
 ```python
     return 0
@@ -7651,7 +7645,7 @@ ceph_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (240)
 
 - Review the issue message above
 
@@ -7669,7 +7663,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (241)
 
 ```python
   fi
@@ -7681,7 +7675,7 @@ ceph_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (241)
 
 - Review the issue message above
 
@@ -7699,7 +7693,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (242)
 
 ```python
 
@@ -7711,7 +7705,7 @@ ceph_provision(){
 
 ```python
 
-### Proposal
+### Proposal (242)
 
 - Review the issue message above
 
@@ -7729,7 +7723,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (243)
 
 ```python
   if command -v ceph &>/dev/null && ceph status &>/dev/null; then
@@ -7741,7 +7735,7 @@ ceph_provision(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (243)
 
 - Review the issue message above
 
@@ -7759,7 +7753,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (244)
 
 ```python
     log "Ceph already appears configured; skipping provisioning."
@@ -7771,7 +7765,7 @@ ceph_provision(){
     log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
 ```python
 
-### Proposal
+### Proposal (244)
 
 - Review the issue message above
 
@@ -7789,7 +7783,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (245)
 
 ```python
     mark_step ceph success
@@ -7801,7 +7795,7 @@ ceph_provision(){
     mark_step ceph skipped
 ```python
 
-### Proposal
+### Proposal (245)
 
 - Review the issue message above
 
@@ -7819,7 +7813,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (246)
 
 ```python
     return 0
@@ -7831,7 +7825,7 @@ ceph_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (246)
 
 - Review the issue message above
 
@@ -7849,7 +7843,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (247)
 
 ```python
   fi
@@ -7861,7 +7855,7 @@ ceph_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (247)
 
 - Review the issue message above
 
@@ -7879,7 +7873,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (248)
 
 ```python
 
@@ -7891,7 +7885,7 @@ ceph_provision(){
 
 ```python
 
-### Proposal
+### Proposal (248)
 
 - Review the issue message above
 
@@ -7909,7 +7903,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (249)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -7921,7 +7915,7 @@ ceph_provision(){
   log "Provisioning Ceph single-node"
 ```python
 
-### Proposal
+### Proposal (249)
 
 - Review the issue message above
 
@@ -7939,7 +7933,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (250)
 
 ```python
     log "[dry-run] Would provision Ceph single-node using storage disks: ${STORAGE_DISKS[*]:-}"
@@ -7951,7 +7945,7 @@ ceph_provision(){
   mkdir -p /var/lib/ceph
 ```python
 
-### Proposal
+### Proposal (250)
 
 - Review the issue message above
 
@@ -7969,7 +7963,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (251)
 
 ```python
     mark_step ceph skipped
@@ -7981,7 +7975,7 @@ ceph_provision(){
   FSID=$(uuidgen)
 ```python
 
-### Proposal
+### Proposal (251)
 
 - Review the issue message above
 
@@ -7999,7 +7993,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (252)
 
 ```python
     return 0
@@ -8011,7 +8005,7 @@ ceph_provision(){
   cat >/etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /etc/ceph/ceph.conf /dev/null; then
 ```python
 
-### Proposal
+### Proposal (252)
 
 - Review the issue message above
 
@@ -8029,7 +8023,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (253)
 
 ```python
   systemctl enable --now ceph-mon@"$HOSTNAME" || true
@@ -8041,7 +8035,7 @@ ceph_provision(){
       log "Skipping /dev/$dev (appears to contain data)"
 ```python
 
-### Proposal
+### Proposal (253)
 
 - Review the issue message above
 
@@ -8059,7 +8053,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (254)
 
 ```python
   systemctl enable --now ceph-mgr@"$HOSTNAME" || true
@@ -8071,7 +8065,7 @@ ceph_provision(){
       continue
 ```python
 
-### Proposal
+### Proposal (254)
 
 - Review the issue message above
 
@@ -8089,7 +8083,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (255)
 
 ```python
 
@@ -8101,7 +8095,7 @@ ceph_provision(){
     fi
 ```python
 
-### Proposal
+### Proposal (255)
 
 - Review the issue message above
 
@@ -8119,7 +8113,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (256)
 
 ```python
   for dev in "${STORAGE_DISKS[@]}"; do
@@ -8131,7 +8125,7 @@ ceph_provision(){
     wipefs -a "/dev/$dev" || true
 ```python
 
-### Proposal
+### Proposal (256)
 
 - Review the issue message above
 
@@ -8149,7 +8143,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (257)
 
 ```python
     # Skip disks that already have a filesystem or partition table
@@ -8161,7 +8155,7 @@ ceph_provision(){
     ceph-volume lvm create --data "/dev/$dev" || true
 ```python
 
-### Proposal
+### Proposal (257)
 
 - Review the issue message above
 
@@ -8179,7 +8173,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (258)
 
 ```python
     if blkid "/dev/$dev" &>/dev/null; then
@@ -8191,7 +8185,7 @@ ceph_provision(){
   done
 ```python
 
-### Proposal
+### Proposal (258)
 
 - Review the issue message above
 
@@ -8209,7 +8203,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (259)
 
 ```python
       log "Skipping /dev/$dev (appears to contain data)"
@@ -8221,7 +8215,7 @@ ceph_provision(){
 
 ```python
 
-### Proposal
+### Proposal (259)
 
 - Review the issue message above
 
@@ -8239,7 +8233,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (260)
 
 ```python
       continue
@@ -8251,7 +8245,7 @@ ceph_provision(){
   systemctl enable --now ceph-mds@"$HOSTNAME" || true
 ```python
 
-### Proposal
+### Proposal (260)
 
 - Review the issue message above
 
@@ -8269,7 +8263,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (261)
 
 ```python
     fi
@@ -8281,7 +8275,7 @@ ceph_provision(){
   ceph osd pool create rbd 64 || true
 ```python
 
-### Proposal
+### Proposal (261)
 
 - Review the issue message above
 
@@ -8299,7 +8293,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (262)
 
 ```python
     wipefs -a "/dev/$dev" || true
@@ -8311,7 +8305,7 @@ ceph_provision(){
   rbd pool init rbd || true
 ```python
 
-### Proposal
+### Proposal (262)
 
 - Review the issue message above
 
@@ -8329,7 +8323,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (263)
 
 ```python
     ceph-volume lvm create --data "/dev/$dev" || true
@@ -8341,7 +8335,7 @@ ceph_provision(){
   ceph osd pool create cephfs.data 64 || true
 ```python
 
-### Proposal
+### Proposal (263)
 
 - Review the issue message above
 
@@ -8359,7 +8353,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (264)
 
 ```python
   done
@@ -8371,7 +8365,7 @@ ceph_provision(){
   ceph osd pool create cephfs.meta 32 || true
 ```python
 
-### Proposal
+### Proposal (264)
 
 - Review the issue message above
 
@@ -8389,7 +8383,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (265)
 
 ```python
 
@@ -8401,7 +8395,7 @@ ceph_provision(){
   ceph fs new cephfs cephfs.meta cephfs.data || true
 ```python
 
-### Proposal
+### Proposal (265)
 
 - Review the issue message above
 
@@ -8419,7 +8413,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (266)
 
 ```python
   systemctl enable --now ceph-mds@"$HOSTNAME" || true
@@ -8431,7 +8425,7 @@ ceph_provision(){
   mkdir -p /srv/cephfs
 ```python
 
-### Proposal
+### Proposal (266)
 
 - Review the issue message above
 
@@ -8449,7 +8443,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (267)
 
 ```python
   ceph osd pool create rbd 64 || true
@@ -8461,7 +8455,7 @@ ceph_provision(){
   ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
 ```python
 
-### Proposal
+### Proposal (267)
 
 - Review the issue message above
 
@@ -8479,7 +8473,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (268)
 
 ```python
   rbd pool init rbd || true
@@ -8491,7 +8485,7 @@ ceph_provision(){
   echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
 ```python
 
-### Proposal
+### Proposal (268)
 
 - Review the issue message above
 
@@ -8509,7 +8503,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (269)
 
 ```python
   ceph osd pool create cephfs.data 64 || true
@@ -8521,7 +8515,7 @@ ceph_provision(){
   mount -a || true
 ```python
 
-### Proposal
+### Proposal (269)
 
 - Review the issue message above
 
@@ -8539,7 +8533,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (270)
 
 ```python
   ceph osd pool create cephfs.meta 32 || true
@@ -8551,7 +8545,7 @@ ceph_provision(){
   log "CephFS mounted at /srv/cephfs"
 ```python
 
-### Proposal
+### Proposal (270)
 
 - Review the issue message above
 
@@ -8569,7 +8563,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (271)
 
 ```python
   ceph fs new cephfs cephfs.meta cephfs.data || true
@@ -8581,7 +8575,7 @@ ceph_provision(){
   mark_step ceph success
 ```python
 
-### Proposal
+### Proposal (271)
 
 - Review the issue message above
 
@@ -8599,7 +8593,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (272)
 
 ```python
   mkdir -p /srv/cephfs
@@ -8611,7 +8605,7 @@ ceph_provision(){
 }
 ```python
 
-### Proposal
+### Proposal (272)
 
 - Review the issue message above
 
@@ -8629,7 +8623,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (273)
 
 ```python
   ceph auth get-or-create client.admin mon 'allow *' osd 'allow *' mds 'allow *' || true
@@ -8641,7 +8635,7 @@ ceph_provision(){
 
 ```python
 
-### Proposal
+### Proposal (273)
 
 - Review the issue message above
 
@@ -8659,7 +8653,7 @@ ceph_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (274)
 
 ```python
   echo "cephfs /srv/cephfs fuse.ceph ceph.id=admin,_netdev 0 2" >> /etc/fstab
@@ -8671,7 +8665,7 @@ ceph_provision(){
 zfs_provision(){
 ```python
 
-### Proposal
+### Proposal (274)
 
 - Review the issue message above
 
@@ -8689,7 +8683,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (275)
 
 ```python
   mount -a || true
@@ -8701,7 +8695,7 @@ zfs_provision(){
   if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
 ```python
 
-### Proposal
+### Proposal (275)
 
 - Review the issue message above
 
@@ -8719,7 +8713,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (276)
 
 ```python
   log "CephFS mounted at /srv/cephfs"
@@ -8731,7 +8725,7 @@ zfs_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (276)
 
 - Review the issue message above
 
@@ -8749,7 +8743,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (277)
 
 ```python
   mark_step ceph success
@@ -8761,7 +8755,7 @@ zfs_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (277)
 
 - Review the issue message above
 
@@ -8779,7 +8773,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (278)
 
 ```python
 }
@@ -8791,7 +8785,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (278)
 
 - Review the issue message above
 
@@ -8809,7 +8803,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (279)
 
 ```python
 
@@ -8821,7 +8815,7 @@ zfs_provision(){
   if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (279)
 
 - Review the issue message above
 
@@ -8839,7 +8833,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (280)
 
 ```python
 zfs_provision(){
@@ -8851,7 +8845,7 @@ zfs_provision(){
     log "ZFS pool 'tank' already exists; skipping provisioning."
 ```python
 
-### Proposal
+### Proposal (280)
 
 - Review the issue message above
 
@@ -8869,7 +8863,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (281)
 
 ```python
   if [["$PROFILE" != "zfs" && "$PROFILE" != "mixed"]]; then
@@ -8881,7 +8875,7 @@ zfs_provision(){
     mark_step zfs success
 ```python
 
-### Proposal
+### Proposal (281)
 
 - Review the issue message above
 
@@ -8899,7 +8893,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (282)
 
 ```python
     return 0
@@ -8911,7 +8905,7 @@ zfs_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (282)
 
 - Review the issue message above
 
@@ -8929,7 +8923,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (283)
 
 ```python
   fi
@@ -8941,7 +8935,7 @@ zfs_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (283)
 
 - Review the issue message above
 
@@ -8959,7 +8953,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (284)
 
 ```python
 
@@ -8971,7 +8965,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (284)
 
 - Review the issue message above
 
@@ -8989,7 +8983,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (285)
 
 ```python
   if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
@@ -9001,7 +8995,7 @@ zfs_provision(){
   if [[${#STORAGE_DISKS[@]} -eq 0]]; then
 ```python
 
-### Proposal
+### Proposal (285)
 
 - Review the issue message above
 
@@ -9019,7 +9013,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (286)
 
 ```python
     log "ZFS pool 'tank' already exists; skipping provisioning."
@@ -9031,7 +9025,7 @@ zfs_provision(){
     log "No extra disks for ZFS"
 ```python
 
-### Proposal
+### Proposal (286)
 
 - Review the issue message above
 
@@ -9049,7 +9043,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (287)
 
 ```python
     mark_step zfs success
@@ -9061,7 +9055,7 @@ zfs_provision(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (287)
 
 - Review the issue message above
 
@@ -9079,7 +9073,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (288)
 
 ```python
     return 0
@@ -9091,7 +9085,7 @@ zfs_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (288)
 
 - Review the issue message above
 
@@ -9109,7 +9103,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (289)
 
 ```python
   fi
@@ -9121,7 +9115,7 @@ zfs_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (289)
 
 - Review the issue message above
 
@@ -9139,7 +9133,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (290)
 
 ```python
 
@@ -9151,7 +9145,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (290)
 
 - Review the issue message above
 
@@ -9169,7 +9163,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (291)
 
 ```python
   if [[${#STORAGE_DISKS[@]} -eq 0]]; then
@@ -9181,7 +9175,7 @@ zfs_provision(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (291)
 
 - Review the issue message above
 
@@ -9199,7 +9193,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (292)
 
 ```python
     log "No extra disks for ZFS"
@@ -9211,7 +9205,7 @@ zfs_provision(){
     log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
 ```python
 
-### Proposal
+### Proposal (292)
 
 - Review the issue message above
 
@@ -9229,7 +9223,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (293)
 
 ```python
     mark_step zfs skipped
@@ -9241,7 +9235,7 @@ zfs_provision(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (293)
 
 - Review the issue message above
 
@@ -9259,7 +9253,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (294)
 
 ```python
     return 0
@@ -9271,7 +9265,7 @@ zfs_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (294)
 
 - Review the issue message above
 
@@ -9289,7 +9283,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (295)
 
 ```python
   fi
@@ -9301,7 +9295,7 @@ zfs_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (295)
 
 - Review the issue message above
 
@@ -9319,7 +9313,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (296)
 
 ```python
 
@@ -9331,7 +9325,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (296)
 
 - Review the issue message above
 
@@ -9349,7 +9343,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (297)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -9361,7 +9355,7 @@ zfs_provision(){
   log "Provisioning ZFS pool"
 ```python
 
-### Proposal
+### Proposal (297)
 
 - Review the issue message above
 
@@ -9379,7 +9373,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (298)
 
 ```python
     log "[dry-run] Would provision ZFS pool 'tank' using storage disks: ${STORAGE_DISKS[*]:-}"
@@ -9391,7 +9385,7 @@ zfs_provision(){
   modprobe zfs || true
 ```python
 
-### Proposal
+### Proposal (298)
 
 - Review the issue message above
 
@@ -9409,7 +9403,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (299)
 
 ```python
     mark_step zfs skipped
@@ -9421,7 +9415,7 @@ zfs_provision(){
   local WIPED=()
 ```python
 
-### Proposal
+### Proposal (299)
 
 - Review the issue message above
 
@@ -9439,7 +9433,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (300)
 
 ```python
     return 0
@@ -9451,7 +9445,7 @@ zfs_provision(){
   for d in "${STORAGE_DISKS[@]}"; do
 ```python
 
-### Proposal
+### Proposal (300)
 
 - Review the issue message above
 
@@ -9469,7 +9463,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (301)
 
 ```python
   fi
@@ -9481,7 +9475,7 @@ zfs_provision(){
     if blkid "/dev/$d" &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (301)
 
 - Review the issue message above
 
@@ -9499,7 +9493,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (302)
 
 ```python
 
@@ -9511,7 +9505,7 @@ zfs_provision(){
       log "Skipping /dev/$d for ZFS (appears to contain data)"
 ```python
 
-### Proposal
+### Proposal (302)
 
 - Review the issue message above
 
@@ -9529,7 +9523,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (303)
 
 ```python
   log "Provisioning ZFS pool"
@@ -9541,7 +9535,7 @@ zfs_provision(){
       continue
 ```python
 
-### Proposal
+### Proposal (303)
 
 - Review the issue message above
 
@@ -9559,7 +9553,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (304)
 
 ```python
   modprobe zfs || true
@@ -9571,7 +9565,7 @@ zfs_provision(){
     fi
 ```python
 
-### Proposal
+### Proposal (304)
 
 - Review the issue message above
 
@@ -9589,7 +9583,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (305)
 
 ```python
   local WIPED=()
@@ -9601,7 +9595,7 @@ zfs_provision(){
     wipefs -a "/dev/$d" || true
 ```python
 
-### Proposal
+### Proposal (305)
 
 - Review the issue message above
 
@@ -9619,7 +9613,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (306)
 
 ```python
   for d in "${STORAGE_DISKS[@]}"; do
@@ -9631,7 +9625,7 @@ zfs_provision(){
     WIPED+=("/dev/$d")
 ```python
 
-### Proposal
+### Proposal (306)
 
 - Review the issue message above
 
@@ -9649,7 +9643,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (307)
 
 ```python
     if blkid "/dev/$d" &>/dev/null; then
@@ -9661,7 +9655,7 @@ zfs_provision(){
   done
 ```python
 
-### Proposal
+### Proposal (307)
 
 - Review the issue message above
 
@@ -9679,7 +9673,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (308)
 
 ```python
       log "Skipping /dev/$d for ZFS (appears to contain data)"
@@ -9691,7 +9685,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (308)
 
 - Review the issue message above
 
@@ -9709,7 +9703,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (309)
 
 ```python
       continue
@@ -9721,7 +9715,7 @@ zfs_provision(){
   if [[${#WIPED[@]} -eq 0]]; then
 ```python
 
-### Proposal
+### Proposal (309)
 
 - Review the issue message above
 
@@ -9739,7 +9733,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (310)
 
 ```python
     fi
@@ -9751,7 +9745,7 @@ zfs_provision(){
     log "No suitable empty disks for ZFS; skipping pool creation."
 ```python
 
-### Proposal
+### Proposal (310)
 
 - Review the issue message above
 
@@ -9769,7 +9763,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (311)
 
 ```python
     wipefs -a "/dev/$d" || true
@@ -9781,7 +9775,7 @@ zfs_provision(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (311)
 
 - Review the issue message above
 
@@ -9799,7 +9793,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (312)
 
 ```python
     WIPED+=("/dev/$d")
@@ -9811,7 +9805,7 @@ zfs_provision(){
     return 0
 ```python
 
-### Proposal
+### Proposal (312)
 
 - Review the issue message above
 
@@ -9829,7 +9823,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (313)
 
 ```python
   done
@@ -9841,7 +9835,7 @@ zfs_provision(){
   fi
 ```python
 
-### Proposal
+### Proposal (313)
 
 - Review the issue message above
 
@@ -9859,7 +9853,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (314)
 
 ```python
 
@@ -9871,7 +9865,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (314)
 
 - Review the issue message above
 
@@ -9889,7 +9883,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (315)
 
 ```python
   if [[${#WIPED[@]} -eq 0]]; then
@@ -9901,7 +9895,7 @@ zfs_provision(){
   zpool create -f tank "${WIPED[@]}" || true
 ```python
 
-### Proposal
+### Proposal (315)
 
 - Review the issue message above
 
@@ -9919,7 +9913,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (316)
 
 ```python
     log "No suitable empty disks for ZFS; skipping pool creation."
@@ -9931,7 +9925,7 @@ zfs_provision(){
   zfs set compression=lz4 tank || true
 ```python
 
-### Proposal
+### Proposal (316)
 
 - Review the issue message above
 
@@ -9949,7 +9943,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (317)
 
 ```python
     mark_step zfs skipped
@@ -9961,7 +9955,7 @@ zfs_provision(){
   for ds in vm docker k8s; do
 ```python
 
-### Proposal
+### Proposal (317)
 
 - Review the issue message above
 
@@ -9979,7 +9973,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (318)
 
 ```python
     return 0
@@ -9991,7 +9985,7 @@ zfs_provision(){
     zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
-### Proposal
+### Proposal (318)
 
 - Review the issue message above
 
@@ -10009,7 +10003,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (319)
 
 ```python
   fi
@@ -10021,7 +10015,7 @@ zfs_provision(){
   done
 ```python
 
-### Proposal
+### Proposal (319)
 
 - Review the issue message above
 
@@ -10039,7 +10033,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (320)
 
 ```python
 
@@ -10051,7 +10045,7 @@ zfs_provision(){
   log "ZFS pool tank ready"
 ```python
 
-### Proposal
+### Proposal (320)
 
 - Review the issue message above
 
@@ -10069,7 +10063,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (321)
 
 ```python
   zpool create -f tank "${WIPED[@]}" || true
@@ -10081,7 +10075,7 @@ zfs_provision(){
   mark_step zfs success
 ```python
 
-### Proposal
+### Proposal (321)
 
 - Review the issue message above
 
@@ -10099,7 +10093,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (322)
 
 ```python
   zfs set compression=lz4 tank || true
@@ -10111,7 +10105,7 @@ zfs_provision(){
 }
 ```python
 
-### Proposal
+### Proposal (322)
 
 - Review the issue message above
 
@@ -10129,7 +10123,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (323)
 
 ```python
   for ds in vm docker k8s; do
@@ -10141,7 +10135,7 @@ zfs_provision(){
 
 ```python
 
-### Proposal
+### Proposal (323)
 
 - Review the issue message above
 
@@ -10159,7 +10153,7 @@ zfs_provision(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (324)
 
 ```python
     zfs create -o mountpoint=/srv/$ds tank/$ds || true
@@ -10171,7 +10165,7 @@ zfs_provision(){
 zfs_provision_usb_pool(){
 ```python
 
-### Proposal
+### Proposal (324)
 
 - Review the issue message above
 
@@ -10189,7 +10183,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (325)
 
 ```python
   done
@@ -10201,7 +10195,7 @@ zfs_provision_usb_pool(){
   # usb-zfs profile: build a ZFS pool across removable USB disks only.
 ```python
 
-### Proposal
+### Proposal (325)
 
 - Review the issue message above
 
@@ -10219,7 +10213,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (326)
 
 ```python
   log "ZFS pool tank ready"
@@ -10231,7 +10225,7 @@ zfs_provision_usb_pool(){
   if [["$PROFILE" != "usb-zfs"]]; then
 ```python
 
-### Proposal
+### Proposal (326)
 
 - Review the issue message above
 
@@ -10249,7 +10243,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (327)
 
 ```python
   mark_step zfs success
@@ -10261,7 +10255,7 @@ zfs_provision_usb_pool(){
     return 0
 ```python
 
-### Proposal
+### Proposal (327)
 
 - Review the issue message above
 
@@ -10279,7 +10273,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (328)
 
 ```python
 }
@@ -10291,7 +10285,7 @@ zfs_provision_usb_pool(){
   fi
 ```python
 
-### Proposal
+### Proposal (328)
 
 - Review the issue message above
 
@@ -10309,7 +10303,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (329)
 
 ```python
 
@@ -10321,7 +10315,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (329)
 
 - Review the issue message above
 
@@ -10339,7 +10333,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (330)
 
 ```python
 zfs_provision_usb_pool(){
@@ -10351,7 +10345,7 @@ zfs_provision_usb_pool(){
   if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (330)
 
 - Review the issue message above
 
@@ -10369,7 +10363,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (331)
 
 ```python
   # usb-zfs profile: build a ZFS pool across removable USB disks only.
@@ -10381,7 +10375,7 @@ zfs_provision_usb_pool(){
     log "ZFS pool 'tank' already exists; skipping USB provisioning."
 ```python
 
-### Proposal
+### Proposal (331)
 
 - Review the issue message above
 
@@ -10399,7 +10393,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (332)
 
 ```python
   if [["$PROFILE" != "usb-zfs"]]; then
@@ -10411,7 +10405,7 @@ zfs_provision_usb_pool(){
     mark_step zfs success
 ```python
 
-### Proposal
+### Proposal (332)
 
 - Review the issue message above
 
@@ -10429,7 +10423,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (333)
 
 ```python
     return 0
@@ -10441,7 +10435,7 @@ zfs_provision_usb_pool(){
     return 0
 ```python
 
-### Proposal
+### Proposal (333)
 
 - Review the issue message above
 
@@ -10459,7 +10453,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (334)
 
 ```python
   fi
@@ -10471,7 +10465,7 @@ zfs_provision_usb_pool(){
   fi
 ```python
 
-### Proposal
+### Proposal (334)
 
 - Review the issue message above
 
@@ -10489,7 +10483,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (335)
 
 ```python
 
@@ -10501,7 +10495,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (335)
 
 - Review the issue message above
 
@@ -10519,7 +10513,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (336)
 
 ```python
   if command -v zpool &>/dev/null && zpool list tank &>/dev/null; then
@@ -10531,7 +10525,7 @@ zfs_provision_usb_pool(){
   if [[${#USB_DISKS[@]} -lt 3]]; then
 ```python
 
-### Proposal
+### Proposal (336)
 
 - Review the issue message above
 
@@ -10549,7 +10543,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (337)
 
 ```python
     log "ZFS pool 'tank' already exists; skipping USB provisioning."
@@ -10561,7 +10555,7 @@ zfs_provision_usb_pool(){
     log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
 ```python
 
-### Proposal
+### Proposal (337)
 
 - Review the issue message above
 
@@ -10579,7 +10573,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (338)
 
 ```python
     mark_step zfs success
@@ -10591,7 +10585,7 @@ zfs_provision_usb_pool(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (338)
 
 - Review the issue message above
 
@@ -10609,7 +10603,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (339)
 
 ```python
     return 0
@@ -10621,7 +10615,7 @@ zfs_provision_usb_pool(){
     return 0
 ```python
 
-### Proposal
+### Proposal (339)
 
 - Review the issue message above
 
@@ -10639,7 +10633,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (340)
 
 ```python
   fi
@@ -10651,7 +10645,7 @@ zfs_provision_usb_pool(){
   fi
 ```python
 
-### Proposal
+### Proposal (340)
 
 - Review the issue message above
 
@@ -10669,7 +10663,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (341)
 
 ```python
 
@@ -10681,7 +10675,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (341)
 
 - Review the issue message above
 
@@ -10699,7 +10693,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (342)
 
 ```python
   if [[${#USB_DISKS[@]} -lt 3]]; then
@@ -10711,7 +10705,7 @@ zfs_provision_usb_pool(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (342)
 
 - Review the issue message above
 
@@ -10729,7 +10723,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (343)
 
 ```python
     log "Not enough USB disks for usb-zfs profile (need at least 3), found: ${USB_DISKS[*]:-}"
@@ -10741,7 +10735,7 @@ zfs_provision_usb_pool(){
     log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
-### Proposal
+### Proposal (343)
 
 - Review the issue message above
 
@@ -10759,7 +10753,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (344)
 
 ```python
     mark_step zfs skipped
@@ -10771,7 +10765,7 @@ zfs_provision_usb_pool(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (344)
 
 - Review the issue message above
 
@@ -10789,7 +10783,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (345)
 
 ```python
     return 0
@@ -10801,7 +10795,7 @@ zfs_provision_usb_pool(){
     return 0
 ```python
 
-### Proposal
+### Proposal (345)
 
 - Review the issue message above
 
@@ -10819,7 +10813,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (346)
 
 ```python
   fi
@@ -10831,7 +10825,7 @@ zfs_provision_usb_pool(){
   fi
 ```python
 
-### Proposal
+### Proposal (346)
 
 - Review the issue message above
 
@@ -10849,7 +10843,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (347)
 
 ```python
 
@@ -10861,7 +10855,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (347)
 
 - Review the issue message above
 
@@ -10879,7 +10873,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (348)
 
 ```python
   if [["$DRY_RUN" == "true"]]; then
@@ -10891,7 +10885,7 @@ zfs_provision_usb_pool(){
   log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
 ```python
 
-### Proposal
+### Proposal (348)
 
 - Review the issue message above
 
@@ -10909,7 +10903,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (349)
 
 ```python
     log "[dry-run] Would create ZFS pool 'tank' (raidz1) on USB disks: ${USB_DISKS[*]}"
@@ -10921,7 +10915,7 @@ zfs_provision_usb_pool(){
   modprobe zfs || true
 ```python
 
-### Proposal
+### Proposal (349)
 
 - Review the issue message above
 
@@ -10939,7 +10933,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (350)
 
 ```python
     mark_step zfs skipped
@@ -10951,7 +10945,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (350)
 
 - Review the issue message above
 
@@ -10969,7 +10963,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (351)
 
 ```python
     return 0
@@ -10981,7 +10975,7 @@ zfs_provision_usb_pool(){
   local CANDIDATES=()
 ```python
 
-### Proposal
+### Proposal (351)
 
 - Review the issue message above
 
@@ -10999,7 +10993,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (352)
 
 ```python
   fi
@@ -11011,7 +11005,7 @@ zfs_provision_usb_pool(){
   for d in "${USB_DISKS[@]}"; do
 ```python
 
-### Proposal
+### Proposal (352)
 
 - Review the issue message above
 
@@ -11029,7 +11023,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (353)
 
 ```python
 
@@ -11041,7 +11035,7 @@ zfs_provision_usb_pool(){
     if blkid "/dev/$d" &>/dev/null; then
 ```python
 
-### Proposal
+### Proposal (353)
 
 - Review the issue message above
 
@@ -11059,7 +11053,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (354)
 
 ```python
   log "Provisioning ZFS usb-zfs pool (raidz1) on USB disks: ${USB_DISKS[*]}"
@@ -11071,7 +11065,7 @@ zfs_provision_usb_pool(){
       log "Skipping /dev/$d for usb-zfs (appears to contain data)"
 ```python
 
-### Proposal
+### Proposal (354)
 
 - Review the issue message above
 
@@ -11089,7 +11083,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (355)
 
 ```python
   modprobe zfs || true
@@ -11101,7 +11095,7 @@ zfs_provision_usb_pool(){
       continue
 ```python
 
-### Proposal
+### Proposal (355)
 
 - Review the issue message above
 
@@ -11119,7 +11113,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (356)
 
 ```python
 
@@ -11131,7 +11125,7 @@ zfs_provision_usb_pool(){
     fi
 ```python
 
-### Proposal
+### Proposal (356)
 
 - Review the issue message above
 
@@ -11149,7 +11143,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (357)
 
 ```python
   local CANDIDATES=()
@@ -11161,7 +11155,7 @@ zfs_provision_usb_pool(){
     wipefs -a "/dev/$d" || true
 ```python
 
-### Proposal
+### Proposal (357)
 
 - Review the issue message above
 
@@ -11179,7 +11173,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (358)
 
 ```python
   for d in "${USB_DISKS[@]}"; do
@@ -11191,7 +11185,7 @@ zfs_provision_usb_pool(){
     CANDIDATES+=("/dev/$d")
 ```python
 
-### Proposal
+### Proposal (358)
 
 - Review the issue message above
 
@@ -11209,7 +11203,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (359)
 
 ```python
     if blkid "/dev/$d" &>/dev/null; then
@@ -11221,7 +11215,7 @@ zfs_provision_usb_pool(){
   done
 ```python
 
-### Proposal
+### Proposal (359)
 
 - Review the issue message above
 
@@ -11239,7 +11233,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (360)
 
 ```python
       log "Skipping /dev/$d for usb-zfs (appears to contain data)"
@@ -11251,7 +11245,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (360)
 
 - Review the issue message above
 
@@ -11269,7 +11263,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (361)
 
 ```python
       continue
@@ -11281,7 +11275,7 @@ zfs_provision_usb_pool(){
   if [[${#CANDIDATES[@]} -lt 3]]; then
 ```python
 
-### Proposal
+### Proposal (361)
 
 - Review the issue message above
 
@@ -11299,7 +11293,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (362)
 
 ```python
     fi
@@ -11311,7 +11305,7 @@ zfs_provision_usb_pool(){
     log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
 ```python
 
-### Proposal
+### Proposal (362)
 
 - Review the issue message above
 
@@ -11329,7 +11323,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (363)
 
 ```python
     wipefs -a "/dev/$d" || true
@@ -11341,7 +11335,7 @@ zfs_provision_usb_pool(){
     mark_step zfs skipped
 ```python
 
-### Proposal
+### Proposal (363)
 
 - Review the issue message above
 
@@ -11359,7 +11353,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (364)
 
 ```python
     CANDIDATES+=("/dev/$d")
@@ -11371,7 +11365,7 @@ zfs_provision_usb_pool(){
     return 0
 ```python
 
-### Proposal
+### Proposal (364)
 
 - Review the issue message above
 
@@ -11389,7 +11383,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (365)
 
 ```python
   done
@@ -11401,7 +11395,7 @@ zfs_provision_usb_pool(){
   fi
 ```python
 
-### Proposal
+### Proposal (365)
 
 - Review the issue message above
 
@@ -11419,7 +11413,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (366)
 
 ```python
 
@@ -11431,7 +11425,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (366)
 
 - Review the issue message above
 
@@ -11449,7 +11443,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (367)
 
 ```python
   if [[${#CANDIDATES[@]} -lt 3]]; then
@@ -11461,7 +11455,7 @@ zfs_provision_usb_pool(){
   # Use raidz1 across all candidate USB sticks
 ```python
 
-### Proposal
+### Proposal (367)
 
 - Review the issue message above
 
@@ -11479,7 +11473,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (368)
 
 ```python
     log "After filtering, not enough empty USB disks for usb-zfs; skipping pool creation. Candidates: ${CANDIDATES[*]:-}"
@@ -11491,7 +11485,7 @@ zfs_provision_usb_pool(){
   zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
 ```python
 
-### Proposal
+### Proposal (368)
 
 - Review the issue message above
 
@@ -11509,7 +11503,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (369)
 
 ```python
     mark_step zfs skipped
@@ -11521,7 +11515,7 @@ zfs_provision_usb_pool(){
   zfs set compression=lz4 tank || true
 ```python
 
-### Proposal
+### Proposal (369)
 
 - Review the issue message above
 
@@ -11539,7 +11533,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (370)
 
 ```python
     return 0
@@ -11551,7 +11545,7 @@ zfs_provision_usb_pool(){
   for ds in vm docker k8s; do
 ```python
 
-### Proposal
+### Proposal (370)
 
 - Review the issue message above
 
@@ -11569,7 +11563,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (371)
 
 ```python
   fi
@@ -11581,7 +11575,7 @@ zfs_provision_usb_pool(){
     zfs create -o mountpoint=/srv/$ds tank/$ds || true
 ```python
 
-### Proposal
+### Proposal (371)
 
 - Review the issue message above
 
@@ -11599,7 +11593,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (372)
 
 ```python
 
@@ -11611,7 +11605,7 @@ zfs_provision_usb_pool(){
   done
 ```python
 
-### Proposal
+### Proposal (372)
 
 - Review the issue message above
 
@@ -11629,7 +11623,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (373)
 
 ```python
   # Use raidz1 across all candidate USB sticks
@@ -11641,7 +11635,7 @@ zfs_provision_usb_pool(){
   log "ZFS usb-zfs pool 'tank' ready on USB sticks"
 ```python
 
-### Proposal
+### Proposal (373)
 
 - Review the issue message above
 
@@ -11659,7 +11653,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (374)
 
 ```python
   zpool create -f -o ashift=12 tank raidz1 "${CANDIDATES[@]}" || true
@@ -11671,7 +11665,7 @@ zfs_provision_usb_pool(){
   mark_step zfs success
 ```python
 
-### Proposal
+### Proposal (374)
 
 - Review the issue message above
 
@@ -11689,7 +11683,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (375)
 
 ```python
   zfs set compression=lz4 tank || true
@@ -11701,7 +11695,7 @@ zfs_provision_usb_pool(){
 }
 ```python
 
-### Proposal
+### Proposal (375)
 
 - Review the issue message above
 
@@ -11719,7 +11713,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (376)
 
 ```python
   for ds in vm docker k8s; do
@@ -11731,7 +11725,7 @@ zfs_provision_usb_pool(){
 
 ```python
 
-### Proposal
+### Proposal (376)
 
 - Review the issue message above
 
@@ -11749,7 +11743,7 @@ zfs_provision_usb_pool(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (377)
 
 ```python
     zfs create -o mountpoint=/srv/$ds tank/$ds || true
@@ -11761,7 +11755,7 @@ zfs_provision_usb_pool(){
 configure_docker(){
 ```python
 
-### Proposal
+### Proposal (377)
 
 - Review the issue message above
 
@@ -11779,7 +11773,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (378)
 
 ```python
   done
@@ -11791,7 +11785,7 @@ configure_docker(){
   if [["$DRY_RUN" == "true"]]; then
 ```python
 
-### Proposal
+### Proposal (378)
 
 - Review the issue message above
 
@@ -11809,7 +11803,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (379)
 
 ```python
   log "ZFS usb-zfs pool 'tank' ready on USB sticks"
@@ -11821,7 +11815,7 @@ configure_docker(){
     log "[dry-run] Would write /etc/docker/daemon.json and enable docker service"
 ```python
 
-### Proposal
+### Proposal (379)
 
 - Review the issue message above
 
@@ -11839,7 +11833,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (380)
 
 ```python
   mark_step zfs success
@@ -11851,7 +11845,7 @@ configure_docker(){
     return 0
 ```python
 
-### Proposal
+### Proposal (380)
 
 - Review the issue message above
 
@@ -11869,7 +11863,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (381)
 
 ```python
 }
@@ -11881,7 +11875,7 @@ configure_docker(){
   fi
 ```python
 
-### Proposal
+### Proposal (381)
 
 - Review the issue message above
 
@@ -11899,7 +11893,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (382)
 
 ```python
 
@@ -11911,7 +11905,7 @@ configure_docker(){
   mkdir -p /etc/docker /srv/docker
 ```python
 
-### Proposal
+### Proposal (382)
 
 - Review the issue message above
 
@@ -11929,7 +11923,7 @@ configure_docker(){
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (383)
 
 ```python
 configure_docker(){
@@ -11944,7 +11938,7 @@ configure_docker(){
   "log-opts": { "max-size": "100m", "max-file": "3" },
 ```python
 
-### Proposal
+### Proposal (383)
 
 - Review the issue message above
 
@@ -11962,7 +11956,7 @@ configure_docker(){
 
 **Message:** Here document was not correctly terminated. Fix any mentioned problems and try again.
 
-### Context
+### Context (384)
 
 ```python
 }
@@ -11970,7 +11964,7 @@ configure_docker(){
 main "$@"
 ```python
 
-### Proposal
+### Proposal (384)
 
 - Review the issue message above
 

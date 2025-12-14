@@ -59,7 +59,7 @@ fixes\n```text\n_fix_inline_html(content) # Remove [TOKEN]
 tags\n_fix_heading_blanks(content) #
 MD022 fixes\n_fix_fence_blanks(content) # MD031 fixes\n_fix_list_blanks(content)
 
-## MD032
+## MD032 (1)
 
 fixes\n_fix_fence_language(content) # MD040 fixes\n_fix_multiple_h1(content) #
 MD025

@@ -57,7 +57,7 @@ import hashlib
 
 **Message:** Call to requests without timeout
 
-### Context
+### Context (1)
 
 ```python
         try:
@@ -69,7 +69,7 @@ import hashlib
                 _auth=(user, password),
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -87,7 +87,7 @@ import hashlib
 
 **Message:** Call to requests without timeout
 
-### Context
+### Context (2)
 
 ```python
 
@@ -99,7 +99,7 @@ import hashlib
                 _verify=self.verify_ssl,
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 

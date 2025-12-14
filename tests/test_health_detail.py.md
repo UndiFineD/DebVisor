@@ -33,7 +33,8 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
 ### Context
 
@@ -63,9 +64,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (1)
 
 ```python
         print(f"Redirecting to: {resp.headers.get('Location')}")
@@ -77,7 +79,7 @@ Items marked below as fixed:
     assert "redis" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -93,9 +95,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (2)
 
 ```python
     assert resp.status_code in (200, 503)
@@ -107,7 +110,7 @@ Items marked below as fixed:
     assert "smtp" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -123,9 +126,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (3)
 
 ```python
     data = resp.get_json()
@@ -137,7 +141,7 @@ Items marked below as fixed:
     assert data["status"] in ("ok", "degraded")
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -153,9 +157,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (4)
 
 ```python
     assert "build" in data
@@ -167,7 +172,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -183,9 +188,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (5)
 
 ```python
     assert "checks" in data
@@ -196,7 +202,7 @@ Items marked below as fixed:
 
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -212,9 +218,10 @@ Items marked below as fixed:
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (6)
 
 ```python
     assert "database" in data["checks"]
@@ -225,7 +232,7 @@ Items marked below as fixed:
 def test_health_detail_with_envs(app_client, monkeypatch):
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -241,9 +248,10 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (7)
 
 ```python
     monkeypatch.setenv("SMTP_STARTTLS", "true")
@@ -255,7 +263,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
     assert "redis" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -271,9 +279,10 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (8)
 
 ```python
     resp = app_client.get("/health/detail", base_url="[https://localhost]([https://localhos]([https://localho]([https://localh]([https://local]([https://loca]([https://loc]([https://lo]([https://l](https://l)o)c)a)l)h)o)s)t)")
@@ -284,7 +293,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
     assert "smtp" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -300,9 +309,10 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (9)
 
 ```python
     assert resp.status_code in (200, 503)
@@ -312,7 +322,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
     assert "smtp" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -328,9 +338,10 @@ def test_health_detail_with_envs(app_client, monkeypatch):
 
 **Tool:**bandit |**Code:**`B101` |**Severity:** LOW
 
-**Message:** Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+**Message:** Use of assert detected. The enclosed code will be removed when
+compiling to optimised byte code.
 
-### Context
+### Context (10)
 
 ```python
     data = resp.get_json()
@@ -339,7 +350,7 @@ def test_health_detail_with_envs(app_client, monkeypatch):
     assert "smtp" in data["checks"]
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 

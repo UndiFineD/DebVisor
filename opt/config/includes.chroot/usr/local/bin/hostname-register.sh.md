@@ -86,7 +86,7 @@ Items marked below as fixed:
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ```python
 
 ### Proposal
@@ -107,17 +107,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (1)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -135,18 +135,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (2)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -164,19 +164,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (3)
 
 ```python
 ## !/bin/bash
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 
@@ -194,19 +194,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (4)
 
 ```python
 ## Copyright (c) 2025 DebVisor contributors
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
+## distributed under the License is distributed on an "AS IS" BASIS
 ```python
 
-### Proposal
+### Proposal (4)
 
 - Review the issue message above
 
@@ -224,19 +224,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (5)
 
 ```python
 ## Licensed under the Apache License, Version 2.0 (the "License");
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ```python
 
-### Proposal
+### Proposal (5)
 
 - Review the issue message above
 
@@ -254,19 +254,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (6)
 
 ```python
-## you may not use this file except in compliance with the License.
+## you may not use this file except in compliance with the License
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
 ```python
 
-### Proposal
+### Proposal (6)
 
 - Review the issue message above
 
@@ -284,19 +284,19 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (7)
 
 ```python
 ## You may obtain a copy of the License at
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (7)
 
 - Review the issue message above
 
@@ -314,19 +314,18 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (8)
 
 ```python
-## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww](http://ww)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
+## [http://www.apache.org/licenses/LICENSE-2.0]([http://www.apache.org/licenses/LICENSE-2.]([http://www.apache.org/licenses/LICENSE-2]([http://www.apache.org/licenses/LICENSE-]([http://www.apache.org/licenses/LICENSE]([http://www.apache.org/licenses/LICENS]([http://www.apache.org/licenses/LICEN]([http://www.apache.org/licenses/LICE]([http://www.apache.org/licenses/LIC]([http://www.apache.org/licenses/LI]([http://www.apache.org/licenses/L]([http://www.apache.org/licenses/]([http://www.apache.org/licenses]([http://www.apache.org/license]([http://www.apache.org/licens]([http://www.apache.org/licen]([http://www.apache.org/lice]([http://www.apache.org/lic]([http://www.apache.org/li]([http://www.apache.org/l]([http://www.apache.org/]([http://www.apache.org]([http://www.apache.or]([http://www.apache.o]([http://www.apache.]([http://www.apache]([http://www.apach]([http://www.apac]([http://www.apa]([http://www.ap]([http://www.a]([http://www.]([http://www]([http://ww]([http://w](http://w)w)w).)a)p)a)c)h)e).)o)r)g)/)l)i)c)e)n)s)e)s)/)L)I)C)E)N)S)E)-)2).)0)
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (8)
 
 - Review the issue message above
 
@@ -344,18 +343,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (9)
 
 ```python
 ## Unless required by applicable law or agreed to in writing, software
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
+## limitations under the License
 ```python
 
-### Proposal
+### Proposal (9)
 
 - Review the issue message above
 
@@ -373,18 +371,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (10)
 
 ```python
-## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## distributed under the License is distributed on an "AS IS" BASIS
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## DebVisor hostname auto-registration for local dnsmasq,
+## limitations under the License
+## DebVisor hostname auto-registration for local dnsmasq
 ```python
 
-### Proposal
+### Proposal (10)
 
 - Review the issue message above
 
@@ -402,18 +399,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (11)
 
 ```python
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## limitations under the License
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 ```python
 
-### Proposal
+### Proposal (11)
 
 - Review the issue message above
 
@@ -431,18 +427,17 @@ Items marked below as fixed:
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (12)
 
 ```python
 ## See the License for the specific language governing permissions and
-## limitations under the License.
-
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## limitations under the License
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 ```python
 
-### Proposal
+### Proposal (12)
 
 - Review the issue message above
 
@@ -460,18 +455,17 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (13)
 
 ```python
-## limitations under the License.
-
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## limitations under the License
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 
 ```python
 
-### Proposal
+### Proposal (13)
 
 - Review the issue message above
 
@@ -489,18 +483,18 @@ set -euo pipefail
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (14)
 
 ```python
 
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 
 DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
 ```python
 
-### Proposal
+### Proposal (14)
 
 - Review the issue message above
 
@@ -518,19 +512,19 @@ DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (15)
 
 ```python
 
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 
 DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
 DEFAULT_DOMAIN="debvisor.local"
 ```python
 
-### Proposal
+### Proposal (15)
 
 - Review the issue message above
 
@@ -548,11 +542,11 @@ DEFAULT_DOMAIN="debvisor.local"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (16)
 
 ```python
-## DebVisor hostname auto-registration for local dnsmasq,
-## with optional cluster-aware behavior via etcd.
+## DebVisor hostname auto-registration for local dnsmasq
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 
 DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
@@ -560,7 +554,7 @@ DEFAULT_DOMAIN="debvisor.local"
 ETCDCTL_BIN=${ETCDCTL_BIN:-/usr/bin/etcdctl}
 ```python
 
-### Proposal
+### Proposal (16)
 
 - Review the issue message above
 
@@ -578,10 +572,10 @@ ETCDCTL_BIN=${ETCDCTL_BIN:-/usr/bin/etcdctl}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (17)
 
 ```python
-## with optional cluster-aware behavior via etcd.
+## with optional cluster-aware behavior via etcd
 set -euo pipefail
 
 DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
@@ -590,7 +584,7 @@ ETCDCTL_BIN=${ETCDCTL_BIN:-/usr/bin/etcdctl}
 ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
 ```python
 
-### Proposal
+### Proposal (17)
 
 - Review the issue message above
 
@@ -608,7 +602,7 @@ ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (18)
 
 ```python
 set -euo pipefail
@@ -620,7 +614,7 @@ ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
 
 ```python
 
-### Proposal
+### Proposal (18)
 
 - Review the issue message above
 
@@ -638,7 +632,7 @@ ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (19)
 
 ```python
 
@@ -650,7 +644,7 @@ ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
 HOSTNAME_SHORT=$(hostname -s)
 ```python
 
-### Proposal
+### Proposal (19)
 
 - Review the issue message above
 
@@ -668,7 +662,7 @@ HOSTNAME_SHORT=$(hostname -s)
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (20)
 
 ```python
 DNSMASQ_HOSTS_DIR="/etc/dnsmasq.d/hosts"
@@ -680,7 +674,7 @@ HOSTNAME_SHORT=$(hostname -s)
 HOSTNAME_FQDN=$(hostname -f || echo "${HOSTNAME_SHORT}.${DEFAULT_DOMAIN}")
 ```python
 
-### Proposal
+### Proposal (20)
 
 - Review the issue message above
 
@@ -698,7 +692,7 @@ HOSTNAME_FQDN=$(hostname -f || echo "${HOSTNAME_SHORT}.${DEFAULT_DOMAIN}")
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (21)
 
 ```python
 DEFAULT_DOMAIN="debvisor.local"
@@ -710,7 +704,7 @@ HOSTNAME_FQDN=$(hostname -f || echo "${HOSTNAME_SHORT}.${DEFAULT_DOMAIN}")
 IP=$(hostname -I | awk '{print $1}')   # first IP address
 ```python
 
-### Proposal
+### Proposal (21)
 
 - Review the issue message above
 
@@ -728,7 +722,7 @@ IP=$(hostname -I | awk '{print $1}')   # first IP address
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (22)
 
 ```python
 ETCDCTL_BIN=${ETCDCTL_BIN:-/usr/bin/etcdctl}
@@ -740,7 +734,7 @@ IP=$(hostname -I | awk '{print $1}')   # first IP address
 
 ```python
 
-### Proposal
+### Proposal (22)
 
 - Review the issue message above
 
@@ -758,7 +752,7 @@ IP=$(hostname -I | awk '{print $1}')   # first IP address
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (23)
 
 ```python
 ETCDCTL_ENDPOINTS=${ETCDCTL_ENDPOINTS:-}
@@ -770,7 +764,7 @@ IP=$(hostname -I | awk '{print $1}')   # first IP address
 MODE="standalone"
 ```python
 
-### Proposal
+### Proposal (23)
 
 - Review the issue message above
 
@@ -788,7 +782,7 @@ MODE="standalone"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (24)
 
 ```python
 
@@ -800,7 +794,7 @@ MODE="standalone"
 FQDN="$HOSTNAME_FQDN"
 ```python
 
-### Proposal
+### Proposal (24)
 
 - Review the issue message above
 
@@ -818,7 +812,7 @@ FQDN="$HOSTNAME_FQDN"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (25)
 
 ```python
 HOSTNAME_SHORT=$(hostname -s)
@@ -830,7 +824,7 @@ FQDN="$HOSTNAME_FQDN"
 
 ```python
 
-### Proposal
+### Proposal (25)
 
 - Review the issue message above
 
@@ -848,7 +842,7 @@ FQDN="$HOSTNAME_FQDN"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (26)
 
 ```python
 HOSTNAME_FQDN=$(hostname -f || echo "${HOSTNAME_SHORT}.${DEFAULT_DOMAIN}")
@@ -860,7 +854,7 @@ FQDN="$HOSTNAME_FQDN"
 ## Try to determine node mode and cluster-assigned FQDN from etcd if available
 ```python
 
-### Proposal
+### Proposal (26)
 
 - Review the issue message above
 
@@ -878,7 +872,7 @@ FQDN="$HOSTNAME_FQDN"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (27)
 
 ```python
 IP=$(hostname -I | awk '{print $1}')   # first IP address
@@ -890,7 +884,7 @@ FQDN="$HOSTNAME_FQDN"
 if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 ```python
 
-### Proposal
+### Proposal (27)
 
 - Review the issue message above
 
@@ -908,7 +902,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (28)
 
 ```python
 
@@ -920,7 +914,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
     if NODE_ID=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get /debvisor/self/node_id --print-value-only 2>/dev/null); then
 ```python
 
-### Proposal
+### Proposal (28)
 
 - Review the issue message above
 
@@ -938,7 +932,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (29)
 
 ```python
 MODE="standalone"
@@ -950,7 +944,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
         if [[-n "$NODE_ID"]]; then
 ```python
 
-### Proposal
+### Proposal (29)
 
 - Review the issue message above
 
@@ -968,7 +962,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (30)
 
 ```python
 FQDN="$HOSTNAME_FQDN"
@@ -980,7 +974,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             # Mode
 ```python
 
-### Proposal
+### Proposal (30)
 
 - Review the issue message above
 
@@ -998,7 +992,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (31)
 
 ```python
 
@@ -1010,7 +1004,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             MODE=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get "/debvisor/nodes/${NODE_ID}/mode" --print-value-only 2>/dev/null || echo "standalone")
 ```python
 
-### Proposal
+### Proposal (31)
 
 - Review the issue message above
 
@@ -1028,7 +1022,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (32)
 
 ```python
 ## Try to determine node mode and cluster-assigned FQDN from etcd if available
@@ -1040,7 +1034,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             # Cluster FQDN override, if present
 ```python
 
-### Proposal
+### Proposal (32)
 
 - Review the issue message above
 
@@ -1058,7 +1052,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (33)
 
 ```python
 if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
@@ -1070,7 +1064,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             CLUSTER_FQDN=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get "/debvisor/nodes/${NODE_ID}/info/fqdn" --print-value-only 2>/dev/null || true)
 ```python
 
-### Proposal
+### Proposal (33)
 
 - Review the issue message above
 
@@ -1088,7 +1082,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (34)
 
 ```python
     if NODE_ID=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get /debvisor/self/node_id --print-value-only 2>/dev/null); then
@@ -1100,7 +1094,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             if [[-n "$CLUSTER_FQDN"]]; then
 ```python
 
-### Proposal
+### Proposal (34)
 
 - Review the issue message above
 
@@ -1118,7 +1112,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (35)
 
 ```python
         if [[-n "$NODE_ID"]]; then
@@ -1130,7 +1124,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
                 FQDN="$CLUSTER_FQDN"
 ```python
 
-### Proposal
+### Proposal (35)
 
 - Review the issue message above
 
@@ -1148,7 +1142,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (36)
 
 ```python
             # Mode
@@ -1160,7 +1154,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
             fi
 ```python
 
-### Proposal
+### Proposal (36)
 
 - Review the issue message above
 
@@ -1178,7 +1172,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (37)
 
 ```python
             MODE=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get "/debvisor/nodes/${NODE_ID}/mode" --print-value-only 2>/dev/null || echo "standalone")
@@ -1190,7 +1184,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
         fi
 ```python
 
-### Proposal
+### Proposal (37)
 
 - Review the issue message above
 
@@ -1208,7 +1202,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (38)
 
 ```python
             # Cluster FQDN override, if present
@@ -1220,7 +1214,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
     fi
 ```python
 
-### Proposal
+### Proposal (38)
 
 - Review the issue message above
 
@@ -1238,7 +1232,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (39)
 
 ```python
             CLUSTER_FQDN=$("$ETCDCTL_BIN" --endpoints="$ETCDCTL_ENDPOINTS" get "/debvisor/nodes/${NODE_ID}/info/fqdn" --print-value-only 2>/dev/null || true)
@@ -1250,7 +1244,7 @@ if [[-x "$ETCDCTL_BIN" && -n "${ETCDCTL_ENDPOINTS}"]]; then
 fi
 ```python
 
-### Proposal
+### Proposal (39)
 
 - Review the issue message above
 
@@ -1268,7 +1262,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (40)
 
 ```python
             if [[-n "$CLUSTER_FQDN"]]; then
@@ -1280,7 +1274,7 @@ fi
 
 ```python
 
-### Proposal
+### Proposal (40)
 
 - Review the issue message above
 
@@ -1298,7 +1292,7 @@ fi
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (41)
 
 ```python
                 FQDN="$CLUSTER_FQDN"
@@ -1310,7 +1304,7 @@ fi
 DOMAIN=${FQDN#*.}
 ```python
 
-### Proposal
+### Proposal (41)
 
 - Review the issue message above
 
@@ -1328,7 +1322,7 @@ DOMAIN=${FQDN#*.}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (42)
 
 ```python
             fi
@@ -1340,7 +1334,7 @@ DOMAIN=${FQDN#*.}
 HOST=${FQDN%%.*}
 ```python
 
-### Proposal
+### Proposal (42)
 
 - Review the issue message above
 
@@ -1358,7 +1352,7 @@ HOST=${FQDN%%.*}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (43)
 
 ```python
         fi
@@ -1370,7 +1364,7 @@ HOST=${FQDN%%.*}
 
 ```python
 
-### Proposal
+### Proposal (43)
 
 - Review the issue message above
 
@@ -1388,7 +1382,7 @@ HOST=${FQDN%%.*}
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (44)
 
 ```python
     fi
@@ -1400,7 +1394,7 @@ HOST=${FQDN%%.*}
 mkdir -p "$DNSMASQ_HOSTS_DIR"
 ```python
 
-### Proposal
+### Proposal (44)
 
 - Review the issue message above
 
@@ -1418,7 +1412,7 @@ mkdir -p "$DNSMASQ_HOSTS_DIR"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (45)
 
 ```python
 fi
@@ -1430,7 +1424,7 @@ mkdir -p "$DNSMASQ_HOSTS_DIR"
 ENTRY="${IP} ${FQDN} ${HOST}"
 ```python
 
-### Proposal
+### Proposal (45)
 
 - Review the issue message above
 
@@ -1448,7 +1442,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (46)
 
 ```python
 
@@ -1460,7 +1454,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 
 ```python
 
-### Proposal
+### Proposal (46)
 
 - Review the issue message above
 
@@ -1478,7 +1472,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (47)
 
 ```python
 DOMAIN=${FQDN#*.}
@@ -1490,7 +1484,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 ## Write entry file for this host (local dnsmasq view)
 ```python
 
-### Proposal
+### Proposal (47)
 
 - Review the issue message above
 
@@ -1508,7 +1502,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (48)
 
 ```python
 HOST=${FQDN%%.*}
@@ -1520,7 +1514,7 @@ ENTRY="${IP} ${FQDN} ${HOST}"
 echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 ```python
 
-### Proposal
+### Proposal (48)
 
 - Review the issue message above
 
@@ -1538,7 +1532,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (49)
 
 ```python
 
@@ -1550,7 +1544,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 
 ```python
 
-### Proposal
+### Proposal (49)
 
 - Review the issue message above
 
@@ -1568,7 +1562,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (50)
 
 ```python
 mkdir -p "$DNSMASQ_HOSTS_DIR"
@@ -1580,7 +1574,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 ## Reload dnsmasq to apply changes
 ```python
 
-### Proposal
+### Proposal (50)
 
 - Review the issue message above
 
@@ -1598,7 +1592,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (51)
 
 ```python
 ENTRY="${IP} ${FQDN} ${HOST}"
@@ -1610,7 +1604,7 @@ echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
 systemctl reload dnsmasq || true
 ```python
 
-### Proposal
+### Proposal (51)
 
 - Review the issue message above
 
@@ -1628,7 +1622,7 @@ systemctl reload dnsmasq || true
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (52)
 
 ```python
 
@@ -1640,7 +1634,7 @@ systemctl reload dnsmasq || true
 logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 ```python
 
-### Proposal
+### Proposal (52)
 
 - Review the issue message above
 
@@ -1658,7 +1652,7 @@ logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (53)
 
 ```python
 ## Write entry file for this host (local dnsmasq view)
@@ -1669,7 +1663,7 @@ systemctl reload dnsmasq || true
 logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 ```python
 
-### Proposal
+### Proposal (53)
 
 - Review the issue message above
 
@@ -1687,7 +1681,7 @@ logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (54)
 
 ```python
 echo "$ENTRY" > "${DNSMASQ_HOSTS_DIR}/${HOST}.conf"
@@ -1697,7 +1691,7 @@ systemctl reload dnsmasq || true
 logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 ```python
 
-### Proposal
+### Proposal (54)
 
 - Review the issue message above
 
@@ -1715,7 +1709,7 @@ logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 
 **Message:** Literal carriage return. Run script through tr -d '\r' .
 
-### Context
+### Context (55)
 
 ```python
 
@@ -1724,7 +1718,7 @@ systemctl reload dnsmasq || true
 logger "DebVisor: Registered $FQDN (mode=$MODE) with IP $IP in dnsmasq"
 ```python
 
-### Proposal
+### Proposal (55)
 
 - Review the issue message above
 

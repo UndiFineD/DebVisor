@@ -130,8 +130,9 @@ coding_expert_agent.py
 (Fix proposal agent)\n├── unified_workflow.py (Workflow orchestrator)\n├──
 PLANNING_AGENT_README.md
 (Planning agent documentation)\n├── CRITIC_WORKFLOW_README.md (Critic agent
-documentation
--
+
+## documentation
+
 pre-existing)\n└── THREE_AGENT_SYSTEM.md (Complete system
 overview)\n\n```text\n\n## Code
 Quality

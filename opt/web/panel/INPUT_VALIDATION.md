@@ -227,8 +227,9 @@ allowed_tags = ['p', 'br', 'strong', 'em', 'code', 'pre', 'blockquote', 'ul',
 'ol',
 'li']\n
 allowed_attrs = {}\n\n## First: render markdown to HTML\n\n import markdown\n
-html_content
-=
+
+## html_content
+
 markdown.markdown(note.content)\n\n## Then: sanitize HTML\n\n clean_html =
 bleach.clean(html_content, tags=allowed_tags, attributes=allowed_attrs)\n return
 render_template('note.html', content=Markup(clean_html))\n\n## JSON API

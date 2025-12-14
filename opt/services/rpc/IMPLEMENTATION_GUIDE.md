@@ -36,8 +36,9 @@ context):\n
 hostname =
 RequestValidator.validate_hostname(request.hostname)\n ip =
 RequestValidator.validate_ipv4(request.ip)\n\n## Check authorization\n\n
-context.principal
-=
+
+## context.principal
+
 extract_identity(context)\n check_permission(context, 'node:register')\n\n##
 Register with
 backend\n\n node_id = self.backend.register_node(\n hostname=hostname,\n
@@ -105,8 +106,9 @@ inputs [2]\n\n pool = RequestValidator.validate_label(request.pool)\n snapshot =
 RequestValidator.validate_label(request.snapshot)\n context.principal =
 extract_identity(context)\n
 check_permission(context, 'storage:snapshot:create')\n\n## Create snapshot\n\n
-snapshot_id
-=
+
+## snapshot_id
+
 self.backend.create_snapshot(\n backend=request.backend,\n pool=pool,\n
 snapshot=snapshot,\n
 tags=dict(request.tags),\n )\n logger.info(\n f'Snapshot created:
@@ -210,8 +212,8 @@ server.stop(5)
 
 ## 5
 
-seconds graceful shutdown\n if**name**== '**main**':\n import time\n config_file
-=
+## seconds graceful shutdown\n if**name**== '**main**':\n import time\n config_file
+
 os.environ.get('RPC_CONFIG_FILE', '/etc/debvisor/rpc/config.json')\n server =
 RPCServer(config_file)\n server.start()\n\n## Authentication
 Implementation\n\n##
@@ -430,8 +432,9 @@ f:\n client_cert = f.read()\n with open('client-key.pem', 'rb') as f:\n
 client_key =
 f.read()\n with
 open('ca-cert.pem', 'rb') as f:\n ca_cert = f.read()\n\n## Create secure
-channel\n\n creds
-=
+
+## channel\n\n creds
+
 grpc.ssl_channel_credentials(\n root_certificates=ca_cert,\n
 private_key=client_key,\n
 certificate_chain=client_cert,\n )\n channel =

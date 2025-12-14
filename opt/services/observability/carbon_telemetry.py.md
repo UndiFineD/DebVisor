@@ -58,7 +58,7 @@ Items marked below as fixed:
 
 **Message:** Starting a process with a partial executable path
 
-### Context
+### Context (1)
 
 ```python
         try:
@@ -70,7 +70,7 @@ Items marked below as fixed:
                     "--query-gpu=index,power.draw,temperature.gpu,utilization.gpu",
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 
@@ -82,13 +82,13 @@ Items marked below as fixed:
 
 ---
 
-### Issue at Line 449
+### Issue at Line 449 (1)
 
 **Tool:**bandit |**Code:**`B603` |**Severity:** LOW
 
 **Message:** subprocess call - check for execution of untrusted input.
 
-### Context
+### Context (2)
 
 ```python
         try:
@@ -100,7 +100,7 @@ Items marked below as fixed:
                     "--query-gpu=index,power.draw,temperature.gpu,utilization.gpu",
 ```python
 
-### Proposal
+### Proposal (2)
 
 - Review the issue message above
 
@@ -118,7 +118,7 @@ Items marked below as fixed:
 
 **Message:** Try, Except, Pass detected.
 
-### Context
+### Context (3)
 
 ```python
                                 )
@@ -130,7 +130,7 @@ Items marked below as fixed:
             logger.debug(f"Error collecting thermal metrics: {e}")
 ```python
 
-### Proposal
+### Proposal (3)
 
 - Review the issue message above
 

@@ -16,8 +16,6 @@ provisioning\n
 +--
 README.md\n +-- dashboards/ # Dashboard JSON files\n +-- provisioning/\n | +-- dashboards/
 
-## 
-
 Dashboard provisioning config\n | +-- alerting/ # Alert rules (provisional)\n +--
 manifests/ #
 Kubernetes manifests (optional)\n\n## Core Components\n\n### 1. Prometheus\n\n-

@@ -76,8 +76,9 @@ iface.dns =
 summary)\n
 self.assertIn("192.168.1.10", summary)\n self.assertIn("gateway", summary)\n def
 test_infiniband_interface(self):\n """Test InfiniBand interface
-configuration."""\n iface
-=
+
+## configuration."""\n iface
+
 InterfaceConfig("ib0", "infiniband")\n iface.method = "static"\n iface.address =
 "10.0.0.1"\n
 iface.prefix = 16\n summary = iface.summary()\n self.assertIn("infiniband",
@@ -146,8 +147,9 @@ prefix)\n
 self.assertFalse(result, f"CIDR {ip}/{prefix} should be invalid")\n class
 TestNetworkdGeneration(unittest.TestCase):\n """Tests for systemd-networkd file
 generation."""\n def
-setUp(self):\n """Create temporary directory for test output."""\n self.temp_dir
-=
+
+## setUp(self):\n """Create temporary directory for test output."""\n self.temp_dir
+
 tempfile.mkdtemp()\n def tearDown(self):\n """Clean up temporary directory."""\n
 import
 shutil\n
@@ -166,8 +168,9 @@ test_generate_static_addressing(self):\n """Test
 generating static address network file."""\n iface = InterfaceConfig("eth0",
 "wired")\n
 iface.method
-= "static"\n iface.address = "192.168.1.10"\n iface.prefix = 24\n iface.gateway
-=
+
+## = "static"\n iface.address = "192.168.1.10"\n iface.prefix = 24\n iface.gateway
+
 "192.168.1.1"\n
 iface.dns = ["8.8.8.8", "8.8.4.4"]\n config = generate_networkd_network(iface,
 is_bridge_member=False)\n self.assertIn("[Match]", config)\n
@@ -239,11 +242,13 @@ detection of
 conflicting CIDR allocations."""\n configs = [\n InterfaceConfig("eth0",
 "wired"),\n
 InterfaceConfig("eth1", "wired"),\n ]\n configs[0].method = "static"\n
-configs[0].address
-=
+
+## configs[0].address
+
 "192.168.1.1"\n configs[0].prefix = 24\n configs[1].method = "static"\n
-configs[1].address
-=
+
+## configs[1].address
+
 "192.168.1.128" # Same subnet!\n configs[1].prefix = 25\n errors =
 detect_cidr_conflicts(configs)\n
 self.assertTrue(len(errors) > 0)\n class
@@ -270,8 +275,9 @@ detect_interfaces()\n names = [iface.name for iface in interfaces]\n
 self.assertNotIn("lo", names)\n
 class TestIntegration(unittest.TestCase):\n """Integration tests for complete
 workflows."""\n def
-setUp(self):\n """Create temporary directory for test output."""\n self.temp_dir
-=
+
+## setUp(self):\n """Create temporary directory for test output."""\n self.temp_dir (1)
+
 tempfile.mkdtemp()\n def tearDown(self):\n """Clean up temporary directory."""\n
 import
 shutil\n

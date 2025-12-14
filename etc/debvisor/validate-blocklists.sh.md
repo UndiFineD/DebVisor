@@ -2448,8 +2448,10 @@ fi
 ```python
 
   # Extract all CIDR entries
-  local block_entries=$(grep -v '^[[:space:]]*$' "$blocklist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
-  local white_entries=$(grep -v '^[[:space:]]*$' "$whitelist" | grep -v '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
+  local block_entries=$(grep -v '^[[:space:]]*$' "$blocklist" | grep -v
+  '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
+  local white_entries=$(grep -v '^[[:space:]]*$' "$whitelist" | grep -v
+  '^[[:space:]]*#' | sed 's/#.*//' | xargs || true)
 
   if command -v python3 >/dev/null 2>&1; then
   python3 /dev/null 2>&1; then

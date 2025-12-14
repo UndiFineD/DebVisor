@@ -56,7 +56,7 @@ from pathlib import Path
 
 **Message:** Possible binding to all interfaces.
 
-### Context
+### Context (1)
 
 ```python
     # Basic settings
@@ -68,7 +68,7 @@ from pathlib import Path
 
 ```python
 
-### Proposal
+### Proposal (1)
 
 - Review the issue message above
 

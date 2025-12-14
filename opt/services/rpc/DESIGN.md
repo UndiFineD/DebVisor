@@ -148,8 +148,9 @@ add_authorization_metadata(context, api_key):\n """Add API key to gRPC
 context"""\n
 metadata =
 [('authorization', f'Bearer {api_key}')]\n return metadata\n\n## Client side\n\n
-metadata
-=
+
+## metadata
+
 add_authorization_metadata(None, 'abc123xyz...')\n result =
 stub.ListNodes(Empty(),
 metadata=metadata)\n\n## 3. JWT Tokens - Flexible, Suitable for User
