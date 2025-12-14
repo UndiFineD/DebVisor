@@ -105,12 +105,7 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Include contact information for support
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-# Original error report preserved below:
-#
-
-{original_content}"""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
 
     try:
         # Try using gh copilot explain for error-related prompts
@@ -123,10 +118,9 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 
         if result.returncode == 0 and result.stdout.strip():
             explanation = f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-            return f"{explanation}\n\n# Original error report preserved below:\n\n"
+            return explanation
         else:
-            return ("# Copilot CLI available but returned no useful response for error report improvement.\n\n"
-                    "# Original error report preserved below:\n\n")
+            return "# Copilot CLI available but returned no useful response for error report improvement."
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
         return "# Copilot CLI timed out or failed.\n\n# Original error report preserved below:\n\n"

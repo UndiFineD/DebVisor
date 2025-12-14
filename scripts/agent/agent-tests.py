@@ -103,12 +103,7 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Include automated test execution in CI/CD pipelines
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-# Original test code preserved below:
-#
-
-{original_content}"""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
 
     try:
         # Try using gh copilot explain for test-related prompts
@@ -120,14 +115,12 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         )
 
         if result.returncode == 0 and result.stdout.strip():
-            return (f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n"
-                    "# Original test code preserved below:\n\n")
+            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
         else:
-            return ("# Copilot CLI available but returned no useful response for test "
-                    "improvement.\n\n# Original test code preserved below:\n\n")
+            return "# Copilot CLI available but returned no useful response for test improvement."
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed.\n\n# Original test code preserved below:\n\n"
+        return "# Copilot CLI timed out or failed."
 
 
 class TestsAgent:

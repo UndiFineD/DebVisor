@@ -103,12 +103,7 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Implement proper resource cleanup with context managers
 #
 # Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-# Original code preserved below:
-#
-
-{original_content}"""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation."""
 
     try:
         # Try using gh copilot explain for code-related prompts
@@ -121,13 +116,12 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 
         if result.returncode == 0 and result.stdout.strip():
             explanation = f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-            return f"{explanation}\n\n# Original code preserved below:\n\n"
+            return explanation
         else:
-            return ("# Copilot CLI available but returned no useful response for code improvement.\n\n"
-                    "# Original code preserved below:\n\n")
+            return "# Copilot CLI available but returned no useful response for code improvement."
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed.\n\n# Original code preserved below:\n\n"
+        return "# Copilot CLI timed out or failed."
 
 
 class CoderAgent:

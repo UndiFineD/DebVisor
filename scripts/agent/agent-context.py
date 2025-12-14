@@ -105,12 +105,7 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Use consistent formatting and terminology throughout
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-# Original content preserved below:
-#
-
-{original_content}"""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
 
     try:
         # Try using gh copilot explain for documentation-related prompts
@@ -123,13 +118,12 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 
         if result.returncode == 0 and result.stdout.strip():
             explanation = f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-            return f"{explanation}\n\n# Original content preserved below:\n\n"
+            return explanation
         else:
-            return ("# Copilot CLI available but returned no useful response for content improvement.\n\n"
-                    "# Original content preserved below:\n\n")
+            return "# Copilot CLI available but returned no useful response for content improvement."
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed.\n\n# Original content preserved below:\n\n"
+        return "# Copilot CLI timed out or failed."
 
 
 class ContextAgent:

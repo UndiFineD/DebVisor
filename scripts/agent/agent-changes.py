@@ -108,12 +108,7 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
 # 10. Keep entries chronological with newest first
 #
 # Note: Full AI content rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-# Original changelog preserved below:
-#
-
-{original_content}"""
+# The new GitHub Copilot CLI focuses on command-line suggestions, not content generation."""
 
     try:
         # Try using gh copilot explain for changelog-related prompts
@@ -125,14 +120,12 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         )
 
         if result.returncode == 0 and result.stdout.strip():
-            return (f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n"
-                    "# Original changelog preserved below:\n\n")
+            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
         else:
-            return ("# Copilot CLI available but returned no useful response for changelog improvement.\n\n"
-                    "# Original changelog preserved below:\n\n")
+            return "# Copilot CLI available but returned no useful response for changelog improvement."
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return "# Copilot CLI timed out or failed.\n\n# Original changelog preserved below:\n\n"
+        return "# Copilot CLI timed out or failed."
 
 
 class ChangesAgent:
