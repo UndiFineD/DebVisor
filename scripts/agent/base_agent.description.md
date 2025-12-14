@@ -1,14 +1,8 @@
-# Description
+# GitHub Copilot Explanation:
+The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
 
-`base_agent.py` provides the shared implementation for the agent scripts under `scripts/agent/`.
+For more information, visit:
+- Copilot CLI: https://github.com/github/copilot-cli
+- Deprecation announcement: https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension
 
-It handles:
-
-- Reading the target file (or initializing a default stub for new files)
-- Calling GitHub Copilot CLI (via `gh copilot …`) to generate an improved version
-- Writing the updated content back to disk and printing a unified diff
-
-Notes:
-
-- Markdown normalization is applied only to markdown files (`.md`, `.markdown`, `.plan.md`).
-- If `gh` / Copilot CLI is not available, agents keep the existing file content unchanged.
+No commands will be executed.

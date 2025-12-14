@@ -1,6 +1,8 @@
-# Improvements
+# GitHub Copilot Explanation:
+The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
 
-- Add an explicit `--dry-run` option (print diff only, do not write).
-- Prefer `gh copilot suggest` (or another generation command) for content generation instead of `explain`.
-- Add structured prompts per file type (description/changelog/errors/improvements) to produce consistent output.
-- Add a small "dedupe"/normalization step for agent-generated markdown sections to guarantee idempotent reruns.
+For more information, visit:
+- Copilot CLI: https://github.com/github/copilot-cli
+- Deprecation announcement: https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension
+
+No commands will be executed.
