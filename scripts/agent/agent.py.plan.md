@@ -11,6 +11,8 @@ this may or may not run async, depending on the task and previous condition has 
 
 the default --dir option is . but user may specify a different directory to process
 
+the default --loop=1
+
 We have an option to run as --agents-only
 where only the files in this scripts\agent directory are to be processed.
 
@@ -22,7 +24,7 @@ that limits the amount of files we will fix in a run limited to regardless of th
 you are going to Select which files and directories are relevant
 some directories and files may be excluded in `.codeignore`
 
-The fixing process is in a loop until all is marked as fixed, or 100 times the loop has been traversed or the loop is willfully exited
+The fixing process is in a loop until all is marked as fixed, or --loop=5 times the loop has been traversed or the loop is willfully exited
     - Read the classes Context, Changelog, Errors, Improvements
     - give a Stats update
     - Run the Tests on the Codefile

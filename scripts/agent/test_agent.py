@@ -8,9 +8,9 @@ import sys
 import os
 
 # Add the scripts/agent directory to the path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, os.path.dirname(__file__))
 
-from agent import Agent, load_codeignore
+from agent import Agent, load_codeignore  # noqa: E402
 
 
 class TestAgent:
@@ -26,6 +26,9 @@ class TestAgent:
         self.sample_file = self.repo_root / "sample.py"
         self.sample_file.write_text('print("Hello, World!")')
 
+        # Create repository marker
+        (self.repo_root / "README.md").write_text("# Test Repository")
+
     def teardown_method(self):
         """Clean up test fixtures."""
         shutil.rmtree(self.temp_dir)
@@ -34,7 +37,7 @@ class TestAgent:
         """Test agent initialization with default parameters."""
         agent = Agent(repo_root=str(self.repo_root))
         assert agent.repo_root == self.repo_root
-        assert agent.agents_only == False
+        assert not agent.agents_only
         assert agent.max_files is None
 
     def test_load_codeignore(self):
@@ -79,9 +82,9 @@ class TestAgent:
         normal_file = self.repo_root / "normal.py"
         normal_file.write_text("normal")
 
-        assert agent._is_ignored(cache_file) == True
-        assert agent._is_ignored(temp_file) == True
-        assert agent._is_ignored(normal_file) == False
+        assert agent._is_ignored(cache_file)
+        assert agent._is_ignored(temp_file)
+        assert not agent._is_ignored(normal_file)
 
     @patch('subprocess.run')
     def test_run_stats_update(self, mock_subprocess):
@@ -111,7 +114,7 @@ class TestAgent:
         agent = Agent(repo_root=str(self.repo_root))
 
         # Create a test file
-        test_file = self.repo_root / "sample.tests.py"
+        test_file = self.repo_root / "test_sample.py"
         test_file.write_text("def test_sample(): pass")
 
         agent.run_tests(self.sample_file)

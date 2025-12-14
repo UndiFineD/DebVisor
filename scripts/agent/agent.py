@@ -38,7 +38,11 @@ import sys
 from pathlib import Path
 from typing import List, Set
 import argparse
-import time
+import fnmatch
+
+# Import markdown fixing functionality
+sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
+from fix_markdown_lint import fix_markdown_content  # noqa: E402
 
 
 def load_codeignore(root: Path) -> Set[str]:
@@ -58,11 +62,24 @@ class Agent:
 
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
-    def __init__(self, repo_root: str = '.', agents_only: bool = False, max_files: int = None):
-        self.repo_root = Path(repo_root)
+    def __init__(self, repo_root: str = '.', agents_only: bool = False, max_files: int = None, loop: int = 1):
+        self.repo_root = self._find_repo_root(Path(repo_root))
         self.agents_only = agents_only
         self.max_files = max_files
+        self.loop = loop
         self.ignored_patterns = load_codeignore(self.repo_root)
+
+    def _find_repo_root(self, start_path: Path) -> Path:
+        """Find the repository root by looking for .git directory or other markers."""
+        current = start_path.resolve()
+
+        # Walk up the directory tree looking for repository markers
+        for path in [current] + list(current.parents):
+            if (path / '.git').exists() or (path / 'README.md').exists() or (path / 'package.json').exists():
+                return path
+
+        # If no markers found, return the original path
+        return start_path
 
     def find_code_files(self) -> List[Path]:
         """Recursively find all supported code files."""
@@ -84,7 +101,11 @@ class Agent:
 
     def _is_ignored(self, path: Path) -> bool:
         """Check if path should be ignored."""
-        return any(part in self.ignored_patterns for part in path.parts)
+        path_str = str(path)
+        return any(fnmatch.fnmatch(path_str, pattern) or
+                   fnmatch.fnmatch(path.name, pattern) or
+                   any(fnmatch.fnmatch(part, pattern) for part in path.parts)
+                   for pattern in self.ignored_patterns)
 
     def run_stats_update(self, files: List[Path]):
         """Run stats update."""
@@ -94,7 +115,9 @@ class Agent:
 
     def run_tests(self, code_file: Path):
         """Run tests for the code file."""
-        tests_file = code_file.with_suffix('.tests.py')
+        # Look for test_{filename}.py (pytest convention)
+        test_name = f"test_{code_file.stem}.py"
+        tests_file = code_file.parent / test_name
         if tests_file.exists():
             print(f"[Agent] Running tests for {code_file.name}...")
             cmd = [sys.executable, '-m', 'pytest', str(tests_file), '-v']
@@ -120,7 +143,8 @@ class Agent:
 
         # Create errors file if it doesn't exist
         if not errors_file.exists():
-            errors_file.write_text(f"# Errors\n\nNo errors reported for {code_file.name}.\n", encoding='utf-8')
+            content = f"# Errors\n\nNo errors reported for {code_file.name}.\n"
+            errors_file.write_text(fix_markdown_content(content), encoding='utf-8')
             print(f"[Agent] Created {errors_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -134,7 +158,11 @@ class Agent:
 
         # Create improvements file if it doesn't exist
         if not improvements_file.exists():
-            improvements_file.write_text(f"# Improvements\n\nNo improvements suggested for {code_file.name}.\n", encoding='utf-8')
+            content = f"# Improvements\n\nNo improvements suggested for {code_file.name}.\n"
+            improvements_file.write_text(
+                fix_markdown_content(content),
+                encoding='utf-8'
+            )
             print(f"[Agent] Created {improvements_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -163,13 +191,14 @@ class Agent:
 
         changes_file = dir_path / f"{base}.changes.md"
         context_file = dir_path / f"{base}.description.md"
-        tests_file = dir_path / f"{base}.tests.py"
+        tests_file = dir_path / f"test_{base}.py"
 
         changes_made = False
 
         # Create changelog file if it doesn't exist
         if not changes_file.exists():
-            changes_file.write_text(f"# Changelog\n\n- Initial version of {code_file.name}\n", encoding='utf-8')
+            content = f"# Changelog\n\n- Initial version of {code_file.name}\n"
+            changes_file.write_text(fix_markdown_content(content), encoding='utf-8')
             print(f"[Agent] Created {changes_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -183,7 +212,8 @@ class Agent:
 
         # Create context file if it doesn't exist
         if not context_file.exists():
-            context_file.write_text(f"# Description\n\n{code_file.name} - Description to be added.\n", encoding='utf-8')
+            content = f"# Description\n\n{code_file.name} - Description to be added.\n"
+            context_file.write_text(fix_markdown_content(content), encoding='utf-8')
             print(f"[Agent] Created {context_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -197,7 +227,7 @@ class Agent:
 
         # Create tests file if it doesn't exist
         if not tests_file.exists():
-            tests_file.write_text(f"""# Tests for {code_file.name}
+            content = f"""# Tests for {code_file.name}
 import pytest
 
 def test_placeholder():
@@ -205,7 +235,8 @@ def test_placeholder():
     assert True
 
 # Add more tests here
-""", encoding='utf-8')
+"""
+            tests_file.write_text(fix_markdown_content(content), encoding='utf-8')
             print(f"[Agent] Created {tests_file.relative_to(self.repo_root)}")
             changes_made = True
 
@@ -223,7 +254,7 @@ def test_placeholder():
         """Process a single code file through the improvement loop."""
         print(f"[Agent] Processing {code_file.relative_to(self.repo_root)}...")
 
-        max_iterations = 100
+        max_iterations = self.loop if self.loop > 0 else 100
         iteration = 0
         all_fixed = False
 
@@ -286,8 +317,15 @@ def test_placeholder():
             subprocess.run(['git', 'add', '-A'], cwd=self.repo_root, check=True)
 
             # git commit
-            commit_msg = f"Agent improvements for {code_file.name}"
-            result = subprocess.run(['git', 'commit', '-m', commit_msg], cwd=self.repo_root, capture_output=True, text=True)
+            commit_msg = (
+                f"Agent improvements for {code_file.name}"
+            )
+            result = subprocess.run(
+                ['git', 'commit', '-m', commit_msg],
+                cwd=self.repo_root,
+                capture_output=True,
+                text=True
+            )
 
             if result.returncode == 0:
                 print(f"[Agent] Committed changes for {code_file.name}")
@@ -313,20 +351,16 @@ def test_placeholder():
         for code_file in code_files:
             self.process_file(code_file)
 
-        # Final stats update
-        print("[Agent] Final stats:")
-        self.run_stats_update(code_files)
-
-
 def main():
     parser = argparse.ArgumentParser(description='Agent: Orchestrates code improvement agents')
     parser.add_argument('--dir', default='.', help='Directory to process (default: .)')
     parser.add_argument('--agents-only', action='store_true',
                         help='Only process files in the scripts/agent directory')
     parser.add_argument('--max-files', type=int, help='Maximum number of files to process')
+    parser.add_argument('--loop', type=int, default=1, help='Number of times to loop through all files (default: 1)')
     args = parser.parse_args()
 
-    agent = Agent(repo_root=args.dir, agents_only=args.agents_only, max_files=args.max_files)
+    agent = Agent(repo_root=args.dir, agents_only=args.agents_only, max_files=args.max_files, loop=args.loop)
     agent.run()
 
 

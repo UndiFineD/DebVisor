@@ -1,5 +1,5 @@
 # AI Test Improvement Suggestions
-# Description: Improve the test suite for action_audit
+# Description: Improve the test suite for test_action_audit
 #
 # Suggestions for improving test suites:
 # 1. Add unit tests for all public functions and methods
@@ -19,11 +19,11 @@
 # Original test code preserved below:
 #
 
-# Tests for action_audit.tests.tests.py
+# Tests for action_audit.py
 import pytest
 
 def test_placeholder():
     """Placeholder test - replace with actual tests."""
     assert True
 
-# Add more tests here
+## Add more tests here

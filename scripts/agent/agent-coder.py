@@ -56,7 +56,8 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         # Check if gh command is available
         subprocess.run(['gh', '--version'], capture_output=True, check=True)
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return f"# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n# Original code preserved below:\n\n"
+        return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
+                "# Original code preserved below:\n\n")
 
     # The new Copilot CLI is for command suggestions, not code improvement
     # For now, provide basic improvement suggestions
@@ -98,12 +99,14 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         )
 
         if result.returncode == 0 and result.stdout.strip():
-            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n# Original code preserved below:\n\n"
+            explanation = f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
+            return f"{explanation}\n\n# Original code preserved below:\n\n"
         else:
-            return f"# Copilot CLI available but returned no useful response for code improvement.\n\n# Original code preserved below:\n\n"
+            return ("# Copilot CLI available but returned no useful response for code improvement.\n\n"
+                    "# Original code preserved below:\n\n")
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return f"# Copilot CLI timed out or failed.\n\n# Original code preserved below:\n\n"
+        return "# Copilot CLI timed out or failed.\n\n# Original code preserved below:\n\n"
 
 
 class CoderAgent:

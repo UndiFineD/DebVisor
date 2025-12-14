@@ -12,7 +12,7 @@
 """
 Tests Agent: Improves and updates code file test suites.
 
-Reads a tests file (Codefile.tests.py), uses Copilot to enhance the tests,
+Reads a tests file (test_Codefile.py), uses Copilot to enhance the tests,
 and updates the tests file with improvements.
 
 ## Description
@@ -56,7 +56,8 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         # Check if gh command is available
         subprocess.run(['gh', '--version'], capture_output=True, check=True)
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return f"# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n# Original test code preserved below:\n\n"
+        return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from "
+                "https://cli.github.com/\n\n# Original test code preserved below:\n\n")
 
     # The new Copilot CLI is for command suggestions, not content improvement
     # For now, provide basic improvement suggestions for tests
@@ -98,12 +99,14 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         )
 
         if result.returncode == 0 and result.stdout.strip():
-            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n# Original test code preserved below:\n\n"
+            return (f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n"
+                    "# Original test code preserved below:\n\n")
         else:
-            return f"# Copilot CLI available but returned no useful response for test improvement.\n\n# Original test code preserved below:\n\n"
+            return ("# Copilot CLI available but returned no useful response for test "
+                    "improvement.\n\n# Original test code preserved below:\n\n")
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return f"# Copilot CLI timed out or failed.\n\n# Original test code preserved below:\n\n"
+        return "# Copilot CLI timed out or failed.\n\n# Original test code preserved below:\n\n"
 
 
 class TestsAgent:
@@ -151,7 +154,7 @@ class TestsAgent:
 
 def main():
     parser = argparse.ArgumentParser(description='Tests Agent: Updates code file test suites')
-    parser.add_argument('--context', required=True, help='Path to the tests file (e.g., file.tests.py)')
+    parser.add_argument('--context', required=True, help='Path to the tests file (e.g., test_file.py)')
     parser.add_argument('--prompt', required=True, help='Prompt for improving the test suite')
     args = parser.parse_args()
 
@@ -169,4 +172,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

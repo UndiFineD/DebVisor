@@ -63,7 +63,7 @@ class StatsAgent:
                 files_with_errors += 1
             if (dir_path / f"{base}.improvements.md").exists():
                 files_with_improvements += 1
-            if (dir_path / f"{base}.tests.py").exists():
+            if (dir_path / f"test_{base}.py").exists():
                 files_with_tests += 1
 
         self.stats = {

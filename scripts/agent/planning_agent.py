@@ -54,6 +54,8 @@ from typing import List, Dict, Any, Set
 from datetime import datetime
 import argparse
 
+from fix_markdown_lint import fix_markdown_content  # noqa: E402
+
 
 def runSubagent(description: str, prompt: str) -> str:
     """
@@ -606,7 +608,7 @@ class PlanningAgent:
                 with_issues += 1
                 plan_report = self.generate_plan_report(file_path, validation)
                 plan_path = file_path.with_suffix(file_path.suffix + '.plan.md')
-                plan_path.write_text(plan_report, encoding='utf-8')
+                plan_path.write_text(fix_markdown_content(plan_report), encoding='utf-8')
                 issues_count = len(validation['issues'])
                 relative_path = plan_path.relative_to(self.repo_root)
                 print(f"  -> {issues_count} issues found, wrote to {relative_path}")

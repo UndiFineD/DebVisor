@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import List, Dict, Any, Set
 import argparse
 
+from fix_markdown_lint import fix_markdown_content  # noqa: E402
+
 
 def load_codeignore(root: Path) -> Set[str]:
     """Load ignore patterns from .codeignore file."""
@@ -309,7 +311,7 @@ class CriticAgent:
                             # Append new section
                             updated_content = existing_content + code_issues_section
 
-                        plan_md_path.write_text(updated_content, encoding='utf-8')
+                        plan_md_path.write_text(fix_markdown_content(updated_content), encoding='utf-8')
                         print(f"  -> {len(issues)} issues found, appended to "
                               f"{plan_md_path.relative_to(self.repo_root)}")
                     except Exception as e:
@@ -329,7 +331,7 @@ class CriticAgent:
                         "",
                     ]
                     new_content.append(code_issues_section)
-                    plan_md_path.write_text('\n'.join(new_content), encoding='utf-8')
+                    plan_md_path.write_text(fix_markdown_content('\n'.join(new_content)), encoding='utf-8')
                     print(f"  -> {len(issues)} issues found, created {plan_md_path.relative_to(self.repo_root)}")
 
                 wrote_markdown = True

@@ -36,6 +36,11 @@ import subprocess
 from pathlib import Path
 import argparse
 import difflib
+import sys
+
+# Import markdown fixing functionality
+sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
+from fix_markdown_lint import fix_markdown_content  # noqa: E402
 
 
 def runSubagent(description: str, prompt: str, original_content: str = "") -> str:
@@ -56,7 +61,8 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         # Check if gh command is available
         subprocess.run(['gh', '--version'], capture_output=True, check=True)
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return f"# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n# Original suggestions preserved below:\n\n"
+        return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from https://cli.github.com/\n\n"
+                "# Original suggestions preserved below:\n\n")
 
     # The new Copilot CLI is for command suggestions, not content improvement
     # For now, provide basic improvement suggestions
@@ -98,12 +104,14 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
         )
 
         if result.returncode == 0 and result.stdout.strip():
-            return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n# Original suggestions preserved below:\n\n"
+            return (f"# GitHub Copilot Explanation:\n{result.stdout.strip()}\n\n"
+                    "# Original suggestions preserved below:\n\n")
         else:
-            return f"# Copilot CLI available but returned no useful response for improvement suggestions.\n\n# Original suggestions preserved below:\n\n"
+            return ("# Copilot CLI available but returned no useful response for improvement "
+                    "suggestions.\n\n# Original suggestions preserved below:\n\n")
 
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-        return f"# Copilot CLI timed out or failed.\n\n# Original suggestions preserved below:\n\n"
+        return "# Copilot CLI timed out or failed.\n\n# Original suggestions preserved below:\n\n"
 
 
 class ImprovementsAgent:
@@ -137,7 +145,7 @@ class ImprovementsAgent:
 
     def update_improvements_file(self):
         """Write the improved improvements back to the file."""
-        self.improvements_file.write_text(self.current_improvements, encoding='utf-8')
+        self.improvements_file.write_text(fix_markdown_content(self.current_improvements), encoding='utf-8')
 
     def get_diff(self) -> str:
         """Get the diff between previous and current improvements."""
@@ -170,4 +178,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

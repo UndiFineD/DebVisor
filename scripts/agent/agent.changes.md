@@ -1,7 +1,9 @@
 # Changelog
 
 ## [1.0.0] - 2025-12-14
+
 ### Added
+
 - Initial implementation of the Agent orchestrator
 - Support for multiple specialized sub-agents
 - Iterative improvement loop with change detection
@@ -10,6 +12,7 @@
 - Comprehensive progress reporting
 
 ### Features
+
 - Recursive code file discovery
 - Automatic creation of supporting documentation files
 - Error handling and recovery
@@ -17,7 +20,9 @@
 - Command-line interface with multiple options
 
 ## [0.1.0] - 2025-12-13
-### Added
+
+### Initial
+
 - Basic agent framework
 - Sub-agent coordination system
 - File processing pipeline
