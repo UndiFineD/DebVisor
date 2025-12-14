@@ -293,8 +293,8 @@ class Agent:
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
 
-        # Create tests file if it doesn't exist
-        if not tests_file.exists():
+        # Create tests file if it doesn't exist and the code file is not already a test file
+        if not tests_file.exists() and not base.startswith('test_'):
             content = f"""# Tests for {code_file.name}
 import pytest
 
@@ -302,16 +302,24 @@ def test_placeholder():
     \"\"\"Placeholder test - replace with actual tests.\"\"\"
     assert True
 
-## Add more tests here
+# Add more tests here
 """
             tests_file.write_text(fix_markdown_content(content), encoding='utf-8')
             print(f"[Agent] Created {tests_file.relative_to(self.repo_root)}")
             changes_made = True
 
-        # Update tests
-        prompt = f"Update and expand the test suite for {code_file.name}"
+        # Update tests - if this is a test file, update it directly; otherwise update the associated test file
+        if base.startswith('test_'):
+            # This is already a test file, update it directly
+            test_file_to_update = code_file
+            prompt = f"Update and expand the test suite for {base.replace('test_', '')}"
+        else:
+            # This is a code file, update its associated test file
+            test_file_to_update = tests_file
+            prompt = f"Update and expand the test suite for {code_file.name}"
+
         cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-tests.py'),
-               '--context', str(tests_file), '--prompt', prompt]
+               '--context', str(test_file_to_update), '--prompt', prompt]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
