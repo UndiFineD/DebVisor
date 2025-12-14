@@ -1,14 +1,34 @@
-#!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# AI Code Improvement Suggestions
+## Description: Improve the code for base_agent.py
+#
+## Suggestions:
+## 1. Add comprehensive docstrings to all functions
+## 2. Implement proper error handling with try/except blocks
+## 3. Add type hints for better code clarity
+## 4. Break down complex functions into smaller, focused functions
+## 5. Add input validation and sanitization
+## 6. Implement logging for debugging and monitoring
+## 7. Add unit tests for all functions
+## 8. Follow PEP 8 style guidelines
+## 9. Add configuration management for customizable behavior
+## 10. Implement proper resource cleanup with context managers
+#
+## Note: Full AI code rewriting requires additional AI service integration.
+## The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
+#
+## Original code preserved below:
+#
+## !/usr/bin/env python3
+## Copyright (c) 2025 DebVisor contributors
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##     http://www.apache.org/licenses/LICENSE-2.0
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
 """
 Base Agent: Common functionality for all AI-powered agents.
 
@@ -21,10 +41,9 @@ import argparse
 import difflib
 import sys
 
-# Import markdown fixing functionality
+## Import markdown fixing functionality
 sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
 from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
-
 
 class BaseAgent:
     """Base class for all AI-powered agents."""
@@ -116,7 +135,6 @@ class BaseAgent:
             tofile='current'
         )
         return ''.join(diff)
-
 
 def create_main_function(agent_class, description: str, context_help: str):
     """Create a main function for an agent class."""
