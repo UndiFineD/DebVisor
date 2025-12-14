@@ -85,10 +85,6 @@ def runSubagent(description: str, prompt: str, original_content: str = "") -> st
     # The new Copilot CLI is for command suggestions, not content improvement
     # For now, provide basic improvement suggestions for error reports
     if "improve" in prompt.lower() or "error" in prompt.lower() or "report" in prompt.lower():
-        # Check if content already has AI suggestions
-        if original_content.strip().startswith("# AI Error Report Improvement Suggestions"):
-            return original_content
-
         return f"""# AI Error Report Improvement Suggestions
 # Description: {description}
 #

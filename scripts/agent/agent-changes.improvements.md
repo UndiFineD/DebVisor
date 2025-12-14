@@ -15,10 +15,3 @@
 #
 ## Note: Full AI content rewriting requires additional AI service integration.
 ## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-## Original suggestions preserved below:
-#
-
-## Improvements
-
-No improvements suggested for agent-changes.py.
