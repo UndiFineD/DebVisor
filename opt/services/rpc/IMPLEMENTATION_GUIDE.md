@@ -413,7 +413,7 @@ Configuration Example\n\n {\n "host": "127.0.0.1",\n "port": 7443,\n
 "auto_renew_certificates": true,\n "cert_renewal_script":
 "/usr/local/sbin/generate-rpc-certificates.sh",\n "jwt_public_key_file":
 "/etc/debvisor/rpc/jwt-public.pem",\n "jwt_issuer":
-"[https://auth.debvisor.local",]([https://auth.debvisor.local"]([https://auth.debvisor.local]([https://auth.debvisor.loca]([https://auth.debvisor.loc]([https://auth.debvisor.lo]([https://auth.debvisor.l]([https://auth.debvisor.]([https://auth.debvisor]([https://auth.debviso]([https://auth.debvis]([https://auth.debvi]([https://auth.debv]([https://auth.deb]([https://auth.de]([https://auth.d]([https://auth.]([https://auth]([https://aut]([https://au]([https://a](https://a)u)t)h).)d)e)b)v)i)s)o)r).)l)o)c)a)l)"),)\n
+"[[https://auth.debvisor.local",]([https://auth.debvisor.local"]([https://auth.debvisor.local]([https://auth.debvisor.loca]([https://auth.debvisor.loc]([https://auth.debvisor.lo]([https://auth.debvisor.l]([https://auth.debvisor.]([https://auth.debvisor]([https://auth.debviso]([https://auth.debvis]([https://auth.debvi]([https://auth.debv]([https://auth.deb]([https://auth.de]([https://auth.d]([https://auth.]([https://auth]([https://aut]([https://au]([https://a](https://](https://auth.debvisor.local",]([https://auth.debvisor.local"]([https://auth.debvisor.local]([https://auth.debvisor.loca]([https://auth.debvisor.loc]([https://auth.debvisor.lo]([https://auth.debvisor.l]([https://auth.debvisor.]([https://auth.debvisor]([https://auth.debviso]([https://auth.debvis]([https://auth.debvi]([https://auth.debv]([https://auth.deb]([https://auth.de]([https://auth.d]([https://auth.]([https://auth]([https://aut]([https://au]([https://a](https://)a)u)t)h).)d)e)b)v)i)s)o)r).)l)o)c)a)l)"),)\n
 "jwt_audience": "rpc.debvisor.local",\n "audit_log_file":
 "/var/log/debvisor/rpc-audit.log",\n
 "global_rps": 1000,\n "per_principal_rps": 100,\n "request_size_limit":
@@ -422,7 +422,7 @@ Configuration Example\n\n {\n "host": "127.0.0.1",\n "port": 7443,\n
 "rbac_storage":
 "etcd",\n
 "etcd_endpoints":
-["[http://127.0.0.1:2379"]]([http://127.0.0.1:2379"]([http://127.0.0.1:2379]([http://127.0.0.1:237]([http://127.0.0.1:23]([http://127.0.0.1:2]([http://127.0.0.1:]([http://127.0.0.1]([http://127.0.0.]([http://127.0.0]([http://127.0.]([http://127.0]([http://127.]([http://127]([http://12]([http://1](http://1)2)7).)0).)0).)1):)2)3)7)9)")])\n
+["[[http://127.0.0.1:2379"]]([http://127.0.0.1:2379"]([http://127.0.0.1:2379]([http://127.0.0.1:237]([http://127.0.0.1:23]([http://127.0.0.1:2]([http://127.0.0.1:]([http://127.0.0.1]([http://127.0.0.]([http://127.0.0]([http://127.0.]([http://127.0]([http://127.]([http://127]([http://12]([http://1](http://](http://127.0.0.1:2379"]]([http://127.0.0.1:2379"]([http://127.0.0.1:2379]([http://127.0.0.1:237]([http://127.0.0.1:23]([http://127.0.0.1:2]([http://127.0.0.1:]([http://127.0.0.1]([http://127.0.0.]([http://127.0.0]([http://127.0.]([http://127.0]([http://127.]([http://127]([http://12]([http://1](http://)1)2)7).)0).)0).)1):)2)3)7)9)")])\n
 }\n\n## Client Usage Examples\n\n## Example: CLI client\n\n import grpc\n import
 debvisor_pb2\n
 import debvisor_pb2_grpc\n\n## Load client credentials\n\n with

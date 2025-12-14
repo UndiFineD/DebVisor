@@ -47,7 +47,6 @@ Fixes common markdown issues like:
 """
 
 import re
-import os
 from pathlib import Path
 import argparse
 import json
@@ -144,8 +143,13 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
         content = re.sub(r'^##\s*\(\d+\)\s*$', '', content, flags=re.MULTILINE)
 
         # Ensure the main section is a single H1.
-        content = re.sub(rf'^##\s+{re.escape(section_title)}\s*$',
-            f'# {section_title}', content, count=1, flags=re.MULTILINE)
+        content = re.sub(
+            rf'^##\s+{re.escape(section_title)}\s*$',
+            f'# {section_title}',
+            content,
+            count=1,
+            flags=re.MULTILINE,
+        )
 
         # Trim leading blank lines for clean top-of-file.
         content = content.lstrip('\n')
@@ -417,7 +421,15 @@ def fix_markdown_file(file_path, max_line_length: int | None = None):
     content = '\n'.join(fixed_lines)
 
     # Fix MD034: Wrap bare URLs in markdown links
-    content = re.sub(r'(?<!\[)https?://([^\s\)]+)(?!\))', r'[\g<0>](\g<0>)', content)
+    # First, convert angle-bracketed bare URLs like `<https://...>` to
+    # proper markdown links so we don't leave surrounding `<`/`>` in place.
+    content = re.sub(r'<(https?://[^\s>]+)>', r'[\1](\1)', content)
+
+    # Then wrap remaining bare URLs (not already part of a markdown link)
+    # with `[url](url)` so they satisfy MD034. Avoid matching when the URL
+    # is already immediately preceded by ']' or '(' which indicates it's
+    # already a link or part of link syntax.
+    content = re.sub(r'(?<![\]\(])https?://([^\s\)]+)(?!\))', r'[\g<0>](\g<0>)', content)
 
     # Fix MD047: Ensure file ends with exactly one newline
     content = content.rstrip() + '\n'
@@ -593,7 +605,7 @@ def main():
             unchanged_files += 1
 
     print("-" * 60)
-    print(f"\nSummary:")
+    print("\nSummary:")
     print(f"  Total files:   {total_files}")
     print(f"  Fixed:         {fixed_files}")
     print(f"  Failed:        {failed_files}")
