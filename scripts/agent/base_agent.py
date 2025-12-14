@@ -62,9 +62,8 @@ class BaseAgent:
         """
         Run a subagent using GitHub Copilot CLI.
 
-        Note: The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
-        For more information, visit:
-        - Copilot CLI: https://github.com/github/copilot-cli
+        This uses the standalone `copilot` CLI (https://github.com/github/copilot-cli) in
+        programmatic mode.
 
         Args:
             description: Description of the task
@@ -74,36 +73,82 @@ class BaseAgent:
         Returns:
             AI response as a string, or fallback suggestions
         """
-        try:
-            # Check if gh command is available
-            subprocess.run(['gh', '--version'], capture_output=True, check=True)
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            # In environments without GitHub CLI/Copilot, do not overwrite files with
-            # synthetic placeholder suggestions. Keep existing content unchanged.
+        def _command_available(command: str) -> bool:
+            try:
+                subprocess.run([command, '--version'], capture_output=True, text=True, timeout=5, check=True)
+                return True
+            except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
+                return False
+
+        # Prefer the standalone Copilot CLI.
+        if _command_available('copilot'):
+            max_context_chars = 12_000
+            trimmed_original = (original_content or "")[:max_context_chars]
+            full_prompt = (
+                f"Task: {description}\n\n"
+                f"Prompt:\n{prompt}\n\n"
+                "Context (existing file content):\n"
+                f"{trimmed_original}"
+            ).strip()
+
+            try:
+                # Non-interactive mode requires --allow-all-tools, but we explicitly deny
+                # the dangerous ones for safety in automated runs.
+                result = subprocess.run(
+                    [
+                        'copilot',
+                        '--prompt',
+                        full_prompt,
+                        '--allow-all-tools',
+                        '--deny-tool',
+                        'write',
+                        '--deny-tool',
+                        'shell',
+                        '--silent',
+                        '--stream',
+                        'off',
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=180,
+                    cwd=str(Path(__file__).resolve().parents[2]),
+                )
+
+                stdout = (result.stdout or "").strip()
+                if result.returncode == 0 and stdout:
+                    return stdout
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                pass
+
             return original_content or self._get_fallback_response()
 
-        # Try using gh copilot explain
-        try:
-            result = subprocess.run(
-                ['gh', 'copilot', 'explain', prompt[:200]],  # Limit prompt length
-                capture_output=True,
-                text=True,
-                timeout=30
-            )
+        # Legacy fallback: support older setups that only have `gh` available.
+        if _command_available('gh'):
+            try:
+                result = subprocess.run(
+                    ['gh', 'copilot', 'explain', prompt[:200]],
+                    capture_output=True,
+                    text=True,
+                    timeout=30
+                )
 
-            if result.returncode == 0 and result.stdout.strip():
-                return f"# GitHub Copilot Explanation:\n{result.stdout.strip()}"
-            else:
-                return self._get_fallback_response()
+                if result.returncode == 0 and result.stdout.strip():
+                    return f"# GitHub Copilot (gh) Explanation:\n{result.stdout.strip()}"
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                pass
 
-        except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-            return self._get_fallback_response()
+        # In environments without Copilot CLI, do not overwrite files with placeholders.
+        return original_content or self._get_fallback_response()
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot CLI is unavailable. Override in subclasses."""
-        return ("# AI Improvement Unavailable\n"
-                "# GitHub Copilot CLI not found or failed.\n"
-                "# Install GitHub CLI and Copilot extension: https://github.com/github/copilot-cli")
+        return (
+            "# AI Improvement Unavailable\n"
+            "# GitHub Copilot CLI ('copilot') not found or failed.\n"
+            "# Install Copilot CLI: https://github.com/github/copilot-cli\n"
+            "# Windows: winget install GitHub.Copilot\n"
+            "# npm: npm install -g @github/copilot\n"
+        )
 
     def update_file(self):
         """Write the improved content back to the file."""
