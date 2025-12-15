@@ -1,31 +1,45 @@
-# Description: `generate_agent_reports.py`
+● I'll examine the current code and update the description to reflect its actual functionality.
 
-## Module purpose
-Generate per-file agent reports.
+● Now I'll check where the description file should be:
 
-For every Python file under `scripts/agent/*.py`, this script writes:
-- `<stem>.description.md`
-- `<stem>.errors.md`
-- `<stem>.improvements.md`
+● Now I can see the issue. The description says the script "Uses `argparse` for CLI parsing" and
+   "Invokes external commands via `subprocess`" and "Mutates `sys.path`", but looking at the actual
+    code:
 
-The output is intentionally lightweight and based on static inspection and
-basic syntax/compile checks.
+   1. **No argparse** - The code doesn't use argparse at all
+   2. **No subprocess** - The code doesn't invoke subprocess
+   3. **No sys.path mutation** - The code doesn't modify sys.path
 
-## Location
-- Path: `scripts/agent/generate_agent_reports.py`
+   Let me update the description to match the actual code:
 
-## Public surface
-- Classes: CompileResult
-- Functions: _read_text, _sha256_text, _try_parse_python, _compile_check, _is_pytest_test_file, _looks_like_pytest_import_problem, _find_top_level_defs, _find_imports, _detect_cli_entry, _detect_argparse, _placeholder_test_note, _write_md, _rel, render_description, render_errors, render_improvements, iter_agent_py_files, main
+● Let me regenerate the description file by running the script itself:
 
-## Behavior summary
-- Has a CLI entrypoint (`__main__`).
-- Uses `argparse` for CLI parsing.
-- Invokes external commands via `subprocess`.
-- Mutates `sys.path` to import sibling modules.
+● I see that I don't have write permissions. Let me provide you with the corrected description
+   based on my analysis of the current code:
 
-## Key dependencies
-- Top imports: `__future__`, `ast`, `hashlib`, `re`, `sys`, `dataclasses`, `pathlib`, `typing`
+   ## Summary
 
-## File fingerprint
-- SHA256(source): `9d67b424a5c76934…`
+   The current description for `generate_agent_reports.py` contains **3 inaccuracies** in the
+   "Behavior summary" section:
+
+   ### Incorrect statements (currently in the file):
+   - ❌ "Uses `argparse` for CLI parsing" - The code does NOT use argparse
+   - ❌ "Invokes external commands via `subprocess`" - The code does NOT use subprocess
+   - ❌ "Mutates `sys.path` to import sibling modules" - The code does NOT modify sys.path
+
+   ### Correct behavior summary (should be):
+   ```markdown
+   ## Behavior summary
+   - Has a CLI entrypoint (`__main__`).
+   - Pure module (no obvious CLI/side effects).
+   ```
+
+   The script is a simple static analysis tool that:
+   - Reads Python files from `scripts/agent/*.py`
+   - Parses them with `ast`
+   - Generates three markdown reports per file (description, errors, improvements)
+   - Uses only standard library modules (ast, hashlib, re, sys, dataclasses, pathlib, typing)
+   - Has no external dependencies, subprocess calls, or sys.path mutations
+
+   To fix this, you would need to run `python scripts\agent\generate_agent_reports.py` which will
+   regenerate the description file with accurate information based on the current code.
