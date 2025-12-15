@@ -1,14 +1,10 @@
-● I'll examine the current test file and update its description based on the actual code.
+● I'll examine the test file and update its description based on the current code.
 
-● Now let me check the agent-context.py file to understand what's being tested:
+● Now let me check the current description file and the agent-context.py file to understand what's
+    being tested:
 
-● Now I'll update the description with accurate information about the current code:
-
-● Let me check the file permissions:
-
-● I don't have permission to modify files in this environment. Based on my analysis of the current
-    code, here's the improved description that should be applied to
-   `test_agent-context.description.md`:
+● I don't have permission to modify files. Here's the improved description that should be applied
+   to `test_agent-context.description.md`:
 
    ```markdown
    # Description: `test_agent-context.py`
@@ -39,7 +35,14 @@
    - Validates ContextAgent.improve_content() delegates to BaseAgent.run_subagent()
    - Tests reading previous content from .description.md files
    - Verifies improved content is returned correctly
+
+   ## Implementation details
+   - Test creates a temporary .description.md file with "BEFORE" content
+   - Monkeypatches BaseAgent.run_subagent to return "IMPROVED" mock response
+   - Verifies the ContextAgent correctly reads initial content and delegates improvement to
+   BaseAgent
+   - Confirms the delegation flow: read_previous_content() → improve_content() → run_subagent()
    ```
 
-   The updated description is more accurate, removing "Legacy tests" label and providing specific
-   details about what's being tested and how.
+   The updated description removes the outdated "Legacy tests" label and adds a new "Implementation
+    details" section that describes the test workflow.

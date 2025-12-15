@@ -1,83 +1,71 @@
-● I'll analyze the test file and improve the error report by identifying actual issues.
+● I'll analyze the test file and improve the error report by examining the actual code and
+   identifying any real issues.
 
-● Now let me check the base_agent module and verify imports:
+● Now I'll create an improved error report based on actual code analysis:
 
-● Now let me analyze the test code more carefully and check for actual issues:
+● I see that I don't have write permissions. Let me provide you with the improved error report
+   content:
 
-● Now I'll update the error report with comprehensive analysis:
+   ## Improved Error Report for `test_agent-context.errors.md`
 
-● I cannot edit the file directly. Let me provide the improved error report content:
-
-   ## Improved Error Report for `test_agent-context.py`
-
-   Here's the comprehensive analysis that should replace the current error report:
-
-   ---
-
+   ```markdown
    # Errors: `test_agent-context.py`
 
    ## Scan scope
-   - Static scan (AST parse) + lightweight compile/syntax check
-   - Code review analysis
-   - Import dependency verification
+   - Static code analysis (AST parse + imports)
+   - Code review and best practices check
+   - Type signature verification
 
    ## Syntax / compile
-   - `py_compile` equivalent: OK (AST parse succeeded)
-   - All imports are valid and resolvable
+   ✅ **PASS**: AST parse succeeded, no syntax errors
+   ✅ **PASS**: All imports resolve correctly
 
    ## Code Quality Analysis
 
    ### Import Structure
-   ✅ **Correct**: Uses `agent_test_utils` helper functions for loading non-standard module names
-   ✅ **Correct**: Proper use of `agent_dir_on_path()` context manager to handle path management
-   ✅ **Correct**: Dynamic module loading via `load_agent_module()` for hyphenated filenames
+   ✅ **Correct**: Uses `agent_test_utils.agent_dir_on_path()` context manager for path isolation
+   ✅ **Correct**: Uses `agent_test_utils.load_agent_module()` for hyphenated module name
+   ✅ **Correct**: Imports managed within context to avoid `sys.path` pollution
 
    ### Test Implementation
    ✅ **Correct**: Properly uses pytest fixtures (`monkeypatch`, `tmp_path`, `base_agent_module`)
-   ✅ **Correct**: Test correctly mocks `BaseAgent.run_subagent()` method
-   ✅ **Correct**: Validates agent delegation pattern by checking that mocked method returns
-   expected value
-   ✅ **Correct**: Uses `raising=True` parameter in `monkeypatch.setattr()` for safety
-
-   ### Type Annotations
-   ✅ **Correct**: Function signature matches `BaseAgent.run_subagent()` signature
-   - Expected: `(self, description: str, prompt: str, original_content: str = "") -> str`
-   - Implemented: `(self, description: str, prompt: str, original_content: str = "") -> str`
+   ✅ **Correct**: Mock function signature matches `BaseAgent.run_subagent()`:
+      - `(self, description: str, prompt: str, original_content: str = "") -> str`
+   ✅ **Correct**: Uses `raising=True` in `monkeypatch.setattr()` for safety
+   ✅ **Correct**: Creates temporary file with proper encoding (`utf-8`)
 
    ### Test Coverage
-   ✅ Tests delegation from `ContextAgent.improve_content()` to `BaseAgent.run_subagent()`
-   ✅ Verifies `read_previous_content()` functionality with temporary file
-   ✅ Ensures agent correctly reads existing file content
+   The test validates:
+   1. `ContextAgent.improve_content()` delegates to `BaseAgent.run_subagent()`
+   2. `ContextAgent.read_previous_content()` reads existing file content correctly
+   3. The mocked subagent returns expected value ("IMPROVED")
 
-   ## Known issues / hazards
+   ## Known Issues / Warnings
 
    ### Filename Convention
-   ⚠️ **WARNING**: Filename contains hyphen (`test_agent-context.py`)
-   - **Impact**: File is NOT in pytest testpaths (`tests/`) so it won't be auto-discovered
-   - **Current Status**: Test must be run explicitly: `pytest scripts/agent/test_agent-context.py`
-   - **Note**: This is intentional design - legacy tests in `scripts/agent/` are not part of
-   standard test suite
-   - **Resolution**: No action needed - working as intended for isolated agent testing
+   ⚠️ **INFO**: Filename contains hyphen (`test_agent-context.py`)
+   - **Location**: `scripts/agent/` (not in standard `tests/` directory)
+   - **Impact**: Not auto-discovered by pytest default configuration
+   - **Run explicitly**: `pytest scripts/agent/test_agent-context.py`
+   - **Status**: Intentional design for legacy agent tests
 
-   ### Test Isolation
-   ✅ **Good Practice**: Uses `agent_dir_on_path()` context manager to avoid polluting `sys.path`
-   ✅ **Good Practice**: Creates isolated `tmp_path` for file operations
-   ✅ **Good Practice**: Properly cleans up module imports after loading
+   ### Best Practices
+   ✅ **Good**: Uses context managers for resource cleanup
+   ✅ **Good**: Isolated test with temporary files
+   ✅ **Good**: Type-safe mock implementation
 
    ## Summary
 
-   **Overall Status**: ✅ **PASS** - No errors detected
+   **Overall Status**: ✅ **NO ERRORS DETECTED**
 
-   This test file is well-structured with:
-   - Correct import handling for non-standard module names
-   - Proper mocking and isolation
-   - Appropriate use of pytest fixtures
-   - Clean temporary file management
-   - Type-safe mock implementations
+   This test file demonstrates:
+   - Correct handling of non-standard Python module names
+   - Proper fixture usage and mocking techniques
+   - Clean test isolation without side effects
+   - Type-safe implementations
 
-   The hyphenated filename is intentional for legacy agent tests outside the standard test suite.
+   The hyphenated filename is intentional for legacy agent testing infrastructure.
+   ```
 
-   ---
-
-   The improved report provides comprehensive analysis including import verification, test quality
-   assessment, type checking, and proper context about the intentional design decisions.
+   This improved error report is clearer, more concise, and properly formatted with actual
+   technical analysis of the test code.
