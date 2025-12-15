@@ -28,11 +28,9 @@ def base_agent_module():
 def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path):
     with agent_dir_on_path():
         mod = load_agent_module("agent-coder.py")
-
     target = tmp_path / "x.py"
     agent = mod.CoderAgent(str(target))
     agent.previous_content = "ORIGINAL"
-
     out = agent.improve_content("Improve this code")
     assert "AI Code Improvement Suggestions" in out
     assert "ORIGINAL" in out
@@ -43,12 +41,17 @@ def test_coder_agent_non_keyword_delegates_to_base(
 ):
     with agent_dir_on_path():
         mod = load_agent_module("agent-coder.py")
-
-    def fake_run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
+    def fake_run_subagent(
+        self, description: str,
+        prompt: str,
+        original_content: str = "") -> str:
         return "IMPROVED"
-
-    monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
-
+    monkeypatch.setattr(
+        base_agent_module.BaseAgent,
+        "run_subagent",
+        fake_run_subagent,
+        raising=True
+        )
     target = tmp_path / "x.py"
     target.write_text("BEFORE", encoding="utf-8")
     agent = mod.CoderAgent(str(target))
