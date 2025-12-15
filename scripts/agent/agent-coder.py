@@ -9,6 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Coder Agent: Improves and updates code files.
 
@@ -70,15 +71,12 @@ class CoderAgent(BaseAgent):
         """Validate Python code using flake8 if available."""
         if self.file_path.suffix != '.py':
             return True
-
         if not shutil.which('flake8'):
             logging.warning("flake8 not found, skipping style validation")
             return True
-
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as tmp:
             tmp.write(content)
             tmp_path = tmp.name
-
         try:
             # Run flake8 on the temporary file
             # We ignore some common errors that might be acceptable in generated code
@@ -90,11 +88,9 @@ class CoderAgent(BaseAgent):
                 text=True,
                 timeout=30
             )
-
             if result.returncode != 0:
                 logging.warning(f"flake8 validation failed:\n{result.stdout}")
                 return False  # Soft validation failure
-
             return True
         finally:
             try:
@@ -105,7 +101,6 @@ class CoderAgent(BaseAgent):
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the code with specific coding suggestions."""
         description = f"Improve the code for {self.file_path.name}"
-
         # For code improvement, provide specific coding suggestions
         if "improve" in prompt.lower() or "code" in prompt.lower():
             fallback_suggestions = f"""# AI Code Improvement Suggestions
@@ -131,20 +126,16 @@ class CoderAgent(BaseAgent):
 {self.previous_content}"""
             self.current_content = fallback_suggestions
             return self.current_content
-
         # Call base implementation
         new_content = super().improve_content(prompt)
-
         # Validate syntax
         if not self._validate_syntax(new_content):
             logging.error("Generated code failed syntax validation. Reverting.")
             self.current_content = self.previous_content
             return self.previous_content
-
         # Validate style (flake8)
         if not self._validate_flake8(new_content):
             logging.warning("Generated code failed style validation (flake8). Proceeding anyway.")
-
         return new_content
 
 

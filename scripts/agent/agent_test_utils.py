@@ -41,17 +41,14 @@ def load_agent_module(filename: str, module_name: str | None = None) -> ModuleTy
     path = AGENT_DIR / filename
     if not path.exists():
         raise FileNotFoundError(path)
-
     if module_name is None:
         safe = re.sub(r"[^0-9a-zA-Z_]+", "_", path.stem)
         if not safe or safe[0].isdigit():
             safe = f"m_{safe}"
         module_name = f"_dv_legacy_{safe}"
-
     spec = importlib.util.spec_from_file_location(module_name, str(path))
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Unable to load spec for {path}")
-
     module = importlib.util.module_from_spec(spec)
     sys.modules[module_name] = module
     try:

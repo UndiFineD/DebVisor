@@ -59,7 +59,6 @@ class ContextAgent(BaseAgent):
 
 
 # Create main function using the helper
-
 main = create_main_function(
     ContextAgent,
     'Context Agent: Updates code file descriptions',

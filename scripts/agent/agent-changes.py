@@ -47,7 +47,6 @@ class ChangesAgent(BaseAgent):
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the changelogs with specific change tracking suggestions."""
         description = f"Improve the changelog for {self.file_path.stem.replace('.changes', '')}"
-
         # For changelog improvement, provide specific change tracking suggestions
         if any(keyword in prompt.lower() for keyword in ["improve", "change", "log"]):
             fallback_suggestions = f"""# AI Changelog Improvement Suggestions
@@ -73,7 +72,6 @@ class ChangesAgent(BaseAgent):
 {self.previous_content}"""
             self.current_content = fallback_suggestions
             return self.current_content
-
         # For other prompts, use the base implementation
         return super().improve_content(prompt)
 
