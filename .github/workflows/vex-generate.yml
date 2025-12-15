@@ -44,7 +44,7 @@ jobs:
         '
     - name: Download SBOM
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/download-artifact@f093f21ca4cfa7c75ccbbc2be54da76a0c7e1f05
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: ${{ inputs.sbom_artifact }}
     - name: Run Trivy vulnerability scan
@@ -86,7 +86,7 @@ jobs:
         \ VEX document will remain unsigned.\"\nfi\n"
     - name: Upload VEX artifact
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: vex-document-${{ inputs.version }}
         path: 'debvisor-*.vex.json

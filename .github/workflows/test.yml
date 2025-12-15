@@ -87,7 +87,7 @@ jobs:
         fail_ci_if_error: false
     - name: Archive coverage reports
       if: always() && matrix.python-version == '3.11'
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: htmlcov/
@@ -146,7 +146,7 @@ jobs:
         '
     - name: Upload mutation report
       if: always()
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: mutation-test-results
         path: mutation-results.xml
@@ -162,7 +162,7 @@ jobs:
       pull-requests: write
     steps:
     - name: Download coverage report
-      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: coverage-report-3.11
       continue-on-error: true

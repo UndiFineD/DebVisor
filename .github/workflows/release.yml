@@ -92,7 +92,7 @@ jobs:
         \    sbom-${{ steps.version.outputs.version }}.xml\nelse\n  echo \"SBOM or\
         \ its signature not found; skipping SBOM verify\"\nfi\n"
     - name: Upload artifacts
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: release-artifacts-${{ steps.version.outputs.version }}
         path: 'debvisor-*.tar.gz
@@ -176,7 +176,7 @@ jobs:
         exit-code: '0'
     - name: Upload Trivy SARIF
       if: always() && steps.platform.outputs.run_linux == 'true'
-      uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412
+      uses: github/codeql-action/upload-sarif@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
       with:
         sarif_file: trivy-results.sarif
         category: trivy-container-scan
@@ -196,7 +196,7 @@ jobs:
     steps:
     - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Download artifacts
-      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
     - name: Create GitHub Release
@@ -329,7 +329,7 @@ jobs:
         \ [ -s rekor_uuid.txt ]; then\n  echo \"Rekor UUID(s) captured:\"\n  cat rekor_uuid.txt\n\
         else\n  echo \"No Rekor UUID found in verification output\"\nfi\n"
     - name: Upload provenance logs
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: provenance-logs
         path: 'cosign_verify_output.txt
@@ -361,7 +361,7 @@ jobs:
     - name: Set up Cosign
       uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad
     - name: Download release artifacts
-      uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+      uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
         name: release-artifacts-${{ needs.build-artifacts.outputs.version }}
     - name: Attest SBOM to image (CycloneDX)
@@ -416,7 +416,7 @@ jobs:
         \  if [ -n \"$expected_spdx_sha\" ] && [ \"$expected_spdx_sha\" != \"$actual_spdx_sha\"\
         \ ]; then\n    echo \"SPDX SBOM hash mismatch\" >&2\n    exit 1\n  fi\nfi\n"
     - name: Upload SBOM attestation artifacts
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: sbom-attestation-${{ needs.build-artifacts.outputs.version }}
         path: 'sbom_attest_output.txt

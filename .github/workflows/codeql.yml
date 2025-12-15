@@ -32,7 +32,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@cf1bb45a277cb3c205638b2cd5c984db1c46a412
+      uses: github/codeql-action/init@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
       with:
         languages: ${{ matrix.language }}
     - name: Setup Python
@@ -48,9 +48,9 @@ jobs:
 
         '
     - name: Autobuild / Install
-      uses: github/codeql-action/autobuild@cf1bb45a277cb3c205638b2cd5c984db1c46a412
+      uses: github/codeql-action/autobuild@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@cf1bb45a277cb3c205638b2cd5c984db1c46a412
+      uses: github/codeql-action/analyze@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
       with:
         category: /language:${{ matrix.language }}
   summary:
