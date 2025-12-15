@@ -130,7 +130,8 @@ class Agent:
     def _is_ignored(self, path: Path) -> bool:
         """Check if path should be ignored."""
         path_str = str(path)
-        return any(fnmatch.fnmatch(path_str, pattern) or
+        return any(
+            fnmatch.fnmatch(path_str, pattern) or
             fnmatch.fnmatch(path.name, pattern) or
             any(fnmatch.fnmatch(part, pattern) for part in path.parts)
             for pattern in self.ignored_patterns)
@@ -138,7 +139,9 @@ class Agent:
     def run_stats_update(self, files: List[Path]):
         """Run stats update."""
         file_paths = [str(f) for f in files]
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-stats.py'),
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-stats.py'),
             '--files'] + file_paths
         subprocess.run(cmd, cwd=self.repo_root)
 
@@ -179,8 +182,12 @@ class Agent:
 
         # Update errors
         prompt = f"Analyze and improve the error report for {code_file.name}"
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-errors.py'),
-            '--context', str(errors_file), '--prompt', prompt]
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-errors.py'),
+            '--context', str(errors_file), 
+            '--prompt', prompt
+            ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
@@ -197,8 +204,12 @@ class Agent:
 
         # Update improvements
         prompt = f"Suggest and improve improvements for {code_file.name}"
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-improvements.py'),
-            '--context', str(improvements_file), '--prompt', prompt]
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-improvements.py'),
+            '--context', str(improvements_file), 
+            '--prompt', prompt
+            ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
@@ -207,7 +218,8 @@ class Agent:
 
     def update_code(self, code_file: Path) -> bool:
         """Update the code file."""
-        prompt = (f"Improve the code in {code_file.name} based on its context, "
+        prompt = (
+            f"Improve the code in {code_file.name} based on its context, "
             f"errors, and improvements")
         cmd = [
             sys.executable, 

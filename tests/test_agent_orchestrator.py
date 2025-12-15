@@ -141,5 +141,4 @@ def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch,
 
     with caplog.at_level(logging.WARNING):
         a.process_file(code_file)
-    
     assert "Git not available" in caplog.text

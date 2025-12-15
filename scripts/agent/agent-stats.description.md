@@ -1,38 +1,40 @@
-# Description: `agent-stats.py`
+● I'll analyze the current code of `agent-stats.py` and update its description to accurately
+   reflect its implementation.
 
-## Module purpose
-Stats Agent: Reports statistics on file updates and progress.
+● I don't have permission to edit files. Here's the updated description content based on the
+   current code:
 
-Tracks which files have updates needed and how many are done.
+   **Updated sections:**
 
-# Description
-This module provides a Stats Agent that monitors the progress of code improvements
-across files, reporting on pending updates and completed work.
+   **Module purpose:**
+   ```
+   Stats Agent: Reports statistics on file metadata and supporting artifacts.
 
-# Changelog
-- 1.0.0: Initial implementation
+   Analyzes multiple files to track which have associated `.description.md`, `.changes.md`,
+   `.errors.md`, `.improvements.md` files, and corresponding test files.
+   ```
 
-# Suggested Fixes
-- Improve statistics tracking
-- Add more detailed progress reports
+   **Description:**
+   ```
+   This module provides a Stats Agent that scans a list of files and generates statistics
+   on their associated metadata files. It checks for the presence of description files,
+   changelog files, error reports, improvement suggestions, and test files. The agent
+   supports both text and JSON output formats for easy integration with other tools.
+   ```
 
-# Improvements
-- Better integration with other agents
-- Enhanced reporting
+   **Behavior summary:**
+   ```
+   - Has a CLI entrypoint (`__main__`).
+   - Uses `argparse` for CLI parsing with `--files` (required) and `--format` (optional) arguments.
+   - Scans each file's parent directory for associated metadata files (`.description.md`,
+   `.changes.md`, `.errors.md`, `.improvements.md`).
+   - Checks for corresponding test files using the `test_{filename}.py` naming convention.
+   - Outputs statistics in either human-readable text format or JSON format.
+   - Reports total file count and counts for each metadata artifact type.
+   ```
 
-## Location
-- Path: `scripts/agent/agent-stats.py`
-
-## Public surface
-- Classes: StatsAgent
-- Functions: main
-
-## Behavior summary
-- Has a CLI entrypoint (`__main__`).
-- Uses `argparse` for CLI parsing.
-
-## Key dependencies
-- Top imports: `pathlib`, `typing`, `argparse`
-
-## File fingerprint
-- SHA256(source): `23540be7c5e93aa1…`
+   **Key dependencies:**
+   ```
+   - Top imports: `argparse`, `json`, `pathlib`, `typing`
+   - Standard library only - no external dependencies
+   ```
