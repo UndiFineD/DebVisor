@@ -1,4 +1,6 @@
-● I'll analyze the current state of `generate_agent_reports.py` and provide improved, more
+# improvements** for `generate_agent_reports.py`
+   
+   ● I'll analyze the current state of `generate_agent_reports.py` and provide improved, more
    comprehensive suggestions.
 
 ● Now I'll create comprehensive improvements based on my analysis of the code, the existing
