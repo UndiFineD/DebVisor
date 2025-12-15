@@ -1,51 +1,42 @@
-# Description: `base_agent.py`
+● I'll examine the current code in `base_agent.py` to update the description with accurate
+   information.
 
-## Module purpose
-Base Agent: Common functionality for all AI-powered agents.
+● Now I'll check if there's a separate description file that needs to be updated:
 
-Provides shared functionality for agents that improve code files using AI assistance.
+● Perfect! Now let me view the current description file to update it:
 
-## Location
-- Path: `scripts/agent/base_agent.py`
+● Now I'll update the description file with accurate information based on the current code:
 
-## Public surface
-- Classes: BaseAgent
-- Functions: create_main_function
+● I apologize, but I'm unable to write to files due to security restrictions. However, I can
+   provide you with the updated description content that should be added to
+   `scripts\agent\base_agent.description.md`:
 
-## Behavior summary
-- Uses `argparse` for CLI parsing (via `create_main_function`).
-- Invokes external commands via `subprocess` to access Copilot backends.
-- Selects an AI backend via environment variables (or CLI `--backend`).
-- Mutates `sys.path` to import optional markdown fixing utilities.
+   ## Recommended Updates
 
-## AI backends
-`BaseAgent.run_subagent(...)` supports multiple backends.
+   Based on the current code, here are the key updates needed:
 
-### Backend selection
-- Env: `DV_AGENT_BACKEND`
-	- `auto` (default): try local `copilot` CLI, then GitHub Models (if configured), then `gh copilot` for command-like prompts
-	- `copilot`: force local `copilot` CLI
-	- `gh`: force `gh copilot` (GitHub CLI extension; best suited for terminal commands)
-	- `github-models`: force GitHub Models OpenAI-compatible API
+   **1. Public surface** - Add `setup_logging` function
 
-### Configuration
-- `DV_AGENT_MAX_CONTEXT_CHARS` (default `12000`): maximum number of characters of existing file content added to the prompt.
-- `DV_AGENT_REPO_ROOT` (optional): overrides repo root used as `cwd` for subprocess invocations.
-- `DV_AGENT_SYSTEM_PROMPT` (default: a generic helpful assistant prompt): system prompt for the GitHub Models route.
+   **2. Behavior summary** - Add:
+   - Configures logging via `setup_logging` based on `DV_AGENT_VERBOSITY` environment variable
+   - Provides safety controls for local copilot CLI via `--deny-tool` flags
+   - Automatically detects repository root via `.git` directory
 
-GitHub Models route:
-- `GITHUB_MODELS_BASE_URL`: base URL for the OpenAI-compatible endpoint (used with `/v1/chat/completions`).
-- `DV_AGENT_MODEL` (preferred) or `GITHUB_MODELS_MODEL`: model name.
-- `GITHUB_TOKEN`: token for the API (never printed; diagnostics only report set/unset).
+   **3. Backend selection** - Document aliases:
+   - `copilot` (aliases: `local`, `copilot-cli`)
+   - `gh` (alias: `gh-copilot`)
+   - `github-models` (aliases: `github_models`, `models`)
 
-### Diagnostics
-- CLI: `--describe-backends` prints a safe snapshot of what is available/configured (never prints token contents).
-- API: `BaseAgent.get_backend_status()` and `BaseAgent.describe_backends()`.
+   **4. Configuration** - Add:
+   - `DV_AGENT_VERBOSITY` (quiet/0, minimal/1, normal/2, elaborate/3)
+   - Updated system prompt default value
 
-## Key dependencies
-- Top imports: `subprocess`, `pathlib`, `argparse`, `difflib`, `sys`
-- Optional: `requests` (GitHub Models backend)
-- Optional: `fix_markdown_lint` (markdown normalization for `.md` / `.plan.md` only)
+   **5. Key dependencies** - Add: `logging`, `json`, `os`, `typing` to imports list
 
-## File fingerprint
-- SHA256(source): (not tracked here; regenerate via tooling if needed)
+   **6. Add new Safety features section**:
+   - Deny write and shell tools in copilot CLI
+   - Token security
+   - Timeout values for each backend
+   - Command availability checking
+
+   **7. Diagnostics** - Add `--verbose` / `-v` CLI flag documentation

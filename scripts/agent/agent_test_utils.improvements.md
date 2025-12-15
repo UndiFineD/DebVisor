@@ -24,6 +24,7 @@
    ## High-Priority Improvements
 
    ### 1. Add Module Docstring
+   
    **Impact**: Documentation & Maintainability
    **Effort**: Low
 
@@ -53,6 +54,7 @@
    ```
 
    ### 2. Add Environment Isolation Helper ⚠️ **CRITICAL**
+
    **Impact**: Test Reliability
    **Effort**: Medium
    **Priority**: High (prevents test pollution)
@@ -108,6 +110,7 @@
    `GITHUB_MODELS_BASE_URL`, `GITHUB_MODELS_MODEL`
 
    ### 3. Add Logging/Diagnostics to `load_agent_module()`
+
    **Impact**: Debuggability
    **Effort**: Low
 
@@ -136,6 +139,7 @@
    ## Medium-Priority Improvements
 
    ### 4. Enhance Error Messages
+
    **Impact**: Developer Experience
    **Effort**: Low
 
@@ -156,6 +160,7 @@
    ```
 
    ### 5. Add Module Caching (Optional)
+
    **Impact**: Performance (test suite speedup)
    **Effort**: Medium
 
@@ -182,6 +187,7 @@
    ## Low-Priority / Architectural Considerations
 
    ### 6. Regarding `sys.path` Manipulation
+
    **Status**: Keep current approach ✅
 
    The suggestion to "avoid `sys.path.insert(...)`" is **not applicable** here because:
@@ -201,6 +207,7 @@
    #1).
 
    ### 7. Consider Pytest Plugin (Future)
+
    **Effort**: High
 
    If this pattern grows, consider a `conftest.py` pytest plugin that provides:
@@ -238,6 +245,7 @@
    | Low | Module caching | Performance (minor) | Medium |
 
    ## Notes
+
    - **File**: `scripts/agent/agent_test_utils.py`
    - **Last reviewed**: 2025-12-15
    - **Current usage**: 10 test modules (`test_agent-*.py`, `test_base_agent.py`)
@@ -246,6 +254,7 @@
    ---
 
    The key improvements focus on:
+
    1. **Test isolation** (environment variables) - most critical
    2. **Documentation** (module docstring explaining design choices)
    3. **Debuggability** (better error messages and optional logging)
