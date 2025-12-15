@@ -1,52 +1,42 @@
-# Description: `agent.py`
+● I'll analyze the current `agent.py` code and update its description to accurately reflect the
+   implementation.
 
-## Module purpose
-Agent: Orchestrates work among sub-agents for code improvement.
+● Now I'll update the description file with accurate information based on the actual code:
 
-Assigns tasks to various agents to improve code files, their documentation,
-tests, and related artifacts.
+● Let me view the existing description file first to better understand the edit:
 
-## Description
-This module provides the main Agent that coordinates the improvement process
-across code files by calling specialized sub-agents for different aspects
-of code quality and documentation.
+● I see the issue - I need permission to edit. Based on the current code analysis, here's what I
+   found needs updating in the description:
 
-## Changelog
-- 1.0.0: Initial implementation
+   ## Summary of Required Updates
 
-## Suggested Fixes
-- Add better error handling
-- Implement async execution for agents
+   The `agent.description.md` file needs significant updates to accurately reflect the current
+   implementation:
 
-## Improvements
-- Enhanced coordination between agents
-- Better progress tracking
+   **Current Issues:**
+   1. **Missing detailed workflow**: Doesn't describe the actual processing loop and iteration
+   logic
+   2. **Incomplete sub-agent list**: Doesn't list all 7 sub-agents being orchestrated
+   3. **Missing CLI arguments**: Doesn't document the CLI options available
+   4. **Incomplete file artifacts**: Doesn't explain the `.errors.md`, `.improvements.md`,
+   `.changes.md`, `.description.md` files created
+   5. **Missing supported extensions**: Doesn't list `.py`, `.sh`, `.js`, `.ts`, `.go`, `.rb`
+   6. **No git integration details**: Doesn't mention commit/push functionality
+   7. **Missing `.codeignore` details**: Doesn't explain the ignore pattern system
+   8. **No test execution details**: Doesn't mention pytest integration
+   9. **Incomplete dependencies**: Missing `os`, `logging`; incorrectly lists `typing`
+   10. **Outdated sections**: "Changelog", "Suggested Fixes", "Improvements", "File fingerprint"
+   should be removed/updated
 
-## Location
-- Path: `scripts/agent/agent.py`
+   **Key Additions Needed:**
+   - **Sub-agents orchestrated**: agent-stats, agent-errors, agent-improvements, agent-coder,
+   agent-changes, agent-context, agent-tests
+   - **CLI arguments**: --dir, --agents-only, --max-files, --loop, --skip-code-update, --verbose
+   - **Processing workflow**: File discovery → stats → tests → errors/improvements → code updates →
+    changelog/context/tests → git commit/push
+   - **File artifacts**: Description of all `.md` and `test_*.py` files created
+   - **Configuration**: .codeignore file support
+   - **Supported file types**: List of SUPPORTED_EXTENSIONS
 
-## Public surface
-- Classes: Agent
-- Functions: load_codeignore, main
-
-## Behavior summary
-- Has a CLI entrypoint (`__main__`).
-- Uses `argparse` for CLI parsing.
-- Invokes external commands via `subprocess`.
-- Mutates `sys.path` to import sibling modules.
-
-## AI backend configuration
-This agent system delegates AI calls to `BaseAgent.run_subagent(...)`.
-
-Backend selection and configuration are controlled via `base_agent.py`:
-- `DV_AGENT_BACKEND` (or CLI `--backend` on agents that use `create_main_function`)
-- GitHub Models route env vars: `GITHUB_MODELS_BASE_URL`, `GITHUB_TOKEN`, and `DV_AGENT_MODEL`/`GITHUB_MODELS_MODEL`
-- Context sizing: `DV_AGENT_MAX_CONTEXT_CHARS`
-
-See `scripts/agent/base_agent.description.md` for details.
-
-## Key dependencies
-- Top imports: `subprocess`, `sys`, `pathlib`, `typing`, `argparse`, `fnmatch`, `fix_markdown_lint`
-
-## File fingerprint
-- SHA256(source): `63b11a5b3cfb3752…`
+   The updated description would provide complete documentation of the orchestrator's capabilities,
+    workflow, and configuration options based on the actual implementation.
