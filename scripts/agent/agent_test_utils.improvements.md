@@ -23,8 +23,8 @@ Here's a comprehensive, actionable improvement document:
 
 ### 1. Add Module Docstring
 
-**Impact**: Documentation & Maintainability
-**Effort**: Low
+* *Impact**: Documentation & Maintainability
+* *Effort**: Low
 
 Add a comprehensive module-level docstring explaining:
 
@@ -34,7 +34,7 @@ Add a comprehensive module-level docstring explaining:
 - Usage patterns with examples
 - Why `sys.path` manipulation is necessary (hyphenated filenames)
 
-**Example**:
+* *Example**:
 
 ```python
 """Test utilities for DebVisor agent scripts.
@@ -51,19 +51,19 @@ Example:
         mod = load_agent_module("agent-changes.py")
         agent = mod.ChangesAgent("output.md")
 """
-```
+```python
 
 ### 2. Add Environment Isolation Helper ⚠️ **CRITICAL**
 
-**Impact**: Test Reliability
-**Effort**: Medium
-**Priority**: High (prevents test pollution)
+* *Impact**: Test Reliability
+* *Effort**: Medium
+* *Priority**: High (prevents test pollution)
 
 Currently, only `test_base_agent.py` explicitly cleans environment variables with
 `monkeypatch.delenv()`. Other tests inherit `DV_AGENT_*` and `GITHUB_*` variables from the
 developer's shell, causing inconsistent behavior.
 
-**Add this context manager/fixture**:
+* *Add this context manager/fixture**:
 
 ```python
 @contextmanager
@@ -104,16 +104,16 @@ def isolated_agent_env(clean_vars: bool = True, **overrides):
             for key, value in saved_env.items():
                 if key not in overrides:
                     os.environ[key] = value
-```
+```python
 
-**Affected variables**: `DV_AGENT_BACKEND`, `DV_AGENT_MODEL`, `DV_AGENT_VERBOSITY`,
+* *Affected variables**: `DV_AGENT_BACKEND`, `DV_AGENT_MODEL`, `DV_AGENT_VERBOSITY`,
 `DV_AGENT_MAX_CONTEXT_CHARS`, `DV_AGENT_REPO_ROOT`, `DV_AGENT_SYSTEM_PROMPT`, `GITHUB_TOKEN`,
 `GITHUB_MODELS_BASE_URL`, `GITHUB_MODELS_MODEL`
 
 ### 3. Add Logging/Diagnostics to `load_agent_module()`
 
-**Impact**: Debuggability
-**Effort**: Low
+* *Impact**: Debuggability
+* *Effort**: Low
 
 ```python
 def load_agent_module(filename: str, module_name: str | None = None,
@@ -135,14 +135,14 @@ f.name.startswith("test_")]
         raise FileNotFoundError(path)
 
     # ... rest with additional diagnostics
-```
+```python
 
 ## Medium-Priority Improvements
 
 ### 4. Enhance Error Messages
 
-**Impact**: Developer Experience
-**Effort**: Low
+* *Impact**: Developer Experience
+* *Effort**: Low
 
 ```python
 if not path.exists():
@@ -158,12 +158,12 @@ if spec is None or spec.loader is None:
         f"Unable to load spec for {path}\n"
         f"  This may indicate a syntax error or invalid Python file."
     )
-```
+```python
 
 ### 5. Add Module Caching (Optional)
 
-**Impact**: Performance (test suite speedup)
-**Effort**: Medium
+* *Impact**: Performance (test suite speedup)
+* *Effort**: Medium
 
 ```python
 _MODULE_CACHE: dict[str, ModuleType] = {}
@@ -183,13 +183,13 @@ def load_agent_module(filename: str, module_name: str | None = None,
 def clear_module_cache():
     """Clear the module cache (useful between test runs)."""
     _MODULE_CACHE.clear()
-```
+```python
 
 ## Low-Priority / Architectural Considerations
 
 ### 6. Regarding `sys.path` Manipulation
 
-**Status**: Keep current approach ✅
+* *Status**: Keep current approach ✅
 
 The suggestion to "avoid `sys.path.insert(...)`" is **not applicable** here because:
 
@@ -202,19 +202,19 @@ The suggestion to "avoid `sys.path.insert(...)`" is **not applicable** here beca
 4. **Widely used**:
     10 test modules depend on this pattern
 
-**Alternative approaches considered** (all inferior):
+* *Alternative approaches considered** (all inferior):
 
 - Rename to `agent_changes.py` → Breaks CLI conventions/backwards compatibility
 - Full package restructure → Excessive for standalone scripts
 - `runpy.run_path()` → Loses module caching and import semantics
 
-**Recommendation**:
+* *Recommendation**:
 Document WHY `sys.path` manipulation is necessary in module docstring (see
-#1).
+## 1).
 
 ### 7. Consider Pytest Plugin (Future)
 
-**Effort**: High
+* *Effort**: High
 
 If this pattern grows, consider a `conftest.py` pytest plugin that provides:
 
@@ -227,7 +227,7 @@ If this pattern grows, consider a `conftest.py` pytest plugin that provides:
 Add tests for the utilities themselves:
 
 ```python
-# test_agent_test_utils.py
+## test_agent_test_utils.py
 def test_isolated_agent_env_cleans_up_on_exception():
     os.environ["DV_AGENT_TEST"] = "value"
     with pytest.raises(RuntimeError):
@@ -240,7 +240,7 @@ def test_isolated_agent_env_cleans_up_on_exception():
 def test_load_agent_module_with_invalid_filename():
     with pytest.raises(FileNotFoundError, match="nonexistent"):
         load_agent_module("nonexistent.py")
-```
+```python
 
 ## Summary
 

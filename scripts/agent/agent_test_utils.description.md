@@ -1,12 +1,10 @@
-● I'll help you update the description for `agent_test_utils.py` by first examining the current
-   code and then updating the documentation.
+● I'll examine the current code and update the description accordingly.
 
-● Now let me view the current description file:
+● The description file appears to contain a conversation rather than the actual description
+   content. I'll replace it with a proper structured description based on the current code:
 
-● Now I'll update the description based on the actual code content:
-
-● I don't have permission to write to the file. Here's the updated description content that should
-    be used:
+● I don't have write permissions. Here's the updated description content that accurately reflects
+   the current code:
 
    ```markdown
    # Description: `agent_test_utils.py`
@@ -30,19 +28,26 @@
    sibling agent modules
    - Loads agent modules dynamically using `importlib.util`, supporting filenames with
    non-Python-identifier characters (e.g., `agent-changes.py`)
-   - Auto-generates safe module names by sanitizing filenames, ensuring valid Python identifiers
+   - Auto-generates safe module names by sanitizing filenames with regex, ensuring valid Python
+   identifiers (prefixes with `m_` if starts with digit)
    - Handles cleanup of sys.modules on import failure to prevent polluted module state
+   - Raises `FileNotFoundError` if specified agent file doesn't exist
+   - Raises `RuntimeError` if module spec cannot be created
 
    ## Key dependencies
    - Top imports: `__future__`, `importlib.util`, `re`, `sys`, `contextlib`, `pathlib`, `types`
+   - Constants: `AGENT_DIR` - Resolved path to scripts/agent directory
 
-   ## File fingerprint
-   - SHA256(source): `d4c3fc4817d2ced6…`
+   ## Implementation details
+   - Module name sanitization: replaces non-alphanumeric/underscore chars with underscore, prefixes
+    `_dv_legacy_`
+   - Path handling: uses `Path(__file__).resolve().parent` for reliable directory location
+   - Error handling: cleans up `sys.modules` entry if module execution fails
    ```
 
-   **Key improvements:**
-   1. Added comprehensive module purpose explaining it's for testing and loading agent modules
-   2. Expanded function descriptions with clear purposes
-   3. Enhanced behavior summary with 4 specific capabilities including error handling and module
-   name sanitization
-   4. Maintained all existing metadata structure
+   **Key improvements from the existing content:**
+   1. Added explicit error handling behavior (FileNotFoundError, RuntimeError)
+   2. Detailed the module name sanitization algorithm specifics
+   3. Added "Implementation details" section for clarity
+   4. Included the AGENT_DIR constant in dependencies
+   5. More precise description of the sanitization process
