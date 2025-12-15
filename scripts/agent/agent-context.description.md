@@ -1,17 +1,18 @@
-● I'll analyze the current code in `agent-context.py` and update its description to match the
-   actual implementation.
+● I'll analyze the current code in `agent-context.py` and update its description file to
+   accurately reflect the implementation.
 
-● Now let me check the base_agent to understand the full context of how this agent works:
+● Now I'll update the description file with accurate information based on the actual
+   implementation:
 
-● Now let me view the current description file and update it:
+● Let me try viewing and understanding the actual file structure better:
 
-● Now I'll update the description based on the actual code implementation:
-
-● I cannot directly edit the file. Let me create the updated content for you to review:
+● I see that I don't have write permissions. Based on my analysis, here's the improved description
+    that should replace the current content:
 
    ## Updated Description for `agent-context.description.md`
 
-   Based on the current code implementation, here's the improved description:
+   The current file contains outdated notes and placeholder content. Here's what it should contain
+   based on the actual implementation:
 
    ```markdown
    # Description: `agent-context.py`
@@ -19,14 +20,14 @@
    ## Module purpose
    Context Agent: Improves and updates code file descriptions.
 
-   Reads context files (*.description.md), uses AI assistance via `BaseAgent.run_subagent(...)`
-   to enhance descriptions, and updates files with improved documentation.
+   Reads context files (*.description.md), uses AI assistance to enhance descriptions,
+   and updates files with improved documentation.
 
    # Description
    This module provides a Context Agent that:
    - Extends `BaseAgent` to handle `.description.md` files
-   - Reads existing file descriptions or creates default content
-   - Uses multi-backend AI routing (Copilot CLI, GitHub Models, or gh copilot) to improve content
+   - Reads existing file descriptions or creates default content for new files
+   - Uses AI to improve content through inherited `improve_content()` method
    - Gracefully handles missing AI backends by preserving original content
    - Provides CLI interface via `create_main_function` helper
 
@@ -35,7 +36,7 @@
    - Preserves original content unchanged when GitHub CLI is not found
    - Uses `BaseAgent.improve_content()` with proper fallback handling
 
-   AI backend selection/configuration is handled by `scripts/agent/base_agent.py`.
+   AI backend selection and configuration is handled by `scripts/agent/base_agent.py`.
    See `scripts/agent/base_agent.description.md` for environment variables and diagnostics.
 
    # Changelog
@@ -61,19 +62,27 @@
    - Inherits core functionality from BaseAgent (read/improve/write cycle)
    - Overrides `_get_default_content()` and `_get_fallback_response()` for context-specific
    behavior
+   - `improve_content()` method delegates to parent class implementation
 
    ## Key dependencies
    - `base_agent.BaseAgent`: Core agent functionality
    - `base_agent.create_main_function`: CLI helper for agent creation
 
-   ## File fingerprint
-   - SHA256(source): Updated with current implementation
+   ## Implementation details
+   - Minimal implementation: only 70 lines including license header and docstring
+   - Clean separation of concerns through inheritance
+   - No direct AI backend logic (delegated to BaseAgent)
    ```
 
-   ## Key improvements made:
-   1. **Clarified inheritance structure** - explicitly mentions extending BaseAgent
-   2. **Documented actual methods** - `_get_default_content()` and `_get_fallback_response()`
-   3. **Added behavioral details** - fallback handling, default content behavior
-   4. **Corrected public surface** - includes `main` function from `create_main_function`
-   5. **More accurate dependencies** - specifies both BaseAgent and create_main_function
-   6. **Removed outdated suggestions** - current implementation is clean and well-structured
+   **Key improvements in this updated description:**
+
+   1. **Accurate architecture** - Correctly describes the inheritance from BaseAgent
+   2. **Precise method documentation** - Details the two overridden methods and one delegated
+   method
+   3. **Clearer behavior** - Explains fallback handling and default content
+   4. **Correct public API** - Lists both the class and the main function
+   5. **Better dependencies** - Specifies both BaseAgent and create_main_function imports
+   6. **Implementation insights** - Adds details about minimal LOC and separation of concerns
+
+   This replaces the previous content which was just notes from a previous session rather than
+   actual documentation.

@@ -56,7 +56,6 @@ class StatsAgent:
         for file_path in self.files:
             base = file_path.stem
             dir_path = file_path.parent
-
             if (dir_path / f"{base}.description.md").exists():
                 files_with_context += 1
             if (dir_path / f"{base}.changes.md").exists():
@@ -67,7 +66,6 @@ class StatsAgent:
                 files_with_improvements += 1
             if (dir_path / f"test_{base}.py").exists():
                 files_with_tests += 1
-
         self.stats = {
             'total_files': total_files,
             'files_with_context': files_with_context,
@@ -100,7 +98,6 @@ def main():
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
     parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
     args = parser.parse_args()
-
     agent = StatsAgent(args.files)
     agent.report_stats(output_format=args.format)
 

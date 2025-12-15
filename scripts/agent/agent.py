@@ -88,7 +88,7 @@ class Agent:
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
-                 max_files: int = None, loop: int = 1, skip_code_update: bool = False):
+            max_files: int = None, loop: int = 1, skip_code_update: bool = False):
         self.repo_root = self._find_repo_root(Path(repo_root))
         self.agents_only = agents_only
         self.max_files = max_files
@@ -99,13 +99,11 @@ class Agent:
     def _find_repo_root(self, start_path: Path) -> Path:
         """Find the repository root by looking for .git directory or other markers."""
         current = start_path.resolve()
-
         # Walk up the directory tree looking for repository markers
         for path in [current] + list(current.parents):
             if (path / '.git').exists() or (path / 'README.md').exists() or \
                     (path / 'package.json').exists():
                 return path
-
         # If no markers found, return the original path
         return start_path
 
@@ -114,17 +112,13 @@ class Agent:
         code_files = []
         for ext in self.SUPPORTED_EXTENSIONS:
             code_files.extend(self.repo_root.rglob(f'*{ext}'))
-
         # Filter to scripts/agent directory if agents_only is True
         if self.agents_only:
             scripts_agent_dir = self.repo_root / 'scripts' / 'agent'
             code_files = [f for f in code_files if f.is_relative_to(scripts_agent_dir)]
-
         code_files = sorted([f for f in code_files if not self._is_ignored(f)])
-
         if self.max_files:
             code_files = code_files[:self.max_files]
-
         return code_files
 
     def _is_ignored(self, path: Path) -> bool:
@@ -167,19 +161,15 @@ class Agent:
         """Update errors and improvements."""
         base = code_file.stem
         dir_path = code_file.parent
-
         errors_file = dir_path / f"{base}.errors.md"
         improvements_file = dir_path / f"{base}.improvements.md"
-
         changes_made = False
-
         # Create errors file if it doesn't exist
         if not errors_file.exists():
             content = f"# Errors\n\nNo errors reported for {code_file.name}.\n"
             errors_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {errors_file.relative_to(self.repo_root)}")
             changes_made = True
-
         # Update errors
         prompt = f"Analyze and improve the error report for {code_file.name}"
         cmd = [
@@ -191,7 +181,6 @@ class Agent:
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
-
         # Create improvements file if it doesn't exist
         if not improvements_file.exists():
             content = f"# Improvements\n\nNo improvements suggested for {code_file.name}.\n"
@@ -201,7 +190,6 @@ class Agent:
             )
             logging.info(f"Created {improvements_file.relative_to(self.repo_root)}")
             changes_made = True
-
         # Update improvements
         prompt = f"Suggest and improve improvements for {code_file.name}"
         cmd = [
@@ -213,7 +201,6 @@ class Agent:
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
-
         return changes_made
 
     def update_code(self, code_file: Path) -> bool:
@@ -236,20 +223,16 @@ class Agent:
         """Update changelog, context, and tests."""
         base = code_file.stem
         dir_path = code_file.parent
-
         changes_file = dir_path / f"{base}.changes.md"
         context_file = dir_path / f"{base}.description.md"
         tests_file = dir_path / f"test_{base}.py"
-
         changes_made = False
-
         # Create changelog file if it doesn't exist
         if not changes_file.exists():
             content = f"# Changelog\n\n- Initial version of {code_file.name}\n"
             changes_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {changes_file.relative_to(self.repo_root)}")
             changes_made = True
-
         # Update changelog
         prompt = f"Update the changelog for {code_file.name} with recent changes"
         cmd = [
@@ -261,14 +244,12 @@ class Agent:
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
-
         # Create context file if it doesn't exist
         if not context_file.exists():
             content = f"# Description\n\n{code_file.name} - Description to be added.\n"
             context_file.write_text(fix_markdown_content(content), encoding='utf-8')
             logging.info(f"Created {context_file.relative_to(self.repo_root)}")
             changes_made = True
-
         # Update context
         prompt = f"Update the description for {code_file.name} based on current code"
         cmd = [
@@ -280,7 +261,6 @@ class Agent:
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
-
         # Create tests file if it doesn't exist and the code file is not already a test file
         if not tests_file.exists() and not base.startswith('test_'):
             content = f"""# Tests for {code_file.name}
@@ -296,7 +276,6 @@ def test_placeholder():
             tests_file.write_text(content, encoding='utf-8')
             logging.info(f"Created {tests_file.relative_to(self.repo_root)}")
             changes_made = True
-
         # Update tests - if this is a test file, update it directly; otherwise update the associated test file
         if base.startswith('test_'):
             # This is already a test file, update it directly
@@ -306,7 +285,6 @@ def test_placeholder():
             # This is a code file, update its associated test file
             test_file_to_update = tests_file
             prompt = f"Update and expand the test suite for {code_file.name}"
-
         cmd = [
             sys.executable,
             str(self.repo_root / 'scripts/agent/agent-tests.py'),
@@ -316,19 +294,16 @@ def test_placeholder():
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
-
         return changes_made
 
     def _check_files_ready(self, code_file: Path) -> bool:
         """Check if all supporting files exist and have content."""
         base = code_file.stem
         dir_path = code_file.parent
-
         context_file = dir_path / f"{base}.description.md"
         changes_file = dir_path / f"{base}.changes.md"
         errors_file = dir_path / f"{base}.errors.md"
         improvements_file = dir_path / f"{base}.improvements.md"
-
         return (
             context_file.exists() and len(context_file.read_text(encoding='utf-8').strip()) > 100 and
             changes_file.exists() and len(changes_file.read_text(encoding='utf-8').strip()) > 100 and
@@ -339,24 +314,18 @@ def test_placeholder():
     def _perform_iteration(self, code_file: Path) -> bool:
         """Perform one iteration of improvements on the code file."""
         changes_made = False
-
         # Give a Stats update
         self.run_stats_update([code_file])
-
         # Run the Tests on the Codefile
         if not self.skip_code_update:
             self.run_tests(code_file)
-
         # Update Errors, Improvements
         changes_made |= self.update_errors_improvements(code_file)
-
         # Update Code
         if not self.skip_code_update:
             changes_made |= self.update_code(code_file)
-
         # Update Changelog, Context, Tests
         changes_made |= self.update_changelog_context_tests(code_file)
-
         return changes_made
 
     def _commit_and_push(self, code_file: Path):
@@ -365,7 +334,6 @@ def test_placeholder():
         try:
             # git add -A
             subprocess.run(['git', 'add', '-A'], cwd=self.repo_root, check=True)
-
             # git commit
             commit_msg = f"Agent improvements for {code_file.name}"
             result = subprocess.run(
@@ -374,7 +342,6 @@ def test_placeholder():
                 capture_output=True,
                 text=True
             )
-
             if result.returncode == 0:
                 logging.info(f"Committed changes for {code_file.name}")
                 # git push
@@ -389,7 +356,6 @@ def test_placeholder():
                     logging.error(f"Failed to push changes: {push_result.stderr}")
             else:
                 logging.info(f"No changes to commit for {code_file.name}")
-
         except subprocess.CalledProcessError as e:
             logging.error(f"Git operation failed for {code_file.name}: {e}")
         except FileNotFoundError:
@@ -398,49 +364,36 @@ def test_placeholder():
     def process_file(self, code_file: Path):
         """Process a single code file through the improvement loop."""
         logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
-
         max_iterations = 1
         iteration = 0
         all_fixed = False
-
         while not all_fixed and iteration < max_iterations:
             iteration += 1
             logging.info(f"Iteration {iteration} for {code_file.name}")
-
             files_ready = self._check_files_ready(code_file)
-
             if not files_ready and iteration == 1:
                 logging.info(f"Creating initial supporting files for {code_file.name}")
-
             changes_made = self._perform_iteration(code_file)
-
             # Check if all is marked as fixed (no more changes needed)
             if not changes_made:
                 all_fixed = True
                 logging.info(f"No changes made in iteration {iteration}, marking as fixed")
             else:
                 logging.info(f"Changes made in iteration {iteration}, continuing...")
-
         if iteration >= max_iterations:
             logging.info(f"Reached maximum iterations ({max_iterations}) for {code_file.name}")
-
         logging.info(f"Completed processing {code_file.name} in {iteration} iterations")
-
         self._commit_and_push(code_file)
 
     def run(self):
         """Run the main agent loop."""
         code_files = self.find_code_files()
         logging.info(f"Found {len(code_files)} code files to process")
-
         for loop_iteration in range(1, self.loop + 1):
             logging.info(f"Starting loop iteration {loop_iteration}/{self.loop}")
-
             for code_file in code_files:
                 self.process_file(code_file)
-
             logging.info(f"Completed loop iteration {loop_iteration}/{self.loop}")
-
         # Final stats update
         logging.info("Final stats:")
         self.run_stats_update(code_files)
@@ -461,10 +414,8 @@ def main():
     parser.add_argument('--verbose', default='normal',
                         help='Verbosity level: quiet, minimal, normal, elaborate (or 0-3)')
     args = parser.parse_args()
-
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
-
     agent = Agent(
         repo_root=args.dir,
         agents_only=args.agents_only,

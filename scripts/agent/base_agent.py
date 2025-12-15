@@ -35,7 +35,6 @@ except ImportError:  # pragma: no cover
 def setup_logging(verbosity_arg: int = 0):
     """Configure logging based on environment variable and argument."""
     env_verbosity = os.environ.get('DV_AGENT_VERBOSITY')
-
     levels = {
         'quiet': logging.ERROR,
         'minimal': logging.WARNING,
@@ -46,17 +45,14 @@ def setup_logging(verbosity_arg: int = 0):
         '2': logging.INFO,
         '3': logging.DEBUG,
     }
-
     # Determine level from environment
     if env_verbosity:
         level = levels.get(env_verbosity.lower(), logging.INFO)
     else:
         level = logging.INFO
-
     # If argument is provided, it forces DEBUG (elaborate)
     if verbosity_arg > 0:
         level = logging.DEBUG
-
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(levelname)s - %(message)s',
@@ -68,7 +64,6 @@ def _resolve_repo_root() -> Path:
     env_root = os.environ.get("DV_AGENT_REPO_ROOT")
     if env_root:
         return Path(env_root).expanduser().resolve()
-
     here = Path(__file__).resolve()
     for parent in [here.parent, *here.parents]:
         if (parent / ".git").exists():
@@ -174,7 +169,6 @@ class BaseAgent:
         def _try_copilot_cli() -> Optional[str]:
             if not _command_available('copilot'):
                 return None
-
             full_prompt = _build_full_prompt()
             repo_root = _resolve_repo_root()
             try:
@@ -207,13 +201,11 @@ class BaseAgent:
                     timeout=180,
                     cwd=str(repo_root),
                 )
-
                 stdout = (result.stdout or "").strip()
                 if result.returncode == 0 and stdout:
                     return stdout
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
                 return None
-
             return None
 
         def _looks_like_command(text: str) -> bool:
@@ -244,12 +236,10 @@ class BaseAgent:
         def _try_gh_copilot(*, allow_non_command_prompt: bool) -> Optional[str]:
             if not _command_available('gh'):
                 return None
-
             # The `gh copilot` extension is primarily for suggesting/explaining terminal
             # commands. Avoid using it for general prose/code rewrite prompts.
             if not allow_non_command_prompt and not _looks_like_command(prompt):
                 return None
-
             try:
                 result = subprocess.run(
                     ['gh', 'copilot', 'explain', prompt[:200]],
@@ -260,12 +250,10 @@ class BaseAgent:
                     timeout=30,
                     cwd=str(_resolve_repo_root()),
                 )
-
                 if result.returncode == 0 and result.stdout.strip():
                     return f"# GitHub Copilot (gh) Explanation:\n{result.stdout.strip()}"
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
                 return None
-
             return None
 
         def _try_github_models() -> Optional[str]:
@@ -280,14 +268,12 @@ class BaseAgent:
             )
             base_url = os.environ.get("GITHUB_MODELS_BASE_URL")
             token = os.environ.get("GITHUB_TOKEN")
-
             if not model:
                 return None
             if not base_url or not base_url.strip():
                 return None
             if not token:
                 return None
-
             full_prompt = _build_full_prompt()
             return self.llm_chat_via_github_models(
                 prompt=full_prompt,
@@ -296,21 +282,17 @@ class BaseAgent:
                 base_url=base_url,
                 token=token,
             )
-
         backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
-
         if backend in {"copilot", "local", "copilot-cli"}:
             result = _try_copilot_cli()
             if result is None:
                 raise RuntimeError("Requested DV_AGENT_BACKEND=copilot but local 'copilot' CLI is unavailable")
             return result
-
         if backend in {"gh", "gh-copilot"}:
             result = _try_gh_copilot(allow_non_command_prompt=True)
             if result is None:
                 raise RuntimeError("Requested DV_AGENT_BACKEND=gh but 'gh copilot' is unavailable")
             return result
-
         if backend in {"github-models", "github_models", "models"}:
             result = _try_github_models()
             if result is None:
@@ -319,12 +301,10 @@ class BaseAgent:
                     "set GITHUB_MODELS_BASE_URL, GITHUB_TOKEN, and DV_AGENT_MODEL (or GITHUB_MODELS_MODEL)"
                 )
             return result
-
         # auto (default): prefer local Copilot CLI, then GitHub Models if configured.
         result = _try_copilot_cli()
         if result is not None:
             return result
-
         try:
             result = _try_github_models()
             if result is not None:
@@ -332,11 +312,9 @@ class BaseAgent:
         except Exception:
             # Keep auto mode resilient.
             pass
-
         result = _try_gh_copilot(allow_non_command_prompt=False)
         if result is not None:
             return result
-
         # In environments without any configured backend, do not overwrite files with placeholders.
         return original_content or self._get_fallback_response()
 
@@ -348,12 +326,10 @@ class BaseAgent:
         """
         backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
         repo_root = str(_resolve_repo_root())
-
         try:
             max_context_chars = int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
         except ValueError:
             max_context_chars = 12_000
-
         models_base_url = (os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
         models_model = (
             os.environ.get("DV_AGENT_MODEL")
@@ -361,7 +337,6 @@ class BaseAgent:
             or ""
         ).strip()
         token_set = bool(os.environ.get("GITHUB_TOKEN"))
-
         return {
             "selected_backend": backend,
             "repo_root": repo_root,
@@ -388,7 +363,6 @@ class BaseAgent:
 
         def yn(value: bool) -> str:
             return "yes" if value else "no"
-
         return "\n".join(
             [
                 "Backend diagnostics:",
