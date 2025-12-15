@@ -140,7 +140,7 @@ class Agent:
         """Run stats update."""
         file_paths = [str(f) for f in files]
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-stats.py'),
             '--files'] + file_paths
         subprocess.run(cmd, cwd=self.repo_root)
@@ -183,9 +183,9 @@ class Agent:
         # Update errors
         prompt = f"Analyze and improve the error report for {code_file.name}"
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-errors.py'),
-            '--context', str(errors_file), 
+            '--context', str(errors_file),
             '--prompt', prompt
             ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
@@ -205,9 +205,9 @@ class Agent:
         # Update improvements
         prompt = f"Suggest and improve improvements for {code_file.name}"
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-improvements.py'),
-            '--context', str(improvements_file), 
+            '--context', str(improvements_file),
             '--prompt', prompt
             ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
@@ -222,9 +222,9 @@ class Agent:
             f"Improve the code in {code_file.name} based on its context, "
             f"errors, and improvements")
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-coder.py'),
-            '--context', str(code_file), 
+            '--context', str(code_file),
             '--prompt', prompt
             ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True,
@@ -253,9 +253,9 @@ class Agent:
         # Update changelog
         prompt = f"Update the changelog for {code_file.name} with recent changes"
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-changes.py'),
-            '--context', str(changes_file), 
+            '--context', str(changes_file),
             '--prompt', prompt
             ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
@@ -272,9 +272,9 @@ class Agent:
         # Update context
         prompt = f"Update the description for {code_file.name} based on current code"
         cmd = [
-            sys.executable, 
+            sys.executable,
             str(self.repo_root / 'scripts/agent/agent-context.py'),
-            '--context', str(context_file), 
+            '--context', str(context_file),
             '--prompt', prompt
             ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
@@ -379,9 +379,9 @@ def test_placeholder():
                 logging.info(f"Committed changes for {code_file.name}")
                 # git push
                 push_result = subprocess.run(
-                    ['git', 'push'], 
+                    ['git', 'push'],
                     cwd=self.repo_root,
-                    capture_output=True, 
+                    capture_output=True,
                     text=True)
                 if push_result.returncode == 0:
                     logging.info(f"Pushed changes for {code_file.name}")
@@ -466,7 +466,7 @@ def main():
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
 
     agent = Agent(
-        repo_root=args.dir, 
+        repo_root=args.dir,
         agents_only=args.agents_only,
         max_files=args.max_files, loop=args.loop,
         skip_code_update=args.skip_code_update
