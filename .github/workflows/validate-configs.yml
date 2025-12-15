@@ -92,7 +92,7 @@ jobs:
         \ found; skipping conftest checks.\"\nfi\n"
     - name: Upload policy outputs
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: conftest-results-${{ matrix.kubectl_version }}
         path: '/tmp/conftest-debvisor.json
@@ -132,7 +132,7 @@ jobs:
         \ /tmp/debvisor.yaml\nannotate /tmp/conftest-customer.json /tmp/customer-sample.yaml\n"
     - name: Upload rendered manifests
       if: steps.platform.outputs.run_linux == 'true'
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: rendered-manifests-${{ matrix.kubectl_version }}
         path: '/tmp/debvisor.yaml
