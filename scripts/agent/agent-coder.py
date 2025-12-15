@@ -110,42 +110,19 @@ class CoderAgent(BaseAgent):
 
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the code with specific coding suggestions."""
-        description = f"Improve the code for {self.file_path.name}"
-        # For code improvement, provide specific coding suggestions
-        if "improve" in prompt.lower() or "code" in prompt.lower():
-            fallback_suggestions = f"""# AI Code Improvement Suggestions
-# Description: {description}
-#
-# Suggestions:
-# 1. Add comprehensive docstrings to all functions
-# 2. Implement proper error handling with try/except blocks
-# 3. Add type hints for better code clarity
-# 4. Break down complex functions into smaller, focused functions
-# 5. Add input validation and sanitization
-# 6. Implement logging for debugging and monitoring
-# 7. Add unit tests for all functions
-# 8. Follow PEP 8 style guidelines
-# 9. Add configuration management for customizable behavior
-# 10. Implement proper resource cleanup with context managers
-#
-# Note: Full AI code rewriting requires additional AI service integration.
-# The new GitHub Copilot CLI focuses on command-line suggestions, not code generation.
-#
-# Original code preserved below:
-#
-{self.previous_content}"""
-            self.current_content = fallback_suggestions
-            return self.current_content
-        # Call base implementation
+        # Call base implementation directly to use AI backend
         new_content = super().improve_content(prompt)
+
         # Validate syntax
         if not self._validate_syntax(new_content):
             logging.error("Generated code failed syntax validation. Reverting.")
             self.current_content = self.previous_content
             return self.previous_content
+
         # Validate style (flake8)
         if not self._validate_flake8(new_content):
             logging.warning("Generated code failed style validation (flake8). Proceeding anyway.")
+
         return new_content
 
 

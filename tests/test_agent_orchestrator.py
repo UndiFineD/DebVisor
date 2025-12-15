@@ -71,7 +71,7 @@ def test_run_tests_invokes_pytest_when_test_file_exists(monkeypatch: pytest.Monk
             self.stdout = stdout
             self.stderr = stderr
 
-    def fake_run(cmd, cwd=None, capture_output=False, text=False, check=False):
+    def fake_run(cmd, cwd=None, capture_output=False, text=False, check=False, **kwargs):
         calls.append(cmd)
         return Result(returncode=0)
 
@@ -141,4 +141,4 @@ def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch,
 
     with caplog.at_level(logging.WARNING):
         a.process_file(code_file)
-    assert "Git not available" in caplog.text
+    assert "Command failed: git" in caplog.text

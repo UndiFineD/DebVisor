@@ -35,6 +35,7 @@ with enhanced documentation.
 
 from pathlib import Path
 from typing import Optional
+import logging
 from base_agent import BaseAgent, create_main_function
 
 
@@ -48,12 +49,30 @@ class ImprovementsAgent(BaseAgent):
     def __init__(self, file_path: str):
         super().__init__(file_path)
         self._validate_file_extension()
+        self._check_associated_file()
 
     def _validate_file_extension(self) -> None:
         """Validate that the file has the correct extension."""
         if not self.file_path.name.endswith('.improvements.md'):
-            # Just warn, don't fail, as sometimes we might process other markdown files
-            pass
+            logging.warning(f"File {self.file_path.name} does not end with .improvements.md")
+
+    def _check_associated_file(self) -> None:
+        """Check if the associated code file exists."""
+        name = self.file_path.name
+        if name.endswith('.improvements.md'):
+            base_name = name[:-16]  # len('.improvements.md')
+            # Try to find the file with common extensions or exact match
+            candidate = self.file_path.parent / base_name
+            if candidate.exists():
+                return
+            
+            # Try adding extensions
+            for ext in ['.py', '.sh', '.js', '.ts', '.md']:
+                candidate = self.file_path.parent / (base_name + ext)
+                if candidate.exists() and candidate != self.file_path:
+                    return
+            
+            logging.warning(f"Could not find associated code file for {self.file_path.name}")
 
     def _get_default_content(self) -> str:
         """Return default content for new improvement files."""

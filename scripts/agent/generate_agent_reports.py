@@ -139,7 +139,7 @@ def _write_md(path: Path, content: str) -> None:
 def _rel(path: Path) -> str:
     try:
         return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
-    except Exception:
+    except ValueError:
         return str(path).replace("\\", "/")
 
 

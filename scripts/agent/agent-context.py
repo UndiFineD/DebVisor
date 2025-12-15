@@ -105,7 +105,7 @@ class ContextAgent(BaseAgent):
                     "Based on the source code above, provide a comprehensive description."
                 )
                 return super().improve_content(enhanced_prompt)
-            except Exception:
+            except (OSError, UnicodeDecodeError):
                 pass
                 
         return super().improve_content(prompt)

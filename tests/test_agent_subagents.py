@@ -52,7 +52,13 @@ def test_changes_agent_non_keyword_delegates_to_base(monkeypatch: pytest.MonkeyP
     assert out == "IMPROVED"
 
 
-def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path):
+def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    # Mock BaseAgent.improve_content to verify it's called
+    def fake_improve_content(self, prompt: str) -> str:
+        return "x = 1 # AI GENERATED CONTENT"
+    
+    monkeypatch.setattr(base_agent_module.BaseAgent, "improve_content", fake_improve_content)
+
     mod = _load_agent_script("_dv_agent_coder", "agent-coder.py")
 
     target = tmp_path / "x.py"
@@ -60,8 +66,7 @@ def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path):
     agent.previous_content = "ORIGINAL"
 
     out = agent.improve_content("Improve this code")
-    assert "AI Code Improvement Suggestions" in out
-    assert "ORIGINAL" in out
+    assert out == "x = 1 # AI GENERATED CONTENT"
 
 
 def test_context_errors_improvements_agents_delegate_to_base(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module):

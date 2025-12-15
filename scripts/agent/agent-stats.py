@@ -50,8 +50,7 @@ class StatsAgent:
     def _validate_files(self) -> None:
         """Validate input files."""
         if not self.files:
-            logging.error("No files provided")
-            sys.exit(1)
+            raise ValueError("No files provided")
         
         invalid = [f for f in self.files if not f.exists()]
         if invalid:
@@ -60,8 +59,31 @@ class StatsAgent:
             self.files = [f for f in self.files if f.exists()]
             
         if not self.files:
-            logging.error("No valid files found after filtering")
-            sys.exit(1)
+            raise ValueError("No valid files found after filtering")
+
+    def get_missing_items(self) -> Dict[str, List[str]]:
+        """Identify files missing specific auxiliary components."""
+        missing = {
+            'context': [],
+            'changes': [],
+            'errors': [],
+            'improvements': [],
+            'tests': []
+        }
+        for file_path in self.files:
+            base = file_path.stem
+            dir_path = file_path.parent
+            if not (dir_path / f"{base}.description.md").exists():
+                missing['context'].append(str(file_path))
+            if not (dir_path / f"{base}.changes.md").exists():
+                missing['changes'].append(str(file_path))
+            if not (dir_path / f"{base}.errors.md").exists():
+                missing['errors'].append(str(file_path))
+            if not (dir_path / f"{base}.improvements.md").exists():
+                missing['improvements'].append(str(file_path))
+            if not (dir_path / f"test_{base}.py").exists():
+                missing['tests'].append(str(file_path))
+        return missing
 
     def calculate_stats(self) -> Dict[str, int]:
         """Calculate statistics for each file."""
@@ -136,8 +158,12 @@ def main() -> None:
     level = levels.get(args.verbose.lower(), logging.INFO)
     logging.basicConfig(level=level, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    agent = StatsAgent(args.files)
-    agent.report_stats(output_format=args.format)
+    try:
+        agent = StatsAgent(args.files)
+        agent.report_stats(output_format=args.format)
+    except ValueError as e:
+        logging.error(str(e))
+        sys.exit(1)
 
 
 if __name__ == '__main__':

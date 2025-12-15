@@ -103,7 +103,7 @@ def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch,
             return Result(0, "OK_FROM_COPILOT")
         raise AssertionError(f"Unexpected subprocess call: {args}")
     monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
-    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
+    monkeypatch.setattr(base_agent_module.agent_backend.subprocess, "run", fake_run)
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "prompt", "ORIG")
     assert out == "OK_FROM_COPILOT"
@@ -131,7 +131,7 @@ def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.Monke
             return Result(0, "EXPLAINED")
         raise AssertionError(f"Unexpected subprocess call: {args}")
     monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
-    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
+    monkeypatch.setattr(base_agent_module.agent_backend.subprocess, "run", fake_run)
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "git status", "ORIG")
     assert "EXPLAINED" in out
@@ -157,9 +157,8 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
         posted["timeout"] = timeout
         return FakeResponse()
 
-    monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
-    agent = base_agent_module.BaseAgent("x.md")
-    out = agent.llm_chat_via_github_models(
+    monkeypatch.setattr(base_agent_module.agent_backend.requests, "post", fake_post)
+    out = base_agent_module.agent_backend.llm_chat_via_github_models(
         prompt="Say hi",
         model="some-model",
         system_prompt="system",
@@ -176,11 +175,10 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
 
 
 def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_module: Any) -> None:
-    agent = base_agent_module.BaseAgent("x.md")
     with pytest.raises(RuntimeError, match=r"Missing token"):
-        agent.llm_chat_via_github_models(prompt="x", model="m", base_url="https://x", token=None)
+        base_agent_module.agent_backend.llm_chat_via_github_models(prompt="x", model="m", base_url="https://x", token=None)
     with pytest.raises(RuntimeError, match=r"Missing base URL"):
-        agent.llm_chat_via_github_models(prompt="x", model="m", base_url=None, token="t")
+        base_agent_module.agent_backend.llm_chat_via_github_models(prompt="x", model="m", base_url=None, token="t")
 
 
 def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
@@ -192,7 +190,7 @@ def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch
     # If subprocess is used, fail.
     def boom(*args: Any, **kwargs: Any) -> None:
         raise AssertionError("subprocess.run should not be called for github-models backend")
-    monkeypatch.setattr(base_agent_module.subprocess, "run", boom)
+    monkeypatch.setattr(base_agent_module.agent_backend.subprocess, "run", boom)
 
     class FakeResponse:
         def raise_for_status(self) -> None:
@@ -207,7 +205,7 @@ def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch
         assert data is not None and '"model": "unit-test-model"' in data
         return FakeResponse()
 
-    monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
+    monkeypatch.setattr(base_agent_module.agent_backend.requests, "post", fake_post)
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "prompt", "ORIG")
     assert out == "OK_FROM_MODELS"
@@ -230,7 +228,7 @@ def test_run_subagent_handles_subprocess_failures_gracefully(monkeypatch: pytest
         return Result(1, "", "Process failed")
 
     monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
-    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run_fail_all)
+    monkeypatch.setattr(base_agent_module.agent_backend.subprocess, "run", fake_run_fail_all)
     
     agent = base_agent_module.BaseAgent("x.md")
     # Pass empty original_content to force fallback message
