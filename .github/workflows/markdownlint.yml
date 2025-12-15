@@ -36,10 +36,3 @@ jobs:
         pymarkdown scan --config "pymarkdown.json" . || true
 
         '
-'on':
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main

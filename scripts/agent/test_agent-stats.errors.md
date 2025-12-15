@@ -1,10 +1,12 @@
-# GitHub Copilot (gh) Explanation
+# Errors: `test_agent-stats.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Scan scope
+- Static scan (AST parse) + lightweight compile/syntax check
+- VS Code/Pylance Problems are not embedded by this script
 
-For more information, visit:
+## Syntax / compile
+- `py_compile` equivalent: OK (AST parse succeeded)
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
-
-No commands will be executed.
+## Known issues / hazards
+- Filename is not import-friendly for pytest collection (contains '-' or extra '.') and may fail test discovery/import.
+- Test file only contains a placeholder test (no real assertions/coverage).

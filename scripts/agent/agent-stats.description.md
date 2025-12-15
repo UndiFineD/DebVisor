@@ -1,10 +1,38 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-stats.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Stats Agent: Reports statistics on file updates and progress.
 
-For more information, visit:
+Tracks which files have updates needed and how many are done.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+# Description
+This module provides a Stats Agent that monitors the progress of code improvements
+across files, reporting on pending updates and completed work.
 
-No commands will be executed.
+# Changelog
+- 1.0.0: Initial implementation
+
+# Suggested Fixes
+- Improve statistics tracking
+- Add more detailed progress reports
+
+# Improvements
+- Better integration with other agents
+- Enhanced reporting
+
+## Location
+- Path: `scripts/agent/agent-stats.py`
+
+## Public surface
+- Classes: StatsAgent
+- Functions: main
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+- Uses `argparse` for CLI parsing.
+
+## Key dependencies
+- Top imports: `pathlib`, `typing`, `argparse`
+
+## File fingerprint
+- SHA256(source): `23540be7c5e93aa1…`

@@ -1,10 +1,24 @@
-# GitHub Copilot (gh) Explanation
+# Description: `base_agent.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Base Agent: Common functionality for all AI-powered agents.
 
-For more information, visit:
+Provides shared functionality for agents that improve code files using AI assistance.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+## Location
+- Path: `scripts/agent/base_agent.py`
 
-No commands will be executed.
+## Public surface
+- Classes: BaseAgent
+- Functions: create_main_function
+
+## Behavior summary
+- Uses `argparse` for CLI parsing.
+- Invokes external commands via `subprocess`.
+- Mutates `sys.path` to import sibling modules.
+
+## Key dependencies
+- Top imports: `subprocess`, `pathlib`, `argparse`, `difflib`, `sys`, `fix_markdown_lint`
+
+## File fingerprint
+- SHA256(source): `41db65816180665c…`

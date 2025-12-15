@@ -260,8 +260,12 @@ def test_placeholder():
             test_file_to_update = tests_file
             prompt = f"Update and expand the test suite for {code_file.name}"
 
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-tests.py'),
-            '--context', str(test_file_to_update), '--prompt', prompt]
+        cmd = [
+            sys.executable,
+            str(self.repo_root / 'scripts/agent/agent-tests.py'),
+            '--context', str(test_file_to_update),
+            '--prompt', prompt,
+        ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True

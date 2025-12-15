@@ -1,10 +1,39 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-coder.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Coder Agent: Improves and updates code files.
 
-For more information, visit:
+Reads a code file, uses Copilot to enhance the code,
+and updates the code file with improvements.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+## Description
+This module provides a Coder Agent that reads existing code files,
+uses AI assistance to improve and complete them, and updates the code files
+with enhanced implementations.
 
-No commands will be executed.
+## Changelog
+- 1.0.0: Initial implementation
+
+## Suggested Fixes
+- Add validation for code file format
+- Improve prompt engineering for better code improvements
+
+## Improvements
+- Better integration with other agents
+- Enhanced diff reporting
+
+## Location
+- Path: `scripts/agent/agent-coder.py`
+
+## Public surface
+- Classes: CoderAgent
+- Functions: (none)
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+
+## Key dependencies
+- Top imports: `base_agent`
+
+## File fingerprint
+- SHA256(source): `fc172a89fb676516…`

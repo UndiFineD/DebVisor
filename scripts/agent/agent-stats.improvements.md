@@ -1,10 +1,9 @@
-# GitHub Copilot (gh) Explanation
+# Improvements: `agent-stats.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Suggested improvements
+- Add `--help` examples and validate CLI args (paths, required files).
+- Consider using `logging` instead of `print` for controllable verbosity.
 
-For more information, visit:
-
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
-
-No commands will be executed.
+## Notes
+- These are suggestions based on static inspection; validate behavior with tests/runs.
+- File: `scripts/agent/agent-stats.py`

@@ -1,10 +1,8 @@
-# GitHub Copilot (gh) Explanation
+# Improvements: `agent-changes.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Suggested improvements
+- Consider documenting class construction/expected invariants.
 
-For more information, visit:
-
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
-
-No commands will be executed.
+## Notes
+- These are suggestions based on static inspection; validate behavior with tests/runs.
+- File: `scripts/agent/agent-changes.py`

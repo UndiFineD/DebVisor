@@ -1,10 +1,39 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-tests.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Tests Agent: Improves and updates code file test suites.
 
-For more information, visit:
+Reads a tests file (test_Codefile.py), uses Copilot to enhance the tests,
+and updates the tests file with improvements.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+# Description
+This module provides a Tests Agent that reads existing code file test suites,
+uses AI assistance to improve and complete them, ensuring each line of the codefile is tested,
+and updates the tests files with enhanced test coverage.
 
-No commands will be executed.
+# Changelog
+- 1.0.0: Initial implementation
+
+# Suggested Fixes
+- Add validation for tests file format
+- Improve prompt engineering for better test generation
+
+# Improvements
+- Better integration with other agents
+- Enhanced diff reporting
+
+## Location
+- Path: `scripts/agent/agent-tests.py`
+
+## Public surface
+- Classes: TestsAgent
+- Functions: (none)
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+
+## Key dependencies
+- Top imports: `base_agent`
+
+## File fingerprint
+- SHA256(source): `a002f64096c349c5…`

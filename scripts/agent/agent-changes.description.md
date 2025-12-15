@@ -1,10 +1,34 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-changes.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Changes Agent: Improves and updates code file changelogs.
 
-For more information, visit:
+Reads a changes file (Codefile.changes.md), uses Copilot to enhance the changelog,
+and updates the changes file with improvements.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+## Description
+This module provides a Changes Agent that reads existing code file changelogs,
+uses AI assistance to improve and complete them, and updates the changes files
+with enhanced documentation.
 
-No commands will be executed.
+## Changelog
+- 1.0.0: Initial implementation
+
+## Suggested Fixes
+- Add validation for changes file format
+
+## Location
+- Path: `scripts/agent/agent-changes.py`
+
+## Public surface
+- Classes: ChangesAgent
+- Functions: (none)
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+
+## Key dependencies
+- Top imports: `base_agent`
+
+## File fingerprint
+- SHA256(source): `a0586d18bd36a990…`

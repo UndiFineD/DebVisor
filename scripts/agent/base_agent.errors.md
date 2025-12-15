@@ -1,10 +1,11 @@
-# GitHub Copilot (gh) Explanation
+# Errors: `base_agent.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Scan scope
+- Static scan (AST parse) + lightweight compile/syntax check
+- VS Code/Pylance Problems are not embedded by this script
 
-For more information, visit:
+## Syntax / compile
+- `py_compile` equivalent: OK (AST parse succeeded)
 
-- Copilot CLI:
-- Deprecation announcement:
-
-No commands will be executed.
+## Known issues / hazards
+- Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.

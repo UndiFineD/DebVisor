@@ -1,10 +1,20 @@
-# GitHub Copilot (gh) Explanation
+# Description: `test_base_agent.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+(No module docstring found.)
 
-For more information, visit:
+## Location
+- Path: `scripts/agent/test_base_agent.py`
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+## Public surface
+- Classes: (none)
+- Functions: test_placeholder
 
-No commands will be executed.
+## Behavior summary
+- Pure module (no obvious CLI/side effects).
+
+## Key dependencies
+- (none)
+
+## File fingerprint
+- SHA256(source): `03268c82652d070f…`

@@ -1,10 +1,10 @@
-# GitHub Copilot (gh) Explanation
+# Improvements: `base_agent.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Suggested improvements
+- Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports.
+- Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting).
+- Consider using `logging` instead of `print` for controllable verbosity.
 
-For more information, visit:
-
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
-
-No commands will be executed.
+## Notes
+- These are suggestions based on static inspection; validate behavior with tests/runs.
+- File: `scripts/agent/base_agent.py`

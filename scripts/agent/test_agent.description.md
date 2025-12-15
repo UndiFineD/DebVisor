@@ -1,10 +1,22 @@
-# GitHub Copilot (gh) Explanation
+# Description: `test_agent.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+(No module docstring found.)
 
-For more information, visit:
+## Location
+- Path: `scripts/agent/test_agent.py`
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+## Public surface
+- Classes: TestAgent, TestAgentIntegration
+- Functions: (none)
 
-No commands will be executed.
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+- Invokes external commands via `subprocess`.
+- Mutates `sys.path` to import sibling modules.
+
+## Key dependencies
+- Top imports: `pytest`, `tempfile`, `shutil`, `pathlib`, `unittest.mock`, `sys`, `os`, `agent`
+
+## File fingerprint
+- SHA256(source): `b5b010323710c894…`

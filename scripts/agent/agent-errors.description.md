@@ -1,10 +1,39 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-errors.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Errors Agent: Improves and updates code file error reports.
 
-For more information, visit:
+Reads an errors file (Codefile.errors.md), uses Copilot to enhance the error analysis,
+and updates the errors file with improvements.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+# Description
+This module provides an Errors Agent that reads existing code file error reports,
+uses AI assistance to improve and complete them, and updates the errors files
+with enhanced documentation.
 
-No commands will be executed.
+# Changelog
+- 1.0.0: Initial implementation
+
+# Suggested Fixes
+- Add validation for errors file format
+- Improve prompt engineering for better error analysis
+
+# Improvements
+- Better integration with other agents
+- Enhanced diff reporting
+
+## Location
+- Path: `scripts/agent/agent-errors.py`
+
+## Public surface
+- Classes: ErrorsAgent
+- Functions: (none)
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+
+## Key dependencies
+- Top imports: `base_agent`
+
+## File fingerprint
+- SHA256(source): `866996a7d8b4dda9…`

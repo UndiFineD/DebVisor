@@ -1,10 +1,39 @@
-# GitHub Copilot (gh) Explanation
+# Description: `agent-context.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Module purpose
+Context Agent: Improves and updates code file descriptions.
 
-For more information, visit:
+Reads a context file (Codefile.description.md), uses Copilot to enhance the description,
+and updates the context file with improvements.
 
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
+# Description
+This module provides a Context Agent that reads existing code file descriptions,
+uses AI assistance to improve and complete them, and updates the context files
+with enhanced documentation.
 
-No commands will be executed.
+# Changelog
+- 1.0.0: Initial implementation
+
+# Suggested Fixes
+- Add validation for context file format
+- Improve prompt engineering for better descriptions
+
+# Improvements
+- Better integration with other agents
+- Enhanced diff reporting
+
+## Location
+- Path: `scripts/agent/agent-context.py`
+
+## Public surface
+- Classes: ContextAgent
+- Functions: (none)
+
+## Behavior summary
+- Has a CLI entrypoint (`__main__`).
+
+## Key dependencies
+- Top imports: `base_agent`
+
+## File fingerprint
+- SHA256(source): `878e1abd97f62015…`

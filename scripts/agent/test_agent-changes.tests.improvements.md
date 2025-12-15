@@ -1,10 +1,10 @@
-# GitHub Copilot (gh) Explanation
+# Improvements: `test_agent-changes.tests.py`
 
-The gh-copilot extension has been deprecated in favor of the newer GitHub Copilot CLI.
+## Suggested improvements
+- Replace placeholder tests with real assertions; target the most important behaviors first.
+- Rename the file to be pytest-importable (avoid '-' and extra '.'), then update references.
+- Add a concise module docstring describing purpose/usage.
 
-For more information, visit:
-
-- Copilot CLI: [https://github.com/github/copilot-cli](https://github.com/github/copilot-cli)
-- Deprecation announcement: [https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension](https://github.blog/changelog/2025-09-25-upcoming-deprecation-of-gh-copilot-cli-extension)
-
-No commands will be executed.
+## Notes
+- These are suggestions based on static inspection; validate behavior with tests/runs.
+- File: `scripts/agent/test_agent-changes.tests.py`

@@ -1,4 +1,4 @@
-# Errors: `test_agent-improvements.py`
+# Errors: `generate_agent_reports.py`
 
 ## Scan scope
 - Static scan (AST parse) + lightweight compile/syntax check
@@ -8,5 +8,5 @@
 - `py_compile` equivalent: OK (AST parse succeeded)
 
 ## Known issues / hazards
-- Filename is not import-friendly for pytest collection (contains '-' or extra '.') and may fail test discovery/import.
-- Test file only contains a placeholder test (no real assertions/coverage).
+- Runs `git` via `subprocess`; will fail if git is not installed or repo has no remote.
+- Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.
