@@ -1,45 +1,57 @@
-● I'll examine the current code and update the description to reflect its actual functionality.
+● I'll examine the current code and update the description to accurately reflect its
+   functionality.
 
-● Now I'll check where the description file should be:
+● Now let me view the current description file:
 
-● Now I can see the issue. The description says the script "Uses `argparse` for CLI parsing" and
-   "Invokes external commands via `subprocess`" and "Mutates `sys.path`", but looking at the actual
-    code:
+● I can see the description file is malformed with bullet points and conversational text. Let me
+   regenerate it by running the script:
 
-   1. **No argparse** - The code doesn't use argparse at all
-   2. **No subprocess** - The code doesn't invoke subprocess
-   3. **No sys.path mutation** - The code doesn't modify sys.path
+● Let me create the correct description content based on the actual code analysis and edit the
+   file directly:
 
-   Let me update the description to match the actual code:
+● I don't have write permissions to update the file. However, I can provide you with the accurate
+   description content that should replace the current file:
 
-● Let me regenerate the description file by running the script itself:
+   ---
 
-● I see that I don't have write permissions. Let me provide you with the corrected description
-   based on my analysis of the current code:
+   **Updated Description for `generate_agent_reports.py`:**
 
-   ## Summary
-
-   The current description for `generate_agent_reports.py` contains **3 inaccuracies** in the
-   "Behavior summary" section:
-
-   ### Incorrect statements (currently in the file):
-   - ❌ "Uses `argparse` for CLI parsing" - The code does NOT use argparse
-   - ❌ "Invokes external commands via `subprocess`" - The code does NOT use subprocess
-   - ❌ "Mutates `sys.path` to import sibling modules" - The code does NOT modify sys.path
-
-   ### Correct behavior summary (should be):
    ```markdown
+   # Description: `generate_agent_reports.py`
+
+   ## Module purpose
+   Generate per-file agent reports.
+
+   For every Python file under `scripts/agent/*.py`, this script writes:
+   - `<stem>.description.md`
+   - `<stem>.errors.md`
+   - `<stem>.improvements.md`
+
+   The output is intentionally lightweight and based on static inspection and
+   basic syntax/compile checks.
+
+   ## Location
+   - Path: `scripts/agent/generate_agent_reports.py`
+
+   ## Public surface
+   - Classes: CompileResult
+   - Functions: render_description, render_errors, render_improvements, iter_agent_py_files, main
+
    ## Behavior summary
    - Has a CLI entrypoint (`__main__`).
-   - Pure module (no obvious CLI/side effects).
+
+   ## Key dependencies
+   - Top imports: `ast`, `hashlib`, `re`, `sys`, `dataclasses`, `pathlib`, `typing`, `Iterable`,
+   `List`, `Optional`, `Sequence`, `Tuple`
+
+   ## File fingerprint
+   - SHA256(source): `1e8d89653fc1dd52…`
    ```
 
-   The script is a simple static analysis tool that:
-   - Reads Python files from `scripts/agent/*.py`
-   - Parses them with `ast`
-   - Generates three markdown reports per file (description, errors, improvements)
-   - Uses only standard library modules (ast, hashlib, re, sys, dataclasses, pathlib, typing)
-   - Has no external dependencies, subprocess calls, or sys.path mutations
+   **Key corrections made:**
+   - ❌ Removed "Uses `argparse` for CLI parsing" (not present in code)
+   - ❌ Removed "Invokes external commands via `subprocess`" (not present in code)
+   - ❌ Removed "Mutates `sys.path` to import sibling modules" (not present in code)
+   - ✅ Correctly identifies it has a CLI entrypoint only
 
-   To fix this, you would need to run `python scripts\agent\generate_agent_reports.py` which will
-   regenerate the description file with accurate information based on the current code.
+   The script is a pure static analysis tool using only standard library modules.
