@@ -92,8 +92,16 @@ try:
     from scripts.fix.fix_markdown_lint import fix_markdown_content  # type: ignore
 except ImportError:
     try:
-        sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-        from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
+        import importlib.util
+        fix_dir = Path(__file__).parent.parent / 'fix'
+        spec = importlib.util.spec_from_file_location("fix_markdown_lint", str(fix_dir / "fix_markdown_lint.py"))
+        if spec and spec.loader:
+            module = importlib.util.module_from_spec(spec)
+            sys.modules["fix_markdown_lint"] = module
+            spec.loader.exec_module(module)
+            fix_markdown_content = module.fix_markdown_content
+        else:
+            raise ImportError
     except Exception:  # pragma: no cover
         def fix_markdown_content(text: str) -> str:
             return text
@@ -102,7 +110,7 @@ except ImportError:
 class BaseAgent:
     """Base class for all AI-powered agents."""
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         self.file_path = Path(file_path)
         self.previous_content = ""
         self.current_content = ""
@@ -202,11 +210,18 @@ class BaseAgent:
                     errors='replace',
                     timeout=180,
                     cwd=str(repo_root),
+                    check=False
                 )
                 stdout = (result.stdout or "").strip()
                 if result.returncode == 0 and stdout:
                     return stdout
-            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                if result.returncode != 0:
+                    logging.debug(f"Copilot CLI failed (code {result.returncode}): {result.stderr}")
+            except subprocess.TimeoutExpired:
+                logging.warning("Copilot CLI timed out")
+                return None
+            except Exception as e:
+                logging.warning(f"Copilot CLI error: {e}")
                 return None
             return None
 
@@ -258,10 +273,17 @@ class BaseAgent:
                     errors='replace',
                     timeout=30,
                     cwd=str(_resolve_repo_root()),
+                    check=False
                 )
                 if result.returncode == 0 and result.stdout.strip():
                     return f"# GitHub Copilot (gh) Explanation:\n{result.stdout.strip()}"
-            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                if result.returncode != 0:
+                    logging.debug(f"gh copilot failed (code {result.returncode}): {result.stderr}")
+            except subprocess.TimeoutExpired:
+                logging.warning("gh copilot timed out")
+                return None
+            except Exception as e:
+                logging.warning(f"gh copilot error: {e}")
                 return None
             return None
 
@@ -452,7 +474,7 @@ class BaseAgent:
             "# npm: npm install -g @github/copilot\n"
         )
 
-    def update_file(self):
+    def update_file(self) -> None:
         """Write the improved content back to the file."""
         content_to_write = self.current_content
         # Only run the markdown fixer on markdown-like files. Applying markdown
@@ -474,9 +496,13 @@ class BaseAgent:
         return ''.join(diff)
 
 
-def create_main_function(agent_class, description: str, context_help: str):
+from typing import Optional, Type, Callable, Any
+
+# ... (imports)
+
+def create_main_function(agent_class: Type[BaseAgent], description: str, context_help: str) -> Callable[[], None]:
     """Create a main function for an agent class."""
-    def main():
+    def main() -> None:
         parser = argparse.ArgumentParser(description=description)
         parser.add_argument(
             '--describe-backends',

@@ -3,7 +3,7 @@
 ## Suggested improvements
 - Add `--help` examples and validate CLI args (paths, required files). [Fixed]
 - Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting). [Fixed]
-- Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports.
+- Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports. [Fixed]
 - Function `__init__` is missing type annotations. [Fixed]
 - Function `_commit_and_push` is missing type annotations. [Fixed]
 - Function `_log_changes` is missing type annotations. [Fixed]

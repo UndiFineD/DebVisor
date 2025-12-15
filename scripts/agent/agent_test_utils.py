@@ -31,13 +31,24 @@ AGENT_DIR = Path(__file__).resolve().parent
 
 @contextmanager
 def agent_dir_on_path() -> Iterator[None]:
-    """Temporarily add the agent directory to sys.path."""
+    """Temporarily add the agent directory to sys.path.
+
+    Note: This is a legacy helper to support tests that rely on implicit imports
+    from the scripts/agent directory. For new code, prefer using load_agent_module
+    or proper package imports.
+    """
     old_sys_path = list(sys.path)
     sys.path.insert(0, str(AGENT_DIR))
     try:
         yield
     finally:
         sys.path[:] = old_sys_path
+
+
+def get_base_agent_module() -> ModuleType:
+    """Load base_agent module without modifying sys.path."""
+    return load_agent_module("base_agent.py", "base_agent")
+
 
 
 def load_agent_module(filename: str, module_name: str | None = None) -> ModuleType:

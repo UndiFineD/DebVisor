@@ -43,7 +43,12 @@ from base_agent import BaseAgent, create_main_function
 
 
 class CoderAgent(BaseAgent):
-    """Updates code files using AI assistance."""
+    """Updates code files using AI assistance.
+    
+    Invariants:
+    - self.file_path must point to a valid file path.
+    - Supports Python files (.py) with syntax validation.
+    """
 
     @property
     def _is_python_file(self) -> bool:

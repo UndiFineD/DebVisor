@@ -41,10 +41,20 @@ from pathlib import Path
 from typing import List, Set, Optional
 import argparse
 import fnmatch
+import importlib.util
 
 # Import markdown fixing functionality
-sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-from fix_markdown_lint import fix_markdown_content  # type: ignore # noqa: E402
+def _load_fix_markdown_content():
+    fix_dir = Path(__file__).parent.parent / 'fix'
+    spec = importlib.util.spec_from_file_location("fix_markdown_lint", str(fix_dir / "fix_markdown_lint.py"))
+    if spec and spec.loader:
+        module = importlib.util.module_from_spec(spec)
+        sys.modules["fix_markdown_lint"] = module
+        spec.loader.exec_module(module)
+        return module.fix_markdown_content
+    return lambda x: x  # Fallback
+
+fix_markdown_content = _load_fix_markdown_content()
 
 
 def setup_logging(verbosity: str) -> None:

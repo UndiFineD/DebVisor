@@ -1,7 +1,7 @@
 # Improvements: `agent-tests.py`
 
 ## Suggested improvements
-- Consider documenting class construction/expected invariants.
+- Consider documenting class construction/expected invariants. [Fixed]
 - Function `update_file` is missing type annotations. [Fixed]
 
 ## Notes

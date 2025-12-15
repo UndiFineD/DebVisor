@@ -211,3 +211,28 @@ def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "prompt", "ORIG")
     assert out == "OK_FROM_MODELS"
+
+
+def test_run_subagent_handles_subprocess_failures_gracefully(monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
+    """Verify that subprocess failures (non-zero exit code) result in fallback response."""
+    class Result:
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = "") -> None:
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = stderr
+
+    def fake_run_fail_all(args: List[str], **kwargs: Any) -> Result:
+        # Pretend tools exist but fail during execution
+        if args[:2] == ["copilot", "--version"]:
+            return Result(0, "copilot 1.2.3")
+        if args[:2] == ["gh", "--version"]:
+            return Result(0, "gh 2.0.0")
+        return Result(1, "", "Process failed")
+
+    monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
+    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run_fail_all)
+    
+    agent = base_agent_module.BaseAgent("x.md")
+    # Pass empty original_content to force fallback message
+    out = agent.run_subagent("desc", "prompt", "")
+    assert "AI Improvement Unavailable" in out

@@ -2,8 +2,10 @@
 
 ## Suggested improvements
 - Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting). [Fixed]
-- Consider using `logging` instead of `print` for controllable verbosity.
+- Consider using `logging` instead of `print` for controllable verbosity. [False Positive]
+    - *Note*: All `print` usages are inside strings written to test files.
 - Function `agent_module` is missing type annotations. [Fixed]
+
 - Function `boom` is missing type annotations. [Fixed]
 - Function `fake_run` is missing type annotations. [Fixed]
 - Function `test_agent_initialization_defaults` is missing type annotations. [Fixed]

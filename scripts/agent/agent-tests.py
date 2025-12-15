@@ -41,7 +41,12 @@ from base_agent import BaseAgent, create_main_function
 
 
 class TestsAgent(BaseAgent):
-    """Updates code file test suites using AI assistance."""
+    """Updates code file test suites using AI assistance.
+    
+    Invariants:
+    - self.file_path must point to a test file (usually starting with 'test_').
+    - The agent attempts to locate the corresponding source file to provide context.
+    """
 
     def _get_default_content(self) -> str:
         """Return default content for new test files."""

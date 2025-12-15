@@ -58,6 +58,10 @@ class StatsAgent:
             logging.warning(f"Files not found: {', '.join(map(str, invalid))}")
             # Filter out invalid files
             self.files = [f for f in self.files if f.exists()]
+            
+        if not self.files:
+            logging.error("No valid files found after filtering")
+            sys.exit(1)
 
     def calculate_stats(self) -> Dict[str, int]:
         """Calculate statistics for each file."""
@@ -113,7 +117,10 @@ class StatsAgent:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description='Stats Agent: Reports file update statistics')
+    parser = argparse.ArgumentParser(
+        description='Stats Agent: Reports file update statistics',
+        epilog='Example: python scripts/agent/agent-stats.py --files scripts/agent/*.py'
+    )
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
     parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
     parser.add_argument('--verbose', default='normal', help='Verbosity level')
