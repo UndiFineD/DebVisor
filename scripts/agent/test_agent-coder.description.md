@@ -1,25 +1,47 @@
-● I'll help you update the description for `test_agent-coder.py` by first examining the current
-   code to understand its actual structure and purpose.
+● I'll help you update the description for `test_agent-coder.py` by examining the current code and
+    then updating its description file.
 
-● Now let me find and view the context file that needs updating:
+● I don't have write permissions. Here's the updated description content for
+   `test_agent-coder.description.md`:
 
-● Now I'll update the description file based on the actual current code:
+   ```markdown
+   # test_agent-coder.py
 
-● I don't have write permissions to make edits. Based on my analysis of the current code, here are
-    the recommended updates to `test_agent-coder.description.md`:
+   ## Purpose
+   Legacy test suite for the CoderAgent class in agent-coder.py module.
 
-   **Public surface section** - Change to distinguish fixtures from test functions:
-   - Fixtures: base_agent_module
-   - Test functions: test_coder_agent_keyword_prompt_generates_suggestions,
-   test_coder_agent_non_keyword_delegates_to_base
+   ## Public Surface
+   **Fixtures:**
+   - `base_agent_module`: Context manager fixture that imports base_agent module with proper path
+   setup
 
-   **Behavior summary** - Expand with actual test behaviors:
+   **Test Functions:**
+   - `test_coder_agent_keyword_prompt_generates_suggestions`: Tests AI code improvement with
+   keyword prompts
+   - `test_coder_agent_non_keyword_delegates_to_base`: Tests delegation to BaseAgent.run_subagent
+   for non-keyword prompts
+
+   ## Behavior Summary
    - Tests CoderAgent class from agent-coder.py module
-   - Verifies keyword prompts trigger AI code improvement suggestions
-   - Verifies non-keyword prompts delegate to BaseAgent.run_subagent
-   - Uses pytest fixtures, monkeypatching, and temporary file paths for testing
+   - Verifies keyword prompts (containing "Improve") trigger AI code improvement suggestions
+   - Verifies non-keyword prompts delegate to BaseAgent.run_subagent method
+   - Uses pytest fixtures, monkeypatching, and temporary file paths for isolated testing
+   - Validates content generation includes both "AI Code Improvement Suggestions" header and
+   original content
 
-   **Key dependencies** - Restructure for clarity:
-   - Top imports: `__future__`, `pathlib`, `pytest`
-   - Test utilities: `agent_test_utils` (agent_dir_on_path, load_agent_module)
-   - Tested module: `base_agent` (BaseAgent class)
+   ## Key Dependencies
+   **Standard Library:**
+   - `__future__`: annotations support
+   - `pathlib.Path`: file path handling
+
+   **Testing Framework:**
+   - `pytest`: test framework and fixtures (MonkeyPatch, tmp_path)
+
+   **Test Utilities:**
+   - `agent_test_utils.agent_dir_on_path`: context manager for agent module path setup
+   - `agent_test_utils.load_agent_module`: dynamic agent module loader
+
+   **Tested Modules:**
+   - `base_agent.BaseAgent`: base class being mocked/tested for delegation behavior
+   - `agent-coder.py` (loaded dynamically): module containing CoderAgent class under test
+   ```

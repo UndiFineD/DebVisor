@@ -1,138 +1,209 @@
 ● I'll analyze the test file and suggest comprehensive improvements for the improvements document.
 
-● Now let me check the related test utility and base agent to understand the testing patterns
-   better:
+● Now let me check other test files to see better patterns and understand the testing structure:
 
-● Let me check other similar test files to understand the testing patterns better:
+● Now let me create comprehensive, improved suggestions for the improvements file:
 
-● Now let me look at a few more things to understand the CoderAgent better:
+● Let me try viewing the file with raw bytes to understand the exact format:
 
-● Now let me update the improvements file with comprehensive suggestions:
+● I see that I don't have write or shell permissions. Let me provide you with the comprehensive
+   improved content as output:
 
-● Let me check the current content of the improvements file:
+   ---
 
-● Let me get the exact text with proper line endings:
+   # **Enhanced Improvements for test_agent-coder.improvements.md**
 
-● Let me try a different approach - replacing the entire file content:
+   Based on my analysis of `test_agent-coder.py` (59 lines, 2 tests) compared to `agent-coder.py`
+   (152 lines) and similar test files, here are comprehensive, prioritized improvements:
 
-● Let me try with more exact text including blank lines:
+   ## **Critical Improvements**
 
-● Let me use Python to read the raw content and see what's happening:
+   ### 1. **Missing Module Docstring Run Instructions**
+   - **Priority:** Critical
+   - **Issue:** Unlike `test_agent-changes.py` and `test_base_agent.py`, lacks explicit run
+   instructions
+   - **Impact:** Due to hyphen in filename, pytest discovery doesn't work automatically
+   - **Fix:** Add to docstring:
+     ```python
+     """Legacy tests for agent-coder.py.
 
-● Let me just create a new version of the file with the improved content:
+     Run directly via:
 
-● The write tool is denied. Let me try a different approach - look at the hex dump to understand
-   the exact content:
+         pytest scripts/agent/test_agent-coder.py
+     """
+     ```
 
-● Now I can see the exact lines. Let me try the edit tool with exact line matches including empty
-   lines:
+   ### 2. **Zero Test Coverage for Validation Methods**
+   - **Priority:** Critical
+   - **Gap:** `_validate_syntax()` (lines 59-68) and `_validate_flake8()` (lines 70-99) are
+   completely untested
+   - **Risk:** Core validation logic has no verification
+   - **Required Tests:**
+     - Valid Python syntax should pass validation
+     - Invalid Python syntax should fail validation and revert
+     - Non-.py files should skip AST parsing
+     - Flake8 available vs unavailable scenarios
+     - Flake8 subprocess timeout handling
 
-● There might be a character encoding issue. Let me try to replace just the bullet points first:
+   ### 3. **Critical Path Untested: Syntax Validation Reversion**
+   - **Priority:** Critical
+   - **Code:** Lines 132-135 in agent-coder.py implement reversion on validation failure
+   - **Missing:** Test verifying `improve_content()` reverts to `previous_content` when
+   `_validate_syntax()` returns False
+   - **Test Name:** `test_improve_content_reverts_on_syntax_failure`
 
-● The file is protected from writes. Let me provide the improved content as output to the user
-   instead:
+   ### 4. **No Exception Handling Tests**
+   - **Priority:** Critical
+   - **Gap:** No test for when `run_subagent()` raises exception
+   - **Required:** Test with monkeypatched `run_subagent` that raises to verify graceful
+   degradation
 
-## Summary
+   ---
 
-I've analyzed `test_agent-coder.py` and identified comprehensive improvements. However, I cannot
-   edit the file due to write restrictions. Here are the **enhanced improvements** for
-`test_agent-coder.improvements.md`:
+   ## **High Priority Improvements**
 
----
+   ### 5. **Missing Test Function Docstrings**
+   - All test functions lack docstrings explaining what they validate
+   - **Example:**
+     ```python
+     def test_coder_agent_keyword_prompt_generates_suggestions(tmp_path: Path):
+         """Verify CoderAgent returns fallback suggestions for prompts with 'improve' or 'code'
+   keywords."""
+     ```
 
-# Improvements: `test_agent-coder.py`
+   ### 6. **Incomplete Edge Case Coverage**
+   - Empty `previous_content` behavior
+   - Missing file with no default content
+   - Very large code files (context limits)
+   - Different file extensions (.js, .go, .rs, .java)
 
-## High Priority Improvements
+   ### 7. **Weak Assertion Specificity**
+   - **Line 35:** Only checks `"AI Code Improvement Suggestions" in out`
+   - **Better:** Verify all 10 suggestions present, description format, original content
+   preservation
 
-### Test Coverage Gaps
+   ### 8. **No Integration Tests**
+   - Full workflow untested: read → improve → validate → write → diff
+   - Validation failure flow untested: syntax error → revert → write
+   - Style warning flow untested: flake8 fail → log → proceed (line 138)
 
-1. **Error Handling & Fallback Paths**
-   - Add test for `run_subagent` raising exception to ensure graceful fallback
-   - Test behavior when `_validate_syntax` fails (should revert to previous content)
-   - Test behavior when file path doesn't exist yet
-   - Test error handling for non-Python file types
+   ---
 
-2. **Validation Logic Testing**
-   - Add test for `_validate_syntax` with invalid Python syntax
-   - Add test for `_validate_syntax` with valid Python syntax
-   - Add test for `_validate_flake8` when flake8 is available/unavailable
-   - Test non-.py file validation (should pass through without validation)
+   ## **Medium Priority Improvements**
 
-3. **Edge Cases**
-   - Test with empty `previous_content`
-   - Test with missing file (should use default content)
-   - Test prompt variations beyond "improve" and "code" keywords
-   - Test behavior with very large code files (context truncation)
+   ### 9. **Parametrized Testing Would Reduce Duplication**
+   ```python
+   @pytest.mark.parametrize("prompt,expects_fallback", [
+       ("Improve this code", True),
+       ("improve the function", True),
+       ("Add more code here", True),
+       ("Update documentation", False),
+       ("noop", False),
+   ])
+   def test_prompt_handling(tmp_path, prompt, expects_fallback):
+       # Single test for all prompt variations
+   ```
 
-### Code Quality Improvements
+   ### 10. **Test Names Could Be More Concise**
+   - `test_coder_agent_keyword_prompt_generates_suggestions` → `test_keyword_prompts_use_fallback`
+   - `test_coder_agent_non_keyword_delegates_to_base` → `test_non_keyword_prompts_use_run_subagent`
 
-4. **Test Structure & Clarity**
-   - Add docstrings to test functions explaining what they validate
-   - Consider parametrizing tests for multiple file extensions (.py, .js, .go, etc.)
-   - Add explicit test for the fallback suggestions format (lines 110-130 in agent-coder.py)
+   ### 11. **No Test Markers**
+   - Add `@pytest.mark.unit` for fast tests
+   - Add `@pytest.mark.integration` for slow tests
+   - Add `@pytest.mark.requires_flake8` for flake8-dependent tests
 
-5. **Mocking & Isolation**
-   - Mock `_validate_syntax` to test improve_content logic independently
-   - Mock `_validate_flake8` to avoid external dependency on flake8 binary
-   - Mock subprocess calls in validation methods for deterministic testing
+   ### 12. **Fixture Duplication**
+   - `base_agent_module` fixture repeated in multiple test files
+   - Should be in `conftest.py` for sharing
 
-6. **Test Execution**
-   - Add explicit invocation instructions in module docstring (pytest discovery issue with `-`
-in filename)
-   - Consider adding `# Run via: pytest scripts/agent/test_agent-coder.py` comment
-   - Document that the file is "legacy" and why
+   ---
 
-## Medium Priority Improvements
+   ## **Low Priority Improvements**
 
-7. **Integration Testing**
-   - Test the full flow: read → improve → validate → write
-   - Test diff generation after code improvements
-   - Test interaction with different backends (copilot CLI, gh, github-models)
+   ### 13. **Test Organization**
+   Group by functionality:
+   - Validation tests
+   - Prompt handling tests
+   - Integration tests
 
-8. **Consistency with Other Test Files**
-   - Follow the pattern from `test_agent-changes.py` (includes run instructions)
-   - Ensure fixture naming and usage is consistent across test files
-   - Add similar documentation style as `test_base_agent.py`
+   ### 14. **Additional Documentation**
+   - Explain test string choices ("ORIGINAL", "IMPROVED")
+   - Define "keyword prompt" in comments
+   - Document CoderAgent vs BaseAgent relationship
 
-## Low Priority Improvements
+   ### 15. **Coverage for Helper Methods**
+   - Test `_get_default_content()` return format
+   - Test `_get_fallback_response()` return format
 
-9. **Performance & Maintainability**
-   - Consider using `@pytest.mark.parametrize` for testing multiple prompts
-   - Add markers for slow tests (integration) vs fast tests (unit)
-   - Consider separating unit tests from integration tests
+   ### 16. **Consistency with Sibling Files**
+   - ✓ `test_agent-changes.py` has run instructions
+   - ✓ `test_base_agent.py` has detailed docstrings
+   - Consider harmonizing structure
 
-10. **Documentation**
-      - Add examples of expected test outputs
-      - Document the relationship between CoderAgent and BaseAgent
-      - Clarify what "keyword prompt" means in test names
+   ---
 
-## Specific Test Additions Recommended
+   ## **Specific Test Cases to Add**
 
-```python
-def test_coder_agent_handles_run_subagent_exception()
-      """Ensure agent falls back gracefully when run_subagent raises."""
+   ```python
+   def test_validate_syntax_with_valid_python(tmp_path):
+       """_validate_syntax returns True for syntactically valid Python."""
 
-def test_coder_agent_validates_syntax_failure_reverts()
-      """Verify that syntax validation failures revert to previous content."""
+   def test_validate_syntax_with_invalid_python(tmp_path):
+       """_validate_syntax returns False and logs error for syntax errors."""
 
-def test_coder_agent_non_python_files_skip_validation()
-      """Non-.py files should pass validation without AST parsing."""
+   def test_validate_syntax_skips_non_python(tmp_path):
+       """_validate_syntax returns True without parsing non-.py files."""
 
-def test_coder_agent_empty_previous_content()
-      """Agent should handle empty/missing previous content."""
+   def test_improve_content_reverts_on_validation_failure(tmp_path, monkeypatch):
+       """improve_content reverts to previous_content when validation fails."""
 
-def test_coder_agent_flake8_unavailable_continues()
-      """Agent should continue when flake8 is not installed."""
+   def test_improve_content_with_empty_previous_content(tmp_path):
+       """Handles empty previous_content gracefully."""
 
-def test_coder_agent_fallback_suggestions_format()
-      """Verify the format of fallback suggestions matches expected structure."""
-```
+   def test_validate_flake8_missing_binary(tmp_path, monkeypatch):
+       """_validate_flake8 continues when flake8 not installed."""
 
-## Notes
+   def test_validate_flake8_with_violations(tmp_path):
+       """_validate_flake8 logs warning but doesn't block on violations."""
 
-- Keep explicit invocation requirement due to `-` in filename (not pytest-discoverable)
-- Tests currently cover happy paths well; focus on error paths and edge cases
-- The agent has complex validation logic (_validate_syntax, _validate_flake8) that needs
-isolated testing
-- File: `scripts/agent/test_agent-coder.py`
-- Review with: `pytest scripts/agent/test_agent-coder.py -v`
+   def test_get_default_content_format(tmp_path):
+       """_get_default_content returns valid Python code."""
+
+   def test_fallback_response_includes_instructions(tmp_path):
+       """_get_fallback_response includes GitHub CLI installation instructions."""
+
+   def test_full_workflow_validation_failure(tmp_path, monkeypatch):
+       """Integration: syntax error → validation → reversion → write."""
+   ```
+
+   ---
+
+   ## **Testing Strategy Summary**
+
+   | Current State | Target State |
+   |--------------|--------------|
+   | 2 tests | ~15-20 tests minimum |
+   | Happy paths only | Error paths covered |
+   | No validation tests | All validation methods tested |
+   | No integration tests | Full workflow tested |
+   | No docstrings | All tests documented |
+
+   **Key Focus Areas:**
+   1. **Error Paths** - Current tests only cover success cases
+   2. **Validation Logic** - Zero coverage for core functionality
+   3. **Edge Cases** - Empty content, missing files, non-Python files
+   4. **Integration** - Full workflows untested
+   5. **Documentation** - Add docstrings and run instructions
+
+   **Quick Wins:**
+   - Add run instructions to module docstring (matches sibling files)
+   - Add docstrings to existing tests
+   - Add 3-5 validation tests (syntax, flake8, non-Python files)
+
+   ---
+
+   This analysis identifies **16 improvement areas** prioritized from Critical to Low, with **10
+   specific test cases** to add. The test file should grow from **59 lines (2 tests)** to
+   approximately **300-400 lines (15-20 tests)** for adequate coverage of the **152-line**
+   `agent-coder.py` implementation.
