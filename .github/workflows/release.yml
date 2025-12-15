@@ -92,7 +92,7 @@ jobs:
         \    sbom-${{ steps.version.outputs.version }}.xml\nelse\n  echo \"SBOM or\
         \ its signature not found; skipping SBOM verify\"\nfi\n"
     - name: Upload artifacts
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: release-artifacts-${{ steps.version.outputs.version }}
         path: 'debvisor-*.tar.gz
@@ -329,7 +329,7 @@ jobs:
         \ [ -s rekor_uuid.txt ]; then\n  echo \"Rekor UUID(s) captured:\"\n  cat rekor_uuid.txt\n\
         else\n  echo \"No Rekor UUID found in verification output\"\nfi\n"
     - name: Upload provenance logs
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: provenance-logs
         path: 'cosign_verify_output.txt
@@ -416,7 +416,7 @@ jobs:
         \  if [ -n \"$expected_spdx_sha\" ] && [ \"$expected_spdx_sha\" != \"$actual_spdx_sha\"\
         \ ]; then\n    echo \"SPDX SBOM hash mismatch\" >&2\n    exit 1\n  fi\nfi\n"
     - name: Upload SBOM attestation artifacts
-      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
       with:
         name: sbom-attestation-${{ needs.build-artifacts.outputs.version }}
         path: 'sbom_attest_output.txt
