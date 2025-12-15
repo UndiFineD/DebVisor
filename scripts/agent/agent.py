@@ -209,8 +209,12 @@ class Agent:
         """Update the code file."""
         prompt = (f"Improve the code in {code_file.name} based on its context, "
             f"errors, and improvements")
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-coder.py'),
-            '--context', str(code_file), '--prompt', prompt]
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-coder.py'),
+            '--context', str(code_file), 
+            '--prompt', prompt
+            ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True,
                                 text=True)
         return ("No changes made" not in result.stdout and
@@ -236,8 +240,12 @@ class Agent:
 
         # Update changelog
         prompt = f"Update the changelog for {code_file.name} with recent changes"
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-changes.py'),
-            '--context', str(changes_file), '--prompt', prompt]
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-changes.py'),
+            '--context', str(changes_file), 
+            '--prompt', prompt
+            ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
@@ -251,8 +259,12 @@ class Agent:
 
         # Update context
         prompt = f"Update the description for {code_file.name} based on current code"
-        cmd = [sys.executable, str(self.repo_root / 'scripts/agent/agent-context.py'),
-            '--context', str(context_file), '--prompt', prompt]
+        cmd = [
+            sys.executable, 
+            str(self.repo_root / 'scripts/agent/agent-context.py'),
+            '--context', str(context_file), 
+            '--prompt', prompt
+            ]
         result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
         if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
             changes_made = True
@@ -354,8 +366,11 @@ def test_placeholder():
             if result.returncode == 0:
                 logging.info(f"Committed changes for {code_file.name}")
                 # git push
-                push_result = subprocess.run(['git', 'push'], cwd=self.repo_root,
-                    capture_output=True, text=True)
+                push_result = subprocess.run(
+                    ['git', 'push'], 
+                    cwd=self.repo_root,
+                    capture_output=True, 
+                    text=True)
                 if push_result.returncode == 0:
                     logging.info(f"Pushed changes for {code_file.name}")
                 else:
@@ -438,9 +453,12 @@ def main():
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
 
-    agent = Agent(repo_root=args.dir, agents_only=args.agents_only,
+    agent = Agent(
+        repo_root=args.dir, 
+        agents_only=args.agents_only,
         max_files=args.max_files, loop=args.loop,
-        skip_code_update=args.skip_code_update)
+        skip_code_update=args.skip_code_update
+        )
     agent.run()
 
 

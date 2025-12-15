@@ -139,7 +139,8 @@ class BaseAgent:
         Run a subagent using one of several AI backends.
 
         Supported backends (selected by `DV_AGENT_BACKEND`):
-            - auto (default): try local `copilot` CLI, then GitHub Models (if configured), then `gh copilot` for command-like prompts
+            - auto (default): try local `copilot` CLI, then GitHub Models (if configured)
+                then `gh copilot` for command-like prompts
             - copilot: force local `copilot` CLI
             - gh: force `gh copilot` (CLI extension)
             - github-models: force GitHub Models OpenAI-compatible API
