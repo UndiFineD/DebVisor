@@ -68,7 +68,6 @@ def _resolve_repo_root() -> Path:
     for parent in [here.parent, *here.parents]:
         if (parent / ".git").exists():
             return parent
-
     return Path.cwd()
 
 
@@ -400,19 +399,15 @@ class BaseAgent:
         """
         if requests is None:  # pragma: no cover
             raise RuntimeError("Missing dependency: install 'requests' to use GitHub Models backend")
-
         resolved_token = token or os.environ.get("GITHUB_TOKEN")
         if not resolved_token:
             raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token=")
-
         resolved_base_url = (base_url or os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
         if not resolved_base_url:
             raise RuntimeError(
                 "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url="
             )
-
         url = resolved_base_url.rstrip("/") + "/v1/chat/completions"
-
         payload = {
             "model": model,
             "messages": [
@@ -420,12 +415,10 @@ class BaseAgent:
                 {"role": "user", "content": prompt},
             ],
         }
-
         headers = {
             "Authorization": f"Bearer {resolved_token}",
             "Content-Type": "application/json",
         }
-
         response = requests.post(
             url,
             headers=headers,
@@ -434,7 +427,6 @@ class BaseAgent:
         )
         response.raise_for_status()
         data = response.json()
-
         try:
             return (data["choices"][0]["message"]["content"] or "").strip()
         except (KeyError, IndexError, TypeError) as e:
@@ -496,17 +488,13 @@ def create_main_function(agent_class, description: str, context_help: str):
         )
         parser.add_argument('--context', required=True, help=context_help)
         parser.add_argument('--prompt', required=True, help='Prompt for improving the content')
-
         args = parser.parse_args()
         setup_logging(args.verbose)
-
         if args.backend:
             os.environ['DV_AGENT_BACKEND'] = args.backend
-
         if args.describe_backends:
             print(agent_class.describe_backends())
             return
-
         agent = agent_class(args.context)
         agent.read_previous_content()
         agent.improve_content(args.prompt)
@@ -517,5 +505,4 @@ def create_main_function(agent_class, description: str, context_help: str):
             logging.info(diff)
         else:
             logging.info(f"No changes made to {agent_class.__name__.replace('Agent', '').lower()}.")
-
     return main

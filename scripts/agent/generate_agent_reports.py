@@ -147,7 +147,6 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
     doc = ast.get_docstring(tree) or ""
     functions, classes = _find_top_level_defs(tree)
     imports = _find_imports(tree)
-
     lines: List[str] = []
     lines.append(f"# Description: `{py_path.name}`")
     lines.append("")
@@ -159,16 +158,13 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
         lines.append("## Module purpose")
         lines.append("(No module docstring found.)")
         lines.append("")
-
     lines.append("## Location")
     lines.append(f"- Path: `{_rel(py_path)}`")
     lines.append("")
-
     lines.append("## Public surface")
     lines.append(f"- Classes: {', '.join(classes) if classes else '(none)'}")
     lines.append(f"- Functions: {', '.join(functions) if functions else '(none)'}")
     lines.append("")
-
     lines.append("## Behavior summary")
     behavior_bits: List[str] = []
     if _detect_cli_entry(source):
@@ -184,7 +180,6 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
     for bit in behavior_bits:
         lines.append(f"- {bit}")
     lines.append("")
-
     lines.append("## Key dependencies")
     if imports:
         # Keep it short; imports can be long.
@@ -195,10 +190,8 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
     else:
         lines.append("- (none)")
     lines.append("")
-
     lines.append("## File fingerprint")
     lines.append(f"- SHA256(source): `{_sha256_text(source)[:16]}…`")
-
     return "\n".join(lines)
 
 
@@ -210,7 +203,6 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
     lines.append("- Static scan (AST parse) + lightweight compile/syntax check")
     lines.append("- VS Code/Pylance Problems are not embedded by this script")
     lines.append("")
-
     lines.append("## Syntax / compile")
     if compile_result.ok:
         lines.append("- `py_compile` equivalent: OK (AST parse succeeded)")
@@ -218,37 +210,30 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
         lines.append("- `py_compile` equivalent: FAILED")
         lines.append(f"- Error: {compile_result.error}")
     lines.append("")
-
     known: List[str] = []
     pytest_name_issue = _looks_like_pytest_import_problem(py_path)
     if pytest_name_issue:
         known.append(pytest_name_issue)
-
     placeholder_note = _placeholder_test_note(py_path, source)
     if placeholder_note:
         known.append(placeholder_note)
-
     # High-level runtime hazards (facts based on static scan)
     if "subprocess.run([\"git\"" in source or "subprocess.run(['git'" in source:
         known.append("Runs `git` via `subprocess`; will fail if git is not installed or repo has no remote.")
     if "copilot" in source and "subprocess.run" in source:
         known.append("Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.")
-
     lines.append("## Known issues / hazards")
     if known:
         for item in known:
             lines.append(f"- {item}")
     else:
         lines.append("- None detected by the lightweight scan")
-
     return "\n".join(lines)
 
 
 def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
     functions, classes = _find_top_level_defs(tree)
-
     suggestions: List[str] = []
-
     if "sys.path.insert" in source:
         suggestions.append("Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports.")
     if "subprocess.run" in source:
@@ -259,7 +244,6 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
         suggestions.append("Replace placeholder tests with real assertions; target the most important behaviors first.")
     if _looks_like_pytest_import_problem(py_path):
         suggestions.append("Rename the file to be pytest-importable (avoid '-' and extra '.'), then update references.")
-
     # Generic quality improvements
     if not ast.get_docstring(tree):
         suggestions.append("Add a concise module docstring describing purpose/usage.")
@@ -267,10 +251,8 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
         suggestions.append("Consider documenting class construction/expected invariants.")
     if "print(" in source and "logging" not in source:
         suggestions.append("Consider using `logging` instead of `print` for controllable verbosity.")
-
     # Keep it short and deterministic.
     suggestions = suggestions[:10]
-
     lines: List[str] = []
     lines.append(f"# Improvements: `{py_path.name}`")
     lines.append("")
@@ -280,12 +262,10 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
             lines.append(f"- {s}")
     else:
         lines.append("- No obvious improvements detected by the lightweight scan")
-
     lines.append("")
     lines.append("## Notes")
     lines.append("- These are suggestions based on static inspection; validate behavior with tests/runs.")
     lines.append(f"- File: `{_rel(py_path)}`")
-
     return "\n".join(lines)
 
 
@@ -298,12 +278,10 @@ def main(argv: Sequence[str]) -> int:
     if not py_files:
         print(f"No .py files found under {AGENT_DIR}")
         return 1
-
     for py_path in py_files:
         source = _read_text(py_path)
         tree, parse_err = _try_parse_python(source, str(py_path))
         compile_result = _compile_check(py_path)
-
         # If parse failed, still emit minimal files.
         if tree is None:
             description = (
@@ -321,12 +299,10 @@ def main(argv: Sequence[str]) -> int:
             description = render_description(py_path, source, tree)
             errors = render_errors(py_path, source, compile_result)
             improvements = render_improvements(py_path, source, tree)
-
         stem = py_path.stem
         _write_md(AGENT_DIR / f"{stem}.description.md", description)
         _write_md(AGENT_DIR / f"{stem}.errors.md", errors)
         _write_md(AGENT_DIR / f"{stem}.improvements.md", improvements)
-
     print(f"Wrote reports for {len(py_files)} files under {_rel(AGENT_DIR)}")
     return 0
 

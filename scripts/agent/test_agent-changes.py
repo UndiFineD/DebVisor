@@ -33,11 +33,9 @@ def base_agent_module():
 def test_changes_agent_keyword_prompt_generates_suggestions(tmp_path: Path):
     with agent_dir_on_path():
         mod = load_agent_module("agent-changes.py")
-
     target = tmp_path / "x.changes.md"
     agent = mod.ChangesAgent(str(target))
     agent.previous_content = "ORIGINAL"
-
     out = agent.improve_content("Please improve the changelog")
     assert "AI Changelog Improvement Suggestions" in out
     assert "ORIGINAL" in out
@@ -53,7 +51,6 @@ def test_changes_agent_non_keyword_delegates_to_base(
         return "IMPROVED"
 
     monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
-
     target = tmp_path / "x.changes.md"
     target.write_text("BEFORE", encoding="utf-8")
     agent = mod.ChangesAgent(str(target))

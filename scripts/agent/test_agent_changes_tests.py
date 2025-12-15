@@ -40,7 +40,6 @@ def base_agent_module():
 def test_changes_agent_default_content_for_missing_file(tmp_path: Path):
     with agent_dir_on_path():
         mod = load_agent_module("agent-changes.py")
-
     target = tmp_path / "missing.changes.md"
     agent = mod.ChangesAgent(str(target))
     assert "No changes recorded" in agent.read_previous_content()
@@ -56,7 +55,6 @@ def test_changes_agent_non_keyword_sets_current_content(
         return "UPDATED"
 
     monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
-
     target = tmp_path / "x.changes.md"
     target.write_text("BEFORE", encoding="utf-8")
     agent = mod.ChangesAgent(str(target))

@@ -36,7 +36,6 @@ def test_errors_agent_delegates_to_base(
         return "IMPROVED"
 
     monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
-
     target = tmp_path / "x.errors.md"
     target.write_text("BEFORE", encoding="utf-8")
     agent = mod.ErrorsAgent(str(target))
