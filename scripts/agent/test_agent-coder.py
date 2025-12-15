@@ -41,10 +41,8 @@ def test_coder_agent_non_keyword_delegates_to_base(
 ):
     with agent_dir_on_path():
         mod = load_agent_module("agent-coder.py")
-    def fake_run_subagent(
-        self, description: str,
-        prompt: str,
-        original_content: str = "") -> str:
+
+    def fake_run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
         return "IMPROVED"
     monkeypatch.setattr(
         base_agent_module.BaseAgent,
