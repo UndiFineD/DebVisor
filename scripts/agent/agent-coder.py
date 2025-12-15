@@ -39,12 +39,16 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Optional
 from base_agent import BaseAgent, create_main_function
 
 
 class CoderAgent(BaseAgent):
     """Updates code files using AI assistance."""
+
+    @property
+    def _is_python_file(self) -> bool:
+        """Check if the file is a Python file."""
+        return self.file_path.suffix == '.py'
 
     def _get_default_content(self) -> str:
         """Return default content for new code files."""
@@ -58,18 +62,18 @@ class CoderAgent(BaseAgent):
 
     def _validate_syntax(self, content: str) -> bool:
         """Validate Python syntax using ast."""
-        if self.file_path.suffix != '.py':
+        if not self._is_python_file:
             return True
         try:
             ast.parse(content)
             return True
-        except SyntaxError as e:
+        except (SyntaxError, RecursionError, MemoryError) as e:
             logging.error(f"Syntax error in generated code: {e}")
             return False
 
     def _validate_flake8(self, content: str) -> bool:
         """Validate Python code using flake8 if available."""
-        if self.file_path.suffix != '.py':
+        if not self._is_python_file:
             return True
         if not shutil.which('flake8'):
             logging.warning("flake8 not found, skipping style validation")

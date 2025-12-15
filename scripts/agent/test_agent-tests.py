@@ -17,7 +17,7 @@ from pathlib import Path
 from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
-def test_tests_agent_update_file_writes_raw(tmp_path: Path):
+def test_tests_agent_update_file_writes_raw(tmp_path: Path) -> None:
     with agent_dir_on_path():
         mod = load_agent_module("agent-tests.py")
     target = tmp_path / "test_something.py"

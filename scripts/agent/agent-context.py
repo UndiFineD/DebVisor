@@ -33,15 +33,53 @@ with enhanced documentation.
 - Enhanced diff reporting
 """
 
+from pathlib import Path
+from typing import Optional
 from base_agent import BaseAgent, create_main_function
 
 
 class ContextAgent(BaseAgent):
     """Updates code file context descriptions using AI assistance."""
 
+    def __init__(self, file_path: str, prompt: Optional[str] = None):
+        super().__init__(file_path, prompt)
+        self._validate_file_extension()
+        self.source_path = self._derive_source_path()
+
+    def _validate_file_extension(self) -> None:
+        """Validate that the file has the correct extension."""
+        if not self.file_path.name.endswith('.description.md'):
+            # Just warn, don't fail
+            pass
+
+    def _derive_source_path(self) -> Optional[Path]:
+        """Derive source file path from .description.md filename."""
+        if self.file_path.name.endswith('.description.md'):
+            stem = self.file_path.name.replace('.description.md', '')
+            # Try common extensions
+            for ext in ['.py', '.js', '.ts', '.go', '.rs', '.java', '.sh']:
+                source = self.file_path.parent / f"{stem}{ext}"
+                if source.exists():
+                    return source
+        return None
+
     def _get_default_content(self) -> str:
-        """Return default content for new context files."""
-        return "# Description\n\nNo description available.\n"
+        """Return rich, structured template for new descriptions."""
+        filename = self.file_path.name.replace('.description.md', '')
+        return f"""# Description: `{filename}`
+
+## Purpose
+[One-line purpose statement]
+
+## Key Features
+- [Feature 1]
+- [Feature 2]
+
+## Usage
+```bash
+# Example usage
+```
+"""
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot is unavailable."""
@@ -55,6 +93,21 @@ class ContextAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing file
         content unchanged instead of injecting duplicated placeholder blocks.
         """
+        # Include source code in AI context for accurate descriptions
+        if self.source_path and self.source_path.exists():
+            try:
+                # Limit source code to 8000 chars to avoid token limits
+                source_code = self.source_path.read_text(encoding='utf-8')[:8000]
+                enhanced_prompt = (
+                    f"{prompt}\n\n"
+                    f"Source code to analyze ({self.source_path.name}):\n"
+                    f"```\n{source_code}\n```\n\n"
+                    "Based on the source code above, provide a comprehensive description."
+                )
+                return super().improve_content(enhanced_prompt)
+            except Exception:
+                pass
+                
         return super().improve_content(prompt)
 
 

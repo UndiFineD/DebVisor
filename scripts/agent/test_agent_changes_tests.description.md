@@ -24,4 +24,4 @@ Run directly via:
 - Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `b0128a26dc0e5626…`
+- SHA256(source): `3240b3d47768927c…`

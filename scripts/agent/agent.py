@@ -84,17 +84,36 @@ def load_codeignore(root: Path) -> Set[str]:
 
 class Agent:
     """Main agent that orchestrates sub-agents for code improvement."""
-
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
-            max_files: int = None, loop: int = 1, skip_code_update: bool = False):
+            max_files: int = None, loop: int = 1, skip_code_update: bool = False,
+            no_git: bool = False):
         self.repo_root = self._find_repo_root(Path(repo_root))
         self.agents_only = agents_only
         self.max_files = max_files
         self.loop = loop
         self.skip_code_update = skip_code_update
+        self.no_git = no_git
         self.ignored_patterns = load_codeignore(self.repo_root)
+
+    def _run_command(self, cmd: List[str], timeout: int = 120) -> subprocess.CompletedProcess:
+        """Run a command with timeout and error handling."""
+        try:
+            return subprocess.run(
+                cmd,
+                cwd=self.repo_root,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                encoding='utf-8'
+            )
+        except subprocess.TimeoutExpired:
+            logging.error(f"Command timed out: {' '.join(cmd[:3])}...")
+            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr="Timeout expired")
+        except Exception as e:
+            logging.error(f"Command failed: {e}")
+            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
 
     def _find_repo_root(self, start_path: Path) -> Path:
         """Find the repository root by looking for .git directory or other markers."""
@@ -137,7 +156,7 @@ class Agent:
             sys.executable,
             str(self.repo_root / 'scripts/agent/agent-stats.py'),
             '--files'] + file_paths
-        subprocess.run(cmd, cwd=self.repo_root)
+        self._run_command(cmd)
 
     def run_tests(self, code_file: Path):
         """Run tests for the code file."""
@@ -147,7 +166,7 @@ class Agent:
         if tests_file.exists():
             logging.info(f"Running tests for {code_file.name}...")
             cmd = [sys.executable, '-m', 'pytest', str(tests_file), '-v']
-            result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
+            result = self._run_command(cmd)
             if result.returncode != 0:
                 logging.warning(f"Tests failed for {code_file.name}:")
                 logging.warning(result.stdout)
@@ -178,8 +197,13 @@ class Agent:
             '--context', str(errors_file),
             '--prompt', prompt
             ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+        result = self._run_command(cmd)
+        
+        # Check if changes were made based on output
+        stdout_ok = result.stdout and "No changes made" not in result.stdout
+        stderr_ok = not result.stderr or "No changes made" not in result.stderr
+        
+        if stdout_ok and stderr_ok:
             changes_made = True
         # Create improvements file if it doesn't exist
         if not improvements_file.exists():
@@ -198,26 +222,134 @@ class Agent:
             '--context', str(improvements_file),
             '--prompt', prompt
             ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+        result = self._run_command(cmd)
+        
+        # Check if changes were made based on output
+        stdout_ok = result.stdout and "No changes made" not in result.stdout
+        stderr_ok = not result.stderr or "No changes made" not in result.stderr
+        
+        if stdout_ok and stderr_ok:
             changes_made = True
         return changes_made
 
+    def _get_pending_improvements(self, improvements_file: Path) -> List[str]:
+        """Extract pending improvements from the improvements file."""
+        if not improvements_file.exists():
+            return []
+        try:
+            content = improvements_file.read_text(encoding='utf-8')
+            lines = content.splitlines()
+            pending = []
+            import re
+            # Match "1. ", "1) ", "- [ ]", "- ", "* "
+            list_pattern = re.compile(r'^(\d+[\.\)]|\*|\-)\s+(\[ \]\s+)?(.*)')
+            
+            for line in lines:
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                
+                # Skip checked items
+                if '[x]' in stripped or '[Fixed]' in stripped:
+                    continue
+                
+                match = list_pattern.match(stripped)
+                if match:
+                    item_text = match.group(3).strip()
+                    # Filter out some obvious non-tasks or headers that look like lists
+                    if item_text.lower().startswith('current strengths'):
+                        continue
+                    if len(item_text) > 5:
+                        pending.append(item_text)
+            return pending
+        except Exception as e:
+            logging.warning(f"Failed to read improvements file: {e}")
+            return []
+
+    def _mark_improvements_fixed(self, improvements_file: Path, fixed_items: List[str]):
+        """Mark improvements as fixed in the file."""
+        if not improvements_file.exists() or not fixed_items:
+            return
+        try:
+            content = improvements_file.read_text(encoding='utf-8')
+            lines = content.splitlines()
+            new_lines = []
+            for line in lines:
+                updated = False
+                for item in fixed_items:
+                    if item in line:
+                        if '- [ ]' in line:
+                            new_lines.append(line.replace('- [ ]', '- [x]'))
+                            updated = True
+                            break
+                        elif not '[x]' in line and not '[Fixed]' in line:
+                            new_lines.append(line + " [Fixed]")
+                            updated = True
+                            break
+                if not updated:
+                    new_lines.append(line)
+            improvements_file.write_text('\n'.join(new_lines) + '\n', encoding='utf-8')
+            logging.info(f"Marked {len(fixed_items)} improvements as fixed in {improvements_file.name}")
+        except Exception as e:
+            logging.warning(f"Failed to update improvements file: {e}")
+
+    def _log_changes(self, changes_file: Path, fixed_items: List[str]):
+        """Log fixed items to the changes file."""
+        if not changes_file.exists() or not fixed_items:
+            return
+        try:
+            content = changes_file.read_text(encoding='utf-8')
+            new_entries = "\n".join([f"- Fixed: {item}" for item in fixed_items])
+            # Append to the end or after the header
+            if "# Changelog" in content:
+                # Just append to end for now
+                new_content = content.rstrip() + "\n\n" + new_entries + "\n"
+            else:
+                new_content = content + "\n" + new_entries + "\n"
+            changes_file.write_text(new_content, encoding='utf-8')
+            logging.info(f"Logged {len(fixed_items)} fixes to {changes_file.name}")
+        except Exception as e:
+            logging.warning(f"Failed to update changes file: {e}")
+
     def update_code(self, code_file: Path) -> bool:
         """Update the code file."""
-        prompt = (
-            f"Improve the code in {code_file.name} based on its context, "
-            f"errors, and improvements")
+        base = code_file.stem
+        dir_path = code_file.parent
+        improvements_file = dir_path / f"{base}.improvements.md"
+        changes_file = dir_path / f"{base}.changes.md"
+        pending_improvements = self._get_pending_improvements(improvements_file)
+        # Limit to top 3 to avoid overwhelming
+        target_improvements = pending_improvements[:3]
+        if target_improvements:
+            improvements_text = "\n".join([f"- {item}" for item in target_improvements])
+            prompt = (
+                f"Improve the code in {code_file.name} by implementing the following specific improvements:\n"
+                f"{improvements_text}\n\n"
+                f"Ensure the code remains functional and follows best practices."
+            )
+            logging.info(f"Targeting {len(target_improvements)} improvements for {code_file.name}")
+        else:
+            prompt = (
+                f"Improve the code in {code_file.name} based on its context, "
+                f"errors, and improvements")
         cmd = [
             sys.executable,
             str(self.repo_root / 'scripts/agent/agent-coder.py'),
             '--context', str(code_file),
             '--prompt', prompt
             ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True,
-                                text=True)
-        return ("No changes made" not in result.stdout and
-                "No changes made" not in result.stderr)
+        result = self._run_command(cmd, timeout=300)
+        
+        # Check if changes were made based on output
+        stdout_ok = result.stdout and "No changes made" not in result.stdout
+        stderr_ok = not result.stderr or "No changes made" not in result.stderr
+        
+        changes_made = stdout_ok and stderr_ok
+        if changes_made and target_improvements:
+            # Assume targeted improvements were fixed if code changed
+            self._mark_improvements_fixed(improvements_file, target_improvements)
+            self._log_changes(changes_file, target_improvements)
+        return changes_made
 
     def update_changelog_context_tests(self, code_file: Path) -> bool:
         """Update changelog, context, and tests."""
@@ -241,8 +373,13 @@ class Agent:
             '--context', str(changes_file),
             '--prompt', prompt
             ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+        result = self._run_command(cmd)
+        
+        # Check if changes were made based on output
+        stdout_ok = result.stdout and "No changes made" not in result.stdout
+        stderr_ok = not result.stderr or "No changes made" not in result.stderr
+        
+        if stdout_ok and stderr_ok:
             changes_made = True
         # Create context file if it doesn't exist
         if not context_file.exists():
@@ -258,8 +395,8 @@ class Agent:
             '--context', str(context_file),
             '--prompt', prompt
             ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+        result = self._run_command(cmd)
+        if result.stdout and "No changes made" not in result.stdout and (not result.stderr or "No changes made" not in result.stderr):
             changes_made = True
         # Create tests file if it doesn't exist and the code file is not already a test file
         if not tests_file.exists() and not base.startswith('test_'):
@@ -291,8 +428,8 @@ def test_placeholder():
             '--context', str(test_file_to_update),
             '--prompt', prompt,
         ]
-        result = subprocess.run(cmd, cwd=self.repo_root, capture_output=True, text=True)
-        if "No changes made" not in result.stdout and "No changes made" not in result.stderr:
+        result = self._run_command(cmd)
+        if result.stdout and "No changes made" not in result.stdout and (not result.stderr or "No changes made" not in result.stderr):
             changes_made = True
         return changes_made
 
@@ -330,26 +467,21 @@ def test_placeholder():
 
     def _commit_and_push(self, code_file: Path):
         """Commit and push changes for the code file."""
+        if self.no_git:
+            logging.info(f"Skipping git operations for {code_file.name} (--no-git)")
+            return
+
         logging.info(f"Committing changes for {code_file.name}")
         try:
             # git add -A
-            subprocess.run(['git', 'add', '-A'], cwd=self.repo_root, check=True)
+            self._run_command(['git', 'add', '-A'])
             # git commit
             commit_msg = f"Agent improvements for {code_file.name}"
-            result = subprocess.run(
-                ['git', 'commit', '-m', commit_msg],
-                cwd=self.repo_root,
-                capture_output=True,
-                text=True
-            )
+            result = self._run_command(['git', 'commit', '-m', commit_msg])
             if result.returncode == 0:
                 logging.info(f"Committed changes for {code_file.name}")
                 # git push
-                push_result = subprocess.run(
-                    ['git', 'push'],
-                    cwd=self.repo_root,
-                    capture_output=True,
-                    text=True)
+                push_result = self._run_command(['git', 'push'])
                 if push_result.returncode == 0:
                     logging.info(f"Pushed changes for {code_file.name}")
                 else:
@@ -413,6 +545,8 @@ def main():
                         help='Skip code updates and tests, only update documentation')
     parser.add_argument('--verbose', default='normal',
                         help='Verbosity level: quiet, minimal, normal, elaborate (or 0-3)')
+    parser.add_argument('--no-git', action='store_true',
+                        help='Skip git commit and push operations')
     args = parser.parse_args()
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
@@ -420,7 +554,8 @@ def main():
         repo_root=args.dir,
         agents_only=args.agents_only,
         max_files=args.max_files, loop=args.loop,
-        skip_code_update=args.skip_code_update
+        skip_code_update=args.skip_code_update,
+        no_git=args.no_git
         )
     agent.run()
 

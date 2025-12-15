@@ -32,7 +32,7 @@ except ImportError:  # pragma: no cover
     requests = None  # type: ignore[assignment]
 
 
-def setup_logging(verbosity_arg: int = 0):
+def setup_logging(verbosity_arg: int = 0) -> None:
     """Configure logging based on environment variable and argument."""
     env_verbosity = os.environ.get('DV_AGENT_VERBOSITY')
     levels = {
@@ -89,11 +89,14 @@ def _command_available(command: str) -> bool:
 
 # Import markdown fixing functionality (optional).
 try:
-    sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-    from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
-except Exception:  # pragma: no cover
-    def fix_markdown_content(text: str) -> str:
-        return text
+    from scripts.fix.fix_markdown_lint import fix_markdown_content  # type: ignore
+except ImportError:
+    try:
+        sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
+        from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
+    except Exception:  # pragma: no cover
+        def fix_markdown_content(text: str) -> str:
+            return text
 
 
 class BaseAgent:
@@ -239,9 +242,16 @@ class BaseAgent:
             # commands. Avoid using it for general prose/code rewrite prompts.
             if not allow_non_command_prompt and not _looks_like_command(prompt):
                 return None
+            # Warn if prompt is too long for gh copilot
+            max_len = 2000
+            prompt_to_use = prompt
+            if len(prompt) > max_len:
+                logging.warning(f"Prompt truncated from {len(prompt)} to {max_len} chars for gh copilot")
+                prompt_to_use = prompt[:max_len]
+
             try:
                 result = subprocess.run(
-                    ['gh', 'copilot', 'explain', prompt[:200]],
+                    ['gh', 'copilot', 'explain', prompt_to_use],
                     capture_output=True,
                     text=True,
                     encoding='utf-8',

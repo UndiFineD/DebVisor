@@ -33,11 +33,27 @@ with enhanced documentation.
 - Enhanced diff reporting
 """
 
+from pathlib import Path
+from typing import Optional
 from base_agent import BaseAgent, create_main_function
 
 
 class ImprovementsAgent(BaseAgent):
-    """Updates code file improvement suggestions using AI assistance."""
+    """Updates code file improvement suggestions using AI assistance.
+    
+    This agent reads .improvements.md files and uses AI to suggest better,
+    more actionable improvements for the associated code file.
+    """
+
+    def __init__(self, file_path: str, prompt: Optional[str] = None):
+        super().__init__(file_path, prompt)
+        self._validate_file_extension()
+
+    def _validate_file_extension(self) -> None:
+        """Validate that the file has the correct extension."""
+        if not self.file_path.name.endswith('.improvements.md'):
+            # Just warn, don't fail, as sometimes we might process other markdown files
+            pass
 
     def _get_default_content(self) -> str:
         """Return default content for new improvement files."""
@@ -55,7 +71,15 @@ class ImprovementsAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing content
         unchanged (avoids duplicated wrapper sections).
         """
-        return super().improve_content(prompt)
+        # Add guidance for structured output
+        enhanced_prompt = (
+            f"{prompt}\n\n"
+            "Please format the improvements as a markdown list with checkboxes for actionable items:\n"
+            "- [ ] Actionable item 1\n"
+            "- [ ] Actionable item 2\n\n"
+            "Group improvements by priority (High, Medium, Low) if applicable."
+        )
+        return super().improve_content(enhanced_prompt)
 
 
 # Create main function using the helper

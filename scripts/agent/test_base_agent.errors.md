@@ -8,4 +8,4 @@
 - `py_compile` equivalent: OK (AST parse succeeded)
 
 ## Known issues / hazards
-- None detected by the lightweight scan
+- Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.

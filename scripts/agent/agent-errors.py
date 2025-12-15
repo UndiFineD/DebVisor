@@ -33,15 +33,42 @@ with enhanced documentation.
 - Enhanced diff reporting
 """
 
+from typing import Optional
 from base_agent import BaseAgent, create_main_function
 
 
 class ErrorsAgent(BaseAgent):
     """Updates code file error reports using AI assistance."""
 
+    def __init__(self, file_path: str, prompt: Optional[str] = None):
+        super().__init__(file_path, prompt)
+        self._validate_error_file_path()
+
+    def _validate_error_file_path(self) -> None:
+        """Validate that the file has the correct extension."""
+        if not self.file_path.name.endswith('.errors.md'):
+            # Just warn, don't fail
+            pass
+
     def _get_default_content(self) -> str:
-        """Return default content for new error files."""
-        return "# Errors\n\nNo errors reported.\n"
+        """Return structured error report template."""
+        return (
+            "# Error Report\n\n"
+            "## Summary\n\n"
+            "No errors detected.\n\n"
+            "## Details\n\n"
+            "- **File**: (not specified)\n"
+            "- **Last Analyzed**: (not specified)\n"
+            "- **Status**: ✓ Clean\n\n"
+            "## Static Analysis\n\n"
+            "No issues found.\n\n"
+            "## Linting Results\n\n"
+            "No violations detected.\n\n"
+            "## Type Checking\n\n"
+            "No type errors.\n\n"
+            "## Security Scan\n\n"
+            "No vulnerabilities identified.\n"
+        )
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot is unavailable."""

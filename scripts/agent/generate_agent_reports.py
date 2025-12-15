@@ -231,9 +231,46 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
     return "\n".join(lines)
 
 
+def _find_issues(tree: ast.AST, source: str) -> List[str]:
+    issues: List[str] = []
+    
+    # 1. Mutable defaults
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            for default in node.args.defaults:
+                if isinstance(default, (ast.List, ast.Dict, ast.Set)):
+                    issues.append(f"Function `{node.name}` has a mutable default argument (list/dict/set).")
+                    break # One per function is enough
+
+    # 2. Bare excepts
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ExceptHandler) and node.type is None:
+            issues.append("Contains bare `except:` clause (catches SystemExit/KeyboardInterrupt).")
+
+    # 3. Missing type hints
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            # Check args
+            missing_arg_type = any(arg.annotation is None for arg in node.args.args if arg.arg != 'self')
+            # Check return
+            missing_return_type = node.returns is None
+            if missing_arg_type or missing_return_type:
+                issues.append(f"Function `{node.name}` is missing type annotations.")
+
+    # 4. TODOs
+    if "TODO" in source or "FIXME" in source:
+        issues.append("Contains TODO or FIXME comments.")
+
+    return issues
+
+
 def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
     functions, classes = _find_top_level_defs(tree)
     suggestions: List[str] = []
+    
+    # AST-based issues
+    suggestions.extend(_find_issues(tree, source))
+
     if "sys.path.insert" in source:
         suggestions.append("Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports.")
     if "subprocess.run" in source:
@@ -251,8 +288,10 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
         suggestions.append("Consider documenting class construction/expected invariants.")
     if "print(" in source and "logging" not in source:
         suggestions.append("Consider using `logging` instead of `print` for controllable verbosity.")
+    
     # Keep it short and deterministic.
-    suggestions = suggestions[:10]
+    suggestions = sorted(list(set(suggestions))) # Dedupe and sort
+    
     lines: List[str] = []
     lines.append(f"# Improvements: `{py_path.name}`")
     lines.append("")
@@ -273,38 +312,69 @@ def iter_agent_py_files() -> Iterable[Path]:
     return sorted(AGENT_DIR.glob("*.py"))
 
 
+def _get_existing_sha(stem: str) -> Optional[str]:
+    desc_path = AGENT_DIR / f"{stem}.description.md"
+    if not desc_path.exists():
+        return None
+    content = _read_text(desc_path)
+    match = re.search(r"- SHA256\(source\): `([a-f0-9]+)", content)
+    return match.group(1) if match else None
+
+
 def main(argv: Sequence[str]) -> int:
     py_files = list(iter_agent_py_files())
     if not py_files:
         print(f"No .py files found under {AGENT_DIR}")
         return 1
+    
+    count = 0
+    skipped = 0
+    errors_count = 0
+
     for py_path in py_files:
-        source = _read_text(py_path)
-        tree, parse_err = _try_parse_python(source, str(py_path))
-        compile_result = _compile_check(py_path)
-        # If parse failed, still emit minimal files.
-        if tree is None:
-            description = (
-                f"# Description: `{py_path.name}`\n\n"
-                f"## Module purpose\n\n"
-                f"(Unable to parse file: {parse_err})\n"
-            )
-            errors = render_errors(py_path, source, compile_result)
-            improvements = (
-                f"# Improvements: `{py_path.name}`\n\n"
-                "## Suggested improvements\n"
-                "- Fix the syntax errors first; then re-run report generation\n"
-            )
-        else:
-            description = render_description(py_path, source, tree)
-            errors = render_errors(py_path, source, compile_result)
-            improvements = render_improvements(py_path, source, tree)
-        stem = py_path.stem
-        _write_md(AGENT_DIR / f"{stem}.description.md", description)
-        _write_md(AGENT_DIR / f"{stem}.errors.md", errors)
-        _write_md(AGENT_DIR / f"{stem}.improvements.md", improvements)
-    print(f"Wrote reports for {len(py_files)} files under {_rel(AGENT_DIR)}")
-    return 0
+        try:
+            source = _read_text(py_path)
+            current_sha = _sha256_text(source)[:16]
+            stem = py_path.stem
+            
+            # Incremental check
+            existing_sha = _get_existing_sha(stem)
+            if existing_sha == current_sha:
+                skipped += 1
+                continue
+
+            tree, parse_err = _try_parse_python(source, str(py_path))
+            compile_result = _compile_check(py_path)
+            
+            # If parse failed, still emit minimal files.
+            if tree is None:
+                description = (
+                    f"# Description: `{py_path.name}`\n\n"
+                    f"## Module purpose\n\n"
+                    f"(Unable to parse file: {parse_err})\n"
+                )
+                errors = render_errors(py_path, source, compile_result)
+                improvements = (
+                    f"# Improvements: `{py_path.name}`\n\n"
+                    "## Suggested improvements\n"
+                    "- Fix the syntax errors first; then re-run report generation\n"
+                )
+            else:
+                description = render_description(py_path, source, tree)
+                errors = render_errors(py_path, source, compile_result)
+                improvements = render_improvements(py_path, source, tree)
+            
+            _write_md(AGENT_DIR / f"{stem}.description.md", description)
+            _write_md(AGENT_DIR / f"{stem}.errors.md", errors)
+            _write_md(AGENT_DIR / f"{stem}.improvements.md", improvements)
+            count += 1
+            
+        except Exception as e:
+            print(f"Error processing {py_path.name}: {e}")
+            errors_count += 1
+
+    print(f"Processed {count} files, skipped {skipped} unchanged, {errors_count} errors.")
+    return 0 if errors_count == 0 else 1
 
 
 if __name__ == "__main__":

@@ -33,6 +33,8 @@ across files, reporting on pending updates and completed work.
 
 import argparse
 import json
+import logging
+import sys
 from pathlib import Path
 from typing import Dict, List
 
@@ -43,6 +45,19 @@ class StatsAgent:
     def __init__(self, files: List[str]):
         self.files = [Path(f) for f in files]
         self.stats = {}
+        self._validate_files()
+
+    def _validate_files(self) -> None:
+        """Validate input files."""
+        if not self.files:
+            logging.error("No files provided")
+            sys.exit(1)
+        
+        invalid = [f for f in self.files if not f.exists()]
+        if invalid:
+            logging.warning(f"Files not found: {', '.join(map(str, invalid))}")
+            # Filter out invalid files
+            self.files = [f for f in self.files if f.exists()]
 
     def calculate_stats(self) -> Dict[str, int]:
         """Calculate statistics for each file."""
@@ -79,17 +94,21 @@ class StatsAgent:
     def report_stats(self, output_format: str = 'text'):
         """Print the statistics report."""
         stats = self.calculate_stats()
+        total = stats['total_files']
 
         if output_format == 'json':
             print(json.dumps(stats, indent=2))
         else:
+            def fmt(count):
+                return f"{count}/{total} ({count/total*100:.1f}%)" if total > 0 else "0/0 (0.0%)"
+
             print("=== Stats Report ===")
-            print(f"Total files: {stats['total_files']}")
-            print(f"Files with descriptions: {stats['files_with_context']}")
-            print(f"Files with changelogs: {stats['files_with_changes']}")
-            print(f"Files with error reports: {stats['files_with_errors']}")
-            print(f"Files with improvements: {stats['files_with_improvements']}")
-            print(f"Files with tests: {stats['files_with_tests']}")
+            print(f"Total files: {total}")
+            print(f"Files with descriptions: {fmt(stats['files_with_context'])}")
+            print(f"Files with changelogs: {fmt(stats['files_with_changes'])}")
+            print(f"Files with error reports: {fmt(stats['files_with_errors'])}")
+            print(f"Files with improvements: {fmt(stats['files_with_improvements'])}")
+            print(f"Files with tests: {fmt(stats['files_with_tests'])}")
             print("====================")
 
 
@@ -97,7 +116,19 @@ def main():
     parser = argparse.ArgumentParser(description='Stats Agent: Reports file update statistics')
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
     parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
+    parser.add_argument('--verbose', default='normal', help='Verbosity level')
     args = parser.parse_args()
+    
+    # Setup logging
+    levels = {
+        'quiet': logging.ERROR,
+        'minimal': logging.WARNING,
+        'normal': logging.INFO,
+        'elaborate': logging.DEBUG,
+    }
+    level = levels.get(args.verbose.lower(), logging.INFO)
+    logging.basicConfig(level=level, format='%(asctime)s - %(levelname)s - %(message)s')
+
     agent = StatsAgent(args.files)
     agent.report_stats(output_format=args.format)
 

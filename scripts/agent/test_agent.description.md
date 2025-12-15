@@ -21,4 +21,4 @@ These tests live next to the agent scripts so they can be run directly via:
 - Top imports: `__future__`, `importlib`, `pathlib`, `pytest`, `agent_test_utils`, `agent`
 
 ## File fingerprint
-- SHA256(source): `7e0b9c47ba83ffb8…`
+- SHA256(source): `1a01518c077111e6…`

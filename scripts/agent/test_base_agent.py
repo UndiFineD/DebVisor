@@ -19,36 +19,37 @@ These live next to the agent scripts so they can be run directly via:
 
 from __future__ import annotations
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 import pytest
 from agent_test_utils import agent_dir_on_path
 
 
 @pytest.fixture()
-def base_agent_module():
+def base_agent_module() -> Any:
     with agent_dir_on_path():
         import base_agent
         return base_agent
 
 
-def test_read_previous_content_existing_file(tmp_path: Path, base_agent_module):
+def test_read_previous_content_existing_file(tmp_path: Path, base_agent_module: Any) -> None:
     target = tmp_path / "x.md"
     target.write_text("HELLO", encoding="utf-8")
     agent = base_agent_module.BaseAgent(str(target))
     assert agent.read_previous_content() == "HELLO"
 
 
-def test_read_previous_content_missing_file_uses_default(tmp_path: Path, base_agent_module):
+def test_read_previous_content_missing_file_uses_default(tmp_path: Path, base_agent_module: Any) -> None:
     target = tmp_path / "missing.md"
     agent = base_agent_module.BaseAgent(str(target))
     content = agent.read_previous_content()
     assert "Default content" in content
 
 
-def test_improve_content_uses_run_subagent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module):
+def test_improve_content_uses_run_subagent(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module: Any) -> None:
     target = tmp_path / "x.md"
     target.write_text("BEFORE", encoding="utf-8")
 
-    def fake_run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
+    def fake_run_subagent(self: Any, description: str, prompt: str, original_content: str = "") -> str:
         assert "Improve" in description
         assert prompt == "prompt"
         assert original_content == "BEFORE"
@@ -60,7 +61,7 @@ def test_improve_content_uses_run_subagent(monkeypatch: pytest.MonkeyPatch, tmp_
     assert agent.improve_content("prompt") == "AFTER"
 
 
-def test_update_file_writes_content(tmp_path: Path, base_agent_module):
+def test_update_file_writes_content(tmp_path: Path, base_agent_module: Any) -> None:
     # Use a non-markdown extension so the markdown fixer won't interfere.
     target = tmp_path / "x.txt"
     agent = base_agent_module.BaseAgent(str(target))
@@ -69,7 +70,7 @@ def test_update_file_writes_content(tmp_path: Path, base_agent_module):
     assert target.read_text(encoding="utf-8") == "CONTENT"
 
 
-def test_get_diff_contains_unified_markers(tmp_path: Path, base_agent_module):
+def test_get_diff_contains_unified_markers(tmp_path: Path, base_agent_module: Any) -> None:
     target = tmp_path / "x.txt"
     agent = base_agent_module.BaseAgent(str(target))
     agent.previous_content = "A\n"
@@ -79,16 +80,16 @@ def test_get_diff_contains_unified_markers(tmp_path: Path, base_agent_module):
     assert "+++ current" in diff
 
 
-def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
     calls: list[list[str]] = []
 
     class Result:
-        def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = "") -> None:
             self.returncode = returncode
             self.stdout = stdout
             self.stderr = stderr
 
-    def fake_run(args, **kwargs):
+    def fake_run(args: List[str], **kwargs: Any) -> Result:
         # Record args only (not env/token).
         calls.append(list(args))
         # "copilot --version" probe succeeds.
@@ -109,15 +110,15 @@ def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch,
     assert calls[0][:2] == ["copilot", "--version"]
 
 
-def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
     calls: list[list[str]] = []
     class Result:
-        def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = "") -> None:
             self.returncode = returncode
             self.stdout = stdout
             self.stderr = stderr
 
-    def fake_run(args, **kwargs):
+    def fake_run(args: List[str], **kwargs: Any) -> Result:
         calls.append(list(args))
         # "copilot" missing.
         if args[:2] == ["copilot", "--version"]:
@@ -138,18 +139,18 @@ def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.Monke
 
 
 def test_llm_chat_via_github_models_builds_request_and_parses_response(
-    monkeypatch: pytest.MonkeyPatch, base_agent_module
-):
-    posted = {}
+    monkeypatch: pytest.MonkeyPatch, base_agent_module: Any
+) -> None:
+    posted: Dict[str, Any] = {}
 
     class FakeResponse:
-        def raise_for_status(self):
+        def raise_for_status(self) -> None:
             return None
 
-        def json(self):
+        def json(self) -> Dict[str, Any]:
             return {"choices": [{"message": {"content": "  hello  "}}]}
 
-    def fake_post(url, headers=None, data=None, timeout=None):
+    def fake_post(url: str, headers: Optional[Dict[str, str]] = None, data: Optional[str] = None, timeout: Optional[int] = None) -> FakeResponse:
         posted["url"] = url
         posted["headers"] = headers
         posted["data"] = data
@@ -174,7 +175,7 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
     assert '"role": "user"' in posted["data"]
 
 
-def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_module):
+def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_module: Any) -> None:
     agent = base_agent_module.BaseAgent("x.md")
     with pytest.raises(RuntimeError, match=r"Missing token"):
         agent.llm_chat_via_github_models(prompt="x", model="m", base_url="https://x", token=None)
@@ -182,28 +183,28 @@ def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_modul
         agent.llm_chat_via_github_models(prompt="x", model="m", base_url=None, token="t")
 
 
-def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch, base_agent_module: Any) -> None:
     # Force backend selection.
     monkeypatch.setenv("DV_AGENT_BACKEND", "github-models")
     monkeypatch.setenv("GITHUB_MODELS_BASE_URL", "https://example.test")
     monkeypatch.setenv("DV_AGENT_MODEL", "unit-test-model")
     monkeypatch.setenv("GITHUB_TOKEN", "TOKEN")
     # If subprocess is used, fail.
-    def boom(*args, **kwargs):
+    def boom(*args: Any, **kwargs: Any) -> None:
         raise AssertionError("subprocess.run should not be called for github-models backend")
     monkeypatch.setattr(base_agent_module.subprocess, "run", boom)
 
     class FakeResponse:
-        def raise_for_status(self):
+        def raise_for_status(self) -> None:
             return None
 
-        def json(self):
+        def json(self) -> Dict[str, Any]:
             return {"choices": [{"message": {"content": "OK_FROM_MODELS"}}]}
 
-    def fake_post(url, headers=None, data=None, timeout=None):
+    def fake_post(url: str, headers: Optional[Dict[str, str]] = None, data: Optional[str] = None, timeout: Optional[int] = None) -> FakeResponse:
         assert url == "https://example.test/v1/chat/completions"
-        assert headers["Authorization"] == "Bearer TOKEN"
-        assert '"model": "unit-test-model"' in data
+        assert headers is not None and headers["Authorization"] == "Bearer TOKEN"
+        assert data is not None and '"model": "unit-test-model"' in data
         return FakeResponse()
 
     monkeypatch.setattr(base_agent_module.requests, "post", fake_post)

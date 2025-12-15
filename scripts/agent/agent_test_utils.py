@@ -10,6 +10,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Test utilities for agent scripts.
+
+Provides helpers to load agent modules dynamically and manage sys.path for testing.
+"""
 
 from __future__ import annotations
 import importlib.util
@@ -18,13 +23,15 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 from types import ModuleType
+from typing import Iterator
 
 
 AGENT_DIR = Path(__file__).resolve().parent
 
 
 @contextmanager
-def agent_dir_on_path():
+def agent_dir_on_path() -> Iterator[None]:
+    """Temporarily add the agent directory to sys.path."""
     old_sys_path = list(sys.path)
     sys.path.insert(0, str(AGENT_DIR))
     try:

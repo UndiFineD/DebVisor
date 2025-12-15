@@ -17,7 +17,7 @@ from pathlib import Path
 from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
-def test_stats_agent_counts_files(tmp_path: Path):
+def test_stats_agent_counts_files(tmp_path: Path) -> None:
     with agent_dir_on_path():
         mod = load_agent_module("agent-stats.py")
     a = tmp_path / "a.py"
