@@ -6,3 +6,4 @@
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.
 - File: `scripts/agent/test_base_agent.py`
+- Security: Use `check=True` or `check=False` explicitly in `subprocess.run`.

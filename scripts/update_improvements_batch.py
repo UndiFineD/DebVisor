@@ -101,6 +101,19 @@ def process_file(improvements_path):
     if 'type: ignore' in source_content:
         suggestions.append("- Review `type: ignore` comments and try to fix types.")
 
+    # Advanced Checks
+    if 'subprocess.run' in source_content and 'check=' not in source_content:
+        suggestions.append("- Security: Use `check=True` or `check=False` explicitly in `subprocess.run`.")
+
+    if 'def ' in source_content and '->' not in source_content:
+        suggestions.append("- Type Hints: Add return type annotations to functions.")
+
+    if re.search(r'def\s+\w+\s*\(.*=\s*\[\].*\):', source_content):
+        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `list=[]`).")
+
+    if re.search(r'def\s+\w+\s*\(.*=\s*\{.*\}.*\):', source_content):
+        suggestions.append("- Bug Risk: Avoid mutable default arguments (e.g., `dict={}`).")
+
     # Check for existing suggestions to avoid duplicates
     current_improvements = improvements_path.read_text(encoding='utf-8')
     new_suggestions = []
