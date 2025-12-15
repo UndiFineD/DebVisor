@@ -12,7 +12,8 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": "test"
+      "group": "test",
+      "problemMatcher": []
     },
     {
       "label": "Markdown scan (PyMarkdown)",
@@ -30,7 +31,8 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": "test"
+      "group": "test",
+      "problemMatcher": []
     },
     {
       "label": "Run fix_markdown_lint",
@@ -73,7 +75,12 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": "test"
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "showReuseMessage": false,
+        "close": true
+      }
     },
     {
       "label": "Run agent legacy tests (scripts/agent)",
@@ -98,7 +105,12 @@
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": "test"
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "showReuseMessage": false,
+        "close": true
+      }
     },
     {
       "label": "Run all agent tests",
@@ -107,7 +119,13 @@
         "Run agent tests (tests)",
         "Run agent legacy tests (scripts/agent)"
       ],
-      "group": "test"
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "showReuseMessage": false,
+        "close": true
+      }
     }
   ]
 }
