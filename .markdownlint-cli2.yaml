@@ -3,8 +3,6 @@
 # - Uses existing rule config in .markdownlint.jsonc
 # - Ignores virtualenv and third-party content (site-packages, dist-info)
 
-config: ".markdownlint.jsonc"
-
 globs:
   - "**/*.md"
   - "**/*.mdx"

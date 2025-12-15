@@ -12,7 +12,10 @@
     // Ensure VS Code uses the workspace .venv interpreter
     "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
     // Exclude .venv from YAML validation (METADATA files aren't YAML)
-    "yaml.schemas": {},
+    // Also force the correct schema for markdownlint-cli2 config files.
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/v0.20.0/schema/markdownlint-cli2-config-schema.json": ".markdownlint-cli2.yaml"
+    },
     "files.exclude": {
         "**/.venv": false
     },
