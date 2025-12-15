@@ -1,40 +1,63 @@
-● I'll analyze the current code and update the description to match the actual implementation.
-
-● Now let me check the current description file and the base_agent to understand the full context:
+● I'll analyze the current code and update the description file to match the actual
+   implementation.
 
 ● Now I'll update the description file with accurate information based on the actual code:
 
-● I don't have write permissions to make the changes. Let me display the updated description
-   content for you to review:
+● I don't have write permissions. Here's the complete updated description content:
 
-   ## Updated Description for `agent-changes.description.md`
+   ```markdown
+   # agent-changes.description.md
 
-   Based on analyzing the actual code in `agent-changes.py`, here are the key updates needed:
+   ## Module Purpose
+   `agent-changes.py` implements a Changes Agent that improves and updates changelog files (e.g.,
+   `file.changes.md`). It extends `BaseAgent` to provide AI-assisted changelog enhancement with
+   structured improvement suggestions and optional AI content generation.
 
-   ### **Module Purpose** (lines 3-7)
-   - Remove reference to `BaseAgent.run_subagent(...)` - this method doesn't exist in the code
-   - Specify file format more generically (`file.changes.md` not `Codefile.changes.md`)
-   - Clarify that it uses `BaseAgent` infrastructure, not "multi-backend AI routing"
+   ## Description
+   This module reads existing changelog files, provides 10 structured improvement suggestions for
+   better change documentation, and optionally enhances content using AI assistance (GitHub Copilot
+    CLI). When GitHub CLI is unavailable, it gracefully falls back to providing suggestion
+   guidelines while preserving original content.
 
-   ### **Description** (lines 9-15)
-   - Add detail about fallback behavior when GitHub CLI is unavailable
-   - Mention the 10 structured changelog improvement suggestions
-   - Clarify AI enhancement is optional, suggestions are always provided
+   The agent ensures changelog files follow best practices: version tracking, change
+   categorization, semantic versioning, breaking change documentation, and migration guides.
 
-   ### **Public Surface** (lines 26-28)
-   - Add `main()` function (created via `create_main_function`)
-   - Document the three key methods with their purposes:
-     - `_get_default_content()`: Returns default content for new changelog files
-     - `_get_fallback_response()`: Returns fallback when GitHub CLI unavailable
-     - `improve_content(prompt)`: Provides suggestions or AI enhancement
+   ## Public Surface
 
-   ### **Behavior Summary** (lines 30-31)
-   - Detail the 10-point suggestion system
-   - Mention preservation of original content
-   - Document CLI argument handling (file path + optional prompt)
+   ### Class: `ChangesAgent`
+   Extends `BaseAgent` with changelog-specific functionality.
 
-   ### **Key Dependencies** (lines 33-34)
-   - Add `create_main_function` to imports from `base_agent`
-   - Note GitHub CLI (`gh`) as optional runtime dependency
+   **Methods:**
+   - `_get_default_content() -> str`: Returns default content for new changelog files
+   - `_get_fallback_response() -> str`: Returns fallback message when GitHub CLI is unavailable
+   - `improve_content(prompt: str) -> str`: Provides 10-point improvement suggestions or AI
+   enhancement
 
-   Would you like me to provide the complete updated file content as text you can copy?
+   ### Function: `main()`
+   CLI entry point created via `create_main_function()` that accepts:
+   - `file_path`: Path to the changes file (e.g., file.changes.md)
+   - Optional `--prompt`: Custom improvement instructions
+
+   ## Behavior
+   Provides 10 structured changelog improvement suggestions:
+   1. Include version numbers and dates
+   2. Categorize changes (features, bug fixes, breaking changes)
+   3. Use consistent formatting and terminology
+   4. Include links to related issues or pull requests
+   5. Document breaking changes clearly
+   6. Add migration guides for major changes
+   7. Include contributor acknowledgments
+   8. Follow semantic versioning principles
+   9. Add deprecation notices for removed features
+   10. Include performance impact assessments
+
+   Original changelog content is always preserved. AI enhancement is attempted when GitHub CLI is
+   available; otherwise, structured suggestions are provided as comments.
+
+   ## Key Dependencies
+   - `base_agent`: Imports `BaseAgent` and `create_main_function`
+   - GitHub CLI (`gh`): Optional runtime dependency for AI enhancement
+   - Python 3.x standard library (argparse, pathlib, subprocess)
+   ```
+
+   This accurately reflects the current implementation based on the code analysis.

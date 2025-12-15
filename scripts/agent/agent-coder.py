@@ -57,7 +57,7 @@ class CoderAgent(BaseAgent):
 
     def _validate_syntax(self, content: str) -> bool:
         """Validate Python syntax using ast."""
-        if not self.file_path.suffix == '.py':
+        if self.file_path.suffix != '.py':
             return True
         try:
             ast.parse(content)
@@ -68,7 +68,7 @@ class CoderAgent(BaseAgent):
 
     def _validate_flake8(self, content: str) -> bool:
         """Validate Python code using flake8 if available."""
-        if not self.file_path.suffix == '.py':
+        if self.file_path.suffix != '.py':
             return True
 
         if not shutil.which('flake8'):
@@ -87,12 +87,13 @@ class CoderAgent(BaseAgent):
             result = subprocess.run(
                 ['flake8', '--ignore=E501,W293', tmp_path],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=30
             )
 
             if result.returncode != 0:
                 logging.warning(f"flake8 validation failed:\n{result.stdout}")
-                return True  # Soft validation for now
+                return False  # Soft validation failure
 
             return True
         finally:
@@ -142,7 +143,7 @@ class CoderAgent(BaseAgent):
 
         # Validate style (flake8)
         if not self._validate_flake8(new_content):
-            pass
+            logging.warning("Generated code failed style validation (flake8). Proceeding anyway.")
 
         return new_content
 

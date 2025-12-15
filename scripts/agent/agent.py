@@ -330,10 +330,10 @@ def test_placeholder():
         improvements_file = dir_path / f"{base}.improvements.md"
 
         return (
-            context_file.exists() and len(context_file.read_text().strip()) > 100 and
-            changes_file.exists() and len(changes_file.read_text().strip()) > 100 and
-            errors_file.exists() and len(errors_file.read_text().strip()) > 100 and
-            improvements_file.exists() and len(improvements_file.read_text().strip()) > 100
+            context_file.exists() and len(context_file.read_text(encoding='utf-8').strip()) > 100 and
+            changes_file.exists() and len(changes_file.read_text(encoding='utf-8').strip()) > 100 and
+            errors_file.exists() and len(errors_file.read_text(encoding='utf-8').strip()) > 100 and
+            improvements_file.exists() and len(improvements_file.read_text(encoding='utf-8').strip()) > 100
         )
 
     def _perform_iteration(self, code_file: Path) -> bool:
