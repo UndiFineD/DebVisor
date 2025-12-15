@@ -21,21 +21,17 @@
       "args": [
         "-m",
         "pymarkdown",
-        "scan",
         "--config",
         "pymarkdown.json",
+        "scan",
+        "-r",
         "."
       ],
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "group": "test"
-    }
-  ]
-}
-{
-  "version": "2.0.0",
-  "tasks": [
+    },
     {
       "label": "Run fix_markdown_lint",
       "type": "shell",

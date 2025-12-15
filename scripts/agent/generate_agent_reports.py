@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import ast
 import hashlib
-import os
 import re
 import sys
 from dataclasses import dataclass
@@ -180,7 +179,9 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
     if imports:
         # Keep it short; imports can be long.
         shown = imports[:12]
-        lines.append("- Top imports: " + ", ".join(f"`{x}`" for x in shown) + (" …" if len(imports) > len(shown) else ""))
+        shown_imports = ", ".join(f"`{x}`" for x in shown)
+        suffix = " …" if len(imports) > len(shown) else ""
+        lines.append(f"- Top imports: {shown_imports}{suffix}")
     else:
         lines.append("- (none)")
     lines.append("")
