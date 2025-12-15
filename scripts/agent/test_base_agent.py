@@ -33,14 +33,12 @@ def base_agent_module():
 def test_read_previous_content_existing_file(tmp_path: Path, base_agent_module):
     target = tmp_path / "x.md"
     target.write_text("HELLO", encoding="utf-8")
-
     agent = base_agent_module.BaseAgent(str(target))
     assert agent.read_previous_content() == "HELLO"
 
 
 def test_read_previous_content_missing_file_uses_default(tmp_path: Path, base_agent_module):
     target = tmp_path / "missing.md"
-
     agent = base_agent_module.BaseAgent(str(target))
     content = agent.read_previous_content()
     assert "Default content" in content
@@ -57,7 +55,6 @@ def test_improve_content_uses_run_subagent(monkeypatch: pytest.MonkeyPatch, tmp_
         return "AFTER"
 
     monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
-
     agent = base_agent_module.BaseAgent(str(target))
     agent.read_previous_content()
     assert agent.improve_content("prompt") == "AFTER"
@@ -94,33 +91,26 @@ def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch,
     def fake_run(args, **kwargs):
         # Record args only (not env/token).
         calls.append(list(args))
-
         # "copilot --version" probe succeeds.
         if args[:2] == ["copilot", "--version"]:
             return Result(0, "copilot 1.2.3")
-
         # Actual copilot invocation returns a response.
         if args and args[0] == "copilot":
             assert "--prompt" in args
             assert "--deny-tool" in args
             assert "--silent" in args
             return Result(0, "OK_FROM_COPILOT")
-
         raise AssertionError(f"Unexpected subprocess call: {args}")
-
     monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
     monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
-
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "prompt", "ORIG")
-
     assert out == "OK_FROM_COPILOT"
     assert calls[0][:2] == ["copilot", "--version"]
 
 
 def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.MonkeyPatch, base_agent_module):
     calls: list[list[str]] = []
-
     class Result:
         def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
             self.returncode = returncode
@@ -129,27 +119,20 @@ def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.Monke
 
     def fake_run(args, **kwargs):
         calls.append(list(args))
-
         # "copilot" missing.
         if args[:2] == ["copilot", "--version"]:
             raise FileNotFoundError("copilot not found")
-
         # "gh" is present.
         if args[:2] == ["gh", "--version"]:
             return Result(0, "gh version 2.x")
-
         # gh copilot explain returns text.
         if args[:3] == ["gh", "copilot", "explain"]:
             return Result(0, "EXPLAINED")
-
         raise AssertionError(f"Unexpected subprocess call: {args}")
-
     monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
     monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
-
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "git status", "ORIG")
-
     assert "EXPLAINED" in out
     assert any(c[:3] == ["gh", "copilot", "explain"] for c in calls)
 
@@ -174,7 +157,6 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
         return FakeResponse()
 
     monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
-
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.llm_chat_via_github_models(
         prompt="Say hi",
@@ -184,7 +166,6 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
         token="TOKEN",
         timeout_s=12,
     )
-
     assert out == "hello"
     assert posted["url"] == "https://example.test/v1/chat/completions"
     assert posted["headers"]["Authorization"] == "Bearer TOKEN"
@@ -195,10 +176,8 @@ def test_llm_chat_via_github_models_builds_request_and_parses_response(
 
 def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_module):
     agent = base_agent_module.BaseAgent("x.md")
-
     with pytest.raises(RuntimeError, match=r"Missing token"):
         agent.llm_chat_via_github_models(prompt="x", model="m", base_url="https://x", token=None)
-
     with pytest.raises(RuntimeError, match=r"Missing base URL"):
         agent.llm_chat_via_github_models(prompt="x", model="m", base_url=None, token="t")
 
@@ -209,11 +188,9 @@ def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch
     monkeypatch.setenv("GITHUB_MODELS_BASE_URL", "https://example.test")
     monkeypatch.setenv("DV_AGENT_MODEL", "unit-test-model")
     monkeypatch.setenv("GITHUB_TOKEN", "TOKEN")
-
     # If subprocess is used, fail.
     def boom(*args, **kwargs):
         raise AssertionError("subprocess.run should not be called for github-models backend")
-
     monkeypatch.setattr(base_agent_module.subprocess, "run", boom)
 
     class FakeResponse:
@@ -230,7 +207,6 @@ def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch
         return FakeResponse()
 
     monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
-
     agent = base_agent_module.BaseAgent("x.md")
     out = agent.run_subagent("desc", "prompt", "ORIG")
     assert out == "OK_FROM_MODELS"

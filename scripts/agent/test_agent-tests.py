@@ -20,10 +20,8 @@ from agent_test_utils import agent_dir_on_path, load_agent_module
 def test_tests_agent_update_file_writes_raw(tmp_path: Path):
     with agent_dir_on_path():
         mod = load_agent_module("agent-tests.py")
-
     target = tmp_path / "test_something.py"
     agent = mod.TestsAgent(str(target))
     agent.current_content = "print('hi')\n"
     agent.update_file()
-
     assert target.read_text(encoding="utf-8") == "print('hi')\n"
