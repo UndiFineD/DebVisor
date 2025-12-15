@@ -1,48 +1,11 @@
-# AI Changelog Improvement Suggestions
-## Description: Improve the changelog for agent-coder
-#
-## Suggestions for improving changelogs:
-## 1. Include version numbers and dates for all changes
-## 2. Categorize changes (features, bug fixes, breaking changes)
-## 3. Use consistent formatting and terminology
-## 4. Include links to related issues or pull requests
-## 5. Document breaking changes clearly
-## 6. Add migration guides for major changes
-## 7. Include contributor acknowledgments
-## 8. Follow semantic versioning principles
-## 9. Add deprecation notices for removed features
-## 10. Include performance impact assessments
-#
-## Note: Full AI content rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-## Original changelog preserved below:
-#
-## AI Changelog Improvement Suggestions
-## Description: Improve the changelog for agent-coder
-#
-## Suggestions for improving changelogs:
-## 1. Include version numbers and dates for all changes
-## 2. Categorize changes (features, bug fixes, breaking changes)
-## 3. Use consistent formatting and terminology
-## 4. Include links to related issues or pull requests
-## 5. Document breaking changes clearly
-## 6. Add migration guides for major changes
-## 7. Include contributor acknowledgments
-## 8. Follow semantic versioning principles
-## 9. Add deprecation notices for removed features
-## 10. Include performance impact assessments
-#
-## Note: Full AI content rewriting requires additional AI service integration.
-## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation.
-#
-## Original changelog preserved below:
-#
-## Changelog
+# Changelog
 
 - Initial version of agent-coder.py
 - 2025-12-15: No functional changes in this iteration; documentation and test coverage refreshed.
 
 ## [2025-12-15]
+- Added detailed logging for syntax and style validation steps.
+- Added explicit type hints to `__init__`.
 - Add robust subprocess error handling (`check=True`, timeouts, clearer stderr reporting). (Fixed)
 - Consider documenting class construction/expected invariants. (Fixed)
+- Use `pathlib` consistently. (Fixed)

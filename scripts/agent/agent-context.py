@@ -33,6 +33,7 @@ with enhanced documentation.
 - Enhanced diff reporting
 """
 
+import logging
 from pathlib import Path
 from typing import Optional
 from base_agent import BaseAgent, create_main_function
@@ -41,7 +42,7 @@ from base_agent import BaseAgent, create_main_function
 class ContextAgent(BaseAgent):
     """Updates code file context descriptions using AI assistance."""
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self._validate_file_extension()
         self.source_path = self._derive_source_path()
@@ -93,8 +94,10 @@ class ContextAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing file
         content unchanged instead of injecting duplicated placeholder blocks.
         """
+        logging.info(f"Improving context for {self.file_path}")
         # Include source code in AI context for accurate descriptions
         if self.source_path and self.source_path.exists():
+            logging.debug(f"Using source file: {self.source_path}")
             try:
                 # Limit source code to 8000 chars to avoid token limits
                 source_code = self.source_path.read_text(encoding='utf-8')[:8000]

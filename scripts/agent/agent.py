@@ -44,7 +44,8 @@ import fnmatch
 import importlib.util
 
 # Import markdown fixing functionality
-def _load_fix_markdown_content():
+def _load_fix_markdown_content() -> callable:
+    """Load the markdown fixer module dynamically."""
     fix_dir = Path(__file__).parent.parent / 'fix'
     spec = importlib.util.spec_from_file_location("fix_markdown_lint", str(fix_dir / "fix_markdown_lint.py"))
     if spec and spec.loader:
@@ -119,11 +120,15 @@ class Agent:
                 text=True,
                 timeout=timeout,
                 encoding='utf-8',
+                errors='replace',
                 check=False
             )
         except subprocess.TimeoutExpired:
             logging.error(f"Command timed out: {' '.join(cmd[:3])}...")
             return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr="Timeout expired")
+        except OSError as e:
+            logging.error(f"Command failed to start: {e}")
+            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
         except Exception as e:
             logging.error(f"Command failed: {e}")
             return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
@@ -478,7 +483,7 @@ def test_placeholder():
         changes_made |= self.update_changelog_context_tests(code_file)
         return changes_made
 
-    def _commit_and_push(self, code_file: Path):
+    def _commit_and_push(self, code_file: Path) -> None:
         """Commit and push changes for the code file."""
         if self.no_git:
             logging.info(f"Skipping git operations for {code_file.name} (--no-git)")
@@ -506,7 +511,7 @@ def test_placeholder():
         except FileNotFoundError:
             logging.error(f"Git not available for {code_file.name}")
 
-    def process_file(self, code_file: Path):
+    def process_file(self, code_file: Path) -> None:
         """Process a single code file through the improvement loop."""
         logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
         max_iterations = 1
@@ -530,7 +535,7 @@ def test_placeholder():
         logging.info(f"Completed processing {code_file.name} in {iteration} iterations")
         self._commit_and_push(code_file)
 
-    def run(self):
+    def run(self) -> None:
         """Run the main agent loop."""
         code_files = self.find_code_files()
         logging.info(f"Found {len(code_files)} code files to process")
@@ -544,7 +549,7 @@ def test_placeholder():
         self.run_stats_update(code_files)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description='Agent: Orchestrates code improvement agents'
     )

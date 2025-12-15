@@ -1,8 +1,13 @@
 # Improvements: `agent_test_utils.py`
 
+## Fixed
+- Added `load_module_from_path` helper for consistent module loading.
+- Added `agent_sys_path` context manager.
+- Add logging for all major actions.
+
 ## Suggested improvements
-- [x] *Note*: Added `get_base_agent_module()` helper to avoid `sys.path` modification. Retained `agent_dir_on_path` with documentation for legacy test support.
-- [x] Improve exception handling: Avoid broad `except` clauses. (Reviewed: `load_agent_module` re-raises exception after cleanup, which is correct).
+- Add type hints for all methods.
+- Add docstrings for all methods.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

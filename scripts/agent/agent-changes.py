@@ -29,21 +29,38 @@ with enhanced documentation.
 """
 
 from typing import Optional
+import logging
 from base_agent import BaseAgent, create_main_function
 
 
 class ChangesAgent(BaseAgent):
     """Updates code file changelogs using AI assistance."""
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self._validate_file_extension()
+        self._check_associated_file()
 
     def _validate_file_extension(self) -> None:
         """Validate that the file has the correct extension."""
         if not self.file_path.name.endswith('.changes.md'):
-            # Just warn, don't fail
-            pass
+            logging.warning(f"File {self.file_path.name} does not end with .changes.md")
+
+    def _check_associated_file(self) -> None:
+        """Check if the associated code file exists."""
+        name = self.file_path.name
+        if name.endswith('.changes.md'):
+            base_name = name[:-11]  # len('.changes.md')
+            # Try to find the file with common extensions or exact match
+            candidate = self.file_path.parent / base_name
+            if candidate.exists():
+                return
+            # Try adding extensions
+            for ext in ['.py', '.sh', '.js', '.ts', '.md']:
+                candidate = self.file_path.parent / (base_name + ext)
+                if candidate.exists() and candidate != self.file_path:
+                    return
+            logging.warning(f"Could not find associated code file for {self.file_path.name}")
 
     def _get_default_content(self) -> str:
         """Return default content for new changelog files."""
@@ -57,6 +74,7 @@ class ChangesAgent(BaseAgent):
 
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the changelogs with specific change tracking suggestions."""
+        logging.info(f"Improving changelog for {self.file_path}")
         # Add guidance for structured output
         enhanced_prompt = (
             f"{prompt}\n\n"
@@ -69,7 +87,6 @@ class ChangesAgent(BaseAgent):
             "### Fixed\n"
             "### Security\n"
         )
-        
         description = f"Improve the changelog for {self.file_path.stem.replace('.changes', '')}"
         # For changelog improvement, provide specific change tracking suggestions
         if any(keyword in prompt.lower() for keyword in ["improve", "change", "log"]):
@@ -87,7 +104,6 @@ class ChangesAgent(BaseAgent):
 {self.previous_content}"""
             self.current_content = fallback_suggestions
             return self.current_content
-            
         # For other prompts, use the base implementation with enhanced prompt
         return super().improve_content(enhanced_prompt)
 

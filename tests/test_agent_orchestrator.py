@@ -141,4 +141,4 @@ def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch,
 
     with caplog.at_level(logging.WARNING):
         a.process_file(code_file)
-    assert "Command failed: git" in caplog.text
+    assert "Command failed to start: git" in caplog.text

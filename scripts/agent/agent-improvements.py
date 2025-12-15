@@ -46,7 +46,7 @@ class ImprovementsAgent(BaseAgent):
     more actionable improvements for the associated code file.
     """
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self._validate_file_extension()
         self._check_associated_file()
@@ -90,6 +90,7 @@ class ImprovementsAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing content
         unchanged (avoids duplicated wrapper sections).
         """
+        logging.info(f"Improving suggestions for {self.file_path}")
         # Add guidance for structured output
         enhanced_prompt = (
             f"{prompt}\n\n"

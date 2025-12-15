@@ -35,6 +35,7 @@ import argparse
 import json
 import logging
 import sys
+import csv
 from pathlib import Path
 from typing import Dict, List
 
@@ -124,6 +125,10 @@ class StatsAgent:
 
         if output_format == 'json':
             print(json.dumps(stats, indent=2))
+        elif output_format == 'csv':
+            writer = csv.writer(sys.stdout)
+            writer.writerow(stats.keys())
+            writer.writerow(stats.values())
         else:
             def fmt(count: int) -> str:
                 return f"{count}/{total} ({count/total*100:.1f}%)" if total > 0 else "0/0 (0.0%)"
@@ -144,7 +149,7 @@ def main() -> None:
         epilog='Example: python scripts/agent/agent-stats.py --files scripts/agent/*.py'
     )
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
-    parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
+    parser.add_argument('--format', choices=['text', 'json', 'csv'], default='text', help='Output format')
     parser.add_argument('--verbose', default='normal', help='Verbosity level')
     args = parser.parse_args()
     

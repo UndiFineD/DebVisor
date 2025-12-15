@@ -41,7 +41,7 @@ from base_agent import BaseAgent, create_main_function
 class ErrorsAgent(BaseAgent):
     """Updates code file error reports using AI assistance."""
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self._validate_error_file_path()
         self._check_associated_file()
@@ -101,6 +101,7 @@ class ErrorsAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing content
         unchanged (avoids duplicated wrapper sections).
         """
+        logging.info(f"Improving error report for {self.file_path}")
         return super().improve_content(prompt)
 
 

@@ -48,6 +48,9 @@ class TestsAgent(BaseAgent):
     - The agent attempts to locate the corresponding source file to provide context.
     """
 
+    def __init__(self, file_path: str) -> None:
+        super().__init__(file_path)
+
     def _get_default_content(self) -> str:
         """Return default content for new test files."""
         return "# Tests\n\nimport pytest\n\n# Add tests here\n"
@@ -137,12 +140,21 @@ class TestsAgent(BaseAgent):
         When Copilot CLI is unavailable, BaseAgent keeps the existing content
         unchanged (avoids injecting duplicated placeholder markdown blocks).
         """
+        logging.info(f"Improving tests for {self.file_path}")
         # Enhance prompt with source code context if available
         source_path = self._find_source_file()
         enhanced_prompt = prompt
         if source_path and source_path.exists():
+            logging.debug(f"Using source file context: {source_path}")
             try:
                 source_content = source_path.read_text(encoding='utf-8')
+                # Truncate source content if it's too large to avoid context window issues
+                # Assuming ~4 chars per token, 8000 tokens ~ 32000 chars.
+                # Leave room for prompt and response.
+                max_source_chars = 20000
+                if len(source_content) > max_source_chars:
+                    source_content = source_content[:max_source_chars] + "\n# ... (truncated)"
+                
                 enhanced_prompt = (
                     f"{prompt}\n\n"
                     f"# Source Code being tested ({source_path.name}):\n"
@@ -159,6 +171,8 @@ class TestsAgent(BaseAgent):
             logging.error("Generated tests failed syntax validation. Reverting.")
             self.current_content = self.previous_content
             return self.previous_content
+        
+        logging.debug("Syntax validation passed")
             
         # Validate structure
         self._validate_test_structure(new_content)

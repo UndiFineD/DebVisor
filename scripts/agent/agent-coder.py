@@ -50,6 +50,9 @@ class CoderAgent(BaseAgent):
     - Supports Python files (.py) with syntax validation.
     """
 
+    def __init__(self, file_path: str) -> None:
+        super().__init__(file_path)
+
     @property
     def _is_python_file(self) -> bool:
         """Check if the file is a Python file."""
@@ -110,6 +113,7 @@ class CoderAgent(BaseAgent):
 
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the code with specific coding suggestions."""
+        logging.info(f"Improving content for {self.file_path}")
         # Call base implementation directly to use AI backend
         new_content = super().improve_content(prompt)
 
@@ -118,10 +122,14 @@ class CoderAgent(BaseAgent):
             logging.error("Generated code failed syntax validation. Reverting.")
             self.current_content = self.previous_content
             return self.previous_content
+        
+        logging.debug("Syntax validation passed")
 
         # Validate style (flake8)
         if not self._validate_flake8(new_content):
             logging.warning("Generated code failed style validation (flake8). Proceeding anyway.")
+        else:
+            logging.debug("Style validation passed")
 
         return new_content
 

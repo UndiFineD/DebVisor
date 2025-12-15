@@ -24,6 +24,7 @@ basic syntax/compile checks.
 from __future__ import annotations
 import ast
 import hashlib
+import logging
 import re
 import sys
 from dataclasses import dataclass
@@ -322,9 +323,14 @@ def _get_existing_sha(stem: str) -> Optional[str]:
 
 
 def main(argv: Sequence[str]) -> int:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%H:%M:%S'
+    )
     py_files = list(iter_agent_py_files())
     if not py_files:
-        print(f"No .py files found under {AGENT_DIR}")
+        logging.error(f"No .py files found under {AGENT_DIR}")
         return 1
     
     count = 0
@@ -341,8 +347,10 @@ def main(argv: Sequence[str]) -> int:
             existing_sha = _get_existing_sha(stem)
             if existing_sha == current_sha:
                 skipped += 1
+                logging.debug(f"Skipping unchanged file: {py_path.name}")
                 continue
 
+            logging.info(f"Processing {py_path.name}...")
             tree, parse_err = _try_parse_python(source, str(py_path))
             compile_result = _compile_check(py_path)
             
@@ -370,10 +378,10 @@ def main(argv: Sequence[str]) -> int:
             count += 1
             
         except Exception as e:
-            print(f"Error processing {py_path.name}: {e}")
+            logging.error(f"Error processing {py_path.name}: {e}")
             errors_count += 1
 
-    print(f"Processed {count} files, skipped {skipped} unchanged, {errors_count} errors.")
+    logging.info(f"Processed {count} files, skipped {skipped} unchanged, {errors_count} errors.")
     return 0 if errors_count == 0 else 1
 
 

@@ -30,7 +30,12 @@ try:
     from scripts.agent import agent_backend
 except ImportError:
     # Fallback for when running directly or in tests without package structure
-    import agent_backend  # type: ignore
+    try:
+        import agent_backend  # type: ignore
+    except ImportError:
+        # Last resort: try to find it relative to this file
+        sys.path.append(str(Path(__file__).parent))
+        import agent_backend  # type: ignore
 
 try:
     import requests
@@ -93,11 +98,16 @@ class BaseAgent:
         self.file_path = Path(file_path)
         self.previous_content = ""
         self.current_content = ""
+        self.read_previous_content()
 
     def read_previous_content(self) -> str:
         """Read the existing file content."""
         if self.file_path.exists():
-            self.previous_content = self.file_path.read_text(encoding='utf-8')
+            try:
+                self.previous_content = self.file_path.read_text(encoding='utf-8')
+            except Exception as e:
+                logging.error(f"Failed to read file {self.file_path}: {e}")
+                self.previous_content = ""
         else:
             self.previous_content = self._get_default_content()
         return self.previous_content

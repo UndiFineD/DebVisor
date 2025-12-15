@@ -18,6 +18,7 @@ Provides helpers to load agent modules dynamically and manage sys.path for testi
 
 from __future__ import annotations
 import importlib.util
+import logging
 import re
 import sys
 from contextlib import contextmanager
@@ -50,6 +51,32 @@ def get_base_agent_module() -> ModuleType:
     return load_agent_module("base_agent.py", "base_agent")
 
 
+def load_module_from_path(name: str, path: Path) -> ModuleType:
+    """Load a module from a specific path."""
+    logging.debug(f"Loading module {name} from {path}")
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    if spec is None or spec.loader is None:
+        logging.error(f"Could not load module {name} from {path}")
+        raise ImportError(f"Could not load module {name} from {path}")
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+@contextmanager
+def agent_sys_path() -> Iterator[None]:
+    """Add scripts/agent to sys.path temporarily."""
+    path = str(AGENT_DIR)
+    if path not in sys.path:
+        sys.path.insert(0, path)
+        try:
+            yield
+        finally:
+            sys.path.remove(path)
+    else:
+        yield
+
 
 def load_agent_module(filename: str, module_name: str | None = None) -> ModuleType:
     """Load an agent module from scripts/agent by filename.
@@ -64,14 +91,10 @@ def load_agent_module(filename: str, module_name: str | None = None) -> ModuleTy
         if not safe or safe[0].isdigit():
             safe = f"m_{safe}"
         module_name = f"_dv_legacy_{safe}"
-    spec = importlib.util.spec_from_file_location(module_name, str(path))
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Unable to load spec for {path}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[module_name] = module
+    # Use the helper for consistency
     try:
-        spec.loader.exec_module(module)
-        return module
+        return load_module_from_path(module_name, path)
     except Exception:
+        # Clean up if execution fails
         sys.modules.pop(module_name, None)
         raise

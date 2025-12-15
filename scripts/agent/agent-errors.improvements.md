@@ -1,9 +1,8 @@
 # Improvements: `agent-errors.py`
 
 ## Fixed
-- Implemented `_validate_error_file_path` to log warnings for incorrect file extensions.
-- Added `_check_associated_file` to verify the existence of the code file being analyzed.
-- Added `logging` import.
+- Add logging for all major actions.
+- Add type hints for all methods.
 
 ## Suggested improvements
 - Add support for parsing error logs to automatically populate the report.
