@@ -42,3 +42,7 @@
 
 - Initial version of agent-tests.py
 - 2025-12-15: No functional changes in this iteration; documentation and test coverage refreshed.
+
+## [2025-12-15]
+- Consider documenting class construction/expected invariants. (Fixed)
+- Function `update_file` is missing type annotations. (Fixed)

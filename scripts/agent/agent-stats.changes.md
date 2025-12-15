@@ -42,3 +42,10 @@
 
 - Initial version of agent-stats.py
 - 2025-12-15: No functional changes in this iteration; documentation and test coverage refreshed.
+
+## [2025-12-15]
+- Add `--help` examples and validate CLI args (paths, required files). (Fixed)
+- Function `__init__` is missing type annotations. (Fixed)
+- Function `fmt` is missing type annotations. (Fixed)
+- Function `main` is missing type annotations. (Fixed)
+- Function `report_stats` is missing type annotations. (Fixed)

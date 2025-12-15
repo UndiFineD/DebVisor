@@ -41,3 +41,6 @@
 ## Changelog
 
 - 2025-12-15: Added report generation for each `scripts/agent/*.py` into `*.description.md`, `*.errors.md`, and `*.improvements.md`.
+
+## [2025-12-15]
+- Add `--help` examples and validate CLI args (paths, required files). (Fixed)
