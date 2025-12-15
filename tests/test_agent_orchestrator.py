@@ -1,4 +1,5 @@
 from __future__ import annotations
+import logging
 import sys
 from pathlib import Path
 import pytest
@@ -52,7 +53,7 @@ def test_find_code_files_filters_extensions_and_ignores(tmp_path: Path, agent_mo
     assert "keep.txt" not in names
 
 
-def test_run_tests_invokes_pytest_when_test_file_exists(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, agent_module, capsys):
+def test_run_tests_invokes_pytest_when_test_file_exists(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, agent_module, capsys, caplog):
     (tmp_path / "README.md").write_text("x", encoding="utf-8")
 
     code_file = tmp_path / "thing.py"
@@ -76,10 +77,11 @@ def test_run_tests_invokes_pytest_when_test_file_exists(monkeypatch: pytest.Monk
 
     monkeypatch.setattr(agent_module.subprocess, "run", fake_run)
 
-    a.run_tests(code_file)
+    with caplog.at_level(logging.INFO):
+        a.run_tests(code_file)
     assert any("pytest" in str(part) for part in calls[0])
 
-    out = capsys.readouterr().out
+    out = caplog.text
     assert "Tests passed" in out or "Running tests" in out
 
 
@@ -110,7 +112,7 @@ def test_update_changelog_context_tests_creates_missing_files(monkeypatch: pytes
     assert (tmp_path / "test_thing.py").exists()
 
 
-def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, agent_module, capsys):
+def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, agent_module, capsys, caplog):
     (tmp_path / "README.md").write_text("x", encoding="utf-8")
     code_file = tmp_path / "thing.py"
     code_file.write_text("print('x')", encoding="utf-8")
@@ -137,6 +139,7 @@ def test_process_file_handles_git_not_available(monkeypatch: pytest.MonkeyPatch,
 
     monkeypatch.setattr(agent_module.subprocess, "run", fake_run)
 
-    a.process_file(code_file)
-    out = capsys.readouterr().out
-    assert "Git not available" in out
+    with caplog.at_level(logging.WARNING):
+        a.process_file(code_file)
+    
+    assert "Git not available" in caplog.text

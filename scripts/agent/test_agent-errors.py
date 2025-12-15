@@ -13,11 +13,8 @@
 """Legacy tests for agent-errors.py."""
 
 from __future__ import annotations
-
 from pathlib import Path
-
 import pytest
-
 from agent_test_utils import agent_dir_on_path, load_agent_module
 
 

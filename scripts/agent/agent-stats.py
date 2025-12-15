@@ -9,6 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Stats Agent: Reports statistics on file updates and progress.
 
@@ -30,9 +31,10 @@ across files, reporting on pending updates and completed work.
 - Enhanced reporting
 """
 
+import argparse
+import json
 from pathlib import Path
 from typing import Dict, List
-import argparse
 
 
 class StatsAgent:
@@ -76,26 +78,31 @@ class StatsAgent:
         }
         return self.stats
 
-    def report_stats(self):
+    def report_stats(self, output_format: str = 'text'):
         """Print the statistics report."""
         stats = self.calculate_stats()
-        print("=== Stats Report ===")
-        print(f"Total files: {stats['total_files']}")
-        print(f"Files with descriptions: {stats['files_with_context']}")
-        print(f"Files with changelogs: {stats['files_with_changes']}")
-        print(f"Files with error reports: {stats['files_with_errors']}")
-        print(f"Files with improvements: {stats['files_with_improvements']}")
-        print(f"Files with tests: {stats['files_with_tests']}")
-        print("====================")
+
+        if output_format == 'json':
+            print(json.dumps(stats, indent=2))
+        else:
+            print("=== Stats Report ===")
+            print(f"Total files: {stats['total_files']}")
+            print(f"Files with descriptions: {stats['files_with_context']}")
+            print(f"Files with changelogs: {stats['files_with_changes']}")
+            print(f"Files with error reports: {stats['files_with_errors']}")
+            print(f"Files with improvements: {stats['files_with_improvements']}")
+            print(f"Files with tests: {stats['files_with_tests']}")
+            print("====================")
 
 
 def main():
     parser = argparse.ArgumentParser(description='Stats Agent: Reports file update statistics')
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
+    parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')
     args = parser.parse_args()
 
     agent = StatsAgent(args.files)
-    agent.report_stats()
+    agent.report_stats(output_format=args.format)
 
 
 if __name__ == '__main__':

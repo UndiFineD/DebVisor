@@ -3,13 +3,16 @@
 ## Module purpose
 Improvements Agent: Improves and updates code file improvement suggestions.
 
-Reads an improvements file (Codefile.improvements.md), uses Copilot to enhance the suggestions,
+Reads an improvements file (Codefile.improvements.md), uses `BaseAgent.run_subagent(...)` (multi-backend AI routing) to enhance the suggestions,
 and updates the improvements file with improvements.
 
 # Description
 This module provides an Improvements Agent that reads existing code file improvement suggestions,
 uses AI assistance to improve and complete them, and updates the improvements files
 with enhanced documentation.
+
+AI backend selection/configuration is handled by `scripts/agent/base_agent.py`.
+See `scripts/agent/base_agent.description.md` for environment variables and diagnostics.
 
 # Changelog
 - 1.0.0: Initial implementation

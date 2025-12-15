@@ -3,13 +3,16 @@
 ## Module purpose
 Tests Agent: Improves and updates code file test suites.
 
-Reads a tests file (test_Codefile.py), uses Copilot to enhance the tests,
+Reads a tests file (test_Codefile.py), uses `BaseAgent.run_subagent(...)` (multi-backend AI routing) to enhance the tests,
 and updates the tests file with improvements.
 
 # Description
 This module provides a Tests Agent that reads existing code file test suites,
 uses AI assistance to improve and complete them, ensuring each line of the codefile is tested,
 and updates the tests files with enhanced test coverage.
+
+AI backend selection/configuration is handled by `scripts/agent/base_agent.py`.
+See `scripts/agent/base_agent.description.md` for environment variables and diagnostics.
 
 # Changelog
 - 1.0.0: Initial implementation

@@ -9,6 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Tests Agent: Improves and updates code file test suites.
 
@@ -32,6 +33,8 @@ and updates the tests files with enhanced test coverage.
 - Enhanced diff reporting
 """
 
+import ast
+import logging
 from base_agent import BaseAgent, create_main_function
 
 
@@ -47,13 +50,30 @@ class TestsAgent(BaseAgent):
         return ("# AI Improvement Unavailable\n# GitHub CLI not found. Install from "
                 "https://cli.github.com/\n\n# Original test code preserved below:\n\n")
 
+    def _validate_syntax(self, content: str) -> bool:
+        """Validate Python syntax using ast."""
+        try:
+            ast.parse(content)
+            return True
+        except SyntaxError as e:
+            logging.error(f"Syntax error in generated tests: {e}")
+            return False
+
     def improve_content(self, prompt: str) -> str:
         """Use AI to improve the test suites.
 
         When Copilot CLI is unavailable, BaseAgent keeps the existing content
         unchanged (avoids injecting duplicated placeholder markdown blocks).
         """
-        return super().improve_content(prompt)
+        new_content = super().improve_content(prompt)
+
+        # Validate syntax
+        if not self._validate_syntax(new_content):
+            logging.error("Generated tests failed syntax validation. Reverting.")
+            self.current_content = self.previous_content
+            return self.previous_content
+
+        return new_content
 
     def update_file(self):
         """Write the improved content back to the file (no markdown fixing for test files)."""

@@ -13,11 +13,8 @@
 """Legacy tests for agent-context.py."""
 
 from __future__ import annotations
-
 from pathlib import Path
-
 import pytest
-
 from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
@@ -25,7 +22,6 @@ from agent_test_utils import agent_dir_on_path, load_agent_module
 def base_agent_module():
     with agent_dir_on_path():
         import base_agent
-
         return base_agent
 
 

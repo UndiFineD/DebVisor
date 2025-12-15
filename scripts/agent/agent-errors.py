@@ -9,6 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Errors Agent: Improves and updates code file error reports.
 
@@ -58,7 +59,6 @@ class ErrorsAgent(BaseAgent):
 
 
 # Create main function using the helper
-
 main = create_main_function(
     ErrorsAgent,
     'Errors Agent: Updates code file error reports',

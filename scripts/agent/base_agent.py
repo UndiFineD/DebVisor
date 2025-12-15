@@ -16,15 +16,90 @@ Base Agent: Common functionality for all AI-powered agents.
 Provides shared functionality for agents that improve code files using AI assistance.
 """
 
-import subprocess
-from pathlib import Path
 import argparse
 import difflib
+import json
+import logging
+import os
+from pathlib import Path
+import subprocess
 import sys
+from typing import Optional
 
-# Import markdown fixing functionality
-sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
-from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
+try:
+    import requests
+except ImportError:  # pragma: no cover
+    requests = None  # type: ignore[assignment]
+
+
+def setup_logging(verbosity_arg: int = 0):
+    """Configure logging based on environment variable and argument."""
+    env_verbosity = os.environ.get('DV_AGENT_VERBOSITY')
+
+    levels = {
+        'quiet': logging.ERROR,
+        'minimal': logging.WARNING,
+        'normal': logging.INFO,
+        'elaborate': logging.DEBUG,
+        '0': logging.ERROR,
+        '1': logging.WARNING,
+        '2': logging.INFO,
+        '3': logging.DEBUG,
+    }
+
+    # Determine level from environment
+    if env_verbosity:
+        level = levels.get(env_verbosity.lower(), logging.INFO)
+    else:
+        level = logging.INFO
+
+    # If argument is provided, it forces DEBUG (elaborate)
+    if verbosity_arg > 0:
+        level = logging.DEBUG
+
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%H:%M:%S'
+    )
+
+
+def _resolve_repo_root() -> Path:
+    env_root = os.environ.get("DV_AGENT_REPO_ROOT")
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+
+    here = Path(__file__).resolve()
+    for parent in [here.parent, *here.parents]:
+        if (parent / ".git").exists():
+            return parent
+
+    return Path.cwd()
+
+
+def _command_available(command: str) -> bool:
+    try:
+        subprocess.run(
+            [command, '--version'],
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+            timeout=5,
+            check=True,
+        )
+        return True
+    except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
+        return False
+
+
+# Import markdown fixing functionality (optional).
+try:
+    sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
+    from fix_markdown_lint import fix_markdown_content  # noqa: E402  # type: ignore
+except Exception:  # pragma: no cover
+    def fix_markdown_content(text: str) -> str:
+        return text
 
 
 class BaseAgent:
@@ -55,16 +130,23 @@ class BaseAgent:
             self.current_content = improvement
             return self.current_content
         except Exception as e:
-            print(f"Warning: Failed to improve content: {e}")
+            logging.warning(f"Failed to improve content: {e}")
             self.current_content = self.previous_content
             return self.current_content
 
     def run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
         """
-        Run a subagent using GitHub Copilot CLI.
+        Run a subagent using one of several AI backends.
 
-        This uses the standalone `copilot` CLI (https://github.com/github/copilot-cli) in
-        programmatic mode.
+        Supported backends (selected by `DV_AGENT_BACKEND`):
+            - auto (default): try local `copilot` CLI, then GitHub Models (if configured), then `gh copilot` for command-like prompts
+            - copilot: force local `copilot` CLI
+            - gh: force `gh copilot` (CLI extension)
+            - github-models: force GitHub Models OpenAI-compatible API
+
+        Notes:
+            - "github-models" is an API-backed LLM route (Copilot-adjacent), not Copilot Chat.
+            - When explicit backends are misconfigured/unavailable, an exception may be raised.
 
         Args:
             description: Description of the task
@@ -74,32 +156,26 @@ class BaseAgent:
         Returns:
             AI response as a string, or fallback suggestions
         """
-        def _command_available(command: str) -> bool:
-            try:
-                subprocess.run(
-                    [command, '--version'],
-                    capture_output=True,
-                    text=True,
-                    encoding='utf-8',
-                    errors='replace',
-                    timeout=5,
-                    check=True,
-                )
-                return True
-            except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
-                return False
 
-        # Prefer the standalone Copilot CLI.
-        if _command_available('copilot'):
-            max_context_chars = 12_000
+        def _build_full_prompt() -> str:
+            try:
+                max_context_chars = int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
+            except ValueError:
+                max_context_chars = 12_000
             trimmed_original = (original_content or "")[:max_context_chars]
-            full_prompt = (
+            return (
                 f"Task: {description}\n\n"
                 f"Prompt:\n{prompt}\n\n"
                 "Context (existing file content):\n"
                 f"{trimmed_original}"
             ).strip()
 
+        def _try_copilot_cli() -> Optional[str]:
+            if not _command_available('copilot'):
+                return None
+
+            full_prompt = _build_full_prompt()
+            repo_root = _resolve_repo_root()
             try:
                 # Non-interactive mode requires --allow-all-tools, but we explicitly deny
                 # the dangerous ones for safety in automated runs.
@@ -108,7 +184,13 @@ class BaseAgent:
                         'copilot',
                         '--prompt',
                         full_prompt,
+                        '--no-color',
+                        '--log-level',
+                        'error',
+                        '--add-dir',
+                        str(repo_root),
                         '--allow-all-tools',
+                        '--disable-parallel-tools-execution',
                         '--deny-tool',
                         'write',
                         '--deny-tool',
@@ -122,19 +204,51 @@ class BaseAgent:
                     encoding='utf-8',
                     errors='replace',
                     timeout=180,
-                    cwd=str(Path(__file__).resolve().parents[2]),
+                    cwd=str(repo_root),
                 )
 
                 stdout = (result.stdout or "").strip()
                 if result.returncode == 0 and stdout:
                     return stdout
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-                pass
+                return None
 
-            return original_content or self._get_fallback_response()
+            return None
 
-        # Legacy fallback: support older setups that only have `gh` available.
-        if _command_available('gh'):
+        def _looks_like_command(text: str) -> bool:
+            t = (text or "").strip()
+            if not t:
+                return False
+            if "\n" in t:
+                return False
+            if any(op in t for op in ("|", "&&", ";")):
+                return True
+            starters = (
+                "git ",
+                "gh ",
+                "docker ",
+                "kubectl ",
+                "pip ",
+                "python ",
+                "npm ",
+                "node ",
+                "pwsh ",
+                "powershell ",
+                "Get-",
+                "Set-",
+                "New-",
+            )
+            return t.startswith(starters)
+
+        def _try_gh_copilot(*, allow_non_command_prompt: bool) -> Optional[str]:
+            if not _command_available('gh'):
+                return None
+
+            # The `gh copilot` extension is primarily for suggesting/explaining terminal
+            # commands. Avoid using it for general prose/code rewrite prompts.
+            if not allow_non_command_prompt and not _looks_like_command(prompt):
+                return None
+
             try:
                 result = subprocess.run(
                     ['gh', 'copilot', 'explain', prompt[:200]],
@@ -142,16 +256,214 @@ class BaseAgent:
                     text=True,
                     encoding='utf-8',
                     errors='replace',
-                    timeout=30
+                    timeout=30,
+                    cwd=str(_resolve_repo_root()),
                 )
 
                 if result.returncode == 0 and result.stdout.strip():
                     return f"# GitHub Copilot (gh) Explanation:\n{result.stdout.strip()}"
             except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
-                pass
+                return None
 
-        # In environments without Copilot CLI, do not overwrite files with placeholders.
+            return None
+
+        def _try_github_models() -> Optional[str]:
+            model = (
+                os.environ.get("DV_AGENT_MODEL")
+                or os.environ.get("GITHUB_MODELS_MODEL")
+                or ""
+            ).strip()
+            system_prompt = os.environ.get(
+                "DV_AGENT_SYSTEM_PROMPT",
+                "You are a helpful assistant. Follow the user instructions exactly.",
+            )
+            base_url = os.environ.get("GITHUB_MODELS_BASE_URL")
+            token = os.environ.get("GITHUB_TOKEN")
+
+            if not model:
+                return None
+            if not base_url or not base_url.strip():
+                return None
+            if not token:
+                return None
+
+            full_prompt = _build_full_prompt()
+            return self.llm_chat_via_github_models(
+                prompt=full_prompt,
+                model=model,
+                system_prompt=system_prompt,
+                base_url=base_url,
+                token=token,
+            )
+
+        backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
+
+        if backend in {"copilot", "local", "copilot-cli"}:
+            result = _try_copilot_cli()
+            if result is None:
+                raise RuntimeError("Requested DV_AGENT_BACKEND=copilot but local 'copilot' CLI is unavailable")
+            return result
+
+        if backend in {"gh", "gh-copilot"}:
+            result = _try_gh_copilot(allow_non_command_prompt=True)
+            if result is None:
+                raise RuntimeError("Requested DV_AGENT_BACKEND=gh but 'gh copilot' is unavailable")
+            return result
+
+        if backend in {"github-models", "github_models", "models"}:
+            result = _try_github_models()
+            if result is None:
+                raise RuntimeError(
+                    "Requested DV_AGENT_BACKEND=github-models but it is not configured; "
+                    "set GITHUB_MODELS_BASE_URL, GITHUB_TOKEN, and DV_AGENT_MODEL (or GITHUB_MODELS_MODEL)"
+                )
+            return result
+
+        # auto (default): prefer local Copilot CLI, then GitHub Models if configured.
+        result = _try_copilot_cli()
+        if result is not None:
+            return result
+
+        try:
+            result = _try_github_models()
+            if result is not None:
+                return result
+        except Exception:
+            # Keep auto mode resilient.
+            pass
+
+        result = _try_gh_copilot(allow_non_command_prompt=False)
+        if result is not None:
+            return result
+
+        # In environments without any configured backend, do not overwrite files with placeholders.
         return original_content or self._get_fallback_response()
+
+    @staticmethod
+    def get_backend_status() -> dict:
+        """Return a diagnostic snapshot of backend availability/config.
+
+        Never includes secret values (token contents), only set/unset.
+        """
+        backend = os.environ.get("DV_AGENT_BACKEND", "auto").strip().lower()
+        repo_root = str(_resolve_repo_root())
+
+        try:
+            max_context_chars = int(os.environ.get("DV_AGENT_MAX_CONTEXT_CHARS", "12000"))
+        except ValueError:
+            max_context_chars = 12_000
+
+        models_base_url = (os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
+        models_model = (
+            os.environ.get("DV_AGENT_MODEL")
+            or os.environ.get("GITHUB_MODELS_MODEL")
+            or ""
+        ).strip()
+        token_set = bool(os.environ.get("GITHUB_TOKEN"))
+
+        return {
+            "selected_backend": backend,
+            "repo_root": repo_root,
+            "max_context_chars": max_context_chars,
+            "commands": {
+                "copilot": _command_available("copilot"),
+                "gh": _command_available("gh"),
+            },
+            "github_models": {
+                "requests_installed": requests is not None,
+                "base_url_set": bool(models_base_url),
+                "model_set": bool(models_model),
+                "token_set": token_set,
+                "configured": bool(models_base_url and models_model and token_set and requests is not None),
+            },
+        }
+
+    @staticmethod
+    def describe_backends() -> str:
+        """Human-readable backend diagnostics for debugging."""
+        status = BaseAgent.get_backend_status()
+        cmd = status["commands"]
+        models = status["github_models"]
+
+        def yn(value: bool) -> str:
+            return "yes" if value else "no"
+
+        return "\n".join(
+            [
+                "Backend diagnostics:",
+                f"- selected: {status['selected_backend']}",
+                f"- repo_root: {status['repo_root']}",
+                f"- max_context_chars: {status['max_context_chars']}",
+                f"- local copilot CLI available: {yn(bool(cmd.get('copilot')))}",
+                f"- gh CLI available: {yn(bool(cmd.get('gh')))}",
+                "- github-models configured:",
+                f"  - requests installed: {yn(bool(models.get('requests_installed')))}",
+                f"  - base_url set: {yn(bool(models.get('base_url_set')))}",
+                f"  - model set: {yn(bool(models.get('model_set')))}",
+                f"  - token set: {yn(bool(models.get('token_set')))}",
+            ]
+        )
+
+    def llm_chat_via_github_models(
+        self,
+        *,
+        prompt: str,
+        model: str,
+        system_prompt: str = "You are a helpful assistant.",
+        base_url: Optional[str] = None,
+        token: Optional[str] = None,
+        timeout_s: int = 60,
+    ) -> str:
+        """Call a GitHub Models OpenAI-compatible chat endpoint.
+
+        This is intentionally small and dependency-light (uses `requests`).
+        It is designed for programmatic access (route #2) and is safe to mock in tests.
+
+        Required:
+            - `token` argument OR `GITHUB_TOKEN` env var
+            - `base_url` argument OR `GITHUB_MODELS_BASE_URL` env var
+        """
+        if requests is None:  # pragma: no cover
+            raise RuntimeError("Missing dependency: install 'requests' to use GitHub Models backend")
+
+        resolved_token = token or os.environ.get("GITHUB_TOKEN")
+        if not resolved_token:
+            raise RuntimeError("Missing token: set GITHUB_TOKEN env var or pass token=")
+
+        resolved_base_url = (base_url or os.environ.get("GITHUB_MODELS_BASE_URL") or "").strip()
+        if not resolved_base_url:
+            raise RuntimeError(
+                "Missing base URL: set GITHUB_MODELS_BASE_URL env var or pass base_url="
+            )
+
+        url = resolved_base_url.rstrip("/") + "/v1/chat/completions"
+
+        payload = {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt},
+            ],
+        }
+
+        headers = {
+            "Authorization": f"Bearer {resolved_token}",
+            "Content-Type": "application/json",
+        }
+
+        response = requests.post(
+            url,
+            headers=headers,
+            data=json.dumps(payload),
+            timeout=timeout_s,
+        )
+        response.raise_for_status()
+        data = response.json()
+
+        try:
+            return (data["choices"][0]["message"]["content"] or "").strip()
+        except (KeyError, IndexError, TypeError) as e:
+            raise RuntimeError(f"Unexpected response shape from LLM endpoint: {data!r}") from e
 
     def _get_fallback_response(self) -> str:
         """Return fallback response when Copilot CLI is unavailable. Override in subclasses."""
@@ -189,9 +501,36 @@ def create_main_function(agent_class, description: str, context_help: str):
     """Create a main function for an agent class."""
     def main():
         parser = argparse.ArgumentParser(description=description)
+        parser.add_argument(
+            '--describe-backends',
+            action='store_true',
+            help='Print which AI backends are available/configured and exit',
+        )
+        parser.add_argument(
+            '--backend',
+            choices=['auto', 'copilot', 'gh', 'github-models'],
+            default=None,
+            help='Select backend (overrides DV_AGENT_BACKEND for this run only)',
+        )
+        parser.add_argument(
+            '--verbose',
+            '-v',
+            action='count',
+            default=0,
+            help='Increase verbosity (can be used multiple times, e.g. -vv)',
+        )
         parser.add_argument('--context', required=True, help=context_help)
         parser.add_argument('--prompt', required=True, help='Prompt for improving the content')
+
         args = parser.parse_args()
+        setup_logging(args.verbose)
+
+        if args.backend:
+            os.environ['DV_AGENT_BACKEND'] = args.backend
+
+        if args.describe_backends:
+            print(agent_class.describe_backends())
+            return
 
         agent = agent_class(args.context)
         agent.read_previous_content()
@@ -199,9 +538,9 @@ def create_main_function(agent_class, description: str, context_help: str):
         agent.update_file()
         diff = agent.get_diff()
         if diff:
-            print(f"{agent_class.__name__.replace('Agent', '').lower()} updated:")
-            print(diff)
+            logging.info(f"{agent_class.__name__.replace('Agent', '').lower()} updated:")
+            logging.info(diff)
         else:
-            print(f"No changes made to {agent_class.__name__.replace('Agent', '').lower()}.")
+            logging.info(f"No changes made to {agent_class.__name__.replace('Agent', '').lower()}.")
 
     return main

@@ -3,13 +3,16 @@
 ## Module purpose
 Context Agent: Improves and updates code file descriptions.
 
-Reads a context file (Codefile.description.md), uses Copilot to enhance the description,
+Reads a context file (Codefile.description.md), uses `BaseAgent.run_subagent(...)` (multi-backend AI routing) to enhance the description,
 and updates the context file with improvements.
 
 # Description
 This module provides a Context Agent that reads existing code file descriptions,
 uses AI assistance to improve and complete them, and updates the context files
 with enhanced documentation.
+
+AI backend selection/configuration is handled by `scripts/agent/base_agent.py`.
+See `scripts/agent/base_agent.description.md` for environment variables and diagnostics.
 
 # Changelog
 - 1.0.0: Initial implementation

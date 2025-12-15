@@ -3,6 +3,7 @@
 ## Suggested improvements
 - Avoid `sys.path.insert(...)` imports; prefer a proper package layout or relative imports.
 - Add a concise module docstring describing purpose/usage.
+- Consider adding a helper fixture/utility to clear agent-related env vars (`DV_AGENT_*`, `GITHUB_*`) to prevent host environment leakage across tests.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

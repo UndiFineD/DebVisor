@@ -18,11 +18,8 @@ These live next to the agent scripts so they can be run directly via:
 """
 
 from __future__ import annotations
-
 from pathlib import Path
-
 import pytest
-
 from agent_test_utils import agent_dir_on_path
 
 
@@ -30,7 +27,6 @@ from agent_test_utils import agent_dir_on_path
 def base_agent_module():
     with agent_dir_on_path():
         import base_agent
-
         return base_agent
 
 
@@ -84,3 +80,157 @@ def test_get_diff_contains_unified_markers(tmp_path: Path, base_agent_module):
     diff = agent.get_diff()
     assert "--- previous" in diff
     assert "+++ current" in diff
+
+
+def test_run_subagent_prefers_local_copilot_cli(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    calls: list[list[str]] = []
+
+    class Result:
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = stderr
+
+    def fake_run(args, **kwargs):
+        # Record args only (not env/token).
+        calls.append(list(args))
+
+        # "copilot --version" probe succeeds.
+        if args[:2] == ["copilot", "--version"]:
+            return Result(0, "copilot 1.2.3")
+
+        # Actual copilot invocation returns a response.
+        if args and args[0] == "copilot":
+            assert "--prompt" in args
+            assert "--deny-tool" in args
+            assert "--silent" in args
+            return Result(0, "OK_FROM_COPILOT")
+
+        raise AssertionError(f"Unexpected subprocess call: {args}")
+
+    monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
+    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
+
+    agent = base_agent_module.BaseAgent("x.md")
+    out = agent.run_subagent("desc", "prompt", "ORIG")
+
+    assert out == "OK_FROM_COPILOT"
+    assert calls[0][:2] == ["copilot", "--version"]
+
+
+def test_run_subagent_falls_back_to_gh_copilot_explain(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    calls: list[list[str]] = []
+
+    class Result:
+        def __init__(self, returncode: int, stdout: str = "", stderr: str = ""):
+            self.returncode = returncode
+            self.stdout = stdout
+            self.stderr = stderr
+
+    def fake_run(args, **kwargs):
+        calls.append(list(args))
+
+        # "copilot" missing.
+        if args[:2] == ["copilot", "--version"]:
+            raise FileNotFoundError("copilot not found")
+
+        # "gh" is present.
+        if args[:2] == ["gh", "--version"]:
+            return Result(0, "gh version 2.x")
+
+        # gh copilot explain returns text.
+        if args[:3] == ["gh", "copilot", "explain"]:
+            return Result(0, "EXPLAINED")
+
+        raise AssertionError(f"Unexpected subprocess call: {args}")
+
+    monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
+    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
+
+    agent = base_agent_module.BaseAgent("x.md")
+    out = agent.run_subagent("desc", "git status", "ORIG")
+
+    assert "EXPLAINED" in out
+    assert any(c[:3] == ["gh", "copilot", "explain"] for c in calls)
+
+
+def test_llm_chat_via_github_models_builds_request_and_parses_response(
+    monkeypatch: pytest.MonkeyPatch, base_agent_module
+):
+    posted = {}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"choices": [{"message": {"content": "  hello  "}}]}
+
+    def fake_post(url, headers=None, data=None, timeout=None):
+        posted["url"] = url
+        posted["headers"] = headers
+        posted["data"] = data
+        posted["timeout"] = timeout
+        return FakeResponse()
+
+    monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
+
+    agent = base_agent_module.BaseAgent("x.md")
+    out = agent.llm_chat_via_github_models(
+        prompt="Say hi",
+        model="some-model",
+        system_prompt="system",
+        base_url="https://example.test",
+        token="TOKEN",
+        timeout_s=12,
+    )
+
+    assert out == "hello"
+    assert posted["url"] == "https://example.test/v1/chat/completions"
+    assert posted["headers"]["Authorization"] == "Bearer TOKEN"
+    assert posted["timeout"] == 12
+    assert '"model": "some-model"' in posted["data"]
+    assert '"role": "user"' in posted["data"]
+
+
+def test_llm_chat_via_github_models_requires_token_and_base_url(base_agent_module):
+    agent = base_agent_module.BaseAgent("x.md")
+
+    with pytest.raises(RuntimeError, match=r"Missing token"):
+        agent.llm_chat_via_github_models(prompt="x", model="m", base_url="https://x", token=None)
+
+    with pytest.raises(RuntimeError, match=r"Missing base URL"):
+        agent.llm_chat_via_github_models(prompt="x", model="m", base_url=None, token="t")
+
+
+def test_run_subagent_uses_github_models_backend(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    # Force backend selection.
+    monkeypatch.setenv("DV_AGENT_BACKEND", "github-models")
+    monkeypatch.setenv("GITHUB_MODELS_BASE_URL", "https://example.test")
+    monkeypatch.setenv("DV_AGENT_MODEL", "unit-test-model")
+    monkeypatch.setenv("GITHUB_TOKEN", "TOKEN")
+
+    # If subprocess is used, fail.
+    def boom(*args, **kwargs):
+        raise AssertionError("subprocess.run should not be called for github-models backend")
+
+    monkeypatch.setattr(base_agent_module.subprocess, "run", boom)
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"choices": [{"message": {"content": "OK_FROM_MODELS"}}]}
+
+    def fake_post(url, headers=None, data=None, timeout=None):
+        assert url == "https://example.test/v1/chat/completions"
+        assert headers["Authorization"] == "Bearer TOKEN"
+        assert '"model": "unit-test-model"' in data
+        return FakeResponse()
+
+    monkeypatch.setattr(base_agent_module.requests, "post", fake_post)
+
+    agent = base_agent_module.BaseAgent("x.md")
+    out = agent.run_subagent("desc", "prompt", "ORIG")
+    assert out == "OK_FROM_MODELS"

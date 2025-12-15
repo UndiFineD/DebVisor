@@ -9,4 +9,5 @@
 
 ## Known issues / hazards
 - Runs `git` via `subprocess`; will fail if git is not installed or repo has no remote.
-- Invokes `copilot` CLI; will be a no-op/fallback if Copilot CLI is not installed.
+- May invoke AI tooling via `BaseAgent` (local `copilot` CLI, GitHub Models, or `gh copilot` depending on configuration).
+- If no AI backend is available/configured, behavior should fall back safely without overwriting content with placeholders.

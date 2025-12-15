@@ -18,12 +18,9 @@ These tests live next to the agent scripts so they can be run directly via:
 """
 
 from __future__ import annotations
-
 import importlib
 from pathlib import Path
-
 import pytest
-
 from agent_test_utils import agent_dir_on_path
 
 
@@ -31,7 +28,6 @@ from agent_test_utils import agent_dir_on_path
 def agent_module():
     with agent_dir_on_path():
         import agent
-
         return importlib.reload(agent)
 
 

@@ -28,7 +28,9 @@
 
 ## Note: Full AI content rewriting requires additional AI service integration
 
-## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation
+## Note: This repo supports content generation via the `copilot` CLI prompt mode
+
+The local `copilot` CLI supports non-interactive prompt execution (`--prompt`), and the agent system can also route via GitHub Models depending on configuration.
 
 ## (2)
 
@@ -38,4 +40,7 @@
 
 ## Improvements
 
-No improvements suggested for action_audit.py.
+- Add CLI argument validation (input paths, allowlist files, and required env vars).
+- Add structured logging (levels + `--json` output) to make CI and troubleshooting easier.
+- Add tests for error cases (missing inputs, invalid JSON, network failures) and ensure failures do not produce partial outputs.
+- Ensure any GitHub/Copilot configuration diagnostics never print secrets (token contents).

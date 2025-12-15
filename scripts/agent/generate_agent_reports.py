@@ -10,7 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 """Generate per-file agent reports.
 
 For every Python file under `scripts/agent/*.py`, this script writes:
@@ -23,7 +22,6 @@ basic syntax/compile checks.
 """
 
 from __future__ import annotations
-
 import ast
 import hashlib
 import re

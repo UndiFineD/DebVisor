@@ -28,7 +28,9 @@
 
 ## Note: Full AI content rewriting requires additional AI service integration
 
-## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation
+## Note: This repo supports content generation via the `copilot` CLI prompt mode
+
+The local `copilot` CLI supports non-interactive prompt execution (`--prompt`), and the agent system can also route via GitHub Models depending on configuration.
 
 ## (2)
 
@@ -38,4 +40,7 @@
 
 ## Improvements
 
-No improvements suggested for actions_inspector.py.
+- Add input validation for any scanned files (existence, encoding, size limits).
+- Add structured logging (levels + optional JSON output) for CI reporting.
+- Add tests for edge cases (empty workflows, unusual YAML, missing fields) and ensure stable output ordering.
+- Ensure configuration diagnostics (if any) never print secrets (token contents).

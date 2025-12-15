@@ -35,6 +35,16 @@ of code quality and documentation.
 - Invokes external commands via `subprocess`.
 - Mutates `sys.path` to import sibling modules.
 
+## AI backend configuration
+This agent system delegates AI calls to `BaseAgent.run_subagent(...)`.
+
+Backend selection and configuration are controlled via `base_agent.py`:
+- `DV_AGENT_BACKEND` (or CLI `--backend` on agents that use `create_main_function`)
+- GitHub Models route env vars: `GITHUB_MODELS_BASE_URL`, `GITHUB_TOKEN`, and `DV_AGENT_MODEL`/`GITHUB_MODELS_MODEL`
+- Context sizing: `DV_AGENT_MAX_CONTEXT_CHARS`
+
+See `scripts/agent/base_agent.description.md` for details.
+
 ## Key dependencies
 - Top imports: `subprocess`, `sys`, `pathlib`, `typing`, `argparse`, `fnmatch`, `fix_markdown_lint`
 

@@ -28,7 +28,9 @@
 
 ## Note: Full AI content rewriting requires additional AI service integration
 
-## The new GitHub Copilot CLI focuses on command-line suggestions, not content generation
+## Note: This repo supports content generation via the `copilot` CLI prompt mode
+
+The local `copilot` CLI supports non-interactive prompt execution (`--prompt`), and the agent system can also route via GitHub Models depending on configuration.
 
 ## (2)
 
@@ -38,4 +40,6 @@
 
 ## Improvements
 
-No improvements suggested for action_audit.tests.py.
+- Add tests covering failure modes (missing fixtures, invalid JSON/YAML, subprocess failures).
+- Add tests ensuring environment isolation (agent-related env vars should not affect unrelated tests).
+- Prefer smaller, focused unit tests and use parametrization for common cases.

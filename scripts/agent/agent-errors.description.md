@@ -3,13 +3,16 @@
 ## Module purpose
 Errors Agent: Improves and updates code file error reports.
 
-Reads an errors file (Codefile.errors.md), uses Copilot to enhance the error analysis,
+Reads an errors file (Codefile.errors.md), uses `BaseAgent.run_subagent(...)` (multi-backend AI routing) to enhance the error analysis,
 and updates the errors file with improvements.
 
 # Description
 This module provides an Errors Agent that reads existing code file error reports,
 uses AI assistance to improve and complete them, and updates the errors files
 with enhanced documentation.
+
+AI backend selection/configuration is handled by `scripts/agent/base_agent.py`.
+See `scripts/agent/base_agent.description.md` for environment variables and diagnostics.
 
 # Changelog
 - 1.0.0: Initial implementation

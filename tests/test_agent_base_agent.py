@@ -1,4 +1,5 @@
 from __future__ import annotations
+import logging
 import sys
 from pathlib import Path
 import pytest
@@ -100,6 +101,12 @@ def test_get_diff_contains_changes(base_agent_module):
 
 
 def test_run_subagent_no_cli_returns_original(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    # Ensure backend selection doesn't pick up host environment variables.
+    monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
+    monkeypatch.delenv("GITHUB_MODELS_BASE_URL", raising=False)
+    monkeypatch.delenv("GITHUB_MODELS_MODEL", raising=False)
+    monkeypatch.delenv("DV_AGENT_MODEL", raising=False)
+
     # Simulate both commands missing
     def fake_run(args, **kwargs):
         raise FileNotFoundError("missing")
@@ -111,6 +118,12 @@ def test_run_subagent_no_cli_returns_original(monkeypatch: pytest.MonkeyPatch, b
 
 
 def test_run_subagent_copilot_success(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    # Ensure backend selection doesn't pick up host environment variables.
+    monkeypatch.delenv("DV_AGENT_BACKEND", raising=False)
+    monkeypatch.delenv("GITHUB_MODELS_BASE_URL", raising=False)
+    monkeypatch.delenv("GITHUB_MODELS_MODEL", raising=False)
+    monkeypatch.delenv("DV_AGENT_MODEL", raising=False)
+
     calls = []
 
     class Result:
@@ -135,7 +148,7 @@ def test_run_subagent_copilot_success(monkeypatch: pytest.MonkeyPatch, base_agen
     assert calls
 
 
-def test_create_main_function_writes_and_reports_diff(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys, base_agent_module):
+def test_create_main_function_writes_and_reports_diff(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys, base_agent_module, caplog):
     target = tmp_path / "a.md"
     target.write_text("before\n", encoding="utf-8")
 
@@ -149,8 +162,23 @@ def test_create_main_function_writes_and_reports_diff(monkeypatch: pytest.Monkey
     main = base_agent_module.create_main_function(DemoAgent, "desc", "help")
     monkeypatch.setattr(sys, "argv", ["prog", "--context", str(target), "--prompt", "p"])
 
-    main()
+    with caplog.at_level(logging.INFO):
+        main()
 
     assert target.read_text(encoding="utf-8") == "after\n"
-    captured = capsys.readouterr().out
+    captured = caplog.text
     assert "updated" in captured.lower() or "changes" in captured.lower() or "--- previous" in captured
+
+
+def test_describe_backends_does_not_leak_token(monkeypatch: pytest.MonkeyPatch, base_agent_module):
+    monkeypatch.setenv("GITHUB_TOKEN", "SUPER_SECRET_VALUE")
+
+    # Avoid calling real executables in unit tests.
+    def fake_run(args, **kwargs):
+        raise FileNotFoundError("missing")
+
+    monkeypatch.setattr(base_agent_module.subprocess, "run", fake_run)
+
+    text = base_agent_module.BaseAgent.describe_backends()
+    assert "SUPER_SECRET_VALUE" not in text
+    assert "token set" in text
