@@ -1,7 +1,9 @@
 # Description: `agent_test_utils.py`
 
 ## Module purpose
-(No module docstring found.)
+Test utilities for agent scripts.
+
+Provides helpers to load agent modules dynamically and manage sys.path for testing.
 
 ## Location
 - Path: `scripts/agent/agent_test_utils.py`
@@ -14,7 +16,7 @@
 - Mutates `sys.path` to import sibling modules.
 
 ## Key dependencies
-- Top imports: `__future__`, `importlib.util`, `re`, `sys`, `contextlib`, `pathlib`, `types`
+- Top imports: `__future__`, `importlib.util`, `re`, `sys`, `contextlib`, `pathlib`, `types`, `typing`
 
 ## File fingerprint
-- SHA256(source): `e86fc9ed86eb7364…`
+- SHA256(source): `e19868e4c8b5a47f…`

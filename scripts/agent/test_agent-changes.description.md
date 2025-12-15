@@ -18,7 +18,7 @@ Run directly via:
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
+- Top imports: `__future__`, `pathlib`, `typing`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `e325bdf1b3be2ab2…`
+- SHA256(source): `8f3c5d0da71477a6…`

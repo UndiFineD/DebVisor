@@ -14,7 +14,7 @@ Legacy tests for agent-context.py.
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
+- Top imports: `__future__`, `pathlib`, `typing`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `e6bfa2c6f3661e5f…`
+- SHA256(source): `ff877c3b2f3dcada…`

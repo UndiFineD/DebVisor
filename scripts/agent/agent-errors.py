@@ -40,8 +40,8 @@ from base_agent import BaseAgent, create_main_function
 class ErrorsAgent(BaseAgent):
     """Updates code file error reports using AI assistance."""
 
-    def __init__(self, file_path: str, prompt: Optional[str] = None):
-        super().__init__(file_path, prompt)
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
         self._validate_error_file_path()
 
     def _validate_error_file_path(self) -> None:

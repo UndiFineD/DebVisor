@@ -160,7 +160,7 @@ class TestsAgent(BaseAgent):
 
         return new_content
 
-    def update_file(self):
+    def update_file(self) -> None:
         """Write the improved content back to the file (no markdown fixing for test files)."""
         self.file_path.write_text(self.current_content, encoding='utf-8')
 

@@ -2,7 +2,7 @@
 
 ## Suggested improvements
 - Consider documenting class construction/expected invariants.
-- Function `update_file` is missing type annotations.
+- Function `update_file` is missing type annotations. [Fixed]
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

@@ -14,7 +14,7 @@ Legacy tests for agent-improvements.py.
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
+- Top imports: `__future__`, `pathlib`, `typing`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `cb5ab7eaefbb2270…`
+- SHA256(source): `b60047058651f667…`

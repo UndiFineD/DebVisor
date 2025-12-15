@@ -17,4 +17,4 @@ Legacy tests for agent-tests.py.
 - Top imports: `__future__`, `pathlib`, `agent_test_utils`
 
 ## File fingerprint
-- SHA256(source): `4f90acc047b6dff7…`
+- SHA256(source): `6aecca472acda46e…`

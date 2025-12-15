@@ -41,8 +41,8 @@ from base_agent import BaseAgent, create_main_function
 class ContextAgent(BaseAgent):
     """Updates code file context descriptions using AI assistance."""
 
-    def __init__(self, file_path: str, prompt: Optional[str] = None):
-        super().__init__(file_path, prompt)
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
         self._validate_file_extension()
         self.source_path = self._derive_source_path()
 

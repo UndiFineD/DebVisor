@@ -42,7 +42,7 @@ from typing import Dict, List
 class StatsAgent:
     """Reports statistics on file update progress."""
 
-    def __init__(self, files: List[str]):
+    def __init__(self, files: List[str]) -> None:
         self.files = [Path(f) for f in files]
         self.stats = {}
         self._validate_files()
@@ -91,7 +91,7 @@ class StatsAgent:
         }
         return self.stats
 
-    def report_stats(self, output_format: str = 'text'):
+    def report_stats(self, output_format: str = 'text') -> None:
         """Print the statistics report."""
         stats = self.calculate_stats()
         total = stats['total_files']
@@ -99,7 +99,7 @@ class StatsAgent:
         if output_format == 'json':
             print(json.dumps(stats, indent=2))
         else:
-            def fmt(count):
+            def fmt(count: int) -> str:
                 return f"{count}/{total} ({count/total*100:.1f}%)" if total > 0 else "0/0 (0.0%)"
 
             print("=== Stats Report ===")
@@ -112,7 +112,7 @@ class StatsAgent:
             print("====================")
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='Stats Agent: Reports file update statistics')
     parser.add_argument('--files', nargs='+', required=True, help='List of files to analyze')
     parser.add_argument('--format', choices=['text', 'json'], default='text', help='Output format')

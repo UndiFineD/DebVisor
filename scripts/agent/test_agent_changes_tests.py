@@ -23,6 +23,7 @@ Run directly via:
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -30,14 +31,14 @@ from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
 @pytest.fixture()
-def base_agent_module():
+def base_agent_module() -> Any:
     with agent_dir_on_path():
         import base_agent
 
         return base_agent
 
 
-def test_changes_agent_default_content_for_missing_file(tmp_path: Path):
+def test_changes_agent_default_content_for_missing_file(tmp_path: Path) -> None:
     with agent_dir_on_path():
         mod = load_agent_module("agent-changes.py")
     target = tmp_path / "missing.changes.md"
@@ -46,12 +47,12 @@ def test_changes_agent_default_content_for_missing_file(tmp_path: Path):
 
 
 def test_changes_agent_non_keyword_sets_current_content(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module
-):
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module: Any
+) -> None:
     with agent_dir_on_path():
         mod = load_agent_module("agent-changes.py")
 
-    def fake_run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
+    def fake_run_subagent(self: Any, description: str, prompt: str, original_content: str = "") -> str:
         return "UPDATED"
 
     monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)

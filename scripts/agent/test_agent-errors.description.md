@@ -14,7 +14,7 @@ Legacy tests for agent-errors.py.
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
+- Top imports: `__future__`, `pathlib`, `typing`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `7f252a7b617c845b…`
+- SHA256(source): `dea6f0d6d7d1f1fa…`

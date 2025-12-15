@@ -90,7 +90,8 @@ class CoderAgent(BaseAgent):
                 ['flake8', '--ignore=E501,W293', tmp_path],
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
+                check=False
             )
             if result.returncode != 0:
                 logging.warning(f"flake8 validation failed:\n{result.stdout}")

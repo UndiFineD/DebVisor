@@ -1,8 +1,7 @@
 # Improvements: `test_agent-tests.py`
 
 ## Suggested improvements
-- [Fixed] Consider using `logging` instead of `print` for controllable verbosity. (False positive: "print" in string literal)
-- [Fixed] Function `test_tests_agent_update_file_writes_raw` is missing type annotations.
+- Consider using `logging` instead of `print` for controllable verbosity.
 - Rename the file to be pytest-importable (avoid '-' and extra '.'), then update references.
 
 ## Notes

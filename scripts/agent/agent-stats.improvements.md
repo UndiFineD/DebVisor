@@ -2,10 +2,10 @@
 
 ## Suggested improvements
 - Add `--help` examples and validate CLI args (paths, required files).
-- Function `__init__` is missing type annotations.
-- Function `fmt` is missing type annotations.
-- Function `main` is missing type annotations.
-- Function `report_stats` is missing type annotations.
+- Function `__init__` is missing type annotations. [Fixed]
+- Function `fmt` is missing type annotations. [Fixed]
+- Function `main` is missing type annotations. [Fixed]
+- Function `report_stats` is missing type annotations. [Fixed]
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

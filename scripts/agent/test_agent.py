@@ -20,12 +20,14 @@ These tests live next to the agent scripts so they can be run directly via:
 from __future__ import annotations
 import importlib
 from pathlib import Path
+from types import ModuleType
+from typing import Any, Dict, List
 import pytest
 from agent_test_utils import agent_dir_on_path
 
 
 @pytest.fixture()
-def agent_module():
+def agent_module() -> ModuleType:
     with agent_dir_on_path():
         import agent
         return importlib.reload(agent)
@@ -39,14 +41,14 @@ def repo_root(tmp_path: Path) -> Path:
     return root
 
 
-def test_agent_initialization_defaults(agent_module, repo_root: Path):
+def test_agent_initialization_defaults(agent_module: ModuleType, repo_root: Path) -> None:
     a = agent_module.Agent(repo_root=str(repo_root))
     assert a.repo_root == repo_root
     assert a.agents_only is False
     assert a.max_files is None
 
 
-def test_load_codeignore_ignores_comments(agent_module, repo_root: Path):
+def test_load_codeignore_ignores_comments(agent_module: ModuleType, repo_root: Path) -> None:
     (repo_root / ".codeignore").write_text("# Comment\n__pycache__\n*.tmp\n", encoding="utf-8")
     patterns = agent_module.load_codeignore(repo_root)
     assert "__pycache__" in patterns
@@ -54,7 +56,7 @@ def test_load_codeignore_ignores_comments(agent_module, repo_root: Path):
     assert "# Comment" not in patterns
 
 
-def test_find_code_files_filters_extensions(agent_module, repo_root: Path):
+def test_find_code_files_filters_extensions(agent_module: ModuleType, repo_root: Path) -> None:
     a = agent_module.Agent(repo_root=str(repo_root))
     (repo_root / "script.py").write_text("# Python script", encoding="utf-8")
     (repo_root / "module.js").write_text("// JavaScript module", encoding="utf-8")
@@ -66,7 +68,7 @@ def test_find_code_files_filters_extensions(agent_module, repo_root: Path):
     assert "readme.txt" not in names
 
 
-def test_agents_only_filters_to_scripts_agent(agent_module, repo_root: Path):
+def test_agents_only_filters_to_scripts_agent(agent_module: ModuleType, repo_root: Path) -> None:
     # Create a structure that looks like a repo.
     scripts_agent = repo_root / "scripts" / "agent"
     scripts_agent.mkdir(parents=True)
@@ -77,7 +79,7 @@ def test_agents_only_filters_to_scripts_agent(agent_module, repo_root: Path):
     assert all(p.is_relative_to(scripts_agent) for p in files)
 
 
-def test_max_files_limits_results(agent_module, repo_root: Path):
+def test_max_files_limits_results(agent_module: ModuleType, repo_root: Path) -> None:
     (repo_root / "a.py").write_text("print('a')\n", encoding="utf-8")
     (repo_root / "b.py").write_text("print('b')\n", encoding="utf-8")
     (repo_root / "c.py").write_text("print('c')\n", encoding="utf-8")
@@ -85,7 +87,7 @@ def test_max_files_limits_results(agent_module, repo_root: Path):
     assert len(a.find_code_files()) == 2
 
 
-def test_is_ignored_matches_globs(agent_module, repo_root: Path):
+def test_is_ignored_matches_globs(agent_module: ModuleType, repo_root: Path) -> None:
     a = agent_module.Agent(repo_root=str(repo_root))
     a.ignored_patterns = {"__pycache__", "*.tmp"}
     cache_file = repo_root / "__pycache__" / "module.pyc"
@@ -100,10 +102,10 @@ def test_is_ignored_matches_globs(agent_module, repo_root: Path):
     assert not a._is_ignored(normal_file)
 
 
-def test_run_stats_update_invokes_subprocess(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
-    called = {}
+def test_run_stats_update_invokes_subprocess(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    called: Dict[str, Any] = {}
 
-    def fake_run(cmd, **kwargs):
+    def fake_run(cmd: List[str], **kwargs: Any) -> Any:
         called["cmd"] = cmd
         called["kwargs"] = kwargs
 
@@ -120,8 +122,8 @@ def test_run_stats_update_invokes_subprocess(agent_module, repo_root: Path, monk
     assert called["kwargs"].get("cwd") == repo_root
 
 
-def test_run_tests_no_test_file_does_not_invoke_subprocess(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
-    def boom(*_args, **_kwargs):
+def test_run_tests_no_test_file_does_not_invoke_subprocess(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def boom(*_args: Any, **_kwargs: Any) -> None:
         raise AssertionError("subprocess.run should not be called")
 
     monkeypatch.setattr(agent_module.subprocess, "run", boom, raising=True)
@@ -131,10 +133,10 @@ def test_run_tests_no_test_file_does_not_invoke_subprocess(agent_module, repo_ro
     a.run_tests(sample_file)
 
 
-def test_run_tests_with_test_file_invokes_pytest(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
-    called = {}
+def test_run_tests_with_test_file_invokes_pytest(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    called: Dict[str, Any] = {}
 
-    def fake_run(cmd, **kwargs):
+    def fake_run(cmd: List[str], **kwargs: Any) -> Any:
         called["cmd"] = cmd
         called["kwargs"] = kwargs
 

@@ -35,8 +35,8 @@ from base_agent import BaseAgent, create_main_function
 class ChangesAgent(BaseAgent):
     """Updates code file changelogs using AI assistance."""
 
-    def __init__(self, file_path: str, prompt: Optional[str] = None):
-        super().__init__(file_path, prompt)
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
         self._validate_file_extension()
 
     def _validate_file_extension(self) -> None:
@@ -73,11 +73,20 @@ class ChangesAgent(BaseAgent):
         description = f"Improve the changelog for {self.file_path.stem.replace('.changes', '')}"
         # For changelog improvement, provide specific change tracking suggestions
         if any(keyword in prompt.lower() for keyword in ["improve", "change", "log"]):
-            # If we are using the fallback mechanism (which seems to be what this block is for),
-            # we should probably just let the base class handle it or return the enhanced prompt result
-            # But the original code returned a static string. Let's keep it but maybe improve it?
-            # Actually, let's try to use the base implementation first if possible.
-            pass
+            fallback_suggestions = f"""# AI Changelog Improvement Suggestions
+# Description: {description}
+#
+# Suggestions:
+# 1. Follow 'Keep a Changelog' format
+# 2. Group changes by type (Added, Changed, Deprecated, Removed, Fixed, Security)
+# 3. Include dates for versions
+# 4. Be specific about changes
+#
+# Original changelog preserved below:
+#
+{self.previous_content}"""
+            self.current_content = fallback_suggestions
+            return self.current_content
             
         # For other prompts, use the base implementation with enhanced prompt
         return super().improve_content(enhanced_prompt)

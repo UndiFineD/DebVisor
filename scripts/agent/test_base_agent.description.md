@@ -18,7 +18,7 @@ These live next to the agent scripts so they can be run directly via:
 - Invokes external commands via `subprocess`.
 
 ## Key dependencies
-- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
+- Top imports: `__future__`, `pathlib`, `typing`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `1a50f6268994de9d…`
+- SHA256(source): `b98e61f9b798d70d…`

@@ -38,7 +38,7 @@ import sys
 import os
 import logging
 from pathlib import Path
-from typing import List, Set
+from typing import List, Set, Optional
 import argparse
 import fnmatch
 
@@ -47,7 +47,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / 'fix'))
 from fix_markdown_lint import fix_markdown_content  # type: ignore # noqa: E402
 
 
-def setup_logging(verbosity: str):
+def setup_logging(verbosity: str) -> None:
     """Configure logging based on verbosity level."""
     levels = {
         'quiet': logging.ERROR,
@@ -87,9 +87,11 @@ class Agent:
     SUPPORTED_EXTENSIONS = {'.py', '.sh', '.js', '.ts', '.go', '.rb'}
 
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
-            max_files: int = None, loop: int = 1, skip_code_update: bool = False,
+            max_files: Optional[int] = None, loop: int = 1, skip_code_update: bool = False,
             no_git: bool = False):
         self.repo_root = self._find_repo_root(Path(repo_root))
+        if not self.repo_root.exists():
+            raise FileNotFoundError(f"Repository root not found: {self.repo_root}")
         self.agents_only = agents_only
         self.max_files = max_files
         self.loop = loop
@@ -106,7 +108,8 @@ class Agent:
                 capture_output=True,
                 text=True,
                 timeout=timeout,
-                encoding='utf-8'
+                encoding='utf-8',
+                check=False
             )
         except subprocess.TimeoutExpired:
             logging.error(f"Command timed out: {' '.join(cmd[:3])}...")
@@ -149,7 +152,7 @@ class Agent:
             any(fnmatch.fnmatch(part, pattern) for part in path.parts)
             for pattern in self.ignored_patterns)
 
-    def run_stats_update(self, files: List[Path]):
+    def run_stats_update(self, files: List[Path]) -> None:
         """Run stats update."""
         file_paths = [str(f) for f in files]
         cmd = [
@@ -158,7 +161,7 @@ class Agent:
             '--files'] + file_paths
         self._run_command(cmd)
 
-    def run_tests(self, code_file: Path):
+    def run_tests(self, code_file: Path) -> None:
         """Run tests for the code file."""
         # Look for test_{filename}.py (pytest convention)
         test_name = f"test_{code_file.stem}.py"
@@ -266,7 +269,7 @@ class Agent:
             logging.warning(f"Failed to read improvements file: {e}")
             return []
 
-    def _mark_improvements_fixed(self, improvements_file: Path, fixed_items: List[str]):
+    def _mark_improvements_fixed(self, improvements_file: Path, fixed_items: List[str]) -> None:
         """Mark improvements as fixed in the file."""
         if not improvements_file.exists() or not fixed_items:
             return
@@ -293,7 +296,7 @@ class Agent:
         except Exception as e:
             logging.warning(f"Failed to update improvements file: {e}")
 
-    def _log_changes(self, changes_file: Path, fixed_items: List[str]):
+    def _log_changes(self, changes_file: Path, fixed_items: List[str]) -> None:
         """Log fixed items to the changes file."""
         if not changes_file.exists() or not fixed_items:
             return

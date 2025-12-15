@@ -45,8 +45,8 @@ class ImprovementsAgent(BaseAgent):
     more actionable improvements for the associated code file.
     """
 
-    def __init__(self, file_path: str, prompt: Optional[str] = None):
-        super().__init__(file_path, prompt)
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
         self._validate_file_extension()
 
     def _validate_file_extension(self) -> None:
