@@ -54,6 +54,60 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Run agent tests (tests)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_agent_base_agent.py",
+        "tests/test_agent_subagents.py",
+        "tests/test_agent_stats_agent.py",
+        "tests/test_agent_generate_agent_reports.py",
+        "tests/test_agent_orchestrator.py",
+        "tests/test_agent_smoke_imports.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Run agent legacy tests (scripts/agent)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "pytest",
+        "-q",
+        "scripts/agent/test_agent.py",
+        "scripts/agent/test_base_agent.py",
+        "scripts/agent/test_agent-changes.py",
+        "scripts/agent/test_agent_changes_tests.py",
+        "scripts/agent/test_agent-coder.py",
+        "scripts/agent/test_agent-context.py",
+        "scripts/agent/test_agent-errors.py",
+        "scripts/agent/test_agent-improvements.py",
+        "scripts/agent/test_agent-stats.py",
+        "scripts/agent/test_agent-tests.py",
+        "tests/test_agent_legacy_scripts.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Run all agent tests",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Run agent tests (tests)",
+        "Run agent legacy tests (scripts/agent)"
+      ],
+      "group": "test"
     }
   ]
 }

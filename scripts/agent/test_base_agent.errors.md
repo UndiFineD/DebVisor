@@ -8,4 +8,4 @@
 - `py_compile` equivalent: OK (AST parse succeeded)
 
 ## Known issues / hazards
-- Test file only contains a placeholder test (no real assertions/coverage).
+- None detected by the lightweight scan

@@ -76,7 +76,15 @@ class BaseAgent:
         """
         def _command_available(command: str) -> bool:
             try:
-                subprocess.run([command, '--version'], capture_output=True, text=True, timeout=5, check=True)
+                subprocess.run(
+                    [command, '--version'],
+                    capture_output=True,
+                    text=True,
+                    encoding='utf-8',
+                    errors='replace',
+                    timeout=5,
+                    check=True,
+                )
                 return True
             except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
                 return False
@@ -111,6 +119,8 @@ class BaseAgent:
                     ],
                     capture_output=True,
                     text=True,
+                    encoding='utf-8',
+                    errors='replace',
                     timeout=180,
                     cwd=str(Path(__file__).resolve().parents[2]),
                 )
@@ -130,6 +140,8 @@ class BaseAgent:
                     ['gh', 'copilot', 'explain', prompt[:200]],
                     capture_output=True,
                     text=True,
+                    encoding='utf-8',
+                    errors='replace',
                     timeout=30
                 )
 

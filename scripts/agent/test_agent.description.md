@@ -1,22 +1,24 @@
 # Description: `test_agent.py`
 
 ## Module purpose
-(No module docstring found.)
+Legacy tests for scripts/agent/agent.py.
+
+These tests live next to the agent scripts so they can be run directly via:
+
+    pytest scripts/agent/test_agent.py
 
 ## Location
 - Path: `scripts/agent/test_agent.py`
 
 ## Public surface
-- Classes: TestAgent, TestAgentIntegration
-- Functions: (none)
+- Classes: (none)
+- Functions: agent_module, repo_root, test_agent_initialization_defaults, test_load_codeignore_ignores_comments, test_find_code_files_filters_extensions, test_agents_only_filters_to_scripts_agent, test_max_files_limits_results, test_is_ignored_matches_globs, test_run_stats_update_invokes_subprocess, test_run_tests_no_test_file_does_not_invoke_subprocess, test_run_tests_with_test_file_invokes_pytest
 
 ## Behavior summary
-- Has a CLI entrypoint (`__main__`).
 - Invokes external commands via `subprocess`.
-- Mutates `sys.path` to import sibling modules.
 
 ## Key dependencies
-- Top imports: `pytest`, `tempfile`, `shutil`, `pathlib`, `unittest.mock`, `sys`, `os`, `agent`
+- Top imports: `__future__`, `importlib`, `pathlib`, `pytest`, `agent_test_utils`, `agent`
 
 ## File fingerprint
-- SHA256(source): `b5b010323710c894…`
+- SHA256(source): `7e0b9c47ba83ffb8…`

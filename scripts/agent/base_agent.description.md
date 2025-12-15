@@ -21,4 +21,4 @@ Provides shared functionality for agents that improve code files using AI assist
 - Top imports: `subprocess`, `pathlib`, `argparse`, `difflib`, `sys`, `fix_markdown_lint`
 
 ## File fingerprint
-- SHA256(source): `41db65816180665c…`
+- SHA256(source): `9cf7e036000a9bba…`

@@ -9,4 +9,3 @@
 
 ## Known issues / hazards
 - Filename is not import-friendly for pytest collection (contains '-' or extra '.') and may fail test discovery/import.
-- Test file only contains a placeholder test (no real assertions/coverage).

@@ -1,20 +1,24 @@
 # Description: `test_agent-changes.py`
 
 ## Module purpose
-(No module docstring found.)
+Legacy tests for agent-changes.py.
+
+Run directly via:
+
+    pytest scripts/agent/test_agent-changes.py
 
 ## Location
 - Path: `scripts/agent/test_agent-changes.py`
 
 ## Public surface
 - Classes: (none)
-- Functions: test_placeholder
+- Functions: base_agent_module, test_changes_agent_keyword_prompt_generates_suggestions, test_changes_agent_non_keyword_delegates_to_base
 
 ## Behavior summary
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- (none)
+- Top imports: `__future__`, `pathlib`, `pytest`, `agent_test_utils`, `base_agent`
 
 ## File fingerprint
-- SHA256(source): `03268c82652d070f…`
+- SHA256(source): `fcb57978ba41b463…`

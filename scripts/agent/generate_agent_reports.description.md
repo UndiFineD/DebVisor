@@ -25,7 +25,7 @@ basic syntax/compile checks.
 - Mutates `sys.path` to import sibling modules.
 
 ## Key dependencies
-- Top imports: `__future__`, `ast`, `hashlib`, `os`, `re`, `sys`, `dataclasses`, `pathlib`, `typing`
+- Top imports: `__future__`, `ast`, `hashlib`, `re`, `sys`, `dataclasses`, `pathlib`, `typing`
 
 ## File fingerprint
-- SHA256(source): `2964ebc9972148fa…`
+- SHA256(source): `9d67b424a5c76934…`

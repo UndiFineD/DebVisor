@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1] - 2025-12-15
+
+### Changed
+
+- Improved Windows robustness for subprocess output decoding in `BaseAgent`.
+- Expanded agent test coverage (unit tests under `tests/` plus legacy `scripts/agent/test_*.py`).
+- Added VS Code tasks to run both agent test suites.
+
 ## [1.0.0] - 2025-12-14
 
 ### Added

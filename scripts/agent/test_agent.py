@@ -10,143 +10,172 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Tests for agent.py
+"""Legacy tests for scripts/agent/agent.py.
+
+These tests live next to the agent scripts so they can be run directly via:
+
+    pytest scripts/agent/test_agent.py
+"""
+
+from __future__ import annotations
+
+import importlib
+from pathlib import Path
 
 import pytest
-import tempfile
-import shutil
-from pathlib import Path
-from unittest.mock import patch, MagicMock
-import sys
-import os
 
-# Add the scripts/agent directory to the path
-sys.path.insert(0, os.path.dirname(__file__))
-
-from agent import Agent, load_codeignore  # noqa: E402
+from agent_test_utils import agent_dir_on_path
 
 
-class TestAgent:
-    """Test cases for the Agent class."""
+@pytest.fixture()
+def agent_module():
+    with agent_dir_on_path():
+        import agent
 
-    def setup_method(self):
-        """Set up test fixtures."""
-        self.temp_dir = Path(tempfile.mkdtemp())
-        self.repo_root = self.temp_dir / "repo"
-        self.repo_root.mkdir()
-
-        # Create a sample Python file
-        self.sample_file = self.repo_root / "sample.py"
-        self.sample_file.write_text('print("Hello, World!")')
-
-        # Create repository marker
-        (self.repo_root / "README.md").write_text("# Test Repository")
-
-    def teardown_method(self):
-        """Clean up test fixtures."""
-        shutil.rmtree(self.temp_dir)
-
-    def test_agent_initialization(self):
-        """Test agent initialization with default parameters."""
-        agent = Agent(repo_root=str(self.repo_root))
-        assert agent.repo_root == self.repo_root
-        assert not agent.agents_only
-        assert agent.max_files is None
-
-    def test_load_codeignore(self):
-        """Test loading ignore patterns from .codeignore file."""
-        codeignore_file = self.repo_root / ".codeignore"
-        codeignore_file.write_text("# Comment\n__pycache__\n*.tmp\n")
-
-        patterns = load_codeignore(self.repo_root)
-        assert "__pycache__" in patterns
-        assert "*.tmp" in patterns
-        assert "# Comment" not in patterns
-
-    def test_find_code_files(self):
-        """Test finding code files in the repository."""
-        agent = Agent(repo_root=str(self.repo_root))
-
-        # Create various file types
-        (self.repo_root / "script.py").write_text("# Python script")
-        (self.repo_root / "module.js").write_text("// JavaScript module")
-        (self.repo_root / "readme.txt").write_text("Documentation")
-
-        files = agent.find_code_files()
-        file_names = [f.name for f in files]
-
-        assert "script.py" in file_names
-        assert "module.js" in file_names
-        assert "readme.txt" not in file_names
-
-    def test_is_ignored(self):
-        """Test file ignoring functionality."""
-        agent = Agent(repo_root=str(self.repo_root))
-        agent.ignored_patterns = {"__pycache__", "*.tmp"}
-
-        # Create test files
-        cache_file = self.repo_root / "__pycache__" / "module.pyc"
-        cache_file.parent.mkdir()
-        cache_file.write_text("bytecode")
-
-        temp_file = self.repo_root / "temp.tmp"
-        temp_file.write_text("temporary")
-
-        normal_file = self.repo_root / "normal.py"
-        normal_file.write_text("normal")
-
-        assert agent._is_ignored(cache_file)
-        assert agent._is_ignored(temp_file)
-        assert not agent._is_ignored(normal_file)
-
-    @patch('subprocess.run')
-    def test_run_stats_update(self, mock_subprocess):
-        """Test running stats update."""
-        mock_subprocess.return_value = MagicMock()
-        agent = Agent(repo_root=str(self.repo_root))
-
-        agent.run_stats_update([self.sample_file])
-
-        mock_subprocess.assert_called_once()
-        args = mock_subprocess.call_args[0][0]
-        assert "agent-stats.py" in args[1]
-
-    @patch('subprocess.run')
-    def test_run_tests_no_test_file(self, mock_subprocess):
-        """Test running tests when no test file exists."""
-        agent = Agent(repo_root=str(self.repo_root))
-
-        # Should not call subprocess since no test file exists
-        agent.run_tests(self.sample_file)
-        mock_subprocess.assert_not_called()
-
-    @patch('subprocess.run')
-    def test_run_tests_with_test_file(self, mock_subprocess):
-        """Test running tests when test file exists."""
-        mock_subprocess.return_value = MagicMock(returncode=0, stdout="", stderr="")
-        agent = Agent(repo_root=str(self.repo_root))
-
-        # Create a test file
-        test_file = self.repo_root / "test_sample.py"
-        test_file.write_text("def test_sample(): pass")
-
-        agent.run_tests(self.sample_file)
-
-        mock_subprocess.assert_called_once()
-        args = mock_subprocess.call_args[0][0]
-        assert "pytest" in args
-        assert str(test_file) in args
+        return importlib.reload(agent)
 
 
-class TestAgentIntegration:
-    """Integration tests for the Agent class."""
-
-    def test_full_file_processing_workflow(self):
-        """Test the complete file processing workflow."""
-        # This would be a more comprehensive integration test
-        # For now, just test that the agent can be created and run without errors
-        pass
+@pytest.fixture()
+def repo_root(tmp_path: Path) -> Path:
+    root = tmp_path / "repo"
+    root.mkdir()
+    (root / "README.md").write_text("# Test Repository", encoding="utf-8")
+    return root
 
 
-if __name__ == "__main__":
-    pytest.main([__file__])
+def test_agent_initialization_defaults(agent_module, repo_root: Path):
+    a = agent_module.Agent(repo_root=str(repo_root))
+    assert a.repo_root == repo_root
+    assert a.agents_only is False
+    assert a.max_files is None
+
+
+def test_load_codeignore_ignores_comments(agent_module, repo_root: Path):
+    (repo_root / ".codeignore").write_text("# Comment\n__pycache__\n*.tmp\n", encoding="utf-8")
+    patterns = agent_module.load_codeignore(repo_root)
+    assert "__pycache__" in patterns
+    assert "*.tmp" in patterns
+    assert "# Comment" not in patterns
+
+
+def test_find_code_files_filters_extensions(agent_module, repo_root: Path):
+    a = agent_module.Agent(repo_root=str(repo_root))
+
+    (repo_root / "script.py").write_text("# Python script", encoding="utf-8")
+    (repo_root / "module.js").write_text("// JavaScript module", encoding="utf-8")
+    (repo_root / "readme.txt").write_text("Documentation", encoding="utf-8")
+
+    files = a.find_code_files()
+    names = {p.name for p in files}
+
+    assert "script.py" in names
+    assert "module.js" in names
+    assert "readme.txt" not in names
+
+
+def test_agents_only_filters_to_scripts_agent(agent_module, repo_root: Path):
+    # Create a structure that looks like a repo.
+    scripts_agent = repo_root / "scripts" / "agent"
+    scripts_agent.mkdir(parents=True)
+
+    (repo_root / "top.py").write_text("print('x')\n", encoding="utf-8")
+    (scripts_agent / "inner.py").write_text("print('y')\n", encoding="utf-8")
+
+    a = agent_module.Agent(repo_root=str(repo_root), agents_only=True)
+    files = a.find_code_files()
+    assert all(p.is_relative_to(scripts_agent) for p in files)
+
+
+def test_max_files_limits_results(agent_module, repo_root: Path):
+    (repo_root / "a.py").write_text("print('a')\n", encoding="utf-8")
+    (repo_root / "b.py").write_text("print('b')\n", encoding="utf-8")
+    (repo_root / "c.py").write_text("print('c')\n", encoding="utf-8")
+
+    a = agent_module.Agent(repo_root=str(repo_root), max_files=2)
+    assert len(a.find_code_files()) == 2
+
+
+def test_is_ignored_matches_globs(agent_module, repo_root: Path):
+    a = agent_module.Agent(repo_root=str(repo_root))
+    a.ignored_patterns = {"__pycache__", "*.tmp"}
+
+    cache_file = repo_root / "__pycache__" / "module.pyc"
+    cache_file.parent.mkdir()
+    cache_file.write_text("bytecode", encoding="utf-8")
+
+    temp_file = repo_root / "temp.tmp"
+    temp_file.write_text("temporary", encoding="utf-8")
+
+    normal_file = repo_root / "normal.py"
+    normal_file.write_text("normal", encoding="utf-8")
+
+    assert a._is_ignored(cache_file)
+    assert a._is_ignored(temp_file)
+    assert not a._is_ignored(normal_file)
+
+
+def test_run_stats_update_invokes_subprocess(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
+    called = {}
+
+    def fake_run(cmd, **kwargs):
+        called["cmd"] = cmd
+        called["kwargs"] = kwargs
+
+        class R:
+            returncode = 0
+
+        return R()
+
+    monkeypatch.setattr(agent_module.subprocess, "run", fake_run, raising=True)
+
+    sample_file = repo_root / "sample.py"
+    sample_file.write_text("print('x')\n", encoding="utf-8")
+
+    a = agent_module.Agent(repo_root=str(repo_root))
+    a.run_stats_update([sample_file])
+
+    assert "agent-stats.py" in str(called["cmd"][1])
+    assert called["kwargs"].get("cwd") == repo_root
+
+
+def test_run_tests_no_test_file_does_not_invoke_subprocess(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
+    def boom(*_args, **_kwargs):
+        raise AssertionError("subprocess.run should not be called")
+
+    monkeypatch.setattr(agent_module.subprocess, "run", boom, raising=True)
+
+    sample_file = repo_root / "sample.py"
+    sample_file.write_text("print('x')\n", encoding="utf-8")
+
+    a = agent_module.Agent(repo_root=str(repo_root))
+    a.run_tests(sample_file)
+
+
+def test_run_tests_with_test_file_invokes_pytest(agent_module, repo_root: Path, monkeypatch: pytest.MonkeyPatch):
+    called = {}
+
+    def fake_run(cmd, **kwargs):
+        called["cmd"] = cmd
+        called["kwargs"] = kwargs
+
+        class R:
+            returncode = 0
+            stdout = ""
+            stderr = ""
+
+        return R()
+
+    monkeypatch.setattr(agent_module.subprocess, "run", fake_run, raising=True)
+
+    sample_file = repo_root / "sample.py"
+    sample_file.write_text("print('x')\n", encoding="utf-8")
+    test_file = repo_root / "test_sample.py"
+    test_file.write_text("def test_sample():\n    assert True\n", encoding="utf-8")
+
+    a = agent_module.Agent(repo_root=str(repo_root))
+    a.run_tests(sample_file)
+
+    cmd = called["cmd"]
+    assert cmd[1:3] == ["-m", "pytest"]
+    assert str(test_file) in cmd
+    assert called["kwargs"].get("cwd") == repo_root

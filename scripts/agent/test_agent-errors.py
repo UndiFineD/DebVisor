@@ -10,11 +10,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Tests for agent-coder.py
+"""Legacy tests for agent-errors.py."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+
+from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
-def test_placeholder():
-    """Placeholder test - replace with actual tests."""
-    assert True
+@pytest.fixture()
+def base_agent_module():
+    with agent_dir_on_path():
+        import base_agent
 
-# Add more tests here
+        return base_agent
+
+
+def test_errors_agent_delegates_to_base(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, base_agent_module
+):
+    with agent_dir_on_path():
+        mod = load_agent_module("agent-errors.py")
+
+    def fake_run_subagent(self, description: str, prompt: str, original_content: str = "") -> str:
+        return "IMPROVED"
+
+    monkeypatch.setattr(base_agent_module.BaseAgent, "run_subagent", fake_run_subagent, raising=True)
+
+    target = tmp_path / "x.errors.md"
+    target.write_text("BEFORE", encoding="utf-8")
+    agent = mod.ErrorsAgent(str(target))
+    agent.read_previous_content()
+    assert agent.improve_content("prompt") == "IMPROVED"

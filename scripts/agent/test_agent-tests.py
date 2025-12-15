@@ -10,11 +10,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Tests for agent-coder.py
+"""Legacy tests for agent-tests.py."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+from agent_test_utils import agent_dir_on_path, load_agent_module
 
 
-def test_placeholder():
-    """Placeholder test - replace with actual tests."""
-    assert True
+def test_tests_agent_update_file_writes_raw(tmp_path: Path):
+    with agent_dir_on_path():
+        mod = load_agent_module("agent-tests.py")
 
-# Add more tests here
+    target = tmp_path / "test_something.py"
+    agent = mod.TestsAgent(str(target))
+    agent.current_content = "print('hi')\n"
+    agent.update_file()
+
+    assert target.read_text(encoding="utf-8") == "print('hi')\n"

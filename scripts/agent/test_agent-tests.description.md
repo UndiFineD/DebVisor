@@ -1,20 +1,20 @@
 # Description: `test_agent-tests.py`
 
 ## Module purpose
-(No module docstring found.)
+Legacy tests for agent-tests.py.
 
 ## Location
 - Path: `scripts/agent/test_agent-tests.py`
 
 ## Public surface
 - Classes: (none)
-- Functions: test_placeholder
+- Functions: test_tests_agent_update_file_writes_raw
 
 ## Behavior summary
 - Pure module (no obvious CLI/side effects).
 
 ## Key dependencies
-- (none)
+- Top imports: `__future__`, `pathlib`, `agent_test_utils`
 
 ## File fingerprint
-- SHA256(source): `03268c82652d070f…`
+- SHA256(source): `709d6cb8ba601d11…`
