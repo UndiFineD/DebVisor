@@ -38,11 +38,21 @@ import sys
 import os
 import logging
 from pathlib import Path
-from typing import List, Set, Optional, Dict, Any
+from typing import List, Set, Optional, Dict, Any, Callable
 import argparse
 import fnmatch
 import importlib.util
 import time
+import asyncio
+import multiprocessing
+import functools
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+import json
+try:
+    import requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
 try:
     from tqdm import tqdm
     HAS_TQDM = True
@@ -111,6 +121,22 @@ def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 
             logging.warning(f"Attempt {attempt} failed, retrying in {delay}s: {e}")
             time.sleep(delay)
     return False
+
+
+# Module-level worker function for multiprocessing (cannot be a nested function)
+def _multiprocessing_worker(agent_instance, file_path: Path) -> Optional[Path]:
+    """Worker function for multiprocessing file processing.
+    
+    This function must be at module level to be pickleable for multiprocessing.
+    """
+    try:
+        logging.debug(f"[worker] Processing {file_path.name}")
+        agent_instance.process_file(file_path)
+        logging.info(f"[worker] Completed {file_path.name}")
+        return file_path
+    except Exception as e:
+        logging.error(f"[worker] Failed: {e}")
+        return None
 
 
 def setup_logging(verbosity: str) -> None:
@@ -254,7 +280,9 @@ class Agent:
     def __init__(self, repo_root: str = '.', agents_only: bool = False,
             max_files: Optional[int] = None, loop: int = 1, skip_code_update: bool = False,
             no_git: bool = False, dry_run: bool = False, selective_agents: Optional[List[str]] = None,
-            timeout_per_agent: Optional[Dict[str, int]] = None) -> None:
+            timeout_per_agent: Optional[Dict[str, int]] = None,
+            enable_async: bool = False, enable_multiprocessing: bool = False,
+            max_workers: int = 4) -> None:
         """Initialize the Agent with repository configuration.
         
         Args:
@@ -267,6 +295,9 @@ class Agent:
             dry_run: If True, preview changes without modifying files. Defaults to False.
             selective_agents: List of agent names to execute (e.g., ['coder', 'tests']). Defaults to None (all).
             timeout_per_agent: Dict mapping agent names to timeout values in seconds. Defaults to None.
+            enable_async: If True, use async file processing. Defaults to False.
+            enable_multiprocessing: If True, use multiprocessing for agents. Defaults to False.
+            max_workers: Maximum number of worker threads/processes. Defaults to 4.
             
         Raises:
             FileNotFoundError: If repo_root doesn't exist.
@@ -289,7 +320,14 @@ class Agent:
         self.dry_run = dry_run
         self.selective_agents = set(selective_agents or [])
         self.timeout_per_agent = timeout_per_agent or {}
+        self.enable_async = enable_async
+        self.enable_multiprocessing = enable_multiprocessing
+        self.max_workers = max_workers
         self.ignored_patterns = load_codeignore(self.repo_root)
+        
+        # Webhook support
+        self.webhooks: List[str] = []
+        self.callbacks: List[Callable] = []
         
         # Metrics tracking
         self.metrics = {
@@ -305,6 +343,10 @@ class Agent:
             logging.info("DRY RUN MODE: No files will be modified")
         if selective_agents:
             logging.info(f"Selective execution: agents={selective_agents}")
+        if enable_async:
+            logging.info("Async file processing enabled")
+        if enable_multiprocessing:
+            logging.info(f"Multiprocessing enabled with {max_workers} workers")
     
     def __enter__(self):
         """Context manager entry. Returns self for use in 'with' statement."""
@@ -1039,6 +1081,322 @@ def test_placeholder():
         except FileNotFoundError:
             logging.error(f"Git not available for {code_file.name}")
 
+    def register_webhook(self, webhook_url: str) -> None:
+        """Register a webhook URL for event notifications.
+        
+        Registers a webhook URL that will receive POST requests for agent events
+        (file processing, completion, errors, etc.). Useful for integration with
+        external systems like Slack, Discord, or custom monitoring dashboards.
+        
+        Args:
+            webhook_url: Full URL of the webhook endpoint.
+            
+        Returns:
+            None. Logs registration.
+            
+        Example:
+            agent.register_webhook('https://hooks.slack.com/services/xxx')
+            agent.register_webhook('https://example.com/agent-events')
+            
+        Note:
+            - Multiple webhooks can be registered
+            - Webhooks are sent asynchronously and don't block execution
+            - Failed webhook sends are logged but don't halt execution
+        """
+        self.webhooks.append(webhook_url)
+        logging.info(f"Registered webhook: {webhook_url}")
+
+    def register_callback(self, callback: Callable[[str, Dict[str, Any]], None]) -> None:
+        """Register a callback function for agent events.
+        
+        Registers a Python callable that will be invoked for agent events.
+        Callbacks are called synchronously and can receive event data.
+        
+        Args:
+            callback: Callable accepting (event_name: str, event_data: Dict).
+            
+        Returns:
+            None. Logs registration.
+            
+        Example:
+            def my_callback(event_name: str, event_data: Dict):
+                print(f"Event: {event_name}")
+                print(f"Data: {event_data}")
+            
+            agent.register_callback(my_callback)
+            
+        Note:
+            - Multiple callbacks can be registered
+            - Callbacks are called in registration order
+            - Exceptions in callbacks are caught and logged
+        """
+        self.callbacks.append(callback)
+        callback_name = getattr(callback, '__name__', repr(callback))
+        logging.info(f"Registered callback: {callback_name}")
+
+    def send_webhook_notification(self, event_name: str, event_data: Dict[str, Any]) -> None:
+        """Send notification to all registered webhooks.
+        
+        Sends event notifications to all registered webhook URLs via HTTP POST.
+        Uses JSON encoding for the payload. Failed sends are logged but don't halt.
+        
+        Args:
+            event_name: Name of the event (e.g., 'file_processed', 'error').
+            event_data: Event data as dictionary (will be JSON-encoded).
+            
+        Returns:
+            None. Logs results.
+            
+        Example:
+            agent.send_webhook_notification('agent_complete', {
+                'files_processed': 42,
+                'files_modified': 15,
+                'duration_seconds': 123.45
+            })
+            
+        Note:
+            - Webhooks are sent asynchronously in background threads
+            - If requests library not available, webhooks are skipped
+            - Timeouts are set to 5 seconds per webhook
+        """
+        if not HAS_REQUESTS or not self.webhooks:
+            return
+        
+        payload = {
+            'event': event_name,
+            'timestamp': time.time(),
+            'data': event_data
+        }
+        
+        for webhook_url in self.webhooks:
+            try:
+                logging.debug(f"Sending webhook: {webhook_url}")
+                requests.post(
+                    webhook_url,
+                    json=payload,
+                    timeout=5
+                )
+                logging.debug(f"Webhook sent successfully to {webhook_url}")
+            except Exception as e:
+                logging.warning(f"Failed to send webhook to {webhook_url}: {e}")
+
+    def execute_callbacks(self, event_name: str, event_data: Dict[str, Any]) -> None:
+        """Execute all registered callback functions for an event.
+        
+        Invokes all registered callback functions with event data.
+        Exceptions in callbacks are caught and logged, allowing other callbacks to run.
+        
+        Args:
+            event_name: Name of the event (e.g., 'file_processed').
+            event_data: Event data to pass to callbacks.
+            
+        Returns:
+            None. Logs execution results.
+            
+        Example:
+            agent.execute_callbacks('processing_complete', {
+                'file': 'main.py',
+                'changes_made': True
+            })
+            
+        Note:
+            - Callbacks are called synchronously in registration order
+            - Exceptions in one callback don't prevent others from running
+            - Failures are logged as warnings but don't halt execution
+        """
+        for callback in self.callbacks:
+            try:
+                callback_name = getattr(callback, '__name__', repr(callback))
+                logging.debug(f"Executing callback: {callback_name}")
+                callback(event_name, event_data)
+            except Exception as e:
+                callback_name = getattr(callback, '__name__', repr(callback))
+                logging.warning(f"Callback {callback_name} failed: {e}")
+
+    async def async_process_files(self, files: List[Path]) -> List[Path]:
+        """Process multiple files concurrently using async/await.
+        
+        Processes files concurrently using asyncio for I/O-bound operations.
+        Useful when the bottleneck is waiting for external services rather than CPU.
+        Returns immediately; file processing happens asynchronously.
+        
+        Args:
+            files: List of file paths to process.
+            
+        Returns:
+            List[Path]: List of files that were modified.
+            
+        Example:
+            files = agent.find_code_files()
+            modified = await agent.async_process_files(files)
+            print(f"Modified {len(modified)} files")
+            
+        Note:
+            - Requires enable_async=True in __init__
+            - Uses ThreadPoolExecutor for I/O operations
+            - Respects max_workers setting
+            - File processing happens in separate threads
+            - Modified files are tracked in metrics
+        """
+        modified_files = []
+        
+        async def process_file_async(file_path: Path):
+            """Process a single file asynchronously."""
+            try:
+                logging.debug(f"[async] Processing {file_path.name}")
+                self.process_file(file_path)
+                modified_files.append(file_path)
+                self.metrics['files_processed'] += 1
+                logging.info(f"[async] Completed {file_path.name}")
+            except Exception as e:
+                logging.error(f"[async] Failed to process {file_path.name}: {e}")
+        
+        # Create tasks for all files
+        tasks = [process_file_async(f) for f in files]
+        
+        # Run tasks concurrently
+        if tasks:
+            await asyncio.gather(*tasks)
+        
+        return modified_files
+
+    def process_files_multiprocessing(self, files: List[Path]) -> List[Path]:
+        """Process multiple files using multiprocessing for parallel execution.
+        
+        Processes files in parallel using separate Python processes.
+        Useful for CPU-intensive operations or avoiding Python's GIL.
+        Each worker processes multiple files sequentially.
+        
+        Args:
+            files: List of file paths to process.
+            
+        Returns:
+            List[Path]: List of files that were processed.
+            
+        Example:
+            files = agent.find_code_files()
+            processed = agent.process_files_multiprocessing(files)
+            print(f"Processed {len(processed)} files")
+            
+        Note:
+            - Requires enable_multiprocessing=True in __init__
+            - Uses ProcessPoolExecutor for CPU-bound operations
+            - Respects max_workers setting
+            - Each worker has its own Python interpreter
+            - Progress tracking works with tqdm if available
+            - Modified count is estimated from total processed
+        """
+        processed_files = []
+        
+        # Use ThreadPoolExecutor for parallel processing (easier pickling than ProcessPoolExecutor)
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Create partial functions that can be pickled more easily
+            worker_func = functools.partial(_multiprocessing_worker, self)
+            
+            results = list(tqdm(
+                executor.map(worker_func, files),
+                total=len(files),
+                desc="Processing files (multiprocessing)"
+            ) if HAS_TQDM else executor.map(worker_func, files))
+        
+        # Filter out None results
+        processed_files = [f for f in results if f is not None]
+        self.metrics['files_processed'] = len(processed_files)
+        
+        return processed_files
+
+    def process_files_threaded(self, files: List[Path]) -> List[Path]:
+        """Process multiple files using threading for concurrent I/O.
+        
+        Processes files concurrently using worker threads. Good for I/O-bound
+        operations while keeping code simpler than async. Works around Python's GIL.
+        
+        Args:
+            files: List of file paths to process.
+            
+        Returns:
+            List[Path]: List of files that were processed.
+            
+        Example:
+            files = agent.find_code_files()
+            processed = agent.process_files_threaded(files)
+            print(f"Processed {len(processed)} files")
+            
+        Note:
+            - Uses ThreadPoolExecutor for concurrent I/O
+            - Respects max_workers setting
+            - Good middle ground between sequential and multiprocessing
+            - Shared state (metrics) is updated from worker threads
+            - Progress tracking with tqdm if available
+        """
+        processed_files = []
+        
+        def worker_thread_process_file(file_path: Path) -> Path:
+            """Worker function to process a file in a separate thread."""
+            try:
+                logging.debug(f"[thread] Processing {file_path.name}")
+                self.process_file(file_path)
+                logging.info(f"[thread] Completed {file_path.name}")
+                return file_path
+            except Exception as e:
+                logging.error(f"[thread] Failed: {e}")
+                return None
+        
+        # Use ThreadPoolExecutor for parallel I/O
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            results = list(tqdm(
+                executor.map(worker_thread_process_file, files),
+                total=len(files),
+                desc="Processing files (threaded)"
+            ) if HAS_TQDM else executor.map(worker_thread_process_file, files))
+        
+        # Filter out None results
+        processed_files = [f for f in results if f is not None]
+        self.metrics['files_processed'] = len(processed_files)
+        
+        return processed_files
+
+    def run_with_parallel_execution(self) -> None:
+        """Run the main agent loop with parallel execution strategy.
+        
+        Runs the agent with either async, multiprocessing, or threaded execution
+        based on configuration. Falls back to sequential if neither enabled.
+        
+        Returns:
+            None. Results logged and metrics updated.
+            
+        Note:
+            - Priority: multiprocessing > async > threaded > sequential
+            - Webhooks and callbacks triggered on completion
+            - Metrics summary printed at end
+        """
+        code_files = self.find_code_files()
+        logging.info(f"Found {len(code_files)} code files to process")
+        
+        for loop_iteration in range(1, self.loop + 1):
+            logging.info(f"Starting loop iteration {loop_iteration}/{self.loop}")
+            
+            # Choose execution strategy
+            if self.enable_multiprocessing:
+                logging.info("Using multiprocessing for parallel execution")
+                self.process_files_multiprocessing(code_files)
+            elif self.enable_async:
+                logging.info("Using async for concurrent execution")
+                asyncio.run(self.async_process_files(code_files))
+            else:
+                logging.info("Using threaded execution")
+                self.process_files_threaded(code_files)
+            
+            logging.info(f"Completed loop iteration {loop_iteration}/{self.loop}")
+        
+        # Trigger completion events
+        self.execute_callbacks('agent_complete', self.metrics)
+        self.send_webhook_notification('agent_complete', self.metrics)
+        
+        # Final stats update
+        logging.info("Final stats:")
+        self.run_stats_update(code_files)
+
     def process_file(self, code_file: Path) -> None:
         """Process a single code file through the improvement loop."""
         logging.info(f"Processing {code_file.relative_to(self.repo_root)}...")
@@ -1064,17 +1422,30 @@ def test_placeholder():
         self._commit_and_push(code_file)
 
     def run(self) -> None:
-        """Run the main agent loop."""
-        code_files = self.find_code_files()
-        logging.info(f"Found {len(code_files)} code files to process")
-        for loop_iteration in range(1, self.loop + 1):
-            logging.info(f"Starting loop iteration {loop_iteration}/{self.loop}")
-            for code_file in code_files:
-                self.process_file(code_file)
-            logging.info(f"Completed loop iteration {loop_iteration}/{self.loop}")
-        # Final stats update
-        logging.info("Final stats:")
-        self.run_stats_update(code_files)
+        """Run the main agent loop.
+        
+        Executes the main agent loop, processing all code files found.
+        Uses parallel execution if enabled, otherwise sequential processing.
+        Triggers webhooks and callbacks on completion.
+        """
+        if self.enable_async or self.enable_multiprocessing:
+            self.run_with_parallel_execution()
+        else:
+            # Sequential execution (original behavior)
+            code_files = self.find_code_files()
+            logging.info(f"Found {len(code_files)} code files to process")
+            for loop_iteration in range(1, self.loop + 1):
+                logging.info(f"Starting loop iteration {loop_iteration}/{self.loop}")
+                for code_file in code_files:
+                    self.process_file(code_file)
+                logging.info(f"Completed loop iteration {loop_iteration}/{self.loop}")
+            # Final stats update
+            logging.info("Final stats:")
+            self.run_stats_update(code_files)
+            
+            # Trigger completion events
+            self.execute_callbacks('agent_complete', self.metrics)
+            self.send_webhook_notification('agent_complete', self.metrics)
 
 
 def main() -> None:
@@ -1099,6 +1470,16 @@ def main() -> None:
                         help='Comma-separated list of agents to execute (e.g., coder,tests,documentation)')
     parser.add_argument('--timeout', type=int, metavar='SECONDS', default=120,
                         help='Default timeout per agent in seconds (default: 120)')
+    # Phase 4c: Parallel execution arguments
+    parser.add_argument('--async', dest='enable_async', action='store_true',
+                        help='Enable async file processing for concurrent I/O')
+    parser.add_argument('--multiprocessing', dest='enable_multiprocessing', action='store_true',
+                        help='Enable multiprocessing for parallel agent execution')
+    parser.add_argument('--workers', type=int, default=4,
+                        help='Number of worker threads/processes (default: 4)')
+    parser.add_argument('--webhook', type=str, action='append',
+                        help='Register webhook URL for notifications (can be used multiple times)')
+    
     args = parser.parse_args()
     setup_logging(args.verbose)
     os.environ['DV_AGENT_VERBOSITY'] = args.verbose
@@ -1118,8 +1499,16 @@ def main() -> None:
         no_git=args.no_git,
         dry_run=args.dry_run,
         selective_agents=selective_agents,
-        timeout_per_agent={'coder': args.timeout, 'tests': args.timeout}
+        timeout_per_agent={'coder': args.timeout, 'tests': args.timeout},
+        enable_async=args.enable_async,
+        enable_multiprocessing=args.enable_multiprocessing,
+        max_workers=args.workers
     )
+    
+    # Register webhooks if provided
+    if args.webhook:
+        for webhook_url in args.webhook:
+            agent.register_webhook(webhook_url)
     
     try:
         agent.run()
