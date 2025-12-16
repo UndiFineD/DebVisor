@@ -62,14 +62,14 @@ jobs:
         '
     - name: Upload flake8 SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
+      uses: github/codeql-action/upload-sarif@d0ad1da72a4017827f685ffa9a4e77661a852633
       with:
         sarif_file: flake8-results.sarif
         category: flake8
       continue-on-error: true
     - name: Upload pylint SARIF
       if: always()
-      uses: github/codeql-action/upload-sarif@f47c8e6a9bd05ef3ee422fc8d8663be7fe4bdc61
+      uses: github/codeql-action/upload-sarif@d0ad1da72a4017827f685ffa9a4e77661a852633
       with:
         sarif_file: pylint-results.sarif
         category: pylint
