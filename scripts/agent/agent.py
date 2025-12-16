@@ -383,6 +383,143 @@ Agents applied:
         logging.info(summary)
         print(summary)
 
+    def create_file_snapshot(self, file_path: Path) -> Optional[str]:
+        """Create a snapshot of file content before modifications.
+        
+        Saves the current content of a file for potential rollback later.
+        Useful for preserving pre-agent versions before applying improvements.
+        
+        Args:
+            file_path: Path to the file to snapshot.
+            
+        Returns:
+            str: Snapshot ID (timestamp-based) for later rollback, or None if snapshot failed.
+            
+        Example:
+            snapshot_id = agent.create_file_snapshot(Path('src/main.py'))
+            # Make changes...
+            if something_wrong:
+                agent.restore_from_snapshot('src/main.py', snapshot_id)
+        """
+        try:
+            if not file_path.exists():
+                logging.debug(f"Cannot snapshot non-existent file: {file_path}")
+                return None
+            
+            # Create snapshots directory if needed
+            snapshot_dir = self.repo_root / '.agent_snapshots'
+            snapshot_dir.mkdir(exist_ok=True)
+            
+            # Generate snapshot ID based on timestamp
+            import hashlib
+            content = file_path.read_text(encoding='utf-8', errors='replace')
+            content_hash = hashlib.md5(content.encode()).hexdigest()[:8]
+            snapshot_id = f"{time.time():.0f}_{content_hash}"
+            
+            # Save relative path and content
+            rel_path = file_path.relative_to(self.repo_root)
+            snapshot_file = snapshot_dir / f"{snapshot_id}_{rel_path.name}"
+            snapshot_file.write_text(content, encoding='utf-8')
+            
+            logging.debug(f"Created snapshot {snapshot_id} for {rel_path}")
+            return snapshot_id
+            
+        except Exception as e:
+            logging.error(f"Failed to create snapshot for {file_path}: {e}")
+            return None
+
+    def restore_from_snapshot(self, file_path: Path, snapshot_id: str) -> bool:
+        """Restore a file from a previously created snapshot.
+        
+        Restores file content from a snapshot created by create_file_snapshot().
+        Useful for rollback when agent modifications are undesirable.
+        
+        Args:
+            file_path: Path to the file to restore.
+            snapshot_id: Snapshot ID returned by create_file_snapshot().
+            
+        Returns:
+            bool: True if restoration successful, False otherwise.
+            
+        Example:
+            snapshot_id = agent.create_file_snapshot(Path('src/main.py'))
+            # Modifications...
+            agent.restore_from_snapshot(Path('src/main.py'), snapshot_id)
+        """
+        try:
+            snapshot_dir = self.repo_root / '.agent_snapshots'
+            if not snapshot_dir.exists():
+                logging.warning(f"Snapshot directory not found: {snapshot_dir}")
+                return False
+            
+            # Find snapshot file matching pattern
+            rel_path = file_path.relative_to(self.repo_root)
+            pattern = f"{snapshot_id}_{rel_path.name}"
+            
+            snapshot_file = snapshot_dir / pattern
+            if not snapshot_file.exists():
+                logging.warning(f"Snapshot not found: {pattern}")
+                return False
+            
+            # Restore content
+            content = snapshot_file.read_text(encoding='utf-8')
+            file_path.write_text(content, encoding='utf-8')
+            
+            logging.info(f"Restored {rel_path} from snapshot {snapshot_id}")
+            return True
+            
+        except Exception as e:
+            logging.error(f"Failed to restore snapshot for {file_path}: {e}")
+            return False
+
+    def load_cascading_codeignore(self, directory: Optional[Path] = None) -> Set[str]:
+        """Load .codeignore patterns with cascading support.
+        
+        Loads ignore patterns from .codeignore files in the directory and all
+        parent directories up to the repository root. This enables hierarchical
+        ignore patterns where subdirectories can have their own .codeignore.
+        
+        Args:
+            directory: Directory to start searching from. Defaults to repo_root.
+            
+        Returns:
+            Set[str]: Combined set of ignore patterns from all .codeignore files.
+            
+        Example:
+            # Load patterns from /repo/.codeignore and /repo/src/.codeignore
+            patterns = agent.load_cascading_codeignore(Path('src'))
+            
+        Note:
+            - Patterns closer to the target directory take precedence
+            - All patterns are combined into a single set for efficiency
+            - Duplicate patterns are automatically deduplicated
+        """
+        if directory is None:
+            directory = self.repo_root
+        
+        all_patterns = set()
+        current_dir = directory.resolve()
+        
+        # Walk up to repo root, loading .codeignore files
+        while current_dir >= self.repo_root:
+            codeignore_file = current_dir / '.codeignore'
+            if codeignore_file.exists():
+                try:
+                    patterns = load_codeignore(current_dir)
+                    all_patterns.update(patterns)
+                    logging.debug(f"Loaded {len(patterns)} patterns from {codeignore_file}")
+                except Exception as e:
+                    logging.warning(f"Failed to load {codeignore_file}: {e}")
+            
+            # Stop at repo root
+            if current_dir == self.repo_root:
+                break
+            
+            current_dir = current_dir.parent
+        
+        logging.debug(f"Total cascading patterns from {directory}: {len(all_patterns)}")
+        return all_patterns
+
     def _run_command(self, cmd: List[str], timeout: int = 120, max_retries: int = 1) -> subprocess.CompletedProcess:
         """Run a command with timeout, error handling, retry logic, and logging.
         
