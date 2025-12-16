@@ -30,7 +30,7 @@ with enhanced documentation.
 - Add validation for changes file format
 """
 
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime

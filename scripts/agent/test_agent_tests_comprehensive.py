@@ -137,7 +137,7 @@ class TestErrorPathTesting(unittest.TestCase):
         """Test error message validation."""
         try:
             raise ValueError("specific error message")
-        except ValueError:
+        except ValueError as e:
             assert "specific error message" in str(e)
 
     def test_test_error_recovery(self):

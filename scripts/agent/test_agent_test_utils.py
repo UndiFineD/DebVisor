@@ -1634,7 +1634,7 @@ class TestTestLogger:
             logger.error("e")
 
         logs = logger.get_logs("levels")
-        levels = [l.level for lst in logs]
+        levels = [l.level for l in logs]
 
         assert "DEBUG" in levels
         assert "INFO" in levels

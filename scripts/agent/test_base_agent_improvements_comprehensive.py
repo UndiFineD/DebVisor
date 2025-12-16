@@ -293,7 +293,7 @@ class TestErrorHandlingImprovement(unittest.TestCase):
 
         try:
             raise TimeoutError("Operation timed out")
-        except TimeoutError:
+        except TimeoutError as e:
             assert "timed out" in str(e)
 
     def test_exception_chaining(self):
@@ -301,10 +301,10 @@ class TestErrorHandlingImprovement(unittest.TestCase):
         try:
             try:
                 raise ValueError("Original error")
-            except ValueError:
+            except ValueError as e:
                 raise RuntimeError("Wrapped error") from e
-        except RuntimeError:
-            assert e.__cause__ is not None
+        except RuntimeError as caught_e:
+            assert caught_e.__cause__ is not None
 
     def test_error_context_information(self):
         """Test capturing error context."""

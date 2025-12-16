@@ -9,6 +9,7 @@ in agent.improvements.md:
 """
 
 import unittest
+import subprocess
 from unittest.mock import MagicMock
 from pathlib import Path
 import tempfile

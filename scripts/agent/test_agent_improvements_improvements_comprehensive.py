@@ -39,7 +39,7 @@ Add caching to reduce database queries.
         # Extract frontmatter
         lines = content.split('\n')
         if lines[0] == '---' and '---' in lines[1:]:
-            end_idx = next(i for i, l in enumerate(lines[1:], 1) if lst == '---')
+            end_idx = next(i for i, l in enumerate(lines[1:], 1) if l == '---')
             yaml_content = '\n'.join(lines[1:end_idx])
 
             frontmatter = yaml.safe_load(yaml_content)

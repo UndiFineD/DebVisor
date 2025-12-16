@@ -104,7 +104,7 @@ class TestErrorHandling(unittest.TestCase):
         try:
             # Simulate permission error
             raise PermissionError("Access denied")
-        except PermissionError:
+        except PermissionError as e:
             assert "Access denied" in str(e)
 
     def test_retry_api_calls_with_backoff(self):
@@ -310,8 +310,8 @@ class TestGitIntegration(unittest.TestCase):
             "-    def old_function():",
         ]
 
-        additions = [l for lst in diff_lines if l.startswith("+")]
-        deletions = [l for lst in diff_lines if l.startswith("-")]
+        additions = [l for l in diff_lines if l.startswith("+")]
+        deletions = [l for l in diff_lines if l.startswith("-")]
 
         assert len(additions) == 1
         assert len(deletions) == 1
