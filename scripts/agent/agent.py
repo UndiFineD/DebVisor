@@ -37,6 +37,7 @@ import subprocess
 import sys
 import os
 import logging
+import uuid
 from pathlib import Path
 from typing import List, Set, Optional, Dict, Any, Callable, Union
 import argparse
@@ -47,6 +48,7 @@ import asyncio
 import multiprocessing
 import functools
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from contextlib import contextmanager
 import json
 import hashlib
 import signal
@@ -2528,13 +2530,6 @@ class ExecutionScheduler:
         if name in self._schedules:
             return self._schedules[name].agent_config
         return {}
-
-
-# Import uuid for telemetry
-import uuid
-
-# Context manager import
-from contextlib import contextmanager
 
 
 def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 1.0, max_delay: float = 30.0):
