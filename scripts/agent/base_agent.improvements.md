@@ -14,18 +14,18 @@
   * TestGitHubModelsRetry: 2 tests for retry logic and auth error handling
 
 ## Suggested improvements
-- [ ] Review and remove all `type: ignore` comments, fix underlying type issues.
-- [ ] Use `pathlib` consistently throughout (replace `str(path)` with `Path` objects).
-- [ ] Add configuration class to manage backend selection, logging, timeouts, retries.
+- [x] Review and remove all `type: ignore` comments, fix underlying type issues.
+- [x] Use `pathlib` consistently throughout (replace `str(path)` with `Path` objects).
+- [x] Add configuration class to manage backend selection, logging, timeouts, retries.
 - [x] Add request/response caching to avoid redundant AI calls for identical prompts. (Fixed) [2025-12-16] - See agent_backend.py
 - [x] Support streaming response from AI backends for real-time output. (Fixed) [2025-12-16] - See agent_backend.py  
 - [x] Add timeout parameter to all subprocess calls (currently hardcoded to 30s). (Fixed) [2025-12-16] - See agent_backend.py
 - [x] Implement response validation: ensure AI output contains expected content types. (Fixed) [2025-12-16] - See agent_backend.py
 - [x] Add cost estimation for API-based backends (track tokens, calculate cost). (Fixed) [2025-12-16] - See agent_backend.py
-- [ ] Create `BackendFactory` pattern for cleaner backend instantiation.
+- [x] Create `BackendFactory` pattern for cleaner backend instantiation.
 - [x] Add detailed logging of all backend requests/responses (without leaking API keys). (Fixed) [2025-12-16] - Implemented throughout
 - [x] Implement graceful degradation: fall back to local models if API unavailable. (Fixed) [2025-12-16] - run_subagent() has fallback chain
-- [ ] Add integration tests with real AI backends for end-to-end validation.
+- [x] Add integration tests with real AI backends for end-to-end validation.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.
