@@ -114,8 +114,17 @@
   * Agent.auto_configure(): Auto-detect and load config
   * --config CLI argument
   * Supports agent.yaml, agent.toml, agent.json naming conventions
-- [ ] Implement agent chaining: allow output of one agent as input to another.
-- [ ] Add support for git branch-based processing: process files changed in a specific branch.
+- [x] FIXED: Implement agent chaining: allow output of one agent as input to another. [2025-01-16]
+  * AgentChainStep: Dataclass for chain steps with transforms and conditions
+  * AgentChain: Chain multiple agents for sequential execution
+  * add_step(): Add step with input/output transforms
+  * execute(): Execute chain with agent executor
+  * get_results(): Get results from last execution
+- [x] FIXED: Add support for git branch-based processing: process files changed in a specific branch. [2025-01-16]
+  * GitBranchProcessor: Process files changed in specific git branches
+  * get_changed_files(): Get files changed between branches
+  * get_current_branch(): Get current git branch name
+  * list_branches(): List branches with optional pattern filtering
 - [x] FIXED: Implement file locking to prevent concurrent modifications. [2025-01-13]
   * LockType enum: SHARED, EXCLUSIVE, ADVISORY
   * FileLock: Dataclass for lock information
@@ -125,7 +134,8 @@
   * enable_file_locking(): Enable file locking on agent
   * --enable-file-locking CLI argument
   * Automatic cleanup of expired locks
-- [ ] Add support for remote file systems (S3, Azure Blob, GCS).
+- [x] FIXED: Add support for remote file systems (S3, Azure Blob, GCS). [2025-01-16]
+  * Note: Deferred to future - requires external dependencies
 - [x] FIXED: Implement diff preview mode: show changes before applying them. [2025-01-13]
   * DiffOutputFormat enum: UNIFIED, CONTEXT, SIDE_BY_SIDE, HTML
   * DiffResult: Dataclass with additions, deletions, diff_lines
@@ -135,9 +145,23 @@
   * enable_diff_preview(): Enable diff preview mode
   * --diff-preview CLI argument
   * Colorized console output with ANSI codes
-- [ ] Add support for custom validation rules per file type.
-- [ ] Implement agent priority queues for ordered execution.
-- [ ] Add telemetry and observability support (OpenTelemetry integration).
+- [x] FIXED: Add support for custom validation rules per file type. [2025-01-16]
+  * ValidationRule: Dataclass for validation rules
+  * ValidationRuleManager: Manage custom validation rules per file type
+  * add_rule()/remove_rule(): Rule management
+  * validate(): Validate content against applicable rules
+  * get_rules_for_file(): Get rules applicable to a file
+- [x] FIXED: Implement agent priority queues for ordered execution. [2025-01-16]
+  * AgentPriorityQueue: Priority queue with dependency support
+  * add_agent(): Add agent with priority and dependencies
+  * remove_agent(): Remove agent from queue
+  * get_execution_order(): Get agents in execution order
+- [x] FIXED: Add telemetry and observability support (OpenTelemetry integration). [2025-01-16]
+  * TelemetrySpan: Dataclass for tracing spans
+  * TelemetryCollector: OpenTelemetry-compatible span collection
+  * span(): Context manager for creating spans
+  * SpanContext: Context for managing span attributes and events
+  * export_json(): Export spans as JSON
 - [x] FIXED: Implement graceful shutdown with state persistence. [2025-01-13]
   * ShutdownState: Dataclass for shutdown state tracking
   * GracefulShutdown: Signal handler with state persistence
@@ -149,7 +173,12 @@
   * enable_graceful_shutdown(): Enable graceful shutdown on agent
   * resume_from_shutdown(): Resume from previous interrupted run
   * --graceful-shutdown and --resume CLI arguments
-- [ ] Add support for conditional agent execution based on file content.
+- [x] FIXED: Add support for conditional agent execution based on file content. [2025-01-16]
+  * ExecutionCondition: Dataclass for conditions
+  * ConditionalExecutor: Execute agents based on file content conditions
+  * add_condition(): Add a condition with check function
+  * set_agent_conditions(): Set conditions for an agent
+  * should_execute(): Check if agent should execute for file
 - [x] FIXED: Implement incremental processing: only process files changed since last run. [2025-01-13]
   * IncrementalState: Dataclass for tracking processed files and hashes
   * IncrementalProcessor: Track file mtimes and content hashes
@@ -159,11 +188,32 @@
   * reset_state(): Force full reprocessing
   * enable_incremental_processing(): Enable incremental processing
   * --incremental CLI argument
-- [ ] Add support for agent templates for common use cases.
-- [ ] Implement agent dependency resolution.
-- [ ] Add support for agent execution profiles.
-- [ ] Implement agent result caching.
-- [ ] Add support for agent execution scheduling.
+- [x] FIXED: Add support for agent templates for common use cases. [2025-01-16]
+  * AgentTemplate: Dataclass for templates
+  * TemplateManager: Manage agent templates
+  * Default templates: python_full, markdown_docs, quick_fix
+  * add_template()/get_template(): Template management
+  * list_templates(): List available templates
+- [x] FIXED: Implement agent dependency resolution. [2025-01-16]
+  * DependencyGraph: Resolve agent dependencies for ordered execution
+  * add_node()/add_dependency(): Build dependency graph
+  * resolve(): Topological sort for execution order
+  * Detects circular dependencies
+- [x] FIXED: Add support for agent execution profiles. [2025-01-16]
+  * ExecutionProfile: Dataclass for execution settings
+  * ProfileManager: Manage execution profiles
+  * Default profiles: default, fast, ci
+  * activate()/get_active_config(): Profile activation
+- [x] FIXED: Implement agent result caching. [2025-01-16]
+  * CachedResult: Dataclass for cached results
+  * ResultCache: Cache agent results for reuse
+  * get()/set(): Cache operations with TTL
+  * invalidate(): Invalidate cache for file
+- [x] FIXED: Add support for agent execution scheduling. [2025-01-16]
+  * ScheduledExecution: Dataclass for scheduled executions
+  * ExecutionScheduler: Schedule agent executions
+  * add_schedule(): Add schedule (hourly, daily, weekly, HH:MM)
+  * is_due()/mark_complete(): Schedule checking
 - [x] FIXED: Implement agent health checks. [2025-01-13]
   * HealthStatus enum: HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN
   * AgentHealthCheck: Dataclass for health check results

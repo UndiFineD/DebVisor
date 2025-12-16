@@ -1,5 +1,31 @@
 # Changelog
 
+## Session 9 - 2025-01-16
+
+### Added - Agent Tests (20 test classes)
+- `TestPluginBasedAgentLoading` - Tests for plugin-based agent loading and discovery
+- `TestAgentCommunication` - Tests for agent communication and message passing
+- `TestAgentStateSerialization` - Tests for agent state serialization and restore
+- `TestDistributedAgentExecution` - Tests for distributed agent execution across multiple processes
+- `TestAgentDependencyResolution` - Tests for agent dependency resolution
+- `TestAgentLifecycleHooks` - Tests for agent lifecycle hooks (pre/post execution)
+- `TestAgentResourceQuotas` - Tests for agent resource quotas and limits
+- `TestAgentRetryPolicies` - Tests for agent retry policies with circuit breakers
+- `TestAgentMetricsTelemetry` - Tests for agent metrics and telemetry collection
+- `TestAgentConfigInheritance` - Tests for agent configuration inheritance and overrides
+- `TestAgentSandboxIsolation` - Tests for agent sandbox isolation
+- `TestAgentOutputValidation` - Tests for agent output validation and formatting
+- `TestAgentErrorAggregation` - Tests for agent error aggregation and reporting
+- `TestAgentCompatibility` - Tests for agent compatibility across Python versions
+- `TestAgentProfiling` - Tests for agent profiling and performance analysis
+- `TestAgentExecutionTimeouts` - Tests for agent execution timeouts
+- `TestAgentMemoryManagement` - Tests for agent memory management
+- `TestAgentGracefulShutdownBehavior` - Tests for agent graceful shutdown
+- `TestAgentConcurrentExecution` - Tests for agent concurrent execution
+- `TestAgentResultCachingBehavior` - Tests for agent result caching
+
+---
+
 - Initial version of test_agent.py
 - 2025-12-15: Reworked legacy `agent.py` tests to use pytest fixtures and `monkeypatch` (no global `sys.path` edits).
 - 2025-12-15: Added coverage for `agents_only`, `max_files`, ignore matching, and subprocess invocation wiring.

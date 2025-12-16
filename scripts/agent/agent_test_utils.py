@@ -1088,6 +1088,1160 @@ class AgentAssertions:
 
 
 # ============================================================================
+# Parameterized Test Generator
+# ============================================================================
+
+
+@dataclass
+class ParameterizedTestCase:
+    """A parameterized test case.
+    
+    Attributes:
+        name: Test case name.
+        params: Parameters for the test.
+        expected: Expected result.
+        tags: Optional tags for filtering.
+    """
+    
+    name: str
+    params: Dict[str, Any]
+    expected: Any
+    tags: List[str] = field(default_factory=list)
+
+
+class ParameterizedTestGenerator:
+    """Generator for parameterized tests.
+    
+    Generates test cases from parameter combinations for data-driven testing.
+    
+    Example:
+        gen = ParameterizedTestGenerator()
+        gen.add_parameter("size", [1, 10, 100])
+        gen.add_parameter("mode", ["fast", "slow"])
+        cases = gen.generate_cases()  # 6 combinations
+    """
+    
+    def __init__(self, test_name: str = "test") -> None:
+        """Initialize generator.
+        
+        Args:
+            test_name: Base name for generated tests.
+        """
+        self.test_name = test_name
+        self._parameters: Dict[str, List[Any]] = {}
+        self._expected_fn: Optional[Callable[..., Any]] = None
+    
+    def add_parameter(self, name: str, values: List[Any]) -> "ParameterizedTestGenerator":
+        """Add parameter with possible values.
+        
+        Args:
+            name: Parameter name.
+            values: List of possible values.
+            
+        Returns:
+            Self for chaining.
+        """
+        self._parameters[name] = values
+        return self
+    
+    def set_expected_fn(self, fn: Callable[..., Any]) -> "ParameterizedTestGenerator":
+        """Set function to compute expected result.
+        
+        Args:
+            fn: Function that takes params dict and returns expected.
+            
+        Returns:
+            Self for chaining.
+        """
+        self._expected_fn = fn
+        return self
+    
+    def generate_cases(self) -> List[ParameterizedTestCase]:
+        """Generate all test case combinations.
+        
+        Returns:
+            List of parameterized test cases.
+        """
+        if not self._parameters:
+            return []
+        
+        import itertools
+        
+        keys = list(self._parameters.keys())
+        values = [self._parameters[k] for k in keys]
+        
+        cases = []
+        for i, combo in enumerate(itertools.product(*values)):
+            params = dict(zip(keys, combo))
+            expected = self._expected_fn(params) if self._expected_fn else None
+            case = ParameterizedTestCase(
+                name=f"{self.test_name}_{i}",
+                params=params,
+                expected=expected,
+            )
+            cases.append(case)
+        
+        return cases
+
+
+# ============================================================================
+# Test Dependency Injection
+# ============================================================================
+
+
+class DependencyContainer:
+    """Container for test dependency injection.
+    
+    Manages dependencies for configurable testing with easy mocking.
+    
+    Example:
+        container = DependencyContainer()
+        container.register("db", MockDatabase())
+        container.register("api", MockAPI())
+        
+        @container.inject
+        def test_func(db, api):
+            ...
+    """
+    
+    def __init__(self) -> None:
+        """Initialize dependency container."""
+        self._dependencies: Dict[str, Any] = {}
+        self._factories: Dict[str, Callable[[], Any]] = {}
+        self._singletons: Dict[str, Any] = {}
+    
+    def register(self, name: str, instance: Any) -> None:
+        """Register a dependency instance.
+        
+        Args:
+            name: Dependency name.
+            instance: Dependency instance.
+        """
+        self._dependencies[name] = instance
+        logging.debug(f"Registered dependency: {name}")
+    
+    def register_factory(
+        self,
+        name: str,
+        factory: Callable[[], Any],
+        singleton: bool = False,
+    ) -> None:
+        """Register a dependency factory.
+        
+        Args:
+            name: Dependency name.
+            factory: Factory function.
+            singleton: Whether to create only once.
+        """
+        self._factories[name] = (factory, singleton)
+    
+    def resolve(self, name: str) -> Any:
+        """Resolve a dependency.
+        
+        Args:
+            name: Dependency name.
+            
+        Returns:
+            Dependency instance.
+            
+        Raises:
+            KeyError: If dependency not found.
+        """
+        if name in self._dependencies:
+            return self._dependencies[name]
+        
+        if name in self._factories:
+            factory, singleton = self._factories[name]
+            if singleton and name in self._singletons:
+                return self._singletons[name]
+            instance = factory()
+            if singleton:
+                self._singletons[name] = instance
+            return instance
+        
+        raise KeyError(f"Dependency not found: {name}")
+    
+    def inject(self, fn: Callable[..., T]) -> Callable[..., T]:
+        """Decorator to inject dependencies into function.
+        
+        Args:
+            fn: Function to inject into.
+            
+        Returns:
+            Wrapped function with injected dependencies.
+        """
+        import inspect
+        sig = inspect.signature(fn)
+        
+        def wrapper(*args: Any, **kwargs: Any) -> T:
+            for param in sig.parameters.values():
+                if param.name not in kwargs and param.name in self._dependencies:
+                    kwargs[param.name] = self.resolve(param.name)
+            return fn(*args, **kwargs)
+        
+        return wrapper
+    
+    def clear(self) -> None:
+        """Clear all dependencies."""
+        self._dependencies.clear()
+        self._factories.clear()
+        self._singletons.clear()
+
+
+T = TypeVar("T")
+
+
+# ============================================================================
+# Test Flakiness Detection
+# ============================================================================
+
+
+@dataclass
+class FlakinessReport:
+    """Report of test flakiness analysis.
+    
+    Attributes:
+        test_name: Name of the test.
+        runs: Number of test runs.
+        passes: Number of passed runs.
+        failures: Number of failed runs.
+        flakiness_score: Score from 0 (stable) to 1 (very flaky).
+        failure_messages: Unique failure messages.
+    """
+    
+    test_name: str
+    runs: int
+    passes: int
+    failures: int
+    flakiness_score: float
+    failure_messages: List[str] = field(default_factory=list)
+
+
+class FlakinessDetector:
+    """Detects flaky tests through repeated execution.
+    
+    Runs tests multiple times to identify intermittent failures.
+    
+    Example:
+        detector = FlakinessDetector()
+        report = detector.analyze(test_fn, runs=10)
+        if report.flakiness_score > 0.1:
+            print(f"Test is flaky: {report.flakiness_score}")
+    """
+    
+    def __init__(self, default_runs: int = 5) -> None:
+        """Initialize detector.
+        
+        Args:
+            default_runs: Default number of test runs.
+        """
+        self.default_runs = default_runs
+        self._history: Dict[str, List[FlakinessReport]] = {}
+    
+    def analyze(
+        self,
+        test_fn: Callable[[], None],
+        runs: Optional[int] = None,
+        test_name: Optional[str] = None,
+    ) -> FlakinessReport:
+        """Analyze test for flakiness.
+        
+        Args:
+            test_fn: Test function to analyze.
+            runs: Number of runs.
+            test_name: Test name for reporting.
+            
+        Returns:
+            FlakinessReport with analysis results.
+        """
+        runs = runs or self.default_runs
+        test_name = test_name or test_fn.__name__
+        
+        passes = 0
+        failures = 0
+        failure_messages: List[str] = []
+        
+        for _ in range(runs):
+            try:
+                test_fn()
+                passes += 1
+            except Exception as e:
+                failures += 1
+                msg = str(e)
+                if msg not in failure_messages:
+                    failure_messages.append(msg)
+        
+        # Calculate flakiness score
+        # 0 = all same result, 1 = 50/50 split
+        if runs > 0:
+            p = passes / runs
+            flakiness = 1 - abs(2 * p - 1)  # 0 at 0% or 100%, 1 at 50%
+        else:
+            flakiness = 0.0
+        
+        report = FlakinessReport(
+            test_name=test_name,
+            runs=runs,
+            passes=passes,
+            failures=failures,
+            flakiness_score=flakiness,
+            failure_messages=failure_messages,
+        )
+        
+        # Store in history
+        if test_name not in self._history:
+            self._history[test_name] = []
+        self._history[test_name].append(report)
+        
+        return report
+    
+    def get_history(self, test_name: str) -> List[FlakinessReport]:
+        """Get flakiness history for a test."""
+        return self._history.get(test_name, [])
+    
+    def get_flaky_tests(self, threshold: float = 0.1) -> List[str]:
+        """Get tests that exceed flakiness threshold."""
+        flaky = []
+        for name, reports in self._history.items():
+            if reports and reports[-1].flakiness_score > threshold:
+                flaky.append(name)
+        return flaky
+
+
+# ============================================================================
+# Test Data Cleanup Utilities
+# ============================================================================
+
+
+class TestDataCleaner:
+    """Utilities for cleaning up test data.
+    
+    Manages cleanup of test artifacts with configurable strategies.
+    
+    Example:
+        cleaner = TestDataCleaner()
+        cleaner.register_path(temp_dir)
+        cleaner.register_file(temp_file)
+        cleaner.cleanup_all()
+    """
+    
+    def __init__(self, strategy: CleanupStrategy = CleanupStrategy.IMMEDIATE) -> None:
+        """Initialize cleaner.
+        
+        Args:
+            strategy: Default cleanup strategy.
+        """
+        self.strategy = strategy
+        self._paths: List[Path] = []
+        self._files: List[Path] = []
+        self._callbacks: List[Callable[[], None]] = []
+        self._cleanup_done = False
+    
+    def register_path(self, path: Path, recursive: bool = True) -> None:
+        """Register directory for cleanup.
+        
+        Args:
+            path: Directory path.
+            recursive: Whether to remove recursively.
+        """
+        self._paths.append((path, recursive))
+    
+    def register_file(self, path: Path) -> None:
+        """Register file for cleanup.
+        
+        Args:
+            path: File path.
+        """
+        self._files.append(path)
+    
+    def register_callback(self, callback: Callable[[], None]) -> None:
+        """Register cleanup callback.
+        
+        Args:
+            callback: Function to call during cleanup.
+        """
+        self._callbacks.append(callback)
+    
+    def cleanup_all(self, force: bool = False) -> int:
+        """Clean up all registered resources.
+        
+        Args:
+            force: Force cleanup regardless of strategy.
+            
+        Returns:
+            Number of items cleaned.
+        """
+        if self._cleanup_done and not force:
+            return 0
+        
+        cleaned = 0
+        
+        # Clean files
+        for file_path in self._files:
+            try:
+                if file_path.exists():
+                    file_path.unlink()
+                    cleaned += 1
+            except OSError as e:
+                logging.warning(f"Failed to clean file {file_path}: {e}")
+        
+        # Clean directories
+        for path, recursive in self._paths:
+            try:
+                if path.exists():
+                    if recursive:
+                        shutil.rmtree(path)
+                    else:
+                        path.rmdir()
+                    cleaned += 1
+            except OSError as e:
+                logging.warning(f"Failed to clean path {path}: {e}")
+        
+        # Run callbacks
+        for callback in self._callbacks:
+            try:
+                callback()
+                cleaned += 1
+            except Exception as e:
+                logging.warning(f"Cleanup callback failed: {e}")
+        
+        self._cleanup_done = True
+        return cleaned
+    
+    def __enter__(self) -> "TestDataCleaner":
+        """Context manager entry."""
+        return self
+    
+    def __exit__(self, *args: Any) -> None:
+        """Context manager exit - perform cleanup."""
+        if self.strategy == CleanupStrategy.IMMEDIATE:
+            self.cleanup_all()
+
+
+# ============================================================================
+# Cross-Platform Test Helpers
+# ============================================================================
+
+
+class CrossPlatformHelper:
+    """Helpers for cross-platform testing.
+    
+    Provides utilities to handle platform differences in tests.
+    
+    Example:
+        helper = CrossPlatformHelper()
+        path = helper.normalize_path("/some/path")
+        if helper.is_windows():
+            # Windows-specific test code
+    """
+    
+    def __init__(self) -> None:
+        """Initialize helper."""
+        self._platform = sys.platform
+    
+    def is_windows(self) -> bool:
+        """Check if running on Windows."""
+        return self._platform.startswith("win")
+    
+    def is_linux(self) -> bool:
+        """Check if running on Linux."""
+        return self._platform.startswith("linux")
+    
+    def is_macos(self) -> bool:
+        """Check if running on macOS."""
+        return self._platform == "darwin"
+    
+    def normalize_path(self, path: str) -> Path:
+        """Normalize path for current platform.
+        
+        Args:
+            path: Path string.
+            
+        Returns:
+            Normalized Path object.
+        """
+        return Path(path).resolve()
+    
+    def normalize_line_endings(self, content: str) -> str:
+        """Normalize line endings to platform default.
+        
+        Args:
+            content: Text content.
+            
+        Returns:
+            Content with normalized line endings.
+        """
+        # First normalize to \n, then to platform default
+        normalized = content.replace("\r\n", "\n").replace("\r", "\n")
+        if self.is_windows():
+            return normalized.replace("\n", "\r\n")
+        return normalized
+    
+    def get_temp_dir(self) -> Path:
+        """Get platform-appropriate temp directory."""
+        return Path(tempfile.gettempdir())
+    
+    def skip_on_platform(self, *platforms: str) -> bool:
+        """Check if test should be skipped on current platform.
+        
+        Args:
+            platforms: Platform names to skip ("windows", "linux", "macos").
+            
+        Returns:
+            True if should skip.
+        """
+        platform_map = {
+            "windows": self.is_windows(),
+            "linux": self.is_linux(),
+            "macos": self.is_macos(),
+        }
+        return any(platform_map.get(p, False) for p in platforms)
+
+
+# ============================================================================
+# Test Logging and Debugging
+# ============================================================================
+
+
+@dataclass
+class TestLogEntry:
+    """A test log entry.
+    
+    Attributes:
+        level: Log level.
+        message: Log message.
+        timestamp: When logged.
+        test_name: Associated test.
+        extra: Extra data.
+    """
+    
+    level: str
+    message: str
+    timestamp: float = field(default_factory=time.time)
+    test_name: Optional[str] = None
+    extra: Dict[str, Any] = field(default_factory=dict)
+
+
+class TestLogger:
+    """Logger for test debugging.
+    
+    Captures logs during test execution for debugging.
+    
+    Example:
+        logger = TestLogger()
+        with logger.capture("test_name"):
+            logger.info("Test started")
+            # ... test code ...
+        logs = logger.get_logs("test_name")
+    """
+    
+    def __init__(self) -> None:
+        """Initialize logger."""
+        self._logs: Dict[str, List[TestLogEntry]] = {}
+        self._current_test: Optional[str] = None
+    
+    def _log(self, level: str, message: str, **extra: Any) -> None:
+        """Internal log method."""
+        entry = TestLogEntry(
+            level=level,
+            message=message,
+            test_name=self._current_test,
+            extra=extra,
+        )
+        
+        if self._current_test:
+            if self._current_test not in self._logs:
+                self._logs[self._current_test] = []
+            self._logs[self._current_test].append(entry)
+    
+    def debug(self, message: str, **extra: Any) -> None:
+        """Log debug message."""
+        self._log("DEBUG", message, **extra)
+    
+    def info(self, message: str, **extra: Any) -> None:
+        """Log info message."""
+        self._log("INFO", message, **extra)
+    
+    def warning(self, message: str, **extra: Any) -> None:
+        """Log warning message."""
+        self._log("WARNING", message, **extra)
+    
+    def error(self, message: str, **extra: Any) -> None:
+        """Log error message."""
+        self._log("ERROR", message, **extra)
+    
+    @contextmanager
+    def capture(self, test_name: str) -> Iterator["TestLogger"]:
+        """Context manager to capture logs for a test.
+        
+        Args:
+            test_name: Name of the test.
+            
+        Yields:
+            Self for logging.
+        """
+        old_test = self._current_test
+        self._current_test = test_name
+        self._logs[test_name] = []
+        try:
+            yield self
+        finally:
+            self._current_test = old_test
+    
+    def get_logs(self, test_name: str) -> List[TestLogEntry]:
+        """Get logs for a test."""
+        return self._logs.get(test_name, [])
+    
+    def get_errors(self, test_name: str) -> List[TestLogEntry]:
+        """Get error logs for a test."""
+        return [l for l in self.get_logs(test_name) if l.level == "ERROR"]
+    
+    def clear(self) -> None:
+        """Clear all logs."""
+        self._logs.clear()
+
+
+# ============================================================================
+# Test Parallelization Helpers
+# ============================================================================
+
+
+@dataclass
+class ParallelTestResult:
+    """Result from parallel test execution.
+    
+    Attributes:
+        test_name: Name of the test.
+        passed: Whether test passed.
+        duration_ms: Test duration.
+        error: Error if failed.
+        worker_id: Worker that ran the test.
+    """
+    
+    test_name: str
+    passed: bool
+    duration_ms: float
+    error: Optional[str] = None
+    worker_id: int = 0
+
+
+class ParallelTestRunner:
+    """Helper for parallel test execution.
+    
+    Manages parallel execution of tests with worker pools.
+    
+    Example:
+        runner = ParallelTestRunner(workers=4)
+        runner.add_test("test1", test_func1)
+        runner.add_test("test2", test_func2)
+        results = runner.run_all()
+    """
+    
+    def __init__(self, workers: int = 4) -> None:
+        """Initialize runner.
+        
+        Args:
+            workers: Number of worker threads.
+        """
+        self.workers = workers
+        self._tests: Dict[str, Callable[[], None]] = {}
+        self._results: List[ParallelTestResult] = []
+    
+    def add_test(self, name: str, test_fn: Callable[[], None]) -> None:
+        """Add test to run.
+        
+        Args:
+            name: Test name.
+            test_fn: Test function.
+        """
+        self._tests[name] = test_fn
+    
+    def _run_test(
+        self,
+        name: str,
+        test_fn: Callable[[], None],
+        worker_id: int,
+    ) -> ParallelTestResult:
+        """Run a single test."""
+        start = time.time()
+        try:
+            test_fn()
+            return ParallelTestResult(
+                test_name=name,
+                passed=True,
+                duration_ms=(time.time() - start) * 1000,
+                worker_id=worker_id,
+            )
+        except Exception as e:
+            return ParallelTestResult(
+                test_name=name,
+                passed=False,
+                duration_ms=(time.time() - start) * 1000,
+                error=str(e),
+                worker_id=worker_id,
+            )
+    
+    def run_all(self) -> List[ParallelTestResult]:
+        """Run all tests in parallel.
+        
+        Returns:
+            List of test results.
+        """
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
+        self._results = []
+        
+        with ThreadPoolExecutor(max_workers=self.workers) as executor:
+            futures = {}
+            for i, (name, test_fn) in enumerate(self._tests.items()):
+                worker_id = i % self.workers
+                future = executor.submit(self._run_test, name, test_fn, worker_id)
+                futures[future] = name
+            
+            for future in as_completed(futures):
+                result = future.result()
+                self._results.append(result)
+        
+        return self._results
+    
+    def get_summary(self) -> Dict[str, Any]:
+        """Get summary of parallel test execution."""
+        total = len(self._results)
+        passed = sum(1 for r in self._results if r.passed)
+        return {
+            "total": total,
+            "passed": passed,
+            "failed": total - passed,
+            "total_duration_ms": sum(r.duration_ms for r in self._results),
+        }
+
+
+# ============================================================================
+# Test Recording and Replay
+# ============================================================================
+
+
+@dataclass
+class RecordedInteraction:
+    """A recorded test interaction.
+    
+    Attributes:
+        call_type: Type of call (e.g., "api", "file", "db").
+        call_name: Name of the call.
+        args: Call arguments.
+        kwargs: Call keyword arguments.
+        result: Call result.
+        timestamp: When recorded.
+    """
+    
+    call_type: str
+    call_name: str
+    args: Tuple[Any, ...] = ()
+    kwargs: Dict[str, Any] = field(default_factory=dict)
+    result: Any = None
+    timestamp: float = field(default_factory=time.time)
+
+
+class TestRecorder:
+    """Records and replays test interactions.
+    
+    Useful for recording external calls and replaying in tests.
+    
+    Example:
+        recorder = TestRecorder()
+        
+        # Recording mode
+        with recorder.record():
+            result = api_call("data")  # Records the call
+        recorder.save("test_recording.json")
+        
+        # Replay mode
+        recorder.load("test_recording.json")
+        with recorder.replay():
+            result = api_call("data")  # Returns recorded result
+    """
+    
+    def __init__(self) -> None:
+        """Initialize recorder."""
+        self._recordings: List[RecordedInteraction] = []
+        self._replay_index = 0
+        self._mode: str = "normal"  # "record", "replay", "normal"
+    
+    def record_interaction(
+        self,
+        call_type: str,
+        call_name: str,
+        args: Tuple[Any, ...],
+        kwargs: Dict[str, Any],
+        result: Any,
+    ) -> None:
+        """Record an interaction.
+        
+        Args:
+            call_type: Type of call.
+            call_name: Name of the call.
+            args: Arguments.
+            kwargs: Keyword arguments.
+            result: Result of the call.
+        """
+        if self._mode == "record":
+            interaction = RecordedInteraction(
+                call_type=call_type,
+                call_name=call_name,
+                args=args,
+                kwargs=kwargs,
+                result=result,
+            )
+            self._recordings.append(interaction)
+    
+    def get_replay_result(
+        self,
+        call_type: str,
+        call_name: str,
+    ) -> Optional[Any]:
+        """Get replayed result for a call.
+        
+        Args:
+            call_type: Type of call.
+            call_name: Name of the call.
+            
+        Returns:
+            Recorded result or None.
+        """
+        if self._mode != "replay":
+            return None
+        
+        if self._replay_index < len(self._recordings):
+            recording = self._recordings[self._replay_index]
+            if recording.call_type == call_type and recording.call_name == call_name:
+                self._replay_index += 1
+                return recording.result
+        
+        return None
+    
+    @contextmanager
+    def record(self) -> Iterator["TestRecorder"]:
+        """Context manager for recording mode."""
+        self._mode = "record"
+        self._recordings = []
+        try:
+            yield self
+        finally:
+            self._mode = "normal"
+    
+    @contextmanager
+    def replay(self) -> Iterator["TestRecorder"]:
+        """Context manager for replay mode."""
+        self._mode = "replay"
+        self._replay_index = 0
+        try:
+            yield self
+        finally:
+            self._mode = "normal"
+    
+    def save(self, path: Path) -> None:
+        """Save recordings to file."""
+        data = []
+        for r in self._recordings:
+            data.append({
+                "call_type": r.call_type,
+                "call_name": r.call_name,
+                "args": list(r.args),
+                "kwargs": r.kwargs,
+                "result": r.result,
+                "timestamp": r.timestamp,
+            })
+        with open(path, "w") as f:
+            json.dump(data, f, indent=2, default=str)
+    
+    def load(self, path: Path) -> None:
+        """Load recordings from file."""
+        with open(path) as f:
+            data = json.load(f)
+        self._recordings = [
+            RecordedInteraction(
+                call_type=d["call_type"],
+                call_name=d["call_name"],
+                args=tuple(d["args"]),
+                kwargs=d["kwargs"],
+                result=d["result"],
+                timestamp=d["timestamp"],
+            )
+            for d in data
+        ]
+
+
+# ============================================================================
+# Test Baseline Management
+# ============================================================================
+
+
+@dataclass
+class TestBaseline:
+    """A test baseline for comparison.
+    
+    Attributes:
+        name: Baseline name.
+        values: Baseline values.
+        created_at: Creation timestamp.
+        version: Baseline version.
+    """
+    
+    name: str
+    values: Dict[str, Any]
+    created_at: float = field(default_factory=time.time)
+    version: int = 1
+
+
+class BaselineManager:
+    """Manages test baselines for comparison.
+    
+    Stores and compares baselines for regression testing.
+    
+    Example:
+        manager = BaselineManager(baseline_dir)
+        manager.save_baseline("perf", {"latency": 100, "memory": 50})
+        
+        # Later...
+        baseline = manager.load_baseline("perf")
+        diff = manager.compare("perf", {"latency": 120, "memory": 50})
+    """
+    
+    def __init__(self, baseline_dir: Path) -> None:
+        """Initialize manager.
+        
+        Args:
+            baseline_dir: Directory for baseline files.
+        """
+        self.baseline_dir = baseline_dir
+        self.baseline_dir.mkdir(parents=True, exist_ok=True)
+    
+    def _get_path(self, name: str) -> Path:
+        """Get path for baseline file."""
+        return self.baseline_dir / f"{name}.baseline.json"
+    
+    def save_baseline(self, name: str, values: Dict[str, Any]) -> TestBaseline:
+        """Save a baseline.
+        
+        Args:
+            name: Baseline name.
+            values: Baseline values.
+            
+        Returns:
+            Created baseline.
+        """
+        existing = self.load_baseline(name)
+        version = existing.version + 1 if existing else 1
+        
+        baseline = TestBaseline(name=name, values=values, version=version)
+        
+        with open(self._get_path(name), "w") as f:
+            json.dump({
+                "name": baseline.name,
+                "values": baseline.values,
+                "created_at": baseline.created_at,
+                "version": baseline.version,
+            }, f, indent=2)
+        
+        return baseline
+    
+    def load_baseline(self, name: str) -> Optional[TestBaseline]:
+        """Load a baseline.
+        
+        Args:
+            name: Baseline name.
+            
+        Returns:
+            Loaded baseline or None.
+        """
+        path = self._get_path(name)
+        if not path.exists():
+            return None
+        
+        with open(path) as f:
+            data = json.load(f)
+        
+        return TestBaseline(
+            name=data["name"],
+            values=data["values"],
+            created_at=data["created_at"],
+            version=data["version"],
+        )
+    
+    def compare(
+        self,
+        name: str,
+        current: Dict[str, Any],
+        tolerance: float = 0.1,
+    ) -> Dict[str, Any]:
+        """Compare current values against baseline.
+        
+        Args:
+            name: Baseline name.
+            current: Current values.
+            tolerance: Tolerance for numeric comparisons (0.1 = 10%).
+            
+        Returns:
+            Comparison results with diffs.
+        """
+        baseline = self.load_baseline(name)
+        if not baseline:
+            return {"error": "no baseline"}
+        
+        diffs = {}
+        for key, current_val in current.items():
+            if key not in baseline.values:
+                diffs[key] = {"status": "new", "current": current_val}
+                continue
+            
+            baseline_val = baseline.values[key]
+            
+            if isinstance(current_val, (int, float)) and isinstance(baseline_val, (int, float)):
+                if baseline_val == 0:
+                    pct_change = float("inf") if current_val != 0 else 0
+                else:
+                    pct_change = abs(current_val - baseline_val) / abs(baseline_val)
+                
+                if pct_change > tolerance:
+                    diffs[key] = {
+                        "status": "changed",
+                        "baseline": baseline_val,
+                        "current": current_val,
+                        "pct_change": pct_change,
+                    }
+            elif current_val != baseline_val:
+                diffs[key] = {
+                    "status": "changed",
+                    "baseline": baseline_val,
+                    "current": current_val,
+                }
+        
+        return {
+            "baseline_version": baseline.version,
+            "diffs": diffs,
+            "passed": len(diffs) == 0,
+        }
+
+
+# ============================================================================
+# Test Configuration Profiles
+# ============================================================================
+
+
+@dataclass
+class TestProfile:
+    """A test configuration profile.
+    
+    Attributes:
+        name: Profile name.
+        settings: Profile settings.
+        env_vars: Environment variables.
+        enabled: Whether profile is enabled.
+    """
+    
+    name: str
+    settings: Dict[str, Any] = field(default_factory=dict)
+    env_vars: Dict[str, str] = field(default_factory=dict)
+    enabled: bool = True
+
+
+class TestProfileManager:
+    """Manages test configuration profiles.
+    
+    Allows switching between test configurations easily.
+    
+    Example:
+        manager = TestProfileManager()
+        manager.add_profile(TestProfile("ci", settings={"timeout": 60}))
+        manager.add_profile(TestProfile("local", settings={"timeout": 300}))
+        
+        manager.activate("ci")
+        timeout = manager.get_setting("timeout")  # 60
+    """
+    
+    def __init__(self) -> None:
+        """Initialize profile manager."""
+        self._profiles: Dict[str, TestProfile] = {}
+        self._active: Optional[str] = None
+        self._original_env: Dict[str, Optional[str]] = {}
+    
+    def add_profile(self, profile: TestProfile) -> None:
+        """Add a profile.
+        
+        Args:
+            profile: Profile to add.
+        """
+        self._profiles[profile.name] = profile
+    
+    def get_profile(self, name: str) -> Optional[TestProfile]:
+        """Get a profile by name."""
+        return self._profiles.get(name)
+    
+    def activate(self, name: str) -> None:
+        """Activate a profile.
+        
+        Args:
+            name: Profile name.
+            
+        Raises:
+            KeyError: If profile not found.
+        """
+        if name not in self._profiles:
+            raise KeyError(f"Profile not found: {name}")
+        
+        # Deactivate current
+        if self._active:
+            self.deactivate()
+        
+        profile = self._profiles[name]
+        
+        # Set environment variables
+        for key, value in profile.env_vars.items():
+            self._original_env[key] = os.environ.get(key)
+            os.environ[key] = value
+        
+        self._active = name
+        logging.info(f"Activated test profile: {name}")
+    
+    def deactivate(self) -> None:
+        """Deactivate current profile."""
+        if not self._active:
+            return
+        
+        # Restore environment
+        for key, value in self._original_env.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+        
+        self._original_env.clear()
+        self._active = None
+    
+    def get_setting(self, key: str, default: Any = None) -> Any:
+        """Get setting from active profile.
+        
+        Args:
+            key: Setting key.
+            default: Default value.
+            
+        Returns:
+            Setting value.
+        """
+        if not self._active:
+            return default
+        
+        profile = self._profiles[self._active]
+        return profile.settings.get(key, default)
+    
+    def get_active_profile(self) -> Optional[TestProfile]:
+        """Get currently active profile."""
+        if self._active:
+            return self._profiles[self._active]
+        return None
+
+
+# ============================================================================
 # Legacy Functions (Preserved)
 # ============================================================================
 

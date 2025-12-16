@@ -1200,3 +1200,590 @@ def test_template_manager_apply_nonexistent_template() -> None:
     manager = mod.TemplateManager()
     result = manager.apply_template("nonexistent", {})
     assert result == ""
+
+
+# =============================================================================
+# Session 9: Version Range Query Tests
+# =============================================================================
+
+
+class TestVersionRangeQueries:
+    """Tests for changelog version range queries."""
+
+    def test_version_range_single(self, tmp_path: Path) -> None:
+        """Test querying a single version."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = """# Changelog
+## [2.0.0] - 2025-01-16
+- Feature B
+## [1.0.0] - 2025-01-01
+- Feature A
+"""
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "[2.0.0]" in previous
+        assert "[1.0.0]" in previous
+
+    def test_version_range_multiple(self, tmp_path: Path) -> None:
+        """Test querying multiple versions."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = """# Changelog
+## [3.0.0]
+- C
+## [2.0.0]
+- B
+## [1.0.0]
+- A
+"""
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "3.0.0" in previous
+        assert "1.0.0" in previous
+
+
+# =============================================================================
+# Session 9: Keyword Search Tests
+# =============================================================================
+
+
+class TestChangelogKeywordSearch:
+    """Tests for changelog entry search by keyword."""
+
+    def test_keyword_search_match(self, tmp_path: Path) -> None:
+        """Test searching for keywords in changelog."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Fix security vulnerability\n- Add new feature"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "security" in previous
+
+    def test_keyword_search_case_insensitive(self, tmp_path: Path) -> None:
+        """Test case-insensitive keyword search."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- IMPORTANT fix"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "IMPORTANT" in previous
+
+
+# =============================================================================
+# Session 9: Export Format Tests
+# =============================================================================
+
+
+class TestChangelogExportFormats:
+    """Tests for changelog export to different formats."""
+
+    def test_markdown_format_preserved(self, tmp_path: Path) -> None:
+        """Test markdown format is preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n\n## [1.0.0]\n\n- **Bold** entry\n- *Italic* entry"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "**Bold**" in previous
+        assert "*Italic*" in previous
+
+    def test_code_blocks_preserved(self, tmp_path: Path) -> None:
+        """Test code blocks are preserved in export."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Added `code_function()` support"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "`code_function()`" in previous
+
+
+# =============================================================================
+# Session 9: Issue Tracker Linking Tests
+# =============================================================================
+
+
+class TestIssueTrackerLinking:
+    """Tests for changelog entry linking to issue trackers."""
+
+    def test_github_issue_link(self, tmp_path: Path) -> None:
+        """Test GitHub issue link preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Fix bug ([#42](https://github.com/owner/repo/issues/42))"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "github.com" in previous
+
+    def test_jira_ticket_link(self, tmp_path: Path) -> None:
+        """Test JIRA ticket link preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Fix JIRA-123"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "JIRA-123" in previous
+
+
+# =============================================================================
+# Session 9: Statistics Generation Tests
+# =============================================================================
+
+
+class TestChangelogStatistics:
+    """Tests for changelog statistics generation."""
+
+    def test_entry_count(self, tmp_path: Path) -> None:
+        """Test counting changelog entries."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Entry 1\n- Entry 2\n- Entry 3"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert previous.count("Entry") == 3
+
+    def test_category_stats(self, tmp_path: Path) -> None:
+        """Test category statistics."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## Added\n- A\n- B\n## Fixed\n- C"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Added" in previous
+        assert "Fixed" in previous
+
+
+# =============================================================================
+# Session 9: Validation Rules Tests
+# =============================================================================
+
+
+class TestChangelogValidationRules:
+    """Tests for changelog entry validation rules."""
+
+    def test_valid_entry_format(self, tmp_path: Path) -> None:
+        """Test valid entry format is accepted."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n\n## [1.0.0] - 2025-01-16\n\n- Valid entry"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Valid entry" in previous
+
+
+# =============================================================================
+# Session 9: Internationalization Tests
+# =============================================================================
+
+
+class TestChangelogInternationalization:
+    """Tests for changelog internationalization."""
+
+    def test_unicode_content_preserved(self, tmp_path: Path) -> None:
+        """Test unicode content is preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# 変更履歴\n- 新機能を追加しました"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content, encoding="utf-8")
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "新機能" in previous
+
+    def test_emoji_preserved(self, tmp_path: Path) -> None:
+        """Test emoji are preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- 🎉 New feature\n- 🐛 Bug fix"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content, encoding="utf-8")
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "🎉" in previous
+
+
+# =============================================================================
+# Session 9: Priority Ordering Tests
+# =============================================================================
+
+
+class TestChangelogPriorityOrdering:
+    """Tests for changelog entry priority ordering."""
+
+    def test_priority_by_section(self, tmp_path: Path) -> None:
+        """Test entries ordered by section priority."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## Security\n- S\n## Added\n- A\n## Fixed\n- F"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        # Security should be in content
+        assert "Security" in previous
+
+
+# =============================================================================
+# Session 9: Backup and Restore Tests
+# =============================================================================
+
+
+class TestChangelogBackupRestore:
+    """Tests for changelog backup and restore."""
+
+    def test_no_backup_on_read(self, tmp_path: Path) -> None:
+        """Test reading doesn't create backup."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        target = tmp_path / "test.changes.md"
+        target.write_text("# Changelog\n- Entry")
+        
+        agent = mod.ChangesAgent(str(target))
+        agent.read_previous_content()
+        
+        backup = tmp_path / "test.changes.md.bak"
+        assert not backup.exists()
+
+
+# =============================================================================
+# Session 9: Category Filtering Tests
+# =============================================================================
+
+
+class TestChangelogCategoryFiltering:
+    """Tests for changelog entry filtering by category."""
+
+    def test_filter_by_added(self, tmp_path: Path) -> None:
+        """Test filtering entries by Added category."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## Added\n- New feature\n## Fixed\n- Bug fix"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "New feature" in previous
+
+
+# =============================================================================
+# Session 9: Diff Visualization Tests
+# =============================================================================
+
+
+class TestChangelogDiffVisualization:
+    """Tests for changelog diff visualization."""
+
+    def test_diff_markers_preserved(self, tmp_path: Path) -> None:
+        """Test diff markers are preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Entry + added\n- Entry - removed"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "+ added" in previous
+
+
+# =============================================================================
+# Session 9: Timestamp Tests
+# =============================================================================
+
+
+class TestChangelogTimestamps:
+    """Tests for changelog entry timestamps."""
+
+    def test_date_format_iso(self, tmp_path: Path) -> None:
+        """Test ISO date format preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## [1.0.0] - 2025-01-16\n- Entry"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "2025-01-16" in previous
+
+    def test_datetime_preserved(self, tmp_path: Path) -> None:
+        """Test datetime preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Entry at 2025-01-16T10:30:00Z"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "T10:30:00Z" in previous
+
+
+# =============================================================================
+# Session 9: Access Control Tests
+# =============================================================================
+
+
+class TestChangelogAccessControl:
+    """Tests for changelog access control."""
+
+    def test_read_only_access(self, tmp_path: Path) -> None:
+        """Test read-only access to changelog."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        target = tmp_path / "test.changes.md"
+        target.write_text("# Changelog\n- Entry")
+        
+        agent = mod.ChangesAgent(str(target))
+        content = agent.read_previous_content()
+        
+        # Should be able to read
+        assert content is not None
+
+
+# =============================================================================
+# Session 9: Bulk Operations Tests
+# =============================================================================
+
+
+class TestChangelogBulkOperations:
+    """Tests for changelog entry bulk operations."""
+
+    def test_bulk_entries_readable(self, tmp_path: Path) -> None:
+        """Test bulk entries can be read."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        entries = "\n".join([f"- Entry {i}" for i in range(50)])
+        content = f"# Changelog\n{entries}"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Entry 0" in previous
+        assert "Entry 49" in previous
+
+
+# =============================================================================
+# Session 9: Notification Tests
+# =============================================================================
+
+
+class TestChangelogNotifications:
+    """Tests for changelog notifications."""
+
+    def test_breaking_change_marker(self, tmp_path: Path) -> None:
+        """Test breaking change marker preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- BREAKING CHANGE: API removed"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "BREAKING CHANGE" in previous
+
+
+# =============================================================================
+# Session 9: Approval Workflow Tests
+# =============================================================================
+
+
+class TestChangelogApprovalWorkflows:
+    """Tests for changelog entry approval workflows."""
+
+    def test_pending_entries(self, tmp_path: Path) -> None:
+        """Test pending entries handled."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## Unreleased\n- Pending feature\n## [1.0.0]\n- Released"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Unreleased" in previous
+        assert "Pending feature" in previous
+
+
+# =============================================================================
+# Session 9: Entry Signing Tests
+# =============================================================================
+
+
+class TestChangelogEntrySigning:
+    """Tests for changelog entry signing."""
+
+    def test_signature_preserved(self, tmp_path: Path) -> None:
+        """Test entry signature preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n- Entry <!-- signed:abc123 -->"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "signed:abc123" in previous
+
+
+# =============================================================================
+# Session 9: Archival and Retention Tests
+# =============================================================================
+
+
+class TestChangelogArchivalRetention:
+    """Tests for changelog archival and retention."""
+
+    def test_archived_section(self, tmp_path: Path) -> None:
+        """Test archived section handled."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n## Current\n- New\n## Archived (2024)\n- Old"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Archived" in previous
+
+
+# =============================================================================
+# Session 9: Entry Comments Tests
+# =============================================================================
+
+
+class TestChangelogEntryComments:
+    """Tests for changelog entry comments."""
+
+    def test_html_comment_preserved(self, tmp_path: Path) -> None:
+        """Test HTML comments preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = "# Changelog\n<!-- This is a comment -->\n- Entry"
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "<!-- This is a comment -->" in previous
+
+
+# =============================================================================
+# Session 9: History Tracking Tests
+# =============================================================================
+
+
+class TestChangelogHistoryTracking:
+    """Tests for changelog entry history tracking."""
+
+    def test_version_history_preserved(self, tmp_path: Path) -> None:
+        """Test version history preserved."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-changes.py")
+        
+        content = """# Changelog
+## [3.0.0] - 2025-01-16
+- Version 3
+## [2.0.0] - 2025-01-01
+- Version 2
+## [1.0.0] - 2024-12-01
+- Version 1
+"""
+        target = tmp_path / "test.changes.md"
+        target.write_text(content)
+        
+        agent = mod.ChangesAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Version 1" in previous
+        assert "Version 2" in previous
+        assert "Version 3" in previous

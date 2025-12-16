@@ -95,18 +95,70 @@ All previous fixed items have been moved to `agent_backend.changes.md`.
   * get_recent_entries(): Retrieve audit history
 
 ## Suggested improvements
-- [ ] Add support for request signing and verification.
-- [ ] Implement request deduplication across concurrent calls.
-- [ ] Add support for backend version negotiation.
-- [ ] Add support for backend capability discovery.
-- [ ] Implement request replay for debugging and testing.
-- [ ] Add support for backend configuration hot-reloading.
-- [ ] Implement request compression for large payloads.
-- [ ] Implement backend analytics and usage reporting.
-- [ ] Add support for backend connection pooling.
-- [ ] Implement backend request throttling.
-- [ ] Add support for backend response caching with TTL.
-- [ ] Add support for backend A/B testing.
+
+(All items have been implemented - see Fixed section below)
+
+## Session 9 [2025-12-16] - New Features
+
+- [x] FIXED: [2025-12-16] Add support for request signing and verification.
+  * RequestSigner class with HMAC-SHA256 signing
+  * sign() and verify() methods
+  * Stored signature retrieval by request ID
+
+- [x] FIXED: [2025-12-16] Implement request deduplication across concurrent calls.
+  * RequestDeduplicator class with TTL support
+  * Thread-safe pending request tracking
+  * wait_for_result() for duplicate requests
+
+- [x] FIXED: [2025-12-16] Add support for backend version negotiation.
+  * VersionNegotiator class
+  * BackendVersion dataclass
+  * Capability-based version negotiation
+
+- [x] FIXED: [2025-12-16] Add support for backend capability discovery.
+  * CapabilityDiscovery class
+  * BackendCapability dataclass
+  * discover_all() for cross-backend capability mapping
+
+- [x] FIXED: [2025-12-16] Implement request replay for debugging and testing.
+  * RequestRecorder class
+  * RecordedRequest dataclass
+  * export_recordings() for JSON export
+
+- [x] FIXED: [2025-12-16] Add support for backend configuration hot-reloading.
+  * ConfigHotReloader class
+  * Environment variable watching
+  * Change callbacks support
+
+- [x] FIXED: [2025-12-16] Implement request compression for large payloads.
+  * RequestCompressor class with zlib
+  * Threshold-based compression
+  * Compression statistics tracking
+
+- [x] FIXED: [2025-12-16] Implement backend analytics and usage reporting.
+  * BackendAnalytics class
+  * UsageRecord dataclass
+  * generate_report() with backend grouping
+
+- [x] FIXED: [2025-12-16] Add support for backend connection pooling.
+  * ConnectionPool class
+  * acquire()/release() pattern
+  * Pool statistics and close_all()
+
+- [x] FIXED: [2025-12-16] Implement backend request throttling.
+  * RequestThrottler class with token bucket algorithm
+  * Configurable requests per second and burst size
+  * wait_for_token() for blocking throttle
+
+- [x] FIXED: [2025-12-16] Add support for backend response caching with TTL.
+  * TTLCache class
+  * CachedResponse dataclass with hit counting
+  * Automatic expiration and cleanup
+
+- [x] FIXED: [2025-12-16] Add support for backend A/B testing.
+  * ABTester class
+  * ABTestVariant dataclass
+  * Weighted variant assignment and metrics tracking
 
 ## Notes
 - File: `scripts/agent/agent_backend.py`

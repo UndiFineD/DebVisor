@@ -1841,3 +1841,1442 @@ def describe_backends() -> str:
     )
     logging.debug("Backend diagnostics generated")
     return result
+
+
+# ============================================================================
+# Session 9: Request Signing and Verification
+# ============================================================================
+
+
+class RequestSigner:
+    """Signs and verifies requests for integrity and authenticity.
+    
+    Uses HMAC-SHA256 to sign request payloads, enabling verification
+    that requests haven't been tampered with.
+    
+    Example:
+        signer = RequestSigner(secret_key="my-secret")
+        signature = signer.sign("prompt data")
+        assert signer.verify("prompt data", signature)
+    """
+    
+    def __init__(self, secret_key: Optional[str] = None) -> None:
+        """Initialize request signer.
+        
+        Args:
+            secret_key: Secret key for signing. If None, uses environment variable.
+        """
+        import hmac
+        self._hmac = hmac
+        self.secret_key = (secret_key or os.environ.get("DV_AGENT_SIGNING_KEY", "")).encode()
+        self._signatures: Dict[str, str] = {}
+    
+    def sign(self, data: str, request_id: Optional[str] = None) -> str:
+        """Sign data and return signature.
+        
+        Args:
+            data: Data to sign.
+            request_id: Optional request ID for tracking.
+            
+        Returns:
+            str: Hex-encoded signature.
+        """
+        signature = self._hmac.new(
+            self.secret_key,
+            data.encode(),
+            hashlib.sha256
+        ).hexdigest()
+        
+        if request_id:
+            self._signatures[request_id] = signature
+        
+        return signature
+    
+    def verify(self, data: str, signature: str) -> bool:
+        """Verify signature for data.
+        
+        Args:
+            data: Original data.
+            signature: Signature to verify.
+            
+        Returns:
+            bool: True if signature is valid.
+        """
+        expected = self._hmac.new(
+            self.secret_key,
+            data.encode(),
+            hashlib.sha256
+        ).hexdigest()
+        
+        return self._hmac.compare_digest(expected, signature)
+    
+    def get_stored_signature(self, request_id: str) -> Optional[str]:
+        """Get stored signature by request ID."""
+        return self._signatures.get(request_id)
+
+
+# ============================================================================
+# Session 9: Request Deduplication
+# ============================================================================
+
+
+class RequestDeduplicator:
+    """Deduplicates concurrent requests with identical prompts.
+    
+    Prevents redundant API calls when multiple threads/processes
+    send the same request simultaneously.
+    
+    Example:
+        dedup = RequestDeduplicator()
+        if dedup.is_duplicate("prompt"):
+            result = dedup.wait_for_result("prompt")
+        else:
+            result = call_api("prompt")
+            dedup.store_result("prompt", result)
+    """
+    
+    def __init__(self, ttl_seconds: float = 60.0) -> None:
+        """Initialize deduplicator.
+        
+        Args:
+            ttl_seconds: Time-to-live for pending requests.
+        """
+        self.ttl_seconds = ttl_seconds
+        self._pending: Dict[str, float] = {}  # hash -> start_time
+        self._results: Dict[str, str] = {}
+        self._lock = threading.Lock()
+        self._events: Dict[str, threading.Event] = {}
+    
+    def _get_key(self, prompt: str) -> str:
+        """Generate deduplication key for prompt."""
+        return hashlib.sha256(prompt.encode()).hexdigest()[:16]
+    
+    def is_duplicate(self, prompt: str) -> bool:
+        """Check if request is a duplicate of a pending request.
+        
+        Args:
+            prompt: Request prompt.
+            
+        Returns:
+            bool: True if duplicate request is in progress.
+        """
+        key = self._get_key(prompt)
+        now = time.time()
+        
+        with self._lock:
+            # Clean expired entries
+            expired = [k for k, t in self._pending.items() if now - t > self.ttl_seconds]
+            for k in expired:
+                self._pending.pop(k, None)
+                self._events.pop(k, None)
+                self._results.pop(k, None)
+            
+            if key in self._pending:
+                return True
+            
+            # Mark as pending
+            self._pending[key] = now
+            self._events[key] = threading.Event()
+            return False
+    
+    def wait_for_result(self, prompt: str, timeout: float = 60.0) -> Optional[str]:
+        """Wait for result of duplicate request.
+        
+        Args:
+            prompt: Request prompt.
+            timeout: Maximum wait time.
+            
+        Returns:
+            Optional[str]: Result or None if timeout.
+        """
+        key = self._get_key(prompt)
+        
+        with self._lock:
+            event = self._events.get(key)
+        
+        if event:
+            event.wait(timeout=timeout)
+        
+        with self._lock:
+            return self._results.get(key)
+    
+    def store_result(self, prompt: str, result: str) -> None:
+        """Store result and notify waiters.
+        
+        Args:
+            prompt: Request prompt.
+            result: Request result.
+        """
+        key = self._get_key(prompt)
+        
+        with self._lock:
+            self._results[key] = result
+            self._pending.pop(key, None)
+            event = self._events.get(key)
+            if event:
+                event.set()
+
+
+# ============================================================================
+# Session 9: Backend Version Negotiation
+# ============================================================================
+
+
+@dataclass
+class BackendVersion:
+    """Version information for a backend."""
+    
+    backend: str
+    version: str
+    capabilities: List[str] = field(default_factory=list)
+    api_version: str = "v1"
+    deprecated_features: List[str] = field(default_factory=list)
+
+
+class VersionNegotiator:
+    """Negotiates API versions with backends.
+    
+    Ensures client and server agree on compatible API versions
+    and feature sets.
+    
+    Example:
+        negotiator = VersionNegotiator()
+        negotiator.register_backend("api", "2.0", ["streaming", "batching"])
+        version = negotiator.negotiate("api", required=["streaming"])
+    """
+    
+    def __init__(self) -> None:
+        """Initialize version negotiator."""
+        self._versions: Dict[str, BackendVersion] = {}
+        self._client_version = "1.0"
+    
+    def register_backend(
+        self,
+        backend: str,
+        version: str,
+        capabilities: Optional[List[str]] = None,
+        api_version: str = "v1",
+    ) -> BackendVersion:
+        """Register backend version information.
+        
+        Args:
+            backend: Backend identifier.
+            version: Backend version string.
+            capabilities: List of supported capabilities.
+            api_version: API version string.
+            
+        Returns:
+            BackendVersion: Registered version info.
+        """
+        backend_version = BackendVersion(
+            backend=backend,
+            version=version,
+            capabilities=capabilities or [],
+            api_version=api_version,
+        )
+        self._versions[backend] = backend_version
+        return backend_version
+    
+    def negotiate(
+        self,
+        backend: str,
+        required: Optional[List[str]] = None,
+    ) -> Optional[BackendVersion]:
+        """Negotiate version with backend.
+        
+        Args:
+            backend: Backend to negotiate with.
+            required: Required capabilities.
+            
+        Returns:
+            Optional[BackendVersion]: Negotiated version or None if incompatible.
+        """
+        version = self._versions.get(backend)
+        if not version:
+            return None
+        
+        if required:
+            missing = set(required) - set(version.capabilities)
+            if missing:
+                logging.warning(f"Backend {backend} missing capabilities: {missing}")
+                return None
+        
+        return version
+    
+    def get_all_versions(self) -> Dict[str, BackendVersion]:
+        """Get all registered backend versions."""
+        return dict(self._versions)
+
+
+# ============================================================================
+# Session 9: Backend Capability Discovery
+# ============================================================================
+
+
+@dataclass
+class BackendCapability:
+    """A capability supported by a backend."""
+    
+    name: str
+    description: str
+    enabled: bool = True
+    parameters: Dict[str, Any] = field(default_factory=dict)
+
+
+class CapabilityDiscovery:
+    """Discovers and tracks backend capabilities.
+    
+    Allows querying what features are available on each backend.
+    
+    Example:
+        discovery = CapabilityDiscovery()
+        discovery.register_capability("github-models", "streaming", "Stream responses")
+        if discovery.has_capability("github-models", "streaming"):
+            use_streaming()
+    """
+    
+    def __init__(self) -> None:
+        """Initialize capability discovery."""
+        self._capabilities: Dict[str, Dict[str, BackendCapability]] = {}
+    
+    def register_capability(
+        self,
+        backend: str,
+        name: str,
+        description: str = "",
+        enabled: bool = True,
+        parameters: Optional[Dict[str, Any]] = None,
+    ) -> BackendCapability:
+        """Register a backend capability.
+        
+        Args:
+            backend: Backend identifier.
+            name: Capability name.
+            description: Human-readable description.
+            enabled: Whether capability is enabled.
+            parameters: Capability parameters.
+            
+        Returns:
+            BackendCapability: Registered capability.
+        """
+        if backend not in self._capabilities:
+            self._capabilities[backend] = {}
+        
+        capability = BackendCapability(
+            name=name,
+            description=description,
+            enabled=enabled,
+            parameters=parameters or {},
+        )
+        self._capabilities[backend][name] = capability
+        return capability
+    
+    def has_capability(self, backend: str, name: str) -> bool:
+        """Check if backend has capability.
+        
+        Args:
+            backend: Backend identifier.
+            name: Capability name.
+            
+        Returns:
+            bool: True if capability exists and is enabled.
+        """
+        caps = self._capabilities.get(backend, {})
+        cap = caps.get(name)
+        return cap is not None and cap.enabled
+    
+    def get_capabilities(self, backend: str) -> List[BackendCapability]:
+        """Get all capabilities for backend.
+        
+        Args:
+            backend: Backend identifier.
+            
+        Returns:
+            List[BackendCapability]: List of capabilities.
+        """
+        return list(self._capabilities.get(backend, {}).values())
+    
+    def discover_all(self) -> Dict[str, List[str]]:
+        """Discover all capabilities across backends.
+        
+        Returns:
+            Dict[str, List[str]]: Backend -> capability names mapping.
+        """
+        return {
+            backend: [c.name for c in caps.values() if c.enabled]
+            for backend, caps in self._capabilities.items()
+        }
+
+
+# ============================================================================
+# Session 9: Request Replay
+# ============================================================================
+
+
+@dataclass
+class RecordedRequest:
+    """A recorded request for replay."""
+    
+    request_id: str
+    timestamp: float
+    prompt: str
+    backend: str
+    response: Optional[str] = None
+    latency_ms: int = 0
+    success: bool = True
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+class RequestRecorder:
+    """Records and replays requests for debugging and testing.
+    
+    Captures request/response pairs for later replay, enabling
+    offline testing and debugging.
+    
+    Example:
+        recorder = RequestRecorder()
+        recorder.record("prompt", "github-models", "response", latency_ms=150)
+        
+        # Later, replay:
+        for req in recorder.get_recordings():
+            print(f"{req.prompt} -> {req.response}")
+    """
+    
+    def __init__(self, max_recordings: int = 1000) -> None:
+        """Initialize request recorder.
+        
+        Args:
+            max_recordings: Maximum recordings to keep.
+        """
+        self.max_recordings = max_recordings
+        self._recordings: List[RecordedRequest] = []
+        self._lock = threading.Lock()
+    
+    def record(
+        self,
+        prompt: str,
+        backend: str,
+        response: Optional[str] = None,
+        latency_ms: int = 0,
+        success: bool = True,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> RecordedRequest:
+        """Record a request.
+        
+        Args:
+            prompt: Request prompt.
+            backend: Backend used.
+            response: Response received.
+            latency_ms: Request latency.
+            success: Whether request succeeded.
+            metadata: Additional metadata.
+            
+        Returns:
+            RecordedRequest: The recorded request.
+        """
+        recording = RecordedRequest(
+            request_id=str(uuid.uuid4()),
+            timestamp=time.time(),
+            prompt=prompt,
+            backend=backend,
+            response=response,
+            latency_ms=latency_ms,
+            success=success,
+            metadata=metadata or {},
+        )
+        
+        with self._lock:
+            self._recordings.append(recording)
+            # Trim to max size
+            if len(self._recordings) > self.max_recordings:
+                self._recordings = self._recordings[-self.max_recordings:]
+        
+        return recording
+    
+    def get_recordings(
+        self,
+        backend: Optional[str] = None,
+        success_only: bool = False,
+    ) -> List[RecordedRequest]:
+        """Get recorded requests.
+        
+        Args:
+            backend: Filter by backend.
+            success_only: Only return successful requests.
+            
+        Returns:
+            List[RecordedRequest]: Matching recordings.
+        """
+        with self._lock:
+            recordings = self._recordings.copy()
+        
+        if backend:
+            recordings = [r for r in recordings if r.backend == backend]
+        if success_only:
+            recordings = [r for r in recordings if r.success]
+        
+        return recordings
+    
+    def replay(self, request_id: str) -> Optional[RecordedRequest]:
+        """Get recording by ID for replay.
+        
+        Args:
+            request_id: Recording ID.
+            
+        Returns:
+            Optional[RecordedRequest]: Recording or None.
+        """
+        with self._lock:
+            for recording in self._recordings:
+                if recording.request_id == request_id:
+                    return recording
+        return None
+    
+    def export_recordings(self) -> str:
+        """Export recordings as JSON.
+        
+        Returns:
+            str: JSON string of recordings.
+        """
+        with self._lock:
+            data = [
+                {
+                    "request_id": r.request_id,
+                    "timestamp": r.timestamp,
+                    "prompt": r.prompt,
+                    "backend": r.backend,
+                    "response": r.response,
+                    "latency_ms": r.latency_ms,
+                    "success": r.success,
+                    "metadata": r.metadata,
+                }
+                for r in self._recordings
+            ]
+        return json.dumps(data, indent=2)
+    
+    def clear(self) -> int:
+        """Clear all recordings.
+        
+        Returns:
+            int: Number of recordings cleared.
+        """
+        with self._lock:
+            count = len(self._recordings)
+            self._recordings.clear()
+        return count
+
+
+# ============================================================================
+# Session 9: Configuration Hot-Reloading
+# ============================================================================
+
+
+class ConfigHotReloader:
+    """Hot-reloads backend configuration without restart.
+    
+    Monitors configuration sources and applies changes dynamically.
+    
+    Example:
+        reloader = ConfigHotReloader()
+        reloader.set_config("timeout_s", 60)
+        reloader.watch_env("DV_AGENT_TIMEOUT")
+        
+        # Config changes take effect immediately
+        print(reloader.get_config("timeout_s"))
+    """
+    
+    def __init__(self) -> None:
+        """Initialize config hot reloader."""
+        self._config: Dict[str, Any] = {}
+        self._env_watches: Dict[str, str] = {}  # config_key -> env_var
+        self._callbacks: List[Callable[[str, Any], None]] = []
+        self._lock = threading.Lock()
+        self._last_reload = time.time()
+    
+    def set_config(self, key: str, value: Any) -> None:
+        """Set configuration value.
+        
+        Args:
+            key: Configuration key.
+            value: Configuration value.
+        """
+        with self._lock:
+            old_value = self._config.get(key)
+            self._config[key] = value
+            
+            if old_value != value:
+                for callback in self._callbacks:
+                    try:
+                        callback(key, value)
+                    except Exception as e:
+                        logging.warning(f"Config callback error: {e}")
+    
+    def get_config(self, key: str, default: Any = None) -> Any:
+        """Get configuration value.
+        
+        Args:
+            key: Configuration key.
+            default: Default if not found.
+            
+        Returns:
+            Any: Configuration value.
+        """
+        self._check_env_changes()
+        
+        with self._lock:
+            return self._config.get(key, default)
+    
+    def watch_env(self, env_var: str, config_key: Optional[str] = None) -> None:
+        """Watch environment variable for changes.
+        
+        Args:
+            env_var: Environment variable name.
+            config_key: Config key to update (defaults to env_var).
+        """
+        with self._lock:
+            self._env_watches[config_key or env_var] = env_var
+        
+        # Load initial value
+        value = os.environ.get(env_var)
+        if value is not None:
+            self.set_config(config_key or env_var, value)
+    
+    def _check_env_changes(self) -> None:
+        """Check for environment variable changes."""
+        with self._lock:
+            for config_key, env_var in self._env_watches.items():
+                env_value = os.environ.get(env_var)
+                if env_value is not None and self._config.get(config_key) != env_value:
+                    self._config[config_key] = env_value
+                    logging.debug(f"Config hot-reloaded: {config_key} from {env_var}")
+    
+    def on_change(self, callback: Callable[[str, Any], None]) -> None:
+        """Register callback for config changes.
+        
+        Args:
+            callback: Function(key, value) called on changes.
+        """
+        with self._lock:
+            self._callbacks.append(callback)
+    
+    def reload_all(self) -> int:
+        """Force reload all watched configs.
+        
+        Returns:
+            int: Number of configs reloaded.
+        """
+        count = 0
+        with self._lock:
+            for config_key, env_var in self._env_watches.items():
+                env_value = os.environ.get(env_var)
+                if env_value is not None:
+                    self._config[config_key] = env_value
+                    count += 1
+            self._last_reload = time.time()
+        return count
+
+
+# ============================================================================
+# Session 9: Request Compression
+# ============================================================================
+
+
+class RequestCompressor:
+    """Compresses and decompresses request payloads.
+    
+    Reduces payload size for large prompts, improving network efficiency.
+    
+    Example:
+        compressor = RequestCompressor()
+        compressed = compressor.compress("large prompt text...")
+        original = compressor.decompress(compressed)
+    """
+    
+    def __init__(self, compression_level: int = 6) -> None:
+        """Initialize request compressor.
+        
+        Args:
+            compression_level: Compression level (1-9, default 6).
+        """
+        import zlib
+        self._zlib = zlib
+        self.compression_level = compression_level
+        self._stats = {
+            "compressed_count": 0,
+            "decompressed_count": 0,
+            "bytes_saved": 0,
+        }
+    
+    def compress(self, data: str, threshold: int = 1000) -> bytes:
+        """Compress data if above threshold.
+        
+        Args:
+            data: String data to compress.
+            threshold: Minimum size to compress.
+            
+        Returns:
+            bytes: Compressed data with header byte.
+        """
+        encoded = data.encode("utf-8")
+        
+        if len(encoded) < threshold:
+            # Return with 0x00 header indicating uncompressed
+            return b"\x00" + encoded
+        
+        compressed = self._zlib.compress(encoded, self.compression_level)
+        
+        # Only use compression if it actually saves space
+        if len(compressed) < len(encoded):
+            self._stats["compressed_count"] += 1
+            self._stats["bytes_saved"] += len(encoded) - len(compressed)
+            # Return with 0x01 header indicating compressed
+            return b"\x01" + compressed
+        
+        return b"\x00" + encoded
+    
+    def decompress(self, data: bytes) -> str:
+        """Decompress data.
+        
+        Args:
+            data: Compressed data with header byte.
+            
+        Returns:
+            str: Decompressed string.
+        """
+        if not data:
+            return ""
+        
+        header = data[0]
+        payload = data[1:]
+        
+        if header == 0x01:
+            # Compressed
+            self._stats["decompressed_count"] += 1
+            return self._zlib.decompress(payload).decode("utf-8")
+        
+        # Uncompressed
+        return payload.decode("utf-8")
+    
+    def get_stats(self) -> Dict[str, int]:
+        """Get compression statistics."""
+        return dict(self._stats)
+
+
+# ============================================================================
+# Session 9: Backend Analytics and Usage Reporting
+# ============================================================================
+
+
+@dataclass
+class UsageRecord:
+    """A usage record for analytics."""
+    
+    timestamp: float
+    backend: str
+    tokens_used: int
+    latency_ms: int
+    success: bool
+    cost_estimate: float = 0.0
+
+
+class BackendAnalytics:
+    """Collects and reports backend usage analytics.
+    
+    Tracks usage patterns, performance metrics, and costs.
+    
+    Example:
+        analytics = BackendAnalytics()
+        analytics.record_usage("github-models", tokens=500, latency_ms=150)
+        
+        report = analytics.generate_report()
+        print(report["total_tokens"])
+    """
+    
+    def __init__(self, retention_hours: int = 24) -> None:
+        """Initialize backend analytics.
+        
+        Args:
+            retention_hours: Hours to retain records.
+        """
+        self.retention_hours = retention_hours
+        self._records: List[UsageRecord] = []
+        self._lock = threading.Lock()
+    
+    def record_usage(
+        self,
+        backend: str,
+        tokens: int = 0,
+        latency_ms: int = 0,
+        success: bool = True,
+        cost_estimate: float = 0.0,
+    ) -> UsageRecord:
+        """Record a usage event.
+        
+        Args:
+            backend: Backend used.
+            tokens: Tokens consumed.
+            latency_ms: Request latency.
+            success: Whether successful.
+            cost_estimate: Estimated cost.
+            
+        Returns:
+            UsageRecord: The recorded usage.
+        """
+        record = UsageRecord(
+            timestamp=time.time(),
+            backend=backend,
+            tokens_used=tokens,
+            latency_ms=latency_ms,
+            success=success,
+            cost_estimate=cost_estimate,
+        )
+        
+        with self._lock:
+            self._records.append(record)
+            self._cleanup_old_records()
+        
+        return record
+    
+    def _cleanup_old_records(self) -> None:
+        """Remove records older than retention period."""
+        cutoff = time.time() - (self.retention_hours * 3600)
+        self._records = [r for r in self._records if r.timestamp >= cutoff]
+    
+    def generate_report(self, backend: Optional[str] = None) -> Dict[str, Any]:
+        """Generate usage report.
+        
+        Args:
+            backend: Filter by backend (optional).
+            
+        Returns:
+            Dict[str, Any]: Usage report.
+        """
+        with self._lock:
+            records = self._records.copy()
+        
+        if backend:
+            records = [r for r in records if r.backend == backend]
+        
+        if not records:
+            return {
+                "total_requests": 0,
+                "total_tokens": 0,
+                "total_cost": 0.0,
+                "success_rate": 0.0,
+                "avg_latency_ms": 0.0,
+            }
+        
+        total_requests = len(records)
+        total_tokens = sum(r.tokens_used for r in records)
+        total_cost = sum(r.cost_estimate for r in records)
+        successes = sum(1 for r in records if r.success)
+        success_rate = successes / total_requests if total_requests > 0 else 0.0
+        avg_latency = sum(r.latency_ms for r in records) / total_requests
+        
+        return {
+            "total_requests": total_requests,
+            "total_tokens": total_tokens,
+            "total_cost": total_cost,
+            "success_rate": success_rate,
+            "avg_latency_ms": avg_latency,
+            "by_backend": self._group_by_backend(records),
+        }
+    
+    def _group_by_backend(self, records: List[UsageRecord]) -> Dict[str, Dict[str, Any]]:
+        """Group records by backend."""
+        by_backend: Dict[str, List[UsageRecord]] = {}
+        for r in records:
+            if r.backend not in by_backend:
+                by_backend[r.backend] = []
+            by_backend[r.backend].append(r)
+        
+        return {
+            backend: {
+                "requests": len(recs),
+                "tokens": sum(r.tokens_used for r in recs),
+                "avg_latency_ms": sum(r.latency_ms for r in recs) / len(recs) if recs else 0,
+            }
+            for backend, recs in by_backend.items()
+        }
+
+
+# ============================================================================
+# Session 9: Connection Pooling
+# ============================================================================
+
+
+class ConnectionPool:
+    """Manages a pool of reusable connections.
+    
+    Reduces connection overhead by reusing connections across requests.
+    
+    Example:
+        pool = ConnectionPool(max_connections=10)
+        conn = pool.acquire("github-models")
+        try:
+            # Use connection
+            pass
+        finally:
+            pool.release("github-models", conn)
+    """
+    
+    def __init__(self, max_connections: int = 10, timeout_s: float = 30.0) -> None:
+        """Initialize connection pool.
+        
+        Args:
+            max_connections: Maximum connections per backend.
+            timeout_s: Connection timeout.
+        """
+        self.max_connections = max_connections
+        self.timeout_s = timeout_s
+        self._pools: Dict[str, List[Any]] = {}
+        self._in_use: Dict[str, int] = {}
+        self._lock = threading.Lock()
+    
+    def acquire(self, backend: str) -> Any:
+        """Acquire a connection from pool.
+        
+        Args:
+            backend: Backend identifier.
+            
+        Returns:
+            Any: Connection object (placeholder for actual implementation).
+        """
+        with self._lock:
+            if backend not in self._pools:
+                self._pools[backend] = []
+                self._in_use[backend] = 0
+            
+            pool = self._pools[backend]
+            
+            if pool:
+                # Reuse existing connection
+                conn = pool.pop()
+                self._in_use[backend] += 1
+                return conn
+            
+            if self._in_use[backend] < self.max_connections:
+                # Create new connection
+                conn = self._create_connection(backend)
+                self._in_use[backend] += 1
+                return conn
+            
+            # Pool exhausted
+            logging.warning(f"Connection pool exhausted for {backend}")
+            return None
+    
+    def release(self, backend: str, connection: Any) -> None:
+        """Release connection back to pool.
+        
+        Args:
+            backend: Backend identifier.
+            connection: Connection to release.
+        """
+        with self._lock:
+            if backend in self._pools:
+                self._pools[backend].append(connection)
+                self._in_use[backend] = max(0, self._in_use.get(backend, 1) - 1)
+    
+    def _create_connection(self, backend: str) -> Dict[str, Any]:
+        """Create a new connection (placeholder).
+        
+        Args:
+            backend: Backend identifier.
+            
+        Returns:
+            Dict: Connection object placeholder.
+        """
+        return {
+            "backend": backend,
+            "created_at": time.time(),
+            "id": str(uuid.uuid4()),
+        }
+    
+    def get_stats(self) -> Dict[str, Dict[str, int]]:
+        """Get pool statistics.
+        
+        Returns:
+            Dict: Pool stats by backend.
+        """
+        with self._lock:
+            return {
+                backend: {
+                    "available": len(pool),
+                    "in_use": self._in_use.get(backend, 0),
+                    "max": self.max_connections,
+                }
+                for backend, pool in self._pools.items()
+            }
+    
+    def close_all(self) -> int:
+        """Close all connections.
+        
+        Returns:
+            int: Number of connections closed.
+        """
+        with self._lock:
+            count = sum(len(pool) for pool in self._pools.values())
+            self._pools.clear()
+            self._in_use.clear()
+        return count
+
+
+# ============================================================================
+# Session 9: Request Throttling
+# ============================================================================
+
+
+class RequestThrottler:
+    """Throttles requests to prevent overloading backends.
+    
+    Implements token bucket algorithm for rate limiting.
+    
+    Example:
+        throttler = RequestThrottler(requests_per_second=10)
+        if throttler.allow_request("github-models"):
+            make_request()
+        else:
+            wait_or_queue()
+    """
+    
+    def __init__(
+        self,
+        requests_per_second: float = 10.0,
+        burst_size: int = 20,
+    ) -> None:
+        """Initialize request throttler.
+        
+        Args:
+            requests_per_second: Sustained request rate.
+            burst_size: Maximum burst size.
+        """
+        self.requests_per_second = requests_per_second
+        self.burst_size = burst_size
+        self._buckets: Dict[str, float] = {}  # backend -> tokens
+        self._last_update: Dict[str, float] = {}
+        self._lock = threading.Lock()
+    
+    def allow_request(self, backend: str) -> bool:
+        """Check if request is allowed.
+        
+        Args:
+            backend: Backend identifier.
+            
+        Returns:
+            bool: True if request is allowed.
+        """
+        with self._lock:
+            now = time.time()
+            
+            # Initialize bucket if needed
+            if backend not in self._buckets:
+                self._buckets[backend] = float(self.burst_size)
+                self._last_update[backend] = now
+            
+            # Replenish tokens
+            elapsed = now - self._last_update[backend]
+            self._buckets[backend] = min(
+                self.burst_size,
+                self._buckets[backend] + elapsed * self.requests_per_second
+            )
+            self._last_update[backend] = now
+            
+            # Check if token available
+            if self._buckets[backend] >= 1.0:
+                self._buckets[backend] -= 1.0
+                return True
+            
+            return False
+    
+    def wait_for_token(self, backend: str, timeout: float = 10.0) -> bool:
+        """Wait for a token to become available.
+        
+        Args:
+            backend: Backend identifier.
+            timeout: Maximum wait time.
+            
+        Returns:
+            bool: True if token acquired.
+        """
+        start = time.time()
+        
+        while time.time() - start < timeout:
+            if self.allow_request(backend):
+                return True
+            time.sleep(0.1)
+        
+        return False
+    
+    def get_status(self, backend: str) -> Dict[str, Any]:
+        """Get throttle status for backend.
+        
+        Args:
+            backend: Backend identifier.
+            
+        Returns:
+            Dict: Throttle status.
+        """
+        with self._lock:
+            tokens = self._buckets.get(backend, self.burst_size)
+            return {
+                "available_tokens": tokens,
+                "max_tokens": self.burst_size,
+                "requests_per_second": self.requests_per_second,
+            }
+
+
+# ============================================================================
+# Session 9: Response Caching with TTL
+# ============================================================================
+
+
+@dataclass
+class CachedResponse:
+    """A cached response with expiration."""
+    
+    content: str
+    created_at: float
+    expires_at: float
+    hit_count: int = 0
+
+
+class TTLCache:
+    """Cache with time-to-live expiration.
+    
+    Caches responses with configurable TTL, automatically expiring stale entries.
+    
+    Example:
+        cache = TTLCache(default_ttl_seconds=300)
+        cache.set("key", "value")
+        
+        result = cache.get("key")  # Returns "value" if not expired
+    """
+    
+    def __init__(
+        self,
+        default_ttl_seconds: float = 300.0,
+        max_entries: int = 1000,
+    ) -> None:
+        """Initialize TTL cache.
+        
+        Args:
+            default_ttl_seconds: Default TTL for entries.
+            max_entries: Maximum cache entries.
+        """
+        self.default_ttl_seconds = default_ttl_seconds
+        self.max_entries = max_entries
+        self._cache: Dict[str, CachedResponse] = {}
+        self._lock = threading.Lock()
+    
+    def set(
+        self,
+        key: str,
+        value: str,
+        ttl_seconds: Optional[float] = None,
+    ) -> None:
+        """Set cache entry.
+        
+        Args:
+            key: Cache key.
+            value: Value to cache.
+            ttl_seconds: Optional custom TTL.
+        """
+        now = time.time()
+        ttl = ttl_seconds if ttl_seconds is not None else self.default_ttl_seconds
+        
+        with self._lock:
+            # Cleanup if at max capacity
+            if len(self._cache) >= self.max_entries:
+                self._cleanup_expired()
+            
+            self._cache[key] = CachedResponse(
+                content=value,
+                created_at=now,
+                expires_at=now + ttl,
+            )
+    
+    def get(self, key: str) -> Optional[str]:
+        """Get cache entry if not expired.
+        
+        Args:
+            key: Cache key.
+            
+        Returns:
+            Optional[str]: Cached value or None.
+        """
+        with self._lock:
+            entry = self._cache.get(key)
+            if not entry:
+                return None
+            
+            if time.time() > entry.expires_at:
+                del self._cache[key]
+                return None
+            
+            entry.hit_count += 1
+            return entry.content
+    
+    def _cleanup_expired(self) -> int:
+        """Remove expired entries.
+        
+        Returns:
+            int: Number of entries removed.
+        """
+        now = time.time()
+        expired = [k for k, v in self._cache.items() if now > v.expires_at]
+        for key in expired:
+            del self._cache[key]
+        return len(expired)
+    
+    def invalidate(self, key: str) -> bool:
+        """Invalidate cache entry.
+        
+        Args:
+            key: Cache key.
+            
+        Returns:
+            bool: True if entry was removed.
+        """
+        with self._lock:
+            if key in self._cache:
+                del self._cache[key]
+                return True
+            return False
+    
+    def clear(self) -> int:
+        """Clear all cache entries.
+        
+        Returns:
+            int: Number of entries cleared.
+        """
+        with self._lock:
+            count = len(self._cache)
+            self._cache.clear()
+        return count
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get cache statistics.
+        
+        Returns:
+            Dict: Cache stats.
+        """
+        with self._lock:
+            total_hits = sum(e.hit_count for e in self._cache.values())
+            return {
+                "entries": len(self._cache),
+                "max_entries": self.max_entries,
+                "total_hits": total_hits,
+                "default_ttl_seconds": self.default_ttl_seconds,
+            }
+
+
+# ============================================================================
+# Session 9: Backend A/B Testing
+# ============================================================================
+
+
+@dataclass
+class ABTestVariant:
+    """A variant in an A/B test."""
+    
+    name: str
+    backend: str
+    weight: float = 0.5
+    metrics: Dict[str, float] = field(default_factory=dict)
+    sample_count: int = 0
+
+
+class ABTester:
+    """Conducts A/B tests across backends.
+    
+    Enables comparing performance between different backends or configurations.
+    
+    Example:
+        tester = ABTester()
+        tester.create_test("latency_test", "backend_a", "backend_b")
+        
+        # For each request:
+        variant = tester.assign_variant("latency_test", user_id="user123")
+        # Use variant.backend for request
+        
+        # Record result:
+        tester.record_result("latency_test", variant.name, latency_ms=150)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize A/B tester."""
+        self._tests: Dict[str, Dict[str, ABTestVariant]] = {}
+        self._assignments: Dict[str, Dict[str, str]] = {}  # test -> user -> variant
+        self._lock = threading.Lock()
+    
+    def create_test(
+        self,
+        test_name: str,
+        backend_a: str,
+        backend_b: str,
+        weight_a: float = 0.5,
+    ) -> Tuple[ABTestVariant, ABTestVariant]:
+        """Create an A/B test.
+        
+        Args:
+            test_name: Test identifier.
+            backend_a: First backend.
+            backend_b: Second backend.
+            weight_a: Weight for variant A (0-1).
+            
+        Returns:
+            Tuple[ABTestVariant, ABTestVariant]: The two variants.
+        """
+        variant_a = ABTestVariant(
+            name="A",
+            backend=backend_a,
+            weight=weight_a,
+        )
+        variant_b = ABTestVariant(
+            name="B",
+            backend=backend_b,
+            weight=1.0 - weight_a,
+        )
+        
+        with self._lock:
+            self._tests[test_name] = {
+                "A": variant_a,
+                "B": variant_b,
+            }
+            self._assignments[test_name] = {}
+        
+        return variant_a, variant_b
+    
+    def assign_variant(
+        self,
+        test_name: str,
+        user_id: str,
+    ) -> Optional[ABTestVariant]:
+        """Assign user to a variant.
+        
+        Args:
+            test_name: Test identifier.
+            user_id: User identifier.
+            
+        Returns:
+            Optional[ABTestVariant]: Assigned variant or None.
+        """
+        with self._lock:
+            test = self._tests.get(test_name)
+            if not test:
+                return None
+            
+            # Check existing assignment
+            if user_id in self._assignments.get(test_name, {}):
+                variant_name = self._assignments[test_name][user_id]
+                return test.get(variant_name)
+            
+            # Assign based on weights
+            import random
+            variant_a = test["A"]
+            if random.random() < variant_a.weight:
+                variant_name = "A"
+            else:
+                variant_name = "B"
+            
+            self._assignments[test_name][user_id] = variant_name
+            return test[variant_name]
+    
+    def record_result(
+        self,
+        test_name: str,
+        variant_name: str,
+        **metrics: float,
+    ) -> None:
+        """Record test result for a variant.
+        
+        Args:
+            test_name: Test identifier.
+            variant_name: Variant name ("A" or "B").
+            **metrics: Metric values to record.
+        """
+        with self._lock:
+            test = self._tests.get(test_name)
+            if not test or variant_name not in test:
+                return
+            
+            variant = test[variant_name]
+            variant.sample_count += 1
+            
+            for metric, value in metrics.items():
+                # Running average
+                if metric not in variant.metrics:
+                    variant.metrics[metric] = value
+                else:
+                    n = variant.sample_count
+                    variant.metrics[metric] = (
+                        variant.metrics[metric] * (n - 1) + value
+                    ) / n
+    
+    def get_results(self, test_name: str) -> Optional[Dict[str, Any]]:
+        """Get test results.
+        
+        Args:
+            test_name: Test identifier.
+            
+        Returns:
+            Optional[Dict]: Test results or None.
+        """
+        with self._lock:
+            test = self._tests.get(test_name)
+            if not test:
+                return None
+            
+            return {
+                "test_name": test_name,
+                "variants": {
+                    name: {
+                        "backend": v.backend,
+                        "weight": v.weight,
+                        "sample_count": v.sample_count,
+                        "metrics": dict(v.metrics),
+                    }
+                    for name, v in test.items()
+                },
+            }
+    
+    def get_winner(
+        self,
+        test_name: str,
+        metric: str,
+        higher_is_better: bool = True,
+    ) -> Optional[str]:
+        """Determine winning variant.
+        
+        Args:
+            test_name: Test identifier.
+            metric: Metric to compare.
+            higher_is_better: Whether higher metric values are better.
+            
+        Returns:
+            Optional[str]: Winning variant name or None.
+        """
+        with self._lock:
+            test = self._tests.get(test_name)
+            if not test:
+                return None
+            
+            best_name: Optional[str] = None
+            best_value: Optional[float] = None
+            
+            for name, variant in test.items():
+                value = variant.metrics.get(metric)
+                if value is None:
+                    continue
+                
+                if best_value is None:
+                    best_name = name
+                    best_value = value
+                elif higher_is_better and value > best_value:
+                    best_name = name
+                    best_value = value
+                elif not higher_is_better and value < best_value:
+                    best_name = name
+                    best_value = value
+            
+            return best_name

@@ -1326,3 +1326,566 @@ class TestTestResourceAllocation:
         assert r2 is None  # No resource available
 
 
+# =============================================================================
+# Session 9: Parameterized Test Generator Tests
+# =============================================================================
+
+
+class TestParameterizedTestGenerator:
+    """Tests for ParameterizedTestGenerator class."""
+
+    def test_generator_init(self, utils_module: Any) -> None:
+        """Test ParameterizedTestGenerator initialization."""
+        ParameterizedTestGenerator = utils_module.ParameterizedTestGenerator
+        
+        gen = ParameterizedTestGenerator(test_name="my_test")
+        assert gen.test_name == "my_test"
+
+    def test_add_parameter(self, utils_module: Any) -> None:
+        """Test adding parameters."""
+        ParameterizedTestGenerator = utils_module.ParameterizedTestGenerator
+        
+        gen = ParameterizedTestGenerator()
+        result = gen.add_parameter("size", [1, 2, 3])
+        
+        assert result is gen  # Returns self for chaining
+        assert "size" in gen._parameters
+
+    def test_generate_cases(self, utils_module: Any) -> None:
+        """Test generating test cases."""
+        ParameterizedTestGenerator = utils_module.ParameterizedTestGenerator
+        
+        gen = ParameterizedTestGenerator()
+        gen.add_parameter("size", [1, 2])
+        gen.add_parameter("mode", ["a", "b"])
+        
+        cases = gen.generate_cases()
+        
+        assert len(cases) == 4  # 2 * 2 combinations
+
+    def test_generate_with_expected_fn(self, utils_module: Any) -> None:
+        """Test generating with expected function."""
+        ParameterizedTestGenerator = utils_module.ParameterizedTestGenerator
+        
+        gen = ParameterizedTestGenerator()
+        gen.add_parameter("x", [1, 2])
+        gen.set_expected_fn(lambda p: p["x"] * 2)
+        
+        cases = gen.generate_cases()
+        
+        assert cases[0].expected == 2
+        assert cases[1].expected == 4
+
+
+# =============================================================================
+# Session 9: Dependency Container Tests
+# =============================================================================
+
+
+class TestDependencyContainer:
+    """Tests for DependencyContainer class."""
+
+    def test_container_init(self, utils_module: Any) -> None:
+        """Test DependencyContainer initialization."""
+        DependencyContainer = utils_module.DependencyContainer
+        
+        container = DependencyContainer()
+        assert container._dependencies == {}
+
+    def test_register_and_resolve(self, utils_module: Any) -> None:
+        """Test registering and resolving dependency."""
+        DependencyContainer = utils_module.DependencyContainer
+        
+        container = DependencyContainer()
+        container.register("db", "mock_db")
+        
+        assert container.resolve("db") == "mock_db"
+
+    def test_register_factory(self, utils_module: Any) -> None:
+        """Test registering factory."""
+        DependencyContainer = utils_module.DependencyContainer
+        
+        container = DependencyContainer()
+        container.register_factory("counter", lambda: {"count": 0})
+        
+        result = container.resolve("counter")
+        assert result == {"count": 0}
+
+    def test_singleton_factory(self, utils_module: Any) -> None:
+        """Test singleton factory returns same instance."""
+        DependencyContainer = utils_module.DependencyContainer
+        
+        container = DependencyContainer()
+        container.register_factory("singleton", lambda: object(), singleton=True)
+        
+        r1 = container.resolve("singleton")
+        r2 = container.resolve("singleton")
+        
+        assert r1 is r2
+
+    def test_resolve_not_found(self, utils_module: Any) -> None:
+        """Test resolving unknown dependency raises KeyError."""
+        DependencyContainer = utils_module.DependencyContainer
+        
+        container = DependencyContainer()
+        
+        with pytest.raises(KeyError):
+            container.resolve("unknown")
+
+
+# =============================================================================
+# Session 9: Flakiness Detector Tests
+# =============================================================================
+
+
+class TestFlakinessDetector:
+    """Tests for FlakinessDetector class."""
+
+    def test_detector_init(self, utils_module: Any) -> None:
+        """Test FlakinessDetector initialization."""
+        FlakinessDetector = utils_module.FlakinessDetector
+        
+        detector = FlakinessDetector(default_runs=10)
+        assert detector.default_runs == 10
+
+    def test_analyze_stable_test(self, utils_module: Any) -> None:
+        """Test analyzing stable test."""
+        FlakinessDetector = utils_module.FlakinessDetector
+        
+        detector = FlakinessDetector()
+        
+        def stable_test():
+            pass
+        
+        report = detector.analyze(stable_test, runs=5)
+        
+        assert report.passes == 5
+        assert report.failures == 0
+        assert report.flakiness_score == 0.0
+
+    def test_analyze_failing_test(self, utils_module: Any) -> None:
+        """Test analyzing always-failing test."""
+        FlakinessDetector = utils_module.FlakinessDetector
+        
+        detector = FlakinessDetector()
+        
+        def failing_test():
+            raise AssertionError("Always fails")
+        
+        report = detector.analyze(failing_test, runs=5)
+        
+        assert report.passes == 0
+        assert report.failures == 5
+        assert report.flakiness_score == 0.0  # Consistently failing
+
+    def test_get_flaky_tests(self, utils_module: Any) -> None:
+        """Test getting flaky tests."""
+        FlakinessDetector = utils_module.FlakinessDetector
+        
+        detector = FlakinessDetector()
+        
+        # Run a stable test
+        detector.analyze(lambda: None, runs=5, test_name="stable")
+        
+        flaky = detector.get_flaky_tests(threshold=0.1)
+        assert "stable" not in flaky
+
+
+# =============================================================================
+# Session 9: Test Data Cleaner Tests
+# =============================================================================
+
+
+class TestTestDataCleaner:
+    """Tests for TestDataCleaner class."""
+
+    def test_cleaner_init(self, utils_module: Any) -> None:
+        """Test TestDataCleaner initialization."""
+        TestDataCleaner = utils_module.TestDataCleaner
+        CleanupStrategy = utils_module.CleanupStrategy
+        
+        cleaner = TestDataCleaner(strategy=CleanupStrategy.DEFERRED)
+        assert cleaner.strategy == CleanupStrategy.DEFERRED
+
+    def test_register_and_cleanup_file(self, utils_module: Any, tmp_path) -> None:
+        """Test registering and cleaning file."""
+        TestDataCleaner = utils_module.TestDataCleaner
+        
+        test_file = tmp_path / "test.txt"
+        test_file.write_text("test")
+        
+        cleaner = TestDataCleaner()
+        cleaner.register_file(test_file)
+        cleaned = cleaner.cleanup_all()
+        
+        assert cleaned == 1
+        assert not test_file.exists()
+
+    def test_register_callback(self, utils_module: Any) -> None:
+        """Test registering cleanup callback."""
+        TestDataCleaner = utils_module.TestDataCleaner
+        
+        cleaner = TestDataCleaner()
+        callback_called = [False]
+        cleaner.register_callback(lambda: callback_called.__setitem__(0, True))
+        
+        cleaner.cleanup_all()
+        
+        assert callback_called[0]
+
+    def test_context_manager(self, utils_module: Any, tmp_path) -> None:
+        """Test context manager behavior."""
+        TestDataCleaner = utils_module.TestDataCleaner
+        CleanupStrategy = utils_module.CleanupStrategy
+        
+        test_file = tmp_path / "ctx_test.txt"
+        test_file.write_text("test")
+        
+        with TestDataCleaner(strategy=CleanupStrategy.IMMEDIATE) as cleaner:
+            cleaner.register_file(test_file)
+        
+        assert not test_file.exists()
+
+
+# =============================================================================
+# Session 9: Cross-Platform Helper Tests
+# =============================================================================
+
+
+class TestCrossPlatformHelper:
+    """Tests for CrossPlatformHelper class."""
+
+    def test_helper_init(self, utils_module: Any) -> None:
+        """Test CrossPlatformHelper initialization."""
+        CrossPlatformHelper = utils_module.CrossPlatformHelper
+        
+        helper = CrossPlatformHelper()
+        assert helper._platform is not None
+
+    def test_platform_detection(self, utils_module: Any) -> None:
+        """Test platform detection methods."""
+        CrossPlatformHelper = utils_module.CrossPlatformHelper
+        
+        helper = CrossPlatformHelper()
+        
+        # At least one should be True
+        is_known = helper.is_windows() or helper.is_linux() or helper.is_macos()
+        assert is_known
+
+    def test_normalize_path(self, utils_module: Any) -> None:
+        """Test path normalization."""
+        CrossPlatformHelper = utils_module.CrossPlatformHelper
+        
+        helper = CrossPlatformHelper()
+        path = helper.normalize_path("./test")
+        
+        assert path.is_absolute()
+
+    def test_normalize_line_endings(self, utils_module: Any) -> None:
+        """Test line ending normalization."""
+        CrossPlatformHelper = utils_module.CrossPlatformHelper
+        
+        helper = CrossPlatformHelper()
+        content = "line1\r\nline2\rline3\n"
+        normalized = helper.normalize_line_endings(content)
+        
+        # Should not have mixed line endings
+        assert "\r\n" not in normalized or "\n" not in normalized.replace("\r\n", "")
+
+
+# =============================================================================
+# Session 9: Test Logger Tests
+# =============================================================================
+
+
+class TestTestLogger:
+    """Tests for TestLogger class."""
+
+    def test_logger_init(self, utils_module: Any) -> None:
+        """Test TestLogger initialization."""
+        TestLogger = utils_module.TestLogger
+        
+        logger = TestLogger()
+        assert logger._logs == {}
+
+    def test_capture_logs(self, utils_module: Any) -> None:
+        """Test capturing logs."""
+        TestLogger = utils_module.TestLogger
+        
+        logger = TestLogger()
+        
+        with logger.capture("test1"):
+            logger.info("Test message")
+            logger.debug("Debug message")
+        
+        logs = logger.get_logs("test1")
+        assert len(logs) == 2
+
+    def test_log_levels(self, utils_module: Any) -> None:
+        """Test different log levels."""
+        TestLogger = utils_module.TestLogger
+        
+        logger = TestLogger()
+        
+        with logger.capture("levels"):
+            logger.debug("d")
+            logger.info("i")
+            logger.warning("w")
+            logger.error("e")
+        
+        logs = logger.get_logs("levels")
+        levels = [l.level for l in logs]
+        
+        assert "DEBUG" in levels
+        assert "INFO" in levels
+        assert "WARNING" in levels
+        assert "ERROR" in levels
+
+    def test_get_errors(self, utils_module: Any) -> None:
+        """Test getting only error logs."""
+        TestLogger = utils_module.TestLogger
+        
+        logger = TestLogger()
+        
+        with logger.capture("errors"):
+            logger.info("info")
+            logger.error("error1")
+            logger.error("error2")
+        
+        errors = logger.get_errors("errors")
+        assert len(errors) == 2
+
+
+# =============================================================================
+# Session 9: Parallel Test Runner Tests
+# =============================================================================
+
+
+class TestParallelTestRunner:
+    """Tests for ParallelTestRunner class."""
+
+    def test_runner_init(self, utils_module: Any) -> None:
+        """Test ParallelTestRunner initialization."""
+        ParallelTestRunner = utils_module.ParallelTestRunner
+        
+        runner = ParallelTestRunner(workers=4)
+        assert runner.workers == 4
+
+    def test_add_and_run_tests(self, utils_module: Any) -> None:
+        """Test adding and running tests."""
+        ParallelTestRunner = utils_module.ParallelTestRunner
+        
+        runner = ParallelTestRunner(workers=2)
+        runner.add_test("test1", lambda: None)
+        runner.add_test("test2", lambda: None)
+        
+        results = runner.run_all()
+        
+        assert len(results) == 2
+        assert all(r.passed for r in results)
+
+    def test_run_with_failure(self, utils_module: Any) -> None:
+        """Test running with a failing test."""
+        ParallelTestRunner = utils_module.ParallelTestRunner
+        
+        runner = ParallelTestRunner()
+        runner.add_test("pass", lambda: None)
+        runner.add_test("fail", lambda: (_ for _ in ()).throw(AssertionError("fail")))
+        
+        results = runner.run_all()
+        
+        passed = [r for r in results if r.passed]
+        failed = [r for r in results if not r.passed]
+        
+        assert len(passed) == 1
+        assert len(failed) == 1
+
+    def test_get_summary(self, utils_module: Any) -> None:
+        """Test getting execution summary."""
+        ParallelTestRunner = utils_module.ParallelTestRunner
+        
+        runner = ParallelTestRunner()
+        runner.add_test("t1", lambda: None)
+        runner.add_test("t2", lambda: None)
+        
+        runner.run_all()
+        summary = runner.get_summary()
+        
+        assert summary["total"] == 2
+        assert summary["passed"] == 2
+
+
+# =============================================================================
+# Session 9: Test Recorder Tests
+# =============================================================================
+
+
+class TestTestRecorder:
+    """Tests for TestRecorder class."""
+
+    def test_recorder_init(self, utils_module: Any) -> None:
+        """Test TestRecorder initialization."""
+        TestRecorder = utils_module.TestRecorder
+        
+        recorder = TestRecorder()
+        assert recorder._recordings == []
+
+    def test_record_interaction(self, utils_module: Any) -> None:
+        """Test recording interactions."""
+        TestRecorder = utils_module.TestRecorder
+        
+        recorder = TestRecorder()
+        
+        with recorder.record():
+            recorder.record_interaction("api", "get_data", (), {}, "result")
+        
+        assert len(recorder._recordings) == 1
+
+    def test_replay_interaction(self, utils_module: Any) -> None:
+        """Test replaying interactions."""
+        TestRecorder = utils_module.TestRecorder
+        
+        recorder = TestRecorder()
+        
+        # Record
+        with recorder.record():
+            recorder.record_interaction("api", "call1", (), {}, "result1")
+        
+        # Replay
+        with recorder.replay():
+            result = recorder.get_replay_result("api", "call1")
+        
+        assert result == "result1"
+
+    def test_save_and_load(self, utils_module: Any, tmp_path) -> None:
+        """Test saving and loading recordings."""
+        TestRecorder = utils_module.TestRecorder
+        
+        recorder = TestRecorder()
+        save_path = tmp_path / "recording.json"
+        
+        with recorder.record():
+            recorder.record_interaction("test", "fn", (1, 2), {"k": "v"}, "res")
+        
+        recorder.save(save_path)
+        
+        # New recorder loads
+        recorder2 = TestRecorder()
+        recorder2.load(save_path)
+        
+        assert len(recorder2._recordings) == 1
+
+
+# =============================================================================
+# Session 9: Baseline Manager Tests
+# =============================================================================
+
+
+class TestBaselineManager:
+    """Tests for BaselineManager class."""
+
+    def test_manager_init(self, utils_module: Any, tmp_path) -> None:
+        """Test BaselineManager initialization."""
+        BaselineManager = utils_module.BaselineManager
+        
+        manager = BaselineManager(tmp_path / "baselines")
+        assert manager.baseline_dir.exists()
+
+    def test_save_and_load_baseline(self, utils_module: Any, tmp_path) -> None:
+        """Test saving and loading baseline."""
+        BaselineManager = utils_module.BaselineManager
+        
+        manager = BaselineManager(tmp_path / "baselines")
+        manager.save_baseline("perf", {"latency": 100, "memory": 50})
+        
+        loaded = manager.load_baseline("perf")
+        
+        assert loaded is not None
+        assert loaded.values["latency"] == 100
+        assert loaded.values["memory"] == 50
+
+    def test_compare_no_change(self, utils_module: Any, tmp_path) -> None:
+        """Test comparing with no change."""
+        BaselineManager = utils_module.BaselineManager
+        
+        manager = BaselineManager(tmp_path / "baselines")
+        manager.save_baseline("test", {"value": 100})
+        
+        result = manager.compare("test", {"value": 100})
+        
+        assert result["passed"]
+        assert len(result["diffs"]) == 0
+
+    def test_compare_with_change(self, utils_module: Any, tmp_path) -> None:
+        """Test comparing with significant change."""
+        BaselineManager = utils_module.BaselineManager
+        
+        manager = BaselineManager(tmp_path / "baselines")
+        manager.save_baseline("test", {"value": 100})
+        
+        result = manager.compare("test", {"value": 150}, tolerance=0.1)
+        
+        assert not result["passed"]
+        assert "value" in result["diffs"]
+
+
+# =============================================================================
+# Session 9: Test Profile Manager Tests
+# =============================================================================
+
+
+class TestTestProfileManager:
+    """Tests for TestProfileManager class."""
+
+    def test_manager_init(self, utils_module: Any) -> None:
+        """Test TestProfileManager initialization."""
+        TestProfileManager = utils_module.TestProfileManager
+        
+        manager = TestProfileManager()
+        assert manager._profiles == {}
+
+    def test_add_and_get_profile(self, utils_module: Any) -> None:
+        """Test adding and getting profile."""
+        TestProfileManager = utils_module.TestProfileManager
+        TestProfile = utils_module.TestProfile
+        
+        manager = TestProfileManager()
+        profile = TestProfile(name="ci", settings={"timeout": 60})
+        manager.add_profile(profile)
+        
+        retrieved = manager.get_profile("ci")
+        assert retrieved.settings["timeout"] == 60
+
+    def test_activate_profile(self, utils_module: Any) -> None:
+        """Test activating profile."""
+        TestProfileManager = utils_module.TestProfileManager
+        TestProfile = utils_module.TestProfile
+        
+        manager = TestProfileManager()
+        manager.add_profile(TestProfile("test", settings={"key": "value"}))
+        
+        manager.activate("test")
+        
+        assert manager.get_setting("key") == "value"
+
+    def test_deactivate_profile(self, utils_module: Any) -> None:
+        """Test deactivating profile."""
+        TestProfileManager = utils_module.TestProfileManager
+        TestProfile = utils_module.TestProfile
+        
+        manager = TestProfileManager()
+        manager.add_profile(TestProfile("test", settings={"key": "value"}))
+        
+        manager.activate("test")
+        manager.deactivate()
+        
+        assert manager.get_active_profile() is None
+
+    def test_get_setting_default(self, utils_module: Any) -> None:
+        """Test getting setting with default."""
+        TestProfileManager = utils_module.TestProfileManager
+        
+        manager = TestProfileManager()
+        
+        value = manager.get_setting("nonexistent", default="default")
+        assert value == "default"

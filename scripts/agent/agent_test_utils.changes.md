@@ -2,6 +2,80 @@
 
 - 2025-12-15: Added utilities for legacy agent tests (safe path-loading of agent modules, including hyphenated filenames).
 
+## Session 9 [2025-01-16]
+
+### Added - ParameterizedTestGenerator Class
+- `ParameterizedTestCase` dataclass: name, params, expected, tags
+- `ParameterizedTestGenerator`: Generates test cases from parameter combinations
+- `add_parameter()`: Add parameter with possible values
+- `set_expected_fn()`: Set function to compute expected result
+- `generate_cases()`: Generate all test case combinations
+
+### Added - DependencyContainer Class (Test Dependency Injection)
+- `DependencyContainer`: Container for test dependency injection
+- `register()`: Register a dependency instance
+- `register_factory()`: Register a dependency factory
+- `resolve()`: Resolve a dependency
+- `inject()`: Decorator to inject dependencies into function
+
+### Added - FlakinessDetector Class
+- `FlakinessReport` dataclass: test_name, runs, passes, failures, flakiness_score
+- `FlakinessDetector`: Detects flaky tests through repeated execution
+- `analyze()`: Analyze test for flakiness
+- `get_history()`: Get flakiness history for a test
+- `get_flaky_tests()`: Get tests that exceed flakiness threshold
+
+### Added - TestDataCleaner Class
+- `TestDataCleaner`: Utilities for cleaning up test data
+- `register_path()`: Register directory for cleanup
+- `register_file()`: Register file for cleanup
+- `register_callback()`: Register cleanup callback
+- `cleanup_all()`: Clean up all registered resources
+
+### Added - CrossPlatformHelper Class
+- `CrossPlatformHelper`: Helpers for cross-platform testing
+- `is_windows()`, `is_linux()`, `is_macos()`: Platform checks
+- `normalize_path()`: Normalize path for current platform
+- `normalize_line_endings()`: Normalize line endings
+- `skip_on_platform()`: Check if test should be skipped
+
+### Added - TestLogger Class
+- `TestLogEntry` dataclass: level, message, timestamp, test_name, extra
+- `TestLogger`: Logger for test debugging
+- `debug()`, `info()`, `warning()`, `error()`: Log methods
+- `capture()`: Context manager to capture logs for a test
+- `get_logs()`, `get_errors()`: Retrieve logs
+
+### Added - ParallelTestRunner Class
+- `ParallelTestResult` dataclass: test_name, passed, duration_ms, error, worker_id
+- `ParallelTestRunner`: Helper for parallel test execution
+- `add_test()`: Add test to run
+- `run_all()`: Run all tests in parallel using ThreadPoolExecutor
+- `get_summary()`: Get summary of parallel test execution
+
+### Added - TestRecorder Class
+- `RecordedInteraction` dataclass: call_type, call_name, args, kwargs, result
+- `TestRecorder`: Records and replays test interactions
+- `record_interaction()`: Record an interaction
+- `get_replay_result()`: Get replayed result for a call
+- `record()`, `replay()`: Context managers for modes
+- `save()`, `load()`: Persist recordings to JSON
+
+### Added - BaselineManager Class
+- `TestBaseline` dataclass: name, values, created_at, version
+- `BaselineManager`: Manages test baselines for comparison
+- `save_baseline()`: Save a baseline
+- `load_baseline()`: Load a baseline
+- `compare()`: Compare current values against baseline
+
+### Added - TestProfileManager Class
+- `TestProfile` dataclass: name, settings, env_vars, enabled
+- `TestProfileManager`: Manages test configuration profiles
+- `add_profile()`, `get_profile()`: Profile management
+- `activate()`, `deactivate()`: Profile activation
+- `get_setting()`: Get setting from active profile
+- `get_active_profile()`: Get currently active profile
+
 ## Session 6 [2025-01-13]
 
 ### Added - Type-Safe Enums

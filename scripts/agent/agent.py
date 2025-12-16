@@ -1264,6 +1264,1279 @@ class HealthChecker:
         print()
 
 
+# =============================================================================
+# Agent Chaining
+# =============================================================================
+
+
+@dataclass
+class AgentChainStep:
+    """A step in an agent chain.
+    
+    Attributes:
+        agent_name: Name of the agent to execute.
+        input_transform: Optional function to transform input.
+        output_transform: Optional function to transform output.
+        enabled: Whether this step is enabled.
+        condition: Optional condition function to check before execution.
+    """
+    
+    agent_name: str
+    input_transform: Optional[Callable[[Any], Any]] = None
+    output_transform: Optional[Callable[[Any], Any]] = None
+    enabled: bool = True
+    condition: Optional[Callable[[Any], bool]] = None
+
+
+class AgentChain:
+    """Chain multiple agents for sequential execution.
+    
+    Allows output of one agent to be used as input to the next.
+    
+    Example:
+        chain = AgentChain()
+        chain.add_step("coder", output_transform=extract_code)
+        chain.add_step("tests", input_transform=prepare_for_tests)
+        results = chain.execute(initial_input)
+    """
+    
+    def __init__(self, name: str = "default_chain") -> None:
+        """Initialize agent chain.
+        
+        Args:
+            name: Chain name for identification.
+        """
+        self.name = name
+        self._steps: List[AgentChainStep] = []
+        self._results: List[Dict[str, Any]] = []
+    
+    def add_step(
+        self,
+        agent_name: str,
+        input_transform: Optional[Callable[[Any], Any]] = None,
+        output_transform: Optional[Callable[[Any], Any]] = None,
+        condition: Optional[Callable[[Any], bool]] = None,
+    ) -> "AgentChain":
+        """Add a step to the chain.
+        
+        Args:
+            agent_name: Name of agent to execute.
+            input_transform: Transform input before agent.
+            output_transform: Transform output after agent.
+            condition: Condition to check before execution.
+            
+        Returns:
+            Self for chaining.
+        """
+        step = AgentChainStep(
+            agent_name=agent_name,
+            input_transform=input_transform,
+            output_transform=output_transform,
+            condition=condition,
+        )
+        self._steps.append(step)
+        return self
+    
+    def execute(self, initial_input: Any, agent_executor: Callable[[str, Any], Any]) -> List[Dict[str, Any]]:
+        """Execute the chain.
+        
+        Args:
+            initial_input: Input to first agent.
+            agent_executor: Function to execute an agent.
+            
+        Returns:
+            List of results from each step.
+        """
+        self._results = []
+        current_input = initial_input
+        
+        for step in self._steps:
+            if not step.enabled:
+                continue
+            
+            # Check condition
+            if step.condition and not step.condition(current_input):
+                self._results.append({
+                    "agent": step.agent_name,
+                    "skipped": True,
+                    "reason": "condition not met",
+                })
+                continue
+            
+            # Transform input
+            if step.input_transform:
+                current_input = step.input_transform(current_input)
+            
+            # Execute agent
+            try:
+                output = agent_executor(step.agent_name, current_input)
+                
+                # Transform output
+                if step.output_transform:
+                    output = step.output_transform(output)
+                
+                self._results.append({
+                    "agent": step.agent_name,
+                    "success": True,
+                    "output": output,
+                })
+                
+                current_input = output
+                
+            except Exception as e:
+                self._results.append({
+                    "agent": step.agent_name,
+                    "success": False,
+                    "error": str(e),
+                })
+                break
+        
+        return self._results
+    
+    def get_results(self) -> List[Dict[str, Any]]:
+        """Get results from last execution."""
+        return self._results
+
+
+# =============================================================================
+# Git Branch-Based Processing
+# =============================================================================
+
+
+class GitBranchProcessor:
+    """Process files changed in a specific git branch.
+    
+    Example:
+        processor = GitBranchProcessor(repo_root)
+        changed_files = processor.get_changed_files("feature-branch")
+        for file in changed_files:
+            process(file)
+    """
+    
+    def __init__(self, repo_root: Path) -> None:
+        """Initialize processor.
+        
+        Args:
+            repo_root: Repository root directory.
+        """
+        self.repo_root = repo_root
+    
+    def get_changed_files(
+        self,
+        branch: str,
+        base_branch: str = "main",
+        extensions: Optional[List[str]] = None,
+    ) -> List[Path]:
+        """Get files changed in branch compared to base.
+        
+        Args:
+            branch: Branch to check.
+            base_branch: Base branch for comparison.
+            extensions: File extensions to include (e.g., [".py", ".md"]).
+            
+        Returns:
+            List of changed file paths.
+        """
+        try:
+            result = subprocess.run(
+                ["git", "diff", "--name-only", f"{base_branch}...{branch}"],
+                cwd=self.repo_root,
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            
+            if result.returncode != 0:
+                logging.warning(f"Git diff failed: {result.stderr}")
+                return []
+            
+            files = []
+            for line in result.stdout.strip().split("\n"):
+                if not line:
+                    continue
+                file_path = self.repo_root / line
+                if extensions:
+                    if file_path.suffix in extensions:
+                        files.append(file_path)
+                else:
+                    files.append(file_path)
+            
+            return files
+            
+        except Exception as e:
+            logging.error(f"Error getting branch changes: {e}")
+            return []
+    
+    def get_current_branch(self) -> Optional[str]:
+        """Get current git branch name."""
+        try:
+            result = subprocess.run(
+                ["git", "branch", "--show-current"],
+                cwd=self.repo_root,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            return result.stdout.strip() if result.returncode == 0 else None
+        except Exception:
+            return None
+    
+    def list_branches(self, pattern: Optional[str] = None) -> List[str]:
+        """List branches, optionally filtered by pattern.
+        
+        Args:
+            pattern: Glob pattern to match branch names.
+            
+        Returns:
+            List of branch names.
+        """
+        try:
+            result = subprocess.run(
+                ["git", "branch", "--list", "--format=%(refname:short)"],
+                cwd=self.repo_root,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            
+            if result.returncode != 0:
+                return []
+            
+            branches = result.stdout.strip().split("\n")
+            if pattern:
+                branches = [b for b in branches if fnmatch.fnmatch(b, pattern)]
+            
+            return branches
+            
+        except Exception:
+            return []
+
+
+# =============================================================================
+# Custom Validation Rules
+# =============================================================================
+
+
+@dataclass
+class ValidationRule:
+    """A custom validation rule.
+    
+    Attributes:
+        name: Rule name.
+        file_pattern: Glob pattern for files to apply to.
+        validator: Validation function.
+        error_message: Message on validation failure.
+        severity: Rule severity (error, warning, info).
+    """
+    
+    name: str
+    file_pattern: str
+    validator: Callable[[str, Path], bool]
+    error_message: str = "Validation failed"
+    severity: str = "error"
+
+
+class ValidationRuleManager:
+    """Manage custom validation rules per file type.
+    
+    Example:
+        manager = ValidationRuleManager()
+        manager.add_rule(ValidationRule(
+            name="max_line_length",
+            file_pattern="*.py",
+            validator=lambda content, path: all(len(l) <= 100 for l in content.split("\\n")),
+            error_message="Line too long (>100 chars)",
+        ))
+        results = manager.validate(file_path, content)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize rule manager."""
+        self._rules: Dict[str, ValidationRule] = {}
+    
+    def add_rule(self, rule: ValidationRule) -> None:
+        """Add a validation rule.
+        
+        Args:
+            rule: Rule to add.
+        """
+        self._rules[rule.name] = rule
+    
+    def remove_rule(self, name: str) -> bool:
+        """Remove a rule by name.
+        
+        Args:
+            name: Rule name.
+            
+        Returns:
+            True if removed, False if not found.
+        """
+        if name in self._rules:
+            del self._rules[name]
+            return True
+        return False
+    
+    def validate(self, file_path: Path, content: str) -> List[Dict[str, Any]]:
+        """Validate content against applicable rules.
+        
+        Args:
+            file_path: File path being validated.
+            content: File content.
+            
+        Returns:
+            List of validation results.
+        """
+        results = []
+        
+        for rule in self._rules.values():
+            if fnmatch.fnmatch(file_path.name, rule.file_pattern):
+                try:
+                    passed = rule.validator(content, file_path)
+                    results.append({
+                        "rule": rule.name,
+                        "passed": passed,
+                        "severity": rule.severity,
+                        "message": None if passed else rule.error_message,
+                    })
+                except Exception as e:
+                    results.append({
+                        "rule": rule.name,
+                        "passed": False,
+                        "severity": "error",
+                        "message": f"Validation error: {e}",
+                    })
+        
+        return results
+    
+    def get_rules_for_file(self, file_path: Path) -> List[ValidationRule]:
+        """Get rules applicable to a file.
+        
+        Args:
+            file_path: File path.
+            
+        Returns:
+            List of applicable rules.
+        """
+        return [
+            rule for rule in self._rules.values()
+            if fnmatch.fnmatch(file_path.name, rule.file_pattern)
+        ]
+
+
+# =============================================================================
+# Agent Priority Queue
+# =============================================================================
+
+
+class AgentPriorityQueue:
+    """Priority queue for ordered agent execution.
+    
+    Executes agents in priority order with support for dependencies.
+    
+    Example:
+        queue = AgentPriorityQueue()
+        queue.add_agent("critical_fix", priority=1)
+        queue.add_agent("tests", priority=5, depends_on=["critical_fix"])
+        queue.add_agent("docs", priority=10)
+        
+        for agent in queue.get_execution_order():
+            execute(agent)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize priority queue."""
+        self._agents: Dict[str, Dict[str, Any]] = {}
+    
+    def add_agent(
+        self,
+        name: str,
+        priority: int = 5,
+        depends_on: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Add agent to queue.
+        
+        Args:
+            name: Agent name.
+            priority: Priority (lower = higher priority).
+            depends_on: List of agents this depends on.
+            metadata: Optional metadata.
+        """
+        self._agents[name] = {
+            "priority": priority,
+            "depends_on": depends_on or [],
+            "metadata": metadata or {},
+        }
+    
+    def remove_agent(self, name: str) -> bool:
+        """Remove agent from queue.
+        
+        Args:
+            name: Agent name.
+            
+        Returns:
+            True if removed, False if not found.
+        """
+        if name in self._agents:
+            del self._agents[name]
+            return True
+        return False
+    
+    def get_execution_order(self) -> List[str]:
+        """Get agents in execution order.
+        
+        Returns:
+            List of agent names in order.
+        """
+        # Topological sort with priority
+        executed = set()
+        order = []
+        
+        while len(order) < len(self._agents):
+            available = []
+            
+            for name, info in self._agents.items():
+                if name in executed:
+                    continue
+                    
+                # Check if all dependencies are met
+                deps_met = all(d in executed for d in info["depends_on"])
+                if deps_met:
+                    available.append((info["priority"], name))
+            
+            if not available:
+                # Cycle detected or error
+                remaining = [n for n in self._agents if n not in executed]
+                logging.warning(f"Dependency cycle detected, adding remaining: {remaining}")
+                order.extend(sorted(remaining))
+                break
+            
+            # Sort by priority and take the highest priority
+            available.sort()
+            _, next_agent = available[0]
+            order.append(next_agent)
+            executed.add(next_agent)
+        
+        return order
+
+
+# =============================================================================
+# Telemetry and Observability
+# =============================================================================
+
+
+@dataclass
+class TelemetrySpan:
+    """A telemetry span for tracing.
+    
+    Attributes:
+        name: Span name.
+        trace_id: Trace identifier.
+        span_id: Span identifier.
+        parent_id: Parent span ID.
+        start_time: Start timestamp.
+        end_time: End timestamp.
+        attributes: Span attributes.
+        events: Span events.
+    """
+    
+    name: str
+    trace_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    span_id: str = field(default_factory=lambda: str(uuid.uuid4())[:16])
+    parent_id: Optional[str] = None
+    start_time: float = field(default_factory=time.time)
+    end_time: Optional[float] = None
+    attributes: Dict[str, Any] = field(default_factory=dict)
+    events: List[Dict[str, Any]] = field(default_factory=list)
+
+
+class TelemetryCollector:
+    """Collect telemetry data for observability.
+    
+    Provides OpenTelemetry-compatible span collection.
+    
+    Example:
+        collector = TelemetryCollector()
+        
+        with collector.span("process_file") as span:
+            span.set_attribute("file", "test.py")
+            # ... process file ...
+            
+        spans = collector.get_spans()
+    """
+    
+    def __init__(self, service_name: str = "agent") -> None:
+        """Initialize collector.
+        
+        Args:
+            service_name: Service name for tracing.
+        """
+        self.service_name = service_name
+        self._spans: List[TelemetrySpan] = []
+        self._current_span: Optional[TelemetrySpan] = None
+    
+    @contextmanager
+    def span(self, name: str, attributes: Optional[Dict[str, Any]] = None):
+        """Create a telemetry span.
+        
+        Args:
+            name: Span name.
+            attributes: Initial attributes.
+            
+        Yields:
+            SpanContext for adding attributes and events.
+        """
+        parent_id = self._current_span.span_id if self._current_span else None
+        trace_id = self._current_span.trace_id if self._current_span else str(uuid.uuid4())
+        
+        span = TelemetrySpan(
+            name=name,
+            trace_id=trace_id,
+            parent_id=parent_id,
+            attributes=attributes or {},
+        )
+        
+        old_current = self._current_span
+        self._current_span = span
+        
+        context = SpanContext(span)
+        
+        try:
+            yield context
+        except Exception as e:
+            context.add_event("exception", {"message": str(e)})
+            raise
+        finally:
+            span.end_time = time.time()
+            self._spans.append(span)
+            self._current_span = old_current
+    
+    def get_spans(self) -> List[TelemetrySpan]:
+        """Get all collected spans."""
+        return list(self._spans)
+    
+    def export_json(self) -> str:
+        """Export spans as JSON.
+        
+        Returns:
+            JSON string of spans.
+        """
+        spans_data = []
+        for span in self._spans:
+            spans_data.append({
+                "name": span.name,
+                "trace_id": span.trace_id,
+                "span_id": span.span_id,
+                "parent_id": span.parent_id,
+                "start_time": span.start_time,
+                "end_time": span.end_time,
+                "duration_ms": (span.end_time - span.start_time) * 1000 if span.end_time else None,
+                "attributes": span.attributes,
+                "events": span.events,
+            })
+        return json.dumps(spans_data, indent=2)
+    
+    def clear(self) -> None:
+        """Clear all spans."""
+        self._spans.clear()
+
+
+class SpanContext:
+    """Context for a telemetry span."""
+    
+    def __init__(self, span: TelemetrySpan) -> None:
+        """Initialize context.
+        
+        Args:
+            span: The span to manage.
+        """
+        self._span = span
+    
+    def set_attribute(self, key: str, value: Any) -> None:
+        """Set a span attribute.
+        
+        Args:
+            key: Attribute key.
+            value: Attribute value.
+        """
+        self._span.attributes[key] = value
+    
+    def add_event(self, name: str, attributes: Optional[Dict[str, Any]] = None) -> None:
+        """Add an event to the span.
+        
+        Args:
+            name: Event name.
+            attributes: Event attributes.
+        """
+        self._span.events.append({
+            "name": name,
+            "timestamp": time.time(),
+            "attributes": attributes or {},
+        })
+
+
+# =============================================================================
+# Conditional Agent Execution
+# =============================================================================
+
+
+@dataclass
+class ExecutionCondition:
+    """A condition for agent execution.
+    
+    Attributes:
+        name: Condition name.
+        check: Function to check condition.
+        description: Human-readable description.
+    """
+    
+    name: str
+    check: Callable[[Path, str], bool]
+    description: str = ""
+
+
+class ConditionalExecutor:
+    """Execute agents based on file content conditions.
+    
+    Example:
+        executor = ConditionalExecutor()
+        executor.add_condition("has_todos", lambda p, c: "TODO" in c)
+        executor.add_condition("is_large", lambda p, c: len(c) > 10000)
+        
+        if executor.should_execute("coder", file_path, content):
+            run_coder(file_path)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize executor."""
+        self._conditions: Dict[str, ExecutionCondition] = {}
+        self._agent_conditions: Dict[str, List[str]] = {}
+    
+    def add_condition(
+        self,
+        name: str,
+        check: Callable[[Path, str], bool],
+        description: str = "",
+    ) -> None:
+        """Add a condition.
+        
+        Args:
+            name: Condition name.
+            check: Function taking (path, content) returning bool.
+            description: Human-readable description.
+        """
+        self._conditions[name] = ExecutionCondition(
+            name=name,
+            check=check,
+            description=description,
+        )
+    
+    def set_agent_conditions(
+        self,
+        agent_name: str,
+        conditions: List[str],
+        require_all: bool = False,
+    ) -> None:
+        """Set conditions for an agent.
+        
+        Args:
+            agent_name: Name of the agent.
+            conditions: List of condition names.
+            require_all: If True, all conditions must pass.
+        """
+        self._agent_conditions[agent_name] = {
+            "conditions": conditions,
+            "require_all": require_all,
+        }
+    
+    def should_execute(
+        self,
+        agent_name: str,
+        file_path: Path,
+        content: str,
+    ) -> bool:
+        """Check if agent should execute for file.
+        
+        Args:
+            agent_name: Agent name.
+            file_path: File path.
+            content: File content.
+            
+        Returns:
+            True if agent should execute.
+        """
+        if agent_name not in self._agent_conditions:
+            return True  # No conditions, always execute
+        
+        config = self._agent_conditions[agent_name]
+        condition_names = config["conditions"]
+        require_all = config["require_all"]
+        
+        results = []
+        for cond_name in condition_names:
+            if cond_name not in self._conditions:
+                continue
+            condition = self._conditions[cond_name]
+            try:
+                results.append(condition.check(file_path, content))
+            except Exception:
+                results.append(False)
+        
+        if not results:
+            return True
+        
+        if require_all:
+            return all(results)
+        else:
+            return any(results)
+
+
+# =============================================================================
+# Agent Templates
+# =============================================================================
+
+
+@dataclass
+class AgentTemplate:
+    """A template for creating agents.
+    
+    Attributes:
+        name: Template name.
+        description: Template description.
+        agents: List of agents to execute.
+        config: Default configuration.
+        file_patterns: File patterns to process.
+    """
+    
+    name: str
+    description: str = ""
+    agents: List[str] = field(default_factory=list)
+    config: Dict[str, Any] = field(default_factory=dict)
+    file_patterns: List[str] = field(default_factory=lambda: ["*.py"])
+
+
+class TemplateManager:
+    """Manage agent templates for common use cases.
+    
+    Example:
+        manager = TemplateManager()
+        manager.add_template(AgentTemplate(
+            name="python_cleanup",
+            agents=["coder", "tests"],
+            file_patterns=["*.py"],
+        ))
+        
+        template = manager.get_template("python_cleanup")
+        agent = template_to_agent(template)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize manager."""
+        self._templates: Dict[str, AgentTemplate] = {}
+        self._register_defaults()
+    
+    def _register_defaults(self) -> None:
+        """Register default templates."""
+        self._templates["python_full"] = AgentTemplate(
+            name="python_full",
+            description="Full Python code improvement",
+            agents=["coder", "tests", "documentation", "errors"],
+            file_patterns=["*.py"],
+        )
+        
+        self._templates["markdown_docs"] = AgentTemplate(
+            name="markdown_docs",
+            description="Markdown documentation improvement",
+            agents=["documentation"],
+            file_patterns=["*.md"],
+        )
+        
+        self._templates["quick_fix"] = AgentTemplate(
+            name="quick_fix",
+            description="Quick fixes only",
+            agents=["coder"],
+            config={"max_files": 10},
+            file_patterns=["*.py"],
+        )
+    
+    def add_template(self, template: AgentTemplate) -> None:
+        """Add a template.
+        
+        Args:
+            template: Template to add.
+        """
+        self._templates[template.name] = template
+    
+    def get_template(self, name: str) -> Optional[AgentTemplate]:
+        """Get a template by name.
+        
+        Args:
+            name: Template name.
+            
+        Returns:
+            Template or None if not found.
+        """
+        return self._templates.get(name)
+    
+    def list_templates(self) -> List[str]:
+        """List available template names."""
+        return list(self._templates.keys())
+
+
+# =============================================================================
+# Agent Dependency Resolution
+# =============================================================================
+
+
+class DependencyGraph:
+    """Resolve agent dependencies for ordered execution.
+    
+    Example:
+        graph = DependencyGraph()
+        graph.add_dependency("tests", "coder")  # tests depends on coder
+        graph.add_dependency("docs", "tests")
+        
+        order = graph.resolve()  # ["coder", "tests", "docs"]
+    """
+    
+    def __init__(self) -> None:
+        """Initialize dependency graph."""
+        self._nodes: Set[str] = set()
+        self._edges: Dict[str, Set[str]] = {}  # node -> dependencies
+    
+    def add_node(self, name: str) -> None:
+        """Add a node.
+        
+        Args:
+            name: Node name.
+        """
+        self._nodes.add(name)
+        if name not in self._edges:
+            self._edges[name] = set()
+    
+    def add_dependency(self, node: str, depends_on: str) -> None:
+        """Add a dependency.
+        
+        Args:
+            node: Node that has the dependency.
+            depends_on: Node that must run first.
+        """
+        self.add_node(node)
+        self.add_node(depends_on)
+        self._edges[node].add(depends_on)
+    
+    def resolve(self) -> List[str]:
+        """Resolve execution order.
+        
+        Returns:
+            List of nodes in execution order.
+            
+        Raises:
+            ValueError: If circular dependency detected.
+        """
+        in_degree = {n: 0 for n in self._nodes}
+        
+        for node, deps in self._edges.items():
+            for dep in deps:
+                # This is reverse - we need nodes with deps to have higher in_degree
+                pass  # Actually, we track outgoing
+        
+        # Build reverse graph for topological sort
+        reverse = {n: set() for n in self._nodes}
+        for node, deps in self._edges.items():
+            for dep in deps:
+                reverse[dep].add(node)
+        
+        # Calculate in-degree based on dependencies
+        in_degree = {n: len(self._edges.get(n, set())) for n in self._nodes}
+        
+        # Start with nodes that have no dependencies
+        queue = [n for n in self._nodes if in_degree[n] == 0]
+        result = []
+        
+        while queue:
+            node = queue.pop(0)
+            result.append(node)
+            
+            for dependent in reverse[node]:
+                in_degree[dependent] -= 1
+                if in_degree[dependent] == 0:
+                    queue.append(dependent)
+        
+        if len(result) != len(self._nodes):
+            raise ValueError("Circular dependency detected")
+        
+        return result
+
+
+# =============================================================================
+# Agent Execution Profiles
+# =============================================================================
+
+
+@dataclass
+class ExecutionProfile:
+    """A profile for agent execution settings.
+    
+    Attributes:
+        name: Profile name.
+        max_files: Maximum files to process.
+        timeout: Timeout per operation.
+        parallel: Enable parallel execution.
+        workers: Number of workers.
+        dry_run: Dry run mode.
+    """
+    
+    name: str
+    max_files: Optional[int] = None
+    timeout: int = 120
+    parallel: bool = False
+    workers: int = 4
+    dry_run: bool = False
+
+
+class ProfileManager:
+    """Manage agent execution profiles.
+    
+    Example:
+        manager = ProfileManager()
+        manager.add_profile(ExecutionProfile("ci", dry_run=True, timeout=60))
+        manager.add_profile(ExecutionProfile("full", parallel=True, workers=8))
+        
+        manager.activate("ci")
+        config = manager.get_active_config()
+    """
+    
+    def __init__(self) -> None:
+        """Initialize manager."""
+        self._profiles: Dict[str, ExecutionProfile] = {}
+        self._active: Optional[str] = None
+        self._register_defaults()
+    
+    def _register_defaults(self) -> None:
+        """Register default profiles."""
+        self._profiles["default"] = ExecutionProfile(
+            name="default",
+            timeout=120,
+            parallel=False,
+        )
+        
+        self._profiles["fast"] = ExecutionProfile(
+            name="fast",
+            max_files=10,
+            timeout=60,
+            parallel=True,
+            workers=4,
+        )
+        
+        self._profiles["ci"] = ExecutionProfile(
+            name="ci",
+            timeout=300,
+            parallel=True,
+            workers=2,
+            dry_run=True,
+        )
+    
+    def add_profile(self, profile: ExecutionProfile) -> None:
+        """Add a profile.
+        
+        Args:
+            profile: Profile to add.
+        """
+        self._profiles[profile.name] = profile
+    
+    def activate(self, name: str) -> None:
+        """Activate a profile.
+        
+        Args:
+            name: Profile name.
+            
+        Raises:
+            KeyError: If profile not found.
+        """
+        if name not in self._profiles:
+            raise KeyError(f"Profile not found: {name}")
+        self._active = name
+    
+    def get_active_config(self) -> Optional[ExecutionProfile]:
+        """Get active profile configuration."""
+        if self._active:
+            return self._profiles[self._active]
+        return None
+
+
+# =============================================================================
+# Agent Result Caching
+# =============================================================================
+
+
+@dataclass
+class CachedResult:
+    """A cached agent result.
+    
+    Attributes:
+        file_path: File that was processed.
+        agent_name: Agent that produced result.
+        content_hash: Hash of input content.
+        result: The cached result.
+        timestamp: When cached.
+        ttl_seconds: Time to live.
+    """
+    
+    file_path: str
+    agent_name: str
+    content_hash: str
+    result: Any
+    timestamp: float = field(default_factory=time.time)
+    ttl_seconds: int = 3600
+
+
+class ResultCache:
+    """Cache agent results for reuse.
+    
+    Example:
+        cache = ResultCache()
+        
+        # Check cache
+        result = cache.get("test.py", "coder", content_hash)
+        if result is None:
+            result = run_coder("test.py")
+            cache.set("test.py", "coder", content_hash, result)
+    """
+    
+    def __init__(self, cache_dir: Optional[Path] = None) -> None:
+        """Initialize cache.
+        
+        Args:
+            cache_dir: Directory for persistent cache.
+        """
+        self.cache_dir = cache_dir
+        self._memory_cache: Dict[str, CachedResult] = {}
+    
+    def _make_key(self, file_path: str, agent_name: str, content_hash: str) -> str:
+        """Create cache key."""
+        return f"{file_path}:{agent_name}:{content_hash}"
+    
+    def get(
+        self,
+        file_path: str,
+        agent_name: str,
+        content_hash: str,
+    ) -> Optional[Any]:
+        """Get cached result.
+        
+        Args:
+            file_path: File path.
+            agent_name: Agent name.
+            content_hash: Hash of content.
+            
+        Returns:
+            Cached result or None.
+        """
+        key = self._make_key(file_path, agent_name, content_hash)
+        
+        if key in self._memory_cache:
+            cached = self._memory_cache[key]
+            # Check TTL
+            if time.time() - cached.timestamp < cached.ttl_seconds:
+                return cached.result
+            else:
+                del self._memory_cache[key]
+        
+        return None
+    
+    def set(
+        self,
+        file_path: str,
+        agent_name: str,
+        content_hash: str,
+        result: Any,
+        ttl_seconds: int = 3600,
+    ) -> None:
+        """Cache a result.
+        
+        Args:
+            file_path: File path.
+            agent_name: Agent name.
+            content_hash: Hash of content.
+            result: Result to cache.
+            ttl_seconds: Time to live.
+        """
+        key = self._make_key(file_path, agent_name, content_hash)
+        self._memory_cache[key] = CachedResult(
+            file_path=file_path,
+            agent_name=agent_name,
+            content_hash=content_hash,
+            result=result,
+            ttl_seconds=ttl_seconds,
+        )
+    
+    def invalidate(self, file_path: str) -> int:
+        """Invalidate all cache entries for a file.
+        
+        Args:
+            file_path: File path.
+            
+        Returns:
+            Number of entries invalidated.
+        """
+        to_remove = [k for k in self._memory_cache if k.startswith(f"{file_path}:")]
+        for key in to_remove:
+            del self._memory_cache[key]
+        return len(to_remove)
+    
+    def clear(self) -> None:
+        """Clear all cached results."""
+        self._memory_cache.clear()
+
+
+# =============================================================================
+# Agent Execution Scheduling
+# =============================================================================
+
+
+@dataclass
+class ScheduledExecution:
+    """A scheduled agent execution.
+    
+    Attributes:
+        name: Schedule name.
+        cron: Cron expression (simplified).
+        agent_config: Agent configuration.
+        enabled: Whether schedule is enabled.
+        last_run: Last run timestamp.
+        next_run: Next run timestamp.
+    """
+    
+    name: str
+    cron: str  # Simplified: "hourly", "daily", "weekly", or HH:MM
+    agent_config: Dict[str, Any] = field(default_factory=dict)
+    enabled: bool = True
+    last_run: Optional[float] = None
+    next_run: Optional[float] = None
+
+
+class ExecutionScheduler:
+    """Schedule agent executions.
+    
+    Example:
+        scheduler = ExecutionScheduler()
+        scheduler.add_schedule("nightly", "daily", {"dry_run": True})
+        
+        # In a loop
+        while True:
+            if scheduler.is_due("nightly"):
+                run_agent(scheduler.get_config("nightly"))
+                scheduler.mark_complete("nightly")
+            time.sleep(60)
+    """
+    
+    def __init__(self) -> None:
+        """Initialize scheduler."""
+        self._schedules: Dict[str, ScheduledExecution] = {}
+    
+    def add_schedule(
+        self,
+        name: str,
+        cron: str,
+        agent_config: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Add a schedule.
+        
+        Args:
+            name: Schedule name.
+            cron: Timing (hourly, daily, weekly, or HH:MM).
+            agent_config: Agent configuration.
+        """
+        schedule = ScheduledExecution(
+            name=name,
+            cron=cron,
+            agent_config=agent_config or {},
+        )
+        schedule.next_run = self._calculate_next_run(cron)
+        self._schedules[name] = schedule
+    
+    def _calculate_next_run(self, cron: str) -> float:
+        """Calculate next run time."""
+        now = time.time()
+        
+        if cron == "hourly":
+            return now + 3600
+        elif cron == "daily":
+            return now + 86400
+        elif cron == "weekly":
+            return now + 604800
+        elif ":" in cron:
+            # HH:MM format
+            try:
+                hour, minute = map(int, cron.split(":"))
+                import datetime
+                today = datetime.date.today()
+                target = datetime.datetime.combine(
+                    today,
+                    datetime.time(hour, minute)
+                )
+                if target.timestamp() <= now:
+                    target += datetime.timedelta(days=1)
+                return target.timestamp()
+            except Exception:
+                return now + 86400
+        else:
+            return now + 86400  # Default to daily
+    
+    def is_due(self, name: str) -> bool:
+        """Check if schedule is due.
+        
+        Args:
+            name: Schedule name.
+            
+        Returns:
+            True if due for execution.
+        """
+        if name not in self._schedules:
+            return False
+        
+        schedule = self._schedules[name]
+        if not schedule.enabled:
+            return False
+        
+        if schedule.next_run is None:
+            return True
+        
+        return time.time() >= schedule.next_run
+    
+    def mark_complete(self, name: str) -> None:
+        """Mark schedule as completed.
+        
+        Args:
+            name: Schedule name.
+        """
+        if name in self._schedules:
+            schedule = self._schedules[name]
+            schedule.last_run = time.time()
+            schedule.next_run = self._calculate_next_run(schedule.cron)
+    
+    def get_config(self, name: str) -> Dict[str, Any]:
+        """Get agent configuration for schedule.
+        
+        Args:
+            name: Schedule name.
+            
+        Returns:
+            Agent configuration dict.
+        """
+        if name in self._schedules:
+            return self._schedules[name].agent_config
+        return {}
+
+
+# Import uuid for telemetry
+import uuid
+
+# Context manager import
+from contextlib import contextmanager
+
+
 def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 1.0, max_delay: float = 30.0):
     """Execute a function with exponential backoff retry on failure.
     

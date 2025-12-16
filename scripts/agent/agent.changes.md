@@ -1,5 +1,80 @@
 # Changelog
 
+## [2025-01-16] - Session 9
+
+### Added - Phase 9: Agent Chaining, Branch Processing, and Advanced Features
+
+#### Agent Chaining
+- `AgentChainStep`: Dataclass for chain steps with input/output transforms
+- `AgentChain`: Chain multiple agents for sequential execution
+- `add_step()`: Add step with transforms and conditions
+- `execute()`: Execute chain with agent executor callback
+- `get_results()`: Get results from last execution
+
+#### Git Branch-Based Processing
+- `GitBranchProcessor`: Process files changed in specific git branches
+- `get_changed_files()`: Get files changed between branches
+- `get_current_branch()`: Get current git branch name
+- `list_branches()`: List branches with optional pattern filtering
+
+#### Custom Validation Rules
+- `ValidationRule`: Dataclass for custom validation rules
+- `ValidationRuleManager`: Manage custom validation rules per file type
+- `add_rule()`, `remove_rule()`: Rule management
+- `validate()`: Validate content against applicable rules
+- `get_rules_for_file()`: Get rules applicable to a file
+
+#### Agent Priority Queue
+- `AgentPriorityQueue`: Priority queue for ordered agent execution
+- `add_agent()`: Add agent with priority and dependencies
+- `remove_agent()`: Remove agent from queue
+- `get_execution_order()`: Get agents in execution order with dependency resolution
+
+#### Telemetry and Observability
+- `TelemetrySpan`: Dataclass for tracing spans (OpenTelemetry-compatible)
+- `TelemetryCollector`: Collect telemetry data for observability
+- `span()`: Context manager for creating spans
+- `SpanContext`: Context for managing span attributes and events
+- `export_json()`: Export spans as JSON
+
+#### Conditional Agent Execution
+- `ExecutionCondition`: Dataclass for execution conditions
+- `ConditionalExecutor`: Execute agents based on file content conditions
+- `add_condition()`: Add condition with check function
+- `set_agent_conditions()`: Set conditions for an agent
+- `should_execute()`: Check if agent should execute for file
+
+#### Agent Templates
+- `AgentTemplate`: Dataclass for agent templates
+- `TemplateManager`: Manage agent templates for common use cases
+- Default templates: python_full, markdown_docs, quick_fix
+- `add_template()`, `get_template()`: Template management
+- `list_templates()`: List available templates
+
+#### Agent Dependency Resolution
+- `DependencyGraph`: Resolve agent dependencies for ordered execution
+- `add_node()`, `add_dependency()`: Build dependency graph
+- `resolve()`: Topological sort for execution order
+- Circular dependency detection
+
+#### Agent Execution Profiles
+- `ExecutionProfile`: Dataclass for execution settings
+- `ProfileManager`: Manage agent execution profiles
+- Default profiles: default, fast, ci
+- `activate()`, `get_active_config()`: Profile activation
+
+#### Agent Result Caching
+- `CachedResult`: Dataclass for cached agent results
+- `ResultCache`: Cache agent results for reuse with TTL
+- `get()`, `set()`: Cache operations
+- `invalidate()`: Invalidate cache for file
+
+#### Agent Execution Scheduling
+- `ScheduledExecution`: Dataclass for scheduled executions
+- `ExecutionScheduler`: Schedule agent executions
+- `add_schedule()`: Add schedule (hourly, daily, weekly, HH:MM)
+- `is_due()`, `mark_complete()`: Schedule checking and completion
+
 ## [2025-01-13] - Session 6
 
 ### Added - Phase 6: Plugin System, Rate Limiting, and Advanced Features

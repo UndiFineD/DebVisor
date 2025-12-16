@@ -4,28 +4,30 @@
 All previous fixed items have been moved to `test_agent_changes.changes.md`.
 
 ## Suggested improvements
-- [ ] Add tests for changelog version range queries.
-- [ ] Test changelog entry search by keyword.
-- [ ] Add tests for changelog export to different formats.
-- [ ] Test changelog entry linking to issue trackers.
-- [ ] Add tests for changelog statistics generation.
-- [ ] Test changelog entry validation rules.
-- [ ] Add tests for changelog internationalization.
-- [ ] Test changelog entry priority ordering.
-- [ ] Add tests for changelog backup and restore.
-- [ ] Test changelog entry filtering by category.
-- [ ] Add tests for changelog diff visualization.
-- [ ] Test changelog entry timestamps.
-- [ ] Add tests for changelog access control.
-- [ ] Test changelog entry bulk operations.
-- [ ] Add tests for changelog notifications.
-- [ ] Test changelog entry approval workflows.
-- [ ] Add tests for changelog entry signing.
-- [ ] Test changelog archival and retention.
-- [ ] Add tests for changelog entry comments.
-- [ ] Test changelog entry history tracking.
+
+(All items implemented - see Fixed section below)
 
 ## Fixed (Moved to test_agent_changes.changes.md)
+- [x] FIXED: [2025-01-16] Add tests for changelog version range queries.
+- [x] FIXED: [2025-01-16] Test changelog entry search by keyword.
+- [x] FIXED: [2025-01-16] Add tests for changelog export to different formats.
+- [x] FIXED: [2025-01-16] Test changelog entry linking to issue trackers.
+- [x] FIXED: [2025-01-16] Add tests for changelog statistics generation.
+- [x] FIXED: [2025-01-16] Test changelog entry validation rules.
+- [x] FIXED: [2025-01-16] Add tests for changelog internationalization.
+- [x] FIXED: [2025-01-16] Test changelog entry priority ordering.
+- [x] FIXED: [2025-01-16] Add tests for changelog backup and restore.
+- [x] FIXED: [2025-01-16] Test changelog entry filtering by category.
+- [x] FIXED: [2025-01-16] Add tests for changelog diff visualization.
+- [x] FIXED: [2025-01-16] Test changelog entry timestamps.
+- [x] FIXED: [2025-01-16] Add tests for changelog access control.
+- [x] FIXED: [2025-01-16] Test changelog entry bulk operations.
+- [x] FIXED: [2025-01-16] Add tests for changelog notifications.
+- [x] FIXED: [2025-01-16] Test changelog entry approval workflows.
+- [x] FIXED: [2025-01-16] Add tests for changelog entry signing.
+- [x] FIXED: [2025-01-16] Test changelog archival and retention.
+- [x] FIXED: [2025-01-16] Add tests for changelog entry comments.
+- [x] FIXED: [2025-01-16] Test changelog entry history tracking.
 - Add tests for Keep a Changelog format validation. (Fixed)
 - Test version parsing and semantic versioning. (Fixed)
 - Add tests for git history integration. (Fixed)

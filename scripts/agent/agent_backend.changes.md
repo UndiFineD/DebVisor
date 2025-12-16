@@ -78,6 +78,90 @@
 - Add metrics collection: request count, latency, error rates per backend. (Fixed)
 - Implement circuit breaker pattern for failing backends. (Fixed)
 - Add timeout configuration per backend type. (Fixed)
+
+## Session 9 [2025-12-16] - Advanced Backend Features
+
+### Added - RequestSigner Class
+- HMAC-SHA256 request signing for integrity verification
+- `sign()`: Sign data and return hex signature
+- `verify()`: Verify signature against data
+- `get_stored_signature()`: Retrieve stored signature by request ID
+
+### Added - RequestDeduplicator Class
+- Prevents redundant API calls for identical concurrent requests
+- `is_duplicate()`: Check if request is pending
+- `wait_for_result()`: Wait for duplicate's result
+- `store_result()`: Store and broadcast result
+- Thread-safe with configurable TTL
+
+### Added - VersionNegotiator Class
+- Backend version and capability negotiation
+- `BackendVersion` dataclass: version, capabilities, api_version
+- `register_backend()`: Register backend version info
+- `negotiate()`: Negotiate with required capabilities
+
+### Added - CapabilityDiscovery Class
+- Runtime capability discovery for backends
+- `BackendCapability` dataclass: name, description, enabled, parameters
+- `register_capability()`: Register backend capability
+- `has_capability()`: Check capability support
+- `discover_all()`: Map all backend capabilities
+
+### Added - RequestRecorder Class
+- Request/response recording for replay and debugging
+- `RecordedRequest` dataclass: full request metadata
+- `record()`: Capture request with response
+- `replay()`: Retrieve recording by ID
+- `export_recordings()`: JSON export for analysis
+
+### Added - ConfigHotReloader Class
+- Dynamic configuration reloading without restart
+- `set_config()/get_config()`: Config management
+- `watch_env()`: Monitor environment variables
+- `on_change()`: Register change callbacks
+- `reload_all()`: Force reload all configs
+
+### Added - RequestCompressor Class
+- Payload compression for large requests
+- zlib-based compression with threshold
+- `compress()`: Compress if above threshold
+- `decompress()`: Decompress with header detection
+- `get_stats()`: Compression statistics
+
+### Added - BackendAnalytics Class
+- Usage analytics and reporting
+- `UsageRecord` dataclass: tokens, latency, cost
+- `record_usage()`: Track usage events
+- `generate_report()`: Comprehensive usage report
+- Automatic retention-based cleanup
+
+### Added - ConnectionPool Class
+- Connection reuse for reduced overhead
+- `acquire()/release()`: Connection lifecycle
+- `get_stats()`: Pool statistics per backend
+- `close_all()`: Graceful shutdown
+
+### Added - RequestThrottler Class
+- Token bucket rate limiting
+- `allow_request()`: Check if allowed
+- `wait_for_token()`: Blocking throttle
+- `get_status()`: Throttle status info
+- Configurable rate and burst size
+
+### Added - TTLCache Class
+- Response caching with automatic expiration
+- `CachedResponse` dataclass: content, expiration, hits
+- `set()/get()`: Cache operations with custom TTL
+- `invalidate()`: Manual cache invalidation
+- `get_stats()`: Cache statistics
+
+### Added - ABTester Class
+- A/B testing across backends
+- `ABTestVariant` dataclass: weights, metrics
+- `create_test()`: Set up A/B test
+- `assign_variant()`: Consistent user assignment
+- `record_result()`: Track metrics
+- `get_winner()`: Determine winning variant
 - Add unit tests for `llm_chat_via_github_models` (mocking requests). (Fixed)
 - Add retry logic for network requests with exponential backoff. (Fixed)
 - Add environment variable handling tests. (Fixed)

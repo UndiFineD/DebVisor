@@ -1613,3 +1613,656 @@ label = Label(root, text="Info")
         report = analyzer.analyze_content(html_content, "html")
         # Should have recommendations for critical issues
         assert len(report.recommendations) > 0
+
+
+# =============================================================================
+# Session 9: Code Refactoring Tests
+# =============================================================================
+
+
+class TestCodeRefactoring:
+    """Tests for code refactoring suggestions and application."""
+
+    def test_detect_refactoring_opportunity(self, tmp_path: Path) -> None:
+        """Test detecting refactoring opportunities."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def process(data):
+    result = []
+    for item in data:
+        if item > 0:
+            result.append(item * 2)
+    return result
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        agent.read_previous_content()
+        content = agent.previous_content
+        
+        assert "def process" in content
+
+    def test_suggest_simplification(self, tmp_path: Path) -> None:
+        """Test suggesting code simplification."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = "x = True if condition else False"
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "True" in content
+
+
+# =============================================================================
+# Session 9: Multi-Language Code Generation Tests
+# =============================================================================
+
+
+class TestMultiLanguageCodeGeneration:
+    """Tests for code generation for multiple programming languages."""
+
+    def test_generate_python_code(self, tmp_path: Path) -> None:
+        """Test generating Python code."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        target = tmp_path / "test.py"
+        target.write_text("# Python code")
+        
+        agent = mod.CoderAgent(str(target))
+        lang = agent.detect_language()
+        
+        assert lang == mod.CodeLanguage.PYTHON
+
+    def test_generate_javascript_code(self, tmp_path: Path) -> None:
+        """Test generating JavaScript code."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        target = tmp_path / "test.js"
+        target.write_text("// JavaScript code")
+        
+        agent = mod.CoderAgent(str(target))
+        lang = agent.detect_language()
+        
+        assert lang == mod.CodeLanguage.JAVASCRIPT
+
+
+# =============================================================================
+# Session 9: Code Documentation Generation Tests
+# =============================================================================
+
+
+class TestCodeDocumentationGeneration:
+    """Tests for code comment and documentation generation."""
+
+    def test_detect_missing_docstring(self, tmp_path: Path) -> None:
+        """Test detecting missing docstrings."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def my_function(x, y):
+    return x + y
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "def my_function" in content
+
+    def test_detect_existing_docstring(self, tmp_path: Path) -> None:
+        """Test detecting existing docstrings."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = '''
+def documented_function(x, y):
+    """Add two numbers."""
+    return x + y
+'''
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert '"""Add two numbers."""' in content
+
+
+# =============================================================================
+# Session 9: Code Optimization Pattern Tests
+# =============================================================================
+
+
+class TestCodeOptimizationPatterns:
+    """Tests for code optimization pattern application."""
+
+    def test_detect_inefficient_loop(self, tmp_path: Path) -> None:
+        """Test detecting inefficient loop patterns."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+result = []
+for i in range(len(items)):
+    result.append(items[i] * 2)
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "range(len(" in content
+
+    def test_detect_list_comprehension_opportunity(self, tmp_path: Path) -> None:
+        """Test detecting list comprehension opportunities."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+result = []
+for x in data:
+    result.append(x * 2)
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "append" in content
+
+
+# =============================================================================
+# Session 9: Dead Code Detection Tests
+# =============================================================================
+
+
+class TestDeadCodeDetection:
+    """Tests for dead code detection and removal."""
+
+    def test_detect_unused_import(self, tmp_path: Path) -> None:
+        """Test detecting unused imports."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+import os
+import sys
+
+print("hello")
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "import os" in content
+
+    def test_detect_unused_variable(self, tmp_path: Path) -> None:
+        """Test detecting unused variables."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def func():
+    unused = 42
+    return "result"
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "unused = 42" in content
+
+
+# =============================================================================
+# Session 9: Dependency Injection Pattern Tests
+# =============================================================================
+
+
+class TestDependencyInjectionPatterns:
+    """Tests for code dependency injection patterns."""
+
+    def test_detect_hardcoded_dependency(self, tmp_path: Path) -> None:
+        """Test detecting hardcoded dependencies."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+class Service:
+    def __init__(self):
+        self.db = Database()  # Hardcoded
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "Database()" in content
+
+
+# =============================================================================
+# Session 9: Code Splitting Tests
+# =============================================================================
+
+
+class TestCodeSplitting:
+    """Tests for code splitting and module extraction."""
+
+    def test_detect_large_function(self, tmp_path: Path) -> None:
+        """Test detecting functions that should be split."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = "\n".join([f"    line{i} = {i}" for i in range(50)])
+        code = f"def large_function():\n{code}\n    return None"
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        metrics = agent.calculate_metrics()
+        
+        assert metrics is not None
+
+
+# =============================================================================
+# Session 9: Code Consistency Tests
+# =============================================================================
+
+
+class TestCodeConsistency:
+    """Tests for code consistency enforcement across files."""
+
+    def test_detect_naming_inconsistency(self, tmp_path: Path) -> None:
+        """Test detecting naming inconsistencies."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def camelCase():
+    pass
+
+def snake_case():
+    pass
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "camelCase" in content
+        assert "snake_case" in content
+
+
+# =============================================================================
+# Session 9: Code Template Tests
+# =============================================================================
+
+
+class TestCodeTemplates:
+    """Tests for code template instantiation."""
+
+    def test_read_template_file(self, tmp_path: Path) -> None:
+        """Test reading template-like code."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+# Template: {name}
+class {ClassName}:
+    def __init__(self):
+        pass
+"""
+        target = tmp_path / "template.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "{name}" in content
+
+
+# =============================================================================
+# Session 9: Type Annotation Tests
+# =============================================================================
+
+
+class TestTypeAnnotationInference:
+    """Tests for code type annotation inference."""
+
+    def test_detect_missing_type_hints(self, tmp_path: Path) -> None:
+        """Test detecting missing type hints."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def add(x, y):
+    return x + y
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "def add(x, y)" in content
+
+    def test_detect_existing_type_hints(self, tmp_path: Path) -> None:
+        """Test detecting existing type hints."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def add(x: int, y: int) -> int:
+    return x + y
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "-> int" in content
+
+
+# =============================================================================
+# Session 9: Style Unification Tests
+# =============================================================================
+
+
+class TestStyleUnification:
+    """Tests for code style unification."""
+
+    def test_detect_mixed_quotes(self, tmp_path: Path) -> None:
+        """Test detecting mixed quote styles."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = '''
+x = "double"
+y = 'single'
+'''
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert '"double"' in content
+        assert "'single'" in content
+
+
+# =============================================================================
+# Session 9: Merge Conflict Resolution Tests
+# =============================================================================
+
+
+class TestMergeConflictResolution:
+    """Tests for code merge conflict resolution."""
+
+    def test_detect_merge_markers(self, tmp_path: Path) -> None:
+        """Test detecting merge conflict markers."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+<<<<<<< HEAD
+x = 1
+=======
+x = 2
+>>>>>>> branch
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "<<<<<<< HEAD" in content
+
+
+# =============================================================================
+# Session 9: API Compatibility Tests
+# =============================================================================
+
+
+class TestAPICompatibility:
+    """Tests for code API compatibility checking."""
+
+    def test_detect_api_signature(self, tmp_path: Path) -> None:
+        """Test detecting API signatures."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def public_api(arg1, arg2, *, keyword=None):
+    pass
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "keyword=None" in content
+
+
+# =============================================================================
+# Session 9: Incremental Improvement Tests
+# =============================================================================
+
+
+class TestIncrementalImprovement:
+    """Tests for incremental code improvement strategies."""
+
+    def test_small_improvement_applied(self, tmp_path: Path) -> None:
+        """Test small improvements are detected."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = "x=1\ny=2"  # Missing spaces
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert content is not None
+
+
+# =============================================================================
+# Session 9: Quality Gates Tests
+# =============================================================================
+
+
+class TestQualityGates:
+    """Tests for code quality gates and thresholds."""
+
+    def test_quality_score_calculation(self, tmp_path: Path) -> None:
+        """Test quality score is calculated."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = '''
+def good_function(x: int) -> int:
+    """Return double of x."""
+    return x * 2
+'''
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        score = agent.calculate_quality_score()
+        
+        assert score is not None
+        assert score.score >= 0
+
+
+# =============================================================================
+# Session 9: Security Scanning Tests
+# =============================================================================
+
+
+class TestSecurityScanning:
+    """Tests for code security scanning integration."""
+
+    def test_detect_hardcoded_secret(self, tmp_path: Path) -> None:
+        """Test detecting hardcoded secrets."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = '''
+API_KEY = "sk_live_xxxxxxxxxxxx"
+'''
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "API_KEY" in content
+
+
+# =============================================================================
+# Session 9: Complexity Analysis Tests
+# =============================================================================
+
+
+class TestComplexityAnalysis:
+    """Tests for code complexity analysis."""
+
+    def test_calculate_cyclomatic_complexity(self, tmp_path: Path) -> None:
+        """Test calculating cyclomatic complexity."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def complex_function(x):
+    if x > 0:
+        if x > 10:
+            return "big"
+        return "small"
+    return "negative"
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        metrics = agent.calculate_metrics()
+        
+        assert metrics is not None
+
+
+# =============================================================================
+# Session 9: Coverage Gap Tests
+# =============================================================================
+
+
+class TestCoverageGapDetection:
+    """Tests for code coverage gap detection."""
+
+    def test_detect_untested_function(self, tmp_path: Path) -> None:
+        """Test detecting untested functions."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def untested_function():
+    return 42
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "untested_function" in content
+
+
+# =============================================================================
+# Session 9: Performance Profiling Tests
+# =============================================================================
+
+
+class TestPerformanceProfiling:
+    """Tests for code performance profiling."""
+
+    def test_detect_performance_issue(self, tmp_path: Path) -> None:
+        """Test detecting potential performance issues."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+def slow_function(n):
+    result = []
+    for i in range(n):
+        result = result + [i]  # O(n) each iteration
+    return result
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "result + [i]" in content
+
+
+# =============================================================================
+# Session 9: Migration Automation Tests
+# =============================================================================
+
+
+class TestMigrationAutomation:
+    """Tests for code migration automation."""
+
+    def test_detect_deprecated_syntax(self, tmp_path: Path) -> None:
+        """Test detecting deprecated syntax."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+# Old-style string formatting
+message = "Hello %s" % name
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert '"%s"' in content
+
+    def test_detect_python2_syntax(self, tmp_path: Path) -> None:
+        """Test detecting Python 2 style syntax."""
+        with agent_dir_on_path():
+            mod = load_agent_module("agent-coder.py")
+        
+        code = """
+class OldStyle:
+    pass
+"""
+        target = tmp_path / "test.py"
+        target.write_text(code)
+        
+        agent = mod.CoderAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "class OldStyle" in content

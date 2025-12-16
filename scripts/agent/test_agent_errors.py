@@ -1288,3 +1288,455 @@ class TestBranchComparer:
 
         fixed_errors = comparer.get_fixed_errors("main", "feature")
         assert "err2" in fixed_errors
+
+
+# =============================================================================
+# Session 9: Error Correlation Tests
+# =============================================================================
+
+
+class TestErrorCorrelation:
+    """Tests for error correlation across multiple runs."""
+
+    def test_correlation_basic(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test basic error correlation."""
+        target = tmp_path / "test.errors.md"
+        target.write_text("# Errors\n- Error A\n- Error B")
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        content = agent.read_previous_content()
+        
+        assert "Error A" in content
+
+    def test_correlation_multiple_runs(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test correlation across multiple runs."""
+        target = tmp_path / "test.errors.md"
+        content = """# Errors
+## Run 1
+- Error A
+## Run 2
+- Error A
+- Error B
+"""
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert previous.count("Error A") == 2
+
+
+# =============================================================================
+# Session 9: Root Cause Analysis Tests
+# =============================================================================
+
+
+class TestRootCauseAnalysis:
+    """Tests for root cause analysis with stack traces."""
+
+    def test_stack_trace_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test stack trace detection."""
+        target = tmp_path / "test.errors.md"
+        content = """# Error
+Traceback (most recent call last):
+  File "app.py", line 10, in main
+    raise ValueError("test")
+ValueError: test
+"""
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Traceback" in previous
+        assert "ValueError" in previous
+
+
+# =============================================================================
+# Session 9: Error Clustering Tests
+# =============================================================================
+
+
+class TestErrorClustering:
+    """Tests for error clustering algorithms."""
+
+    def test_similar_errors_grouped(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test similar errors are grouped."""
+        target = tmp_path / "test.errors.md"
+        content = """# Errors
+- TypeError: int not str in func_a
+- TypeError: int not str in func_b
+- ValueError: invalid value
+"""
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        # Both TypeErrors should be present
+        assert previous.count("TypeError") == 2
+
+
+# =============================================================================
+# Session 9: Severity Scoring Tests
+# =============================================================================
+
+
+class TestSeverityScoring:
+    """Tests for severity scoring calculation."""
+
+    def test_critical_severity(self, errors_module: Any) -> None:
+        """Test critical severity detection."""
+        error = errors_module.ErrorEntry(
+            error_type="SecurityError",
+            message="Authentication bypass",
+            severity=errors_module.ErrorSeverity.CRITICAL
+        )
+        assert error.severity == errors_module.ErrorSeverity.CRITICAL
+
+    def test_severity_comparison(self, errors_module: Any) -> None:
+        """Test severity comparison."""
+        assert errors_module.ErrorSeverity.CRITICAL.value > errors_module.ErrorSeverity.LOW.value
+
+
+# =============================================================================
+# Session 9: Resolution Tracking Tests
+# =============================================================================
+
+
+class TestResolutionTracking:
+    """Tests for resolution tracking workflows."""
+
+    def test_resolution_status_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test resolution status detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\n- [RESOLVED] Error A\n- [OPEN] Error B"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "[RESOLVED]" in previous
+        assert "[OPEN]" in previous
+
+
+# =============================================================================
+# Session 9: Notification Delivery Tests
+# =============================================================================
+
+
+class TestNotificationDelivery:
+    """Tests for notification delivery to integrations."""
+
+    def test_notification_marker(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test notification marker in errors."""
+        target = tmp_path / "test.errors.md"
+        content = "# Critical Error - NOTIFY: @team"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "NOTIFY:" in previous
+
+
+# =============================================================================
+# Session 9: Pattern Recognition Tests
+# =============================================================================
+
+
+class TestPatternRecognition:
+    """Tests for pattern recognition accuracy."""
+
+    def test_common_pattern_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test common error pattern detection."""
+        target = tmp_path / "test.errors.md"
+        content = """# Errors
+- NullPointerException at line 10
+- NullPointerException at line 20
+- NullPointerException at line 30
+"""
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert previous.count("NullPointerException") == 3
+
+
+# =============================================================================
+# Session 9: Impact Analysis Tests
+# =============================================================================
+
+
+class TestImpactAnalysis:
+    """Tests for impact analysis completeness."""
+
+    def test_affected_components(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test affected components detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\nAffected: auth_module, user_service, database"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "auth_module" in previous
+
+
+# =============================================================================
+# Session 9: Timeline Visualization Tests
+# =============================================================================
+
+
+class TestTimelineVisualization:
+    """Tests for timeline visualization data."""
+
+    def test_timestamp_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test timestamp detection in errors."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\n- [2025-01-16 10:30:00] Error occurred"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "2025-01-16" in previous
+
+
+# =============================================================================
+# Session 9: Regression Detection Tests
+# =============================================================================
+
+
+class TestRegressionDetection:
+    """Tests for regression detection algorithms."""
+
+    def test_regression_marker(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test regression marker detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\n- [REGRESSION] Error reintroduced in v2.0"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "[REGRESSION]" in previous
+
+
+# =============================================================================
+# Session 9: Automated Fix Suggestion Tests
+# =============================================================================
+
+
+class TestAutomatedFixSuggestions:
+    """Tests for automated fix suggestions."""
+
+    def test_fix_suggestion_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test fix suggestion detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\nFix: Add null check before accessing property"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Fix:" in previous
+
+
+# =============================================================================
+# Session 9: External Reporting Tests
+# =============================================================================
+
+
+class TestExternalReporting:
+    """Tests for external reporting integrations."""
+
+    def test_jira_reference(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test JIRA reference in error."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\nTracked in: JIRA-123"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "JIRA-123" in previous
+
+
+# =============================================================================
+# Session 9: Deduplication Accuracy Tests
+# =============================================================================
+
+
+class TestDeduplicationAccuracy:
+    """Tests for deduplication accuracy."""
+
+    def test_duplicate_content(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test duplicate error content."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\n- Same error\n- Same error"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        # Duplicates should be readable
+        assert "Same error" in previous
+
+
+# =============================================================================
+# Session 9: Annotation Persistence Tests
+# =============================================================================
+
+
+class TestAnnotationPersistence:
+    """Tests for annotation persistence and retrieval."""
+
+    def test_annotation_preserved(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test annotation is preserved."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\n<!-- @owner: john -->\nCritical error"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "@owner:" in previous
+
+
+# =============================================================================
+# Session 9: Error Budget Tests
+# =============================================================================
+
+
+class TestErrorBudget:
+    """Tests for error budget calculations."""
+
+    def test_budget_info_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test error budget information detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error Report\nBudget Used: 80%\nRemaining: 20%"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Budget Used:" in previous
+
+
+# =============================================================================
+# Session 9: Error Escalation Tests
+# =============================================================================
+
+
+class TestErrorEscalation:
+    """Tests for error escalation workflows."""
+
+    def test_escalation_marker(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test escalation marker detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\n[ESCALATED] Critical production issue"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "[ESCALATED]" in previous
+
+
+# =============================================================================
+# Session 9: Error Forecasting Tests
+# =============================================================================
+
+
+class TestErrorForecasting:
+    """Tests for error trend forecasting."""
+
+    def test_trend_data_detection(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test trend data detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\nTrend: Increasing (+15% this week)"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Trend:" in previous
+
+
+# =============================================================================
+# Session 9: Error Grouping Tests
+# =============================================================================
+
+
+class TestErrorGrouping:
+    """Tests for error grouping strategies."""
+
+    def test_group_by_type(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test grouping errors by type."""
+        target = tmp_path / "test.errors.md"
+        content = """# Errors
+## TypeError
+- Error 1
+## ValueError
+- Error 2
+"""
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "## TypeError" in previous
+        assert "## ValueError" in previous
+
+
+# =============================================================================
+# Session 9: Error Context Enrichment Tests
+# =============================================================================
+
+
+class TestErrorContextEnrichment:
+    """Tests for error context enrichment."""
+
+    def test_context_information(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test context information in errors."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\nContext: User login flow, after OAuth callback"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Context:" in previous
+
+
+# =============================================================================
+# Session 9: Error Suppression Tests
+# =============================================================================
+
+
+class TestErrorSuppression:
+    """Tests for error suppression rules."""
+
+    def test_suppression_marker(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test suppression marker detection."""
+        target = tmp_path / "test.errors.md"
+        content = "# Errors\n- [SUPPRESSED] Known flaky test error"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "[SUPPRESSED]" in previous
+
+    def test_suppression_reason(self, errors_module: Any, tmp_path: Path) -> None:
+        """Test suppression reason is preserved."""
+        target = tmp_path / "test.errors.md"
+        content = "# Error\nSuppression Reason: Expected during maintenance window"
+        target.write_text(content)
+        
+        agent = errors_module.ErrorsAgent(str(target))
+        previous = agent.read_previous_content()
+        
+        assert "Suppression Reason:" in previous

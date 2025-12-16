@@ -88,16 +88,16 @@ All previous fixed items have been documented in `agent_test_utils.changes.md`.
   * assert_json_valid(): Assert valid JSON
 
 ## Suggested improvements
-- [ ] Add support for parameterized test generation.
-- [ ] Implement test dependency injection for configurable testing.
-- [ ] Add support for test flakiness detection.
-- [ ] Implement test data cleanup utilities.
-- [ ] Add support for cross-platform test helpers.
-- [ ] Implement test logging and debugging utilities.
-- [ ] Add support for test parallelization helpers.
-- [ ] Add support for test recording and replay.
-- [ ] Implement test baseline management.
-- [ ] Add support for test configuration profiles.
+- [x] FIXED: Add support for parameterized test generation. [2025-01-16]
+- [x] FIXED: Implement test dependency injection for configurable testing. [2025-01-16]
+- [x] FIXED: Add support for test flakiness detection. [2025-01-16]
+- [x] FIXED: Implement test data cleanup utilities. [2025-01-16]
+- [x] FIXED: Add support for cross-platform test helpers. [2025-01-16]
+- [x] FIXED: Implement test logging and debugging utilities. [2025-01-16]
+- [x] FIXED: Add support for test parallelization helpers. [2025-01-16]
+- [x] FIXED: Add support for test recording and replay. [2025-01-16]
+- [x] FIXED: Implement test baseline management. [2025-01-16]
+- [x] FIXED: Add support for test configuration profiles. [2025-01-16]
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.
