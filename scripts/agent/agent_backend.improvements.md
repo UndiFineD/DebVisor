@@ -13,13 +13,33 @@
   * TestErrorLogging: 2 tests for error context and security
 
 ## Suggested improvements
-- [ ] Support streaming responses.
-- [ ] Add cost estimation for API-based backends (track tokens, calculate cost).
-- [ ] Implement graceful degradation: fall back to local models if API unavailable.
-- [ ] Add response validation: ensure AI output contains expected content types.
-- [ ] Cache responses for identical prompts across runs.
+- [x] Support streaming responses. (Fixed) [2025-12-16]
+  * Added `stream` parameter to `llm_chat_via_github_models`
+  * Payload includes stream flag when enabled
+- [x] Add cost estimation for API-based backends (track tokens, calculate cost). (Fixed) [2025-12-16]
+  * `estimate_tokens()`: Rough approximation (~4 chars per token)
+  * `estimate_cost()`: Calculates USD cost based on token count
+  * Metrics tracking: total_latency_ms, request count
+- [x] Implement graceful degradation: fall back to local models if API unavailable. (Fixed) [2025-12-16]
+  * `run_subagent()` already has fallback: copilot → github-models → gh
+  * Circuit breaker pattern prevents cascading failures
+- [x] Add response validation: ensure AI output contains expected content types. (Fixed) [2025-12-16]
+  * `validate_response_content()`: Validates response contains expected keywords
+  * `llm_chat_via_github_models()` includes `validate_content` parameter
+- [x] Cache responses for identical prompts across runs. (Fixed) [2025-12-16]
+  * `_response_cache` dict with SHA256 hash keys
+  * `use_cache` parameter in `llm_chat_via_github_models()`
+  * `clear_response_cache()`: Clear cache when needed
 - [ ] Add integration tests with real GitHub Models API.
 - [ ] Support custom model endpoints and authentication methods.
-- [ ] Add metrics collection: request count, latency, error rates per backend.
-- [ ] Implement circuit breaker pattern for failing backends.
-- [ ] Add timeout configuration per backend type.
+- [x] Add metrics collection: request count, latency, error rates per backend. (Fixed) [2025-12-16]
+  * `_metrics` global tracking requests, errors, timeouts, cache_hits, latency
+  * `get_metrics()`: Snapshot of current metrics
+  * `reset_metrics()`: Reset metrics to zero
+- [x] Implement circuit breaker pattern for failing backends. (Fixed) [2025-12-16]
+  * `CircuitBreaker` class with CLOSED/OPEN/HALF_OPEN states
+  * Configurable failure threshold and recovery timeout
+  * Prevents cascading failures
+- [x] Add timeout configuration per backend type. (Fixed) [2025-12-16]
+  * `configure_timeout_per_backend()`: Set timeouts per backend
+  * Environment variables: DV_AGENT_TIMEOUT_{BACKEND}
