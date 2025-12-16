@@ -35,6 +35,7 @@ import json
 import logging
 import os
 import subprocess
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -118,11 +119,12 @@ def llm_chat_via_github_models(
     base_url: Optional[str] = None,
     token: Optional[str] = None,
     timeout_s: int = 60,
+    max_retries: int = 2,
 ) -> str:
-    """Call a GitHub Models OpenAI-compatible chat endpoint.
+    """Call a GitHub Models OpenAI-compatible chat endpoint with retry logic.
     
     Makes an HTTP request to a GitHub Models API endpoint with the provided
-    prompt and returns the AI's response.
+    prompt and returns the AI's response. Includes retry logic for transient failures.
     
     Args:
         prompt: User prompt to send to the model.
@@ -131,26 +133,30 @@ def llm_chat_via_github_models(
         base_url: API endpoint base URL. Can also be set via GITHUB_MODELS_BASE_URL.
         token: GitHub personal access token. Can also be set via GITHUB_TOKEN.
         timeout_s: HTTP request timeout in seconds. Defaults to 60.
+        max_retries: Maximum retry attempts on failure. Defaults to 2.
         
     Returns:
         str: The AI model's response text.
         
     Raises:
         RuntimeError: If required dependencies or configuration are missing.
-        requests.RequestException: If HTTP request fails.
+        requests.RequestException: If HTTP request fails after all retries.
         
     Example:
         response = llm_chat_via_github_models(
             prompt="What is Python?",
             model="gpt-4",
             base_url="https://api.github.com/models",
-            token="ghp_..."
+            token="ghp_...",
+            max_retries=3
         )
         
     Note:
         - Requires 'requests' package to be installed
         - Follows OpenAI API format for compatibility
         - Raises RuntimeError if requests library unavailable
+        - Retries with exponential backoff on transient errors
+        - Network timeouts are retried automatically
     """
     if requests is None:
         raise RuntimeError("Missing dependency: install 'requests' to use GitHub Models backend")
@@ -178,21 +184,39 @@ def llm_chat_via_github_models(
         "Content-Type": "application/json",
     }
     
-    logging.debug(f"Making GitHub Models API request to {url} with model {model}")
-    response = requests.post(
-        url,
-        headers=headers,
-        data=json.dumps(payload),
-        timeout=timeout_s,
-    )
-    response.raise_for_status()
-    data = response.json()
-    try:
-        result = (data["choices"][0]["message"]["content"] or "").strip()
-        logging.debug(f"Received {len(result)} bytes from GitHub Models API")
-        return result
-    except (KeyError, IndexError, TypeError) as e:
-        raise RuntimeError(f"Unexpected response shape from LLM endpoint: {data!r}") from e
+    last_error = None
+    for attempt in range(max_retries + 1):
+        try:
+            logging.debug(f"Making GitHub Models API request (attempt {attempt + 1}/{max_retries + 1})")
+            response = requests.post(
+                url,
+                headers=headers,
+                data=json.dumps(payload),
+                timeout=timeout_s,
+            )
+            response.raise_for_status()
+            data = response.json()
+            try:
+                result = (data["choices"][0]["message"]["content"] or "").strip()
+                logging.debug(f"Received {len(result)} bytes from GitHub Models API")
+                return result
+            except (KeyError, IndexError, TypeError) as e:
+                raise RuntimeError(f"Unexpected response shape from LLM endpoint: {data!r}") from e
+        except (requests.Timeout, requests.ConnectionError) as e:
+            last_error = e
+            if attempt < max_retries:
+                delay = min(2 ** attempt, 30)  # Exponential backoff, max 30s
+                logging.warning(f"GitHub Models API timeout/connection error, retrying in {delay}s...")
+                time.sleep(delay)
+            else:
+                logging.error(f"GitHub Models API failed after {max_retries + 1} attempts")
+                raise
+        except requests.RequestException as e:
+            logging.error(f"GitHub Models API request failed: {e}")
+            raise
+    
+    if last_error:
+        raise last_error
 
 
 def run_subagent(description: str, prompt: str, original_content: str = "") -> Optional[str]:

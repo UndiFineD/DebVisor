@@ -38,10 +38,11 @@ import sys
 import os
 import logging
 from pathlib import Path
-from typing import List, Set, Optional
+from typing import List, Set, Optional, Dict
 import argparse
 import fnmatch
 import importlib.util
+import time
 
 # Import markdown fixing functionality
 def _load_fix_markdown_content() -> callable:
@@ -56,6 +57,52 @@ def _load_fix_markdown_content() -> callable:
     return lambda x: x  # Fallback
 
 fix_markdown_content = _load_fix_markdown_content()
+
+
+# Global cache for .codeignore patterns to avoid re-parsing
+_CODEIGNORE_CACHE: Dict[str, Set[str]] = {}
+_CODEIGNORE_CACHE_TIME: Dict[str, float] = {}
+
+
+def _exponential_backoff_retry(func, max_attempts: int = 3, base_delay: float = 1.0, max_delay: float = 30.0):
+    """Execute a function with exponential backoff retry on failure.
+    
+    Retries a function call if it raises an exception, with exponentially
+    increasing delays between attempts. Useful for transient failures.
+    
+    Args:
+        func: Callable that returns True on success, False on failure.
+        max_attempts: Maximum number of attempts. Defaults to 3.
+        base_delay: Initial delay in seconds. Defaults to 1.0.
+        max_delay: Maximum delay between retries. Defaults to 30.0.
+        
+    Returns:
+        bool: True if func succeeded, False after max_attempts.
+        
+    Example:
+        success = _exponential_backoff_retry(
+            lambda: subprocess.run([...], check=True),
+            max_attempts=3
+        )
+        
+    Note:
+        - Delay formula: min(base_delay * (2 ^ attempt), max_delay)
+        - Logs each retry attempt
+        - Final failure is logged as error
+    """
+    for attempt in range(1, max_attempts + 1):
+        try:
+            result = func()
+            if result:
+                return True
+        except Exception as e:
+            if attempt == max_attempts:
+                logging.error(f"Failed after {max_attempts} attempts: {e}")
+                return False
+            delay = min(base_delay * (2 ** (attempt - 1)), max_delay)
+            logging.warning(f"Attempt {attempt} failed, retrying in {delay}s: {e}")
+            time.sleep(delay)
+    return False
 
 
 def setup_logging(verbosity: str) -> None:
@@ -99,6 +146,9 @@ def load_codeignore(root: Path) -> Set[str]:
     Reads the .codeignore file from the repository root and extracts all
     ignore patterns (lines that are not empty or comments).
     
+    Caches patterns to avoid re-parsing on subsequent calls. Cache is invalidated
+    if the file is modified (checked by file mtime).
+    
     Args:
         root: Path to the repository root directory.
         
@@ -117,8 +167,22 @@ def load_codeignore(root: Path) -> Set[str]:
         - Lines starting with '#' are treated as comments and ignored
         - Empty lines are skipped
         - File encoding is assumed to be UTF-8
+        - Patterns are cached with mtime checking for efficiency
     """
     codeignore_path = root / ".codeignore"
+    cache_key = str(codeignore_path)
+    
+    # Check cache validity
+    if cache_key in _CODEIGNORE_CACHE and codeignore_path.exists():
+        try:
+            file_mtime = codeignore_path.stat().st_mtime
+            cache_time = _CODEIGNORE_CACHE_TIME.get(cache_key, 0)
+            if file_mtime == cache_time:
+                logging.debug(f"Using cached .codeignore patterns for {cache_key}")
+                return _CODEIGNORE_CACHE[cache_key]
+        except OSError:
+            pass
+    
     if codeignore_path.exists():
         try:
             logging.debug(f"Loading .codeignore patterns from {codeignore_path}")
@@ -128,6 +192,14 @@ def load_codeignore(root: Path) -> Set[str]:
                 if line.strip() and not line.strip().startswith('#')
             }
             logging.info(f"Loaded {len(patterns)} ignore patterns from .codeignore")
+            
+            # Cache the patterns
+            _CODEIGNORE_CACHE[cache_key] = patterns
+            try:
+                _CODEIGNORE_CACHE_TIME[cache_key] = codeignore_path.stat().st_mtime
+            except OSError:
+                pass
+            
             return patterns
         except Exception as e:
             logging.warning(f"Could not read .codeignore file: {e}")
@@ -143,6 +215,8 @@ class Agent:
     tasks to specialized sub-agents (CoderAgent, TestsAgent, etc.) that handle
     specific aspects of code quality and documentation.
     
+    Supports context manager protocol for resource management.
+    
     Attributes:
         repo_root (Path): Root directory of the target repository.
         agents_only (bool): If True, only process files in scripts/agent directory.
@@ -156,10 +230,12 @@ class Agent:
         SUPPORTED_EXTENSIONS (Set[str]): File extensions to process (py, sh, js, ts, etc.).
         
     Example:
-        agent = Agent(repo_root='.', agents_only=True, max_files=10)
-        agent.run()
+        with Agent(repo_root='.', agents_only=True) as agent:
+            files = agent.find_code_files()
+            agent.run()
         
     Note:
+        - Can be used as context manager for automatic cleanup
         - Recursively finds code files in the repository
         - Filters files according to .codeignore patterns
         - Runs sub-agents on each file for improvements
@@ -186,6 +262,8 @@ class Agent:
         Note:
             The repository root is automatically detected by looking for .git,
             README.md, or package.json if not explicitly provided.
+            
+            Supports context manager protocol via __enter__ and __exit__.
         """
         logging.info(f"Initializing Agent with repo_root={repo_root}")
         self.repo_root = self._find_repo_root(Path(repo_root))
@@ -198,16 +276,29 @@ class Agent:
         self.no_git = no_git
         self.ignored_patterns = load_codeignore(self.repo_root)
         logging.info(f"Agent initialized: repo={self.repo_root}, loop={loop}, agents_only={agents_only}")
+    
+    def __enter__(self):
+        """Context manager entry. Returns self for use in 'with' statement."""
+        logging.debug(f"Agent entering context manager")
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager exit. Handles cleanup if needed."""
+        logging.debug(f"Agent exiting context manager")
+        if exc_type is not None:
+            logging.error(f"Agent context manager error: {exc_type.__name__}: {exc_val}")
+        return False  # Don't suppress exceptions
 
-    def _run_command(self, cmd: List[str], timeout: int = 120) -> subprocess.CompletedProcess:
-        """Run a command with timeout, error handling, and logging.
+    def _run_command(self, cmd: List[str], timeout: int = 120, max_retries: int = 1) -> subprocess.CompletedProcess:
+        """Run a command with timeout, error handling, retry logic, and logging.
         
         Executes a subprocess command with comprehensive error handling,
-        timeout protection, and logging of results.
+        timeout protection, exponential backoff retry, and logging of results.
         
         Args:
             cmd: Command as list of strings (e.g., ['python', 'script.py', '--arg']).
             timeout: Timeout in seconds for command execution. Defaults to 120.
+            max_retries: Number of retry attempts on failure. Defaults to 1 (no retry).
             
         Returns:
             subprocess.CompletedProcess: Contains returncode, stdout, stderr.
@@ -216,7 +307,7 @@ class Agent:
             None. All errors are caught and logged. Returns failed CompletedProcess.
             
         Example:
-            result = agent._run_command(['python', '-m', 'pytest', 'test.py'])
+            result = agent._run_command(['python', '-m', 'pytest', 'test.py'], max_retries=2)
             if result.returncode == 0:
                 print("Success")
             else:
@@ -227,30 +318,46 @@ class Agent:
             - Captures both stdout and stderr
             - Logs command execution at DEBUG level
             - Returns CompletedProcess even on timeout (returncode=-1)
+            - Retries with exponential backoff: 1s, 2s, 4s, etc.
         """
-        logging.debug(f"Running command: {' '.join(cmd[:3])}... (timeout={timeout}s)")
-        try:
-            result = subprocess.run(
-                cmd,
-                cwd=self.repo_root,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                encoding='utf-8',
-                errors='replace',
-                check=False
-            )
-            logging.debug(f"Command completed with returncode={result.returncode}")
-            return result
-        except subprocess.TimeoutExpired:
-            logging.error(f"Command timed out after {timeout}s: {' '.join(cmd[:3])}...")
-            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr="Timeout expired")
-        except OSError as e:
-            logging.error(f"Command failed to start: {e}")
-            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
-        except Exception as e:
-            logging.error(f"Command failed with unexpected error: {e}")
-            return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
+        def attempt_command():
+            logging.debug(f"Running command: {' '.join(cmd[:3])}... (timeout={timeout}s)")
+            try:
+                result = subprocess.run(
+                    cmd,
+                    cwd=self.repo_root,
+                    capture_output=True,
+                    text=True,
+                    timeout=timeout,
+                    encoding='utf-8',
+                    errors='replace',
+                    check=False
+                )
+                logging.debug(f"Command completed with returncode={result.returncode}")
+                return result
+            except subprocess.TimeoutExpired:
+                logging.error(f"Command timed out after {timeout}s: {' '.join(cmd[:3])}...")
+                return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr="Timeout expired")
+            except OSError as e:
+                logging.error(f"Command failed to start: {e}")
+                return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
+            except Exception as e:
+                logging.error(f"Command failed with unexpected error: {e}")
+                return subprocess.CompletedProcess(cmd, returncode=-1, stdout="", stderr=str(e))
+        
+        result = attempt_command()
+        
+        # Retry on failure with exponential backoff
+        for attempt in range(1, max_retries):
+            if result.returncode == 0:
+                return result
+            
+            delay = min(1.0 * (2 ** (attempt - 1)), 30.0)  # Max 30 seconds
+            logging.warning(f"Command failed (attempt {attempt}), retrying in {delay}s...")
+            time.sleep(delay)
+            result = attempt_command()
+        
+        return result
 
     def _find_repo_root(self, start_path: Path) -> Path:
         """Find the repository root by looking for repository markers.

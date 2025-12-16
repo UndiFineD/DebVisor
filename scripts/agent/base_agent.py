@@ -119,6 +119,8 @@ class BaseAgent:
     code files, documentation, tests, and other artifacts. Handles file I/O,
     diff generation, and integration with AI services.
     
+    Supports context manager protocol for automatic resource cleanup.
+    
     Attributes:
         file_path (Path): Path to the file being improved.
         previous_content (str): Original file content before improvements.
@@ -138,14 +140,15 @@ class BaseAgent:
             def _get_default_content(self):
                 return "# New File\\n"
         
-        agent = MyAgent('path/to/file.md')
-        agent.improve_content("Make it better")
-        agent.update_file()
+        with MyAgent('path/to/file.md') as agent:
+            agent.improve_content("Make it better")
+            agent.update_file()
         
     Note:
         - Automatically detects markdown files for formatting cleanup
         - Provides fallback responses when AI backend unavailable
         - Supports multiple AI backends via agent_backend module
+        - Can be used as context manager for automatic cleanup
     """
 
     def __init__(self, file_path: str) -> None:
@@ -157,12 +160,31 @@ class BaseAgent:
                       
         Note:
             Automatically reads previous content on initialization.
+            Supports context manager protocol via __enter__ and __exit__.
         """
         self.file_path = Path(file_path)
         self.previous_content = ""
         self.current_content = ""
         logging.debug(f"Initializing {self.__class__.__name__} for {file_path}")
         self.read_previous_content()
+    
+    def __enter__(self):
+        """Context manager entry. Returns self for use in 'with' statement."""
+        logging.debug(f"{self.__class__.__name__} entering context manager")
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager exit. Handles cleanup if needed.
+        
+        Note:
+            - Logs any exceptions that occurred
+            - Does not suppress exceptions
+            - Can be overridden in subclasses for custom cleanup
+        """
+        logging.debug(f"{self.__class__.__name__} exiting context manager")
+        if exc_type is not None:
+            logging.error(f"Agent context error: {exc_type.__name__}: {exc_val}")
+        return False  # Don't suppress exceptions
 
     def read_previous_content(self) -> str:
         """Read the existing file content from disk.
@@ -312,7 +334,18 @@ class BaseAgent:
         return agent_backend.describe_backends()
 
     def _get_fallback_response(self) -> str:
-        """Return fallback response when Copilot CLI is unavailable. Override in subclasses."""
+        """Return fallback response when Copilot CLI is unavailable.
+        
+        Called when AI backend is not available. Override in subclasses to provide
+        agent-specific fallback content.
+        
+        Returns:
+            str: Fallback response text with helpful instructions.
+            
+        Note:
+            Called automatically by run_subagent() when backend unavailable.
+            Subclasses should override to provide domain-specific defaults.
+        """
         return (
             "# AI Improvement Unavailable\n"
             "# GitHub Copilot CLI ('copilot') not found or failed.\n"
