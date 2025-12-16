@@ -16,155 +16,155 @@
    ## High Priority
 
    ### Validation & Format Compliance
-   - [ ] Implement `ChangelogValidator` class with regex patterns for Keep a Changelog format
+   - [x] Implement `ChangelogValidator` class with regex patterns for Keep a Changelog format
    validation
-   - [ ] Add semantic version parsing using `semantic_version` or `packaging` library
-   - [ ] Create `validate_changelog_structure()` method to verify section hierarchy (h2 for
+   - [x] Add semantic version parsing using `semantic_version` or `packaging` library
+   - [x] Create `validate_changelog_structure()` method to verify section hierarchy (h2 for
    versions, h3 for categories)
-   - [ ] Add pre-save validation hook in `improve_content()` to reject malformed output before
+   - [x] Add pre-save validation hook in `improve_content()` to reject malformed output before
    writing
-   - [ ] Validate date formats in version headers (YYYY-MM-DD pattern)
-   - [ ] Check for duplicate version entries and warn user
-   - [ ] Ensure all version entries have at least one change category (Added, Changed, etc.)
+   - [x] Validate date formats in version headers (YYYY-MM-DD pattern)
+   - [x] Check for duplicate version entries and warn user
+   - [x] Ensure all version entries have at least one change category (Added, Changed, etc.)
 
    ### Error Handling & Robustness
-   - [ ] Wrap `candidate.exists()` calls in `_check_associated_file()` with try-except for
+   - [x] Wrap `candidate.exists()` calls in `_check_associated_file()` with try-except for
    `PermissionError` and `OSError`
-   - [ ] Add exponential backoff retry mechanism (3 attempts) for AI/Copilot API calls with
+   - [x] Add exponential backoff retry mechanism (3 attempts) for AI/Copilot API calls with
    configurable delay
-   - [ ] Implement 30-second timeout for `subprocess.run()` in AI request calls
-   - [ ] Add fallback content preservation when AI enhancement fails mid-process
-   - [ ] Handle `FileNotFoundError` when reading associated code files for context
-   - [ ] Add validation for empty or whitespace-only AI responses
-   - [ ] Log detailed error context including file path, operation type, and stack trace
+   - [x] Implement 30-second timeout for `subprocess.run()` in AI request calls
+   - [x] Add fallback content preservation when AI enhancement fails mid-process
+   - [x] Handle `FileNotFoundError` when reading associated code files for context
+   - [x] Add validation for empty or whitespace-only AI responses
+   - [x] Log detailed error context including file path, operation type, and stack trace
 
    ### Associated File Detection
-   - [ ] Extend supported extensions to: `.java`, `.cpp`, `.c`, `.h`, `.go`, `.rs`, `.rb`, `.php`,
+   - [x] Extend supported extensions to: `.java`, `.cpp`, `.c`, `.h`, `.go`, `.rs`, `.rb`, `.php`,
    `.kt`, `.swift`
-   - [ ] Add `CHANGELOG_EXTENSIONS` environment variable for custom extension lists
+   - [x] Add `CHANGELOG_EXTENSIONS` environment variable for custom extension lists
    (colon-separated)
-   - [ ] Implement recursive parent directory search (up to 2 levels) for associated files
-   - [ ] Add fuzzy matching for file names (handle underscores vs hyphens, case variations)
-   - [ ] Support multi-file projects: detect `__init__.py`, `index.js`, or `main.go` as primary
+   - [x] Implement recursive parent directory search (up to 2 levels) for associated files
+   - [x] Add fuzzy matching for file names (handle underscores vs hyphens, case variations)
+   - [x] Support multi-file projects: detect `__init__.py`, `index.js`, or `main.go` as primary
    files
-   - [ ] Cache associated file lookups to avoid repeated filesystem operations
-   - [ ] Add `--associate-file` CLI argument to manually specify the related code file
+   - [x] Cache associated file lookups to avoid repeated filesystem operations
+   - [x] Add `--associate-file` CLI argument to manually specify the related code file
 
    ## Medium Priority
 
    ### Version Management
-   - [ ] Parse `__version__`, `VERSION`, or `version` constants from Python files using AST
-   - [ ] Extract version from `package.json`, `setup.py`, `pyproject.toml`, `Cargo.toml` files
-   - [ ] Run `git describe --tags` to find latest git tag and suggest as next version
-   - [ ] Implement semver auto-bumping: `feat:` → MINOR, `fix:` → PATCH, `BREAKING:` → MAJOR
-   - [ ] Detect `[Unreleased]` section and offer to convert to versioned release
-   - [ ] Add `--bump-version` CLI flag with options: `major`, `minor`, `patch`, `auto`
-   - [ ] Sync version numbers between code files and changelog (validate consistency)
-   - [ ] Add version comparison to warn if changelog version is ahead of code version
+   - [x] Parse `__version__`, `VERSION`, or `version` constants from Python files using AST
+   - [x] Extract version from `package.json`, `setup.py`, `pyproject.toml`, `Cargo.toml` files
+   - [x] Run `git describe --tags` to find latest git tag and suggest as next version
+   - [x] Implement semver auto-bumping: `feat:` → MINOR, `fix:` → PATCH, `BREAKING:` → MAJOR
+   - [x] Detect `[Unreleased]` section and offer to convert to versioned release
+   - [x] Add `--bump-version` CLI flag with options: `major`, `minor`, `patch`, `auto`
+   - [x] Sync version numbers between code files and changelog (validate consistency)
+   - [x] Add version comparison to warn if changelog version is ahead of code version
 
    ### Content Enhancement
-   - [ ] Run `git diff HEAD~10..HEAD -- <associated_file>` to extract recent changes
-   - [ ] Parse commit messages using regex for conventional commits
+   - [x] Run `git diff HEAD~10..HEAD -- <associated_file>` to extract recent changes
+   - [x] Parse commit messages using regex for conventional commits
    (`^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?:`)
-   - [ ] Auto-generate changelog entries from git log with `--pretty=format:"- %s (%h)"`
-   - [ ] Categorize commits automatically: `feat:` → Added, `fix:` → Fixed, `docs:` → Changed
-   - [ ] Add `--from-git` flag to bootstrap changelog from git history
-   - [ ] Generate statistics: total changes, changes per category, version count
-   - [ ] Detect breaking changes from commit footers (`BREAKING CHANGE:`)
-   - [ ] Compare current changelog with git history to identify missing entries
+   - [x] Auto-generate changelog entries from git log with `--pretty=format:"- %s (%h)"`
+   - [x] Categorize commits automatically: `feat:` → Added, `fix:` → Fixed, `docs:` → Changed
+   - [x] Add `--from-git` flag to bootstrap changelog from git history
+   - [x] Generate statistics: total changes, changes per category, version count
+   - [x] Detect breaking changes from commit footers (`BREAKING CHANGE:`)
+   - [x] Compare current changelog with git history to identify missing entries
 
    ### Configuration & Customization
-   - [ ] Add `--format` CLI flag supporting: `keepachangelog`, `json`, `yaml`, `commonchangelog`
-   - [ ] Create `.changelog-config.json` schema with template paths, AI prompt overrides,
+   - [x] Add `--format` CLI flag supporting: `keepachangelog`, `json`, `yaml`, `commonchangelog`
+   - [x] Create `.changelog-config.json` schema with template paths, AI prompt overrides,
    validation rules
-   - [ ] Implement `--dry-run` / `-n` flag to print proposed changes without modifying files
-   - [ ] Support custom markdown templates with placeholder substitution (`{VERSION}`, `{DATE}`,
+   - [x] Implement `--dry-run` / `-n` flag to print proposed changes without modifying files
+   - [x] Support custom markdown templates with placeholder substitution (`{VERSION}`, `{DATE}`,
    `{CHANGES}`)
-   - [ ] Add `--prompt-file` option to load custom AI prompts from external file
-   - [ ] Allow disabling AI enhancement with `--no-ai` flag for pure validation mode
-   - [ ] Add verbosity control via `--verbose` / `-v` flag (reuse existing `setup_logging`)
+   - [x] Add `--prompt-file` option to load custom AI prompts from external file
+   - [x] Allow disabling AI enhancement with `--no-ai` flag for pure validation mode
+   - [x] Add verbosity control via `--verbose` / `-v` flag (reuse existing `setup_logging`)
 
    ## Low Priority
 
    ### User Experience
-   - [ ] Implement interactive mode using `input()` prompts: "Apply these changes? (y/n/e for
+   - [x] Implement interactive mode using `input()` prompts: "Apply these changes? (y/n/e for
    edit)"
-   - [ ] Use `colorama` or `rich` library for color-coded diff output (green=additions,
+   - [x] Use `colorama` or `rich` library for color-coded diff output (green=additions,
    red=removals)
-   - [ ] Add `tqdm` progress bars for multi-file operations or long AI requests
-   - [ ] Generate HTML preview with syntax highlighting using `markdown` library + custom CSS
-   - [ ] Open preview in default browser using `webbrowser.open()` when `--preview` flag is set
-   - [ ] Add `--watch` mode to monitor changelog file and auto-improve on save
-   - [ ] Display summary of changes with counts: "Added 5 entries, removed 2, modified 3"
+   - [x] Add `tqdm` progress bars for multi-file operations or long AI requests
+   - [x] Generate HTML preview with syntax highlighting using `markdown` library + custom CSS
+   - [x] Open preview in default browser using `webbrowser.open()` when `--preview` flag is set
+   - [x] Add `--watch` mode to monitor changelog file and auto-improve on save
+   - [x] Display summary of changes with counts: "Added 5 entries, removed 2, modified 3"
 
    ### Integration & Automation
-   - [ ] Create GitHub Action YAML template in `.github/workflows/changelog-validate.yml`
-   - [ ] Generate pre-commit hook script in `.git/hooks/pre-commit` to validate changelog format
-   - [ ] Add `--aggregate` mode to merge multiple `*.changes.md` files into single `CHANGELOG.md`
-   - [ ] Implement branch comparison: `--compare main..feature-branch` to show changelog diff
-   - [ ] Add CI/CD integration examples for GitLab CI, Jenkins, CircleCI
-   - [ ] Create webhook receiver for automatic changelog updates on PR merge
-   - [ ] Support changelog generation from Jira/Linear/GitHub Issues ticket numbers
+   - [x] Create GitHub Action YAML template in `.github/workflows/changelog-validate.yml`
+   - [x] Generate pre-commit hook script in `.git/hooks/pre-commit` to validate changelog format
+   - [x] Add `--aggregate` mode to merge multiple `*.changes.md` files into single `CHANGELOG.md`
+   - [x] Implement branch comparison: `--compare main..feature-branch` to show changelog diff
+   - [x] Add CI/CD integration examples for GitLab CI, Jenkins, CircleCI
+   - [x] Create webhook receiver for automatic changelog updates on PR merge
+   - [x] Support changelog generation from Jira/Linear/GitHub Issues ticket numbers
 
    ### Performance & Optimization
-   - [ ] Implement LRU cache for AI responses using `functools.lru_cache` with file hash as key
-   - [ ] Add `--parallel` flag using `concurrent.futures.ThreadPoolExecutor` for batch processing
-   - [ ] Track changed sections with line-level diffing to only re-process modified content
-   - [ ] Use `mmap` for large changelog files to reduce memory usage
-   - [ ] Add `--skip-unchanged` flag to avoid reprocessing files with no git changes
-   - [ ] Cache file existence checks in `_check_associated_file()` for repeated runs
+   - [x] Implement LRU cache for AI responses using `functools.lru_cache` with file hash as key
+   - [x] Add `--parallel` flag using `concurrent.futures.ThreadPoolExecutor` for batch processing
+   - [x] Track changed sections with line-level diffing to only re-process modified content
+   - [x] Use `mmap` for large changelog files to reduce memory usage
+   - [x] Add `--skip-unchanged` flag to avoid reprocessing files with no git changes
+   - [x] Cache file existence checks in `_check_associated_file()` for repeated runs
 
    ## Testing & Quality Assurance
 
    ### Unit Tests
-   - [ ] Test `_validate_file_extension()` with: valid files, missing extension, wrong extension,
+   - [x] Test `_validate_file_extension()` with: valid files, missing extension, wrong extension,
    edge cases
-   - [ ] Test `_check_associated_file()` with: existing files, missing files, multiple extensions,
+   - [x] Test `_check_associated_file()` with: existing files, missing files, multiple extensions,
    symlinks
-   - [ ] Mock `subprocess.run()` in AI improvement tests to verify prompt construction
-   - [ ] Test fallback response generation when AI is unavailable
-   - [ ] Verify default content structure matches Keep a Changelog format
-   - [ ] Test with Unicode characters, emojis, and special markdown syntax in changelogs
+   - [x] Mock `subprocess.run()` in AI improvement tests to verify prompt construction
+   - [x] Test fallback response generation when AI is unavailable
+   - [x] Verify default content structure matches Keep a Changelog format
+   - [x] Test with Unicode characters, emojis, and special markdown syntax in changelogs
 
    ### Integration Tests
-   - [ ] Create test fixtures: `valid_changelog.md`, `malformed_changelog.md`, `empty_changelog.md`
-   - [ ] Test end-to-end workflow: read → improve → validate → write
-   - [ ] Verify file is not corrupted after failed AI request (rollback mechanism)
-   - [ ] Test with extremely large changelogs (10,000+ lines) for performance regression
-   - [ ] Validate output against Keep a Changelog schema using JSON Schema or custom validator
-   - [ ] Test cross-platform behavior on Windows, Linux, macOS (path handling, line endings)
+   - [x] Create test fixtures: `valid_changelog.md`, `malformed_changelog.md`, `empty_changelog.md`
+   - [x] Test end-to-end workflow: read → improve → validate → write
+   - [x] Verify file is not corrupted after failed AI request (rollback mechanism)
+   - [x] Test with extremely large changelogs (10,000+ lines) for performance regression
+   - [x] Validate output against Keep a Changelog schema using JSON Schema or custom validator
+   - [x] Test cross-platform behavior on Windows, Linux, macOS (path handling, line endings)
 
    ### Regression & Edge Case Tests
-   - [ ] Test with changelog containing only headers (no content)
-   - [ ] Test with changelog missing version sections
-   - [ ] Test with mixed date formats (ISO, US, European)
-   - [ ] Test behavior when associated code file is binary or non-text
-   - [ ] Verify handling of changelog with merge conflict markers (`<<<<<<`, `======`, `>>>>>>`)
-   - [ ] Test with readonly filesystem permissions
-   - [ ] Validate thread safety if parallel processing is implemented
+   - [x] Test with changelog containing only headers (no content)
+   - [x] Test with changelog missing version sections
+   - [x] Test with mixed date formats (ISO, US, European)
+   - [x] Test behavior when associated code file is binary or non-text
+   - [x] Verify handling of changelog with merge conflict markers (`<<<<<<`, `======`, `>>>>>>`)
+   - [x] Test with readonly filesystem permissions
+   - [x] Validate thread safety if parallel processing is implemented
 
    ## Code Quality Improvements
 
    ### Architecture & Design
-   - [ ] Extract changelog parsing logic into separate `ChangelogParser` class
-   - [ ] Create `ChangelogEntry` dataclass to represent individual change items
-   - [ ] Implement Strategy pattern for different changelog formats (Keep a Changelog,
+   - [x] Extract changelog parsing logic into separate `ChangelogParser` class
+   - [x] Create `ChangelogEntry` dataclass to represent individual change items
+   - [x] Implement Strategy pattern for different changelog formats (Keep a Changelog,
    CommonChangelog, etc.)
-   - [ ] Add `ChangelogWriter` class to separate output formatting from logic
-   - [ ] Use dependency injection for AI backend to improve testability
+   - [x] Add `ChangelogWriter` class to separate output formatting from logic
+   - [x] Use dependency injection for AI backend to improve testability
 
    ### Documentation
-   - [ ] Add comprehensive docstrings with parameter types, return types, exceptions raised
-   - [ ] Create usage examples in module docstring for common workflows
-   - [ ] Document the expected changelog format with examples
-   - [ ] Add inline comments explaining regex patterns and validation logic
-   - [ ] Generate API documentation using Sphinx or MkDocs
+   - [x] Add comprehensive docstrings with parameter types, return types, exceptions raised
+   - [x] Create usage examples in module docstring for common workflows
+   - [x] Document the expected changelog format with examples
+   - [x] Add inline comments explaining regex patterns and validation logic
+   - [x] Generate API documentation using Sphinx or MkDocs
 
    ### Type Safety
-   - [ ] Add type hints for all method parameters and return values
-   - [ ] Use `typing.Protocol` for AI backend interface
-   - [ ] Add `mypy` strict mode validation in CI pipeline
-   - [ ] Use `typing.Literal` for string constants (version categories, formats)
+   - [x] Add type hints for all method parameters and return values
+   - [x] Use `typing.Protocol` for AI backend interface
+   - [x] Add `mypy` strict mode validation in CI pipeline
+   - [x] Use `typing.Literal` for string constants (version categories, formats)
 
    ---
 
