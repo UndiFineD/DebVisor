@@ -2,6 +2,10 @@
 
 - 2025-12-15: Added report generation for each `scripts/agent/*.py` into `*.description.md`, `*.errors.md`, and `*.improvements.md`.
 
+## [2025-12-16]
+- Add logging for all major actions. (Fixed)
+- Add type hints for all methods. (Fixed)
+
 ## [2025-12-15]
 - Added detailed logging for report generation process.
 - Added explicit type hints to `main`.

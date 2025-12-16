@@ -248,7 +248,7 @@ class Agent:
         
         if stdout_ok and stderr_ok:
             changes_made = True
-        return changes_made
+        return bool(changes_made)
 
     def _get_pending_improvements(self, improvements_file: Path) -> List[str]:
         """Extract pending improvements from the improvements file."""
@@ -367,7 +367,7 @@ class Agent:
             # Assume targeted improvements were fixed if code changed
             self._mark_improvements_fixed(improvements_file, target_improvements)
             self._log_changes(changes_file, target_improvements)
-        return changes_made
+        return bool(changes_made)
 
     def update_changelog_context_tests(self, code_file: Path) -> bool:
         """Update changelog, context, and tests."""
@@ -449,7 +449,7 @@ def test_placeholder():
         result = self._run_command(cmd)
         if result.stdout and "No changes made" not in result.stdout and (not result.stderr or "No changes made" not in result.stderr):
             changes_made = True
-        return changes_made
+        return bool(changes_made)
 
     def _check_files_ready(self, code_file: Path) -> bool:
         """Check if all supporting files exist and have content."""

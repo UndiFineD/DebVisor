@@ -1,16 +1,27 @@
 # Improvements: `agent.py`
 
 ## Fixed
-- Improved exception handling in `_run_command` to be more specific (`OSError`) and robust (`errors='replace'`).
-- Added type hint and docstring to `_load_fix_markdown_content`.
-- Added type hints for all methods.
+- Improved exception handling in `_run_command` to be more specific (`OSError`) and robust (`errors='replace'`). (Fixed)
+- Added type hint and docstring to `_load_fix_markdown_content`. (Fixed)
+- Added type hints for all methods. (Fixed)
+- Add logging for all major actions. (Fixed)
 
 ## Suggested improvements
-- Refactor: File is large (>300 lines), consider splitting.
-- Add docstrings for all methods.
-- Add unit tests for edge cases.
-- Use `pathlib` consistently.
-- Add logging for all major actions.
+- [ ] Refactor: File is large (>300 lines), consider splitting into: `agent_orchestrator.py`, `agent_processor.py`, `agent_reporter.py`.
+- [ ] Add comprehensive docstrings for all methods following Google style format.
+- [ ] Add unit tests for edge cases (missing files, empty repos, malformed codeignore).
+- [ ] Implement async file processing using `asyncio` for better performance.
+- [ ] Add progress bar using `tqdm` for visual feedback on large repos.
+- [ ] Implement error recovery: retry failed file processing with exponential backoff.
+- [ ] Add cache for `.codeignore` patterns to avoid re-parsing on each run.
+- [ ] Support `.agentignore` files in subdirectories (cascading ignore patterns).
+- [ ] Add `--summary` flag to print statistics: files processed, fixes applied, time elapsed.
+- [ ] Implement dry-run mode: show what would be done without actually modifying files.
+- [ ] Add parallel processing using `multiprocessing.Pool` for independent files.
+- [ ] Create metrics collection: track improvements per file, per agent, over time.
+- [ ] Add webhook/callback support for integration with CI/CD pipelines.
+- [ ] Implement selective agent execution: `--only-coder`, `--skip-tests`, etc.
+- [ ] Add rollback functionality: save pre-agent versions for recovery.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.

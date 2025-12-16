@@ -6,6 +6,11 @@
 - 2025-12-15: Add backend diagnostics (`--describe-backends`, `describe_backends`, `get_backend_status`) without leaking secrets.
 - 2025-12-15: Move token access out of import-time code paths; treat missing/invalid configuration as a recoverable condition in `auto` mode.
 
+## [2025-12-16]
+- Improved `agent_backend` import logic. (Fixed)
+- Added type hints for all methods. (Fixed)
+- Add logging for all major actions. (Fixed)
+
 ## [2025-12-15]
 - Added robust file reading with error handling in `read_previous_content`.
 - Added explicit type hints to `__init__`.

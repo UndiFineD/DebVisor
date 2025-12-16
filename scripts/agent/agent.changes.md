@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2] - 2025-12-16
+
+### Fixed
+
+- Improved exception handling in `_run_command` to be more specific (`OSError`) and robust (`errors='replace'`). (Fixed)
+- Added type hint and docstring to `_load_fix_markdown_content`. (Fixed)
+- Added type hints for all methods. (Fixed)
+- Add logging for all major actions. (Fixed)
+
 ## [1.0.1] - 2025-12-15
 
 ### Changed
