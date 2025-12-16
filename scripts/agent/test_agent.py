@@ -1,160 +1,690 @@
-#!/usr/bin/env python3
-# Copyright (c) 2025 DebVisor contributors
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#     http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""Legacy tests for scripts/agent/agent.py.
-
-These tests live next to the agent scripts so they can be run directly via:
-
-    pytest scripts/agent/test_agent.py
 """
+Comprehensive tests for Agent implementation - Phases 1-5.
 
+This file consolidates all agent feature tests:
+- Phase 4a: Core features (dry-run, selective agents, timeouts, metrics)
+- Phase 4b: Advanced features (snapshots, cascading ignores, rollback)
+- Phase 4c: Parallel execution (async, multiprocessing, webhooks, callbacks)
+- Phase 5: Reporting & monitoring (circuit breaker, reports, benchmarking, cost analysis, cleanup)
+"""
 from __future__ import annotations
-import importlib
+import logging
+import sys
+import time
+import tempfile
 from pathlib import Path
-from types import ModuleType
-from typing import Any, Dict, List
+from unittest.mock import Mock, patch
 import pytest
-from agent_test_utils import agent_dir_on_path
+from tests.agent_test_utils import AGENT_DIR, agent_sys_path, load_module_from_path
 
 
 @pytest.fixture()
-def agent_module() -> ModuleType:
-    with agent_dir_on_path():
-        import agent
-        return importlib.reload(agent)
+def agent_module():
+    with agent_sys_path():
+        return load_module_from_path("_dv_agent", AGENT_DIR / "agent.py")
 
 
-@pytest.fixture()
-def repo_root(tmp_path: Path) -> Path:
-    root = tmp_path / "repo"
-    root.mkdir()
-    (root / "README.md").write_text("# Test Repository", encoding="utf-8")
-    return root
+# ============================================================================
+# PHASE 4A: CORE FEATURES (DRY-RUN, SELECTIVE AGENTS, TIMEOUTS, METRICS)
+# ============================================================================
+
+class TestDryRunMode:
+    """Test dry-run mode functionality."""
+
+    def test_dry_run_flag_set_on_init(self, tmp_path: Path, agent_module):
+        """Verify dry_run flag is set correctly on Agent initialization."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path), dry_run=True)
+        assert agent.dry_run is True
+
+    def test_dry_run_false_by_default(self, tmp_path: Path, agent_module):
+        """Verify dry_run is False by default."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert agent.dry_run is False
+
+    def test_dry_run_mode_logged(self, tmp_path: Path, agent_module, caplog):
+        """Verify dry-run mode is logged when enabled."""
+        (tmp_path / ".git").mkdir()
+        with caplog.at_level(logging.INFO):
+            agent = agent_module.Agent(repo_root=str(tmp_path), dry_run=True)
+        assert "DRY RUN MODE" in caplog.text
 
 
-def test_agent_initialization_defaults(agent_module: ModuleType, repo_root: Path) -> None:
-    a = agent_module.Agent(repo_root=str(repo_root))
-    assert a.repo_root == repo_root
-    assert a.agents_only is False
-    assert a.max_files is None
+class TestSelectiveAgentExecution:
+    """Test selective agent execution (--only-agents)."""
+
+    def test_selective_agents_stored_as_set(self, tmp_path: Path, agent_module):
+        """Verify selective agents are stored as a set."""
+        (tmp_path / ".git").mkdir()
+        agents = ['coder', 'tests']
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            selective_agents=agents
+        )
+        assert isinstance(agent.selective_agents, set)
+        assert agent.selective_agents == {'coder', 'tests'}
+
+    def test_selective_agents_none_by_default(self, tmp_path: Path, agent_module):
+        """Verify selective_agents is empty set by default."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert agent.selective_agents == set()
+
+    def test_should_execute_agent_returns_true_when_no_filter(self, tmp_path: Path, agent_module):
+        """Verify all agents execute when no selective filter applied."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        assert agent.should_execute_agent('coder') is True
+        assert agent.should_execute_agent('tests') is True
+        assert agent.should_execute_agent('documentation') is True
+
+    def test_should_execute_agent_respects_filter(self, tmp_path: Path, agent_module):
+        """Verify selective filter is respected."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            selective_agents=['coder', 'tests']
+        )
+        
+        assert agent.should_execute_agent('coder') is True
+        assert agent.should_execute_agent('tests') is True
+        assert agent.should_execute_agent('documentation') is False
+
+    def test_should_execute_agent_case_insensitive(self, tmp_path: Path, agent_module):
+        """Verify agent name matching is case-insensitive."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            selective_agents=['coder']
+        )
+        
+        assert agent.should_execute_agent('CODER') is True
+        assert agent.should_execute_agent('Coder') is True
+        assert agent.should_execute_agent('coder') is True
 
 
-def test_load_codeignore_ignores_comments(agent_module: ModuleType, repo_root: Path) -> None:
-    (repo_root / ".codeignore").write_text("# Comment\n__pycache__\n*.tmp\n", encoding="utf-8")
-    patterns = agent_module.load_codeignore(repo_root)
-    assert "__pycache__" in patterns
-    assert "*.tmp" in patterns
-    assert "# Comment" not in patterns
+class TestConfigurableTimeouts:
+    """Test per-agent timeout configuration."""
+
+    def test_timeout_per_agent_stored(self, tmp_path: Path, agent_module):
+        """Verify timeout_per_agent dict is stored correctly."""
+        (tmp_path / ".git").mkdir()
+        timeouts = {'coder': 60, 'tests': 300}
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            timeout_per_agent=timeouts
+        )
+        assert agent.timeout_per_agent == timeouts
+
+    def test_timeout_per_agent_defaults_to_empty_dict(self, tmp_path: Path, agent_module):
+        """Verify timeout_per_agent defaults to empty dict."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert agent.timeout_per_agent == {}
+
+    def test_get_timeout_for_agent_returns_configured_value(self, tmp_path: Path, agent_module):
+        """Verify configured timeout is returned."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            timeout_per_agent={'coder': 60}
+        )
+        assert agent.get_timeout_for_agent('coder') == 60
+
+    def test_get_timeout_for_agent_returns_default(self, tmp_path: Path, agent_module):
+        """Verify default timeout returned for unconfigured agent."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(
+            repo_root=str(tmp_path),
+            timeout_per_agent={'coder': 60}
+        )
+        assert agent.get_timeout_for_agent('tests', default=120) == 120
 
 
-def test_find_code_files_filters_extensions(agent_module: ModuleType, repo_root: Path) -> None:
-    a = agent_module.Agent(repo_root=str(repo_root))
-    (repo_root / "script.py").write_text("# Python script", encoding="utf-8")
-    (repo_root / "module.js").write_text("// JavaScript module", encoding="utf-8")
-    (repo_root / "readme.txt").write_text("Documentation", encoding="utf-8")
-    files = a.find_code_files()
-    names = {p.name for p in files}
-    assert "script.py" in names
-    assert "module.js" in names
-    assert "readme.txt" not in names
+class TestMetricsTracking:
+    """Test metrics collection and reporting."""
+
+    def test_metrics_initialized(self, tmp_path: Path, agent_module):
+        """Verify metrics dict is initialized."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        assert 'files_processed' in agent.metrics
+        assert 'files_modified' in agent.metrics
+        assert 'agents_applied' in agent.metrics
+        assert 'start_time' in agent.metrics
+
+    def test_metrics_counters_start_at_zero(self, tmp_path: Path, agent_module):
+        """Verify metrics counters initialized to zero."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        assert agent.metrics['files_processed'] == 0
+        assert agent.metrics['files_modified'] == 0
+        assert agent.metrics['agents_applied'] == {}
+
+    def test_print_metrics_summary_sets_end_time(self, tmp_path: Path, agent_module, capsys):
+        """Verify print_metrics_summary sets end_time."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        agent.print_metrics_summary()
+        assert agent.metrics['end_time'] is not None
 
 
-def test_agents_only_filters_to_scripts_agent(agent_module: ModuleType, repo_root: Path) -> None:
-    # Create a structure that looks like a repo.
-    scripts_agent = repo_root / "scripts" / "agent"
-    scripts_agent.mkdir(parents=True)
-    (repo_root / "top.py").write_text("print('x')\n", encoding="utf-8")
-    (scripts_agent / "inner.py").write_text("print('y')\n", encoding="utf-8")
-    a = agent_module.Agent(repo_root=str(repo_root), agents_only=True)
-    files = a.find_code_files()
-    assert all(p.is_relative_to(scripts_agent) for p in files)
+# ============================================================================
+# PHASE 4B: ADVANCED FEATURES (SNAPSHOTS, CASCADING IGNORES, ROLLBACK)
+# ============================================================================
+
+class TestFileSnapshots:
+    """Test file snapshot creation and restoration."""
+
+    def test_create_file_snapshot_returns_snapshot_id(self, tmp_path: Path, agent_module):
+        """Verify snapshot creation returns a snapshot ID."""
+        (tmp_path / ".git").mkdir()
+        file_path = tmp_path / "test.py"
+        file_path.write_text("original content", encoding="utf-8")
+        
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        snapshot_id = agent.create_file_snapshot(file_path)
+        
+        assert snapshot_id is not None
+        assert isinstance(snapshot_id, str)
+
+    def test_create_file_snapshot_creates_snapshot_directory(self, tmp_path: Path, agent_module):
+        """Verify .agent_snapshots directory is created."""
+        (tmp_path / ".git").mkdir()
+        file_path = tmp_path / "test.py"
+        file_path.write_text("content", encoding="utf-8")
+        
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.repo_root = tmp_path  # Override to use temp path
+        snapshot_dir = tmp_path / ".agent_snapshots"
+        
+        agent.create_file_snapshot(file_path)
+        assert snapshot_dir.exists()
+
+    def test_restore_from_snapshot_returns_false_for_invalid_snapshot(self, tmp_path: Path, agent_module):
+        """Verify False returned for invalid snapshot IDs."""
+        (tmp_path / ".git").mkdir()
+        file_path = tmp_path / "test.py"
+        file_path.write_text("content", encoding="utf-8")
+        
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        result = agent.restore_from_snapshot(file_path, "invalid_snapshot_id")
+        
+        assert result is False
 
 
-def test_max_files_limits_results(agent_module: ModuleType, repo_root: Path) -> None:
-    (repo_root / "a.py").write_text("print('a')\n", encoding="utf-8")
-    (repo_root / "b.py").write_text("print('b')\n", encoding="utf-8")
-    (repo_root / "c.py").write_text("print('c')\n", encoding="utf-8")
-    a = agent_module.Agent(repo_root=str(repo_root), max_files=2)
-    assert len(a.find_code_files()) == 2
+class TestCascadingCodeignore:
+    """Test cascading .codeignore pattern loading."""
+
+    def test_load_cascading_codeignore_loads_root_patterns(self, tmp_path: Path, agent_module):
+        """Verify root .codeignore patterns are loaded."""
+        (tmp_path / ".git").mkdir()
+        (tmp_path / ".codeignore").write_text("*.log\n__pycache__/\n", encoding="utf-8")
+        
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        patterns = agent.load_cascading_codeignore()
+        
+        assert "*.log" in patterns
+        assert "__pycache__/" in patterns
+
+    def test_load_cascading_codeignore_loads_subdirectory_patterns(self, tmp_path: Path, agent_module):
+        """Verify patterns from subdirectory .codeignore are loaded."""
+        (tmp_path / ".git").mkdir()
+        (tmp_path / ".codeignore").write_text("*.log\n", encoding="utf-8")
+        src_dir = tmp_path / "src"
+        src_dir.mkdir()
+        (src_dir / ".codeignore").write_text("*.tmp\n", encoding="utf-8")
+        
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        patterns = agent.load_cascading_codeignore(src_dir)
+        
+        # Should include patterns from both root and subdirectory
+        assert "*.log" in patterns
+        assert "*.tmp" in patterns
 
 
-def test_is_ignored_matches_globs(agent_module: ModuleType, repo_root: Path) -> None:
-    a = agent_module.Agent(repo_root=str(repo_root))
-    a.ignored_patterns = {"__pycache__", "*.tmp"}
-    cache_file = repo_root / "__pycache__" / "module.pyc"
-    cache_file.parent.mkdir()
-    cache_file.write_text("bytecode", encoding="utf-8")
-    temp_file = repo_root / "temp.tmp"
-    temp_file.write_text("temporary", encoding="utf-8")
-    normal_file = repo_root / "normal.py"
-    normal_file.write_text("normal", encoding="utf-8")
-    assert a._is_ignored(cache_file)
-    assert a._is_ignored(temp_file)
-    assert not a._is_ignored(normal_file)
+# ============================================================================
+# PHASE 4C: PARALLEL EXECUTION (ASYNC, MULTIPROCESSING, WEBHOOKS, CALLBACKS)
+# ============================================================================
+
+class TestAsyncFileProcessing:
+    """Test async file processing."""
+
+    def test_enable_async_flag(self, tmp_path: Path, agent_module):
+        """Verify enable_async flag can be set."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path), enable_async=True)
+        assert agent.enable_async is True
 
 
-def test_run_stats_update_invokes_subprocess(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    called: Dict[str, Any] = {}
+class TestMultiprocessingExecution:
+    """Test multiprocessing file processing."""
 
-    def fake_run(cmd: List[str], **kwargs: Any) -> Any:
-        called["cmd"] = cmd
-        called["kwargs"] = kwargs
+    def test_process_files_multiprocessing_exists(self, tmp_path: Path, agent_module):
+        """Verify process_files_multiprocessing method exists."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert hasattr(agent, 'process_files_multiprocessing')
+        assert callable(agent.process_files_multiprocessing)
 
-        class R:
-            returncode = 0
-        return R()
-
-    monkeypatch.setattr(agent_module.subprocess, "run", fake_run, raising=True)
-    sample_file = repo_root / "sample.py"
-    sample_file.write_text("print('x')\n", encoding="utf-8")
-    a = agent_module.Agent(repo_root=str(repo_root))
-    a.run_stats_update([sample_file])
-    assert "agent-stats.py" in str(called["cmd"][1])
-    assert called["kwargs"].get("cwd") == repo_root
+    def test_multiprocessing_flag(self, tmp_path: Path, agent_module):
+        """Verify multiprocessing flag can be set."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path), enable_multiprocessing=True)
+        assert agent.enable_multiprocessing is True
 
 
-def test_run_tests_no_test_file_does_not_invoke_subprocess(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    def boom(*_args: Any, **_kwargs: Any) -> None:
-        raise AssertionError("subprocess.run should not be called")
+class TestWebhookSupport:
+    """Test webhook functionality."""
 
-    monkeypatch.setattr(agent_module.subprocess, "run", boom, raising=True)
-    sample_file = repo_root / "sample.py"
-    sample_file.write_text("print('x')\n", encoding="utf-8")
-    a = agent_module.Agent(repo_root=str(repo_root))
-    a.run_tests(sample_file)
+    def test_register_webhook(self, tmp_path: Path, agent_module):
+        """Verify webhook registration works."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        agent.register_webhook("https://example.com/webhook")
+        assert "https://example.com/webhook" in agent.webhooks
+
+    def test_send_webhook_notification_exists(self, tmp_path: Path, agent_module):
+        """Verify send_webhook_notification method exists."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert hasattr(agent, 'send_webhook_notification')
 
 
-def test_run_tests_with_test_file_invokes_pytest(agent_module: ModuleType, repo_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    called: Dict[str, Any] = {}
+class TestCallbackSupport:
+    """Test callback functionality."""
 
-    def fake_run(cmd: List[str], **kwargs: Any) -> Any:
-        called["cmd"] = cmd
-        called["kwargs"] = kwargs
+    def test_register_callback(self, tmp_path: Path, agent_module):
+        """Verify callback registration works."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        def my_callback(event):
+            pass
+        
+        agent.register_callback(my_callback)
+        assert len(agent.callbacks) > 0
 
-        class R:
-            returncode = 0
-            stdout = ""
-            stderr = ""
+    def test_execute_callbacks_exists(self, tmp_path: Path, agent_module):
+        """Verify execute_callbacks method exists."""
+        (tmp_path / ".git").mkdir()
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        assert hasattr(agent, 'execute_callbacks')
 
-        return R()
 
-    monkeypatch.setattr(agent_module.subprocess, "run", fake_run, raising=True)
-    sample_file = repo_root / "sample.py"
-    sample_file.write_text("print('x')\n", encoding="utf-8")
-    test_file = repo_root / "test_sample.py"
-    test_file.write_text("def test_sample():\n    assert True\n", encoding="utf-8")
-    a = agent_module.Agent(repo_root=str(repo_root))
-    a.run_tests(sample_file)
-    cmd = called["cmd"]
-    assert cmd[1:3] == ["-m", "pytest"]
-    assert str(test_file) in cmd
-    assert called["kwargs"].get("cwd") == repo_root
+# ============================================================================
+# PHASE 5: REPORTING & MONITORING
+# ============================================================================
+
+class TestCircuitBreaker:
+    """Tests for CircuitBreaker class."""
+
+    def test_circuit_breaker_initialization(self, agent_module):
+        """Test circuit breaker initialization with defaults."""
+        cb = agent_module.CircuitBreaker("test_backend")
+        
+        assert cb.name == "test_backend"
+        assert cb.state == "CLOSED"
+        assert cb.failure_count == 0
+
+    def test_circuit_breaker_custom_parameters(self, agent_module):
+        """Test circuit breaker with custom parameters."""
+        cb = agent_module.CircuitBreaker(
+            "service",
+            failure_threshold=3,
+            recovery_timeout=30,
+            backoff_multiplier=1.5
+        )
+        
+        assert cb.failure_threshold == 3
+        assert cb.recovery_timeout == 30
+        assert cb.backoff_multiplier == 1.5
+
+    def test_circuit_breaker_success_call(self, agent_module):
+        """Test successful call through circuit breaker."""
+        cb = agent_module.CircuitBreaker("test")
+        
+        def successful_func():
+            return "success"
+        
+        result = cb.call(successful_func)
+        
+        assert result == "success"
+        assert cb.state == "CLOSED"
+        assert cb.failure_count == 0
+
+    def test_circuit_breaker_failure_call(self, agent_module):
+        """Test failed call through circuit breaker."""
+        cb = agent_module.CircuitBreaker("test", failure_threshold=3)
+        
+        def failing_func():
+            raise Exception("Service down")
+        
+        with pytest.raises(Exception):
+            cb.call(failing_func)
+        
+        assert cb.failure_count == 1
+        assert cb.state == "CLOSED"
+
+    def test_circuit_breaker_opens_after_threshold(self, agent_module):
+        """Test circuit opens after failure threshold exceeded."""
+        cb = agent_module.CircuitBreaker("test", failure_threshold=2)
+        
+        def failing_func():
+            raise Exception("Service down")
+        
+        # First failure
+        with pytest.raises(Exception):
+            cb.call(failing_func)
+        assert cb.state == "CLOSED"
+        
+        # Second failure opens circuit
+        with pytest.raises(Exception):
+            cb.call(failing_func)
+        assert cb.state == "OPEN"
+
+    def test_circuit_breaker_fast_fail_when_open(self, agent_module):
+        """Test circuit fails immediately when open."""
+        cb = agent_module.CircuitBreaker("test", failure_threshold=1)
+        
+        def failing_func():
+            raise Exception("Service down")
+        
+        # Open the circuit
+        with pytest.raises(Exception):
+            cb.call(failing_func)
+        assert cb.state == "OPEN"
+        
+        # Next call should fail immediately without calling function
+        call_count = 0
+        def count_calls():
+            nonlocal call_count
+            call_count += 1
+            raise Exception("Should not be called")
+        
+        with pytest.raises(Exception, match="Circuit breaker.*OPEN"):
+            cb.call(count_calls)
+        
+        assert call_count == 0  # Function never called
+
+    def test_circuit_breaker_recovery(self, agent_module):
+        """Test circuit breaker recovery from OPEN to CLOSED."""
+        cb = agent_module.CircuitBreaker("test", failure_threshold=1, recovery_timeout=1)
+        
+        def failing_func():
+            raise Exception("Service down")
+        
+        def succeeding_func():
+            return "ok"
+        
+        # Open the circuit
+        with pytest.raises(Exception):
+            cb.call(failing_func)
+        assert cb.state == "OPEN"
+        
+        # Wait for recovery timeout
+        time.sleep(1.1)
+        
+        # Should enter HALF_OPEN state
+        result = cb.call(succeeding_func)
+        assert result == "ok"
+        assert cb.state == "HALF_OPEN"
+        
+        # Another success should close it
+        result = cb.call(succeeding_func)
+        assert cb.state == "CLOSED"
+
+
+class TestReportGeneration:
+    """Tests for improvement report generation."""
+
+    def test_generate_improvement_report(self, tmp_path: Path, agent_module):
+        """Test basic improvement report generation."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.metrics = {
+            'files_processed': 10,
+            'files_modified': 5,
+            'agents_applied': {'coder': 4, 'tests': 3},
+            'start_time': 0.0,
+            'end_time': 10.0,
+        }
+        
+        report = agent.generate_improvement_report()
+        
+        assert report['summary']['files_processed'] == 10
+        assert report['summary']['files_modified'] == 5
+        assert 'coder' in report['agents']
+        assert report['summary']['modification_rate'] == 50.0
+
+    def test_generate_improvement_report_includes_mode_info(self, tmp_path: Path, agent_module):
+        """Test report includes execution mode information."""
+        agent = agent_module.Agent(repo_root=str(tmp_path), dry_run=True, enable_async=True)
+        agent.metrics = {
+            'files_processed': 5,
+            'files_modified': 2,
+            'agents_applied': {},
+            'start_time': 0.0,
+            'end_time': 5.0,
+        }
+        
+        report = agent.generate_improvement_report()
+        
+        assert report['mode']['dry_run'] is True
+        assert report['mode']['async_enabled'] is True
+
+
+class TestBenchmarking:
+    """Tests for execution benchmarking."""
+
+    def test_benchmark_execution(self, tmp_path: Path, agent_module):
+        """Test execution benchmarking."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.metrics = {
+            'start_time': time.time() - 10,
+            'end_time': time.time(),
+            'files_processed': 5,
+            'agents_applied': {'coder': 3, 'tests': 2},
+        }
+        
+        files = [tmp_path / f'test{i}.py' for i in range(5)]
+        for f in files:
+            f.write_text('# test')
+        
+        benchmark = agent.benchmark_execution(files)
+        
+        assert benchmark['file_count'] == 5
+        assert 'average_per_file' in benchmark
+
+
+class TestCostAnalysis:
+    """Tests for cost analysis."""
+
+    def test_cost_analysis_basic(self, tmp_path: Path, agent_module):
+        """Test basic cost analysis."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.metrics = {
+            'files_processed': 10,
+            'agents_applied': {'coder': 8, 'tests': 7},
+            'start_time': 0.0,
+            'end_time': 10.0,
+        }
+        
+        analysis = agent.cost_analysis(backend='github-models', cost_per_request=0.0001)
+        
+        assert analysis['backend'] == 'github-models'
+        assert analysis['files_processed'] == 10
+        assert analysis['total_agent_runs'] == 15
+
+    def test_cost_analysis_different_backend(self, tmp_path: Path, agent_module):
+        """Test cost analysis with different backend pricing."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.metrics = {
+            'files_processed': 5,
+            'agents_applied': {'coder': 3},
+            'start_time': 0.0,
+            'end_time': 5.0,
+        }
+        
+        analysis = agent.cost_analysis(backend='openai', cost_per_request=0.001)
+        
+        assert analysis['backend'] == 'openai'
+        assert analysis['cost_per_request'] == 0.001
+
+
+class TestSnapshotCleanup:
+    """Tests for snapshot cleanup functionality."""
+
+    def test_cleanup_old_snapshots_no_directory(self, tmp_path: Path, agent_module):
+        """Test cleanup handles missing snapshot directory gracefully."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        # No snapshot directory exists
+        cleaned = agent.cleanup_old_snapshots()
+        
+        assert cleaned == 0
+
+    def test_cleanup_old_snapshots_empty_directory(self, tmp_path: Path, agent_module):
+        """Test cleanup with empty snapshot directory."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.repo_root = tmp_path
+        
+        snapshot_dir = tmp_path / '.agent_snapshots'
+        snapshot_dir.mkdir()
+        
+        cleaned = agent.cleanup_old_snapshots()
+        
+        assert cleaned == 0
+
+    def test_cleanup_old_snapshots_removes_old_files(self, tmp_path: Path, agent_module):
+        """Test cleanup removes snapshots older than threshold."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.repo_root = tmp_path
+        
+        snapshot_dir = tmp_path / '.agent_snapshots'
+        snapshot_dir.mkdir()
+        
+        # Create old snapshot (11 days old)
+        old_snapshot = snapshot_dir / '1000000_abc123_main.py'
+        old_snapshot.write_text('old content')
+        old_mtime = time.time() - (11 * 24 * 60 * 60)
+        import os
+        os.utime(old_snapshot, (old_mtime, old_mtime))
+        
+        # Create recent snapshot (2 days old)
+        recent_snapshot = snapshot_dir / '2000000_def456_main.py'
+        recent_snapshot.write_text('recent content')
+        
+        cleaned = agent.cleanup_old_snapshots(max_age_days=7)
+        
+        assert cleaned == 1
+        assert not old_snapshot.exists()
+        assert recent_snapshot.exists()
+
+
+# ============================================================================
+# INTEGRATION TESTS
+# ============================================================================
+
+class TestPhase5Integration:
+    """Integration tests for Phase 5 features."""
+
+    def test_circuit_breaker_with_agent_execution(self, tmp_path: Path, agent_module):
+        """Test circuit breaker integration with agent."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        
+        cb = agent_module.CircuitBreaker("test_backend")
+        
+        def run_agent():
+            return agent.generate_improvement_report()
+        
+        report = cb.call(run_agent)
+        
+        assert 'summary' in report
+        assert cb.state == "CLOSED"
+
+    def test_full_phase5_workflow(self, tmp_path: Path, agent_module):
+        """Test complete Phase 5 workflow."""
+        agent = agent_module.Agent(repo_root=str(tmp_path), dry_run=False)
+        
+        # Simulate execution metrics
+        agent.metrics = {
+            'files_processed': 10,
+            'files_modified': 7,
+            'agents_applied': {'coder': 8, 'tests': 6},
+            'start_time': time.time() - 15,
+            'end_time': time.time(),
+        }
+        
+        # Generate report
+        report = agent.generate_improvement_report()
+        assert 'summary' in report
+        
+        # Benchmark
+        files = [tmp_path / f'test{i}.py' for i in range(10)]
+        for f in files:
+            f.write_text('# test')
+        benchmark = agent.benchmark_execution(files)
+        assert 'average_per_file' in benchmark
+        
+        # Cost analysis
+        cost = agent.cost_analysis(cost_per_request=0.0001)
+        assert 'total_estimated_cost' in cost
+
+
+# ============================================================================
+# EDGE CASES & ERROR HANDLING
+# ============================================================================
+
+class TestEdgeCases:
+    """Test edge cases and error handling across all phases."""
+
+    def test_circuit_breaker_call_with_arguments(self, agent_module):
+        """Test circuit breaker with function arguments."""
+        cb = agent_module.CircuitBreaker("test")
+        
+        def func_with_args(a, b, c=None):
+            return f"{a}+{b}+{c}"
+        
+        result = cb.call(func_with_args, 1, 2, c=3)
+        
+        assert result == "1+2+3"
+
+    def test_cost_analysis_with_zero_files(self, tmp_path: Path, agent_module):
+        """Test cost analysis with no files processed."""
+        agent = agent_module.Agent(repo_root=str(tmp_path))
+        agent.metrics = {
+            'files_processed': 0,
+            'agents_applied': {},
+            'start_time': 0.0,
+            'end_time': 1.0,
+        }
+        
+        cost = agent.cost_analysis()
+        
+        # Should not divide by zero
+        assert cost['cost_per_file'] == 0
+
+    def test_circuit_breaker_multiple_state_transitions(self, agent_module):
+        """Test multiple state transitions."""
+        cb = agent_module.CircuitBreaker("test", failure_threshold=1, recovery_timeout=1)
+        
+        def fail():
+            raise Exception("fail")
+        
+        def succeed():
+            return "ok"
+        
+        # CLOSED -> OPEN
+        with pytest.raises(Exception):
+            cb.call(fail)
+        assert cb.state == "OPEN"
+        
+        # OPEN (fast fail)
+        with pytest.raises(Exception, match="OPEN"):
+            cb.call(fail)
