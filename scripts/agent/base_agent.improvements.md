@@ -4,15 +4,13 @@
 - Improved `agent_backend` import logic. (Fixed)
 - Added type hints for all methods. (Fixed)
 - Add logging for all major actions. (Fixed)
+- Add comprehensive docstrings for all methods following Google style format. (Fixed)
 
 ## Suggested improvements
 - [ ] Review and remove all `type: ignore` comments, fix underlying type issues.
-- [ ] Add comprehensive docstrings for all methods following Google style format.
 - [ ] Add unit tests for edge cases (missing files, permission errors, encoding issues).
 - [ ] Use `pathlib` consistently throughout (replace `str(path)` with `Path` objects).
-- [ ] Implement `__enter__` and `__exit__` to support context manager protocol.
 - [ ] Add configuration class to manage backend selection, logging, timeouts, retries.
-- [ ] Implement exponential backoff retry mechanism for failed AI requests (3 attempts, max 30s).
 - [ ] Add request/response caching to avoid redundant AI calls for identical prompts.
 - [ ] Support streaming response from AI backends for real-time output.
 - [ ] Add timeout parameter to all subprocess calls (currently hardcoded to 30s).
@@ -21,6 +19,9 @@
 - [ ] Create `BackendFactory` pattern for cleaner backend instantiation.
 - [ ] Add detailed logging of all backend requests/responses (without leaking API keys).
 - [ ] Implement graceful degradation: fall back to local models if API unavailable.
+- [ ] Add unit tests for context manager functionality (__enter__, __exit__).
+- [ ] Test retry logic with various failure scenarios and network conditions.
+- [ ] Add integration tests with real AI backends for end-to-end validation.
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.
