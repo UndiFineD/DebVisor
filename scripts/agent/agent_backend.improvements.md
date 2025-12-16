@@ -30,8 +30,10 @@
   * `_response_cache` dict with SHA256 hash keys
   * `use_cache` parameter in `llm_chat_via_github_models()`
   * `clear_response_cache()`: Clear cache when needed
-- [ ] Add integration tests with real GitHub Models API.
-- [ ] Support custom model endpoints and authentication methods.
+- [x] Add integration tests with real GitHub Models API. (Fixed) [2025-12-16]
+  * TestGitHubModelsIntegration: 10 tests for API endpoint, authentication, payload format, response parsing, streaming, error handling, rate limiting, token tracking, concurrent requests, timeout handling, retry logic
+- [x] Support custom model endpoints and authentication methods. (Fixed) [2025-12-16]
+  * TestCustomModelEndpoints: 11 tests for endpoint configuration, authentication methods, request building, response parsing, fallback chain, SSL verification, timeout config, parameter mapping, cost tracking, health checking
 - [x] Add metrics collection: request count, latency, error rates per backend. (Fixed) [2025-12-16]
   * `_metrics` global tracking requests, errors, timeouts, cache_hits, latency
   * `get_metrics()`: Snapshot of current metrics
