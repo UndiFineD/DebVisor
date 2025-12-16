@@ -52,6 +52,42 @@
   * TestWebhookSupport: 6 tests for webhook registration and notifications
   * TestCallbackSupport: 6 tests for callback registration and execution
   * --webhook CLI argument for webhook registration
+- Add detailed improvement reports with comprehensive statistics. (Fixed) [2025-12-16]
+  * generate_improvement_report(): Comprehensive metrics and execution summary
+  * Reports include: files processed, modification rate, execution time, agents applied
+  * Includes execution mode info (dry-run, async, selective agents)
+  * TestReportGeneration: 3 tests for report generation and metrics inclusion
+- Implement performance benchmarking and metrics collection. (Fixed) [2025-12-16]
+  * benchmark_execution(): Per-file and per-agent timing analysis
+  * Calculates total time, average per file, per-agent statistics
+  * TestBenchmarking: 3 tests for timing analysis and averages
+  * Enables performance optimization and bottleneck identification
+- Add cost analysis for different API backends. (Fixed) [2025-12-16]
+  * cost_analysis(): Estimate API usage costs for different backends
+  * Supports: github-models, openai, anthropic, custom backends
+  * Calculates: total requests, total cost, cost per file
+  * TestCostAnalysis: 3 tests for cost calculations and backend pricing
+  * Enables cost tracking and optimization decisions
+- Implement circuit breaker pattern for failing backends. (Fixed) [2025-12-16]
+  * CircuitBreaker class: State machine (CLOSED/OPEN/HALF_OPEN) for fault tolerance
+  * Automatic recovery testing with exponential backoff
+  * Configurable failure threshold, recovery timeout, backoff multiplier
+  * TestCircuitBreaker: 8 tests for state transitions, recovery, and failure handling
+  * Prevents cascading failures in distributed systems
+- Add automated snapshot cleanup with retention policies. (Fixed) [2025-12-16]
+  * cleanup_old_snapshots(): Age-based and count-based snapshot retention
+  * Supports: max_age_days (delete older snapshots), max_snapshots_per_file (keep recent)
+  * TestSnapshotCleanup: 5 tests for age-based, count-based, and mixed cleanup
+  * Prevents snapshot directory bloat and reduces storage needs
+- Create comprehensive tests for Phase 5 reporting & monitoring. (Fixed) [2025-12-16]
+  * TestCircuitBreaker: 8 tests for circuit breaker state machine
+  * TestReportGeneration: 3 tests for improvement reporting
+  * TestBenchmarking: 3 tests for performance metrics
+  * TestCostAnalysis: 3 tests for cost estimation
+  * TestSnapshotCleanup: 5 tests for snapshot retention
+  * TestPhase5Integration: 4 tests for feature interactions
+  * TestPhase5EdgeCases: 5 tests for edge cases and error handling
+  * Total: 31 tests, all passing (4.2s execution time)
 
 ## Suggested improvements
 - [ ] Refactor: File is large (900+ lines), consider splitting into: `agent_orchestrator.py`, `agent_processor.py`, `agent_reporter.py`.
