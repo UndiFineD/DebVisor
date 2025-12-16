@@ -9,7 +9,6 @@ git integration, content enhancement, configuration, testing, and quality assura
 import unittest
 from unittest.mock import MagicMock, patch, mock_open
 from datetime import datetime
-import tempfile
 import os
 import re
 

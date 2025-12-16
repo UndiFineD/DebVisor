@@ -27,9 +27,6 @@ in generate_agent_reports.improvements.md, including:
 import unittest
 from unittest.mock import MagicMock, patch, call, mock_open
 import json
-import datetime
-import tempfile
-import os
 from pathlib import Path
 from typing import Dict, List, Any
 
@@ -298,7 +295,6 @@ class TestIncrementalGeneration(unittest.TestCase):
             'warnings': 42,
             'timestamp': 1000
         }
-
 
 
         # Only update metrics for changed files

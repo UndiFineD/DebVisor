@@ -17,7 +17,6 @@ from unittest.mock import MagicMock, patch, call
 from pathlib import Path
 from typing import Dict, List, Any
 from datetime import datetime, timedelta
-import json
 
 
 class TestErrorLogParsing(unittest.TestCase):

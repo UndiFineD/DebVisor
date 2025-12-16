@@ -84,11 +84,9 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 
-
 AGENT_DIR = Path(__file__).resolve().parent
 
 REPO_ROOT = AGENT_DIR.parents[1]
-
 
 
 # =============================================================================
@@ -96,7 +94,6 @@ REPO_ROOT = AGENT_DIR.parents[1]
 # Enums for Type Safety
 
 # =============================================================================
-
 
 
 class ReportType(Enum):
@@ -112,7 +109,6 @@ class ReportType(Enum):
     SUMMARY = auto()
 
 
-
 class ReportFormat(Enum):
 
     """Output format for reports."""
@@ -122,7 +118,6 @@ class ReportFormat(Enum):
     JSON = auto()
 
     HTML = auto()
-
 
 
 class SeverityLevel(Enum):
@@ -136,7 +131,6 @@ class SeverityLevel(Enum):
     ERROR = 3
 
     CRITICAL = 4
-
 
 
 class IssueCategory(Enum):
@@ -156,7 +150,6 @@ class IssueCategory(Enum):
     DOCUMENTATION = auto()
 
 
-
 class SubscriptionFrequency(Enum):
 
     """Frequency for report subscriptions."""
@@ -172,7 +165,6 @@ class SubscriptionFrequency(Enum):
     MONTHLY = "monthly"
 
 
-
 class PermissionLevel(Enum):
 
     """Permission levels for report access."""
@@ -184,7 +176,6 @@ class PermissionLevel(Enum):
     WRITE = 2
 
     ADMIN = 3
-
 
 
 class ExportFormat(Enum):
@@ -202,7 +193,6 @@ class ExportFormat(Enum):
     PPT = "ppt"
 
     CSV = "csv"
-
 
 
 class LocaleCode(Enum):
@@ -224,7 +214,6 @@ class LocaleCode(Enum):
     JA_JP = "ja-JP"
 
 
-
 class AuditAction(Enum):
 
     """Actions for audit logging."""
@@ -242,7 +231,6 @@ class AuditAction(Enum):
     SHARE = "share"
 
 
-
 # =============================================================================
 
 # Dataclasses for Data Structures
@@ -250,7 +238,6 @@ class AuditAction(Enum):
 # =============================================================================
 
 @dataclass(frozen=True)
-
 class CompileResult:
 
     """Result of compile/syntax check."""
@@ -260,9 +247,7 @@ class CompileResult:
     error: Optional[str] = None
 
 
-
 @dataclass
-
 class CodeIssue:
 
     """Represents a code issue or improvement suggestion.
@@ -293,9 +278,7 @@ class CodeIssue:
     function_name: Optional[str] = None
 
 
-
 @dataclass
-
 class ReportMetadata:
 
     """Metadata for a generated report.
@@ -326,9 +309,7 @@ class ReportMetadata:
     previous_hash: Optional[str] = None
 
 
-
 @dataclass
-
 class ReportTemplate:
 
     """Template for report generation.
@@ -355,9 +336,7 @@ class ReportTemplate:
     include_summary: bool = True
 
 
-
 @dataclass
-
 class ReportCache:
 
     """Cache for report data.
@@ -380,9 +359,7 @@ class ReportCache:
     ttl_seconds: int = 3600  # 1 hour default
 
 
-
 @dataclass
-
 class ReportComparison:
 
     """Result of comparing two report versions.
@@ -413,9 +390,7 @@ class ReportComparison:
     summary: str = ""
 
 
-
 @dataclass
-
 class FilterCriteria:
 
     """Criteria for filtering reports.
@@ -446,9 +421,7 @@ class FilterCriteria:
     file_patterns: List[str] = field(default_factory=list)
 
 
-
 @dataclass
-
 class ReportSubscription:
 
     """Subscription for report delivery.
@@ -483,9 +456,7 @@ class ReportSubscription:
     enabled: bool = True
 
 
-
 @dataclass
-
 class ArchivedReport:
 
     """Archived report with retention info.
@@ -520,9 +491,7 @@ class ArchivedReport:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 
-
 @dataclass
-
 class ReportAnnotation:
 
     """Annotation on a report.
@@ -557,9 +526,7 @@ class ReportAnnotation:
     created_at: float = field(default_factory=time.time)
 
 
-
 @dataclass
-
 class ReportSearchResult:
 
     """Result from report search.
@@ -590,9 +557,7 @@ class ReportSearchResult:
     score: float = 1.0
 
 
-
 @dataclass
-
 class ReportMetric:
 
     """Custom metric for reports.
@@ -623,9 +588,7 @@ class ReportMetric:
     trend: str = "="
 
 
-
 @dataclass
-
 class ReportPermission:
 
     """Permission for report access.
@@ -656,9 +619,7 @@ class ReportPermission:
     expires_at: Optional[float] = None
 
 
-
 @dataclass
-
 class AuditEntry:
 
     """Audit log entry.
@@ -693,9 +654,7 @@ class AuditEntry:
     details: Dict[str, Any] = field(default_factory=dict)
 
 
-
 @dataclass
-
 class LocalizedString:
 
     """Localized string with translations.
@@ -718,9 +677,7 @@ class LocalizedString:
     default: str = ""
 
 
-
 @dataclass
-
 class ValidationResult:
 
     """Result of report validation.
@@ -747,9 +704,7 @@ class ValidationResult:
     checksum: str = ""
 
 
-
 @dataclass
-
 class AggregatedReport:
 
     """Report aggregated from multiple sources.
@@ -776,13 +731,11 @@ class AggregatedReport:
     generated_at: float = field(default_factory=time.time)
 
 
-
 # =============================================================================
 
 # Report Cache Manager
 
 # =============================================================================
-
 
 
 class ReportCacheManager:
@@ -962,13 +915,11 @@ class ReportCacheManager:
         self._save_cache()
 
 
-
 # =============================================================================
 
 # Report Comparator
 
 # =============================================================================
-
 
 
 class ReportComparator:
@@ -1077,13 +1028,11 @@ class ReportComparator:
         return items
 
 
-
 # =============================================================================
 
 # Report Filter
 
 # =============================================================================
-
 
 
 class ReportFilter:
@@ -1164,13 +1113,11 @@ class ReportFilter:
         return [i for i in issues if self.matches(i)]
 
 
-
 # =============================================================================
 
 # Session 8 Helper Classes
 
 # =============================================================================
-
 
 
 class SubscriptionManager:
@@ -1321,7 +1268,6 @@ class SubscriptionManager:
         self.delivery_queue.clear()
 
         return processed
-
 
 
 class ReportArchiver:
@@ -1507,7 +1453,6 @@ class ReportArchiver:
         return removed
 
 
-
 class AnnotationManager:
 
     """Manager for report annotations and comments.
@@ -1648,7 +1593,6 @@ class AnnotationManager:
                     return True
 
         return False
-
 
 
 class ReportSearchEngine:
@@ -1805,7 +1749,6 @@ class ReportSearchEngine:
 
 
         return results
-
 
 
 class MetricsCollector:
@@ -1970,7 +1913,6 @@ class MetricsCollector:
             "averages": avg_summary
 
         }
-
 
 
 class AccessController:
@@ -2138,7 +2080,6 @@ class AccessController:
         return False
 
 
-
 class ReportExporter:
 
     """Exporter for various report formats.
@@ -2289,7 +2230,6 @@ class ReportExporter:
         return result
 
 
-
 class AuditLogger:
 
     """Logger for report audit trail.
@@ -2416,7 +2356,6 @@ class AuditLogger:
         return [e for e in self.entries if e.user_id == user_id]
 
 
-
 class ReportValidator:
 
     """Validator for report data integrity.
@@ -2526,7 +2465,6 @@ class ReportValidator:
         actual = hashlib.sha256(content.encode()).hexdigest()[:16]
 
         return actual == expected
-
 
 
 class ReportLocalizer:
@@ -2660,7 +2598,6 @@ class ReportLocalizer:
         """
 
         self.current_locale = locale
-
 
 
 class ReportAPI:
@@ -2813,7 +2750,6 @@ class ReportAPI:
             return False
 
 
-
 class ReportScheduler:
 
     """Scheduler for report generation.
@@ -2940,7 +2876,6 @@ class ReportScheduler:
             self.schedules[name]["last_run"] = time.time()
 
 
-
 class ReportAggregator:
 
     """Aggregator for combining reports from multiple sources.
@@ -3051,7 +2986,6 @@ class ReportAggregator:
         self.sources.clear()
 
 
-
 # =============================================================================
 
 # Helper Functions
@@ -3059,17 +2993,14 @@ class ReportAggregator:
 # =============================================================================
 
 
-
 def _read_text(path: Path) -> str:
 
     return path.read_text(encoding="utf-8", errors="replace")
 
 
-
 def _sha256_text(text: str) -> str:
 
     return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
-
 
 
 def _try_parse_python(source: str, filename: str) -> Tuple[Optional[ast.AST], Optional[str]]:
@@ -3083,7 +3014,6 @@ def _try_parse_python(source: str, filename: str) -> Tuple[Optional[ast.AST], Op
         location = f"{exc.filename}:{exc.lineno}:{exc.offset}" if exc.lineno else exc.filename
 
         return None, f"SyntaxError at {location}: {exc.msg}"
-
 
 
 def _compile_check(path: Path) -> CompileResult:
@@ -3101,11 +3031,9 @@ def _compile_check(path: Path) -> CompileResult:
     return CompileResult(ok=True)
 
 
-
 def _is_pytest_test_file(path: Path) -> bool:
 
     return path.name.startswith("test_") and path.suffix == ".py"
-
 
 
 def _looks_like_pytest_import_problem(path: Path) -> Optional[str]:
@@ -3131,7 +3059,6 @@ def _looks_like_pytest_import_problem(path: Path) -> Optional[str]:
     return None
 
 
-
 def _find_top_level_defs(tree: ast.AST) -> Tuple[List[str], List[str]]:
 
     functions: List[str] = []
@@ -3153,7 +3080,6 @@ def _find_top_level_defs(tree: ast.AST) -> Tuple[List[str], List[str]]:
             classes.append(node.name)
 
     return functions, classes
-
 
 
 def _find_imports(tree: ast.AST) -> List[str]:
@@ -3191,17 +3117,14 @@ def _find_imports(tree: ast.AST) -> List[str]:
     return out
 
 
-
 def _detect_cli_entry(source: str) -> bool:
 
     return "if __name__ == '__main__'" in source or 'if __name__ == "__main__"' in source
 
 
-
 def _detect_argparse(source: str) -> bool:
 
     return "argparse" in source
-
 
 
 def _placeholder_test_note(path: Path, source: str) -> Optional[str]:
@@ -3217,13 +3140,11 @@ def _placeholder_test_note(path: Path, source: str) -> Optional[str]:
     return None
 
 
-
 def _write_md(path: Path, content: str) -> None:
 
     # Normalize newlines for Windows repos.
 
     path.write_text(content.replace("\r\n", "\n").rstrip() + "\n", encoding="utf-8")
-
 
 
 def _rel(path: Path) -> str:
@@ -3235,7 +3156,6 @@ def _rel(path: Path) -> str:
     except ValueError:
 
         return str(path).replace("\\", "/")
-
 
 
 def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
@@ -3339,7 +3259,6 @@ def render_description(py_path: Path, source: str, tree: ast.AST) -> str:
     return "\n".join(lines)
 
 
-
 def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> str:
 
     lines: List[str] = []
@@ -3409,7 +3328,6 @@ def render_errors(py_path: Path, source: str, compile_result: CompileResult) -> 
     return "\n".join(lines)
 
 
-
 def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
     issues: List[str] = []
@@ -3466,7 +3384,6 @@ def _find_issues(tree: ast.AST, source: str) -> List[str]:
 
 
     return issues
-
 
 
 def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
@@ -3550,11 +3467,9 @@ def render_improvements(py_path: Path, source: str, tree: ast.AST) -> str:
     return "\n".join(lines)
 
 
-
 def iter_agent_py_files() -> Iterable[Path]:
 
     return sorted(AGENT_DIR.glob("*.py"))
-
 
 
 def _get_existing_sha(stem: str) -> Optional[str]:
@@ -3570,7 +3485,6 @@ def _get_existing_sha(stem: str) -> Optional[str]:
     match = re.search(r"- SHA256\(source\): `([a-f0-9]+)", content)
 
     return match.group(1) if match else None
-
 
 
 def main(argv: Sequence[str]) -> int:
@@ -3686,7 +3600,6 @@ def main(argv: Sequence[str]) -> int:
     logging.info(f"Processed {count} files, skipped {skipped} unchanged, {errors_count} errors.")
 
     return 0 if errors_count == 0 else 1
-
 
 
 if __name__ == "__main__":

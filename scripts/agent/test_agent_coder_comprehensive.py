@@ -407,7 +407,6 @@ class TestErrorRecovery(unittest.TestCase):
 
     def test_exponential_backoff(self):
         """Test exponential backoff in retries."""
-        import time
 
         delays = []
         for attempt in range(3):

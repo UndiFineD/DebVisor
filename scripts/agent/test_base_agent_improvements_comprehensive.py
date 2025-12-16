@@ -188,8 +188,6 @@ class TestBackendFactory(unittest.TestCase):
             return backend
 
 
-
-
         assert len(created_backends) == 2
 
 

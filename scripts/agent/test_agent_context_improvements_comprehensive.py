@@ -25,7 +25,6 @@ from unittest.mock import MagicMock, patch, call
 from pathlib import Path
 from typing import Dict, List, Any
 import ast
-import json
 
 
 class TestASTSignatureExtraction(unittest.TestCase):
@@ -490,7 +489,6 @@ class TestChangeStatistics(unittest.TestCase):
 
     def test_time_since_last_change(self):
         """Test calculating time since last change."""
-
 
 
         # Days since change would be 0

@@ -7,7 +7,6 @@ context extraction, remediation suggestions, and error reporting.
 """
 
 import json
-import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path

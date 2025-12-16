@@ -27,7 +27,6 @@ import shutil
 import sys
 import tempfile
 import time
-import uuid
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from dataclasses import dataclass, field

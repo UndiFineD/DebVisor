@@ -1,5 +1,4 @@
 # Tests for agent-coder.py
-import pytest
 
 def test_placeholder():
     """Placeholder test - replace with actual tests."""

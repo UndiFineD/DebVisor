@@ -9,7 +9,6 @@ in agent_backend.improvements.md:
 import unittest
 from unittest.mock import MagicMock, patch, call, mock_open
 import json
-import hashlib
 from datetime import datetime, timedelta
 
 
@@ -156,7 +155,6 @@ class TestGitHubModelsIntegration(unittest.TestCase):
 
     def test_github_models_timeout_handling(self):
         """Test handling timeouts when calling GitHub Models."""
-        import socket
 
         class TimeoutError(Exception):
             pass

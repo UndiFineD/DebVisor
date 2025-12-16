@@ -224,7 +224,6 @@ class TestConfigurableTimeouts(unittest.TestCase):
 
     def test_timeout_enforcement(self):
         """Test enforcing timeouts on operations."""
-        import signal
 
         class TimeoutError(Exception):
             pass

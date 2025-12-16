@@ -16,9 +16,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, List
 import subprocess
-import tempfile
 import pytest
-import sys
 from agent_test_utils import agent_dir_on_path
 
 

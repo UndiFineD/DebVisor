@@ -1729,7 +1729,6 @@ class TestReportArchivingWithRetention:
         """Test cleanup removes expired but keeps valid archives."""
         ReportArchiver = report_module.ReportArchiver
         ArchivedReport = report_module.ArchivedReport
-        import time
 
         archiver = ReportArchiver()
 

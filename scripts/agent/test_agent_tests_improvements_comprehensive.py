@@ -27,7 +27,6 @@ import unittest
 from unittest.mock import MagicMock, patch, Mock
 from pathlib import Path
 from typing import Dict, List, Any
-import json
 
 
 class TestGeneratedTestExecution(unittest.TestCase):
