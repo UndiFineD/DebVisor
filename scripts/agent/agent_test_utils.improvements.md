@@ -6,8 +6,10 @@
 - Add logging for all major actions.
 
 ## Suggested improvements
-- Add type hints for all methods.
-- Add docstrings for all methods.
+- [x] Add type hints for all methods. (Fixed) [2025-12-16]
+  * All functions have proper type hints with ModuleType, Iterator, Path, etc.
+- [x] Add docstrings for all methods. (Fixed) [2025-12-16]
+  * All functions have comprehensive docstrings with description and notes
 
 ## Notes
 - These are suggestions based on static inspection; validate behavior with tests/runs.
