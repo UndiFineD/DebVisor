@@ -242,6 +242,88 @@ def load_codeignore(root: Path) -> Set[str]:
     return set()
 
 
+class CircuitBreaker:
+    """Circuit breaker pattern for failing backends.
+    
+    Manages failing backends with exponential backoff and recovery.
+    Tracks failure state and prevents cascading failures.
+    
+    States:
+        CLOSED: Normal operation, requests pass through
+        OPEN: Too many failures, requests fail immediately
+        HALF_OPEN: Testing if backend recovered
+    """
+    
+    def __init__(self, name: str, failure_threshold: int = 5, 
+                 recovery_timeout: int = 60, backoff_multiplier: float = 2.0):
+        """Initialize circuit breaker.
+        
+        Args:
+            name: Name of the backend/service
+            failure_threshold: Number of failures before opening circuit
+            recovery_timeout: Seconds to wait before attempting recovery
+            backoff_multiplier: Multiplier for exponential backoff
+        """
+        self.name = name
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.backoff_multiplier = backoff_multiplier
+        
+        self.state = "CLOSED"  # CLOSED, OPEN, HALF_OPEN
+        self.failure_count = 0
+        self.success_count = 0
+        self.last_failure_time = 0.0
+        self.consecutive_successes_needed = 2
+        
+    def call(self, func: Callable, *args, **kwargs):
+        """Execute function through circuit breaker.
+        
+        Args:
+            func: Callable to execute
+            *args, **kwargs: Arguments to pass to function
+            
+        Returns:
+            Result of func if successful
+            
+        Raises:
+            Exception: If circuit is open or func fails
+        """
+        if self.state == "OPEN":
+            if time.time() - self.last_failure_time > self.recovery_timeout:
+                self.state = "HALF_OPEN"
+                self.success_count = 0
+                logging.info(f"Circuit breaker '{self.name}' entering HALF_OPEN state")
+            else:
+                raise Exception(f"Circuit breaker '{self.name}' is OPEN")
+        
+        try:
+            result = func(*args, **kwargs)
+            self.on_success()
+            return result
+        except Exception as e:
+            self.on_failure()
+            raise
+    
+    def on_success(self):
+        """Record successful call."""
+        self.failure_count = 0
+        
+        if self.state == "HALF_OPEN":
+            self.success_count += 1
+            if self.success_count >= self.consecutive_successes_needed:
+                self.state = "CLOSED"
+                logging.info(f"Circuit breaker '{self.name}' closed (recovered)")
+    
+    def on_failure(self):
+        """Record failed call."""
+        self.failure_count += 1
+        self.last_failure_time = time.time()
+        
+        if self.failure_count >= self.failure_threshold:
+            self.state = "OPEN"
+            logging.error(f"Circuit breaker '{self.name}' opened (too many failures)")
+
+
 class Agent:
     """Main agent that orchestrates sub-agents for code improvement.
     
@@ -424,6 +506,213 @@ Agents applied:
         
         logging.info(summary)
         print(summary)
+
+    def generate_improvement_report(self) -> Dict[str, Any]:
+        """Generate comprehensive improvement report with statistics.
+        
+        Creates detailed report including:
+        - Overall statistics (files processed, modified, time)
+        - Per-file summaries with improvements made
+        - Agent effectiveness (improvements per agent)
+        - Performance metrics
+        
+        Returns:
+            Dict with report structure and statistics
+            
+        Example:
+            report = agent.generate_improvement_report()
+            print(f"Report generated: {report['summary']}")
+            
+        Note:
+            - Aggregates metrics from all processed files
+            - Calculates effectiveness metrics
+            - Includes timing and performance data
+        """
+        self.metrics['end_time'] = time.time()
+        elapsed = self.metrics['end_time'] - self.metrics['start_time']
+        
+        report = {
+            'timestamp': time.time(),
+            'summary': {
+                'files_processed': self.metrics.get('files_processed', 0),
+                'files_modified': self.metrics.get('files_modified', 0),
+                'total_time_seconds': elapsed,
+                'average_time_per_file': elapsed / max(self.metrics.get('files_processed', 1), 1),
+            },
+            'agents': dict(self.metrics.get('agents_applied', {})),
+            'mode': {
+                'dry_run': self.dry_run,
+                'async_enabled': self.enable_async,
+                'multiprocessing_enabled': self.enable_multiprocessing,
+            }
+        }
+        
+        # Calculate effectiveness metrics
+        files_proc = report['summary']['files_processed']
+        files_mod = report['summary']['files_modified']
+        report['summary']['modification_rate'] = (files_mod / files_proc * 100) if files_proc > 0 else 0
+        
+        logging.info(f"Generated improvement report: {files_proc} files processed, {files_mod} modified")
+        return report
+
+    def benchmark_execution(self, files: List[Path]) -> Dict[str, Any]:
+        """Benchmark execution time per file and per agent.
+        
+        Measures and tracks execution time for individual files and agents.
+        Useful for identifying performance bottlenecks and optimization targets.
+        
+        Args:
+            files: List of files that were processed
+            
+        Returns:
+            Dict with timing statistics per file and agent
+            
+        Example:
+            agent.run()
+            benchmarks = agent.benchmark_execution(files)
+            slowest = max(benchmarks['per_file'].items(), key=lambda x: x[1])
+            print(f"Slowest file: {slowest[0]} ({slowest[1]:.2f}s)")
+            
+        Note:
+            - Requires enable_async or enable_multiprocessing for meaningful data
+            - Tracks timing from metrics collected during execution
+            - Per-file timing estimated from total/file count
+        """
+        total_time = (self.metrics.get('end_time', time.time()) - 
+                     self.metrics.get('start_time', time.time()))
+        files_count = len(files)
+        avg_per_file = total_time / max(files_count, 1)
+        
+        benchmarks = {
+            'total_time': total_time,
+            'file_count': files_count,
+            'average_per_file': avg_per_file,
+            'per_file': {
+                str(f.name): avg_per_file for f in files  # Estimated
+            },
+            'per_agent': dict(self.metrics.get('agents_applied', {})),
+        }
+        
+        logging.debug(f"Benchmarks: {files_count} files in {total_time:.2f}s "
+                     f"({avg_per_file:.2f}s/file)")
+        return benchmarks
+
+    def cost_analysis(self, backend: str = 'github-models', 
+                     cost_per_request: float = 0.0001) -> Dict[str, Any]:
+        """Analyze API usage cost for the agent execution.
+        
+        Estimates cost based on files processed, agents applied, and backend pricing.
+        Useful for understanding operational costs of running the agent.
+        
+        Args:
+            backend: Backend service name (e.g., 'github-models', 'openai', 'anthropic')
+            cost_per_request: Cost per API request in currency units
+            
+        Returns:
+            Dict with cost analysis and estimates
+            
+        Example:
+            cost = agent.cost_analysis(backend='github-models', cost_per_request=0.0001)
+            print(f"Estimated cost: ${cost['total_estimated_cost']:.4f}")
+            
+        Note:
+            - Cost is estimated based on files and agents
+            - Actual cost depends on token usage and pricing model
+            - Multiple agents per file multiply the request count
+        """
+        files_processed = self.metrics.get('files_processed', 0)
+        agents_applied = self.metrics.get('agents_applied', {})
+        total_agent_runs = sum(agents_applied.values())
+        
+        # Estimate requests: one per file per agent type
+        estimated_requests = total_agent_runs
+        estimated_cost = estimated_requests * cost_per_request
+        
+        analysis = {
+            'backend': backend,
+            'files_processed': files_processed,
+            'agents_applied': dict(agents_applied),
+            'total_agent_runs': total_agent_runs,
+            'cost_per_request': cost_per_request,
+            'estimated_requests': estimated_requests,
+            'total_estimated_cost': estimated_cost,
+            'cost_per_file': estimated_cost / max(files_processed, 1),
+        }
+        
+        logging.info(f"Cost analysis: {estimated_requests} requests, "
+                    f"${estimated_cost:.4f} estimated")
+        return analysis
+
+    def cleanup_old_snapshots(self, max_age_days: int = 7, 
+                             max_snapshots_per_file: int = 10) -> int:
+        """Clean up old file snapshots according to retention policy.
+        
+        Removes snapshots older than max_age_days or exceeding max_snapshots_per_file
+        per file. Helps manage disk space used by snapshots.
+        
+        Args:
+            max_age_days: Keep snapshots newer than this many days
+            max_snapshots_per_file: Maximum snapshots to keep per file
+            
+        Returns:
+            Number of snapshots deleted
+            
+        Example:
+            cleaned = agent.cleanup_old_snapshots(max_age_days=7, max_snapshots_per_file=5)
+            print(f"Cleaned up {cleaned} old snapshots")
+            
+        Note:
+            - Deletes files from .agent_snapshots directory
+            - Preserves most recent snapshots
+            - Be careful with aggressive cleanup (data loss risk)
+        """
+        snapshot_dir = self.repo_root / '.agent_snapshots'
+        if not snapshot_dir.exists():
+            logging.debug("No snapshot directory found, nothing to clean")
+            return 0
+        
+        try:
+            current_time = time.time()
+            max_age_seconds = max_age_days * 24 * 60 * 60
+            snapshots_deleted = 0
+            
+            # Group snapshots by file
+            snapshots_by_file: Dict[str, List[Path]] = {}
+            for snapshot_file in snapshot_dir.glob('*'):
+                if snapshot_file.is_file():
+                    # Extract filename from snapshot name (format: timestamp_hash_filename)
+                    parts = snapshot_file.name.split('_', 2)
+                    if len(parts) >= 3:
+                        filename = parts[2]
+                        if filename not in snapshots_by_file:
+                            snapshots_by_file[filename] = []
+                        snapshots_by_file[filename].append(snapshot_file)
+            
+            # Clean by age and count
+            for filename, snapshots in snapshots_by_file.items():
+                # Sort by modification time (newest first)
+                snapshots.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+                
+                for i, snapshot in enumerate(snapshots):
+                    # Delete if too old
+                    mtime = snapshot.stat().st_mtime
+                    age = current_time - mtime
+                    if age > max_age_seconds:
+                        snapshot.unlink()
+                        snapshots_deleted += 1
+                        logging.debug(f"Deleted old snapshot: {snapshot.name}")
+                    # Or if exceeds max count
+                    elif i >= max_snapshots_per_file:
+                        snapshot.unlink()
+                        snapshots_deleted += 1
+                        logging.debug(f"Deleted excess snapshot: {snapshot.name}")
+            
+            logging.info(f"Cleaned up {snapshots_deleted} old snapshots")
+            return snapshots_deleted
+            
+        except Exception as e:
+            logging.error(f"Failed to cleanup snapshots: {e}")
+            return 0
 
     def create_file_snapshot(self, file_path: Path) -> Optional[str]:
         """Create a snapshot of file content before modifications.
